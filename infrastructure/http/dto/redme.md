@@ -1,0 +1,1 @@
+Definiremos la estructura del dato devuelto por las APIS. Este tipo de datos se les denomina Data Transfer Object (DTO).
