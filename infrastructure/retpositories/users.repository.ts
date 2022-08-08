@@ -1,6 +1,6 @@
 import { User } from "../../domain/User/User"
-import { usersDTO } from "../http/dto/users.dto"
-import { http } from "../http/services/http"
+import { usersDTO } from "../dto/users.dto"
+import { http } from "../http/http"
 
 
   const getUser = async () => {
