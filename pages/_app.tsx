@@ -1,8 +1,30 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { AppProps } from 'next/app'
+import { IntlProvider } from 'react-intl'
+import en from '../lang/en.json'
+import es from '../lang/es.json'
+import { useRouter } from 'next/router'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+const messages:any = {
+  en,
+  es
+}
+
+function getDirection(locale:string) {
+  if (locale === "es") {
+    return "rtl";
+  }
+
+  return "ltr";
+}
+function MyApp ({ Component, pageProps }: AppProps) {
+
+  const locale:any = useRouter().locale || 'es';
+  return (
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <Component {...pageProps} dir={getDirection(locale)} />
+    </IntlProvider>
+  )
 }
 
 export default MyApp
