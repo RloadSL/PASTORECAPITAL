@@ -1,1 +1,0 @@
-export const getUserLogged = (store:any) => store.userlogged

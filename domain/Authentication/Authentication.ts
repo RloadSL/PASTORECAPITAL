@@ -1,8 +1,12 @@
-export class Authentication {
-  private static instance: Authentication;
-  token?: string;
+import { AuthenticationRepositoryImplementation } from "../../infrastructure/retpositories/authentication.repository";
+import { User } from "../User/User";
 
-  private constructor() {}
+export class Authentication extends AuthenticationRepositoryImplementation {
+  
+  private static instance: Authentication;
+  private constructor() {
+    super();
+  }
 
   public static getInstance(): Authentication {
     if (!Authentication.instance) {
@@ -11,7 +15,5 @@ export class Authentication {
     return Authentication.instance;
   }
 
-  public login = (email:string, password:string)=>{
-
-  }
 }
+

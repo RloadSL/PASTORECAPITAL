@@ -1,21 +1,34 @@
-import { User } from "../../domain/User/User"
+
 import { usersDTO } from "../dto/users.dto"
 import { http } from "../http/http"
+import { UserCredential } from "firebase/auth";
+import { User } from "../../domain/User/User";
+import { UserRepository } from "../../domain/User/user.repository";
+import FireFirestore  from "../firebase/firestore.firebase";
 
 
-  const getUser = async () => {
-    const user = await http.get<usersDTO[]>('http://localhost:3001/products')
-   
-    return user.map((userDTO): User => {
-      const params = {
-        fullName:'prueba',
-        role : { level: 0 , label: 'Invitado' }
-      }
+export class UserRepositoryImplementation extends UserRepository {
+  async create(userData: usersDTO): Promise<User> {
+    if(!userData.uid) return new User(); // retorna un usuario invitado
 
-      return new User(params);
-    })
-  }
+    await FireFirestore.setDoc('users',userData.uid ,userData)
+    return new User(userData);
+  };
 
-  export const userRepository = {
-    getUser
-  }
+  async read(userCredential: UserCredential): Promise<User> {
+    const uid = userCredential.user.uid
+    const userSnap = await FireFirestore.getDoc('users',uid)
+    return new User(userSnap?.data());
+  };
+
+  async onChange(uid:string): Promise<User> {
+    return new User();
+  };
+
+  async update(uid: string, data: any): Promise<void> {
+
+  };
+  async delete(uid: string): Promise<void> {
+    
+  };
+}
