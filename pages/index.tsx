@@ -2,16 +2,34 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useRouter } from "next/router";
 import { FormattedMessage, useIntl } from "react-intl";
-import Link from 'next/link';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { authenticationError, getUserLogged } from '../ui/redux/slices/authentication/authentication.selectors';
+import { User } from '../domain/User/User';
+import Lang from '../ui/components/Lang/Lang';
+import { useEffect } from 'react';
+import { cleanAuthErrors, signInEmailPassword } from '../ui/redux/slices/authentication/autentication.slice';
+import { AppDispatch } from '../ui/redux/store';
+import { ErrorAuth } from '../infrastructure/firebase/authentication.firebase';
 
 const Home: NextPage = () => {
-  
-  const locales  = useRouter().locales || [];
+  /**
+   * User logged from firebase authentication
+   */
+  const userLogged:User = useSelector(getUserLogged)
+  const authError:ErrorAuth = useSelector(authenticationError)
+  const store = useStore();
+  const dispatch = useDispatch<AppDispatch>()
   const intl = useIntl();
-
   const title = intl.formatMessage({ id: "page.home.title"});
+ 
+  useEffect(() => {
+   dispatch(signInEmailPassword({email:'', password: ''}))
+
+   setTimeout(() => {
+    dispatch(cleanAuthErrors())
+   }, 2000);
+  }, [dispatch])
   
   return (
     <div className={styles.container}>
@@ -23,13 +41,7 @@ const Home: NextPage = () => {
         <link rel="alternate" href="http://localhost:3000/" hrefLang="es" />
         <link rel="alternate" href="http://localhost:3000/en" hrefLang="en" />
       </Head>
-      <div className={styles.title}>
-          {[...locales].sort().map((locale) => (
-            <Link key={locale} href="/" locale={locale}>
-              {locale}
-            </Link>
-          ))}
-        </div>
+      <Lang/>
       <main className={styles.main}>
         <h1 className={styles.title}>
           <FormattedMessage id="page.home.title" values={{ b: (chunks) => <b>{chunks}</b> }} />
