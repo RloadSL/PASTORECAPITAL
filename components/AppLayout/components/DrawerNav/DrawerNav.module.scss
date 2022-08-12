@@ -1,0 +1,11 @@
+.drawer-container{
+  display: flex;
+  .drawer{
+    background-color: aqua;
+    padding: 20px;
+  }
+  .drawer-static{
+    background-color: black;
+    flex-grow: 1;
+  }
+}

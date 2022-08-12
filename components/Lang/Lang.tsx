@@ -2,7 +2,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export default function Lang () {
+interface LangProps {lang:'es' | 'en'}
+/**
+ * Componente manejador del swipper de idioma 
+ */
+export default function Lang (props : LangProps ) {
   const locales = useRouter().locales || []
   return (
     <div className='language-selector-container'>
