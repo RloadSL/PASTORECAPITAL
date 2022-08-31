@@ -21,13 +21,14 @@ export const signInEmailPassword = createAsyncThunk(
       alert(error)
       return error;
     }
-
   }
 )
 const initialState: {
   userLogged: User | null,
-  authError: any[]
-} = { userLogged: new User(), authError: [] };
+  authError: any[],
+  loggued:boolean
+} = { userLogged: null, authError: [], loggued: false};
+
 export const authetication = createSlice({
   name: 'Authentication',
   initialState,
@@ -40,11 +41,13 @@ export const authetication = createSlice({
     builder.addCase(signInEmailPassword.fulfilled, (state, action) => {
       if (action.payload instanceof User){
         state.userLogged = action.payload
-        state.authError = [];
+        state.authError = []
+        state.loggued = true
       } 
       else{
         state.userLogged = null
         state.authError.push(action.payload)
+        state.loggued = false
       } 
     })
   },

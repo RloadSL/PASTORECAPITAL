@@ -3,7 +3,7 @@ import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReferen
 import { usersDTO } from '../dto/users.dto';
 import FireFirebase from './firebase';
 
-class FireFirestore {
+export class FireFirestore {
   private _db: Firestore;
   private static instance: FireFirestore;
   private constructor(app: FirebaseApp) {

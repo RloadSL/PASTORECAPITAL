@@ -1,19 +1,19 @@
-import { AuthenticationRepositoryImplementation } from "../../infrastructure/retpositories/authentication.repository";
-import { User } from "../User/User";
+import { UserCredential } from "firebase/auth";
 
-export class Authentication extends AuthenticationRepositoryImplementation {
-  
+
+export class Authentication {
   private static instance: Authentication;
-  private constructor() {
-    super();
+  userLogged:UserCredential;
+
+  private constructor(user:UserCredential) {
+    this.userLogged = user;
   }
 
-  public static getInstance(): Authentication {
+  static getInstance(user:UserCredential): Authentication {
     if (!Authentication.instance) {
-        Authentication.instance = new Authentication();
+        Authentication.instance = new Authentication(user);
     }
     return Authentication.instance;
   }
-
 }
 

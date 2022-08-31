@@ -4,9 +4,14 @@ import { useEffect } from 'react'
 import Text from '../../../Text'
 import styles from './NavBar.module.scss'
 
+export default function NavBar () {
+  const router = useRouter()
+  const titlePage = router.route != '/' ? router.route.replace('/', '') : 'home';
+  return <NavBarView linkToSignIn={(router.route !== '/login')}  back={router.route === "/" ? router.back : undefined} titlePage={`page.${titlePage}.title`}/>
+}
 
-
-const NavBarView = ({back, titlePage}:{back?:Function, titlePage?:string}) => {
+const NavBarView = ({back, titlePage, linkToSignIn}:{back?:Function, titlePage?:string, linkToSignIn:boolean}) => {
+  const router = useRouter()
   return (
     <div className={styles['navbar-container']}>
       {back && <div className={styles['navbar-back']}>
@@ -16,17 +21,9 @@ const NavBarView = ({back, titlePage}:{back?:Function, titlePage?:string}) => {
         <Text type='h3' id={titlePage}/>
       </div>}
       <div className={styles['navbar-item']}></div>
-      <Link href={'/login'}>
+      { linkToSignIn && <Link href={'/login'}>
         <p>SignIn</p>
-      </Link>
+      </Link>}
     </div>
   )
-}
-
-
-export default function NavBar () {
-  const router = useRouter()
-  console.log(router.route)
-  const titlePage = router.route != '/' ? router.route.replace('/', '') : 'home';
-  return <NavBarView  back={router.route === "/" ? router.back : undefined} titlePage={`page.${titlePage}.title`}/>
 }

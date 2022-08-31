@@ -1,5 +1,5 @@
 import { FirebaseApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, Auth, UserCredential, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, Auth, UserCredential, signInWithEmailAndPassword, AuthCredential } from "firebase/auth";
 import FireFirebase  from "./firebase";
 export interface ErrorAuth { errorCode: string, errorMessage:string }
 class FireAuthentication {
@@ -35,10 +35,11 @@ class FireAuthentication {
 
   public signInWithEmailAndPassword = async (email: string, password: string) => {
     try {
+
+      AuthCredential
       const userCredential: UserCredential = await signInWithEmailAndPassword(this._auth, email, password)
       return userCredential;
     } catch (error: any) {
-    
       return this._parseError(error);
     }
   }

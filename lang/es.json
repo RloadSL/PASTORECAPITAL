@@ -1,5 +1,6 @@
 {
-  "page.home.title": "Bienvenidos a Next.js i18n tutorial",
+  "page.home.title": "Bienvenidos",
   "page.login.title": "Autenticarse",
+  "page.sign-up.title": "Darse de alta",
   "component.navbar.backbuttom": "Atrás"
 }

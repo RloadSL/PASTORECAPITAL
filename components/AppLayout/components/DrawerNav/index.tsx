@@ -5,7 +5,7 @@ export default function DrawerNav ({ children }: any) {
   const router = useRouter()
   const [visibleDrawer, setVisibleDrawer] = useState(true)
   useEffect(() => {
-    setVisibleDrawer(router.route !== '/login')
+    setVisibleDrawer((router.route !== '/login' && router.route !== '/sign-up'))
   }, [router.route])
   
 
