@@ -1,7 +1,8 @@
 import { NextPage } from "next";
-import styles from './Home.module.scss'
+import styles from './HomePage.module.scss'
+
  const HomePage: NextPage = ()=>{
-  return (<h1 className={styles['title']}>Home Page</h1>)
+  return (<h1>Home Page</h1>)
 }
 
 export  const getStaticProps = async () => {

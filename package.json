@@ -13,11 +13,13 @@
     "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
     "firebase": "^9.9.2",
+    "formik": "^2.2.9",
     "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intl": "^6.0.5",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "18.6.4",

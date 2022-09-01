@@ -6,5 +6,5 @@ const main = ():NextPage => {
   return HomePage;
 }
 
-export default main;
+export default main();
 
