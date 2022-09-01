@@ -1,6 +1,5 @@
 import { FirebaseApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc } from 'firebase/firestore/lite';
-import { usersDTO } from '../dto/users.dto';
+import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator } from 'firebase/firestore/lite';
 import FireFirebase from './firebase';
 
 export class FireFirestore {
@@ -8,6 +7,9 @@ export class FireFirestore {
   private static instance: FireFirestore;
   private constructor(app: FirebaseApp) {
     this._db = getFirestore(app);
+    if(FireFirebase.emulatiorEnable){
+      connectFirestoreEmulator(this._db, 'localhost', 8080);
+    }
   }
   public static getInstance(app: FirebaseApp): FireFirestore {
     if (!FireFirestore.instance) {
@@ -41,7 +43,7 @@ export class FireFirestore {
     }
   }
 
-  public setDoc = async (collectionPath: string, docId: string, data:usersDTO) => {
+  public setDoc = async (collectionPath: string, docId: string, data:any) => {
     try {
       const docRef = this._doc(collectionPath, docId);
       await setDoc(docRef, data);

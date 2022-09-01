@@ -1,22 +1,16 @@
 
-import { usersDTO } from "../dto/users.dto"
 import { http } from "../http/http"
 import { UserCredential } from "firebase/auth";
 import { User } from "../../domain/User/User";
 import { UserRepository } from "../../domain/User/user.repository";
 import FireFirestore  from "../firebase/firestore.firebase";
+import { CreateContextOptions } from "vm";
 
 
 export class UserRepositoryImplementation extends UserRepository {
-  async create(userData: usersDTO): Promise<User> {
-    if(!userData.uid) return new User(); // retorna un usuario invitado
+ 
 
-    await FireFirestore.setDoc('users',userData.uid ,userData)
-    return new User(userData);
-  };
-
-  async read(userCredential: UserCredential): Promise<User> {
-    const uid = userCredential.user.uid
+  async read(uid: string): Promise<User> {
     const userSnap = await FireFirestore.getDoc('users',uid)
     return new User(userSnap?.data());
   };

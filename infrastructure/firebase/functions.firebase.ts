@@ -1,31 +1,34 @@
 
 import { FirebaseApp } from 'firebase/app';
-import { Functions, getFunctions, httpsCallable } from 'firebase/functions';
+import { connectFunctionsEmulator, Functions, getFunctions, httpsCallable } from 'firebase/functions';
 import FireFirebase from './firebase';
 
-class FireFunctions {
+export class FireFunctions {
   private static instance: FireFunctions;
   private _functions: Functions;
   private constructor(app: FirebaseApp) {
     this._functions = getFunctions(app);
+    if(FireFirebase.emulatiorEnable){
+      connectFunctionsEmulator(this._functions, "localhost", 5001);
+    }
   }
 
-  public static getInstance(app: FirebaseApp): FireFunctions {
+  public static getInstance(): FireFunctions {
     if (!FireFunctions.instance) {
-      FireFunctions.instance = new FireFunctions(app);
+      FireFunctions.instance = new FireFunctions(FireFirebase.app);
     }
     return FireFunctions.instance;
   }
 
-  async onCallFunction(functionName:string, data:any):Promise<any>{
+  async onCallFunction(functionName:string, data?:any):Promise<{status:number, data?:any, error?:any}>{
     const fn = httpsCallable(this._functions, functionName);
     try {
-      const response = await fn(data);
+      const response = await fn(data) as {status:number, data?:any, error?:string};
       return response.data;
     } catch (error) {
-      return error;
+      return {status: 200, error: error};
     }
   }
 }
 
-export default FireFunctions.getInstance(FireFirebase.app);
+export default FireFunctions.getInstance();

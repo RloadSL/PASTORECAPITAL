@@ -1,10 +1,10 @@
 import { NextPage } from "next";
+import { useAthentication } from "../../ui/hooks/authentication.hook";
 import SignUpForm from "./components/SignUpForm";
 
  const SignUp: NextPage = ()=>{
-  const signUp = (userData:{name:string, email:string, password:string})=>{
-    console.log('signUp',userData)
-  }
+  const {signUp} = useAthentication()
+  
 
   return <SignUpView onSubmitForm={signUp}/>
 }

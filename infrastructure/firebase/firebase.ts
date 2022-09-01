@@ -1,6 +1,5 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
-import { FireFirestore } from './firestore.firebase';
-// TODO: Replace the following with your app's Firebase project configuration
+const env = process.env.NODE_ENV// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCPb1QBfFxKTvKa_23PRKphjqrHMC_rAjs",
   authDomain: "pastore-capital.firebaseapp.com",
@@ -13,15 +12,22 @@ const firebaseConfig = {
 
 
 class FireFirebase {
+  emulatiorEnable:boolean = true;
   private static instance: FireFirebase;
   private _app: FirebaseApp;
-
+  
   public get app(): FirebaseApp {
     return this._app;
   }
 
   private constructor() {
     this._app = initializeApp(firebaseConfig);
+    if(env == "development"){
+      this.emulatiorEnable = true
+    }
+    else if (env == "production"){
+      this.emulatiorEnable = false
+    }
 
   }
 

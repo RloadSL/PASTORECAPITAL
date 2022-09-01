@@ -1,5 +1,5 @@
 import { FirebaseApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, Auth, UserCredential, signInWithEmailAndPassword, AuthCredential } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged ,Auth, UserCredential, signInWithEmailAndPassword, AuthCredential, connectAuthEmulator } from "firebase/auth";
 import FireFirebase  from "./firebase";
 export interface ErrorAuth { errorCode: string, errorMessage:string }
 class FireAuthentication {
@@ -8,6 +8,9 @@ class FireAuthentication {
 
   constructor(app: FirebaseApp) {
     this._auth = getAuth(app);
+    if(FireFirebase.emulatiorEnable){
+      connectAuthEmulator(this._auth, "http://localhost:9099");
+    }
   }
 
   public static getInstance(app: FirebaseApp): FireAuthentication {
@@ -43,6 +46,10 @@ class FireAuthentication {
       return this._parseError(error);
     }
   }
+
+  public onChange = (callback:Function) => onAuthStateChanged(this._auth, (user)=>{
+    if(user) callback(user);
+  })
 }
 
 export default  FireAuthentication.getInstance(FireFirebase.app)

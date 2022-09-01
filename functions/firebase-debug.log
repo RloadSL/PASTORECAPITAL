@@ -1,0 +1,106 @@
+[debug] [2022-09-01T11:06:00.279Z] ----------------------------------------------------------------------
+[debug] [2022-09-01T11:06:00.281Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2022-09-01T11:06:00.281Z] CLI Version:   11.8.0
+[debug] [2022-09-01T11:06:00.281Z] Platform:      darwin
+[debug] [2022-09-01T11:06:00.282Z] Node Version:  v16.14.0
+[debug] [2022-09-01T11:06:00.283Z] Time:          Thu Sep 01 2022 13:06:00 GMT+0200 (hora de verano de Europa central)
+[debug] [2022-09-01T11:06:00.283Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-09-01T11:06:00.360Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-09-01T11:06:00.361Z] > authorizing via signed-in user (joseacemedina@gmail.com)
+[debug] [2022-09-01T11:06:00.516Z] openjdk version "13.0.1" 2019-10-15
+
+[debug] [2022-09-01T11:06:00.517Z] OpenJDK Runtime Environment (build 13.0.1+9)
+OpenJDK 64-Bit Server VM (build 13.0.1+9, mixed mode, sharing)
+
+[debug] [2022-09-01T11:06:00.521Z] Parsed Java major version: 13
+[info] i  emulators: Starting emulators: auth, functions, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore"}}
+[debug] [2022-09-01T11:06:00.531Z] [hub] writing locator at /var/folders/x1/gy3k2h2917s07wslm70q6n580000gp/T/hub-pastore-capital.json
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: database, hosting, pubsub, storage, eventarc {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mdatabase, hosting, pubsub, storage, eventarc\u001b[22m"}}
+[info] ✔  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-09-01T11:06:00.549Z] defaultcredentials: writing to file /Users/rload/.config/firebase/joseacemedina_gmail_com_application_default_credentials.json
+[debug] [2022-09-01T11:06:00.571Z] Setting GAC to /Users/rload/.config/firebase/joseacemedina_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/rload/.config/firebase/joseacemedina_gmail_com_application_default_credentials.json"}}
+[debug] [2022-09-01T11:06:00.573Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/pastore-capital/adminSdkConfig [none]
+[debug] [2022-09-01T11:06:00.842Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/pastore-capital/adminSdkConfig 200
+[debug] [2022-09-01T11:06:00.843Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/pastore-capital/adminSdkConfig {"projectId":"pastore-capital","storageBucket":"pastore-capital.appspot.com","locationId":"europe-west"}
+[debug] [2022-09-01T11:06:00.886Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-09-01T11:06:00.886Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-09-01T11:06:00.886Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/Users/rload/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.4.jar","--host","localhost","--port",8080,"--rules","/Users/rload/Documents/Pastore Capital/pastore_capital/firestore.rules","--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/Users/rload/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.4.jar\",\"--host\",\"localhost\",\"--port\",8080,\"--rules\",\"/Users/rload/Documents/Pastore Capital/pastore_capital/firestore.rules\",\"--functions_emulator\",\"localhost:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2022-09-01T11:06:01.934Z] Sep 01, 2022 1:06:01 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://localhost:62103
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 01, 2022 1:06:01 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://localhost:62103\n"}}
+[debug] [2022-09-01T11:06:01.958Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2022-09-01T11:06:01.958Z] localhost:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"localhost:8080\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=localhost:8080\n\nDev App Server is now running.\n\n"}}
+[debug] [2022-09-01T11:06:07.749Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-09-01T11:06:07.749Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-09-01T11:06:07.750Z] Starting Emulator UI with command {"binary":"node","args":["/Users/rload/.cache/firebase/emulators/ui-v1.9.0/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/rload/.cache/firebase/emulators/ui-v1.9.0/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-09-01T11:06:07.891Z] Web / API server started at localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at localhost:4000\n"}}
+[info] i  functions: Watching "/Users/rload/Documents/Pastore Capital/pastore_capital/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/rload/Documents/Pastore Capital/pastore_capital/functions\" for Cloud Functions..."}}
+[debug] [2022-09-01T11:06:08.020Z] Validating nodejs source
+[debug] [2022-09-01T11:06:09.122Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^10.2.0",
+    "firebase-functions": "^3.23.0",
+    "nodemailer": "^6.7.8"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  },
+  "private": true
+}
+[debug] [2022-09-01T11:06:09.123Z] Building nodejs source
+[debug] [2022-09-01T11:06:09.123Z] Analyzing nodejs backend spec
+[debug] [2022-09-01T11:06:09.125Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-09-01T11:06:09.303Z] Serving at port 9005
+
+[debug] [2022-09-01T11:06:09.371Z] Got response from /__/functions.yaml Failed to generate manifest from function source: TypeError: Cannot read properties of undefined (reading 'INTERNAL')
+[debug] [2022-09-01T11:06:09.373Z] Failed to parse functions.yamlincomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line at line 1, column 60:
+     ...  from function source: TypeError: Cannot read properties of unde ... 
+                                         ^ {"name":"YAMLException","reason":"incomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line","mark":{"name":null,"buffer":"Failed to generate manifest from function source: TypeError: Cannot read properties of undefined (reading 'INTERNAL')\n\u0000","position":59,"line":0,"column":59},"message":"incomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line at line 1, column 60:\n     ...  from function source: TypeError: Cannot read properties of unde ... \n                                         ^"}
+[debug] [2022-09-01T11:06:09.377Z] shutdown requested via /__/quitquitquit
+
+[error] ⬢  functions: Failed to load function definition from source: FirebaseError: Failed to load function definition from source: Failed to generate manifest from function source: TypeError: Cannot read properties of undefined (reading 'INTERNAL') {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Failed to load function definition from source: Failed to generate manifest from function source: TypeError: Cannot read properties of undefined (reading 'INTERNAL')"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ localhost:9099 │ http://localhost:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ localhost:5001 │ http://localhost:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ localhost:8080 │ http://localhost:4000/firestore │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

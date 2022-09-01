@@ -1,3 +1,5 @@
+import { Role } from "./Role";
+
 export interface UpdateUser {
   full_name?:string,
   email?:string,
@@ -9,9 +11,4 @@ export interface CreateUser {
   password:string,
   email:string,
   role: Role
-}
-
-export interface Role {
-  level : 0 | 1 | 2 | 3 | 4,
-  label: 'Invitado' | 'Básico' | 'Plus' | 'Premium' | 'Administrador'
 }
