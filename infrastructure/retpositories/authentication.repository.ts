@@ -27,7 +27,7 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
   }
   async signUp(data:CreateUser): Promise<{userCredential: UserCredential | null , error:  any}> {
    try {
-    const response = await FireFunctions.getInstance().onCallFunction('SingUpOnCallFunctions');
+    const response = await FireFunctions.getInstance().onCallFunction('SingUpOnCallFunctions', data);
     console.log('auth@signUpEmailPassword', response)
     if(response.status === 200){
       const  signInEmailPassword = await this.signInEmailPassword(data.email, data.password)

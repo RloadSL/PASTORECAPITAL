@@ -5,7 +5,7 @@ import { setUser } from '../Users/users';
 
 
 const signUp = async (data:CreateUser, context: https.CallableContext)=>{
-  
+  if(Object.keys(data).length < 4) return {status: 400, error: 'Data contains undefined value'}
   try {
     const {full_name, email, password , role } = data;
     const userCredentials = await auth().createUser({
@@ -21,4 +21,4 @@ const signUp = async (data:CreateUser, context: https.CallableContext)=>{
   }
 }
 
-export const SingUpTrigger = https.onCall(signUp)
+export const SingUpTrigger = https.onCall((data, context)=>signUp(data,context))
