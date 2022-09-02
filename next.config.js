@@ -11,10 +11,10 @@ const nextConfig = {
     // a non-locale prefixed path e.g. `/hello`
     defaultLocale: 'es',
     localeDetection: false,
-  }/* ,
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
-  } */
+  } ,
+  // sassOptions: {
+  //   includePaths: [path.join(__dirname, 'styles')],
+  // } 
 }
 
 module.exports = nextConfig

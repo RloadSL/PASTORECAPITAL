@@ -1,26 +1,11 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
+/*
+ Project Name: Pastore Capital Platform
+ Description:  Pastore Capital
+ Author:       Rload Studio SL
+ Author URI:   https://rload.es
+ Version:      0.0.1
+*/
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-h1,h2,h3,h4,h5,h6,p{
-  color: black;
-}
-
-.container{
-  display: flex;
-  flex-direction: column;
-  &.row{
-    flex-direction: row;
-  }
-}
-
-
-
-
+@forward "./reset";
+@forward "./layout";
+@use "partials/fonts";

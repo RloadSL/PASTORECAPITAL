@@ -1,0 +1,66 @@
+@use "./partials/variables/colors" as colors;
+@use "./partials/variables/text" as text;
+@use "./partials/mixins/devices" as devices;
+@use "./partials/placeholders" as holders;
+
+$themeFont: "Celias";
+
+*,
+input,
+textarea {
+    box-sizing: border-box;
+    font-family: $themeFont;
+}
+
+html {
+    font-size: 16px;
+
+    @include devices.device(smScreen) {
+        font-size: 18px;
+    }
+}
+
+body {
+    margin: 0;
+    font-size: 1rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
+    font-family: $themeFont;
+    font-weight: bold;
+}
+
+input {
+    border: none;
+}
+
+.only-readers {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+hr {
+    margin: 5px 0px 5px 0px;
+    border: none;
+    border-top: 1px solid colors.$grey40;
+}

@@ -1,6 +1,12 @@
 {
   "page.home.title": "Bienvenidos",
+  "page.home.h1" : "KAKAK",
+
   "page.login.title": "Autenticarse",
+
   "page.sign-up.title": "Darse de alta",
-  "component.navbar.backbuttom": "Atrás"
+
+  "component.navbar.backbuttom": "Atrás",
+
+  "component.navbar.signUp": "SignupEs"
 }
