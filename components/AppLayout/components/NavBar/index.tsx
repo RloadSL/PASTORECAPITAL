@@ -1,7 +1,6 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import styles from './NavBar.module.scss'
 
