@@ -12,7 +12,7 @@ const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      name: '',
+      full_name: '',
       password: '',
     },
     onSubmit: (value) => {
@@ -21,7 +21,7 @@ const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
       onSubmit(value)
     },
     validationSchema: yup.object({
-      name: yup.string().trim().required('Name is required'),
+      full_name: yup.string().trim().required('Name is required'),
       email: yup
         .string()
         .email('Must be a valid email')
@@ -42,15 +42,15 @@ const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
           </label>
           <input
             type="text"
-            name="name"
+            name="full_name"
             className=""
             placeholder="John Doe"
-            value={formik.values.name}
+            value={formik.values.full_name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {formik.errors.name && (
-            <div className="">{formik.errors.name}</div>
+          {formik.errors.full_name && (
+            <div className="">{formik.errors.full_name}</div>
           )}
         </div>
 

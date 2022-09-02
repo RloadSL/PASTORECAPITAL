@@ -1,6 +1,6 @@
 import { UserCredential } from "firebase/auth";
 import { AuthenticationRepository } from "../../domain/Authentication/authentication.repository";
-import { CreateUser } from "../dto/users.dto";
+import { CreateUser, Role } from "../dto/users.dto";
 import FireAuthentication, { ErrorAuth } from "../firebase/authentication.firebase";
 import { FireFunctions } from "../firebase/functions.firebase";
 
@@ -27,7 +27,12 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
   }
   async signUp(data:CreateUser): Promise<{userCredential: UserCredential | null , error:  any}> {
    try {
-    const response = await FireFunctions.getInstance().onCallFunction('SingUpOnCallFunctions', data);
+    const role:Role = {
+      level: 0,
+      label: 'Guest'
+    }
+
+    const response = await FireFunctions.getInstance().onCallFunction('SingUpOnCallFunctions', {...data, role});
     console.log('auth@signUpEmailPassword', response)
     if(response.status === 200){
       const  signInEmailPassword = await this.signInEmailPassword(data.email, data.password)

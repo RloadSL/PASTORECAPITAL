@@ -3,7 +3,8 @@ import { Role } from "./Role";
 export interface UpdateUser {
   full_name?:string,
   email?:string,
-  role?: Role
+  role?: Role,
+  disabled?: boolean
 }
 
 export interface CreateUser {
