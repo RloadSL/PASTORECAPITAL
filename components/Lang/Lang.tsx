@@ -6,8 +6,9 @@ interface LangProps {lang:'es' | 'en'}
 /**
  * Componente manejador del swipper de idioma 
  */
-export default function Lang (props : LangProps ) {
+export default function Lang () {
   const locales = useRouter().locales || []
+  console.log(locales)
   return (
     <div className='language-selector-container'>
       {[...locales].sort().map(locale => (
