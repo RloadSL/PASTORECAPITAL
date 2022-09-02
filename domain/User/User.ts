@@ -1,8 +1,7 @@
-import { usersDTO } from "../../infrastructure/dto/users.dto";
 
 export class User {
   private static instance: User;
-  constructor(userData?:usersDTO) {
+  constructor(userData:any) {
     if(userData?.uid){
       console.log('Usuario creado correctamente')
     }else{
@@ -10,7 +9,7 @@ export class User {
     }
   }
 
-  public static getInstance(userData?:usersDTO): User {
+  public static getInstance(userData:any): User {
     if (!User.instance) {
         User.instance = new User(userData);
     }

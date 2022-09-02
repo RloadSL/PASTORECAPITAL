@@ -12,11 +12,11 @@ export class UserRepositoryImplementation extends UserRepository {
 
   async read(uid: string): Promise<User> {
     const userSnap = await FireFirestore.getDoc('users',uid)
-    return new User(userSnap?.data());
+    return new User({uid: userSnap?.id,...userSnap?.data()});
   };
 
   async onChange(uid:string): Promise<User> {
-    return new User();
+    return new User({uid});
   };
 
   async update(uid: string, data: any): Promise<void> {

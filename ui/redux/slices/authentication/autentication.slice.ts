@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { AuthenticationRepository } from '../../../../domain/Authentication/authentication.repository'
+import { UserCredential, User as FireUser } from 'firebase/auth';
 import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
 import { AuthenticationRepositoryImplementation } from '../../../../infrastructure/retpositories/authentication.repository'
 import { UserRepositoryImplementation } from '../../../../infrastructure/retpositories/users.repository';
 
-const authRepository = new AuthenticationRepositoryImplementation();
+const authRepository = AuthenticationRepositoryImplementation.getInstance();
 const userRepository = new UserRepositoryImplementation();
+
+export const onChangeAuthState = (callback:Function)=> authRepository.onUserChange(callback)
+
 
 export const signInEmailPassword = createAsyncThunk(
   'auth@signInEmailPassword',
@@ -16,7 +19,8 @@ export const signInEmailPassword = createAsyncThunk(
       const response = await authRepository.signInEmailPassword(email, password)
       const { userCredential, error } = response;
       if (!userCredential) return error; //retorna usuario invitado
-      const user = await userRepository.read(userCredential.user.uid)
+      const user = await userRepository.read(userCredential.uid)
+      
       return user;
     } catch (error) {
       alert(error)
@@ -32,7 +36,20 @@ export const signUpEmailPassword = createAsyncThunk(
       const response = await authRepository.signUp(data)
       const { userCredential, error } = response;
       if (!userCredential) return error; //retorna usuario invitado
-      const user = await userRepository.read(userCredential.user.uid)
+      const user = await userRepository.read(userCredential.uid)
+      return user;
+    } catch (error) {
+      alert(error)
+      return error;
+    }
+  }
+)
+
+export const createUser = createAsyncThunk(
+  'auth@createUser',
+  async (uid: string) => {
+    try {
+      const user = await userRepository.read(uid)
       return user;
     } catch (error) {
       alert(error)
@@ -42,6 +59,7 @@ export const signUpEmailPassword = createAsyncThunk(
 )
 
 const _handleSignIn = (state:any, action:any) => {
+  console.log('_handleSignIn', action.payload)
   if (action.payload instanceof User){
     state.userLogged = action.payload
     state.authError = []
@@ -69,8 +87,10 @@ export const authetication = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(signInEmailPassword.fulfilled, _handleSignIn)
-    builder.addCase(signUpEmailPassword.fulfilled, _handleSignIn)
+    builder
+    .addCase(signInEmailPassword.fulfilled, _handleSignIn)
+    .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
+    .addCase(createUser.fulfilled, _handleSignIn)
   },
 })
 

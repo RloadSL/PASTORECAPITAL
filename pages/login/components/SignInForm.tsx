@@ -1,18 +1,18 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
-export interface SIGNUPFORM{
+
+export interface SIGNINFORM{
   onSubmit: Function
 } 
 
-const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
+const SignInForm = ({onSubmit}: SIGNINFORM) => {
   const [message, setMessage] = useState(''); 
   const [submitted, setSubmitted] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       email: '',
-      full_name: '',
       password: '',
     },
     onSubmit: (value) => {
@@ -21,7 +21,6 @@ const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
       onSubmit(value)
     },
     validationSchema: yup.object({
-      full_name: yup.string().trim().required('Name is required'),
       email: yup
         .string()
         .email('Must be a valid email')
@@ -36,24 +35,6 @@ const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
         {message}
       </div>
       <form className="" onSubmit={formik.handleSubmit}>
-        <div className="">
-          <label htmlFor="name" className="">
-            Name
-          </label>
-          <input
-            type="text"
-            name="full_name"
-            className=""
-            placeholder="John Doe"
-            value={formik.values.full_name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.errors.full_name && (
-            <div className="">{formik.errors.full_name}</div>
-          )}
-        </div>
-
         <div className="">
           <label htmlFor="email" className="">
             Email
@@ -97,4 +78,4 @@ const SignUpForm = ({onSubmit}: SIGNUPFORM) => {
   );
 }
 
-export default SignUpForm
+export default SignInForm

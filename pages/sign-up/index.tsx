@@ -1,9 +1,9 @@
 import { NextPage } from "next";
-import { useAthentication } from "../../ui/hooks/authentication.hook";
+import { useAuthentication } from "../../ui/hooks/authentication.hook";
 import SignUpForm from "./components/SignUpForm";
 
  const SignUp: NextPage = ()=>{
-  const {signUp} = useAthentication()
+  const {signUp} = useAuthentication()
   
 
   return <SignUpView onSubmitForm={signUp}/>

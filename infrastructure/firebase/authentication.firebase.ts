@@ -6,7 +6,7 @@ class FireAuthentication {
   private static instance: FireAuthentication;
   private _auth: Auth;
 
-  constructor(app: FirebaseApp) {
+  private constructor(app: FirebaseApp) {
     this._auth = getAuth(app);
     if(FireFirebase.emulatiorEnable){
       connectAuthEmulator(this._auth, "http://localhost:9099");
@@ -30,7 +30,7 @@ class FireAuthentication {
   public createUserWithEmailAndPassword = async (email: string, password: string) => {
     try {
       const userCredential: UserCredential = await createUserWithEmailAndPassword(this._auth, email, password);
-      return userCredential;
+      return userCredential.user;
     } catch (error: any) {
       return this._parseError(error);
     }
@@ -38,10 +38,9 @@ class FireAuthentication {
 
   public signInWithEmailAndPassword = async (email: string, password: string) => {
     try {
-
       AuthCredential
       const userCredential: UserCredential = await signInWithEmailAndPassword(this._auth, email, password)
-      return userCredential;
+      return userCredential.user;
     } catch (error: any) {
       return this._parseError(error);
     }

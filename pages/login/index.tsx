@@ -1,16 +1,17 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { useAuthentication } from "../../ui/hooks/authentication.hook";
+import SignInForm from "./components/SignInForm";
 
 const LoginPage: NextPage = ()=>{
-  return( <LoginPageView />);
+  const {signIn} = useAuthentication()
+  return( <LoginPageView onSubmit={(value:{email:string, password:string})=>signIn(value)}/>);
 }
 
-const LoginPageView = () =>{
+const LoginPageView = ({onSubmit}:{onSubmit:Function}) =>{
   return (
   <div className="container">
-    <div>
-      <h1>Formulario de login</h1>
-    </div>
+      <SignInForm onSubmit={(value:{email:string, password:string})=>onSubmit(value)}/>
     <div>
       <Link href={'/sign-up'}>SignUp</Link>
     </div>
