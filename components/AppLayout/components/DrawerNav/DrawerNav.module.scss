@@ -1,12 +1,22 @@
-.drawer-container{
-  display: flex;
-  .drawer{
-    background-color: aqua;
-    padding: 20px;
-  }
-  .drawer-static{
-    background-color: white;
-    flex-grow: 1;
-    padding: 20px;
-  }
+// .drawer-container{
+//   display: flex;
+//   .drawer{
+//     background-color: aqua;
+//     padding: 20px;
+//   }
+//   .drawer-static{
+//     background-color: white;
+//     flex-grow: 1;
+//     padding: 20px;
+//   }
+// }
+
+.grid {
+  display: grid;
+  grid-template-columns: 150px auto;
+  min-height: 100vh;
+}
+
+.aside {
+  background-color: grey;
 }

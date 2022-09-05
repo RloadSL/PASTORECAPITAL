@@ -1,3 +1,31 @@
-.grid {
+// .grid {
+//   display: grid;
+//   grid-template-columns: 150px auto;
+//   grid-gap: 1em;
+// }
 
-}
+// .aside {
+//   // background-color: $grey10;
+// }
+
+// // .header, .footer {
+// //   grid-column: 1 / 4;
+// // }
+
+// // @media all and (max-width: 700px) {
+// //   .aside,
+// //   .article {
+// //     grid-column: 1 / 4;
+// //   }
+// // }
+
+// .header,
+// .aside,
+// .article,
+// .footer {
+//   background: #eaeaea;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   min-height: 100vh;
+// }
