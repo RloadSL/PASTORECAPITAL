@@ -1,5 +1,7 @@
 import { FirebaseApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator} from 'firebase/firestore/lite';
+import { onSnapshot, Unsubscribe } from "firebase/firestore";
+
 import FireFirebase from './firebase';
 
 export class FireFirestore {
@@ -52,6 +54,14 @@ export class FireFirestore {
       alert('Internal error firebase')
     }
   }
+
+  public onChangeDoc = (path:string, callback:Function):Unsubscribe => {
+    const unsub = onSnapshot(doc(this._db, path), (doc) => {
+      if(doc.exists())
+        callback({...doc.data, id: doc.id});
+    });
+  return unsub
+  } 
 }
 
 export default FireFirestore.getInstance(FireFirebase.app)

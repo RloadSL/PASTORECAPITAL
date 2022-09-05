@@ -59,7 +59,7 @@ export const createUser = createAsyncThunk(
 )
 
 const _handleSignIn = (state:any, action:any) => {
-  console.log('_handleSignIn', action.payload)
+  console.log('_handleSignIn Usuario logado', action.payload.fullName)
   if (action.payload instanceof User){
     state.userLogged = action.payload
     state.authError = []

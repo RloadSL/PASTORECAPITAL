@@ -1,7 +1,8 @@
-import { UserCredential } from "firebase/auth"
+import { User } from "domain/User/User"
+import { AuthError } from "firebase/auth"
 
-export const getUserLogged = (store:any):UserCredential => store.authentication.userLogged
-export const getIsLogged = (store:any):UserCredential => store.authentication.loggued
+export const getUserLogged = (store:any):User => store.authentication.userLogged
+export const getIsLogged = (store:any):boolean => store.authentication.loggued
 
-export const authenticationError = (store:any):string => store.authentication.authError
+export const authenticationError = (store:any):AuthError => store.authentication.authError
 

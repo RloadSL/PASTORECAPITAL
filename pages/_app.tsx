@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../styles/globals.scss'
 import { AppProps } from 'next/app'
 import { IntlProvider } from 'react-intl'
@@ -7,6 +8,7 @@ import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
 import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
+
 
 const messages:any = {
   en,
@@ -21,6 +23,8 @@ function getDirection(locale:string) {
 }
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
+
+  
   const locale:any = useRouter().locale || 'es';
   return (
     <Provider store={store}>

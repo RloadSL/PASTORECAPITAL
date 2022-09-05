@@ -23,7 +23,10 @@ const NavBarView = ({back, titlePage, linkToSignIn}:{back?:Function, titlePage?:
       </div>}
       <div className={styles['navbar-item']}></div>
       { linkToSignIn && <Link href={'/login'}>
+        <a >
         <FormattedMessage id='component.navbar.signUp'/>
+        </a>
+        
       </Link>}
     </div>
   )

@@ -67,8 +67,10 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
     })
   }
 
-  signOut(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async signOut(): Promise<void> {
+    await FireAuthentication.signOut()
+    this._logged = false;
+    this._userLogged = null;
   }
 
   recoverPass(): Promise<{ status: number; error: string | null; }> {
