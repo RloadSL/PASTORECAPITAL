@@ -7,18 +7,18 @@
   }
 
   @if $breakpoint == tablet {
-    @media only screen and (min-width: 809px) {
+    @media only screen and (min-width: 980px) {
       @content;
     }
   }
+
+  // @if $breakpoint == smScreen {
+  //   @media only screen and (min-width: 1080px) {
+  //     @content;
+  //   }
+  // }
 
   @if $breakpoint == smScreen {
-    @media only screen and (min-width: 1080px) {
-      @content;
-    }
-  }
-
-  @if $breakpoint == mdScreen {
     @media only screen and (min-width: 1200px) {
       @content;
     }

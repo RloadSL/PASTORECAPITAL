@@ -1,7 +1,3 @@
-import { NextPage } from "next";
+import RecoverPasswordPage from "./RecoverPassword";
 
- const RecoverPasswordPage: NextPage = ()=>{
-  return (<h1>RecoverPasswordPage Page</h1>)
-}
-
-export default RecoverPasswordPage
+export default RecoverPasswordPage;

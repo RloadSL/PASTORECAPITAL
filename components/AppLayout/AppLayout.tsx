@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import DrawerNav from './components/DrawerNav'
+import DrawerNav from './components/Drawer'
 import { useEffect } from 'react'
 import { onChangeAuthState } from 'ui/redux/slices/authentication/autentication.slice'
 import { useAuthentication } from 'ui/hooks/authentication.hook'

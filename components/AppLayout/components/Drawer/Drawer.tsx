@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Footer from '../Footer'
 import NavBar from '../NavBar'
-import styles from './DrawerNav.module.scss'
-export default function DrawerNav({ children }: any) {
+import styles from './Drawer.module.scss'
+export default function Drawer({ children }: any) {
   const router = useRouter()
   const [visibleDrawer, setVisibleDrawer] = useState(true)
   useEffect(() => {
@@ -12,18 +12,15 @@ export default function DrawerNav({ children }: any) {
 
 
   return (
-    <main className={styles.grid}>
+    <main className={router.route !== '/login' ? styles.grid : ''}>
       {visibleDrawer && <aside className={styles.aside}>
+        <button>mobile</button>
         kjsldkfj
       </aside>}
       <div className={styles['drawer-static']}>
-
         <NavBar />
-
-
         {children}
-        <Footer />
-
+        {/* <Footer /> */}
       </div>
     </main>
   )
