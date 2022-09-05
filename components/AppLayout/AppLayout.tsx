@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import DrawerNav from './components/DrawerNav'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { onChangeAuthState } from 'ui/redux/slices/authentication/autentication.slice'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 
@@ -10,9 +10,11 @@ export default function AppLayout ({ children }: any) {
   useEffect(() => {
     onChangeAuthState(createUserById)
   }, [])
-
-  return <AppLayoutView>{children}</AppLayoutView>
+  
+  const MemoizedLayaut =  React.memo(AppLayoutView);
+  return  <MemoizedLayaut>{children}</MemoizedLayaut>
 }
+
 
 export const AppLayoutView = ({ children }: any) => {
   return (

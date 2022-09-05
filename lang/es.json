@@ -8,5 +8,9 @@
 
   "component.navbar.backbuttom": "Atrás",
 
-  "component.navbar.signUp": "SignupEs"
+  "component.navbar.signUpBtn": "Autenticarse",
+  "component.navbar.signOutBtn": "Salir",
+  
+
+  "auth/wrong-password": "Contraseña incorrecta"
 }

@@ -45,6 +45,19 @@ export const signUpEmailPassword = createAsyncThunk(
   }
 )
 
+export const signOut = createAsyncThunk(
+  'auth@signOut',
+  async () => {
+    try {
+      await authRepository.signOut()
+      const user = null
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
+)
+
 export const createUser = createAsyncThunk(
   'auth@createUser',
   async (uid: string) => {
@@ -59,7 +72,6 @@ export const createUser = createAsyncThunk(
 )
 
 const _handleSignIn = (state:any, action:any) => {
-  console.log('_handleSignIn Usuario logado', action.payload.fullName)
   if (action.payload instanceof User){
     state.userLogged = action.payload
     state.authError = []
@@ -91,6 +103,7 @@ export const authetication = createSlice({
     .addCase(signInEmailPassword.fulfilled, _handleSignIn)
     .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
     .addCase(createUser.fulfilled, _handleSignIn)
+    .addCase(signOut.fulfilled, _handleSignIn)
   },
 })
 
