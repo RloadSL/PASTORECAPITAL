@@ -28,11 +28,19 @@ interface LOGINPAGEVIEWPROPS {
 const LoginPage: NextPage = () => {
   const intl = useIntl()
   const router = useRouter()
-  const { signIn, cleanError, isLogged, authError } = useAuthentication();
+  const { signIn, authError , cleanError, isLogged} = useAuthentication()
   const _signIn = (value: LOGINVALUE) => {
     cleanError()
     signIn(value)
   }
+
+  useMemo(()=>{
+    if(authError.length > 0) {
+     setTimeout(() => {
+       cleanError()
+     }, 2000);
+    }
+  }, [authError.length])
 
   const validationSchema = useMemo(() => yup.object({
     email: yup
@@ -44,7 +52,6 @@ const LoginPage: NextPage = () => {
 
 
   useEffect(() => {
-
     if (isLogged) router.push('/');
   }, [isLogged])
 
