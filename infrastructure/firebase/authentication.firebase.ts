@@ -1,3 +1,4 @@
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { FirebaseApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged ,Auth, UserCredential, signInWithEmailAndPassword, AuthCredential, connectAuthEmulator, signOut } from "firebase/auth";
 import FireFirebase  from "./firebase";
@@ -24,10 +25,10 @@ class FireAuthentication {
     return FireAuthentication.instance;
   }
 
-  private _parseError = (error: any):ErrorAuth => {
+  private _parseError = (error: any):ErrorApp => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    return ({ errorCode, errorMessage })
+    return (new ErrorApp({ errorCode, errorMessage }))
   }
 
   public createUserWithEmailAndPassword = async (email: string, password: string) => {
@@ -49,7 +50,7 @@ class FireAuthentication {
     }
   }
 
-  public signOut = async ():Promise<void |ErrorAuth> => {
+  public signOut = async ():Promise<void | ErrorApp> => {
     try {
       await signOut(this._auth);
     } catch (error: any) {

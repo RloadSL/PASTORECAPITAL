@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { ErrorApp } from 'domain/ErrorApp/ErrorApp';
 import { UserCredential, User as FireUser } from 'firebase/auth';
 import { ErrorAuth } from 'infrastructure/firebase/authentication.firebase';
 import { User } from '../../../../domain/User/User'
@@ -9,7 +10,7 @@ import { UserRepositoryImplementation } from '../../../../infrastructure/retposi
 const authRepository = AuthenticationRepositoryImplementation.getInstance();
 const userRepository = new UserRepositoryImplementation();
 
-export const onChangeAuthState = (callback:Function)=> authRepository.onUserChange(callback)
+export const onChangeAuthState = (callback: Function) => authRepository.onUserChange(callback)
 
 
 export const signInEmailPassword = createAsyncThunk(
@@ -21,7 +22,6 @@ export const signInEmailPassword = createAsyncThunk(
       const { userCredential, error } = response;
       if (!userCredential) return error; //retorna usuario invitado
       const user = await userRepository.read(userCredential.uid)
-      
       return user;
     } catch (error) {
       alert(error)
@@ -72,45 +72,45 @@ export const createUser = createAsyncThunk(
   }
 )
 
-const _handleSignIn = (state:any, action:any) => {
-  if (action.payload instanceof User){
+const _handleSignIn = (state: any, action: any) => {
+  if (action.payload instanceof User) {
     state.userLogged = action.payload
     state.authError = []
     state.loggued = true
-  } 
-  else{
-    state.userLogged = null
-    if(action.payload){
-      state.authError.push(action.payload )
-    } 
-    state.loggued = false
-  } 
+  }
+  else {
+
+    if (action.payload) {
+      state.authError.push(action.payload)
+    }
+
+  }
 }
 
 const initialState: {
-  userLogged: User | null,
-  authError: ErrorAuth[],
-  loggued:boolean
-} = { userLogged: null, authError: [], loggued: false};
+  userLogged: User | null,
+  authError: ErrorApp[],
+  loggued: boolean
+} = { userLogged: null, authError: [], loggued: false };
 
 export const authetication = createSlice({
   name: 'Authentication',
   initialState,
   reducers: {
-    cleanAuthErrors : (state) => {
+    cleanAuthErrors: (state) => {
       state.authError = [];
     }
   },
   extraReducers: (builder) => {
     builder
-    .addCase(signInEmailPassword.fulfilled, _handleSignIn)
-    .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
-    .addCase(createUser.fulfilled, _handleSignIn)
-    .addCase(signOut.fulfilled, _handleSignIn)
+      .addCase(signInEmailPassword.fulfilled, _handleSignIn)
+      .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
+      .addCase(createUser.fulfilled, _handleSignIn)
+      .addCase(signOut.fulfilled, (state: any, action: any) => { state.userLogged = null, state.loggued = false, state.authError = [] })
   },
 })
 
 //Estrallendo actions
-export const {cleanAuthErrors} = authetication.actions;
+export const { cleanAuthErrors } = authetication.actions;
 
 export default authetication.reducer

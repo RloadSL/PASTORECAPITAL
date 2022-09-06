@@ -39,9 +39,10 @@ const InputApp = ({ labelID, error, placeholder, value, name, onChange, onBlur, 
           <input
             type={type}
             name={name}
+            autoComplete={'autocomplete'}
             placeholder={placeholder}
             value={value}
-            onChange={()=>{if(onChange) onChange()}}
+            onChange={(el)=>{if(onChange) onChange(name, el.target.value)}}
             onBlur={()=>{if(onBlur) onBlur()}}
           />
         </div>

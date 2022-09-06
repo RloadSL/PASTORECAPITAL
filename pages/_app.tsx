@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
 import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
+import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
+import ErrorAlert from 'components/ErrorAlert'
 
 
 const messages:any = {
@@ -32,6 +34,7 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
         <AppLayout dir={getDirection(locale)} >
            <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
+        <ErrorAlert></ErrorAlert>
       </IntlProvider>
     </Provider>
   )

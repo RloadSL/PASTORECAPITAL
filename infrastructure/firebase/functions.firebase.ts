@@ -2,7 +2,9 @@
 import { FirebaseApp } from 'firebase/app';
 import { connectFunctionsEmulator, Functions, getFunctions, httpsCallable } from 'firebase/functions';
 import FireFirebase from './firebase';
-
+/**
+ * Implentación de Functions de Firebase 
+ */
 export class FireFunctions {
   private static instance: FireFunctions;
   private _functions: Functions;

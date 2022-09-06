@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ErrorApp } from "domain/ErrorApp/ErrorApp"
 import { ErrorAuth } from "infrastructure/firebase/authentication.firebase"
 import { useDispatch, useSelector } from "react-redux"
 import { User } from "../../domain/User/User"
@@ -14,7 +15,7 @@ export const useAuthentication = () => {
   const dispatch = useDispatch<AppDispatch>()
   const userLogged:User = useSelector(getUserLogged)
   const isLogged:boolean = useSelector(getIsLogged)
-  const authError:ErrorAuth[] = useSelector(authenticationError)
+  const authError:ErrorApp[] = useSelector(authenticationError)
   
   const signUp:Function = (data:CreateUser) => dispatch(signUpEmailPassword(data));
   const signIn:Function = (data:CreateUser) => dispatch(signInEmailPassword(data));

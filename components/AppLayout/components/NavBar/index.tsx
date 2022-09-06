@@ -1,17 +1,24 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import styles from './NavBar.module.scss'
 
-export default function NavBar () {
-  const { isLogged, signOutUser } = useAuthentication()
+const NavBar = () => {
+  //const { isLogged, signOutUser } = useAuthentication()
   const router = useRouter()
   const titlePage =
     router.route !== '/' ? router.route.replace('/', '') : 'home'
+    console.log('NavBar')
+ /*  useEffect(() => {
+    console.log('NavBar')
+    console.log(isLogged)
+  }, [isLogged] )*/
+    
   return (
     <NavBarView
-      signOut={isLogged ? () => signOutUser() : undefined}
+      signOut={false ? () => null : undefined}
       linkToSignIn={router.route !== '/login'}
       back={router.route !== '/' ? router.back : undefined}
       titlePage={`page.${titlePage}.title`}
@@ -60,3 +67,5 @@ const NavBarView = ({
     </div>
   )
 }
+
+export default React.memo(NavBar);

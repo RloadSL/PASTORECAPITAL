@@ -1,9 +1,11 @@
 import { FirebaseApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator} from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc} from 'firebase/firestore/lite';
 import { onSnapshot, Unsubscribe } from "firebase/firestore";
 
 import FireFirebase from './firebase';
-
+/**
+ * Integración con el módulo de firestore de Firebase
+ */
 export class FireFirestore {
   private _db: Firestore;
   private static instance: FireFirestore;
@@ -29,7 +31,7 @@ export class FireFirestore {
       const snapshot = await getDocs(collection);
       return snapshot
     } catch (error) {
-      console.log(error)
+      console.error(error)
       alert('Internal error firebase')
     }
 
@@ -40,17 +42,37 @@ export class FireFirestore {
       const snapshot = await getDoc(docRef);
       return snapshot
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      alert('Internal error firebase')
+    }
+  }
+/**
+   * Implementación delete de Firestore
+   * @param collectionPath Path de la colección o subcolección del documento a modificar
+   * @param docId Id del documento
+   */
+  public deleteDoc = async (collectionPath: string, docId: string):Promise<void> => {
+    try {
+      const docRef = this._doc(collectionPath, docId);
+      await deleteDoc(docRef)
+    } catch (error) {
+      console.error(error)
       alert('Internal error firebase')
     }
   }
 
+  /**
+   * Implementación del set de Firestore
+   * @param collectionPath Path de la colección o subcolección del documento a modificar
+   * @param docId Id del documento
+   * @param data Data a modificar
+   */
   public setDoc = async (collectionPath: string, docId: string, data:any) => {
     try {
       const docRef = this._doc(collectionPath, docId);
       await setDoc(docRef, data);
     } catch (error) {
-      console.log(error)
+      console.error(error)
       alert('Internal error firebase')
     }
   }

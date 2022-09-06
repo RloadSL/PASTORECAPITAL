@@ -1,7 +1,8 @@
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { User as FireUser, UserCredential } from "firebase/auth";
 import { AuthenticationRepository } from "../../domain/Authentication/authentication.repository";
 import { CreateUser, Role } from "../dto/users.dto";
-import FireAuthentication, { ErrorAuth } from "../firebase/authentication.firebase";
+import FireAuthentication  from "../firebase/authentication.firebase";
 import { FireFunctions } from "../firebase/functions.firebase";
 
 /**
@@ -36,7 +37,7 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
    * @param password Usuario del sistema previamente validado por yup
    * @returns Promesa con los resultados de la operación
    */
-  async signInEmailPassword(email: string, password: string): Promise<{ userCredential: FireUser | null, error: ErrorAuth | null }> {
+  async signInEmailPassword(email: string, password: string): Promise<{ userCredential: FireUser | null, error: ErrorApp | null }> {
     const response: any = await FireAuthentication.signInWithEmailAndPassword(email, password)
     if (!response.errorCode) {
       this._userLogged = response.user;

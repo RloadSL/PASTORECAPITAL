@@ -4,7 +4,7 @@ import { http } from "../http/http"
 import { User } from "../../domain/User/User";
 import { UserRepository } from "../../domain/User/user.repository";
 import FireFirestore  from "../firebase/firestore.firebase";
-import { UserDto } from "infrastructure/dto/users.dto";
+import { UpdateUser, UserDto } from "infrastructure/dto/users.dto";
 import { Unsubscribe } from "firebase/firestore";
 /**
  * Implementación de los casos de usos para los usuarios de la plataforma
@@ -18,15 +18,22 @@ export class UserRepositoryImplementation extends UserRepository {
     }else{
       return null;
     }
-  };
+  }; 
+  
   onChange(uid:string, callback:Function): Unsubscribe {
     return FireFirestore.onChangeDoc(`users/${uid}`, (userData:UserDto)=>{
       callback(new User(userData));
     })
   };
 
-  async update(uid: string, data: any): Promise<void> {
-
+  async update(uid: string, data: UpdateUser): Promise<void> {
+    try {
+      await FireFirestore.setDoc('users',uid, data)
+    } catch (error) {
+      console.log(error)
+      alert('Error inteno en user.repository')
+    }
+   
   };
   
   async delete(uid: string): Promise<void> {

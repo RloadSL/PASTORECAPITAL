@@ -14,6 +14,7 @@ export default function AppLayout({ children }: any) {
     onChangeAuthState(createUserById)
   }, [])
   const MemoizedLayout = React.memo(AppLayoutView);
+  console.log('AppLayout')
   return <MemoizedLayout>{children}</MemoizedLayout>
 }
 
