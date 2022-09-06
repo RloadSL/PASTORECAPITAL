@@ -8,7 +8,6 @@ import styles from './HomePage.module.scss'
   <h1 id="h1">Home Page</h1>
   <Form/>
   </>
-  
   )
 }
 

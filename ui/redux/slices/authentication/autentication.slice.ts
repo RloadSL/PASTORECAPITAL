@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { UserCredential, User as FireUser } from 'firebase/auth';
+import { ErrorAuth } from 'infrastructure/firebase/authentication.firebase';
 import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
 import { AuthenticationRepositoryImplementation } from '../../../../infrastructure/retpositories/authentication.repository'
@@ -79,14 +80,16 @@ const _handleSignIn = (state:any, action:any) => {
   } 
   else{
     state.userLogged = null
-    state.authError.push(action.payload)
+    if(action.payload){
+      state.authError.push(action.payload )
+    } 
     state.loggued = false
   } 
 }
 
 const initialState: {
   userLogged: User | null,
-  authError: any[],
+  authError: ErrorAuth[],
   loggued:boolean
 } = { userLogged: null, authError: [], loggued: false};
 

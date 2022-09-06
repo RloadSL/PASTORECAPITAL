@@ -4,9 +4,12 @@ import { CreateUser, Role } from "../dto/users.dto";
 import FireAuthentication, { ErrorAuth } from "../firebase/authentication.firebase";
 import { FireFunctions } from "../firebase/functions.firebase";
 
+/**
+ * Implementación del repositorio de Authenticación basado en Firebase Authentication.
+ * Esta clase es un siglenton.
+ */
 export class AuthenticationRepositoryImplementation extends AuthenticationRepository {
   private static instance: AuthenticationRepositoryImplementation
-
   private constructor(){
     super();
   }
@@ -27,6 +30,12 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
   public get userLogged(): FireUser | null {
     return this._userLogged;
   }
+  /**
+   * Autenticación en Firebase Authentication vía email y password.
+   * @param email Usuario del sistema previamente validado por yup
+   * @param password Usuario del sistema previamente validado por yup
+   * @returns Promesa con los resultados de la operación
+   */
   async signInEmailPassword(email: string, password: string): Promise<{ userCredential: FireUser | null, error: ErrorAuth | null }> {
     const response: any = await FireAuthentication.signInWithEmailAndPassword(email, password)
     if (!response.errorCode) {
@@ -34,10 +43,15 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       return { userCredential: this._userLogged, error: null };
     }
     else {
-      return { userCredential: null, error: response.errorCode };;
+      return { userCredential: null, error: response };
     }
 
   }
+  /**
+   * Crear nuevo usuario en Firebase Authentication y Firestore 
+   * @param data Datos del usuario necesarios para crear no nuevo
+   * @returns Promesa con los resultados de la operación
+   */
   async signUp(data: CreateUser): Promise<{ userCredential: FireUser | null, error: any }> {
     try {
       const role: Role = {
@@ -56,7 +70,10 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       return { userCredential: null, error: error };
     }
   }
-
+  /**
+   * Es un listener de los cambios de estado del usuario de Firebase Authentication.
+   * @param callback Tarea a ejecutar cuando se produsca un cambio de estado
+   */
   onUserChange(callback:Function) {
     FireAuthentication.onChange((user: FireUser) => {
       this._userLogged = user;
@@ -66,14 +83,18 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       }
     })
   }
-
+  /**
+   * Deslogarse de la aplicación
+   */
   async signOut(): Promise<void> {
     await FireAuthentication.signOut()
     this._logged = false;
     this._userLogged = null;
   }
-
-  recoverPass(): Promise<{ status: number; error: string | null; }> {
+ /**
+   * Recuperar contraseña mediante email.
+   */
+  recoverPass(email:string): Promise<{ status: number; error: string | null; }> {
     throw new Error("Method not implemented.");
   }
 

@@ -2,6 +2,9 @@ import { FirebaseApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged ,Auth, UserCredential, signInWithEmailAndPassword, AuthCredential, connectAuthEmulator, signOut } from "firebase/auth";
 import FireFirebase  from "./firebase";
 export interface ErrorAuth { errorCode: string, errorMessage:string }
+/**
+ * Implementación de la integración del módulo de Authentication de Firebase 
+ */
 class FireAuthentication {
   private static instance: FireAuthentication;
   private _auth: Auth;
