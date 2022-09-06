@@ -6,10 +6,13 @@ import styles from './Drawer.module.scss'
 export default function Drawer({ children }: any) {
   const router = useRouter()
   const [visibleDrawer, setVisibleDrawer] = useState(true)
+  const [visibleNavBar, setvisibleNavBar] = useState(true)
   useEffect(() => {
     setVisibleDrawer((router.route !== '/login' && router.route !== '/sign-up'))
   }, [router.route])
-
+  useEffect(() => {
+    setvisibleNavBar((router.route !== '/login' && router.route !== '/sign-up'))
+  }, [router.route])
 
   return (
     <main className={router.route !== '/login' ? styles.grid : ''}>
@@ -18,7 +21,8 @@ export default function Drawer({ children }: any) {
         kjsldkfj
       </aside>}
       <div className={styles['drawer-static']}>
-        <NavBar />
+        {visibleNavBar && <NavBar />}
+        {/* <NavBar /> */}
         {children}
         {/* <Footer /> */}
       </div>

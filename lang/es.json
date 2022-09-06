@@ -2,7 +2,13 @@
   "page.home.title": "Bienvenidos",
   "page.home.h1" : "KAKAK",
 
-  "page.login.title": "Autenticarse",
+  "page.login.title": "Acceder",
+  "page.login.labelEmail":"Email",
+  "page.login.labelPassword":"Contraseña",
+  "page.login.btnSubmit":"Entrar",
+  "page.login.incorrectEmail": "Email incorrecto",
+  "page.login.errorRequired": "Este campo es obligatorio",
+  "page.login.incorrectPassword": "Contraseña incorrecta",
 
   "page.sign-up.title": "Darse de alta",
 
@@ -11,6 +17,5 @@
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",
   
-
-  "auth/wrong-password": "Contraseña incorrecta"
+  "auth/wrong-password": "Contraseña incorrecta para este usuario"
 }

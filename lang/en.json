@@ -3,5 +3,9 @@
   "page.login.title": "SignIn",
   "page.sign-up.title": "Signup",
 
+  "page.login.labelEmail":"Email",
+  "page.login.labelPassword":"Password",
+  "page.login.btnSubmit":"Login",
+
   "component.navbar.backbuttom": "Back"
 }
