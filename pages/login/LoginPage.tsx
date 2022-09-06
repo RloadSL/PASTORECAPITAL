@@ -32,6 +32,7 @@ const LoginPage: NextPage = () => {
   const _signIn = (value: LOGINVALUE) => {
     cleanError()
     signIn(value)
+    alert('KK')
   }
 
   useMemo(()=>{
