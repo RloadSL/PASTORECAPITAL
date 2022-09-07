@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
-import ErrorAlert from 'components/ErrorAlert'
+import SnackBar from 'components/SnackBar'
 import Loading from 'components/Loading'
 
 
@@ -35,7 +35,7 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
         <AppLayout dir={getDirection(locale)} >
            <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
-        <ErrorAlert></ErrorAlert>
+        <SnackBar></SnackBar>
         <Loading></Loading>
       </IntlProvider>
     </Provider>
