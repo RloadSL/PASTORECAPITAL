@@ -8,35 +8,33 @@ import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
 import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
-import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
-import ErrorAlert from 'components/ErrorAlert'
+import SnackBar from 'components/SnackBar'
 import Loading from 'components/Loading'
 
-
-const messages:any = {
+const messages: any = {
   en,
   es
 }
 
-function getDirection(locale:string) {
-  if (locale === "es") {
-    return "rtl";
+function getDirection (locale: string) {
+  if (locale === 'es') {
+    return 'rtl'
   }
-  return "ltr";
+  return 'ltr'
 }
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
-
-  
-  const locale:any = useRouter().locale || 'es';
+  const locale: any = useRouter().locale || 'es'
   return (
     <Provider store={store}>
       <IntlProvider locale={locale} messages={messages[locale]}>
-      <Loading></Loading>
-      <ErrorAlert></ErrorAlert>
-        <AppLayout dir={getDirection(locale)} >
-           <Component {...pageProps} dir={getDirection(locale)} />
+        <Loading></Loading>
+
+        <AppLayout dir={getDirection(locale)}>
+          <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
+        <SnackBar></SnackBar>
+        <Loading></Loading>
       </IntlProvider>
     </Provider>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSystem } from 'ui/hooks/system.hooks'
 
-const Loading = () => {
+export const Loading = () => {
   const {loadingState} = useSystem()
   console.log('Loading',loadingState)
   return <LoadingView loadingState={loadingState}/>
@@ -12,4 +12,3 @@ const LoadingView = ({loadingState}:{loadingState:boolean}) => {
 }
 
 
-export default Loading;

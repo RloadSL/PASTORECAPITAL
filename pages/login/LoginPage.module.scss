@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: center;
 
-    @include devices.device(mobile) {
+    @include devices.device(smTablet) {
       flex-direction: row;
       justify-content: space-between
     }
@@ -27,7 +27,7 @@
     .colLeft, .colRight {
       width: 100%;
       
-      @include devices.device(mobile) {
+      @include devices.device(smTablet) {
         width: 50%;
         display: flex;
       }

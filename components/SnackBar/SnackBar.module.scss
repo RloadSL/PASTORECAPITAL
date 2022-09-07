@@ -1,0 +1,37 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+
+.snackBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 5px;
+
+  .container {
+    background-color: colors.$grey30;
+    padding: 10px 20px;
+    border-radius: 5px;
+    visibility: hidden;
+    margin-bottom: 5px;
+  }
+}
+
+.show {
+  .container {
+    visibility: visible;
+    animation: fadein 0.5s;
+  }
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 30px;
+    opacity: 1;
+  }
+}
+

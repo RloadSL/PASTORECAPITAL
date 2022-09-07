@@ -1,6 +1,6 @@
 @mixin device ($breakpoint) {
 
-  @if $breakpoint == mobile {
+  @if $breakpoint == smTablet {
     @media only screen and (min-width: 780px) {
       @content;
     }
