@@ -23,6 +23,6 @@ export const system = createSlice({
 })
 
 //Estrallendo actions
-export const { cleanErrors, setLoading } = system.actions;
+export const { cleanErrors, setLoading, pushError } = system.actions;
 
 export default system.reducer

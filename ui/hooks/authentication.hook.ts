@@ -32,7 +32,7 @@ export const useAuthentication = () => {
   }, [loadingState])
   
   useEffect(() => {
-    pushErrorsApp(authError)
+    console.log(authError)
    }, [authError])
 
   return {

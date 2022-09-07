@@ -3,6 +3,7 @@ import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
+import { useSystem } from 'ui/hooks/system.hooks'
 import style from './SnackBar.module.scss'
 
 interface SNACKBARPROPS {
@@ -16,24 +17,24 @@ interface SNACKBARPROPS {
  */
 
 export const SnackBar = ({ time = 5000 }: SNACKBARPROPS) => {
-  const { authError, cleanError } = useAuthentication()
+  const {errorsApp, cleanErrorsApp} = useSystem()
 
   useEffect(() => {
-    if (authError.length > 0) setTimeout(() => {
-      cleanError();
+    if (errorsApp) setTimeout(() => {
+     // cleanErrorsApp();
     }, time);
-  }, [authError.length])
+  }, [errorsApp.length])
 
   return (
-    <SnackBarView errorApp={authError} />
+    <SnackBarView errorsApp={errorsApp} />
   )
 }
 
-const SnackBarView = ({ errorApp }: { errorApp: ErrorApp[] }) => {
+const SnackBarView = ({ errorsApp }: { errorsApp: ErrorApp[] }) => {
   return (
-    <div className={`${style.snackBar} ${errorApp.length > 0 ? style.show : ''}`}>
+    <div className={`${style.snackBar} ${errorsApp.length > 0 ? style.show : ''}`}>
 
-      {errorApp.map((err, index) => <div key={index} className={style.container}>
+      {errorsApp.map((err, index:number) => <div key={index} className={style.container}>
         <p >ERRROR DE APPP</p>
       </div>)}
 
