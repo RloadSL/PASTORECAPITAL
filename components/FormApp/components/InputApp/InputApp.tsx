@@ -15,7 +15,7 @@ export interface INPUTBLOCKPROPS {
 }
 
 /**
- * Función de componente principal de Botón
+ * Función principal del componente Input: Text | password | number | email del formulario
  * @param  labelID Key del json de traducción
  * @param  onChange Función para controlar el onchange de los inputs
  * @param  onBlur Función para controlar la pérdida del foco en los inputs

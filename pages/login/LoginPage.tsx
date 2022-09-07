@@ -4,16 +4,10 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
-
 import { FormattedMessage } from 'react-intl'
-
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Card from "components/Card";
-
-
-
-
 
 /**
  * Función principal de Login page

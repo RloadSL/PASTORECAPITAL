@@ -1,3 +1,3 @@
-import InputApp from "./InputApp";
+import InputCheckApp from "./InputCheckApp";
 
-export default InputApp;
+export default InputCheckApp;
