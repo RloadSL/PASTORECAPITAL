@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import React, { ChangeEventHandler, useEffect, useState, useRef } from "react"
 import { FormattedMessage } from "react-intl"
 import style from './InputApp.module.scss'
 
@@ -11,7 +11,6 @@ export interface INPUTBLOCKPROPS {
   type: TYPEINPUT,
   error?: string | undefined,
   placeholder?: string,
-  value?: any,
   name: string
 }
 
@@ -23,35 +22,49 @@ export interface INPUTBLOCKPROPS {
  * @param  type Tipo de campo de formulario
  * @param  error Error del campo de formulario
  * @param  placeholder Placeholder del campo
- * @param  value Valor del campo
  * @param  name Name del campo 
  * @returns 
  */
 
-const InputApp = ({ labelID, error, placeholder, value, name, onChange, onBlur, type = 'text' }: INPUTBLOCKPROPS) => {
+const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 'text' }: INPUTBLOCKPROPS) => {
+  const [isFloating, setIsFloating] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const _handleChange = (target: HTMLInputElement ) => {
+    if (onChange) onChange(name, target.value)
+    setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
+   
+  }
+ useEffect(() => {
+   setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
+   console.log(inputRef?.current)
+ }, [inputRef?.current?.value])
+ 
   return (
-    <div className="form__group">
-      <label className="form__group-label">
-        <span>
-          <FormattedMessage id={labelID} />
-        </span>
-        <div className={style.inputContainer}>
+    <>
+      <div className={error ? `${style.hasError} ${style.inputContainer}` : style.inputContainer}>
+        <label className={isFloating}>
+          <span>
+            <FormattedMessage id={labelID} />
+          </span>
+        </label>
+        <div>
           <input
             type={type}
             name={name}
             autoComplete={'autocomplete'}
             placeholder={placeholder}
-            value={value}
-            onChange={(el)=>{if(onChange) onChange(name, el.target.value)}}
-            onBlur={()=>{if(onBlur) onBlur()}}
+            ref={inputRef}
+            onChange={(e)=>_handleChange(e.target)}
+            onBlur={() => { if (onBlur) onBlur() }}
             className={style.input}
           />
         </div>
-      </label>
+      </div>
       {error && (
-        <div className="text-danger">{error}</div>
+        <div className={style.error}>{error}</div>
       )}
-    </div>
+    </>
   )
 }
 
