@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
 import { ErrorAuth } from 'infrastructure/firebase/authentication.firebase'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useSystem } from 'ui/hooks/system.hooks'
 
 interface LOGINVALUE {
   email: string
@@ -29,8 +30,9 @@ const LoginPage: NextPage = () => {
   const intl = useIntl()
   const router = useRouter()
   const { signIn, isLogged } = useAuthentication()
+  const {setLoadingState} = useSystem()
   const _signIn = (value: LOGINVALUE) => {
-    signIn(value)
+     signIn(value)
   }
 
   

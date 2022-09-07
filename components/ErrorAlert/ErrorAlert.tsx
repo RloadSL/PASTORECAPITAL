@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 
-export const ErrorAlert = ({time = 5000}:{time: number}) => {
+export const ErrorAlert = ({time = 5000}:{time?: number}) => {
   const {authError, cleanError} = useAuthentication()
 
   useEffect(() => {

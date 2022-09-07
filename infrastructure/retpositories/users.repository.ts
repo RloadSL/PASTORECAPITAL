@@ -30,13 +30,17 @@ export class UserRepositoryImplementation extends UserRepository {
     try {
       await FireFirestore.setDoc('users',uid, data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       alert('Error inteno en user.repository')
     }
-   
   };
   
   async delete(uid: string): Promise<void> {
-    
+    try {
+      await FireFirestore.deleteDoc('users',uid)
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en user.repository')
+    }
   };
 }

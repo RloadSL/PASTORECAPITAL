@@ -10,6 +10,7 @@ import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import ErrorAlert from 'components/ErrorAlert'
+import Loading from 'components/Loading'
 
 
 const messages:any = {
@@ -35,6 +36,7 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
            <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
         <ErrorAlert></ErrorAlert>
+        <Loading></Loading>
       </IntlProvider>
     </Provider>
   )

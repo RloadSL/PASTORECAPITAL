@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ErrorApp } from 'domain/ErrorApp/ErrorApp';
-import { UserCredential, User as FireUser } from 'firebase/auth';
-import { ErrorAuth } from 'infrastructure/firebase/authentication.firebase';
+import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
 import { AuthenticationRepositoryImplementation } from '../../../../infrastructure/retpositories/authentication.repository'
@@ -9,7 +7,6 @@ import { UserRepositoryImplementation } from '../../../../infrastructure/retposi
 
 const authRepository = AuthenticationRepositoryImplementation.getInstance();
 const userRepository = new UserRepositoryImplementation();
-
 export const onChangeAuthState = (callback: Function) => authRepository.onUserChange(callback)
 
 
