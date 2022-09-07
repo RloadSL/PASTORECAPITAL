@@ -1,20 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
-import { onChangeAuthState } from 'ui/redux/slices/authentication/autentication.slice'
+import {
+  createUser,
+  onChangeAuthState
+} from 'ui/redux/slices/authentication/autentication.slice'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import Drawer from './components/Drawer'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'ui/redux/store'
 
 /**
  * Componente principal de la aplicación
  */
 
-export default function AppLayout({ children }: any) {
-  const { createUserById } = useAuthentication()
+export default function AppLayout ({ children }: any) {
+  const dispatch = useDispatch<AppDispatch>()
+
   useEffect(() => {
-    onChangeAuthState(createUserById)
+    onChangeAuthState((user: any) => {
+      dispatch(createUser(user.uid))
+      console.log('useEffect AppLayout', user)
+    })
   }, [])
-  const MemoizedLayout = React.memo(AppLayoutView);
-  console.log('AppLayout')
+  const MemoizedLayout = React.memo(AppLayoutView)
   return <MemoizedLayout>{children}</MemoizedLayout>
 }
 

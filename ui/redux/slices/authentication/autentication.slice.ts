@@ -35,6 +35,7 @@ export const signUpEmailPassword = createAsyncThunk(
     try {
       const response = await authRepository.signUp(data)
       const { userCredential, error } = response;
+      console.log( 'auth@signUpEmailPassword', userCredential)
       if (!userCredential) return error; //retorna usuario invitado
       const user = await userRepository.read(userCredential.uid)
       return user;
@@ -78,6 +79,7 @@ const _handleSignIn = (state: any, action: any) => {
     state.loggued = true
   }
   else {
+    console.log('_handleSignIn ERROR', action.payload)
     if (action.payload) {
       state.authError = action.payload
     }

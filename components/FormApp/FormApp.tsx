@@ -30,10 +30,11 @@ const FormApp = ({
     onSubmit(values)
   }
 
-  const childrenWithExtraProp = (errors: any, setFieldValue:Function) => {
+  const childrenWithExtraProp = ({errors, touched}: any, setFieldValue:Function) => {
     return React.Children.map(children, child => {
+      console.log(touched)
       return React.cloneElement(child, {
-        error: child.props.name ? errors[child.props.name] : 'ESTE CAMPO REQUIERE NAME PROP',
+        error: errors[child.props.name] && touched[child.props.name] ? errors[child.props.name] : null,
         onChange : setFieldValue
       })
     })
@@ -51,7 +52,7 @@ const FormApp = ({
         onSubmit={values => _onSubmit(values)}
       >
         {({ errors, touched, setFieldValue }) => {
-          return <Form>{childrenWithExtraProp(errors, setFieldValue)}</Form>
+          return <Form>{childrenWithExtraProp({errors, touched}, setFieldValue)}</Form>
         }}
       </Formik>
     </div>

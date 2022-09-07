@@ -16,6 +16,7 @@ export const SignUp = () => {
   const intl = useIntl()
   const { signUp } = useAuthentication()
 
+  
   const validationSchema = useCallback(
     () =>
       yup.object({
@@ -42,7 +43,7 @@ export const SignUp = () => {
   )
   return (
     <SignUpView
-      signUp={(value: CreateUser) => signUp(value)}
+      signUp={(value: CreateUser) => {signUp(value); console.log('signUp')}}
       validationSchema={validationSchema}
     ></SignUpView>
   )

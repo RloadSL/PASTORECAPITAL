@@ -1,14 +1,16 @@
 import { Role } from "./Role";
 
 export interface UpdateUser {
-  full_name?:string,
+  name?:string,
+  lastname?:string,
   email?:string,
   role?: Role,
   disabled?: boolean
 }
 
 export interface CreateUser {
-  full_name:string,
+  name?:string,
+  lastname?:string,
   password:string,
   email:string,
   role: Role

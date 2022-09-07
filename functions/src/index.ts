@@ -2,7 +2,7 @@
 import * as admin  from "firebase-admin";
 import { DisableUserTrigger } from "./Authentication/disable-user";
 import { DeleteUserAuthenticationTrigger, OnDeleteUserTrigger } from "./Authentication/on-delete";
-import { SingUpTrigger, } from "./Authentication/sign-in";
+import { SingUpTrigger, } from "./Authentication/sign-up";
 admin.initializeApp();
 
 //Module Authentication//

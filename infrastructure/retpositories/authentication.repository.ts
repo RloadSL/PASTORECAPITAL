@@ -62,10 +62,11 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       const response = await FireFunctions.getInstance().onCallFunction('SingUpOnCallFunctions', { ...data, role });
       if (response.status === 200) {
         const signInEmailPassword = await this.signInEmailPassword(data.email, data.password)
+       
         if (signInEmailPassword.userCredential) return { userCredential: this._userLogged, error: null };
         else return { userCredential: this._userLogged, error: signInEmailPassword.error };
       } else {
-        return { userCredential: null, error: response.error };
+        return { userCredential: null, error: {errorCode:response.error.errorInfo.code, message: response.error.errorInfo.message} };
       }
     } catch (error) {
       return { userCredential: null, error: error };

@@ -3,7 +3,6 @@ import { UpdateUser } from "../Models/Users/User";
 
 export const setUser = async (uid:string, data:UpdateUser): Promise<string | null>  =>{
   try {
-    console.log(uid, data)
     await firestore().collection('users').doc(uid).set(data, {merge: true});
     return null;
   } catch (error) {

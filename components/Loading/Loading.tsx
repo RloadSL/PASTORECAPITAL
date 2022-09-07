@@ -3,7 +3,6 @@ import { useSystem } from 'ui/hooks/system.hooks'
 
 export const Loading = () => {
   const {loadingState} = useSystem()
-  console.log('Loading',loadingState)
   return <LoadingView loadingState={loadingState}/>
 }
 

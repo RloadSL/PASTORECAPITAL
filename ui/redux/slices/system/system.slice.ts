@@ -14,7 +14,9 @@ export const system = createSlice({
       state.errorApp = [];
     },
     pushError: (state, action) => {
-      state.errorApp = [action.payload,...state.errorApp];
+      if(!state.errorApp.find(err => err.errorCode === action.payload.errorCode)){
+        state.errorApp = [action.payload,...state.errorApp];
+      }
     },
     setLoading: (state, action) => {
       state.loading = action.payload;

@@ -29,15 +29,15 @@ const LoginPage: NextPage = () => {
   }, [router, isLogged])
 
   useEffect(() => {
-   
+    setLoadingState(loadingState)
    }, [loadingState])
 
   useEffect(() => {
-    if(authError){
+    if(authError?.errorCode){
       pushErrorsApp(authError)
-      console.log(authError)
     }
    }, [authError])
+   
   return (
     <LoginPageView/>
   )

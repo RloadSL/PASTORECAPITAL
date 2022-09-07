@@ -11,8 +11,7 @@ export type BUILDTEMPLATE = {template: string}
  * @returns Template correctamente formateado
  */
 export const buildTemplate = (templateName:TEMPLATES, data:any): BUILDTEMPLATE =>{
-  const pathFile = path.join(__dirname, `../html/${templateName}.html`)
-  let template = fs.readFileSync(pathFile).toString()
+  let template = fs.readFileSync(path.resolve(`./html/${templateName}.html`)).toString()
  
   Object.keys(data).forEach((key) => {
     template = template.replace(

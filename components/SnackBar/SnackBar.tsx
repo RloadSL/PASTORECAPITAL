@@ -20,7 +20,7 @@ export const SnackBar = ({ time = 5000 }: SNACKBARPROPS) => {
   const {errorsApp, cleanErrorsApp} = useSystem()
 
   useEffect(() => {
-    if (errorsApp) setTimeout(() => {
+    if (errorsApp.length > 0) setTimeout(() => {
       cleanErrorsApp();
     }, time);
   }, [errorsApp.length])
@@ -33,11 +33,9 @@ export const SnackBar = ({ time = 5000 }: SNACKBARPROPS) => {
 const SnackBarView = ({ errorsApp }: { errorsApp: ErrorApp[] }) => {
   return (
     <div className={`${style.snackBar} ${errorsApp.length > 0 ? style.show : ''}`}>
-
       {errorsApp.map((err, index:number) => <div key={index} className={style.container}>
-        <p >ERRROR DE APPP</p>
+        <p ><FormattedMessage id={err.errorCode}></FormattedMessage></p>
       </div>)}
-
     </div>
   );
 }
