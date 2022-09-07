@@ -9,13 +9,16 @@ export const useSystem = ()=>{
   const loadingState:boolean = useSelector(loading)
   const errorsApp:ErrorApp[] = useSelector(errors)
 
-  const setLoadingState:Function = () => dispatch(setLoading());
+  const setLoadingState:Function = (stateLoading:boolean) => dispatch(setLoading(stateLoading));
   const cleanErrorsApp:Function = () => dispatch(cleanErrors());
+  const pushErrorsApp:Function = (err:ErrorApp) => dispatch(pushErrorsApp(err));
+
 
   return {
     loadingState,
     errorsApp,
     setLoadingState,
-    cleanErrorsApp
+    cleanErrorsApp,
+    pushErrorsApp
   }
 }

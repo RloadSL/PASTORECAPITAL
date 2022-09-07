@@ -3,21 +3,17 @@ import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
+import { useSystem } from 'ui/hooks/system.hooks'
 
 export const ErrorAlert = ({time = 5000}:{time?: number}) => {
-  const {authError, cleanError} = useAuthentication()
-
-  useEffect(() => {
-   if(authError.length > 0) setTimeout(() => {
-    cleanError();
-   }, time); 
-  }, [authError.length])
+  const {errorsApp} = useSystem()
+ 
   
   return (
-    <ErrorAlertView errorApp={authError}/>
+    <ErrorAlertView errorApp={errorsApp}/>
   )
 }
 
 const ErrorAlertView = ({errorApp}:{errorApp: ErrorApp[]}) => {
-  return  <>{errorApp.map((err, index) => <p key={index}><FormattedMessage id={err.errorCode}></FormattedMessage></p>)}</>;
+  return  <>{errorApp.map((err, index) => <p key={index}>ERROR DEL SISTEMA</p>)}</>;
 }

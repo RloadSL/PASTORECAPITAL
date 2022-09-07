@@ -1,83 +1,42 @@
 
 import style from "./LoginPage.module.scss";
-
-import ButtonApp from 'components/ButtonApp'
-import FormApp from 'components/FormApp'
-import InputApp from 'components/FormApp/components/InputApp'
-import * as yup from 'yup'
 import { NextPage } from 'next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
+
+import { FormattedMessage } from 'react-intl'
+
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 import Card from "components/Card";
-import { FormattedMessage, useIntl } from 'react-intl'
-import { useSystem } from 'ui/hooks/system.hooks'
 
-interface LOGINVALUE {
-  email: string
-  password: string
-}
 
-interface LOGINPAGEVIEWPROPS {
-  signIn: Function
-  validationSchema: any
-}
+
+
 
 /**
  * Función principal de Login page
  */
 const LoginPage: NextPage = () => {
-  const intl = useIntl()
   const router = useRouter()
-
-  const { signIn, isLogged } = useAuthentication()
-  const {setLoadingState} = useSystem()
-
-  const _signIn = (value: LOGINVALUE) => {
-     signIn(value)
-  }
-
-  
-  
-  const validationSchema = useCallback(
-    () =>
-    yup.object({
-      email: yup
-        .string()
-        .email(intl.formatMessage({ id: 'page.login.incorrectEmail' }))
-        .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
-      password: yup.string().trim().min(6, intl.formatMessage({ id: 'page.login.incorrectPassword' })).required(intl.formatMessage({ id: 'page.login.errorRequired' })),
-    }),
-    [intl]
-  )
-
+  const { isLogged } = useAuthentication()
 
   useEffect(() => {
     if (isLogged) router.push('/')
   }, [router, isLogged])
 
   return (
-    <LoginPageView
-      validationSchema={validationSchema()}
-      signIn={(value: LOGINVALUE) => _signIn(value)}
-    />
+    <LoginPageView/>
   )
 }
 
 /**
- * Función de renderizado del componente
- * @param  signIn Función que envía los datos al formulario
- * @param  validationSchema Objecto de yup para validar el formulario
- * @param errorAuth Valores iniciales del formulario los key tienen que coincidir con los name de los campos input
- * @returns
+ * Función de renderizado del componente * @returns
  */
 
-const LoginPageView = ({
-  signIn,
-  validationSchema
-}: LOGINPAGEVIEWPROPS) => {
-  const r1 = useRef()
+const LoginPageView = () => {
+  const [viewForm, setviewForm] = useState(1)
   return (
     <div className={style.loginPage}>
       <div className={style.mainContainer}>
@@ -88,29 +47,11 @@ const LoginPageView = ({
         </div>
         <div className={style.colRight}>
           <Card>
-          <div>
-                <Link href={'/sign-up'}><a>SignUp</a></Link>
-              </div>
-              <p>
-                <FormattedMessage id="page.login.title" />
-              </p>
-            <div>
+          <button onClick={()=>setviewForm(viewForm !== 1 ? 1 : 2)}>{viewForm !== 1 ? 'SignIn' : 'SignUp'}  </button>
 
-
-            <FormApp
-        validationSchema={validationSchema}
-        initialValues={{ email: '', password: '' }}
-        onSubmit={(values: any) => signIn(values)}
-      >
-                <InputApp labelID="page.login.labelEmail" type="email" name='email' />
-                <InputApp labelID="page.login.labelPassword" type="password" name='password' />
-                <ButtonApp type="submit" labelID="page.login.btnSubmit" />
-              </FormApp>
-
-              
-            </div>
+            {viewForm === 1 ? <SignIn/> : <SignUp/>}  
           </Card>
-
+         
         </div>
       </div>
 

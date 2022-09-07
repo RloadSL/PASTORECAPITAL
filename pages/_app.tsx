@@ -32,11 +32,11 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <IntlProvider locale={locale} messages={messages[locale]}>
+      <Loading></Loading>
+      <ErrorAlert></ErrorAlert>
         <AppLayout dir={getDirection(locale)} >
            <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
-        <ErrorAlert></ErrorAlert>
-        <Loading></Loading>
       </IntlProvider>
     </Provider>
   )

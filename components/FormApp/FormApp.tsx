@@ -33,7 +33,7 @@ const FormApp = ({
   const childrenWithExtraProp = (errors: any, setFieldValue:Function) => {
     return React.Children.map(children, child => {
       return React.cloneElement(child, {
-        error: errors[child.key],
+        error: child.props.name ? errors[child.props.name] : 'ESTE CAMPO REQUIERE NAME PROP',
         onChange : setFieldValue
       })
     })

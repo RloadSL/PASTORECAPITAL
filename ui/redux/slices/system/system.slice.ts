@@ -13,8 +13,11 @@ export const system = createSlice({
     cleanErrors: (state) => {
       state.errorApp = [];
     },
-    setLoading: (state) => {
-      state.loading = !state.loading;
+    pushError: (state, action) => {
+      state.errorApp = [action.payload,...state.errorApp];
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     }
   }
 })

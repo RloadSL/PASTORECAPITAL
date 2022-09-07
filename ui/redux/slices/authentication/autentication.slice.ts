@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
+import { AppDispatch } from 'ui/redux/store';
 import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
 import { AuthenticationRepositoryImplementation } from '../../../../infrastructure/retpositories/authentication.repository'
 import { UserRepositoryImplementation } from '../../../../infrastructure/retpositories/users.repository';
+import { setLoading } from '../system/system.slice';
 
 const authRepository = AuthenticationRepositoryImplementation.getInstance();
 const userRepository = new UserRepositoryImplementation();
@@ -72,38 +74,41 @@ export const createUser = createAsyncThunk(
 const _handleSignIn = (state: any, action: any) => {
   if (action.payload instanceof User) {
     state.userLogged = action.payload
-    state.authError = []
+    state.authError = null
     state.loggued = true
   }
   else {
-
     if (action.payload) {
-      state.authError.push(action.payload)
+      state.authError = action.payload
     }
-
   }
+  state.loading = false
 }
 
 const initialState: {
   userLogged: User | null,
-  authError: ErrorApp[],
-  loggued: boolean
-} = { userLogged: null, authError: [], loggued: false };
+  authError: ErrorApp | null,
+  loggued: boolean,
+  loading: boolean
+} = { userLogged: null, authError: null, loggued: false, loading:false };
 
 export const authetication = createSlice({
   name: 'Authentication',
   initialState,
   reducers: {
     cleanAuthErrors: (state) => {
-      state.authError = [];
+      state.authError = null;
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(signInEmailPassword.fulfilled, _handleSignIn)
+      .addCase(signInEmailPassword.pending, (state) => {state.loading = true})
       .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
+      .addCase(signUpEmailPassword.pending, (state) => {state.loading = true})
       .addCase(createUser.fulfilled, _handleSignIn)
-      .addCase(signOut.fulfilled, (state: any, action: any) => { state.userLogged = null, state.loggued = false, state.authError = [] })
+      .addCase(createUser.pending, (state) => {state.loading = true})
+      .addCase(signOut.fulfilled, (state: any, action: any) => { state.userLogged = null, state.loggued = false, state.authError = null, state.loading = false })
   },
 })
 

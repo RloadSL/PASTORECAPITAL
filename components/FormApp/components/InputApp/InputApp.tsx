@@ -29,7 +29,6 @@ export interface INPUTBLOCKPROPS {
  */
 
 const InputApp = ({ labelID, error, placeholder, value, name, onChange, onBlur, type = 'text' }: INPUTBLOCKPROPS) => {
-
   return (
     <div className="form__group">
       <label className="form__group-label">

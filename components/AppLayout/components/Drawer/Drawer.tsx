@@ -30,7 +30,6 @@ const DrawerView = ({ children }: any) => {
 
       <div className={styles['drawer-static']}>
         {visible() && <NavBar />}
-       
         {children}
         
       </div>

@@ -14,5 +14,6 @@ export const getIsLogged = (store:any):boolean => store.authentication.loggued
  * Devuelve una pila de errores de authenticación
  * @returns {ErrorApp[] }
  */
-export const authenticationError = (store:any):ErrorApp[] => store.authentication.authError
+export const authenticationError = (store:any):ErrorApp => store.authentication.authError
 
+export const isLoading = (store:any):boolean => store.authentication.loading
