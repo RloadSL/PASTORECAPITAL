@@ -14,7 +14,7 @@ import { useSystem } from "./system.hooks"
  * @returns {Object}
  */
 export const useAuthentication = () => {
-  const {setLoadingState, pushErrorsApp} = useSystem()
+  
   const dispatch = useDispatch<AppDispatch>()
   const userLogged:User = useSelector(getUserLogged)
   const isLogged:boolean = useSelector(getIsLogged)
@@ -27,15 +27,11 @@ export const useAuthentication = () => {
   const createUserById:Function = (user:any)=> dispatch(createUser(user.uid));
   const cleanError:Function = ()=> dispatch(cleanAuthErrors());
 
-  useEffect(() => {
-   setLoadingState(loadingState)
-  }, [loadingState])
   
-  useEffect(() => {
-    console.log(authError)
-   }, [authError])
+ 
 
   return {
+    loadingState,
     signUp,
     signIn,
     signOutUser,

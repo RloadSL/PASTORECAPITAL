@@ -21,7 +21,7 @@ export const SnackBar = ({ time = 5000 }: SNACKBARPROPS) => {
 
   useEffect(() => {
     if (errorsApp) setTimeout(() => {
-     // cleanErrorsApp();
+      cleanErrorsApp();
     }, time);
   }, [errorsApp.length])
 

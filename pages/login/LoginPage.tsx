@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import style from "./LoginPage.module.scss";
 import { NextPage } from 'next'
@@ -10,6 +11,7 @@ import { FormattedMessage } from 'react-intl'
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Card from "components/Card";
+import { useSystem } from "ui/hooks/system.hooks";
 
 
 
@@ -20,12 +22,22 @@ import Card from "components/Card";
  */
 const LoginPage: NextPage = () => {
   const router = useRouter()
-  const { isLogged } = useAuthentication()
-
+  const { isLogged, authError , loadingState} = useAuthentication()
+  const {setLoadingState, pushErrorsApp} = useSystem()
   useEffect(() => {
     if (isLogged) router.push('/')
   }, [router, isLogged])
 
+  useEffect(() => {
+   
+   }, [loadingState])
+
+  useEffect(() => {
+    if(authError){
+      pushErrorsApp(authError)
+      console.log(authError)
+    }
+   }, [authError])
   return (
     <LoginPageView/>
   )
