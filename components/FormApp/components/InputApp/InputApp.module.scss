@@ -1,0 +1,13 @@
+// @use "../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+
+.inputContainer {
+  margin-bottom: 20px;
+  .input {
+    background-color: colors.$grey20;
+    border-radius: 30px;
+    width: 100%;
+    padding: 5%;
+  }
+}
+

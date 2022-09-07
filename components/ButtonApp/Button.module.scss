@@ -1,0 +1,9 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+
+.button {
+  width: 100%;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: colors.$palette5;
+}

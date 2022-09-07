@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { FormattedMessage } from "react-intl"
+import style from './InputApp.module.scss'
 
 type TYPEINPUT = 'email' | 'password' | 'number' | 'text'
 
@@ -35,7 +36,7 @@ const InputApp = ({ labelID, error, placeholder, value, name, onChange, onBlur, 
         <span>
           <FormattedMessage id={labelID} />
         </span>
-        <div className="form__group-control">
+        <div className={style.inputContainer}>
           <input
             type={type}
             name={name}
@@ -43,6 +44,7 @@ const InputApp = ({ labelID, error, placeholder, value, name, onChange, onBlur, 
             value={value}
             onChange={()=>{if(onChange) onChange()}}
             onBlur={()=>{if(onBlur) onBlur()}}
+            className={style.input}
           />
         </div>
       </label>

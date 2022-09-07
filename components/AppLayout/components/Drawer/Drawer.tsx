@@ -1,31 +1,36 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useComponentUtils } from 'ui/hooks/components.hooks'
 import Footer from '../Footer'
 import NavBar from '../NavBar'
-import styles from './Drawer.module.scss'
-export default function Drawer({ children }: any) {
+import style from './Drawer.module.scss'
+
+const Drawer = ({ children }: any) => {
+  return <DrawerView>{children}</DrawerView>;
+}
+
+const DrawerView = ({ children }: any) => {
   const router = useRouter()
-  const [visibleDrawer, setVisibleDrawer] = useState(true)
-  const [visibleNavBar, setvisibleNavBar] = useState(true)
+  const { buildClassName } = useComponentUtils()
+  const [isLogin, setisLogin] = useState(true)
   useEffect(() => {
-    setVisibleDrawer((router.route !== '/login' && router.route !== '/sign-up'))
-  }, [router.route])
-  useEffect(() => {
-    setvisibleNavBar((router.route !== '/login' && router.route !== '/sign-up'))
+    setisLogin((router.route !== '/login'))
   }, [router.route])
 
+
   return (
-    <main className={router.route !== '/login' ? styles.grid : ''}>
-      {visibleDrawer && <aside className={styles.aside}>
+    <div className={buildClassName([style.drawer, isLogin ? style.grid : ''])}>
+      {isLogin && <aside className={style.aside}>
         <button>mobile</button>
         kjsldkfj
       </aside>}
-      <div className={styles['drawer-static']}>
-        {visibleNavBar && <NavBar />}
-        {/* <NavBar /> */}
+      <main className={style['drawer-static']}>
+        {isLogin && <NavBar />}
         {children}
         {/* <Footer /> */}
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }
+
+export default Drawer;

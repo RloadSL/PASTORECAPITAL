@@ -1,9 +1,10 @@
 @use '../../../../styles/partials/mixins/devices' as devices;
 @use '../../../../styles/partials/variables/colors' as colors;
 
-.grid {
-  
+.drawer {
+}
 
+.grid {
   @include devices.device(tablet) {
     display: grid;
     grid-template-columns: 90px auto;
@@ -19,6 +20,4 @@
 .aside {
   background-color: colors.$grey20;
   min-height: 50px;
-
-
 }

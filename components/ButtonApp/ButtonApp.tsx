@@ -1,5 +1,5 @@
 import { FormattedMessage } from "react-intl"
-
+import style from './Button.module.scss'
 type TYPEBUTTON = 'button' | 'submit'
 
 interface BUTTONPROPS {
@@ -21,7 +21,7 @@ const ButtonApp = ({ labelID, onClick, type = 'submit' }: BUTTONPROPS) => {
     console.log('click desde el botón')
   }
   return (
-    <button type={type} className="btn btn-primary" onClick={() => { if (onClick) onClick() }}>
+    <button type={type} className={style.button} onClick={() => { if (onClick) onClick() }}>
       <FormattedMessage id={labelID} />
     </button>)
 }
