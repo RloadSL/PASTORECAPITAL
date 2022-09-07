@@ -2,6 +2,7 @@
 @use '../../../../styles/partials/variables/colors' as colors;
 
 .drawer {
+  border: 1px solid;
 }
 
 .grid {
@@ -17,7 +18,3 @@
   }
 }
 
-.aside {
-  background-color: colors.$grey20;
-  min-height: 50px;
-}
