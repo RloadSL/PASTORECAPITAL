@@ -1,0 +1,51 @@
+// @use "./partials/variables/colors" as colors;
+// @use "./partials/variables/text" as text;
+@use "../../styles/partials/mixins/devices" as devices;
+// @use "./partials/placeholders" as holders;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+
+
+.loginPage {
+  background-color: colors.$palette2;
+  height: 100vh;
+  padding: 2%;
+
+  .mainContainer {
+    max-width: 1500px;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+
+    @include devices.device(mobile) {
+      flex-direction: row;
+      justify-content: space-between
+    }
+
+    .colLeft, .colRight {
+      width: 100%;
+      
+      @include devices.device(mobile) {
+        width: 50%;
+        display: flex;
+      }
+    }
+
+    .colRight {
+      justify-content: center;
+    }
+  }
+}
+
+.loginTitle {
+  @include devices.device(mdScreen) {
+    font-size: 3rem;
+  }
+
+  @include devices.device(lgScreen) {
+    font-size: 4rem;
+  }
+}

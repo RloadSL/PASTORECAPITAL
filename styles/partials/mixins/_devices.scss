@@ -1,7 +1,7 @@
 @mixin device ($breakpoint) {
 
   @if $breakpoint == mobile {
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 780px) {
       @content;
     }
   }
@@ -12,13 +12,13 @@
     }
   }
 
-  // @if $breakpoint == smScreen {
-  //   @media only screen and (min-width: 1080px) {
-  //     @content;
-  //   }
-  // }
-
   @if $breakpoint == smScreen {
+    @media only screen and (min-width: 1080px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == mdScreen {
     @media only screen and (min-width: 1200px) {
       @content;
     }

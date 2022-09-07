@@ -1,4 +1,6 @@
 
+import style from "./LoginPage.module.scss";
+
 import ButtonApp from 'components/ButtonApp'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
@@ -8,7 +10,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
-import { ErrorAuth } from 'infrastructure/firebase/authentication.firebase'
+import Card from "components/Card";
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useSystem } from 'ui/hooks/system.hooks'
 
@@ -20,7 +22,6 @@ interface LOGINVALUE {
 interface LOGINPAGEVIEWPROPS {
   signIn: Function
   validationSchema: any
-  
 }
 
 /**
@@ -29,8 +30,10 @@ interface LOGINPAGEVIEWPROPS {
 const LoginPage: NextPage = () => {
   const intl = useIntl()
   const router = useRouter()
+
   const { signIn, isLogged } = useAuthentication()
   const {setLoadingState} = useSystem()
+
   const _signIn = (value: LOGINVALUE) => {
      signIn(value)
   }
@@ -48,6 +51,7 @@ const LoginPage: NextPage = () => {
     }),
     [intl]
   )
+
 
   useEffect(() => {
     if (isLogged) router.push('/')
@@ -68,35 +72,48 @@ const LoginPage: NextPage = () => {
  * @param errorAuth Valores iniciales del formulario los key tienen que coincidir con los name de los campos input
  * @returns
  */
+
 const LoginPageView = ({
   signIn,
   validationSchema
 }: LOGINPAGEVIEWPROPS) => {
   const r1 = useRef()
   return (
-    <div className='login-page container'>
-      <h1>
-        <FormattedMessage id='page.login.title' />
-      </h1>
-      <FormApp
+    <div className={style.loginPage}>
+      <div className={style.mainContainer}>
+        <div className={style.colLeft}>
+          <h1 className={style.loginTitle}>
+            Lorem ipsum dolor sit amet consectetur adipisicing
+          </h1>
+        </div>
+        <div className={style.colRight}>
+          <Card>
+          <div>
+                <Link href={'/sign-up'}><a>SignUp</a></Link>
+              </div>
+              <p>
+                <FormattedMessage id="page.login.title" />
+              </p>
+            <div>
+
+
+            <FormApp
         validationSchema={validationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values: any) => signIn(values)}
       >
-        <InputApp key="email" labelID='page.login.labelEmail' type='email' name='email' />
-        <InputApp
-          key="password"
-          labelID='page.login.labelPassword'
-          type='password'
-          name='password'
-        />
-        <ButtonApp type='submit' labelID='page.login.btnSubmit' />
-      </FormApp>
-    {/*   <div>
-        <Link href={'/sign-up'}>
-          <a>SignUp</a>
-        </Link>
-      </div> */}
+                <InputApp labelID="page.login.labelEmail" type="email" name='email' />
+                <InputApp labelID="page.login.labelPassword" type="password" name='password' />
+                <ButtonApp type="submit" labelID="page.login.btnSubmit" />
+              </FormApp>
+
+              
+            </div>
+          </Card>
+
+        </div>
+      </div>
+
     </div>
   )
 }
