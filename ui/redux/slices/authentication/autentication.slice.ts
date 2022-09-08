@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
-import { AppDispatch } from 'ui/redux/store';
 import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
 import { AuthenticationRepositoryImplementation } from '../../../../infrastructure/retpositories/authentication.repository'
 import { UserRepositoryImplementation } from '../../../../infrastructure/retpositories/users.repository';
-import { setLoading } from '../system/system.slice';
 
 const authRepository = AuthenticationRepositoryImplementation.getInstance();
 const userRepository = new UserRepositoryImplementation();
+
 export const onChangeAuthState = (callback: Function) => authRepository.onUserChange(callback)
 
 

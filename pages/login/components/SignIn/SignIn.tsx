@@ -16,7 +16,7 @@ interface LOGINVALUE {
   password: string
 }
 
-export const SignIn = () => {
+ const SignIn = () => {
   const intl = useIntl()
   const { signIn } = useAuthentication()
   const validationSchema = useCallback(
@@ -73,3 +73,5 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
     </>
   )
 }
+
+export default SignIn;

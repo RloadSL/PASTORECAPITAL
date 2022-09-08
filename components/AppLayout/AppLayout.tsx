@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
-import {
-  createUser,
-  onChangeAuthState
-} from 'ui/redux/slices/authentication/autentication.slice'
-import { useAuthentication } from 'ui/hooks/authentication.hook'
+
 import Drawer from './components/Drawer'
 import { useDispatch } from 'react-redux'
+
+import { createUser, onChangeAuthState } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 
 /**

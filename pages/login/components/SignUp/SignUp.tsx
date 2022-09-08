@@ -13,7 +13,7 @@ interface SINGUPVIEW {
   validationSchema: any
 }
 
-export const SignUp = () => {
+const SignUp = () => {
   const intl = useIntl()
   const { signUp } = useAuthentication()
 
@@ -95,3 +95,5 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
     </>
   )
 }
+
+export  default SignUp;

@@ -7,11 +7,11 @@ import { setUser } from '../Users/users';
 const updateUser = async (data:{userData: UpdateUser, uid: string}, context: https.CallableContext)=>{
   if(Object.keys(data).length < 4) return {status: 400, error: 'Data contains undefined value'}
   try {
-    const {full_name, email, role } = data.userData;
+    const {name, lastname, email, role } = data.userData;
     const updates:any = {};
-    Object.keys({full_name, email, role }).forEach((key)=>{
-      const value = {full_name, email, role }[key];
-      if(value && key === full_name) updates.displayName = value;
+    Object.keys({name, lastname, email, role }).forEach((key)=>{
+      const value = {name, lastname, email, role }[key];
+      if(value && key === name) updates.displayName = value;
       if(value && key === email) updates.email = value;
     })
     const userCredentials = await auth().updateUser(data.uid , updates)

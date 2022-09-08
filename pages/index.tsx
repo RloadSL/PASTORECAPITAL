@@ -2,9 +2,9 @@
 import { NextPage } from 'next';
 import HomePage from './home/HomePage';
 
-const main = ():NextPage => {
-  return HomePage;
+const main = () => {
+  return <HomePage/>;
 }
 
-export default main();
+export default main;
 
