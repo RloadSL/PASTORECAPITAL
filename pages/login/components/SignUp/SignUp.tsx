@@ -7,6 +7,7 @@ import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
 import { CreateUser } from 'infrastructure/dto/users.dto'
+import InputCheckApp from 'components/FormApp/components/InputCheckApp'
 interface SINGUPVIEW {
   signUp: Function
   validationSchema: any
@@ -83,6 +84,10 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
             labelID='page.login.labelRepeatPassword'
             type='password'
             name='repeatPassword'
+          />
+          <InputCheckApp
+            labelID='page.signUp.labelAcceptTerms'
+            name='accept'
           />
           <ButtonApp type='submit' labelID='page.login.btnSubmit' />
         </FormApp>

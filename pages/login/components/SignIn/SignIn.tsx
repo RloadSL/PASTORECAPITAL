@@ -59,6 +59,7 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
               labelID='page.login.labelEmail'
               type='email'
               name='email'
+              
             />
             <InputApp
               labelID='page.login.labelPassword'

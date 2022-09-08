@@ -1,0 +1,32 @@
+// @use "../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+
+.inputContainer {
+  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 12px 5px;
+  position: relative;
+
+  .label {
+    display: flex;
+    font-size: .8rem;
+    align-items: center;
+  }
+
+  .input {
+    width: 100%;
+    margin-right: 15px;
+  }
+}
+
+.error {
+  font-size: 0.8rem;
+  color: colors.$error;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.hasError {
+  outline: 1px solid colors.$error;
+}
