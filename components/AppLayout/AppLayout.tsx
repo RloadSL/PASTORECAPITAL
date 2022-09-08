@@ -8,7 +8,6 @@ import { createUser, onChangeAuthState } from 'ui/redux/slices/authentication/au
 import { AppDispatch } from 'ui/redux/store'
 import { useRouter } from 'next/router'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
-import useRouterGuard from 'ui/hooks/router.hook'
 
 /**
  * Componente principal de la aplicación
@@ -16,7 +15,6 @@ import useRouterGuard from 'ui/hooks/router.hook'
 
 export default function AppLayout ({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
-  useRouterGuard()
   useEffect(() => {
     onChangeAuthState((user: any) => {
       dispatch(createUser(user.uid))

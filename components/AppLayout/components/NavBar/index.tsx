@@ -6,17 +6,14 @@ import { useAuthentication } from 'ui/hooks/authentication.hook'
 import styles from './NavBar.module.scss'
 
 const NavBar = () => {
-  /* const { isLogged, signOutUser } = useAuthentication() */
+  const { isLogged, signOutUser } = useAuthentication()
   const router = useRouter()
   const titlePage =
     router.route !== '/' ? router.route.replace('/', '') : 'home'
-   
- 
-  console.log('NAV BAR')
   return (
     <NavBarView
-
-      linkToSignIn={router.route !== '/login'}
+      signOut={isLogged ? () => signOutUser() : undefined}
+      linkToSignIn={!isLogged ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
       titlePage={`page.${titlePage}.title`}
     />
@@ -31,7 +28,7 @@ const NavBarView = ({
 }: {
   back?: Function
   titlePage?: string
-  linkToSignIn: boolean
+  linkToSignIn?: boolean
   signOut?: Function
 }) => {
   return (

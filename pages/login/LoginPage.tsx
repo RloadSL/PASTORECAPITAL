@@ -17,9 +17,13 @@ const SigUp = dynamic(() => import('./components/SignUp'), {
  * Función principal de Login page
  */
 const LoginPage: NextPage = () => {
-
-  const { authError, loadingState } = useAuthentication()
+  const router = useRouter()
+  const { isLogged, authError, loadingState } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
+  useEffect(() => {
+    if (isLogged) router.push('/')
+  }, [router, isLogged])
+
   useEffect(() => {
     setLoadingState(loadingState)
   }, [loadingState])
