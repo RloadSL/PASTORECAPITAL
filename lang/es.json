@@ -2,8 +2,9 @@
   "page.home.title": "Bienvenidos",
   "page.home.h1" : "KAKAK",
 
-  "page.login.title": "Acceder",
-  "page.login.signuptitle": "Registrarse",
+  "page.login.mainTitleLogin": "Nuestros análisis te <b>ayudarán</b> a no sentirte solo.",
+  "page.login.mainTitleSignUp": "¿Nuevo en <b>bitcoins y criptomonedas</b>? No hay problema, te ayudaremos",
+  "page.login.signUptitle": "Registrarse",
   "page.login.labelEmail":"Email",
   "page.login.labelPassword":"Contraseña",
   "page.login.labelRepeatPassword":"Repetir contraseña",

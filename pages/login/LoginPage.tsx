@@ -18,24 +18,24 @@ const SigUp = dynamic(() => import('./components/SignUp'), {
  */
 const LoginPage: NextPage = () => {
   const router = useRouter()
-  const { isLogged, authError , loadingState} = useAuthentication()
-  const {setLoadingState, pushErrorsApp} = useSystem()
+  const { isLogged, authError, loadingState } = useAuthentication()
+  const { setLoadingState, pushErrorsApp } = useSystem()
   useEffect(() => {
     if (isLogged) router.push('/')
   }, [router, isLogged])
 
   useEffect(() => {
     setLoadingState(loadingState)
-   }, [loadingState])
+  }, [loadingState])
 
   useEffect(() => {
-    if(authError?.errorCode){
+    if (authError?.errorCode) {
       pushErrorsApp(authError)
     }
-   }, [authError])
-   
+  }, [authError])
+
   return (
-    <LoginPageView/>
+    <LoginPageView />
   )
 }
 
@@ -45,23 +45,40 @@ const LoginPage: NextPage = () => {
 
 const LoginPageView = () => {
   const [viewForm, setviewForm] = useState(1)
-  
+  const user = "Eric";
 
   return (
     <div className={style.loginPage}>
       <div className={style.mainContainer}>
         <div className={style.colLeft}>
-          <h1 className={style.loginTitle}>
-            Lorem ipsum dolor sit amet consectetur adipisicing
+          <h1 className={style.mainTitle}>
+            {viewForm !== 1 ? (
+              <span>
+                <FormattedMessage
+                  id="page.login.mainTitleSignUp"
+                  values={{
+                    b: children => <strong>{children}</strong>
+                  }}
+                />
+              </span>) : (
+              <span>
+                <FormattedMessage
+                  id="page.login.mainTitleLogin"
+                  values={{
+                    b: children => <strong>{children}</strong>
+                  }}
+                />
+              </span>
+            )}
           </h1>
         </div>
         <div className={style.colRight}>
           <Card>
-          <button onClick={()=>setviewForm(viewForm !== 1 ? 1 : 2)}>{viewForm !== 1 ? 'SignIn' : 'SignUp'}  </button>
+            <button onClick={() => setviewForm(viewForm !== 1 ? 1 : 2)}>{viewForm !== 1 ? 'SignIn' : 'SignUp'}  </button>
 
-            {viewForm === 1 ? <SignIn/> : <Suspense><SigUp/></Suspense>}  
+            {viewForm === 1 ? <SignIn /> : <Suspense><SigUp /></Suspense>}
           </Card>
-         
+
         </div>
       </div>
 

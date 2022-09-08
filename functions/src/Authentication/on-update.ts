@@ -11,6 +11,7 @@ const updateUser = async (data:{userData: UpdateUser, uid: string}, context: htt
     const updates:any = {};
     Object.keys({name, lastname, email, role }).forEach((key)=>{
       const value = {name, lastname, email, role }[key];
+
       if(value && key === name) updates.displayName = value;
       if(value && key === email) updates.email = value;
     })
