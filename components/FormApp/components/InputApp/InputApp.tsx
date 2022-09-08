@@ -37,7 +37,6 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 
   }
  useEffect(() => {
    setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
-   console.log(inputRef?.current)
  }, [inputRef?.current?.value])
  
   return (

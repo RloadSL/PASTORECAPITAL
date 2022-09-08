@@ -17,7 +17,6 @@ const SignUp = () => {
   const intl = useIntl()
   const { signUp } = useAuthentication()
 
-  
   const validationSchema = useCallback(
     () =>
       yup.object({
@@ -38,13 +37,20 @@ const SignUp = () => {
           .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
         repeatPassword: yup
           .string()
-          .oneOf([yup.ref('password')], 'Passwords must match')
+          .oneOf([yup.ref('password')], 'Passwords must match'),
+        accept: yup.boolean()
+        .oneOf([true], intl.formatMessage({ id: 'page.login.errorRequired' }))
+          
+          
       }),
     [intl]
   )
   return (
     <SignUpView
-      signUp={(value: CreateUser) => {signUp(value); console.log('signUp')}}
+      signUp={(value: CreateUser) => {
+        signUp(value)
+        console.log('signUp')
+      }}
       validationSchema={validationSchema}
     ></SignUpView>
   )
@@ -62,6 +68,7 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
           initialValues={{
             email: '',
             password: '',
+            accept: false,
             name: '',
             lastname: '',
             repeatPassword: ''
@@ -85,10 +92,7 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
             type='password'
             name='repeatPassword'
           />
-          <InputCheckApp
-            labelID='page.signUp.labelAcceptTerms'
-            name='accept'
-          />
+          <InputCheckApp labelID='page.signUp.labelAcceptTerms' name='accept' />
           <ButtonApp type='submit' labelID='page.login.btnSubmit' />
         </FormApp>
       </div>
@@ -96,4 +100,4 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
   )
 }
 
-export  default SignUp;
+export default SignUp
