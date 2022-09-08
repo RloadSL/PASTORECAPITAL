@@ -48,6 +48,7 @@ export const signUpEmailPassword = createAsyncThunk(
 export const signOut = createAsyncThunk(
   'auth@signOut',
   async () => {
+    console.log('auth@signOut')
     try {
       await authRepository.signOut()
       const user = null

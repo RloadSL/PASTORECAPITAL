@@ -1,29 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import style from "./LoginPage.module.scss";
+import style from './LoginPage.module.scss'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
 import { FormattedMessage } from 'react-intl'
-import SignIn from "./components/SignIn";
-import Card from "components/Card";
-import { useSystem } from "ui/hooks/system.hooks";
-import dynamic from "next/dynamic";
+import SignIn from './components/SignIn'
+import Card from 'components/Card'
+import { useSystem } from 'ui/hooks/system.hooks'
+import dynamic from 'next/dynamic'
 const SigUp = dynamic(() => import('./components/SignUp'), {
-  suspense: true,
+  suspense: true
 })
 /**
  * Función principal de Login page
  */
 const LoginPage: NextPage = () => {
-  const router = useRouter()
-  const { isLogged, authError, loadingState } = useAuthentication()
-  const { setLoadingState, pushErrorsApp } = useSystem()
-  useEffect(() => {
-    if (isLogged) router.push('/')
-  }, [router, isLogged])
 
+  const { authError, loadingState } = useAuthentication()
+  const { setLoadingState, pushErrorsApp } = useSystem()
   useEffect(() => {
     setLoadingState(loadingState)
   }, [loadingState])
@@ -34,9 +30,7 @@ const LoginPage: NextPage = () => {
     }
   }, [authError])
 
-  return (
-    <LoginPageView />
-  )
+  return <LoginPageView />
 }
 
 /**
@@ -45,7 +39,7 @@ const LoginPage: NextPage = () => {
 
 const LoginPageView = () => {
   const [viewForm, setviewForm] = useState(1)
-  const user = "Eric";
+  const user = 'Eric'
 
   return (
     <div className={style.loginPage}>
@@ -55,15 +49,16 @@ const LoginPageView = () => {
             {viewForm !== 1 ? (
               <span>
                 <FormattedMessage
-                  id="page.login.mainTitleSignUp"
+                  id='page.login.mainTitleSignUp'
                   values={{
                     b: children => <strong>{children}</strong>
                   }}
                 />
-              </span>) : (
+              </span>
+            ) : (
               <span>
                 <FormattedMessage
-                  id="page.login.mainTitleLogin"
+                  id='page.login.mainTitleLogin'
                   values={{
                     b: children => <strong>{children}</strong>
                   }}
@@ -74,14 +69,19 @@ const LoginPageView = () => {
         </div>
         <div className={style.colRight}>
           <Card>
-            <button onClick={() => setviewForm(viewForm !== 1 ? 1 : 2)}>{viewForm !== 1 ? 'SignIn' : 'SignUp'}  </button>
-
-            {viewForm === 1 ? <SignIn /> : <Suspense><SigUp /></Suspense>}
+            <button onClick={() => setviewForm(viewForm !== 1 ? 1 : 2)}>
+              {viewForm !== 1 ? 'SignIn' : 'SignUp'}{' '}
+            </button>
+            {viewForm === 1 ? (
+              <SignIn />
+            ) : (
+              <Suspense>
+                <SigUp />
+              </Suspense>
+            )}
           </Card>
-
         </div>
       </div>
-
     </div>
   )
 }
