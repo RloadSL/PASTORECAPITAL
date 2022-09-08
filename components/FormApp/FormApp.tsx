@@ -32,7 +32,6 @@ const FormApp = ({
 
   const childrenWithExtraProp = ({errors, touched}: any, setFieldValue:Function) => {
     return React.Children.map(children, child => {
-      console.log(touched)
       return React.cloneElement(child, {
         error: errors[child.props.name] && touched[child.props.name] ? errors[child.props.name] : null,
         onChange : setFieldValue
