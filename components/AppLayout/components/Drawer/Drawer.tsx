@@ -17,7 +17,7 @@ const DrawerView = ({ children }: any) => {
   const router = useRouter()
 
   const visible = useCallback(
-    () => router.route !== '/login',
+    () => router.route !== '/login' && router.route !== '/recover-password',
     [router.route],
   )
   return (
