@@ -67,8 +67,6 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
           />
         </h2>
       </div>
-
-
       <div>
         <FormApp
           validationSchema={validationSchema}

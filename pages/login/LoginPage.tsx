@@ -7,14 +7,15 @@ import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
 import { FormattedMessage } from 'react-intl'
-
-
 import SignIn from "./components/SignIn";
 import Card from "components/Card";
 import { useSystem } from "ui/hooks/system.hooks";
 import dynamic from "next/dynamic";
 import logo from "../../assets/img/logo-w.svg";
 import ButtonApp from "components/ButtonApp";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// import 'react-tabs/style/react-tabs.css';
+
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
   suspense: true
@@ -27,6 +28,7 @@ const LoginPage: NextPage = () => {
   const router = useRouter()
   const { isLogged, authError, loadingState } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
+
 
   useEffect(() => {
     if (isLogged) router.push('/')
@@ -58,7 +60,6 @@ const LoginPageView = () => {
     <div className={style.loginPage}>
       <div className={style.mainContainer}>
         <div className={style.colLeft}>
-
           <div className={style.colContainer}>
             <div className={style.logo}>
               <Image src={logo} alt="Picture of the author" />
@@ -82,14 +83,36 @@ const LoginPageView = () => {
         </div>
         <div className={style.colRight}>
           <Card customStyle={style.cardContainer}>
-            <div className={style.loginFormButtons}>
+
+            <Tabs>
+              <TabList className={style.loginFormButtons}>
+                <Tab>
+                <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignIn"/>
+                </Tab>
+                <Tab>
+                <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignUp"/>
+                </Tab>
+              </TabList>
+              <div className={style.loginFormContainer}>
+              <TabPanel>
+                <SignIn />
+              </TabPanel>
+              <TabPanel>
+                <Suspense><SigUp /></Suspense>
+              </TabPanel>
+              </div>
+            </Tabs>
+
+
+
+
+            {/* <div className={style.loginFormButtons}>
               <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignIn" onClick={() => setviewForm(1)} />
               <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignUp" onClick={() => setviewForm(2)} />
-            </div>
-            <div className={style.loginFormContainer}>
+            </div> */}
+            {/* <div className={style.loginFormContainer}>
               {viewForm === 1 ? <SignIn /> : <Suspense><SigUp /></Suspense>}
-            </div>
-
+            </div> */}
           </Card>
         </div>
       </div>

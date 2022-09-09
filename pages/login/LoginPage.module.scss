@@ -110,6 +110,7 @@
   .loginFormButtons {
     display: flex;
     border-bottom: 1px solid colors.$grey40;
+    justify-content: space-around;
   }
 
   .loginFormContainer {
@@ -148,3 +149,6 @@
   }
 }
 
+.react-tabs__tab--selected .button {
+  background-color: red !important;
+}
