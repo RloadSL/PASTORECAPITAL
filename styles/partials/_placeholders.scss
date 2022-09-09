@@ -4,7 +4,21 @@
 
 %smallCaps {
   text-transform: uppercase;
-  color: colors.$grey50;
   letter-spacing: 2px;
-  font-size: 1rem;
+  font-size: .8rem;
+  font-weight: normal;
+
+  @include devices.device(mdScreen) {
+    font-size: 1rem;
+  }
+}
+
+%mainTitle {
+  color: colors.$dark;
+  font-size: 1.5rem;
+  margin-top: 0px;
+
+  @include devices.device(tablet) {
+    font-size: 2rem;
+  }
 }

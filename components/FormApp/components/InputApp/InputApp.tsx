@@ -42,7 +42,7 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 
   return (
     <>
       <div className={error ? `${style.hasError} ${style.inputContainer}` : style.inputContainer}>
-        <label className={isFloating}>
+        <label className={`${style.label} ${isFloating}`}>
           <span>
             <FormattedMessage id={labelID} />
           </span>

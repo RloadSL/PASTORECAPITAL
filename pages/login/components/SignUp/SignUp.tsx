@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
-
+import style from '../../LoginPage.module.scss'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -17,8 +17,9 @@ interface SINGUPVIEW {
 
 const SignUp = () => {
   const intl = useIntl()
+
   const dispatch = useDispatch<AppDispatch>()
-  const signUp = (data:CreateUser) => dispatch(signUpEmailPassword(data));
+  const signUp = (data: CreateUser) => dispatch(signUpEmailPassword(data))
 
   const validationSchema = useCallback(
     () =>
@@ -41,10 +42,9 @@ const SignUp = () => {
         repeatPassword: yup
           .string()
           .oneOf([yup.ref('password')], 'Passwords must match'),
-        accept: yup.boolean()
-        .oneOf([true], intl.formatMessage({ id: 'page.login.errorRequired' }))
-          
-          
+        accept: yup
+          .boolean()
+          .oneOf([true], intl.formatMessage({ id: 'page.login.errorRequired' }))
       }),
     [intl]
   )
@@ -61,10 +61,18 @@ const SignUp = () => {
 
 const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
   return (
-    <>
-      <p>
-        <FormattedMessage id='page.login.signuptitle' />
-      </p>
+    <div className={style.signUpContainer}>
+      <div className={style.formTitleContainer}>
+        <p className={style.subtitle}>
+          <FormattedMessage id='page.login.signUpCaps' />
+        </p>
+        <h2 className={style.formTitle}>
+          <FormattedMessage
+            id='page.login.signUpTitle'
+            values={{ br: <br /> }}
+          />
+        </h2>
+      </div>
       <div>
         <FormApp
           validationSchema={validationSchema}
@@ -95,11 +103,16 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
             type='password'
             name='repeatPassword'
           />
+
           <InputCheckApp labelID='page.signUp.labelAcceptTerms' name='accept' />
-          <ButtonApp type='submit' labelID='page.login.btnSubmit' />
+          <ButtonApp
+            buttonStyle='secondary'
+            type='submit'
+            labelID='page.login.labelSignUpButton'
+          />
         </FormApp>
       </div>
-    </>
+    </div>
   )
 }
 

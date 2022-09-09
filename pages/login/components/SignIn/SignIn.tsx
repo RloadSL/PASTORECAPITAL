@@ -2,6 +2,9 @@ import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
 
+import { useAuthentication } from 'ui/hooks/authentication.hook'
+import style from '../../LoginPage.module.scss'
+
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -49,33 +52,47 @@ const SignIn = () => {
 
 const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
   return (
-    <>
-      <p>
-        <FormattedMessage id='page.login.title' />
-      </p>
+
+    <div className={style.signInContainer}>
+      <div className={style.formTitleContainer}>
+        <p className={style.subtitle}>
+          <FormattedMessage
+            id='page.login.signInCaps'
+          />
+        </p>
+        <h2 className={style.formTitle}>
+          <FormattedMessage
+            id='page.login.signInTitle'
+            values={{ br: <br /> }}
+          />
+        </h2>
+      </div>
+
+
       <div>
         <FormApp
           validationSchema={validationSchema}
           initialValues={{ email: '', password: '' }}
           onSubmit={(values: any) => signIn(values)}
         >
-          <InputApp labelID='page.login.labelEmail' type='email' name='email' />
+
+          <InputApp
+            labelID='page.login.labelEmail'
+            type='email'
+            name='email'
+          />
+
           <InputApp
             labelID='page.login.labelPassword'
             type='password'
             name='password'
           />
-          <div style={{marginBottom: 20}}>
-            <Link href={'/recover-password'}>
-              {/* @maria poner traducción */}
-              <a>Recuerdame</a>
-            </Link>
-          </div>
 
-          <ButtonApp type='submit' labelID='page.login.btnSubmit' />
+          <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignInButton' />
         </FormApp>
       </div>
-    </>
+    </div>
+
   )
 }
 

@@ -5,5 +5,18 @@
   width: 100%;
   border-radius: 20px;
   padding: 20px;
+}
+
+.transparent {
+  background-color: transparent;
+  border-radius: 0px;
+}
+
+.primary {
+  background-color: colors.$main;
+}
+
+.secondary {
   background-color: colors.$palette5;
 }
+
