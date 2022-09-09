@@ -1,49 +1,150 @@
 
 @use "../../styles/partials/mixins/devices" as devices;
-// @use "./partials/placeholders" as holders;
+@use "../../styles/partials/placeholders";
 @use "../../styles/partials/variables/colors" as colors;
 @use "../../styles/partials/variables/text" as text;
 
 
 .loginPage {
-  background-color: colors.$palette2;
-  height: 100vh;
-  padding: 2%;
+  background-image: url(../../assets/img/login-bg.jpg);
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+
   .mainContainer {
-    max-width: 1500px;
+    max-width: 500px;
     margin: auto;
     height: 100%;
     display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
+    padding: 80px 5% 100px 5%;
 
-    @include devices.device(smTablet) {
+    @include devices.device(tablet) {
       flex-direction: row;
-      justify-content: space-between
+      justify-content: space-between;
+      max-width: 1200px;
+    }
+
+    @include devices.device(lgScreen) {
+      padding: 0px;
     }
 
     .colLeft, .colRight {
       width: 100%;
-      
-      @include devices.device(smTablet) {
-        width: 50%;
-        display: flex;
+
+      @include devices.device(mdScreen) {
+        width: 100%;
+      }
+    }
+
+    .colLeft {
+      flex-direction: column;
+      color: white;
+      margin-bottom: 20px;
+
+      @include devices.device(tablet) {
+        margin-right: 50px;
+        margin-bottom: 0px;
+      }
+
+      .colContainer {
+        @include devices.device(tablet) {
+          min-height: 820px;
+        }
       }
     }
 
     .colRight {
       justify-content: center;
+
+      @include devices.device(smScreen) {
+        width: 100%;
+      }
     }
+  }
+
+  .logo {
+    margin-bottom: 20%;
   }
 }
 
-.loginTitle {
+.mainTitle {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -1px;
+  color: white;
+  margin-bottom: 0px;
+
+  strong {
+    font-weight: 500;
+  }
+
+  @include devices.device(smTablet) {
+    font-size: text.$mdTitle;
+  }
+  
   @include devices.device(mdScreen) {
-    font-size: 3rem;
+    font-size: text.$lTitle;
+    letter-spacing: -3px;  
   }
 
   @include devices.device(lgScreen) {
-    font-size: 4rem;
+    font-size: text.$xlTitle;
   }
 }
+
+.cardContainer {
+  padding: 0% !important;
+  max-width: 450px !important;
+
+  @include devices.device(tablet) {
+    height: 820px;
+  }
+
+  @include devices.device(mdScreen) {
+    max-width: 500px !important;
+  }
+
+  .loginFormButtons {
+    display: flex;
+    border-bottom: 1px solid colors.$grey40;
+  }
+
+  .loginFormContainer {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+
+    @include devices.device(smScreen) {
+      padding: 0% 10%;
+    }
+  }
+
+  .signInContainer,.signUpContainer {
+    animation: fadeIn 0.5s;
+  }
+}
+
+.formTitle {
+  @extend %mainTitle
+}
+
+.subtitle {
+  @extend %smallCaps;
+  color: colors.$main;
+}
+
+@keyframes fadeIn { 
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+

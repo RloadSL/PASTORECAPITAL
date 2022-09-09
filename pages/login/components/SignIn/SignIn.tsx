@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
-
+import style from '../../LoginPage.module.scss'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -16,7 +16,7 @@ interface LOGINVALUE {
   password: string
 }
 
- const SignIn = () => {
+const SignIn = () => {
   const intl = useIntl()
   const { signIn } = useAuthentication()
   const validationSchema = useCallback(
@@ -44,33 +44,41 @@ interface LOGINVALUE {
 
 const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
   return (
-    <>
-      
-        <p>
-          <FormattedMessage id='page.login.title' />
+    <div className={style.signInContainer}>
+      <div className={style.formTitleContainer}>
+        <p className={style.subtitle}>
+          <FormattedMessage
+            id='page.login.signInCaps'
+          />
         </p>
-        <div>
-          <FormApp
-            validationSchema={validationSchema}
-            initialValues={{ email: '', password: '' }}
-            onSubmit={(values: any) => signIn(values)}
-          >
-            <InputApp
-              labelID='page.login.labelEmail'
-              type='email'
-              name='email'
-              
-            />
-            <InputApp
-              labelID='page.login.labelPassword'
-              type='password'
-              name='password'
-            />
-            <ButtonApp type='submit' labelID='page.login.btnSubmit' />
-          </FormApp>
-        </div>
-    
-    </>
+        <h2 className={style.formTitle}>
+          <FormattedMessage
+            id='page.login.signInTitle'
+            values={{ br: <br /> }}
+          />
+        </h2>
+      </div>
+
+      <div>
+        <FormApp
+          validationSchema={validationSchema}
+          initialValues={{ email: '', password: '' }}
+          onSubmit={(values: any) => signIn(values)}
+        >
+          <InputApp
+            labelID='page.login.labelEmail'
+            type='email'
+            name='email'
+          />
+          <InputApp
+            labelID='page.login.labelPassword'
+            type='password'
+            name='password'
+          />
+          <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignInButton' />
+        </FormApp>
+      </div>
+    </div>
   )
 }
 

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
-
+import style from '../../LoginPage.module.scss'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -16,7 +16,6 @@ interface SINGUPVIEW {
 const SignUp = () => {
   const intl = useIntl()
   const { signUp } = useAuthentication()
-
   
   const validationSchema = useCallback(
     () =>
@@ -52,10 +51,20 @@ const SignUp = () => {
 
 const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
   return (
-    <>
-      <p>
-        <FormattedMessage id='page.login.signuptitle' />
-      </p>
+    <div className={style.signUpContainer}>
+      <div className={style.formTitleContainer}>
+        <p className={style.subtitle}>
+          <FormattedMessage
+            id='page.login.signUpCaps'
+          />
+        </p>
+        <h2 className={style.formTitle}>
+          <FormattedMessage
+            id='page.login.signUpTitle'
+            values={{ br: <br /> }}
+          />
+        </h2>
+      </div>
       <div>
         <FormApp
           validationSchema={validationSchema}
@@ -89,11 +98,11 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
             labelID='page.signUp.labelAcceptTerms'
             name='accept'
           />
-          <ButtonApp type='submit' labelID='page.login.btnSubmit' />
+          <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignUpButton' />
         </FormApp>
       </div>
-    </>
+    </div>
   )
 }
 
-export  default SignUp;
+export default SignUp;
