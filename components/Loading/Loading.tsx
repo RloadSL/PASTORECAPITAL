@@ -7,7 +7,7 @@ export const Loading = () => {
 }
 
 const LoadingView = ({loadingState}:{loadingState:boolean}) => {
-  return loadingState ? <div style={{height: 200}}>Loading...</div> : null;
+  return loadingState ? <div style={{height: '100vh', position: 'fixed', top: 0}}>Loading...</div> : null;
 }
 
 

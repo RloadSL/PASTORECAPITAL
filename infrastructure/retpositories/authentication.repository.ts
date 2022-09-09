@@ -96,8 +96,20 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
  /**
    * Recuperar contraseña mediante email.
    */
-  recoverPass(email:string): Promise<{ status: number; error: string | null; }> {
-    throw new Error("Method not implemented.");
+  /**
+   * Crear nuevo usuario en Firebase Authentication y Firestore 
+   * @param data Datos del usuario necesarios para crear no nuevo
+   * @returns Promesa con los resultados de la operación
+   */
+   async sendSecurityCode(data: {email: string}): Promise<any> {
+    try {
+      const response = await FireFunctions.getInstance().onCallFunction('SendSecurityCodeFunctions', data);
+      console.log(response)
+      return response;
+    } catch (error) {
+      return { userCredential: null, error: error };
+    }
   }
 
+  async recoverPass(email: string): Promise<any> {}
 }

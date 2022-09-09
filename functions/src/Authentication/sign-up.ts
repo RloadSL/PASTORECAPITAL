@@ -15,8 +15,8 @@ const signUp = async (data:CreateUser, context: https.CallableContext)=>{
       password
     })
     
-    await setUser(userCredentials.uid, { name, lastname, email, role })
-    sendMailer([email], 'Bienvenido a PC', buildTemplate('welcome', name+' '+lastname)).catch(e => console.error(e));
+    await setUser(userCredentials.uid, { name, lastname, email, role, uid: userCredentials.uid })
+    sendMailer([email], 'Bienvenido a PC', buildTemplate('welcome', {full_name: name+' '+lastname})).catch(e => console.error(e));
     return {status: 200, error: null, uid: userCredentials.uid}
   } catch (error) {
     console.log(error)

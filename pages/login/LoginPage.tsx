@@ -33,7 +33,7 @@ const LoginPage: NextPage = () => {
       pushErrorsApp(authError)
     }
   }, [authError])
-
+  console.log('RENDER LOGIN')
   return <LoginPageView />
 }
 

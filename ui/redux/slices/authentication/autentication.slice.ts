@@ -72,6 +72,18 @@ export const createUser = createAsyncThunk(
   }
 )
 
+export const sendEmailCode = createAsyncThunk(
+  'auth@sendEmailCode',
+  async (arg: {email: string}) => {
+    try {
+      await authRepository.sendSecurityCode(arg)
+    } catch (error) {
+      alert(error)
+      return error;
+    }
+  }
+)
+
 const _handleSignIn = (state: any, action: any) => {
   if (action.payload instanceof User) {
     state.userLogged = action.payload
@@ -111,7 +123,9 @@ export const authetication = createSlice({
       .addCase(createUser.fulfilled, _handleSignIn)
       .addCase(createUser.pending, (state) => {state.loading = true})
       .addCase(signOut.fulfilled, (state: any, action: any) => { state.userLogged = null, state.loggued = false, state.authError = null, state.loading = false })
-  },
+      .addCase(sendEmailCode.fulfilled, (state: any, action: any) => {  state.loading = false })
+      .addCase(sendEmailCode.pending, (state) => {state.loading = true})
+    },
 })
 
 //Estrallendo actions

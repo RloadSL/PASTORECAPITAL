@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useAuthentication } from 'ui/hooks/authentication.hook'
 
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
 import { CreateUser } from 'infrastructure/dto/users.dto'
 import InputCheckApp from 'components/FormApp/components/InputCheckApp'
+import { signUpEmailPassword } from 'ui/redux/slices/authentication/autentication.slice'
+import { AppDispatch } from 'ui/redux/store'
+import { useDispatch } from 'react-redux'
 interface SINGUPVIEW {
   signUp: Function
   validationSchema: any
@@ -15,7 +17,8 @@ interface SINGUPVIEW {
 
 const SignUp = () => {
   const intl = useIntl()
-  const { signUp } = useAuthentication()
+  const dispatch = useDispatch<AppDispatch>()
+  const signUp = (data:CreateUser) => dispatch(signUpEmailPassword(data));
 
   const validationSchema = useCallback(
     () =>

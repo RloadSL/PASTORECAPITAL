@@ -2,17 +2,23 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useAuthentication } from 'ui/hooks/authentication.hook'
+import { useDispatch, useSelector } from 'react-redux'
+import { signOut } from 'ui/redux/slices/authentication/autentication.slice'
+import { getIsLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { AppDispatch } from 'ui/redux/store'
 import styles from './NavBar.module.scss'
 
 const NavBar = () => {
-  const { isLogged, signOutUser } = useAuthentication()
+  const dispatch = useDispatch<AppDispatch>()
+  const _signOutUser = () => dispatch(signOut())
+  const isLogged = useSelector(getIsLogged)
+  
   const router = useRouter()
   const titlePage =
     router.route !== '/' ? router.route.replace('/', '') : 'home'
   return (
     <NavBarView
-      signOut={isLogged ? () => signOutUser() : undefined}
+      signOut={isLogged ? () => _signOutUser() : undefined}
       linkToSignIn={!isLogged ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
       titlePage={`page.${titlePage}.title`}
