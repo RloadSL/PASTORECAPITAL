@@ -1,11 +1,13 @@
 import { Role } from "./Role";
 
-export interface UpdateUser {
+export interface User {
+  uid?:string,
   name?:string,
   lastname?:string,
   email?:string,
   role?: Role,
-  disabled?: boolean
+  disabled?: boolean,
+  security_code?: {code : number, created_at: Date}
 }
 
 export interface CreateUser {

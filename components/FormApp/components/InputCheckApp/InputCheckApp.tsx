@@ -1,6 +1,8 @@
 import { FormattedMessage } from "react-intl"
 import style from './InputCheckApp.module.scss'
-
+/**
+ * @maria Falta la funcionalidad de navegaciion en el label
+ */
 export interface INPUTCHECKBLOCKPROPS {
   labelID: string,
   onChange?: Function,
@@ -22,9 +24,9 @@ export interface INPUTCHECKBLOCKPROPS {
 const InputCheckApp = ({ labelID, error, name, onChange, onBlur }: INPUTCHECKBLOCKPROPS) => {
 
   const _handleChange = (target: HTMLInputElement) => {
-    if (onChange) onChange(name, target.value)
+   
+    if (onChange) onChange(name, target.checked)
   }
-
   return (
     <>
       <div className={error ? `${style.hasError} ${style.inputContainer}` : style.inputContainer}>

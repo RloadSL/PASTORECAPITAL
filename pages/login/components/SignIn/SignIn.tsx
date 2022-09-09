@@ -1,11 +1,17 @@
 import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
+
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import style from '../../LoginPage.module.scss'
+
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
+import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'ui/redux/store'
+import { signInEmailPassword } from 'ui/redux/slices/authentication/autentication.slice'
 interface LOGINPAGEVIEWPROPS {
   signIn: Function
   validationSchema: any
@@ -18,7 +24,9 @@ interface LOGINVALUE {
 
 const SignIn = () => {
   const intl = useIntl()
-  const { signIn } = useAuthentication()
+  const dispatch = useDispatch<AppDispatch>()
+  const signIn = (data:LOGINVALUE) => dispatch(signInEmailPassword(data));
+
   const validationSchema = useCallback(
     () =>
       yup.object({
@@ -44,6 +52,7 @@ const SignIn = () => {
 
 const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
   return (
+
     <div className={style.signInContainer}>
       <div className={style.formTitleContainer}>
         <p className={style.subtitle}>
@@ -59,27 +68,32 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
         </h2>
       </div>
 
+
       <div>
         <FormApp
           validationSchema={validationSchema}
           initialValues={{ email: '', password: '' }}
           onSubmit={(values: any) => signIn(values)}
         >
+
           <InputApp
             labelID='page.login.labelEmail'
             type='email'
             name='email'
           />
+
           <InputApp
             labelID='page.login.labelPassword'
             type='password'
             name='password'
           />
+
           <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignInButton' />
         </FormApp>
       </div>
     </div>
+
   )
 }
 
-export default SignIn;
+export default SignIn

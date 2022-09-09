@@ -2,7 +2,6 @@
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useAuthentication } from 'ui/hooks/authentication.hook'
 import { useSystem } from 'ui/hooks/system.hooks'
 import style from './SnackBar.module.scss'
 

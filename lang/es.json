@@ -1,7 +1,7 @@
 {
   "page.home.title": "Bienvenidos",
   "page.home.h1" : "KAKAK",
-
+  "page.login.title" : "Title",
   "page.login.mainTitleLogin": "Nuestros análisis te <b>ayudarán</b> a no sentirte solo.",
   "page.login.mainTitleSignUp": "¿Nuevo en <b>bitcoins y criptomonedas</b>? Te ayudaremos",
   "page.login.labelSignIn":"Iniciar sesión",
@@ -23,6 +23,11 @@
   "page.signUp.title": "Darse de alta",
   "page.signUp.labelAcceptTerms":"He leído y acepto los términos y condiciones",
 
+  "page.recover-password.title": "Recuperar contraseña",
+  "page.recover-password.form.sendEmail.submit": "Enviar email",
+  "page.recover-password.form.validateCode.submit": "Validar código",
+  "page.recover-password.form.setPassword.submit": "Cambiar contraseña",
+
   "component.navbar.backbuttom": "Atrás",
 
   "component.navbar.signUpBtn": "Autenticarse",
@@ -30,5 +35,16 @@
   
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
   "auth/user-not-found": "El usuario no existe",
-  "auth/email-already-exists" : "El email ya esta en uso en la plataforma"
+  "auth/email-already-exists" : "El email ya esta en uso en la plataforma",
+  
+  "forms.errors.incorrectPassword": "Contraseña incorrecta",
+  "forms.errors.errorRequired": "Este campo es obligatorio",
+  "forms.errors.incorrectEmail": "Email incorrecto",
+  "forms.errors.invalidCode": "Código inválido",
+  "forms.errors.matchPass" : "Las contraseñas no coinciden",
+
+  "forms.labels.email": "Email",
+  "forms.labels.password": "Contraseña",
+  "forms.labels.repeatPassword": "Repetir contraseña",
+  "forms.labels.securityCode": "Código de seguridad"
 }
