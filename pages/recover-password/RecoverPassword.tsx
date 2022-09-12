@@ -43,6 +43,7 @@ const RecoverPasswordPage: NextPage = () => {
   useEffect(() => {
     if (codeValidatedState === 'redirect') {
       router.push('/login')
+      setCodeState('init')
     }
   }, [codeValidatedState])
   

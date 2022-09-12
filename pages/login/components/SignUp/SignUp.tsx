@@ -43,7 +43,7 @@ const SignUp = () => {
           .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
         repeatPassword: yup
           .string()
-          .oneOf([yup.ref('password')], 'Passwords must match'),
+          .oneOf([yup.ref('password')],intl.formatMessage({ id:  'forms.errors.matchPass' })),
         accept: yup
           .boolean()
           .oneOf([true], intl.formatMessage({ id: 'page.login.errorRequired' }))

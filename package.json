@@ -16,7 +16,6 @@
     "firebase": "^9.9.2",
     "formik": "^2.2.9",
     "next": "12.2.4",
-    "rc-tabs": "^12.1.0-alpha.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intl": "^6.0.5",

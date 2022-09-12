@@ -83,7 +83,7 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
             name='password'
             space={false}
           />
-          <Link href={'#'}>
+          <Link href={'/recover-password'}>
             <a className='smallText'>
               <FormattedMessage id="page.login.labelRecoverPassword" />
             </a>

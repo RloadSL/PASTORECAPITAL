@@ -51,7 +51,7 @@ const LoginPage: NextPage = () => {
 
 const LoginPageView = () => {
   const [viewForm, setviewForm] = useState(0)  
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(0);
 
 
   return (
