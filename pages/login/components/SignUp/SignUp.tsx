@@ -10,6 +10,8 @@ import InputCheckApp from 'components/FormApp/components/InputCheckApp'
 import { signUpEmailPassword } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 import { useDispatch } from 'react-redux'
+import Link from 'next/link'
+
 interface SINGUPVIEW {
   signUp: Function
   validationSchema: any
@@ -104,7 +106,11 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
             name='repeatPassword'
           />
 
-          <InputCheckApp labelID='page.signUp.labelAcceptTerms' name='accept' />
+          <InputCheckApp labelID='page.signUp.labelAcceptTerms' name='accept' formattedValues={
+            {
+              b: (children:any) => <Link href={'#'}><a>{children}</a></Link>
+            }} 
+          />
           <ButtonApp
             buttonStyle='secondary'
             type='submit'

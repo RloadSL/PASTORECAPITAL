@@ -6,7 +6,7 @@ interface BUTTONPROPS {
   labelID: string,
   onClick?: Function,
   type: TYPEBUTTON,
-  buttonStyle: 'transparent' | 'primary' | 'secondary' | 'default'
+  buttonStyle: 'transparent' | 'primary' | 'secondary' | 'default' | 'tab'
 }
 
 /**

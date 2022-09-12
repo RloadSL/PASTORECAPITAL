@@ -1,0 +1,19 @@
+@use "../partials/variables/colors" as colors;
+
+.customTab {
+  width: 50%;
+  font-weight: normal;
+  .button {
+    color: colors.$grey40 !important;
+  }
+}
+
+.tabSelect {
+  border-bottom: 3px solid colors.$main;
+  color: colors.$dark;
+
+  button {
+    font-weight: bold !important;
+    color: colors.$dark;
+  }
+}

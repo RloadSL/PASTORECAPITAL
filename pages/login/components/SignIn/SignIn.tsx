@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
-
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import style from '../../LoginPage.module.scss'
-
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -25,7 +23,7 @@ interface LOGINVALUE {
 const SignIn = () => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const signIn = (data:LOGINVALUE) => dispatch(signInEmailPassword(data));
+  const signIn = (data: LOGINVALUE) => dispatch(signInEmailPassword(data));
 
   const validationSchema = useCallback(
     () =>
@@ -73,7 +71,6 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
           initialValues={{ email: '', password: '' }}
           onSubmit={(values: any) => signIn(values)}
         >
-
           <InputApp
             labelID='page.login.labelEmail'
             type='email'
@@ -84,12 +81,19 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
             labelID='page.login.labelPassword'
             type='password'
             name='password'
+            space={false}
           />
-
-          <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignInButton' />
+          <Link href={'#'}>
+            <a className='smallText'>
+              <FormattedMessage id="page.login.labelRecoverPassword" />
+            </a>
+          </Link>
+          <div style={{ marginTop: '20px' }}>
+            <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignInButton' />
+          </div>
         </FormApp>
-      </div>
-    </div>
+      </div >
+    </div >
 
   )
 }

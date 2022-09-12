@@ -5,13 +5,14 @@ import style from './InputApp.module.scss'
 type TYPEINPUT = 'email' | 'password' | 'number' | 'text'
 
 export interface INPUTBLOCKPROPS {
-  labelID: string,
+  labelID: any,
   onChange?: Function,
   onBlur?: Function,
   type: TYPEINPUT,
   error?: string | undefined,
   placeholder?: string,
-  name: string
+  name: string,
+  space?: boolean
 }
 
 /**
@@ -22,26 +23,27 @@ export interface INPUTBLOCKPROPS {
  * @param  type Tipo de campo de formulario
  * @param  error Error del campo de formulario
  * @param  placeholder Placeholder del campo
- * @param  name Name del campo 
+ * @param  name Name del campo
+ * @param  space Espaciado del contenedor del campo
  * @returns 
  */
 
-const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 'text' }: INPUTBLOCKPROPS) => {
+const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 'text', space = true }: INPUTBLOCKPROPS) => {
   const [isFloating, setIsFloating] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const _handleChange = (target: HTMLInputElement ) => {
+  const _handleChange = (target: HTMLInputElement) => {
     if (onChange) onChange(name, target.value)
     setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
-   
+
   }
- useEffect(() => {
-   setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
- }, [inputRef?.current?.value])
- 
+  useEffect(() => {
+    setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
+  }, [inputRef?.current?.value])
+
   return (
     <>
-      <div className={error ? `${style.hasError} ${style.inputContainer}` : style.inputContainer}>
+      <div className={error ? `${style.hasError} ${style.inputContainer} ${space === true ? style.space : ''}` : `${style.inputContainer} ${space === true ? style.space : ''}`}>
         <label className={`${style.label} ${isFloating}`}>
           <span>
             <FormattedMessage id={labelID} />
@@ -54,7 +56,7 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 
             autoComplete={'autocomplete'}
             placeholder={placeholder}
             ref={inputRef}
-            onChange={(e)=>_handleChange(e.target)}
+            onChange={(e) => _handleChange(e.target)}
             onBlur={() => { if (onBlur) onBlur() }}
             className={style.input}
           />

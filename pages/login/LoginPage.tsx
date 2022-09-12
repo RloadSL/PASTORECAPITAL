@@ -14,7 +14,6 @@ import dynamic from "next/dynamic";
 import logo from "../../assets/img/logo-w.svg";
 import ButtonApp from "components/ButtonApp";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import 'react-tabs/style/react-tabs.css';
 
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
@@ -28,7 +27,6 @@ const LoginPage: NextPage = () => {
   const router = useRouter()
   const { isLogged, authError, loadingState } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
-
 
   useEffect(() => {
     if (isLogged) router.push('/')
@@ -52,8 +50,8 @@ const LoginPage: NextPage = () => {
  */
 
 const LoginPageView = () => {
-  const [viewForm, setviewForm] = useState(1)
-
+  const [viewForm, setviewForm] = useState(0)  
+  const [tabIndex, setTabIndex] = useState(1);
 
 
   return (
@@ -83,14 +81,16 @@ const LoginPageView = () => {
         </div>
         <div className={style.colRight}>
           <Card customStyle={style.cardContainer}>
-
-            <Tabs>
+            <Tabs selectedIndex={tabIndex} onSelect={(index) => {
+              setviewForm(viewForm !== 1 ? 1 : 0)
+              setTabIndex(index);
+              }}>
               <TabList className={style.loginFormButtons}>
-                <Tab>
-                <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignIn"/>
+                <Tab selectedClassName={style.tabSelect} className={style.customTab}>
+                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignIn"/>
                 </Tab>
-                <Tab>
-                <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignUp"/>
+                <Tab selectedClassName={style.tabSelect} className={style.customTab}>
+                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignUp"/>
                 </Tab>
               </TabList>
               <div className={style.loginFormContainer}>
@@ -102,17 +102,6 @@ const LoginPageView = () => {
               </TabPanel>
               </div>
             </Tabs>
-
-
-
-
-            {/* <div className={style.loginFormButtons}>
-              <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignIn" onClick={() => setviewForm(1)} />
-              <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignUp" onClick={() => setviewForm(2)} />
-            </div> */}
-            {/* <div className={style.loginFormContainer}>
-              {viewForm === 1 ? <SignIn /> : <Suspense><SigUp /></Suspense>}
-            </div> */}
           </Card>
         </div>
       </div>
