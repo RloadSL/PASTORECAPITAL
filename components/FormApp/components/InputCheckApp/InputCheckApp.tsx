@@ -8,7 +8,8 @@ export interface INPUTCHECKBLOCKPROPS {
   onChange?: Function,
   onBlur?: Function,
   error?: string | undefined,
-  name: string
+  name: string,
+  formattedValues?: any
 }
 
 /**
@@ -21,7 +22,7 @@ export interface INPUTCHECKBLOCKPROPS {
  * @returns 
  */
 
-const InputCheckApp = ({ labelID, error, name, onChange, onBlur }: INPUTCHECKBLOCKPROPS) => {
+const InputCheckApp = ({ labelID, formattedValues, error, name, onChange, onBlur }: INPUTCHECKBLOCKPROPS) => {
 
   const _handleChange = (target: HTMLInputElement) => {
    
@@ -42,7 +43,7 @@ const InputCheckApp = ({ labelID, error, name, onChange, onBlur }: INPUTCHECKBLO
             />
           </div>
           <span>
-            <FormattedMessage id={labelID} />
+            <FormattedMessage id={labelID} values={formattedValues}/>
           </span>
         </label>
       </div>

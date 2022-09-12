@@ -7,9 +7,13 @@
   padding: 20px;
 }
 
-.transparent {
+%transparent {
   background-color: transparent;
   border-radius: 0px;
+}
+
+.transparent {
+  @extend %transparent;
 }
 
 .primary {
@@ -20,3 +24,8 @@
   background-color: colors.$palette5;
 }
 
+.tab {
+  @extend %transparent;
+  color: colors.$grey50;
+  font-weight: normal;
+}

@@ -11,6 +11,10 @@
     display: flex;
     font-size: .8rem;
     align-items: center;
+
+    a {
+      text-decoration: underline;
+    }
   }
 
   .input {

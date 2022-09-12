@@ -1,6 +1,7 @@
 
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/placeholders";
+@use "../../styles/partials/tabs";
 @use "../../styles/partials/variables/colors" as colors;
 @use "../../styles/partials/variables/text" as text;
 
@@ -110,6 +111,12 @@
   .loginFormButtons {
     display: flex;
     border-bottom: 1px solid colors.$grey40;
+    justify-content: space-between;
+    padding-top: 15px;
+
+    @include devices.device(smScreen){
+      margin-bottom: 30px;
+    }
   }
 
   .loginFormContainer {
@@ -147,4 +154,3 @@
     opacity: 1;
   }
 }
-

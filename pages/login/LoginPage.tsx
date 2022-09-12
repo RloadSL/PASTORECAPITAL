@@ -7,14 +7,14 @@ import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
 import { useAuthentication } from '../../ui/hooks/authentication.hook'
 import { FormattedMessage } from 'react-intl'
-
-
 import SignIn from "./components/SignIn";
 import Card from "components/Card";
 import { useSystem } from "ui/hooks/system.hooks";
 import dynamic from "next/dynamic";
 import logo from "../../assets/img/logo-w.svg";
 import ButtonApp from "components/ButtonApp";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
   suspense: true
@@ -50,15 +50,14 @@ const LoginPage: NextPage = () => {
  */
 
 const LoginPageView = () => {
-  const [viewForm, setviewForm] = useState(1)
-
+  const [viewForm, setviewForm] = useState(0)  
+  const [tabIndex, setTabIndex] = useState(1);
 
 
   return (
     <div className={style.loginPage}>
       <div className={style.mainContainer}>
         <div className={style.colLeft}>
-
           <div className={style.colContainer}>
             <div className={style.logo}>
               <Image src={logo} alt="Picture of the author" />
@@ -82,14 +81,27 @@ const LoginPageView = () => {
         </div>
         <div className={style.colRight}>
           <Card customStyle={style.cardContainer}>
-            <div className={style.loginFormButtons}>
-              <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignIn" onClick={() => setviewForm(1)} />
-              <ButtonApp buttonStyle="transparent" type="button" labelID="page.login.labelSignUp" onClick={() => setviewForm(2)} />
-            </div>
-            <div className={style.loginFormContainer}>
-              {viewForm === 1 ? <SignIn /> : <Suspense><SigUp /></Suspense>}
-            </div>
-
+            <Tabs selectedIndex={tabIndex} onSelect={(index) => {
+              setviewForm(viewForm !== 1 ? 1 : 0)
+              setTabIndex(index);
+              }}>
+              <TabList className={style.loginFormButtons}>
+                <Tab selectedClassName={style.tabSelect} className={style.customTab}>
+                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignIn"/>
+                </Tab>
+                <Tab selectedClassName={style.tabSelect} className={style.customTab}>
+                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignUp"/>
+                </Tab>
+              </TabList>
+              <div className={style.loginFormContainer}>
+              <TabPanel>
+                <SignIn />
+              </TabPanel>
+              <TabPanel>
+                <Suspense><SigUp /></Suspense>
+              </TabPanel>
+              </div>
+            </Tabs>
           </Card>
         </div>
       </div>

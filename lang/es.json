@@ -20,8 +20,10 @@
   "page.login.incorrectPassword": "Contraseña incorrecta",
   "page.login.labelname": "Nombre",
   "page.login.labellastname":"Apellidos",
+  "page.login.labelRecoverPassword":"He olvidado mi contraseña",
   "page.signUp.title": "Darse de alta",
-  "page.signUp.labelAcceptTerms":"He leído y acepto los términos y condiciones",
+  "page.signUp.labelAcceptTerms":"He leído y acepto los <b>términos y condiciones</b>",
+
 
   "page.recover-password.title": "Recuperar contraseña",
   "page.recover-password.form.sendEmail.submit": "Enviar email",

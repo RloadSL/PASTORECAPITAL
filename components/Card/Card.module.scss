@@ -1,10 +1,11 @@
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
 
 .card {
   background-color: white;
   padding: 5%;
-  border-radius: 20px;
+  border-radius: utils.$borderRadius;
   width: 100%;
 
   @include devices.device(tablet) {

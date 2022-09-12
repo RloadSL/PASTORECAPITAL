@@ -1,7 +1,7 @@
-// @use "./partials/variables/colors" as colors;
-// @use "./partials/variables/text" as text;
-// @use "./partials/mixins/devices" as devices;
-// @use "./partials/placeholders" as holders;
+@use "./partials/variables/colors" as colors;
+@use "./partials/variables/text" as text;
+@use "./partials/mixins/devices" as devices;
+@use "./partials/placeholders" as holders;
 
 // p,
 // li {
@@ -80,6 +80,10 @@
 	.padding-bottom-#{$i} {
 		padding-bottom: (0% + $i);
 	}
+}
+
+.smallText {
+	font-size: text.$textSmall;
 }
 
 
