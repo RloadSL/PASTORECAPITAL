@@ -10,6 +10,7 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import SendCodeMail from './components/SendCodeMail'
 import Link from 'next/link'
 import { FormattedMessage } from 'react-intl'
+import { CODEVALIDATIONSTATE } from 'ui/redux/slices/authentication/autentication.slice'
 const ValidateSecurityCode = dynamic(
   () => import('./components/ValidateSecurityCode'),
   {
@@ -19,11 +20,12 @@ const ValidateSecurityCode = dynamic(
 const SetPassword = dynamic(() => import('./components/SetPassword'), {
   suspense: true
 })
+
 const RecoverPasswordPage: NextPage = () => {
   const router = useRouter()
-  const { isLogged, authError, loadingState } = useAuthentication()
+  const { isLogged, authError, loadingState, codeValidatedState, setCodeState} = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
-
+ 
   useEffect(() => {
     if (isLogged) router.push('/')
   }, [router, isLogged])
@@ -36,43 +38,58 @@ const RecoverPasswordPage: NextPage = () => {
     if (authError?.errorCode) {
       pushErrorsApp(authError)
     }
-  })
+  }, [authError])
 
-  console.log('RENDER RECOVER PASS')
-  return <RecoverPasswordView />
+  useEffect(() => {
+    if (codeValidatedState === 'redirect') {
+      router.push('/login')
+    }
+  }, [codeValidatedState])
+  
+  return <RecoverPasswordView codeValidatedState={codeValidatedState} setCodeState={setCodeState}/>
 }
-type PROCESSSTATE = 'sending_email' | 'validate_code' | 'updating_password'
-const RecoverPasswordView = () => {
-  const [processState, setprocessState]: [PROCESSSTATE, Function] = useState(
-    'sending_email'
-  )
 
-  const renderState = useCallback((processState: PROCESSSTATE) => {
+
+const RecoverPasswordView = ({codeValidatedState, setCodeState}:{codeValidatedState:CODEVALIDATIONSTATE, setCodeState:Function}) => {
+  const [email, setEmail]:[email?:string, setEmail?:Function] = useState()
+  const renderState = useCallback((processState: CODEVALIDATIONSTATE) => {
     switch (processState) {
-      case 'sending_email':
+      case 'init':
         return (
           <Suspense>
-            <SendCodeMail />
+            <SendCodeMail onSend={(email:string) => { setEmail(email)}}/>
           </Suspense>
         )
-      case 'validate_code':
+      case 'waiting':
         return (
           <Suspense>
-            {' '}
-            <ValidateSecurityCode />
+          { email ? <ValidateSecurityCode  email={email}/> : null}
           </Suspense>
         )
-      case 'updating_password':
+      case 'validated':
         return (
           <Suspense>
-            {' '}
-            <SetPassword />
+            {email ? <SetPassword email={email}/> : null}
           </Suspense>
         )
       default:
         break
     }
-  }, [])
+  }, [email])
+
+
+ const _handleCodeState = ()=>{
+      if(codeValidatedState === 'waiting' && email != undefined){
+        return <div style={{display:'flex', width:'100%'}}>
+          <button onClick={()=>setCodeState('init')}>PREVIEW</button>
+        </div>
+      }
+      if(codeValidatedState === 'validated' && email != undefined){
+        return <div style={{display:'flex', width:'100%'}}>
+          <button onClick={()=>setCodeState('waiting')}>PREVIEW</button>
+        </div>
+      }
+  }
 
   return (
     <div className={style.recoverPasswordPage}>
@@ -87,14 +104,10 @@ const RecoverPasswordView = () => {
               <a>Volver</a>
             </Link>
           </div>
-          <button onClick={() => setprocessState('sending_email')}>SET</button>
-          <button onClick={() => setprocessState('validate_code')}>SET</button>
-          <button onClick={() => setprocessState('updating_password')}>
-            SET2
-          </button>
           <br />
           <br />
-          {renderState(processState)}
+          {_handleCodeState() }
+          {renderState(codeValidatedState)}
         </Card>
       </div>
     </div>

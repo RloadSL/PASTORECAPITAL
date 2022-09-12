@@ -11,6 +11,7 @@ export const system = createSlice({
   initialState,
   reducers: {
     cleanErrors: (state) => {
+      console.log('CLEAN ERROR')
       state.errorApp = [];
     },
     pushError: (state, action) => {

@@ -7,7 +7,7 @@ export abstract class AuthenticationRepository {
   abstract signInEmailPassword(email: string, password: string): Promise<{userCredential: FireUser | null , error:  ErrorApp | null}>;
   abstract signUp(data:CreateUser): Promise<{userCredential: FireUser | null , error:  ErrorApp | null}>;
   abstract signOut(): Promise<void>;
-  abstract recoverPass(email:string): Promise<{status:number, error: string | null}>;
+  abstract recoverPass({email, newPassword}:{email: string, newPassword:string}): Promise<{status:number, error: string | null}>;
   abstract onUserChange(callback?:Function):any;
   abstract sendSecurityCode(data: {email: string}):any;
 }

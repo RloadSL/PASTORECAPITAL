@@ -5,8 +5,8 @@ type TYPEBUTTON = 'button' | 'submit'
 interface BUTTONPROPS {
   labelID: string,
   onClick?: Function,
-  type: TYPEBUTTON,
-  buttonStyle: 'transparent' | 'primary' | 'secondary' | 'default'
+  type?: TYPEBUTTON,
+  buttonStyle?: 'transparent' | 'primary' | 'secondary' | 'default'
 }
 
 /**

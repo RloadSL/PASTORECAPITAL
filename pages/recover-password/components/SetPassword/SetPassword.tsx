@@ -5,26 +5,27 @@ import InputApp from 'components/FormApp/components/InputApp';
 import React, { useCallback } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
+import { resetPassword } from 'ui/redux/slices/authentication/autentication.slice';
 import { AppDispatch } from 'ui/redux/store';
 import * as yup from 'yup'
 
-const SetPassword = () => {
+const SetPassword = ({email}:{email:string}) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _setPassword = (newPAssword:string) => alert('Cambiar password');
+  const _setPassword = (newPassword:string) => dispatch(resetPassword({newPassword, email}));
   
   //@maria traducciones
   const validationSchema = useCallback(
     () =>
       yup.object({
-        password: yup
+        newPassword: yup
           .string()
           .trim()
           .min(6, intl.formatMessage({ id: 'forms.errors.incorrectPassword' }))
           .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
         repeatPassword: yup
           .string()
-          .oneOf([yup.ref('password')], intl.formatMessage({ id: 'forms.errors.matchPass' })),
+          .oneOf([yup.ref('newPassword')], intl.formatMessage({ id: 'forms.errors.matchPass' })),
       }),
     [intl]
   )
@@ -41,13 +42,13 @@ const SetPasswordView = ({validationSchema, setPassword}:{validationSchema:any, 
       <div>
         <FormApp
           validationSchema={validationSchema}
-          initialValues={{ email: ''}}
-          onSubmit={(values: any) => setPassword(values)}
+          initialValues={{ newPassword: '', repeatPassword: ''}}
+          onSubmit={(values: any) => setPassword(values.newPassword)}
         >
           <InputApp
             labelID='forms.labels.password'
             type='password'
-            name='password'
+            name='newPassword'
           />
           <InputApp
             labelID='forms.labels.repeatPassword'

@@ -5,12 +5,13 @@ import InputApp from 'components/FormApp/components/InputApp'
 import React, { useCallback } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useDispatch } from 'react-redux'
+import { validateCode } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 import * as yup from 'yup'
-const ValidateSecurityCode = () => {
+const ValidateSecurityCode = ({email}:{email:string}) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _validateCode = (code: string) => alert('Validar code')
+  const _validateCode = (code: number) => {if(email) dispatch(validateCode({code, email}))}
 
   //@maria traducciones
   const validationSchema = useCallback(
@@ -27,17 +28,17 @@ const ValidateSecurityCode = () => {
   return (
     <ValidateSecurityCodeView
       validationSchema={validationSchema()}
-      sendMail={(code: string) => _validateCode(code)}
+      validateCode={(code: number) => _validateCode(code)}
     />
   )
 }
 
 const ValidateSecurityCodeView = ({
   validationSchema,
-  sendMail
+  validateCode
 }: {
   validationSchema: any
-  sendMail: Function
+  validateCode: Function
 }) => {
   return (
     <div className={'SendCodeMail'}>
@@ -45,7 +46,7 @@ const ValidateSecurityCodeView = ({
         <FormApp
           validationSchema={validationSchema}
           initialValues={{ code: '' }}
-          onSubmit={(values: any) => sendMail(values)}
+          onSubmit={(values: any) => validateCode(values.code)}
         >
           <InputApp labelID='forms.labels.securityCode' type='number' name='code' />
 

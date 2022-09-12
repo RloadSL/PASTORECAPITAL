@@ -9,10 +9,13 @@ import { AppDispatch } from "ui/redux/store";
 import * as yup from 'yup'
 
 
-const SendCodeMail = () => {
+const SendCodeMail = ({onSend}:{onSend:Function}) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _sendEmailCode = (values: {email:string}) => dispatch(sendEmailCode(values));
+  const _sendEmailCode = (values: {email:string}) => {
+    dispatch(sendEmailCode(values))
+    onSend(values.email)
+  };
 
   const validationSchema = useCallback(
     () =>

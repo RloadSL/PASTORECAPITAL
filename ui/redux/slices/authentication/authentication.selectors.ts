@@ -1,5 +1,6 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp"
 import { User } from "domain/User/User"
+import { CODEVALIDATIONSTATE } from "./autentication.slice"
 /**
  * Devuelve el usuario que esta logado en la aplicación o null en caso de invitado
  * @returns {User}
@@ -17,3 +18,5 @@ export const getIsLogged = (store:any):boolean => store.authentication.loggued
 export const authenticationError = (store:any):ErrorApp => store.authentication.authError
 
 export const isLoading = (store:any):boolean => store.authentication.loading
+
+export const codeValidated = (store:any):CODEVALIDATIONSTATE => store.authentication.code_validated

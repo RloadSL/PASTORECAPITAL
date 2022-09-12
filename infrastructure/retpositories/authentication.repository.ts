@@ -93,23 +93,59 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
     this._logged = false;
     this._userLogged = null;
   }
- /**
-   * Recuperar contraseña mediante email.
-   */
-  /**
-   * Crear nuevo usuario en Firebase Authentication y Firestore 
-   * @param data Datos del usuario necesarios para crear no nuevo
-   * @returns Promesa con los resultados de la operación
-   */
+ 
+    /**
+     * Envía un código de 4 caracteres al correo correspondiente si el usuario existe.
+     * @param data Email para enviar el codigo
+     * @returns 
+     */
    async sendSecurityCode(data: {email: string}): Promise<any> {
     try {
       const response = await FireFunctions.getInstance().onCallFunction('SendSecurityCodeFunctions', data);
-      console.log(response)
-      return response;
+     
+      if(response.status === 200){
+        return {state: 'waiting' , error: null};
+      }else{
+        return {state: 'init' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error})};;
+      }
     } catch (error) {
       return { userCredential: null, error: error };
     }
   }
 
-  async recoverPass(email: string): Promise<any> {}
+  /**
+   * Valida el código enviado previamente teniendo en cuanta un dia de expiración
+   * @param data.email Email previamente seteado por el paso anterior  
+   * @returns 
+   */
+  async validateCode(data: {code: number, email:string}): Promise<any> {
+    try {
+      const response = await FireFunctions.getInstance().onCallFunction('ValidateSecurityCodeTriggerFunctions', data);
+      if(response.status === 200){
+        return {state: 'validated' , error: null};
+      }else{
+        return {state: 'waiting' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error})};;
+      }
+    } catch (error) {
+      return { userCredential: null, error: error };
+    }
+  }
+  /**
+   * 
+   * Setea el password del usuario.
+   * @returns 
+   */
+  async recoverPass(data:{email: string, newPassword:string}): Promise<any> {
+    try {
+      const response = await FireFunctions.getInstance().onCallFunction('RecoverPasswordTriggerFunctions', data);
+      console.log('recoverPass',response)
+      if(response.status === 200){
+        return {state: 'redirect' , error: null};
+      }else{
+        return {state: 'init' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error})};;
+      }
+    } catch (error) {
+      return { userCredential: null, error: error };
+    }
+  }
 }

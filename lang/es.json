@@ -36,7 +36,10 @@
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
   "auth/user-not-found": "El usuario no existe",
   "auth/email-already-exists" : "El email ya esta en uso en la plataforma",
-  
+  "user@not-found": "El usuario no existe",
+  "Unauthorized" : "Usuario no autorizado",
+  "code@invalid" : "Código inválido",
+  "code@expired" : "El código a expirado",
   "forms.errors.incorrectPassword": "Contraseña incorrecta",
   "forms.errors.errorRequired": "Este campo es obligatorio",
   "forms.errors.incorrectEmail": "Email incorrecto",

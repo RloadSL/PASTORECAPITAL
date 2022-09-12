@@ -3,7 +3,7 @@ import style from './Card.module.scss'
 
 export interface CARDPROPS {
   children: any,
-  customStyle: string
+  customStyle?: string
 }
 
 /**

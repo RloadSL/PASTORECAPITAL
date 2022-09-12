@@ -22,7 +22,6 @@ export const signInEmailPassword = createAsyncThunk(
       const user = await userRepository.read(userCredential.uid)
       return user;
     } catch (error) {
-      alert(error)
       return error;
     }
   }
@@ -34,12 +33,10 @@ export const signUpEmailPassword = createAsyncThunk(
     try {
       const response = await authRepository.signUp(data)
       const { userCredential, error } = response;
-      console.log( 'auth@signUpEmailPassword', userCredential)
       if (!userCredential) return error; //retorna usuario invitado
       const user = await userRepository.read(userCredential.uid)
       return user;
     } catch (error) {
-      alert(error)
       return error;
     }
   }
@@ -66,7 +63,6 @@ export const createUser = createAsyncThunk(
       const user = await userRepository.read(uid)
       return user;
     } catch (error) {
-      alert(error)
       return error;
     }
   }
@@ -74,15 +70,40 @@ export const createUser = createAsyncThunk(
 
 export const sendEmailCode = createAsyncThunk(
   'auth@sendEmailCode',
-  async (arg: {email: string}) => {
+  async (arg: { email: string }) => {
     try {
-      await authRepository.sendSecurityCode(arg)
+      const res = await authRepository.sendSecurityCode(arg)
+      return res;
     } catch (error) {
-      alert(error)
       return error;
     }
   }
 )
+
+export const validateCode = createAsyncThunk(
+  'auth@validateCode',
+  async (arg: { code: number, email:string }) => {
+    try {
+      const res = await authRepository.validateCode(arg)
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+)
+
+export const resetPassword = createAsyncThunk(
+  'auth@resetPassword',
+  async (arg: { newPassword: string, email:string }) => {
+    try {
+      const res = await authRepository.recoverPass(arg)
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+)
+
 
 const _handleSignIn = (state: any, action: any) => {
   if (action.payload instanceof User) {
@@ -91,7 +112,6 @@ const _handleSignIn = (state: any, action: any) => {
     state.loggued = true
   }
   else {
-    console.log('_handleSignIn ERROR', action.payload)
     if (action.payload) {
       state.authError = action.payload
     }
@@ -99,12 +119,41 @@ const _handleSignIn = (state: any, action: any) => {
   state.loading = false
 }
 
+const _handleSendMailCode = (state: any, action:any) => { 
+  const payload:{state:CODEVALIDATIONSTATE , error:any } = action.payload;
+  if(payload.error){
+    state.authError = payload.error
+  }
+  state.code_validated = payload.state
+  state.loading = false
+}
+
+const _handleValidateCode = (state: any, action:any) => { 
+  const payload:{state:CODEVALIDATIONSTATE , error:any } = action.payload;
+  if(payload.error){
+    state.authError = payload.error
+  }
+  state.code_validated = payload.state
+  state.loading = false
+}
+
+const _handleResetPassword = (state: any, action:any) => { 
+  const payload:{state:CODEVALIDATIONSTATE , error:any } = action.payload;
+  if(payload.error){
+    state.authError = payload.error
+  }
+  state.code_validated = payload.state
+  state.loading = false
+}
+
+export type CODEVALIDATIONSTATE = 'init' | 'waiting' | 'validated' | 'redirect'
 const initialState: {
   userLogged: User | null,
   authError: ErrorApp | null,
   loggued: boolean,
-  loading: boolean
-} = { userLogged: null, authError: null, loggued: false, loading:false };
+  loading: boolean,
+  code_validated: CODEVALIDATIONSTATE
+} = { userLogged: null, authError: null, loggued: false, loading: false, code_validated: 'init' };
 
 export const authetication = createSlice({
   name: 'Authentication',
@@ -112,23 +161,30 @@ export const authetication = createSlice({
   reducers: {
     cleanAuthErrors: (state) => {
       state.authError = null;
+    }, 
+    setCodeValidation : (state, action)=>{
+      state.code_validated = action.payload
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(signInEmailPassword.fulfilled, _handleSignIn)
-      .addCase(signInEmailPassword.pending, (state) => {state.loading = true})
+      .addCase(signInEmailPassword.pending, (state) => { state.loading = true })
       .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
-      .addCase(signUpEmailPassword.pending, (state) => {state.loading = true})
+      .addCase(signUpEmailPassword.pending, (state) => { state.loading = true })
       .addCase(createUser.fulfilled, _handleSignIn)
-      .addCase(createUser.pending, (state) => {state.loading = true})
+      .addCase(createUser.pending, (state) => { state.loading = true })
       .addCase(signOut.fulfilled, (state: any, action: any) => { state.userLogged = null, state.loggued = false, state.authError = null, state.loading = false })
-      .addCase(sendEmailCode.fulfilled, (state: any, action: any) => {  state.loading = false })
-      .addCase(sendEmailCode.pending, (state) => {state.loading = true})
-    },
+      .addCase(sendEmailCode.fulfilled, _handleSendMailCode)
+      .addCase(sendEmailCode.pending, (state) => { state.loading = true })
+      .addCase(validateCode.fulfilled, _handleValidateCode)
+      .addCase(validateCode.pending, (state) => { state.loading = true })
+      .addCase(resetPassword.fulfilled, _handleResetPassword)
+      .addCase(resetPassword.pending, (state) => { state.loading = true })
+  }
 })
 
 //Estrallendo actions
-export const { cleanAuthErrors } = authetication.actions;
+export const { cleanAuthErrors, setCodeValidation } = authetication.actions;
 
 export default authetication.reducer
