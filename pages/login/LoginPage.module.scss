@@ -1,10 +1,8 @@
-
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/placeholders";
 @use "../../styles/partials/tabs";
 @use "../../styles/partials/variables/colors" as colors;
 @use "../../styles/partials/variables/text" as text;
-
 
 .loginPage {
   background-image: url(../../assets/img/login-bg.jpg);
@@ -32,7 +30,8 @@
       padding: 0px;
     }
 
-    .colLeft, .colRight {
+    .colLeft,
+    .colRight {
       width: 100%;
 
       @include devices.device(mdScreen) {
@@ -46,11 +45,15 @@
       margin-bottom: 20px;
 
       @include devices.device(tablet) {
-        margin-right: 50px;
+        margin-right: 100px;
         margin-bottom: 0px;
       }
 
       .colContainer {
+        p {
+          color: white;
+        }
+
         @include devices.device(tablet) {
           min-height: 820px;
         }
@@ -85,10 +88,10 @@
   @include devices.device(smTablet) {
     font-size: text.$mdTitle;
   }
-  
+
   @include devices.device(mdScreen) {
     font-size: text.$lTitle;
-    letter-spacing: -3px;  
+    letter-spacing: -3px;
   }
 
   @include devices.device(lgScreen) {
@@ -114,7 +117,7 @@
     justify-content: space-between;
     padding-top: 15px;
 
-    @include devices.device(smScreen){
+    @include devices.device(smScreen) {
       margin-bottom: 30px;
     }
   }
@@ -131,13 +134,14 @@
     }
   }
 
-  .signInContainer,.signUpContainer {
+  .signInContainer,
+  .signUpContainer {
     animation: fadeIn 0.5s;
   }
 }
 
 .formTitle {
-  @extend %mainTitle
+  @extend %mainTitle;
 }
 
 .subtitle {
@@ -145,7 +149,7 @@
   color: colors.$main;
 }
 
-@keyframes fadeIn { 
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }

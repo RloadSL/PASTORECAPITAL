@@ -26,9 +26,14 @@
 
 
   "page.recover-password.title": "Recuperar contraseña",
+  "page.recover-password.recoverCaps": "Accede a pastore Capital",
+  "page.recover-password.recoverDetails": "Introduce tu email y te enviaremos un código de verificación",
   "page.recover-password.form.sendEmail.submit": "Enviar email",
   "page.recover-password.form.validateCode.submit": "Validar código",
+  "page.recover-password.form.validateCode.title": "Revisa tu email",
+  "page.recover-password.form.validateCode.description": "Introduce el código de verificación enviado a tu email",
   "page.recover-password.form.setPassword.submit": "Cambiar contraseña",
+
 
   "component.navbar.backbuttom": "Atrás",
 

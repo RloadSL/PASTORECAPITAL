@@ -14,7 +14,7 @@ interface BUTTONPROPS {
  * @param labelID Key del json de traducción
  * @param onClick Función de manejo del evento click
  * @param type Tipe del botón
- * @param buttonStyle Estilo visual CSS del bótón transparent | primary | secondary | default
+ * @param buttonStyle Estilo visual CSS del bótón transparent | primary | secondary | default | tab
  * @returns 
  */
 

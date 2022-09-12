@@ -11,6 +11,8 @@ import SendCodeMail from './components/SendCodeMail'
 import Link from 'next/link'
 import { FormattedMessage } from 'react-intl'
 import { CODEVALIDATIONSTATE } from 'ui/redux/slices/authentication/autentication.slice'
+import logo from "../../assets/img/logo.svg";
+
 const ValidateSecurityCode = dynamic(
   () => import('./components/ValidateSecurityCode'),
   {
@@ -23,9 +25,9 @@ const SetPassword = dynamic(() => import('./components/SetPassword'), {
 
 const RecoverPasswordPage: NextPage = () => {
   const router = useRouter()
-  const { isLogged, authError, loadingState, codeValidatedState, setCodeState} = useAuthentication()
+  const { isLogged, authError, loadingState, codeValidatedState, setCodeState } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
- 
+
   useEffect(() => {
     if (isLogged) router.push('/')
   }, [router, isLogged])
@@ -46,31 +48,31 @@ const RecoverPasswordPage: NextPage = () => {
       setCodeState('init')
     }
   }, [codeValidatedState])
-  
-  return <RecoverPasswordView codeValidatedState={codeValidatedState} setCodeState={setCodeState}/>
+
+  return <RecoverPasswordView codeValidatedState={codeValidatedState} setCodeState={setCodeState} />
 }
 
 
-const RecoverPasswordView = ({codeValidatedState, setCodeState}:{codeValidatedState:CODEVALIDATIONSTATE, setCodeState:Function}) => {
-  const [email, setEmail]:[email?:string, setEmail?:Function] = useState()
+const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidatedState: CODEVALIDATIONSTATE, setCodeState: Function }) => {
+  const [email, setEmail]: [email?: string, setEmail?: Function] = useState()
   const renderState = useCallback((processState: CODEVALIDATIONSTATE) => {
     switch (processState) {
       case 'init':
         return (
           <Suspense>
-            <SendCodeMail onSend={(email:string) => { setEmail(email)}}/>
+            <SendCodeMail onSend={(email: string) => { setEmail(email) }} />
           </Suspense>
         )
       case 'waiting':
         return (
           <Suspense>
-          { email ? <ValidateSecurityCode  email={email}/> : null}
+            {email ? <ValidateSecurityCode email={email} /> : null}
           </Suspense>
         )
       case 'validated':
         return (
           <Suspense>
-            {email ? <SetPassword email={email}/> : null}
+            {email ? <SetPassword email={email} /> : null}
           </Suspense>
         )
       default:
@@ -79,36 +81,31 @@ const RecoverPasswordView = ({codeValidatedState, setCodeState}:{codeValidatedSt
   }, [email])
 
 
- const _handleCodeState = ()=>{
-      if(codeValidatedState === 'waiting' && email != undefined){
-        return <div style={{display:'flex', width:'100%'}}>
-          <button onClick={()=>setCodeState('init')}>PREVIEW</button>
-        </div>
-      }
-      if(codeValidatedState === 'validated' && email != undefined){
-        return <div style={{display:'flex', width:'100%'}}>
-          <button onClick={()=>setCodeState('waiting')}>PREVIEW</button>
-        </div>
-      }
+  const _handleCodeState = () => {
+    if (codeValidatedState === 'init' && email == undefined) {
+      return <div style={{ display: 'flex', width: '100%' }}>
+        <button onClick={() => setCodeState('init')}>PREVIEW</button>
+      </div>
+    }
+    if (codeValidatedState === 'validated' && email != undefined) {
+      return <div style={{ display: 'flex', width: '100%' }}>
+        <button onClick={() => setCodeState('waiting')}>PREVIEW</button>
+      </div>
+    }
   }
 
   return (
     <div className={style.recoverPasswordPage}>
       <div className={style.mainContainer}>
         <Card>
-          <div style={{ marginBottom: 20 }}>
-            <p>
-              <FormattedMessage id='page.recover-password.title' />
-            </p>
+          <div className={style.cardContainer}>
             <Link href={'/login'}>
               {/* @maria poner traducción */}
               <a>Volver</a>
             </Link>
+            {_handleCodeState()}
+            {renderState(codeValidatedState)}
           </div>
-          <br />
-          <br />
-          {_handleCodeState() }
-          {renderState(codeValidatedState)}
         </Card>
       </div>
     </div>

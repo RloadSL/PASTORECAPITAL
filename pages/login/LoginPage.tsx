@@ -60,7 +60,7 @@ const LoginPageView = () => {
         <div className={style.colLeft}>
           <div className={style.colContainer}>
             <div className={style.logo}>
-              <Image src={logo} alt="Picture of the author" />
+              <Image src={logo} alt="Pastore Capital logo" />
             </div>
             <div className={style.titleContainer}>
               <h1 className={style.mainTitle}>

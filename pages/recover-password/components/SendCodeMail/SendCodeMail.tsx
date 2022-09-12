@@ -2,17 +2,17 @@ import ButtonApp from "components/ButtonApp";
 import FormApp from "components/FormApp";
 import InputApp from "components/FormApp/components/InputApp";
 import { useCallback } from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { sendEmailCode } from "ui/redux/slices/authentication/autentication.slice";
 import { AppDispatch } from "ui/redux/store";
 import * as yup from 'yup'
 
 
-const SendCodeMail = ({onSend}:{onSend:Function}) => {
+const SendCodeMail = ({ onSend }: { onSend: Function }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _sendEmailCode = (values: {email:string}) => {
+  const _sendEmailCode = (values: { email: string }) => {
     dispatch(sendEmailCode(values))
     onSend(values.email)
   };
@@ -28,24 +28,44 @@ const SendCodeMail = ({onSend}:{onSend:Function}) => {
     [intl]
   )
 
-  return (<SendCodeMailView validationSchema={validationSchema()} sendMail={(values:{email:string})=> _sendEmailCode(values)}/>)
+  return (<SendCodeMailView validationSchema={validationSchema()} sendMail={(values: { email: string }) => _sendEmailCode(values)} />)
 }
 
-const  SendCodeMailView = ({validationSchema, sendMail}:{validationSchema:any, sendMail:Function}) => {
+const SendCodeMailView = ({ validationSchema, sendMail }: { validationSchema: any, sendMail: Function }) => {
   return (
-    <div className={"SendCodeMail"}>
-      <div>
-        <FormApp
-          validationSchema={validationSchema}
-          initialValues={{ email: ''}}
-          onSubmit={(values: any) => sendMail(values)}
-        >
-          <InputApp labelID='forms.labels.email' type='email' name='email' />
-
-          <ButtonApp type='submit' labelID='page.recover-password.form.sendEmail.submit' />
-        </FormApp>
+    <>
+      <div className={'style.formTitleContainer'}>
+        <p className={'small-caps'}>
+          <FormattedMessage
+            id='page.recover-password.recoverCaps'
+          />
+        </p>
+        <h2 className='main-title'>
+          <FormattedMessage
+            id='page.recover-password.title'
+            values={{ br: <br /> }}
+          />
+        </h2>
+        <p>
+          <FormattedMessage
+            id='page.recover-password.recoverDetails'
+          />
+        </p>
       </div>
-    </div>
+
+      <div className='margin-top-20'>
+        <div>
+          <FormApp
+            validationSchema={validationSchema}
+            initialValues={{ email: '' }}
+            onSubmit={(values: any) => sendMail(values)}
+          >
+            <InputApp labelID='forms.labels.email' type='email' name='email' />
+            <ButtonApp buttonStyle="secondary" type='submit' labelID='page.recover-password.form.sendEmail.submit' />
+          </FormApp>
+        </div>
+      </div>
+    </>
   )
 }
 
