@@ -1,10 +1,10 @@
 import { https } from 'firebase-functions';
 import { auth } from "firebase-admin";
-import { CreateUser, UpdateUser } from '../Models/Users/User';
+import { User } from '../Models/Users/User';
 import { setUser } from '../Users/users';
 
 
-const updateUser = async (data:{userData: UpdateUser, uid: string}, context: https.CallableContext)=>{
+const updateUser = async (data:{userData: User, uid: string}, context: https.CallableContext)=>{
   if(Object.keys(data).length < 4) return {status: 400, error: 'Data contains undefined value'}
   try {
     const {name, lastname, email, role } = data.userData;
