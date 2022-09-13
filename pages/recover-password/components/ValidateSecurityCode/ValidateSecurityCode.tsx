@@ -42,7 +42,7 @@ const ValidateSecurityCodeView = ({
 }) => {
   return (
     <>
-      <div className={'style.formTitleContainer'}>
+      <div>
         <p className={'small-caps'}>
           <FormattedMessage
             id='page.recover-password.recoverCaps'
@@ -60,15 +60,14 @@ const ValidateSecurityCodeView = ({
           />
         </p>
       </div>
-      <div className='margin-top-50'>
+      <div className='margin-top-30'>
         <div>
           <FormApp
             validationSchema={validationSchema}
             initialValues={{ code: '' }}
             onSubmit={(values: any) => validateCode(values.code)}
           >
-            <InputApp labelID='forms.labels.securityCode' type='number' name='code' />
-
+            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' />
             <ButtonApp buttonStyle='secondary' type='submit' labelID='page.recover-password.form.validateCode.submit' />
           </FormApp>
         </div>

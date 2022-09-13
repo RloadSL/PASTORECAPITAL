@@ -9,11 +9,11 @@ import { resetPassword } from 'ui/redux/slices/authentication/autentication.slic
 import { AppDispatch } from 'ui/redux/store';
 import * as yup from 'yup'
 
-const SetPassword = ({email}:{email:string}) => {
+const SetPassword = ({ email }: { email: string }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _setPassword = (newPassword:string) => dispatch(resetPassword({newPassword, email}));
-  
+  const _setPassword = (newPassword: string) => dispatch(resetPassword({ newPassword, email }));
+
   //@maria traducciones
   const validationSchema = useCallback(
     () =>
@@ -31,18 +31,36 @@ const SetPassword = ({email}:{email:string}) => {
   )
 
   return (
-    <SetPasswordView validationSchema={validationSchema} setPassword={(newPassword:string) => _setPassword(newPassword)}/>
+    <SetPasswordView validationSchema={validationSchema} setPassword={(newPassword: string) => _setPassword(newPassword)} />
   )
 }
 
-const SetPasswordView = ({validationSchema, setPassword}:{validationSchema:any, setPassword:Function}) => {
+const SetPasswordView = ({ validationSchema, setPassword }: { validationSchema: any, setPassword: Function }) => {
   return (
-    <div className={"SendCodeMail"}>
-     
+    <>
+    <div>
+      <div>
+        <p className={'small-caps'}>
+          <FormattedMessage
+            id='page.recover-password.recoverCaps'
+          />
+        </p>
+        <h2 className='main-title'>
+          <FormattedMessage
+            id='page.recover-password.form.resetPassword.title'
+            values={{ br: <br /> }}
+          />
+        </h2>
+        <p>
+          <FormattedMessage
+            id='page.recover-password.form.resetPassword.description'
+          />
+        </p>
+      </div>
       <div>
         <FormApp
           validationSchema={validationSchema}
-          initialValues={{ newPassword: '', repeatPassword: ''}}
+          initialValues={{ newPassword: '', repeatPassword: '' }}
           onSubmit={(values: any) => setPassword(values.newPassword)}
         >
           <InputApp
@@ -56,10 +74,11 @@ const SetPasswordView = ({validationSchema, setPassword}:{validationSchema:any, 
             name='repeatPassword'
           />
 
-          <ButtonApp type='submit' labelID='page.recover-password.form.setPassword.submit' />
+          <ButtonApp buttonStyle="secondary" type='submit' labelID='page.recover-password.form.resetPassword.submit' />
         </FormApp>
       </div>
     </div>
+    </>
   )
 }
 

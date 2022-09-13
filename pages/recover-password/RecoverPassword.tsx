@@ -11,7 +11,8 @@ import SendCodeMail from './components/SendCodeMail'
 import Link from 'next/link'
 import { FormattedMessage } from 'react-intl'
 import { CODEVALIDATIONSTATE } from 'ui/redux/slices/authentication/autentication.slice'
-import logo from "../../assets/img/logo.svg";
+import logo from "../../assets/img/logo-w.svg";
+import Image from 'next/image'
 
 const ValidateSecurityCode = dynamic(
   () => import('./components/ValidateSecurityCode'),
@@ -84,29 +85,35 @@ const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidat
   const _handleCodeState = () => {
     if (codeValidatedState === 'init' && email == undefined) {
       return <div style={{ display: 'flex', width: '100%' }}>
-        <button onClick={() => setCodeState('init')}>PREVIEW</button>
+        <button onClick={() => setCodeState('init')}></button>
       </div>
     }
-    if (codeValidatedState === 'validated' && email != undefined) {
-      return <div style={{ display: 'flex', width: '100%' }}>
-        <button onClick={() => setCodeState('waiting')}>PREVIEW</button>
-      </div>
-    }
+    // if (codeValidatedState === 'validated' && email != undefined) {
+    //   return <div style={{ display: 'flex', width: '100%' }}>
+    //     <button onClick={() => setCodeState('waiting')}>PREVIEW</button>
+    //   </div>
+    // }
   }
 
   return (
     <div className={style.recoverPasswordPage}>
-      <div className={style.mainContainer}>
-        <Card>
-          <div className={style.cardContainer}>
-            <Link href={'/login'}>
-              {/* @maria poner traducción */}
-              <a>Volver</a>
-            </Link>
-            {_handleCodeState()}
-            {renderState(codeValidatedState)}
-          </div>
-        </Card>
+      <div className={style.recoverPasswordBottom}>
+        <div className={style.logo}>
+          <Image src={logo} alt="Pastore Capital logo" />
+        </div>
+        <div className={style.mainContainer}>
+          <Card>
+            <div className={style.cardContainer}>
+              <Link href={'/login'}>
+                <a className={style.back}>
+                  {/* <span><FormattedMessage id='page.recover-password.form.backButtonLabel'/></span> */}
+                </a>
+              </Link>
+              {_handleCodeState()}
+              {renderState(codeValidatedState)}
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   )

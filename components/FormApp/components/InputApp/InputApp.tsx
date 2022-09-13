@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useState, useRef } from "react"
+import React, { ChangeEventHandler, useEffect, useState, useRef, useCallback } from "react"
 import { FormattedMessage } from "react-intl"
 import style from './InputApp.module.scss'
 
@@ -12,7 +12,7 @@ export interface INPUTBLOCKPROPS {
   error?: string | undefined,
   placeholder?: string,
   name: string,
-  space?: boolean
+  inputStyle?: 'default' | 'code'
 }
 
 /**
@@ -24,26 +24,27 @@ export interface INPUTBLOCKPROPS {
  * @param  error Error del campo de formulario
  * @param  placeholder Placeholder del campo
  * @param  name Name del campo
- * @param  space Espaciado del contenedor del campo
+ * @param  inputStyle Estilo CSS del input default | code 
  * @returns 
  */
 
-const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 'text', space = true }: INPUTBLOCKPROPS) => {
+const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputStyle, type = 'text' }: INPUTBLOCKPROPS) => {
   const [isFloating, setIsFloating] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const _handleChange = (target: HTMLInputElement) => {
-    if (onChange) onChange(name, target.value)
-    setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
-
-  }
+  const _handleChange = useCallback(
+    (target: HTMLInputElement) => {
+      if (onChange) onChange(name, target.value)
+      setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
+    }, [onChange]
+  ) 
+  
   useEffect(() => {
     setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
   }, [inputRef?.current?.value])
-
   return (
     <>
-      <div className={error ? `${style.hasError} ${style.inputContainer} ${space === true ? style.space : ''}` : `${style.inputContainer} ${space === true ? style.space : ''}`}>
+      <div className={`${style.inputContainer} ${error ? style.hasError : ''} ${error ? style.hasError : ''} ${inputStyle ? style[inputStyle] : ''}`} >
         <label className={`${style.label} ${isFloating}`}>
           <span>
             <FormattedMessage id={labelID} />
@@ -59,6 +60,7 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, type = 
             onChange={(e) => _handleChange(e.target)}
             onBlur={() => { if (onBlur) onBlur() }}
             className={style.input}
+            maxLength={9999}
           />
         </div>
       </div>
