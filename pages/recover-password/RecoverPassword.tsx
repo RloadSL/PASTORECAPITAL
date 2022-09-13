@@ -26,7 +26,7 @@ const SetPassword = dynamic(() => import('./components/SetPassword'), {
 
 const RecoverPasswordPage: NextPage = () => {
   const router = useRouter()
-  const { isLogged, authError, loadingState, codeValidatedState, setCodeState } = useAuthentication()
+  const { isLogged, authError, loadingState, codeValidatedState, setCodeState, cleanError } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const RecoverPasswordPage: NextPage = () => {
   useEffect(() => {
     if (authError?.errorCode) {
       pushErrorsApp(authError)
+      cleanError()
     }
   }, [authError])
 

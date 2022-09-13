@@ -12,6 +12,7 @@ export interface INPUTBLOCKPROPS {
   error?: string | undefined,
   placeholder?: string,
   name: string,
+  maxLength?: number,
   inputStyle?: 'default' | 'code'
 }
 
@@ -25,18 +26,20 @@ export interface INPUTBLOCKPROPS {
  * @param  placeholder Placeholder del campo
  * @param  name Name del campo
  * @param  inputStyle Estilo CSS del input default | code 
+ * @param  maxLength Longitud de entrada
  * @returns 
  */
 
-const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputStyle, type = 'text' }: INPUTBLOCKPROPS) => {
+const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputStyle, type = 'text', maxLength }: INPUTBLOCKPROPS) => {
   const [isFloating, setIsFloating] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const _handleChange = useCallback(
     (target: HTMLInputElement) => {
+      if(maxLength && target.value.length > maxLength)  target.value = target.value.substring(0, 4);
       if (onChange) onChange(name, target.value)
       setIsFloating(inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label)
-    }, [onChange]
+    }, [onChange, name]
   ) 
   
   useEffect(() => {
@@ -52,6 +55,7 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputSt
         </label>
         <div>
           <input
+            maxLength={maxLength}
             type={type}
             name={name}
             autoComplete={'autocomplete'}
@@ -60,7 +64,6 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputSt
             onChange={(e) => _handleChange(e.target)}
             onBlur={() => { if (onBlur) onBlur() }}
             className={style.input}
-            maxLength={9999}
           />
         </div>
       </div>
