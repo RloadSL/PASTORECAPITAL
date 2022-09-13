@@ -55,6 +55,7 @@ const RecoverPasswordPage: NextPage = () => {
 
 
 const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidatedState: CODEVALIDATIONSTATE, setCodeState: Function }) => {
+  console.log(codeValidatedState)
   const [email, setEmail]: [email?: string, setEmail?: Function] = useState()
   const renderState = useCallback((processState: CODEVALIDATIONSTATE) => {
     switch (processState) {
@@ -82,18 +83,18 @@ const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidat
   }, [email])
 
 
-  const _handleCodeState = () => {
-    if (codeValidatedState === 'init' && email == undefined) {
-      return <div style={{ display: 'flex', width: '100%' }}>
-        <button onClick={() => setCodeState('init')}></button>
-      </div>
-    }
-    // if (codeValidatedState === 'validated' && email != undefined) {
-    //   return <div style={{ display: 'flex', width: '100%' }}>
-    //     <button onClick={() => setCodeState('waiting')}>PREVIEW</button>
-    //   </div>
-    // }
-  }
+  // const _handleCodeState = () => {
+  //   if (codeValidatedState === 'init' && email == undefined) {
+  //     return <div style={{ display: 'flex', width: '100%' }}>
+  //       <button onClick={() => setCodeState('init')}></button>
+  //     </div>
+  //   }
+  //   if (codeValidatedState === 'validated' && email != undefined) {
+  //     return <div style={{ display: 'flex', width: '100%' }}>
+  //       <button onClick={() => setCodeState('waiting')}>PREVIEW</button>
+  //     </div>
+  //   }
+  // }
 
   return (
     <div className={style.recoverPasswordPage}>
@@ -104,12 +105,12 @@ const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidat
         <div className={style.mainContainer}>
           <Card>
             <div className={style.cardContainer}>
-              <Link href={'/login'}>
-                <a className={style.back}>
+              <Link href={'/login'} >
+                <a className={style.back} onClick={()=>setCodeState('init')}>
                   {/* <span><FormattedMessage id='page.recover-password.form.backButtonLabel'/></span> */}
                 </a>
               </Link>
-              {_handleCodeState()}
+            
               {renderState(codeValidatedState)}
             </div>
           </Card>
