@@ -1,3 +1,4 @@
+import Image from "next/image"
 import React, { ChangeEventHandler, useEffect, useState, useRef, useCallback } from "react"
 import { FormattedMessage } from "react-intl"
 import style from './InputApp.module.scss'
@@ -13,6 +14,7 @@ export interface INPUTBLOCKPROPS {
   placeholder?: string,
   name: string,
   inputStyle?: 'default' | 'code'
+  icon?: any
 }
 
 /**
@@ -28,7 +30,7 @@ export interface INPUTBLOCKPROPS {
  * @returns 
  */
 
-const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputStyle, type = 'text' }: INPUTBLOCKPROPS) => {
+const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputStyle, icon, type = 'text' }: INPUTBLOCKPROPS) => {
   const [isFloating, setIsFloating] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,12 +47,15 @@ const InputApp = ({ labelID, error, placeholder, name, onChange, onBlur, inputSt
   return (
     <>
       <div className={`${style.inputContainer} ${error ? style.hasError : ''} ${error ? style.hasError : ''} ${inputStyle ? style[inputStyle] : ''}`} >
-        <label className={`${style.label} ${isFloating}`}>
+        <label className={`${icon ? style.iconLabel : style.label} ${isFloating}`}>
           <span>
             <FormattedMessage id={labelID} />
           </span>
         </label>
-        <div>
+        <div className="flex-container row align-center">
+          {icon != undefined && <div className={`${style.icon}`}>
+            <Image className= {style.icon} src={icon} alt=''/>
+            </div>}
           <input
             type={type}
             name={name}

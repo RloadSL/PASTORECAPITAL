@@ -159,7 +159,9 @@
   }
 }
 
-
-.react-tabs {
-  height: 85%;
+.recoverPass {
+  display: flex;
+  justify-content: flex-end;
+  color: colors.$main;
+  text-decoration: underline;
 }
