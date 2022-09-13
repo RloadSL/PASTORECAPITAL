@@ -1,5 +1,5 @@
+import HomePage from "ui/home/HomePage";
 
-import HomePage from './home/HomePage';
 
 const main = () => {
   return <HomePage/>;

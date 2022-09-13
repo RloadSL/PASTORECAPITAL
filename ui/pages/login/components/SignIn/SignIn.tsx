@@ -10,8 +10,8 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'ui/redux/store'
 import { signInEmailPassword } from 'ui/redux/slices/authentication/autentication.slice'
-import email from '../../../../assets/img/icons/envelope.svg'
-import password from '../../../../assets/img/icons/lock.svg'
+import email from '../../../../../assets/img/icons/envelope.svg'
+import password from '../../../../../assets/img/icons/lock.svg'
 
 interface LOGINPAGEVIEWPROPS {
   signIn: Function

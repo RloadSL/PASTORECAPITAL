@@ -11,7 +11,7 @@ import SendCodeMail from './components/SendCodeMail'
 import Link from 'next/link'
 import { FormattedMessage } from 'react-intl'
 import { CODEVALIDATIONSTATE } from 'ui/redux/slices/authentication/autentication.slice'
-import logo from "../../assets/img/logo-w.svg";
+import logo from "../../../assets/img/logo-w.svg";
 import Image from 'next/image'
 
 const ValidateSecurityCode = dynamic(

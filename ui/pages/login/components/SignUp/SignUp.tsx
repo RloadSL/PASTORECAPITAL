@@ -11,9 +11,9 @@ import { signUpEmailPassword } from 'ui/redux/slices/authentication/autenticatio
 import { AppDispatch } from 'ui/redux/store'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
-import email from '../../../../assets/img/icons/envelope.svg'
-import password from '../../../../assets/img/icons/lock.svg'
-import user from '../../../../assets/img/icons/user.svg'
+import email from '../../../../../assets/img/icons/envelope.svg'
+import password from '../../../../../assets/img/icons/lock.svg'
+import user from '../../../../../assets/img/icons/user.svg'
 
 interface SINGUPVIEW {
   signUp: Function

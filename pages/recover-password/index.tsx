@@ -1,3 +1,3 @@
-import RecoverPasswordPage from "./RecoverPassword";
+import RecoverPasswordPage from "ui/pages/recover-password/RecoverPassword";
 
 export default RecoverPasswordPage;

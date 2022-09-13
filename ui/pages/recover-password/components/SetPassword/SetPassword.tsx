@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { resetPassword } from 'ui/redux/slices/authentication/autentication.slice';
 import { AppDispatch } from 'ui/redux/store';
 import * as yup from 'yup'
-import password from '../../../../assets/img/icons/lock.svg'
+import password from '../../../../../assets/img/icons/lock.svg'
 
 
 const SetPassword = ({ email }: { email: string }) => {

@@ -8,6 +8,11 @@ import { useDispatch } from 'react-redux'
 import { validateCode } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 import * as yup from 'yup'
+
+/**
+ * 
+ * Formulario de validación de código de seguridad 
+ */
 const ValidateSecurityCode = ({ email }: { email: string }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()

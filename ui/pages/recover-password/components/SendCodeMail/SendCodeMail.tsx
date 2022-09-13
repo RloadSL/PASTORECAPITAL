@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { sendEmailCode } from "ui/redux/slices/authentication/autentication.slice";
 import { AppDispatch } from "ui/redux/store";
 import * as yup from 'yup'
-import email from '../../../../assets/img/icons/envelope.svg'
+import email from '../../../../../assets/img/icons/envelope.svg'
 
 
 const SendCodeMail = ({ onSend }: { onSend: Function }) => {

@@ -5,15 +5,15 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
-import { useAuthentication } from '../../ui/hooks/authentication.hook'
 import { FormattedMessage } from 'react-intl'
 import SignIn from "./components/SignIn";
 import Card from "components/Card";
 import { useSystem } from "ui/hooks/system.hooks";
 import dynamic from "next/dynamic";
-import logo from "../../assets/img/logo-w.svg";
+import logo from "../../../assets/img/logo-w.svg";
 import ButtonApp from "components/ButtonApp";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { useAuthentication } from 'ui/hooks/authentication.hook'
 
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
@@ -66,7 +66,7 @@ const LoginPageView = () => {
               <h1 className={style.mainTitle}>
                 <span>
                   <FormattedMessage
-                    id={viewForm !== 1 ? "page.login.mainTitleSignUp" : "page.login.mainTitleLogin"}
+                    id={viewForm !== 0 ? "page.login.mainTitleSignUp" : "page.login.mainTitleLogin"}
                     values={{
                       b: children => <strong>{children}</strong>
                     }}
@@ -74,7 +74,9 @@ const LoginPageView = () => {
                 </span>
               </h1>
               <p>
-                nsequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatis um zzril delenit augue duis dolore te feugait null
+                  <FormattedMessage
+                    id={viewForm !== 0 ? "page.login.mainSubTitleSignUp" : "page.login.mainSubTitleLogin"}
+                  />
               </p>
             </div>
           </div>

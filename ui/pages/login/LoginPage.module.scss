@@ -1,11 +1,11 @@
-@use "../../styles/partials/mixins/devices" as devices;
-@use "../../styles/partials/placeholders";
-@use "../../styles/partials/tabs";
-@use "../../styles/partials/variables/colors" as colors;
-@use "../../styles/partials/variables/text" as text;
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/placeholders";
+@use "../../../styles/partials/tabs";
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/variables/text" as text;
 
 .loginPage {
-  background-image: url(../../assets/img/login-bg.jpg);
+  background-image: url(../../../assets/img/login-bg.jpg);
   background-size: cover;
   min-height: 100vh;
   display: flex;

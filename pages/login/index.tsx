@@ -1,5 +1,6 @@
+import LoginPage from "ui/pages/login/LoginPage";
 
-import LoginPage from "./LoginPage";
+
 
 export default LoginPage;
 
