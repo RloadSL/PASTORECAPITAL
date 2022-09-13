@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { sendEmailCode } from "ui/redux/slices/authentication/autentication.slice";
 import { AppDispatch } from "ui/redux/store";
 import * as yup from 'yup'
+import email from '../../../../assets/img/icons/envelope.svg'
 
 
 const SendCodeMail = ({ onSend }: { onSend: Function }) => {
@@ -60,7 +61,7 @@ const SendCodeMailView = ({ validationSchema, sendMail }: { validationSchema: an
             initialValues={{ email: '' }}
             onSubmit={(values: any) => sendMail(values)}
           >
-            <InputApp labelID='forms.labels.email' type='email' name='email' />
+            <InputApp labelID='forms.labels.email' type='email' name='email' icon={email}/>
             <ButtonApp buttonStyle="secondary" type='submit' labelID='page.recover-password.form.sendEmail.submit' />
           </FormApp>
         </div>

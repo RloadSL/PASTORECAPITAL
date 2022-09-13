@@ -11,6 +11,9 @@ import { signUpEmailPassword } from 'ui/redux/slices/authentication/autenticatio
 import { AppDispatch } from 'ui/redux/store'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
+import email from '../../../../assets/img/icons/envelope.svg'
+import password from '../../../../assets/img/icons/lock.svg'
+import user from '../../../../assets/img/icons/user.svg'
 
 interface SINGUPVIEW {
   signUp: Function
@@ -43,7 +46,7 @@ const SignUp = () => {
           .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
         repeatPassword: yup
           .string()
-          .oneOf([yup.ref('password')],intl.formatMessage({ id:  'forms.errors.matchPass' })),
+          .oneOf([yup.ref('password')], intl.formatMessage({ id: 'forms.errors.matchPass' })),
         accept: yup
           .boolean()
           .oneOf([true], intl.formatMessage({ id: 'page.login.errorRequired' }))
@@ -88,28 +91,31 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
           }}
           onSubmit={(values: any) => signUp(values)}
         >
-          <InputApp labelID='page.login.labelname' type='text' name='name' />
+          <InputApp icon={user} labelID='page.login.labelname' type='text' name='name' />
           <InputApp
             labelID='page.login.labellastname'
             type='text'
             name='lastname'
+            icon={user}
           />
-          <InputApp labelID='page.login.labelEmail' type='email' name='email' />
+          <InputApp icon={email} labelID='page.login.labelEmail' type='email' name='email' />
           <InputApp
             labelID='page.login.labelPassword'
             type='password'
             name='password'
+            icon={password}
           />
           <InputApp
             labelID='page.login.labelRepeatPassword'
             type='password'
             name='repeatPassword'
+            icon={password}
           />
 
           <InputCheckApp labelID='page.signUp.labelAcceptTerms' name='accept' formattedValues={
             {
-              b: (children:any) => <Link href={'#'}><a>{children}</a></Link>
-            }} 
+              b: (children: any) => <Link href={'#'}><a>{children}</a></Link>
+            }}
           />
           <ButtonApp
             buttonStyle='secondary'

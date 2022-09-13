@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { resetPassword } from 'ui/redux/slices/authentication/autentication.slice';
 import { AppDispatch } from 'ui/redux/store';
 import * as yup from 'yup'
+import password from '../../../../assets/img/icons/lock.svg'
+
 
 const SetPassword = ({ email }: { email: string }) => {
   const intl = useIntl()
@@ -67,11 +69,13 @@ const SetPasswordView = ({ validationSchema, setPassword }: { validationSchema: 
             labelID='forms.labels.password'
             type='password'
             name='newPassword'
+            icon={password}
           />
           <InputApp
             labelID='forms.labels.repeatPassword'
             type='password'
             name='repeatPassword'
+            icon={password}
           />
 
           <ButtonApp buttonStyle="secondary" type='submit' labelID='page.recover-password.form.resetPassword.submit' />

@@ -10,6 +10,9 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'ui/redux/store'
 import { signInEmailPassword } from 'ui/redux/slices/authentication/autentication.slice'
+import email from '../../../../assets/img/icons/envelope.svg'
+import password from '../../../../assets/img/icons/lock.svg'
+
 interface LOGINPAGEVIEWPROPS {
   signIn: Function
   validationSchema: any
@@ -75,15 +78,17 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
             labelID='page.login.labelEmail'
             type='email'
             name='email'
+            icon={email}
           />
 
           <InputApp
             labelID='page.login.labelPassword'
             type='password'
             name='password'
+            icon={password}
           />
           <Link href={'/recover-password'}>
-            <a className='small-text'>
+            <a className={`small-text ${style.recoverPass}`}>
               <FormattedMessage id="page.login.labelRecoverPassword" />
             </a>
           </Link>
@@ -93,7 +98,6 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
         </FormApp>
       </div >
     </div >
-
   )
 }
 
