@@ -4,12 +4,12 @@
 
 .card {
   background-color: white;
-  padding: 5%;
   border-radius: utils.$borderRadius;
   width: 100%;
 
-  @include devices.device(tablet) {
-    min-width: 400px;
-    max-width: 400px;
-  }
+
+  // @include devices.device(tablet) {
+  //   min-width: auto;
+  //   max-width: auto;
+  // }
 }

@@ -6,6 +6,7 @@
   border-radius: 20px;
   padding: 12px 5px;
   position: relative;
+  margin-bottom: 20px;
 
   .label {
     display: block;
@@ -25,6 +26,31 @@
     outline: 0px;
     position: relative;
     top: 8px;
+  }
+}
+
+%code {
+  letter-spacing: 1rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.inputContainer.code {
+  padding: 8px 5px;
+
+  label {
+    visibility: hidden;
+    height: 1px;
+  }
+
+  input {
+    top: 0px;
+    @extend %code
+  }
+
+  input::placeholder {
+    font-weight: 300;
+    @extend %code    
   }
 }
 
@@ -53,6 +79,14 @@
   outline: 1px solid colors.$error;
 }
 
-.space {
-  margin-bottom: 20px !important;
+.inputContainer.hasError.code {
+  label {
+    visibility: hidden;
+    height: 1px;
+  }
 }
+
+// .space {
+//   margin-bottom: 20px !important;
+// }
+

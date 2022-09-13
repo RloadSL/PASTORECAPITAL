@@ -60,7 +60,7 @@ const LoginPageView = () => {
         <div className={style.colLeft}>
           <div className={style.colContainer}>
             <div className={style.logo}>
-              <Image src={logo} alt="Picture of the author" />
+              <Image src={logo} alt="Pastore Capital logo" />
             </div>
             <div className={style.titleContainer}>
               <h1 className={style.mainTitle}>
@@ -81,7 +81,7 @@ const LoginPageView = () => {
         </div>
         <div className={style.colRight}>
           <Card customStyle={style.cardContainer}>
-            <Tabs selectedIndex={tabIndex} onSelect={(index) => {
+            <Tabs className={style.tabContainer} selectedIndex={tabIndex} onSelect={(index) => {
               setviewForm(viewForm !== 1 ? 1 : 0)
               setTabIndex(index);
               }}>

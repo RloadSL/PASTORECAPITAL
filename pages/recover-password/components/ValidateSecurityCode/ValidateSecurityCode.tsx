@@ -8,10 +8,10 @@ import { useDispatch } from 'react-redux'
 import { validateCode } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 import * as yup from 'yup'
-const ValidateSecurityCode = ({email}:{email:string}) => {
+const ValidateSecurityCode = ({ email }: { email: string }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _validateCode = (code: number) => {if(email) dispatch(validateCode({code, email}))}
+  const _validateCode = (code: number) => { if (email) dispatch(validateCode({ code, email })) }
 
   //@maria traducciones
   const validationSchema = useCallback(
@@ -41,19 +41,40 @@ const ValidateSecurityCodeView = ({
   validateCode: Function
 }) => {
   return (
-    <div className={'SendCodeMail'}>
+    <>
       <div>
-        <FormApp
-          validationSchema={validationSchema}
-          initialValues={{ code: '' }}
-          onSubmit={(values: any) => validateCode(values.code)}
-        >
-          <InputApp labelID='forms.labels.securityCode' type='number' name='code' />
-
-          <ButtonApp type='submit' labelID='page.recover-password.form.validateCode.submit' />
-        </FormApp>
+        <p className={'small-caps'}>
+          <FormattedMessage
+            id='page.recover-password.recoverCaps'
+          />
+        </p>
+        <h2 className='main-title'>
+          <FormattedMessage
+            id='page.recover-password.form.validateCode.title'
+            values={{ br: <br /> }}
+          />
+        </h2>
+        <p>
+          <FormattedMessage
+            id='page.recover-password.form.validateCode.description'
+          />
+        </p>
       </div>
-    </div>
+      <div className='margin-top-30'>
+        <div>
+          <FormApp
+            validationSchema={validationSchema}
+            initialValues={{ code: '' }}
+            onSubmit={(values: any) => validateCode(values.code)}
+          >
+            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' />
+            <ButtonApp buttonStyle='secondary' type='submit' labelID='page.recover-password.form.validateCode.submit' />
+          </FormApp>
+        </div>
+      </div>
+
+    </>
+
   )
 }
 

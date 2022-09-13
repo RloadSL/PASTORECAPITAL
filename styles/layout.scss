@@ -80,10 +80,38 @@
 	.padding-bottom-#{$i} {
 		padding-bottom: (0% + $i);
 	}
+
+	.margin-top-#{$i} {
+		margin-top: (0px + $i);
+	}
+
+	.margin-left-#{$i} {
+		margin-left: (0px + $i);
+	}
+
+	.margin-right-#{$i} {
+		margin-right: (0px + $i);
+	}
+
+	.margin-bottom-#{$i} {
+		margin-bottom: (0px + $i);
+	}
 }
 
-.smallText {
+.main-title {
+	@extend %mainTitle
+}
+
+.small-caps {
+	@extend %smallCaps;
+  color: colors.$main;
+}
+
+.small-text {
 	font-size: text.$textSmall;
 }
 
+p {
+	color: colors.$dark
+}
 
