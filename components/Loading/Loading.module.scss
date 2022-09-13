@@ -1,0 +1,16 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+
+.loading {
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  top: 0px;
+  background-color: colors.$main;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
