@@ -67,7 +67,7 @@ const ValidateSecurityCodeView = ({
             initialValues={{ code: '' }}
             onSubmit={(values: any) => validateCode(values.code)}
           >
-            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' />
+            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' maxLength={4}/>
             <ButtonApp buttonStyle='secondary' type='submit' labelID='page.recover-password.form.validateCode.submit' />
           </FormApp>
         </div>
