@@ -1,8 +1,6 @@
 import { FormattedMessage } from "react-intl"
 import style from './InputCheckApp.module.scss'
-/**
- * @maria Falta la funcionalidad de navegaciion en el label
- */
+
 export interface INPUTCHECKBLOCKPROPS {
   labelID: string,
   onChange?: Function,
@@ -18,7 +16,8 @@ export interface INPUTCHECKBLOCKPROPS {
  * @param  onChange Función para controlar el onchange de los inputs
  * @param  onBlur Función para controlar la pérdida del foco en los inputs
  * @param  error Error del campo de formulario
- * @param  name Name del campo 
+ * @param  name Name del campo
+ * @param  formattedValues Formateo para texto enriquecido
  * @returns 
  */
 

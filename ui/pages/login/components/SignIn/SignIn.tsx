@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useAuthentication } from 'ui/hooks/authentication.hook'
 import style from '../../LoginPage.module.scss'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
@@ -17,11 +16,14 @@ interface LOGINPAGEVIEWPROPS {
   signIn: Function
   validationSchema: any
 }
-
 interface LOGINVALUE {
   email: string
   password: string
 }
+
+/**
+ * Función del componente SignIn
+ */
 
 const SignIn = () => {
   const intl = useIntl()
@@ -50,6 +52,13 @@ const SignIn = () => {
     ></SignInView>
   )
 }
+
+/**
+ * Función del componente SignInView
+ * @param signIn Función para realizar el Sign In en Firebase
+ * @param validationSchema Esquema de validación del formulario de YUP
+ * @returns 
+ */
 
 const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
   return (

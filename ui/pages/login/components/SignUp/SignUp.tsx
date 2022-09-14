@@ -20,6 +20,11 @@ interface SINGUPVIEW {
   validationSchema: any
 }
 
+/**
+ * Función del componente SignUp
+ * @returns 
+ */
+
 const SignUp = () => {
   const intl = useIntl()
 
@@ -63,6 +68,13 @@ const SignUp = () => {
     ></SignUpView>
   )
 }
+
+/**
+ * Función del componente SignUpView
+ * @param signUp Función para realizar el Sign Up en Firebase
+ * @param validationSchema Esquema de validación del formulario de YUP
+ * @returns 
+ */
 
 const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
   return (

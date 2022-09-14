@@ -13,15 +13,12 @@ interface BUTTONPROPS {
  * Función de componente principal de Botón
  * @param labelID Key del json de traducción
  * @param onClick Función de manejo del evento click
- * @param type Tipe del botón
+ * @param type Type del botón
  * @param buttonStyle Estilo visual CSS del bótón transparent | primary | secondary | default | tab
  * @returns 
  */
 
 const ButtonApp = ({ labelID, onClick, buttonStyle = 'default', type = 'submit' }: BUTTONPROPS) => {
-  const handleClick = () => {
-    console.log('click desde el botón')
-  }
   return (
     <button type={type} className={`${style.button} ${style[buttonStyle]}`} onClick={() => { if (onClick) onClick() }}>
       <FormattedMessage id={labelID} />

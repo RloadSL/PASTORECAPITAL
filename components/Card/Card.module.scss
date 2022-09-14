@@ -4,12 +4,10 @@
 
 .card {
   background-color: white;
-  border-radius: utils.$borderRadius;
+  border-radius: utils.$smBorderRadius;
   width: 100%;
 
-
-  // @include devices.device(tablet) {
-  //   min-width: auto;
-  //   max-width: auto;
-  // }
+  @include devices.device(smTablet) {
+    border-radius: utils.$lgBorderRadius;
+  }
 }

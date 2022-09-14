@@ -21,8 +21,10 @@ const SigUp = dynamic(() => import('./components/SignUp'), {
 })
 
 /**
- * Función principal de Login page
+ * Función del componente Login Page
+ * @returns 
  */
+
 const LoginPage: NextPage = () => {
   const router = useRouter()
   const { isLogged, authError, loadingState } = useAuthentication()
@@ -41,18 +43,17 @@ const LoginPage: NextPage = () => {
       pushErrorsApp(authError)
     }
   }, [authError])
-  console.log('RENDER LOGIN')
   return <LoginPageView />
 }
 
 /**
- * Función de renderizado del componente * @returns
+ * Función de renderizado del componente 
+ * * @returns
  */
 
 const LoginPageView = () => {
-  const [viewForm, setviewForm] = useState(0)  
-  const [tabIndex, setTabIndex] = useState(0);
-
+  const [viewForm, setviewForm] = useState(0)
+  const [tabIndex, setTabIndex] = useState(0)
 
   return (
     <div className={style.loginPage}>
@@ -74,9 +75,9 @@ const LoginPageView = () => {
                 </span>
               </h1>
               <p>
-                  <FormattedMessage
-                    id={viewForm !== 0 ? "page.login.mainSubTitleSignUp" : "page.login.mainSubTitleLogin"}
-                  />
+                <FormattedMessage
+                  id={viewForm !== 0 ? "page.login.mainSubTitleSignUp" : "page.login.mainSubTitleLogin"}
+                />
               </p>
             </div>
           </div>
@@ -86,22 +87,22 @@ const LoginPageView = () => {
             <Tabs className={style.tabContainer} selectedIndex={tabIndex} onSelect={(index) => {
               setviewForm(viewForm !== 1 ? 1 : 0)
               setTabIndex(index);
-              }}>
+            }}>
               <TabList className={style.loginFormButtons}>
                 <Tab selectedClassName={style.tabSelect} className={style.customTab}>
-                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignIn"/>
+                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignIn" />
                 </Tab>
                 <Tab selectedClassName={style.tabSelect} className={style.customTab}>
-                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignUp"/>
+                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignUp" />
                 </Tab>
               </TabList>
               <div className={style.loginFormContainer}>
-              <TabPanel>
-                <SignIn />
-              </TabPanel>
-              <TabPanel>
-                <Suspense><SigUp /></Suspense>
-              </TabPanel>
+                <TabPanel>
+                  <SignIn />
+                </TabPanel>
+                <TabPanel>
+                  <Suspense><SigUp /></Suspense>
+                </TabPanel>
               </div>
             </Tabs>
           </Card>

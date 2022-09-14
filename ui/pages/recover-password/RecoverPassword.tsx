@@ -9,7 +9,6 @@ import { useAuthentication } from 'ui/hooks/authentication.hook'
 import { useSystem } from 'ui/hooks/system.hooks'
 import SendCodeMail from './components/SendCodeMail'
 import Link from 'next/link'
-import { FormattedMessage } from 'react-intl'
 import { CODEVALIDATIONSTATE } from 'ui/redux/slices/authentication/autentication.slice'
 import logo from "../../../assets/img/logo-w.svg";
 import Image from 'next/image'
@@ -23,6 +22,12 @@ const ValidateSecurityCode = dynamic(
 const SetPassword = dynamic(() => import('./components/SetPassword'), {
   suspense: true
 })
+
+
+/**
+ * Función del componente RecoverPasswordPage
+ * @returns 
+*/
 
 const RecoverPasswordPage: NextPage = () => {
   const router = useRouter()
@@ -54,9 +59,14 @@ const RecoverPasswordPage: NextPage = () => {
   return <RecoverPasswordView codeValidatedState={codeValidatedState} setCodeState={setCodeState} />
 }
 
+/**
+ * Función del componente RecoverPasswordView
+ * @param codeValidatedState Estado del código de validación
+ * @param setCodeState Seteo del código validación
+ * @returns 
+*/
 
-const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidatedState: CODEVALIDATIONSTATE, setCodeState: Function }) => {
-  console.log(codeValidatedState)
+const RecoverPasswordView = ({ codeValidatedState, setCodeState }:{ codeValidatedState: CODEVALIDATIONSTATE, setCodeState: Function }) => {
   const [email, setEmail]: [email?: string, setEmail?: Function] = useState()
   const renderState = useCallback((processState: CODEVALIDATIONSTATE) => {
     switch (processState) {
@@ -83,20 +93,6 @@ const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidat
     }
   }, [email])
 
-
-  // const _handleCodeState = () => {
-  //   if (codeValidatedState === 'init' && email == undefined) {
-  //     return <div style={{ display: 'flex', width: '100%' }}>
-  //       <button onClick={() => setCodeState('init')}></button>
-  //     </div>
-  //   }
-  //   if (codeValidatedState === 'validated' && email != undefined) {
-  //     return <div style={{ display: 'flex', width: '100%' }}>
-  //       <button onClick={() => setCodeState('waiting')}>PREVIEW</button>
-  //     </div>
-  //   }
-  // }
-
   return (
     <div className={style.recoverPasswordPage}>
       <div className={style.recoverPasswordBottom}>
@@ -107,11 +103,8 @@ const RecoverPasswordView = ({ codeValidatedState, setCodeState }: { codeValidat
           <Card>
             <div className={style.cardContainer}>
               <Link href={'/login'} >
-                <a className={style.back} onClick={()=>setCodeState('init')}>
-                  {/* <span><FormattedMessage id='page.recover-password.form.backButtonLabel'/></span> */}
-                </a>
+                <a className={style.back} onClick={() => setCodeState('init')}></a>
               </Link>
-            
               {renderState(codeValidatedState)}
             </div>
           </Card>
