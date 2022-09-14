@@ -6,7 +6,7 @@
   background-color: white;
   border-radius: utils.$smBorderRadius;
   width: 100%;
-
+  position: relative;
   @include devices.device(smTablet) {
     border-radius: utils.$lgBorderRadius;
   }

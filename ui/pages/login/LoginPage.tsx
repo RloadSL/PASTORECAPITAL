@@ -14,6 +14,7 @@ import logo from "../../../assets/img/logo-w.svg";
 import ButtonApp from "components/ButtonApp";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useAuthentication } from 'ui/hooks/authentication.hook'
+import Loading from 'components/Loading'
 
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
@@ -84,6 +85,7 @@ const LoginPageView = () => {
         </div>
         <div className={style.colRight}>
           <Card customStyle={style.cardContainer}>
+            <Loading></Loading>
             <Tabs className={style.tabContainer} selectedIndex={tabIndex} onSelect={(index) => {
               setviewForm(viewForm !== 1 ? 1 : 0)
               setTabIndex(index);
