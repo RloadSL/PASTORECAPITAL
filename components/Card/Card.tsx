@@ -8,7 +8,7 @@ export interface CARDPROPS {
 
 /**
  * Función del componente Card
- * @param customStyle Estilos desde el padre
+ * @param customStyle Estilos del componente
  * @returns 
  */
 

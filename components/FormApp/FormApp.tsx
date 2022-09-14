@@ -1,7 +1,5 @@
 import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
-import * as yup from 'yup'
-
 export interface FORMAPPPROPS {
   onSubmit: Function
   children: any
@@ -10,8 +8,8 @@ export interface FORMAPPPROPS {
 }
 /**
  * Función de componente principal de formulario
- * @param  onSubmit Función que ejecuta el formulario en la llamada al sumbit
- * @param  validationSchema Objecto de yup para validar el formulario
+ * @param onSubmit Función que ejecuta el formulario en la llamada al sumbit
+ * @param validationSchema Objecto de yup para validar el formulario
  * @param initialValues Valores iniciales del formulario los key tienen que coincidir con los name de los campos input
  * @returns
  */
@@ -30,11 +28,11 @@ const FormApp = ({
     onSubmit(values)
   }
 
-  const childrenWithExtraProp = ({errors, touched}: any, setFieldValue:Function) => {
+  const childrenWithExtraProp = ({ errors, touched }: any, setFieldValue: Function) => {
     return React.Children.map(children, child => {
       return React.cloneElement(child, {
         error: errors[child.props.name] && touched[child.props.name] ? errors[child.props.name] : null,
-        onChange : setFieldValue
+        onChange: setFieldValue
       })
     })
   }
@@ -51,7 +49,7 @@ const FormApp = ({
         onSubmit={values => _onSubmit(values)}
       >
         {({ errors, touched, setFieldValue }) => {
-          return <Form>{childrenWithExtraProp({errors, touched}, setFieldValue)}</Form>
+          return <Form>{childrenWithExtraProp({ errors, touched }, setFieldValue)}</Form>
         }}
       </Formik>
     </div>
