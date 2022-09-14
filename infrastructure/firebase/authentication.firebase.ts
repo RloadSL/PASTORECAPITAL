@@ -28,7 +28,7 @@ class FireAuthentication {
   private _parseError = (error: any):ErrorApp => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    return (new ErrorApp({ errorCode, errorMessage }))
+    return (new ErrorApp({ errorCode, errorMessage }, 'error'))
   }
 
   public createUserWithEmailAndPassword = async (email: string, password: string) => {

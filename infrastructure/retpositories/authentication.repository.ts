@@ -106,7 +106,7 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       if(response.status === 200){
         return {state: 'waiting' , error: null};
       }else{
-        return {state: 'init' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error})};;
+        return {state: 'init' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error},'error')};;
       }
     } catch (error) {
       return { userCredential: null, error: error };
@@ -124,7 +124,7 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       if(response.status === 200){
         return {state: 'validated' , error: null};
       }else{
-        return {state: 'waiting' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error})};;
+        return {state: 'waiting' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error}, 'error')};;
       }
     } catch (error) {
       return { userCredential: null, error: error };
@@ -142,7 +142,7 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
       if(response.status === 200){
         return {state: 'redirect' , error: null};
       }else{
-        return {state: 'init' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error})};;
+        return {state: 'init' , error: new ErrorApp({errorCode: response.error, errorMessage: response.error}, 'error')};;
       }
     } catch (error) {
       return { userCredential: null, error: error };

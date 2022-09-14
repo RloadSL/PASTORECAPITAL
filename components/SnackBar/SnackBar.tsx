@@ -9,7 +9,6 @@ import style from './SnackBar.module.scss'
 
 interface SNACKBARPROPS {
   time?: number,
-  type: 'warn' | 'error' | 'info' | 'success'
 }
 
 /**
@@ -18,7 +17,7 @@ interface SNACKBARPROPS {
  * @returns 
  */
 
-export const SnackBar = ({ time = 5000, type = 'info' }: SNACKBARPROPS) => {
+export const SnackBar = ({ time = 5000}: SNACKBARPROPS) => {
   const {errorsApp, cleanErrorsApp} = useSystem()
   useEffect(() => {
     if (errorsApp.length > 0) setTimeout(() => {
@@ -27,14 +26,14 @@ export const SnackBar = ({ time = 5000, type = 'info' }: SNACKBARPROPS) => {
   }, [errorsApp.length])
 
   return (
-    <SnackBarView errorsApp={errorsApp} type={type}/>
+    <SnackBarView errorsApp={errorsApp} />
   )
 }
 
-const SnackBarView = ({ errorsApp, type }: { errorsApp: ErrorApp[], type: 'warn' | 'error' | 'info' | 'success' }) => {
+const SnackBarView = ({ errorsApp }: { errorsApp: ErrorApp[]}) => {
   return (
     <div className={`${style.snackBar} ${errorsApp.length > 0 ? style.show : ''}`}>
-      {errorsApp.map((err, index:number) => <div key={index} className={`${style.container} ${style[type]}`}>
+      {errorsApp.map((err, index:number) => <div key={index} className={`${style.container} ${style[err.type]}`}>
         <p ><FormattedMessage id={err.errorCode}></FormattedMessage></p>
       </div>)}
     </div>
