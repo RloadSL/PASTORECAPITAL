@@ -39,13 +39,13 @@
   "page.recover-password.form.resetPassword.description": "Introduce una nueva contraseña de al menos, 6 caracteres",
 
   "component.navbar.backbuttom": "Atrás",
-
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",
 
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
   "auth/user-not-found": "El usuario no existe",
   "auth/email-already-exists": "El email ya esta en uso en la plataforma",
+  "auth/network-request-failed" : "Error interno, inténtalo más tarde.",
   "user@not-found": "El usuario no existe",
   "Unauthorized": "Usuario no autorizado",
   "code@invalid": "Código inválido",

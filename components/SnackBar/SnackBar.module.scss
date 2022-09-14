@@ -7,13 +7,15 @@
   width: 100%;
   font-size: 0.9rem;
   padding: 5px;
-
+  
   .container {
-    background-color: colors.$grey30;
     padding: 10px 20px;
     border-radius: 5px;
     visibility: hidden;
     margin-bottom: 5px;
+    p{
+      color: white;
+    }
   }
 }
 
@@ -23,7 +25,18 @@
     animation: fadein 0.5s;
   }
 }
-
+.warn{
+  background-color: yellow;
+} 
+.error{
+  background-color: red;
+}
+.info{
+  background-color: blue;
+} 
+.success{
+  background-color: green;
+}
 @keyframes fadein {
   from {
     top: 0;
