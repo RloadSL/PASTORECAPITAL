@@ -6,10 +6,10 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import style from './SnackBar.module.scss'
 
 
-export type SNACKBARTYPE  =  'warn' | 'error' | 'info' | 'success'
+
 interface SNACKBARPROPS {
   time?: number,
-  type: SNACKBARTYPE
+  type: 'warn' | 'error' | 'info' | 'success'
 }
 
 /**
@@ -31,7 +31,7 @@ export const SnackBar = ({ time = 5000, type = 'info' }: SNACKBARPROPS) => {
   )
 }
 
-const SnackBarView = ({ errorsApp, type }: { errorsApp: ErrorApp[], type: SNACKBARTYPE }) => {
+const SnackBarView = ({ errorsApp, type }: { errorsApp: ErrorApp[], type: 'warn' | 'error' | 'info' | 'success' }) => {
   return (
     <div className={`${style.snackBar} ${errorsApp.length > 0 ? style.show : ''}`}>
       {errorsApp.map((err, index:number) => <div key={index} className={`${style.container} ${style[type]}`}>
