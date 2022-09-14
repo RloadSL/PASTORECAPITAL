@@ -1,6 +1,7 @@
 @use "./variables/colors" as colors;
 @use "./variables/text" as text;
 @use "./mixins/devices" as devices;
+@use "./variables/utils" as utils;
 
 %smallCaps {
   text-transform: uppercase;
@@ -20,5 +21,13 @@
 
   @include devices.device(tablet) {
     font-size: 2rem;
+  }
+}
+
+%borderRadius {
+  border-radius: utils.$smBorderRadius;
+
+  @include devices.device(smTablet) {
+    border-radius: utils.$lgBorderRadius;
   }
 }

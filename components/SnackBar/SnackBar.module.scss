@@ -25,18 +25,19 @@
     animation: fadein 0.5s;
   }
 }
-.warn{
-  background-color: yellow;
+.warning{
+  background-color: colors.$warning;
 } 
 .error{
-  background-color: red;
+  background-color: colors.$error;
 }
 .info{
-  background-color: blue;
+  background-color: colors.$main;
 } 
 .success{
-  background-color: green;
+  background-color: colors.$success;
 }
+
 @keyframes fadein {
   from {
     top: 0;

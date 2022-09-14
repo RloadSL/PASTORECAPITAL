@@ -13,7 +13,7 @@ interface SNACKBARPROPS {
 
 /**
  * Función de principal de SnackBar de la aplicación
- * @param time Tiempo que permanece visible el snackbar 
+ * @param time Tiempo que permanece visible el snackbar
  * @returns 
  */
 

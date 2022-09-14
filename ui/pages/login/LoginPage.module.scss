@@ -18,12 +18,13 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 80px 5% 100px 5%;
+    padding: 80px 3% 100px 3%;
 
     @include devices.device(tablet) {
       flex-direction: row;
       justify-content: space-between;
       max-width: 1200px;
+      padding: 80px 5% 100px 5%;
     }
 
     @include devices.device(lgScreen) {
@@ -70,7 +71,15 @@
   }
 
   .logo {
-    margin-bottom: 20%;
+    margin-bottom: 5%;
+
+    @include devices.device(tablet) {
+      margin-bottom: 40%;
+    }
+
+    @include devices.device(smScreen) {
+      margin-bottom: 20%;
+    }
   }
 }
 
@@ -120,6 +129,10 @@
     @include devices.device(smScreen) {
       margin-bottom: 30px;
     }
+
+    li {
+      font-size: .8rem;
+    }
   }
 
   .loginFormContainer {
@@ -127,7 +140,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10%;
+    padding: 5%;
+
+    @include devices.device(smTablet) {
+      padding: 10%;
+    }
 
     @include devices.device(smScreen) {
       padding: 0% 10%;
