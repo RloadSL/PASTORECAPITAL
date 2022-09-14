@@ -14,7 +14,7 @@ interface SNACKBARPROPS {
 
 /**
  * Función de principal de SnackBar de la aplicación
- * @param time Tiempo que permanece visible el snackbar 
+ * @param time Tiempo que permanece visible el snackbar
  * @returns 
  */
 
@@ -35,7 +35,7 @@ const SnackBarView = ({ errorsApp, type }: { errorsApp: ErrorApp[], type: SNACKB
   return (
     <div className={`${style.snackBar} ${errorsApp.length > 0 ? style.show : ''}`}>
       {errorsApp.map((err, index:number) => <div key={index} className={`${style.container} ${style[type]}`}>
-        <p ><FormattedMessage id={err.errorCode}></FormattedMessage></p>
+        <p><FormattedMessage id={err.errorCode}></FormattedMessage></p>
       </div>)}
     </div>
   );

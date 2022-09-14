@@ -47,7 +47,7 @@ const SignUp = () => {
         password: yup
           .string()
           .trim()
-          .min(6, intl.formatMessage({ id: 'page.login.incorrectPassword' }))
+          .min(6, intl.formatMessage({ id: 'forms.errors.incorrectPassword' }))
           .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
         repeatPassword: yup
           .string()

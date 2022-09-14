@@ -1,5 +1,8 @@
-// @use "../../styles/partials/mixins/devices" as devices;
 @use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
 
 %label {
   display: block;
@@ -12,10 +15,11 @@
 
 .inputContainer {
   background-color: colors.$grey20;
-  border-radius: 20px;
   padding: 12px 5px;
   position: relative;
   margin-bottom: 20px;
+  @extend %borderRadius;
+
 
   .label {
     @extend %label; 
@@ -74,7 +78,8 @@
 }
 
 .inputContainer:focus-within {
-  outline: 1px solid colors.$main;
+  box-shadow: 0 0 0 1px colors.$main;
+
   .label {
     transform: translate(10px, -5px) scale(0.8);
     color: colors.$main;
@@ -96,7 +101,8 @@
 }
 
 .hasError {
-  outline: 1px solid colors.$error;
+  box-shadow: 0 0 0 1px colors.$error;
+
 }
 
 .inputContainer.hasError.code {

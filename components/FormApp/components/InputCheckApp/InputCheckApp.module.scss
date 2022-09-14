@@ -1,9 +1,9 @@
-// @use "../../styles/partials/mixins/devices" as devices;
 @use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+
 
 .inputContainer {
   margin-bottom: 20px;
-  border-radius: 20px;
   padding: 12px 5px;
   position: relative;
 
@@ -18,8 +18,8 @@
   }
 
   .input {
-    width: 100%;
-    margin-right: 15px;
+    margin-right: 10px;
+    display: inline-block;
   }
 }
 
