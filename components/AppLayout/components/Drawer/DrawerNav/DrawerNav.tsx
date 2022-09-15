@@ -1,3 +1,5 @@
+import LinkApp from 'components/LinkApp'
+import Menu from 'components/Menu'
 import style from './DrawerNav.module.scss'
 
 /**
@@ -9,8 +11,8 @@ const DrawerNav = ({ children }: any) => {
     <div className={style.drawerNav}>
       <aside className={style.aside}>
         {children}
+        <Menu/>
       </aside>
-
     </div>
   )
 }
