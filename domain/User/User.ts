@@ -6,9 +6,13 @@ export class User {
     return this._uid;
   }
   
-  private _fullName: string;
-  public get fullName(): string {
-    return this._fullName;
+  private _name: string;
+  public get name(): string {
+    return this._name;
+  }
+  private _lastname: string;
+  public get lastname(): string {
+    return this.lastname;
   }
 
   private _email: string;
@@ -24,14 +28,16 @@ export class User {
   constructor(userData:UserDto) {
     this._uid = userData.uid;
     this._email = userData.email;
-    this._fullName = userData.full_name;
+    this._lastname = userData.lastname;
+    this._name = userData.name;
     this._role = userData.role;
   }
 
   public toJson = ():UserDto => ({
     uid: this._uid,
     email: this._email,
-    full_name : this._fullName,
+    lastname : this._lastname,
+    name : this._name,
     role: this._role
   });
 }

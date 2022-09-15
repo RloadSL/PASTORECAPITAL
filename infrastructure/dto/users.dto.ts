@@ -1,11 +1,13 @@
 export interface UpdateUser {
-  full_name?:string,
+  name:string,
+  lastname:string,
   email?:string,
   role?: Role
 }
 
 export interface CreateUser {
-  full_name:string,
+  name:string,
+  lastname:string,
   password:string,
   email:string,
   role: Role
@@ -13,7 +15,8 @@ export interface CreateUser {
 
 export interface UserDto {
   uid:string,
-  full_name:string,
+  name:string,
+  lastname:string,
   email:string,
   role: Role
 }
