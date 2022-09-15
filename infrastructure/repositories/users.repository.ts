@@ -17,10 +17,11 @@ class UserRepositoryImplementation extends UserRepository {
 
     return UserRepositoryImplementation.instance;
   }
-  async read(uid: string): Promise<User | null> {
+  async read(uid: string, extradata?: {webToken:string}): Promise<User | null> {
     const userSnap = await FireFirestore.getDoc('users',uid)
     if(userSnap?.exists()){
-      const userData:any = {uid: userSnap?.id,...userSnap?.data()};
+      let userData:any = {uid: userSnap?.id,...userSnap?.data()};
+      if(extradata) userData = {...userData, ...extradata};
       return new User(userData as UserDto);
     }else{
       return null;

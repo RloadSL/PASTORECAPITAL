@@ -10,6 +10,7 @@ import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import SnackBar from 'components/SnackBar'
 import Loading from 'components/Loading'
+import SplashScreen from 'components/SplashScreen'
 
 const messages: any = {
   en,
@@ -28,13 +29,11 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <IntlProvider locale={locale} messages={messages[locale]}>
-        
-
         <AppLayout dir={getDirection(locale)}>
           <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
         <SnackBar></SnackBar>
-       
+        <SplashScreen/>
       </IntlProvider>
     </Provider>
   )

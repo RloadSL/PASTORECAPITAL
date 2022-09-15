@@ -24,6 +24,11 @@ export class User {
   public get role(): Role {
     return this._role;
   }
+
+  private _wpToken: string | undefined;
+  public get wpToken(): string  | undefined{
+    return this._wpToken;
+  }
  
   constructor(userData:UserDto) {
     this._uid = userData.uid;
@@ -31,6 +36,7 @@ export class User {
     this._lastname = userData.lastname;
     this._name = userData.name;
     this._role = userData.role;
+    this._wpToken = userData.wp_token;
   }
 
   public toJson = ():UserDto => ({

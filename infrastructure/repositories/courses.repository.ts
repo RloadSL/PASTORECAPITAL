@@ -6,13 +6,14 @@ class CoursesRepositoryImpl extends CourseRepository{
   private constructor(){
     super()
   };
+  
   public static getInstance(): CoursesRepositoryImpl {
     if (!CoursesRepositoryImpl.instance) {
       CoursesRepositoryImpl.instance = new CoursesRepositoryImpl();
     }
     return CoursesRepositoryImpl.instance;
   }
-  
+
   create(course: any): Promise<any> {
       return createWpCourse(course)
   }

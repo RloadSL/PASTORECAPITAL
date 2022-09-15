@@ -59,7 +59,7 @@ class FireAuthentication {
   }
 
   public onChange = (callback:Function) => onAuthStateChanged(this._auth, (user)=>{
-    if(user) callback(user);
+    callback(user);
   })
 }
 

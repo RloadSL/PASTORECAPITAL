@@ -3,7 +3,7 @@ import { User as FireUser } from "firebase/auth";
 import { AuthenticationRepository } from "../../domain/Authentication/authentication.repository";
 import { CreateUser, Role } from "../dto/users.dto";
 import FireAuthentication  from "../firebase/authentication.firebase";
-import { FireFunctions } from "../firebase/functions.firebase";
+import { FireFunctions, FireFunctionsInstance } from "../firebase/functions.firebase";
 
 /**
  * Implementación del repositorio de Authenticación basado en Firebase Authentication.
@@ -49,6 +49,15 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
 
   }
   /**
+   * Autenticación en Firebase Authentication vía email y password.
+   * @returns Promesa con los resultados de la operación
+   */
+   async getWordpressToken(uid:string): Promise<{ wp_token:string | null, error: ErrorApp | null }> {
+    const response:any = await FireFunctionsInstance.onCallFunction('GetWpTokenTriggerFunctions', {uid});
+    return response;
+
+  }
+  /**
    * Crear nuevo usuario en Firebase Authentication y Firestore 
    * @param data Datos del usuario necesarios para crear no nuevo
    * @returns Promesa con los resultados de la operación
@@ -77,11 +86,16 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
    * @param callback Tarea a ejecutar cuando se produsca un cambio de estado
    */
   onUserChange(callback:Function) {
-    FireAuthentication.onChange((user: FireUser) => {
-      this._userLogged = user;
-      this._logged = true;
+    FireAuthentication.onChange( async (user: FireUser) => {
+      let wpAuth:any;
+      if(user){
+        this._userLogged = user;
+        this._logged = true;
+        wpAuth = await this.getWordpressToken(user.uid)
+      }
+      
       if (callback) {
-        callback(user)
+        callback(user ?  {uid: user.uid, extradata: {wpToken: wpAuth.wp_token}} : null)
       }
     })
   }

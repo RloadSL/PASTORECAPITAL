@@ -56,9 +56,9 @@ export const signOut = createAsyncThunk(
 
 export const createUser = createAsyncThunk(
   'auth@createUser',
-  async (uid: string) => {
+  async ({uid , extradata}: {uid: string, extradata?: {webToken:string}}) => {
     try {
-      const user = await UserRepositoryImplInstance.read(uid)
+      const user = await UserRepositoryImplInstance.read(uid, extradata)
       return user;
     } catch (error) {
       return error;
@@ -151,7 +151,7 @@ const initialState: {
   loggued: boolean,
   loading: boolean,
   code_validated: CODEVALIDATIONSTATE
-} = { userLogged: null, authError: null, loggued: false, loading: false, code_validated: 'init' };
+} = { userLogged: null, authError: null, loggued: false, loading: true, code_validated: 'init' };
 
 export const authetication = createSlice({
   name: 'Authentication',
@@ -162,6 +162,9 @@ export const authetication = createSlice({
     }, 
     setCodeValidation : (state, action)=>{
       state.code_validated = action.payload
+    },
+    setAuthLoading : (state, action)=>{
+      state.loading = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -183,6 +186,6 @@ export const authetication = createSlice({
 })
 
 //Estrallendo actions
-export const { cleanAuthErrors, setCodeValidation } = authetication.actions;
+export const { cleanAuthErrors, setCodeValidation, setAuthLoading } = authetication.actions;
 
 export default authetication.reducer

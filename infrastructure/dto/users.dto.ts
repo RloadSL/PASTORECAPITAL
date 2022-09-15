@@ -18,7 +18,8 @@ export interface UserDto {
   name:string,
   lastname:string,
   email:string,
-  role: Role
+  role: Role,
+  wp_token?: string
 }
 
 export interface Role {

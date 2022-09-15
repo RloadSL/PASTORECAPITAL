@@ -33,4 +33,4 @@ export class FireFunctions {
   }
 }
 
-export default FireFunctions.getInstance();
+export const FireFunctionsInstance = FireFunctions.getInstance();
