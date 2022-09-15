@@ -1,13 +1,11 @@
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/variables/colors" as colors;
 @use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
 
 .card {
+  @extend %borderRadius;
   background-color: white;
-  border-radius: utils.$smBorderRadius;
   width: 100%;
   position: relative;
-  @include devices.device(smTablet) {
-    border-radius: utils.$lgBorderRadius;
-  }
 }

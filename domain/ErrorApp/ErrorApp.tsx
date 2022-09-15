@@ -1,7 +1,9 @@
 import { ErrorAuth } from "infrastructure/firebase/authentication.firebase";
 
-export class ErrorApp{
-  type: 'warn' | 'error' | 'info' | 'success' = 'info';
+
+type ErrorType = 'warning' | 'error' | 'info' | 'success' | 'info';
+export class ErrorApp {
+  type: ErrorType;
   private _errorCode: string;
   public get errorCode(): string {
     return this._errorCode;
@@ -10,7 +12,7 @@ export class ErrorApp{
   public get errorMessage(): string {
     return this._errorMessage;
   }
-  constructor(data:ErrorAuth | {errorCode:string, errorMessage:string} , type: 'warn' | 'error' | 'info' | 'success' = 'info'){
+  constructor(data: ErrorAuth | { errorCode: string, errorMessage: string }, type: ErrorType) {
     this._errorCode = data.errorCode;
     this._errorMessage = data.errorMessage;
     this.type = type;

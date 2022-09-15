@@ -3,33 +3,8 @@
 @use "./partials/mixins/devices" as devices;
 @use "./partials/placeholders" as holders;
 
-// p,
-// li {
-// 	color: colors.$dark;
-// }
 
-.fade-in-rld {
-	opacity: 100%;
-	transition: opacity 1s;
-}
-
-// input,
-// textarea {
-// 	background-color: colors.$grey20 !important;
-// 	border-radius: 25px !important;
-// 	padding: 30px !important;
-// 	border: none !important;
-// 	color: colors.$dark !important;
-
-// 	&:focus {
-// 		border: 1px solid colors.$palette5 !important;
-// 	}
-// }
-
-// button[type="submit"],
-// input[type="submit"] {
-// 	border-radius: 35px !important;
-// }
+//CONTAINERS
 
 .flex-container {
 	display: flex;

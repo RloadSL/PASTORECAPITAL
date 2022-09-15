@@ -7,14 +7,27 @@
   width: 100%;
   font-size: 0.9rem;
   padding: 5px;
-  
+
   .container {
-    padding: 10px 20px;
     border-radius: 5px;
     visibility: hidden;
     margin-bottom: 5px;
-    p{
-      color: white;
+    background-color: white;
+    display: flex;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+      padding: 5px;
     }
   }
 }
@@ -25,17 +38,68 @@
     animation: fadein 0.5s;
   }
 }
-.warning{
-  background-color: colors.$warning;
-} 
-.error{
-  background-color: colors.$error;
+
+%icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  content: "";
+  margin-right: 15px;
 }
-.info{
-  background-color: colors.$main;
-} 
-.success{
-  background-color: colors.$success;
+
+.warning {
+  background-color: colors.$warning;
+}
+
+.error {
+  &::before {
+    background-color: colors.$error;
+  }
+
+  p {
+    &::before {
+      @extend %icon;
+      background-image: url(../../assets/img/icons/error.svg);
+    }
+  }
+}
+
+.info {
+  &::before {
+    background-color: colors.$main;
+  }
+
+  p {
+    &::before {
+      @extend %icon;
+      background-image: url(../../assets/img/icons/info.svg);
+    }
+  }
+}
+.success {
+  &::before {
+    background-color: colors.$success;
+  }
+
+  p {
+    &::before {
+      @extend %icon;
+      background-image: url(../../assets/img/icons/success.svg);
+    }
+  }
+}
+.warning {
+  &::before {
+    background-color: colors.$warning;
+  }
+
+  p {
+    &::before {
+      @extend %icon;
+      background-image: url(../../assets/img/icons/warning.svg);
+    }
+  }
 }
 
 @keyframes fadein {
@@ -48,4 +112,3 @@
     opacity: 1;
   }
 }
-

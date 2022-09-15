@@ -6,6 +6,8 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import style from './SnackBar.module.scss'
 
 
+// const errorTEst = [new ErrorApp({errorCode: 'auth/wrong-password', errorMessage: 'auth/wrong-password'}, 'warning')]
+
 interface SNACKBARPROPS {
   time?: number,
 }
@@ -36,5 +38,5 @@ const SnackBarView = ({ errorsApp }: { errorsApp: ErrorApp[]}) => {
         <p ><FormattedMessage id={err.errorCode}></FormattedMessage></p>
       </div>)}
     </div>
-  );
+  ); 
 }
