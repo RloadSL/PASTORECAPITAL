@@ -6,7 +6,6 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import style from './SnackBar.module.scss'
 
 
-
 interface SNACKBARPROPS {
   time?: number,
 }
