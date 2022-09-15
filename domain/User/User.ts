@@ -36,7 +36,7 @@ export class User {
     this._lastname = userData.lastname;
     this._name = userData.name;
     this._role = userData.role;
-    this._wpToken = userData.wp_token;
+    this._wpToken = userData.wpToken;
   }
 
   public toJson = ():UserDto => ({
@@ -44,6 +44,7 @@ export class User {
     email: this._email,
     lastname : this._lastname,
     name : this._name,
-    role: this._role
+    role: this._role,
+    wpToken : this._wpToken
   });
 }

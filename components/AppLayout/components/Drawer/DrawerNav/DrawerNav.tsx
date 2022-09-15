@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import style from './DrawerNav.module.scss'
 
 /**
@@ -8,6 +9,7 @@ const DrawerNav = ({ children }: any) => {
   return (
     <div className={style.drawerNav}>
       <aside className={style.aside}>
+        <Link href={'/academy/courses'}><a>Cursos</a></Link>
         {children}
       </aside>
 

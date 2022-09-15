@@ -1,3 +1,3 @@
 export abstract class CourseRepository {
-  abstract create(course:any):Promise<any>;
+  abstract create(course:any, wpToken: string):Promise<any>;
 }

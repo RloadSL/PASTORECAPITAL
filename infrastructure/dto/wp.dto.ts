@@ -11,3 +11,18 @@ export interface CATEGORY {
   parent?: string,
   meta? : any
 }
+
+export interface PAGES {
+  /**
+   * Titulo de la página
+   */
+  title: string,
+  /**
+   * Descripcción breve de la página. 
+   */
+  excerpt : string,
+  /**
+   * id de las categorias separadas por coma "12,20,30".
+   */
+  categories?: string
+}

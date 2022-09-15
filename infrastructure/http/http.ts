@@ -1,5 +1,5 @@
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 
 class Http {
@@ -23,13 +23,16 @@ class Http {
     return response.data;
   }
   
-  post = async <T>(url: string, body: any = {}, headers:any = {}) => {
+  post = async (url: string, body: any = {}, headers:any = {}):Promise<{errCode?:string, data?:any}> => {
     try {
       headers = {...this._headers, ...headers};
       const response = await axios.post(url,body,{headers: headers})
-      return response.data;
+      return {data : response.data};
     } catch (error) {
-      return error
+      const err = error as any;
+      const code:any = err.response.data.code;
+      console.log(err)
+      return {errCode: code}
     }
     
   }

@@ -60,7 +60,21 @@ export class FireFirestore {
       alert('Internal error firebase')
     }
   }
-
+  /**
+   * Implementación del set de Firestore
+   * @param collectionPath Path de la colección o subcolección del documento a modificar
+   * @param docId Id del documento
+   * @param data Data a modificar
+   */
+   public setDoc = async (collectionPath: string, docId: string, data:any) => {
+    try {
+      const docRef = this._doc(collectionPath, docId);
+      await setDoc(docRef, data);
+    } catch (error) {
+      console.error(error)
+      alert('Internal error firebase')
+    }
+  }
   /**
    * Implementación del set de Firestore
    * @param collectionPath Path de la colección o subcolección del documento a modificar
