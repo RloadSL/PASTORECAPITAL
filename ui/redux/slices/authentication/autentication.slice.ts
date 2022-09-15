@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
+import { AuthImplInstance } from 'infrastructure/repositories/authentication.repository';
+import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository';
 import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
-import { AuthenticationRepositoryImplementation } from '../../../../infrastructure/retpositories/authentication.repository'
-import { UserRepositoryImplementation } from '../../../../infrastructure/retpositories/users.repository';
 
-const authRepository = AuthenticationRepositoryImplementation.getInstance();
-const userRepository = new UserRepositoryImplementation();
 
-export const onChangeAuthState = (callback: Function) => authRepository.onUserChange(callback)
+export const onChangeAuthState = (callback: Function) => AuthImplInstance.onUserChange(callback)
 
 
 export const signInEmailPassword = createAsyncThunk(
@@ -16,10 +14,10 @@ export const signInEmailPassword = createAsyncThunk(
   async (credentials: { email: string, password: string }) => {
     const { email, password } = credentials;
     try {
-      const response = await authRepository.signInEmailPassword(email, password)
+      const response = await AuthImplInstance.signInEmailPassword(email, password)
       const { userCredential, error } = response;
       if (!userCredential) return error; //retorna usuario invitado
-      const user = await userRepository.read(userCredential.uid)
+      const user = await UserRepositoryImplInstance.read(userCredential.uid)
       return user;
     } catch (error) {
       return error;
@@ -31,10 +29,10 @@ export const signUpEmailPassword = createAsyncThunk(
   'auth@signUpEmailPassword',
   async (data: CreateUser) => {
     try {
-      const response = await authRepository.signUp(data)
+      const response = await AuthImplInstance.signUp(data)
       const { userCredential, error } = response;
       if (!userCredential) return error; //retorna usuario invitado
-      const user = await userRepository.read(userCredential.uid)
+      const user = await UserRepositoryImplInstance.read(userCredential.uid)
       return user;
     } catch (error) {
       return error;
@@ -47,7 +45,7 @@ export const signOut = createAsyncThunk(
   async () => {
     console.log('auth@signOut')
     try {
-      await authRepository.signOut()
+      await AuthImplInstance.signOut()
       const user = null
       return user;
     } catch (error) {
@@ -60,7 +58,7 @@ export const createUser = createAsyncThunk(
   'auth@createUser',
   async (uid: string) => {
     try {
-      const user = await userRepository.read(uid)
+      const user = await UserRepositoryImplInstance.read(uid)
       return user;
     } catch (error) {
       return error;
@@ -72,7 +70,7 @@ export const sendEmailCode = createAsyncThunk(
   'auth@sendEmailCode',
   async (arg: { email: string }) => {
     try {
-      const res = await authRepository.sendSecurityCode(arg)
+      const res = await AuthImplInstance.sendSecurityCode(arg)
       return res;
     } catch (error) {
       return error;
@@ -84,7 +82,7 @@ export const validateCode = createAsyncThunk(
   'auth@validateCode',
   async (arg: { code: number, email:string }) => {
     try {
-      const res = await authRepository.validateCode(arg)
+      const res = await AuthImplInstance.validateCode(arg)
       return res;
     } catch (error) {
       return error;
@@ -96,7 +94,7 @@ export const resetPassword = createAsyncThunk(
   'auth@resetPassword',
   async (arg: { newPassword: string, email:string }) => {
     try {
-      const res = await authRepository.recoverPass(arg)
+      const res = await AuthImplInstance.recoverPass(arg)
       return res;
     } catch (error) {
       return error;

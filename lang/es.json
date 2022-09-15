@@ -1,6 +1,7 @@
 {
   "page.home.title": "Bienvenidos",
   "page.home.h1": "KAKAK",
+
   "page.login.title": "Title",
   "page.login.mainTitleLogin": "Comience su viaje  <b>criptográfico</b> ",
   "page.login.mainTitleSignUp": "Comience su viaje  <b>criptográfico</b> ",
@@ -36,6 +37,10 @@
   "page.recover-password.form.resetPassword.submit": "Cambiar",
   "page.recover-password.form.resetPassword.title": "Cambiar contraseña",
   "page.recover-password.form.resetPassword.description": "Introduce una nueva contraseña de al menos, 6 caracteres",
+
+  "page.academy/courses.title" : "Academia",
+
+  "page.academy/tutorials.title" : "Crypto tutoriales",
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",

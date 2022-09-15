@@ -1,5 +1,4 @@
 
-import { http } from "../http/http"
 
 import { User } from "../../domain/User/User";
 import { UserRepository } from "../../domain/User/user.repository";
@@ -9,7 +8,15 @@ import { Unsubscribe } from "firebase/firestore";
 /**
  * Implementación de los casos de usos para los usuarios de la plataforma
  */
-export class UserRepositoryImplementation extends UserRepository {
+class UserRepositoryImplementation extends UserRepository {
+  private static instance: UserRepositoryImplementation;
+  public static getInstance(): UserRepositoryImplementation {
+    if (!UserRepositoryImplementation.instance) {
+      UserRepositoryImplementation.instance = new UserRepositoryImplementation();
+    }
+
+    return UserRepositoryImplementation.instance;
+  }
   async read(uid: string): Promise<User | null> {
     const userSnap = await FireFirestore.getDoc('users',uid)
     if(userSnap?.exists()){
@@ -44,3 +51,5 @@ export class UserRepositoryImplementation extends UserRepository {
     }
   };
 }
+
+export const UserRepositoryImplInstance = UserRepositoryImplementation.getInstance()

@@ -1,5 +1,5 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
-import { User as FireUser, UserCredential } from "firebase/auth";
+import { User as FireUser } from "firebase/auth";
 import { AuthenticationRepository } from "../../domain/Authentication/authentication.repository";
 import { CreateUser, Role } from "../dto/users.dto";
 import FireAuthentication  from "../firebase/authentication.firebase";
@@ -9,7 +9,7 @@ import { FireFunctions } from "../firebase/functions.firebase";
  * Implementación del repositorio de Authenticación basado en Firebase Authentication.
  * Esta clase es un siglenton.
  */
-export class AuthenticationRepositoryImplementation extends AuthenticationRepository {
+class AuthenticationRepositoryImplementation extends AuthenticationRepository {
   private static instance: AuthenticationRepositoryImplementation
   private constructor(){
     super();
@@ -149,3 +149,5 @@ export class AuthenticationRepositoryImplementation extends AuthenticationReposi
     }
   }
 }
+
+export const AuthImplInstance = AuthenticationRepositoryImplementation.getInstance();
