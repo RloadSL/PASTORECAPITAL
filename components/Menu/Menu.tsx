@@ -1,30 +1,21 @@
-import LinkApp from "components/LinkApp"
-import MenuItem from "./components"
+import {mainMenuItems} from "ui/utils/mainMenu.config"
+import MenuItem from "./components/MenuItem"
 
 interface MENUPROPS {
   itemList?: Array<any>
 }
 
-let items = [
-  {
-    label:'Academia',
-    icon:'',
-    children: ['Cursos','Cryptotutoriales']
-  },
-  {
-    label:'Análisis',
-    icon:'',
-    children: ['Bitcoins','Altcoins','Flash updates']
-  }
-]
+/**
+ * Función principal del componente Menú
+ * @param itemList Listado de items del menú 
+ * @returns 
+ */
 
 export const Menu = ({ itemList }: MENUPROPS) => {
   return (
     <ul>
-      {items.map((item, index) =>
-        <MenuItem key={index}>
-          <LinkApp />
-        </MenuItem>
+      {mainMenuItems.map((item, index) =>
+        <MenuItem key={index} item={item}/>
       )}
     </ul>
   )

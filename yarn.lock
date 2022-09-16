@@ -2362,7 +2362,7 @@
     "rc-util" "^5.2.1"
     "shallowequal" "^1.1.0"
 
-"rc-motion@^2.3.4":
+"rc-motion@^2.3.4", "rc-motion@^2.6.2":
   "integrity" "sha512-4w1FaX3dtV749P8GwfS4fYnFG4Rb9pxvCYPc/b2fw1cmlHJWNNgOFIz7ysiD+eOrzJSvnLJWlNQQncpNMXwwpg=="
   "resolved" "https://registry.npmjs.org/rc-motion/-/rc-motion-2.6.2.tgz"
   "version" "2.6.2"
