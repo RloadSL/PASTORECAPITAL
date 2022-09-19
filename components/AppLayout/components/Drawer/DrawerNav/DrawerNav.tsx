@@ -1,4 +1,3 @@
-import LinkApp from 'components/LinkApp'
 import Menu from 'components/Menu'
 import style from './DrawerNav.module.scss'
 import {mainMenuItems} from "ui/utils/mainMenu.config"
