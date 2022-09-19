@@ -2,8 +2,7 @@
 @use '../../../../../styles/partials/variables/colors' as colors;
 
 .aside {
-  background-color: colors.$grey20;
-  min-height: 50px;
+  background-color: white;
   height: 100%;
   display: flex;
   align-items: center;

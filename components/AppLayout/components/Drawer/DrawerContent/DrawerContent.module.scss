@@ -1,2 +1,12 @@
-.drawerContent {
+@use '../../../../../styles/partials/mixins/devices' as devices;
+@use '../../../../../styles/partials/variables/colors' as colors;
+
+.drawerWrapper {
+  background-color: colors.$grey20;
+  padding: 2%;
+
+}
+
+.drawerMainContainer {
+  border: 1px solid green;
 }

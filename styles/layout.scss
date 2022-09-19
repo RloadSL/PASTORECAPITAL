@@ -77,6 +77,11 @@
 	@extend %mainTitle
 }
 
+.secondary-title {
+	@extend %secondaryTitle
+}
+
+
 .small-caps {
 	@extend %smallCaps;
   color: colors.$main;
@@ -90,6 +95,9 @@ p {
 	color: colors.$dark
 }
 
+
+
+//RESET ACCORDION STYLE FOR THE APP
 .rc-collapse {
 	border-radius: 0px !important;
 	border: 0px !important;
