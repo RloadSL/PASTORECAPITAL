@@ -1,4 +1,3 @@
-import {mainMenuItems} from "ui/utils/mainMenu.config"
 import MenuItem from "./components/MenuItem"
 
 interface MENUPROPS {
@@ -14,9 +13,10 @@ interface MENUPROPS {
 export const Menu = ({ itemList }: MENUPROPS) => {
   return (
     <ul>
-      {mainMenuItems.map((item, index) =>
+      {itemList?.map((item, index) =>
         <MenuItem key={index} item={item}/>
       )}
     </ul>
+
   )
 }

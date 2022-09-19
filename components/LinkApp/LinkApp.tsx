@@ -12,9 +12,11 @@ interface LINKAPPPROPS {
 export const LinkApp = ({ label, icon, linkHref }: LINKAPPPROPS) => {
   return (
     <Link href={linkHref ? linkHref : '#'}>
-      <a>
-        <FormattedMessage id={label}/>
-        {icon ? <Image src={icon} alt=''/> : null}
+      <a className={style.linkItem}>
+        {icon ? <span className={style.linkItemIcon}><Image src={icon} alt='' /></span> : null}
+        <span className={style.linkItemLabel}>
+          <FormattedMessage id={label} />
+        </span>
       </a>
     </Link>
   )

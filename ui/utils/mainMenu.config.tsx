@@ -1,4 +1,4 @@
-import news from '../../assets/img/icons/academy.svg'
+import news from '../../assets/img/icons/news.svg'
 import analysis from '../../assets/img/icons/analysis.svg'
 import academy from '../../assets/img/icons/academy.svg'
 import consultant from '../../assets/img/icons/consultant.svg'
@@ -38,14 +38,14 @@ export const mainMenuItems = [
   },
   {
     type: 'link',
-    icon: news,
+    icon: analysis,
     label: 'mainMenu.item.label.analysis',
     children: null,
     href: '/noticias'
   },
   {
     type: 'link',
-    icon: news,
+    icon: consultant,
     label: 'mainMenu.item.label.consultant',
     children: null,
     href: '/noticias'

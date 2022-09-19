@@ -1,0 +1,18 @@
+@use '../partials/variables/colors' as colors;
+
+.iconAccordion{
+  width: 20px;
+  display: inline-block;
+  margin-right: 10px;
+
+
+}
+
+.labelAccordion {
+  color: colors.$dark;
+  display: flex !important;
+  justify-content: space-between;
+  width: 100%;
+}
+
+

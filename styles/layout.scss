@@ -89,3 +89,39 @@
 p {
 	color: colors.$dark
 }
+
+.rc-collapse {
+	border-radius: 0px !important;
+	border: 0px !important;
+	background-color: transparent !important;
+	.rc-collapse-content {
+		background-color: transparent !important;
+	}
+	.rc-collapse-header-text, .rc-collapse-header-text,.rc-collapse-header,.rc-collapse-item {
+		width: 100% !important;
+	}
+
+	.rc-collapse-header-text {
+		display: flex;
+	}
+
+	.rc-collapse-header-text::after {
+		content: '';
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		background-image: url(../assets/img/icons/arrow-b.svg);
+		background-repeat: no-repeat;
+		background-size: 12px;
+		background-position: center;
+	}
+
+	.rc-collapse-item-active {
+		.rc-collapse-header-text::after {
+			transform: rotate(180deg);
+		}
+	}
+}
+
+
+
