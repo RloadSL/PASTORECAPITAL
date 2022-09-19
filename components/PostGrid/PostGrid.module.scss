@@ -1,0 +1,25 @@
+@use '../../styles/partials/variables/colors' as colors;
+
+.postGrid {
+  display: grid;
+	gap: 3rem;
+	grid-auto-rows: auto;
+	grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+	max-width: 100%;
+	width: 100%;
+}
+
+.postLink {
+	box-shadow: 0 0 0 0px;
+	transition: all;
+}
+
+.postLink:hover {
+	box-shadow: 0 0 0 2px colors.$main;
+	border-radius: 20px;
+	transition: all;
+}
+
+.cardContainer {
+  padding: 5%;
+}

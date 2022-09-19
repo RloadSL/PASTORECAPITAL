@@ -1,3 +1,5 @@
-import Courses from "ui/pages/academy/courses/courses";
+
+import Courses from "ui/pages/academy/courses/Courses/Courses";
+
 
 export default Courses;

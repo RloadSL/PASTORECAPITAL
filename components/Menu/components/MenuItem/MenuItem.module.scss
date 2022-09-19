@@ -1,0 +1,13 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/text" as text;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+@use "../../../../styles/partials/accordion";
+
+.menuItem {
+  display: flex;
+  align-items: center !important;
+  color: colors.$dark;
+  width: 100%;
+}

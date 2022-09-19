@@ -1,0 +1,25 @@
+@use '../../styles/partials/variables/colors' as colors;
+@use '../../styles/partials/variables/text' as text;
+@use '../../styles/partials/mixins/devices' as devices;
+@use '../../styles/partials/placeholders'; 
+
+
+
+.title {
+  @extend %secondaryTitle;
+  margin-bottom: 10px;
+}
+
+.imageContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.description {
+  color: colors.$grey60;
+  border-bottom: 1px solid colors.$grey30;
+  padding-bottom: 20px;
+}
