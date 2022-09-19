@@ -1,9 +1,9 @@
 import { CourseDto } from "infrastructure/dto/course.dto";
 
 export class Course {
-  private _docID: string;
-  public get docID(): string {
-    return this._docID;
+  private _id: string;
+  public get id(): string {
+    return this._id;
   }
 
   private _wpID: number;
@@ -54,24 +54,23 @@ export class Course {
     return this._created_at;
   };
   constructor(courseData:CourseDto) {
-    this._docID = courseData.docID
-    this._wpID = courseData.wpID
+    this._id = courseData.id.toString()
+    this._wpID = courseData.id
     this._categories = courseData.categories
     this._status= courseData.status
     this._excerpt= courseData.excerpt
     this._slug= courseData.slug,
     this._title = courseData.title
-    this._created_at = new Date(courseData.created_at)
+    this._created_at =   new Date(courseData.date)
   }
 
   public toJson = ():CourseDto => ({
-    docID: this._docID,
-    wpID : this._wpID ,
+    id : this._wpID ,
     categories  : this._categories,
     status: this._status,
     excerpt : this._excerpt,
     slug: this._slug,
     title : this._title,
-    created_at : this._created_at
+    date : this._created_at
   });
 }

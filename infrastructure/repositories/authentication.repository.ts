@@ -54,8 +54,8 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
    */
    async getWordpressToken(uid:string): Promise<{ wp_token:string | null, error: ErrorApp | null }> {
     const response:any = await FireFunctionsInstance.onCallFunction('GetWpTokenTriggerFunctions', {uid});
+    console.log(response)
     return response;
-
   }
   /**
    * Crear nuevo usuario en Firebase Authentication y Firestore 

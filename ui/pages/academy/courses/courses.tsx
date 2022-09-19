@@ -18,6 +18,7 @@ const Courses = () => {
     }
     if( userLogged.wpToken){
       const response =  await CourseRepositoryInstance.create(courseDataTest, userLogged.wpToken)
+      console.log('Pagina',response)
       return response;
     }else{
       alert('Lo sentimos no tienes permisos')

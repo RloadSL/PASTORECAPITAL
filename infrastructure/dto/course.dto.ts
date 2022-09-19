@@ -1,6 +1,5 @@
 export interface CourseDto {
-  docID: string,
-  wpID: number,
+  id: number,
   categories: Array<number>,
   status: string,
   excerpt: {
@@ -19,5 +18,5 @@ export interface CourseDto {
   /**
    * ISO Date convertir a new Date
    */
-  created_at: string | Date
+  date: string | Date
 }
