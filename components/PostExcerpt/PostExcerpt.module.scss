@@ -4,7 +4,6 @@
 @use '../../styles/partials/placeholders'; 
 
 
-
 .title {
   @extend %secondaryTitle;
   margin-bottom: 10px;
@@ -22,4 +21,11 @@
   color: colors.$grey60;
   border-bottom: 1px solid colors.$grey30;
   padding-bottom: 20px;
+}
+
+.level {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
 }

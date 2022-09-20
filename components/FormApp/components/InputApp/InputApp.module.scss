@@ -90,8 +90,6 @@
   }
 }
 
-
-
 .error {
   font-size: 0.8rem;
   color: colors.$error;
@@ -102,7 +100,6 @@
 
 .hasError {
   box-shadow: 0 0 0 1px colors.$error;
-
 }
 
 .inputContainer.hasError.code {

@@ -25,7 +25,7 @@ export const mainMenuItems = [
         icon: academy,
         label: 'mainMenu.item.label.courses',
         children: null,
-        href: 'https://google.com'
+        href: '/academy/courses/'
       },
       {
         type: 'link',
