@@ -15,6 +15,10 @@ interface POSTGRIDPROPS {
  */
 
 const PostGrid = ({ gridItems }: POSTGRIDPROPS) => {
+  return <PostGridView gridItems={gridItems}/>
+}
+
+const PostGridView = ({ gridItems }: POSTGRIDPROPS) => {
   return (
     <div className={style.postGrid}>
       {gridItems.map((item, index) => {
@@ -26,7 +30,9 @@ const PostGrid = ({ gridItems }: POSTGRIDPROPS) => {
             <a className={style.postLink}>
               <Card>
                 <div className={style.cardContainer}>
+
                   <PostExcerpt title={item.title.rendered} description={item.excerpt.rendered} />
+
                 </div>
               </Card>
             </a>

@@ -1,15 +1,22 @@
+import SelectApp from "components/FormApp/components/SelectApp/SelectApp"
 import PostGrid from "components/PostGrid"
 import { Course } from "domain/Course/Course"
 import { CourseRepositoryInstance } from "infrastructure/repositories/courses.repository"
 import { useEffect, useState } from "react"
-import { gridItems } from "ui/utils/test.data"
+import { options } from "ui/utils/test.data"
 import CreateForm from "./components/CreateForm"
 import style from './Courses.module.scss'
 
 
 
 
+/**
+ * Función principal del componente Courses
+ * @returns
+ */
+
 const Courses = () => {
+
   const [courses, setCourses]:[courses: Course[], setCourses: Function] = useState([])
   useEffect(() => {
     let fetching = true;
@@ -31,8 +38,12 @@ const Courses = () => {
 }
 
 const CourseView = ({courses}:{courses: any}) => {
+
   return (
-    <div>
+    <div className={style.coursesPage}>
+      <div><form>
+        <SelectApp labelID={'categoría'} selectOptions={options} />
+      </form></div>
       <div className="title-container">
         <p className="small-caps">Academia</p>
         <h1>Cursos</h1>

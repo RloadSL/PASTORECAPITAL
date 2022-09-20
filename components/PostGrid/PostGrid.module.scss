@@ -1,4 +1,6 @@
 @use '../../styles/partials/variables/colors' as colors;
+@use '../../styles/partials/mixins/devices' as devices;
+
 
 .postGrid {
   display: grid;
@@ -12,6 +14,7 @@
 .postLink {
 	box-shadow: 0 0 0 0px;
 	transition: all;
+	height: fit-content;
 }
 
 .postLink:hover {
@@ -22,4 +25,13 @@
 
 .cardContainer {
   padding: 5%;
+	 @include devices.device(smTablet) {
+		max-height: 400px;
+		min-height: 400px;
+	 }
+
+	 @include devices.device(smScreen) {
+		max-height: 450px;
+		min-height: 450px;
+	 }
 }

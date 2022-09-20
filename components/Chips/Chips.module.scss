@@ -1,0 +1,25 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+
+
+.chipContainer {
+  font-size: text.$textSmall;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 5px 15px;
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0px;
+  }
+}
+
+.main {
+  background-color: colors.$main;
+  color: white;
+}
+
+.lightMain {
+  background-color: colors.$palette8;
+}
+
