@@ -1,10 +1,8 @@
 import { FirebaseApp } from 'firebase/app';
-import { getFirestore, addDoc, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter } from 'firebase/firestore/lite';
-import { limit, onSnapshot, startAt, Unsubscribe } from "firebase/firestore";
+import { limit, onSnapshot, startAt, Unsubscribe, getFirestore, addDoc, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter } from "firebase/firestore";
 import { cleanUndefined } from './utils'
 import FireFirebase from './firebase';
-import { CourseDto } from 'infrastructure/dto/course.dto';
-import { Course } from 'domain/Course/Course';
+
 /**
  * Integración con el módulo de firestore de Firebase
  */
@@ -40,9 +38,9 @@ export class FireFirestore {
           orderBy("date"),
           startAfter(lastSnap),
           limit(25));
-
         documentSnapshots = await getDocs(next);
       }
+      
       return documentSnapshots.docs;
     } catch (error) {
       console.error(error)

@@ -14,14 +14,12 @@ const NavBar = () => {
   const isLogged = useSelector(getIsLogged)
   
   const router = useRouter()
-  const titlePage =
-    router.route !== '/' ? router.route.replace('/', '') : 'home'
+  
   return (
     <NavBarView
       signOut={isLogged ? () => _signOutUser() : undefined}
       linkToSignIn={!isLogged ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
-      titlePage={`page.${titlePage}.title`}
     />
   )
 }

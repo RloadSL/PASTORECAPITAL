@@ -9,8 +9,8 @@ import { Provider } from 'react-redux'
 import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import SnackBar from 'components/SnackBar'
-import Loading from 'components/Loading'
 import SplashScreen from 'components/SplashScreen'
+import Head from 'next/head'
 
 const messages: any = {
   en,
@@ -26,7 +26,13 @@ function getDirection (locale: string) {
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
   const locale: any = useRouter().locale || 'es'
-  return (
+  return (<>
+   {/*  <Head>
+      <link
+      rel="stylesheet" 
+      href="http://localhost:8888/pastoreheadless/wp-includes/css/dist/block-library/style.min.css"
+      />
+    </Head> */}
     <Provider store={store}>
       <IntlProvider locale={locale} messages={messages[locale]}>
         <AppLayout dir={getDirection(locale)}>
@@ -36,6 +42,8 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
         <SplashScreen/>
       </IntlProvider>
     </Provider>
+  </>
+    
   )
 }
 

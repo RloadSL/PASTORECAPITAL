@@ -1,10 +1,12 @@
 import { CourseDto } from "infrastructure/dto/course.dto";
+import { WP_EDIT_POST } from "infrastructure/wordpress/config";
 
 export class Course {
   private _id: string;
   public get id(): string {
     return this._id;
   }
+
 
   private _wpID: number;
   public get wpID(): number {
@@ -46,6 +48,17 @@ export class Course {
   } {
     return this._title;
   };
+
+  private _content?: {
+    rendered: string,
+    raw: string
+  };
+  public get content(): {
+    rendered: string,
+    raw: string
+  } | undefined{
+    return this._content;
+  };
   /**
    * ISO Date convertir a new Date
    */
@@ -58,7 +71,8 @@ export class Course {
     this._wpID = courseData.id
     this._categories = courseData.categories
     this._status= courseData.status
-    this._excerpt= courseData.excerpt
+    this._excerpt= courseData.excerpt,
+    this._content = courseData.content,
     this._slug= courseData.slug,
     this._title = courseData.title
     this._created_at =   new Date(courseData.date)
@@ -71,6 +85,7 @@ export class Course {
     excerpt : this._excerpt,
     slug: this._slug,
     title : this._title,
-    date : this._created_at
+    date : this._created_at,
+    content: this._content
   });
 }

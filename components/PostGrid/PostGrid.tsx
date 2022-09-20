@@ -1,10 +1,11 @@
 import Card from 'components/Card';
 import PostExcerpt from 'components/PostExcerpt';
+import { Course } from 'domain/Course/Course';
 import Link from 'next/link';
 import style from './PostGrid.module.scss';
 
 interface POSTGRIDPROPS {
-  gridItems: Array<any>
+  gridItems: Array<Course>
 }
 
 /**
@@ -18,11 +19,14 @@ const PostGrid = ({ gridItems }: POSTGRIDPROPS) => {
     <div className={style.postGrid}>
       {gridItems.map((item, index) => {
         return (
-          <Link href={'#'} key={index}>
+          <Link href={{
+            pathname:  '/academy/courses/'+item.slug,
+            query: {page: item.id}
+          }} key={index}>
             <a className={style.postLink}>
               <Card>
                 <div className={style.cardContainer}>
-                  <PostExcerpt title={item.title} description={item.description} thumbnail={item.thumbnail} terms={item.chips} />
+                  <PostExcerpt title={item.title.rendered} description={item.excerpt.rendered} />
                 </div>
               </Card>
             </a>
@@ -32,5 +36,8 @@ const PostGrid = ({ gridItems }: POSTGRIDPROPS) => {
       )}</div>
   )
 }
+
+
+
 
 export default PostGrid;

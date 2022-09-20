@@ -1,63 +1,44 @@
 import PostGrid from "components/PostGrid"
+import { Course } from "domain/Course/Course"
+import { CourseRepositoryInstance } from "infrastructure/repositories/courses.repository"
+import { useEffect, useState } from "react"
+import { gridItems } from "ui/utils/test.data"
+import CreateForm from "./components/CreateForm"
 import style from './Courses.module.scss'
-import img from '../../../../../assets/img/couple.jpg'
 
 
-const gridItems = [
-  {
-    title: 'Invierte en Bitcoins',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    thumbnail: {
-      imgUrl: img,
-      altText: 'Pareja chocando los cinco'
-    },
-    postLink: '',
-    id: '',
-    chips: ['2 horas', 'trading']
-  },
-  {
-    title: 'Trading extremo',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    thumbnail: {
-      imgUrl: img,
-      altText: 'Pareja chocando los cinco'
-    },
-    postLink: '',
-    id: '',
-    chips: ['2 horas', 'trading']
-  },
-  {
-    title: 'Ethereum entender el qué y el cómo',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    thumbnail: {
-      imgUrl: img,
-      altText: 'Pareja chocando los cinco'
-    },
-    postLink: '',
-    id: '',
-    chips: ['2 horas', 'trading']
-  },
-  {
-    title: 'Curso avanzado de Trading',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    thumbnail: {
-      imgUrl: img,
-      altText: 'Pareja chocando los cinco'
-    }, 
-    postLink: '',
-    id: '',
-    chips: ['2 horas', 'trading']
-  }
-]
+
 
 const Courses = () => {
+  const [courses, setCourses]:[courses: Course[], setCourses: Function] = useState([])
+  useEffect(() => {
+    let fetching = true;
+    getCourses().then((c)=>{
+      if(fetching){
+        setCourses(c)
+      }
+    })
+    return () => {fetching = false};
+  }, [])
+
+
+  const getCourses = async ()=>{
+    const res = await CourseRepositoryInstance.readFromWp()
+    return res;
+  }
+
+  return <CourseView courses={courses}></CourseView>
+}
+
+const CourseView = ({courses}:{courses: any}) => {
   return (
     <div>
       <div className="title-container">
         <p className="small-caps">Academia</p>
         <h1>Cursos</h1>
+        <CreateForm></CreateForm>
       </div>
-      <PostGrid gridItems={gridItems} />
+      <PostGrid gridItems={courses} />
     </div>
   )
 }

@@ -6,6 +6,7 @@ import { PAGES } from "infrastructure/dto/wp.dto";
 import FireFirestore  from "infrastructure/firebase/firestore.firebase";
 import { parseFirestoreDocs } from "infrastructure/firebase/utils";
 import { createWpCourse } from "infrastructure/wordpress/academy/courses.wp";
+import { getAllPagesFromServer, getAllPostsFromServer, getPageFromServer } from "infrastructure/wordpress/wp.utils";
 
 class CoursesRepositoryImpl extends CourseRepository{
   private static instance: CoursesRepositoryImpl;
@@ -33,14 +34,10 @@ class CoursesRepositoryImpl extends CourseRepository{
     }
 }
 
-  async read(uid: string): Promise<Course | null> {
-    const userSnap = await FireFirestore.getDoc(this.coursesPath,uid)
-    if(userSnap?.exists()){
-      let courseData:CourseDto = userSnap?.data() as CourseDto;
-      return new Course(courseData as CourseDto);
-    }else{
-      return null;
-    }
+  async read(id: string): Promise<Course | null> {
+    const response = await getPageFromServer(id)
+    console.log(response)
+    return new Course(response);
   }; 
 
   async readCollection(lastSnapShot?: DocumentSnapshot): Promise<Course[] | undefined> {
@@ -48,6 +45,11 @@ class CoursesRepositoryImpl extends CourseRepository{
     const parsedDocs = snap ? parseFirestoreDocs(snap) : [];
     return parsedDocs.map(item => new Course(item));
   }; 
+
+  async readFromWp(): Promise<any> {
+    const response = await getAllPagesFromServer()
+    return response.map((item:any) => new Course(item));
+  };
   
   onChange(uid:string, callback:Function): Unsubscribe {
     return FireFirestore.onChangeDoc(`${this.coursesPath}/${uid}`, (courseData:CourseDto)=>{

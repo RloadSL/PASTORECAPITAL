@@ -19,6 +19,3 @@ export const createWpCourse = async (course:PAGES, wpToken: string) => {
   }
 }
 
-export const editWpCourseLink = async (id: string, token:string) => {
-  return `${WP_EDIT_POST}?post=45&action=edit&?token=${token}`;
-}

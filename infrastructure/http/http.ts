@@ -30,7 +30,8 @@ class Http {
       return {data : response.data};
     } catch (error) {
       const err = error as any;
-      const code:any = err.response.data.code;
+      console.log(err)
+      const code:any = err.response.data?.code;
       console.log(err)
       return {errCode: code}
     }

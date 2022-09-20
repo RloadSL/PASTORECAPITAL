@@ -9,3 +9,4 @@ export const cleanUndefined = (data:any)=>{
 export const  parseFirestoreDocs = ( docs:any): any[] => {
   return docs.map((item:DocumentSnapshot) => ({ docID: item.id, ...item.data() }))
 }
+
