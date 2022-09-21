@@ -40,6 +40,7 @@ const SelectAppView = ({ labelID, selectOptions }: SELECTAPPPROPS) => {
         {labelID}
       </label>
       <Select 
+        instanceId={'select'}
         options={selectOptions} 
         defaultValue={selectOptions.find(( item:any ) => item.value === 'todos')}
         styles={customStyles}
