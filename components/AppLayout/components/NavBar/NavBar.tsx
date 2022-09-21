@@ -1,3 +1,4 @@
+import Breadcrumbs from 'components/Breadcrumbs'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -39,7 +40,8 @@ const NavBarView = ({
   signOut?: Function
 }) => {
   return (
-    <div className={styles['navbar-container']}>
+    <div className={styles.navbarContainer}>
+      <Breadcrumbs/>
       {back && (
         <div className={styles['navbar-back']}>
           <button onClick={() => back()}>
