@@ -46,3 +46,9 @@ export const gridItems = [
     chips: ['2 horas', 'trading']
   }
 ]
+
+export const options = [
+  { value: 'trading', label: 'Trading' },
+  { value: 'criptomonedas', label: 'Criptomonedas' },
+  { value: 'todos', label: 'Todos' }
+]

@@ -16,7 +16,6 @@
     "firebase": "^9.9.2",
     "formik": "^2.2.9",
     "html-react-parser": "^3.0.4",
-    "@wordpress/block-library": "7.14.0",
     "next": "12.2.4",
     "rc-collapse": "^3.4.0",
     "rc-motion": "^2.6.2",
