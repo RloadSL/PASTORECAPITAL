@@ -9,13 +9,14 @@ import { AppDispatch } from 'ui/redux/store'
 import styles from './NavBar.module.scss'
 
 const NavBar = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const _signOutUser = () => dispatch(signOut())
-  const isLogged = useSelector(getIsLogged)
+  const dispatch = useDispatch<AppDispatch>();
+  const _signOutUser = () => dispatch(signOut());
+  const isLogged = useSelector(getIsLogged);
   
-  const router = useRouter()
+  const router = useRouter();
   const titlePage =
-    router.route !== '/' ? router.route.replace('/', '') : 'home'
+    router.route !== '/' ? router.route.replace('/', '') : 'home';
+
   return (
     <NavBarView
       signOut={isLogged ? () => _signOutUser() : undefined}
@@ -68,4 +69,4 @@ const NavBarView = ({
   )
 }
 
-export default React.memo(NavBar);
+export default NavBar;
