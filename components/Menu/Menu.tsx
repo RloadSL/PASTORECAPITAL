@@ -8,7 +8,8 @@ interface MENUPROPS {
 
 /**
  * Función principal del componente Menú
- * @param itemList Listado de items del menú 
+ * @param itemList Listado de items del menú
+ * @param activeItem Item activo del menú
  * @returns 
  */
 
@@ -27,7 +28,6 @@ const MenuView = ({ itemList, activeItem }: MENUPROPS) => {
         <MenuItem key={index} item={item} activeItem={activeItem} />
       )}
     </ul>
-
   )
 }
 
