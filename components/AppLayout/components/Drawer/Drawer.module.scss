@@ -1,8 +1,7 @@
 @use '../../../../styles/partials/mixins/devices' as devices;
 @use '../../../../styles/partials/variables/colors' as colors;
 
-.drawer {
-}
+
 
 .grid {
   @include devices.device(tablet) {
@@ -13,7 +12,7 @@
   }
 
   @include devices.device(smScreen) {
-    grid-template-columns: 250px auto;
+    grid-template-columns: 300px auto;
   }
 }
 

@@ -13,26 +13,28 @@ export const mainMenuItems = [
     icon: news,
     label: 'mainMenu.item.label.news',
     children: null,
-    href: '/noticias'
+    href: '/noticias',
+    path: 'noticias'
   },
   {
     label: 'mainMenu.item.label.academy',
     type: 'accordion',
+    path: 'academy',
     icon: academy,
     children: [
       {
         type: 'link',
-        icon: academy,
         label: 'mainMenu.item.label.courses',
         children: null,
-        href: '/academy/courses/'
+        href: '/academy/courses/',
+        path:'courses'
       },
       {
         type: 'link',
-        icon: academy,
         label: 'mainMenu.item.label.tutorials',
         children: null,
-        href: '/academy/courses/'
+        href: '/academy/tutorials/',
+        path:'tutorials'
       }
     ]
   },
@@ -41,13 +43,15 @@ export const mainMenuItems = [
     icon: analysis,
     label: 'mainMenu.item.label.analysis',
     children: null,
-    href: '/noticias'
+    href: '/analysis',
+    path:'analysis'
   },
   {
     type: 'link',
     icon: consultant,
     label: 'mainMenu.item.label.consultant',
     children: null,
-    href: '/noticias'
+    href: '/consultant',
+    path:'consultant'
   },
 ]
