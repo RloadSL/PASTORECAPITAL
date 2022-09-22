@@ -49,11 +49,7 @@ const NavBarView = ({
           </button>
         </div>
       )}
-      {titlePage && (
-        <div className={styles['navbar-title']}>
-          <FormattedMessage id={titlePage} />
-        </div>
-      )}
+     
       <div className={styles['navbar-item']}></div>
       {linkToSignIn && (
         <Link href={'/login'}>

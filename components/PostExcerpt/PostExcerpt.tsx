@@ -14,7 +14,7 @@ export interface POSTEXCERPTPROPS {
 
   title?: string,
   description: string,
-  thumbnail?: THUMBNAIL,
+  thumbnail?: string,
   terms?: Array<any>
   level?: Array<any>
 }
@@ -32,7 +32,7 @@ const PostExcerpt = ({ title, description, thumbnail, terms, level }: POSTEXCERP
   return (
     <div>
 
-      {thumbnail ? <div className={style.imageContainer}><Image src={thumbnail.imgUrl} alt={thumbnail.altText}/></div> : null}
+      {thumbnail ? <div className={style.imageContainer}><Image layout='fill' src={thumbnail} alt={title}/></div> : null}
       <p className={style.title}>{limitTextLength(60, title || '')}</p>
       <div className={style.description}>{parse(description)}</div>
 

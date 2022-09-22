@@ -6,6 +6,7 @@ export interface CourseDto {
     rendered: string,
     raw: string
   },
+  thumbnail_url:string,
   content? : {
     rendered: string,
     raw: string

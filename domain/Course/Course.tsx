@@ -33,11 +33,19 @@ export class Course {
     return this._excerpt;
   };
 
+  private _thumbnail_url: string;
+  public get  thumbnail_url(): string {
+    return this._thumbnail_url;
+  };
+
   private _slug: string;
   public get slug(): string {
     return this._slug;
   };
   
+
+ 
+
   private _title: {
     rendered: string,
     raw: string
@@ -68,6 +76,7 @@ export class Course {
   };
   constructor(courseData:CourseDto) {
     this._id = courseData.id.toString()
+    this._thumbnail_url = courseData.thumbnail_url
     this._wpID = courseData.id
     this._categories = courseData.categories
     this._status= courseData.status
@@ -86,6 +95,7 @@ export class Course {
     slug: this._slug,
     title : this._title,
     date : this._created_at,
-    content: this._content
+    content: this._content,
+    thumbnail_url: this._thumbnail_url
   });
 }

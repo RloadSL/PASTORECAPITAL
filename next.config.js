@@ -12,9 +12,9 @@ const nextConfig = {
     defaultLocale: 'es',
     localeDetection: false,
   } ,
-  // sassOptions: {
-  //   includePaths: [path.join(__dirname, 'styles')],
-  // } 
+  images: {
+    domains: ['localhost'],
+  }, 
 }
 
 module.exports = nextConfig

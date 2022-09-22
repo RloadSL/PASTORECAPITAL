@@ -31,7 +31,7 @@ const PostGridView = ({ gridItems }: POSTGRIDPROPS) => {
               <Card>
                 <div className={style.cardContainer}>
 
-                  <PostExcerpt title={item.title.rendered} description={item.excerpt.rendered} />
+                  <PostExcerpt thumbnail={item.thumbnail_url} title={item.title.rendered} description={item.excerpt.rendered} />
 
                 </div>
               </Card>
