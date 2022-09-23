@@ -17,7 +17,6 @@ interface MENUITEMPROPS {
  */
 
 const Menu = ({ item, activeItem }: MENUITEMPROPS) => {
-  console.log(activeItem)
   return <MenuItemView item={item} activeItem={activeItem}/>
 }
 

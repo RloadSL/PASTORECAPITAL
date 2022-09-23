@@ -4,9 +4,9 @@ import style from './Loading.module.scss'
 
 type LOADINGPROPS = 'inner-primary' | 'outer-primary' | 'inner-secondary' | 'outer-secondary'
 
-export const Loading = ({ variant = 'inner-primary' }: { variant?: LOADINGPROPS }) => {
+export const Loading = ({ variant = 'inner-primary' , loading}: { variant?: LOADINGPROPS, loading?:boolean }) => {
   const { loadingState } = useSystem()
-  return <LoadingView variant={variant} loadingState={loadingState} />
+  return <LoadingView variant={variant} loadingState={loading || loadingState} />
 }
 
 /**
@@ -17,6 +17,6 @@ export const Loading = ({ variant = 'inner-primary' }: { variant?: LOADINGPROPS 
  */
 
 const LoadingView = ({ loadingState, variant }: { loadingState: boolean, variant: LOADINGPROPS }) => {
-  console.log(variant)
+  console.log(loadingState)
   return loadingState ? <div className={`${style.loading} ${style[variant]}`}><div className={style.loadingContainer}></div></div> : null;
 }

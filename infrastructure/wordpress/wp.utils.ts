@@ -19,10 +19,10 @@ export const getAllPostsFromServer = async () => {
   }
 };
 
-export const getAllPagesFromServer = async () => {
+export const getAllPagesFromServer = async (offset?:number,category?:string) => {
   //   get all posts from Server
   try {
-    const res = await HTTP.get(WP_API_PAGES_LIST);
+    const res = await HTTP.get(WP_API_PAGES_LIST+`${offset ? '&offset='+offset : ''}${category ? '&category='+category : ''}`);
     return res;
   } catch (error) {
     console.log(error);

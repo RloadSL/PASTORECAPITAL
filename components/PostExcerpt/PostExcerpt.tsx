@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useComponentUtils } from 'ui/hooks/components.hooks';
 import style from './PostExcerpt.module.scss';
 import parse from 'html-react-parser';
+import React from 'react';
 
 
 type THUMBNAIL = {
@@ -42,5 +43,4 @@ const PostExcerpt = ({ title, description, thumbnail, terms, level }: POSTEXCERP
     </div>
   )
 }
-
-export default PostExcerpt;
+export default  React.memo(PostExcerpt);

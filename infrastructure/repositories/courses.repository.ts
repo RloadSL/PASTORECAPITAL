@@ -45,8 +45,8 @@ class CoursesRepositoryImpl extends CourseRepository{
     return parsedDocs.map(item => new Course(item));
   }; 
 
-  async readFromWp(): Promise<any> {
-    const response = await getAllPagesFromServer()
+  async readFromWp(offset?:number,category?:string): Promise<Course[]> {
+    const response = await getAllPagesFromServer(offset,category)
     return response.map((item:any) => new Course(item));
   };
   

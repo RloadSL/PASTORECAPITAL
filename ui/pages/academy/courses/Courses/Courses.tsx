@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import SelectApp from "components/FormApp/components/SelectApp/SelectApp"
 import PostGrid from "components/PostGrid"
-import { Course } from "domain/Course/Course"
-import { CourseRepositoryInstance } from "infrastructure/repositories/courses.repository"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { academyGetCurses } from "ui/redux/slices/academy/academy.slice"
+import { AppDispatch } from "ui/redux/store"
 import { options } from "ui/utils/test.data"
 import CreateForm from "./components/CreateForm"
 import style from './Courses.module.scss'
@@ -16,29 +18,36 @@ import style from './Courses.module.scss'
  */
 
 const Courses = () => {
-
-  const [courses, setCourses]:[courses: Course[], setCourses: Function] = useState([])
-  useEffect(() => {
+  const dispatch = useDispatch<AppDispatch>()
+  
+  const getCourses = () =>{
+      dispatch(academyGetCurses({}))
+   }
+  
+  /* useEffect(() => {
     let fetching = true;
-    getCourses().then((c)=>{
-      if(fetching){
-        setCourses(c)
-      }
-    })
+    getCourses();
     return () => {fetching = false};
+  }, []) */
+
+  useEffect(() => {
+    const onChange:any = (entries:any)=>{
+       if(entries[0].isIntersecting){
+        console.log('observer')
+        getCourses();
+       }
+    }
+    const observer = new IntersectionObserver(onChange, {
+      rootMargin: '100px'
+    });
+
+    observer.observe(document.getElementById('loadMore') as Element)
   }, [])
 
-
-  const getCourses = async ()=>{
-    const res = await CourseRepositoryInstance.readFromWp()
-    return res;
-  }
-
-  return <CourseView courses={courses}></CourseView>
+  return <CourseView/>
 }
 
-const CourseView = ({courses}:{courses: any}) => {
-
+const CourseView = () => {
   return (
     <div className={style.coursesPage}>
       <div><form>
@@ -49,7 +58,9 @@ const CourseView = ({courses}:{courses: any}) => {
         <h1>Cursos</h1>
         <CreateForm></CreateForm>
       </div>
-      <PostGrid gridItems={courses} />
+      <PostGrid/>
+      {/* <ButtonApp type='button' labelID="LoadMore" onClick={()=>loadMore()}/> */}
+      <button id="loadMore" type='button'>LoadMore</button>
     </div>
   )
 }

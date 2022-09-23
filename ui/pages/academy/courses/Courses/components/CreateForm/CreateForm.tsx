@@ -12,7 +12,6 @@ const CreateForm = () => {
   const userLogged = useSelector(getUserLogged)
 
   const createCourses = async (data:any):Promise<any> => {
-    
     if( userLogged.wpToken){
       const response =  await CourseRepositoryInstance.create(data, userLogged.wpToken)
       return response;
