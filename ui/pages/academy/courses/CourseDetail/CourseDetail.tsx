@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 import parse from 'html-react-parser';
-import styles from './CourseDetail.module.scss';
+import style from './CourseDetail.module.scss';
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config';
 import { NextPage } from 'next';
 import { Course } from 'domain/Course/Course';
@@ -20,11 +20,11 @@ const CourseDetail:NextPage<any> = ({post}:{post:Course}) => {
     return `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}`;
   }
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <main className="flex flex-col items-center flex-1 mx-5 md:px-20 py-10 max-w-5xl m-auto">
+    <div className={style.coursePage}>
+      <div>
         {(post && loggedUser?.wpToken) ? <a href={editLink(loggedUser.wpToken)} target="_blank" rel="noreferrer"> EDITAR </a> : null}
-        <div className={styles.post}>{parse(post.content?.rendered || '')}</div>
-      </main>
+        <div className={style.post}>{parse(post.content?.rendered || '')}</div>
+      </div>
     </div>
   );
 }
