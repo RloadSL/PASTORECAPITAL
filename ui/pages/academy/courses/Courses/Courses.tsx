@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SelectApp from "components/FormApp/components/SelectApp/SelectApp"
 import PostGrid from "components/PostGrid"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
 import { academyGetCurses } from "ui/redux/slices/academy/academy.slice"
 import { AppDispatch } from "ui/redux/store"
@@ -20,15 +20,8 @@ import style from './Courses.module.scss'
 const Courses = () => {
   const dispatch = useDispatch<AppDispatch>()
   
-  const getCourses = () =>{
-      dispatch(academyGetCurses({}))
-   }
-  
-  /* useEffect(() => {
-    let fetching = true;
-    getCourses();
-    return () => {fetching = false};
-  }, []) */
+ 
+  const refLoadMore = useRef();
 
   useEffect(() => {
     const onChange:any = (entries:any)=>{
@@ -41,13 +34,18 @@ const Courses = () => {
       rootMargin: '100px'
     });
 
-    observer.observe(document.getElementById('loadMore') as Element)
+    observer.observe(refLoadMore.current as unknown as Element)
   }, [])
 
-  return <CourseView/>
+
+  const getCourses = () =>{
+    dispatch(academyGetCurses({}))
+ }
+
+  return <CourseView refLoadMore={refLoadMore}/>
 }
 
-const CourseView = () => {
+const CourseView = ({refLoadMore}:any) => {
   return (
     <div className={style.coursesPage}>
       <div><form>
@@ -60,7 +58,7 @@ const CourseView = () => {
       </div>
       <PostGrid/>
       {/* <ButtonApp type='button' labelID="LoadMore" onClick={()=>loadMore()}/> */}
-      <button id="loadMore" type='button'>LoadMore</button>
+      <button ref={refLoadMore} id="loadMore" type='button'>LoadMore</button>
     </div>
   )
 }
