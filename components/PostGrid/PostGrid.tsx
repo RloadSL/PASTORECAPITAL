@@ -13,7 +13,7 @@ import style from './PostGrid.module.scss'
 
 interface POSTGRIDPROPS {
   gridItems: Array<Course>,
-  loading: boolean
+  loading: boolean 
 }
 
 /**
