@@ -1,3 +1,4 @@
-import Academy from "./courses";
+import Courses from "./Courses/Courses";
 
-export default Academy;
+
+export default Courses;
