@@ -32,13 +32,12 @@ const PostExcerpt = ({ title, description, thumbnail, terms, level }: POSTEXCERP
 console.log(thumbnail)
   return (
     <div>
-      <div style={{backgroundImage:`url(${thumbnail})`}} className={style.imageContainer}>
+      <div style={{backgroundImage:`url(${thumbnail})`, backgroundSize:'cover'}} className={style.imageContainer}>
       <span className={style.level}>básico</span>
         {/* <Image layout='fill' src={thumbnail} alt={title}/></div> : null} */}
       </div>
       <p className={style.title}>{limitTextLength(60, title || '')}</p>
       <div className={style.description}>{parse(description)}</div>
-
       <div className={style.terms}>
         {terms ? <Chips chips={terms} color='lightMain' /> : null}
       </div>
