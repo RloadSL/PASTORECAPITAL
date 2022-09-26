@@ -25,9 +25,8 @@ interface POSTGRIDPROPS {
 const PostGrid = () => {
   const courses = useSelector(coursesStore)
   const loading = useSelector(loadingStore)
-  return <PostGridView loading={loading} gridItems={courses || []} />
 
-}
+  return <PostGridView loading={loading} gridItems={courses || []} />}
 
 const PostGridView = ({ gridItems, loading }: POSTGRIDPROPS) => {
   return (
@@ -49,6 +48,8 @@ const PostGridView = ({ gridItems, loading }: POSTGRIDPROPS) => {
                     thumbnail={item.thumbnail_url}
                     title={item.title.rendered}
                     description={item.excerpt.rendered}
+                    terms={item.tags}
+                    level={item.level}
                   />
                 </div>
               </Card>

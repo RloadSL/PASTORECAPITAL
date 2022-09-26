@@ -1,6 +1,7 @@
 export interface CourseDto {
   id: number,
-  categories: Array<number>,
+  categories:WpCat[],
+  tags: WpTerm[],
   status: string,
   excerpt: {
     rendered: string,
@@ -20,4 +21,14 @@ export interface CourseDto {
    * ISO Date convertir a new Date
    */
   date: string | Date
+}
+
+export interface WpCat{
+  name: 'Básico' | 'Avanzado' | 'Intermedio',
+  slug: 'basic' | 'advanced' | 'medium',
+}
+
+export interface WpTerm {
+  name: string,
+  slug: string,
 }
