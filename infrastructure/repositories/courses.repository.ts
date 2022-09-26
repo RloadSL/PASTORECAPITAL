@@ -1,5 +1,6 @@
 import { Course } from "domain/Course/Course";
 import { CourseRepository } from "domain/Course/course.repository";
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { DocumentSnapshot, Unsubscribe } from "firebase/firestore";
 import { CourseDto } from "infrastructure/dto/course.dto";
 import { PAGES } from "infrastructure/dto/wp.dto";
@@ -22,15 +23,14 @@ class CoursesRepositoryImpl extends CourseRepository{
     return CoursesRepositoryImpl.instance;
   }
 
-  async create(course: PAGES, wpToken: string): Promise<Course | undefined> {
+  async create(course: PAGES, wpToken: string): Promise<Course | ErrorApp> {
     const response = await createWpCourse(course, wpToken)
-    console.log('response', response)
     if(response instanceof Course) {
-      const newCourse = await FireFirestore.setDoc(this.coursesPath,response.wpID.toString(), response.toJson());
-      console.log('newCourse', newCourse)
+      await FireFirestore.setDoc(this.coursesPath,response.wpID.toString(), response.toJson());
       return response;
     }else{
-      alert('Error interno')
+      const err = `course.academy@${response}` || 'error.interno';
+      return new ErrorApp({errorCode: err, errorMessage: err }) ;
     }
 }
 

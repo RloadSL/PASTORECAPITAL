@@ -21,7 +21,8 @@ export interface INPUTBLOCKPROPS {
   name: string
   maxLength?: number
   inputStyle?: 'default' | 'code'
-  icon?: any
+  icon?: any,
+  helper?: string
 }
 
 /**
@@ -48,7 +49,8 @@ const InputApp = ({
   onBlur,
   inputStyle,
   type = 'text',
-  maxLength
+  maxLength,
+  helper
 }: INPUTBLOCKPROPS) => {
   const [isFloating, setIsFloating] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
@@ -105,6 +107,7 @@ const InputApp = ({
             className={style.input}
           />
         </div>
+        {(helper && !error) && <small className={style.helper}> <FormattedMessage id={helper} /> </small>}
       </div>
       {error && <div className={style.error}>{error}</div>}
     </>

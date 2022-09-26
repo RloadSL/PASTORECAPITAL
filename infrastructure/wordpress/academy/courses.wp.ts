@@ -15,7 +15,7 @@ export const createWpCourse = async (course:PAGES, wpToken: string) => {
       return cat.errCode;
     }
   }else{
-    alert(cat.errCode)
+  return cat.errCode;
   }
 }
 

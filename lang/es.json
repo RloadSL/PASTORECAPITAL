@@ -46,19 +46,27 @@
   "page.recover-password.form.resetPassword.title": "Cambiar contraseña",
   "page.recover-password.form.resetPassword.description": "Introduce una nueva contraseña de al menos, 6 caracteres",
 
-  "page.academy/courses.title" : "Academia",
+  "page.academy.courses.title" : "Academia",
+  "page.academy.courses.btn_create" : "Crear nuevo curso",
+  "page.academy.courses.create.title" : "Crear nuevo curso de la Academia ",
+  "page.academy.courses.form.create.title" : "Título del curso",
+  "page.academy.courses.form.create.excerpt" : "Resumen del curso",
+  "page.academy.courses.form.create.submit" : "Crear curso",
+  "page.academy.courses.form.create.excerpt.helper" : "Resumen corto del curso. No más de 300 caracteres",
+
 
   "page.academy/tutorials.title" : "Crypto tutoriales",
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",
-
+  "component.modal.close" : "X",
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
   "auth/user-not-found": "El usuario no existe",
   "auth/email-already-exists": "El email ya esta en uso en la plataforma",
   "auth/network-request-failed" : "Error interno, inténtalo más tarde.",
   "user@not-found": "El usuario no existe",
+  "course.academy@term_exists" : "El curso ya existe en la plataforma",
   "Unauthorized": "Usuario no autorizado",
   "code@invalid": "Código inválido",
   "code@expired": "El código a expirado",

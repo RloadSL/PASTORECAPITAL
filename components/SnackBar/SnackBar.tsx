@@ -20,6 +20,7 @@ interface SNACKBARPROPS {
 
 export const SnackBar = ({ time = 5000}: SNACKBARPROPS) => {
   const {errorsApp, cleanErrorsApp} = useSystem()
+  console.log('SNACK ERROR', errorsApp)
   useEffect(() => {
     if (errorsApp.length > 0) setTimeout(() => {
       cleanErrorsApp();
