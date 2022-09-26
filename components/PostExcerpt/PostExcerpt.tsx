@@ -33,14 +33,15 @@ const PostExcerpt = ({
   level
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
+console.log(thumbnail)
   return (
     <div>
-      <div className={style.imageContainer}>
-        {level && <div className={style.level}>{level.slug}</div>}
-        {thumbnail && <Image layout='fill' src={thumbnail} alt={title} />}
+      <div style={{backgroundImage:`url(${thumbnail})`}} className={style.imageContainer}>
+      {level && <span className={style.level}>{level.slug}</span>}
+      
+        {/* <Image layout='fill' src={thumbnail} alt={title}/></div> : null} */}
       </div>
-
-      <p className={style.title}>{limitTextLength(60, title || '')}</p>
+      <p className={style.title}>{limitTextLength(60, title || '')}</p>
       <div className={style.description}>{parse(description)}</div>
 
       <div className={style.terms}>
