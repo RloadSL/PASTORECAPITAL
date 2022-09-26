@@ -29,11 +29,13 @@ export interface POSTEXCERPTPROPS {
 const PostExcerpt = ({ title, description, thumbnail, terms, level }: POSTEXCERPTPROPS) => {
 
   const { limitTextLength } = useComponentUtils()
-
+console.log(thumbnail)
   return (
     <div>
-
-      {thumbnail ? <div className={style.imageContainer}><Image layout='fill' src={thumbnail} alt={title}/></div> : null}
+      <div style={{backgroundImage:`url(${thumbnail})`}} className={style.imageContainer}>
+      <span className={style.level}>básico</span>
+        {/* <Image layout='fill' src={thumbnail} alt={title}/></div> : null} */}
+      </div>
       <p className={style.title}>{limitTextLength(60, title || '')}</p>
       <div className={style.description}>{parse(description)}</div>
 
