@@ -56,17 +56,13 @@ const CourseView = ({ refLoadMore }: any) => {
       <div className='title-container'>
         <p className='small-caps'>Academia</p>
         <h1>Cursos</h1>
-
-        <div className={style.btn_container_create}>
-          <ButtonApp buttonStyle='primary' onClick={()=>setCreate(true)} labelID={'page.academy.courses.btn_create'}></ButtonApp>
-        </div>
         {create && (
           <Suspense>
             <CreateForm onClose={()=>setCreate(false)}></CreateForm>
           </Suspense>
         )}
       </div>
-      <PostGrid />
+      <PostGrid openCreate={setCreate}/>
       <div ref={refLoadMore} id='loadMore'></div>
     </div>
   )
