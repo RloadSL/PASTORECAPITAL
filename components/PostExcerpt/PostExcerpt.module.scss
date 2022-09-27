@@ -28,4 +28,11 @@
   bottom: 10px;
   left: 10px;
   z-index: 100;
+  background-color: colors.$main;
+  color: white;
+  border-radius: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: text.$textSmall;
 }

@@ -1,3 +1,4 @@
+import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
 import Loading from 'components/Loading'
 import PostExcerpt from 'components/PostExcerpt'
@@ -13,7 +14,8 @@ import style from './PostGrid.module.scss'
 
 interface POSTGRIDPROPS {
   gridItems: Array<Course>,
-  loading: boolean 
+  loading: boolean,
+  openCreate: Function
 }
 
 /**
@@ -22,15 +24,23 @@ interface POSTGRIDPROPS {
  * @returns
  */
 
-const PostGrid = () => {
+const PostGrid = ({openCreate}:{openCreate:Function}) => {
   const courses = useSelector(coursesStore)
   const loading = useSelector(loadingStore)
 
-  return <PostGridView loading={loading} gridItems={courses || []} />}
+  return <PostGridView openCreate={openCreate} loading={loading} gridItems={courses || []} />
+}
 
-const PostGridView = ({ gridItems, loading }: POSTGRIDPROPS) => {
+const PostGridView = ({ gridItems, loading, openCreate }: POSTGRIDPROPS) => {
+  const itemCreateBtn = () => {
+    return (
+      <ButtonApp buttonStyle='primary' onClick={() => openCreate(true)} labelID={'page.academy.courses.btn_create'}></ButtonApp>
+    );
+  }
+
   return (
     <div className={style.postGrid}>
+      {itemCreateBtn()}
       {gridItems.map((item, index) => {
         return (
           // @maria porfavor pasar todoa la logica del item post dentrio del PostExcert//
@@ -57,8 +67,8 @@ const PostGridView = ({ gridItems, loading }: POSTGRIDPROPS) => {
           </Link>
         )
       })}
-     {loading ? <div>LOADING</div> : null}  
-      
+      {loading ? <div>LOADING</div> : null}
+
     </div>
   )
 }
