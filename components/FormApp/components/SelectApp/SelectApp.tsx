@@ -10,7 +10,7 @@ interface SELECTAPPPROPS {
   name: string
   error?: string
   onChange?: Function
-  selectOptions: Array<{ label: string; slug: string }>
+  selectOptions: Array<{ label: string; value: string }>
 }
 
 /**

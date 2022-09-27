@@ -115,8 +115,8 @@ const CreateFormView = ({
             <SelectApp
               labelID='page.academy.courses.form.create.level'
               selectOptions={[
-                { label: 'Basic', slug: 'basic' },
-                { label: 'Mediun', slug: 'mediun' }
+                { label: 'Basic', value: 'basic' },
+                { label: 'Mediun', value: 'mediun' }
               ]}
               name='level'
               /* icon={password} */
