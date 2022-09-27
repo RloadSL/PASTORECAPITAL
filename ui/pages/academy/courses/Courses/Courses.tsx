@@ -9,6 +9,7 @@ import { academyGetCurses } from 'ui/redux/slices/academy/academy.slice'
 import { AppDispatch } from 'ui/redux/store'
 import { options } from 'ui/utils/test.data'
 import style from './Courses.module.scss'
+
 const CreateForm = dynamic(() => import('./components/CreateForm'), {
   suspense: true
 })
@@ -18,10 +19,10 @@ const CreateForm = dynamic(() => import('./components/CreateForm'), {
  * @returns
  */
 
-const Courses = ({}) => {
+const Courses = ({ }) => {
   const dispatch = useDispatch<AppDispatch>()
-
   const refLoadMore = useRef()
+  let isAdmin: boolean = true;
 
   useEffect(() => {
     const onChange: any = (entries: any) => {
@@ -40,10 +41,10 @@ const Courses = ({}) => {
     dispatch(academyGetCurses({}))
   }
 
-  return <CourseView refLoadMore={refLoadMore} />
+  return <CourseView userType={isAdmin} refLoadMore={refLoadMore} />
 }
 
-const CourseView = ({ refLoadMore }: any) => {
+const CourseView = ({ refLoadMore, userType }: { refLoadMore: any, userType: boolean }) => {
   const [create, setCreate] = useState(false)
 
   return (
@@ -58,11 +59,11 @@ const CourseView = ({ refLoadMore }: any) => {
         <h1>Cursos</h1>
         {create && (
           <Suspense>
-            <CreateForm onClose={()=>setCreate(false)}></CreateForm>
+            <CreateForm onClose={() => setCreate(false)}></CreateForm>
           </Suspense>
         )}
       </div>
-      <PostGrid openCreate={setCreate}/>
+      <PostGrid openCreate={setCreate} isAdmin={userType} />
       <div ref={refLoadMore} id='loadMore'></div>
     </div>
   )

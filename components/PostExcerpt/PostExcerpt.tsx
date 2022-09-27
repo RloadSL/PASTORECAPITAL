@@ -1,10 +1,10 @@
 import Chips from 'components/Chips'
-import Image from 'next/image'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import style from './PostExcerpt.module.scss'
 import parse from 'html-react-parser'
 import React from 'react'
 import { WpCat } from 'infrastructure/dto/course.dto'
+import iconTag from '../../assets/img/icons/tags.svg'
 
 type THUMBNAIL = {
   imgUrl: string
@@ -32,10 +32,21 @@ const PostExcerpt = ({
   terms,
   level
 }: POSTEXCERPTPROPS) => {
+  console.log('esto', thumbnail)
+  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} terms={terms} level={level}/>
+}
+
+const PostExcerptView = ({
+  title,
+  description,
+  thumbnail,
+  terms,
+  level
+}: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
   return (
     <div>
-      <div style={{backgroundImage:`url(${thumbnail})`, backgroundSize:'cover', backgroundPosition:'center'}} className={style.imageContainer}>
+      <div style={thumbnail ? {backgroundImage:`url(${thumbnail})`, backgroundSize:'cover', backgroundPosition:'center'} : {backgroundSize:'80px'}} className={style.imageContainer}>
       {level && <span className={style.level}>{level.slug}</span>}
       </div>
       <p className={style.title}>{limitTextLength(60, title || '')}</p>
@@ -44,7 +55,7 @@ const PostExcerpt = ({
       </div>
       <div className={style.terms}>
         {terms ? (
-          <Chips chips={terms.map(item => item.slug)} color='lightMain' />
+          <Chips hasIcon={iconTag} chips={terms.map(item => item.slug)} color='lightMain' />
         ) : null}
       </div>
     </div>
