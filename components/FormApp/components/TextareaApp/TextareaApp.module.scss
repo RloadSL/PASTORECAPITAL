@@ -1,0 +1,127 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
+
+%label {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  transform-origin: top left;
+  transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  color: colors.$grey60;
+}
+
+.inputContainer {
+  background-color: colors.$grey20;
+  padding: 12px 5px;
+  position: relative;
+  margin-bottom: 20px;
+  @extend %borderRadius;
+
+
+  .label {
+    @extend %label; 
+    transform: translate(10px, 8px) scale(1);
+
+    &.filled {
+      transform: translate(10px, -5px) scale(0.8);
+      color: colors.$grey60;
+    }
+  }
+
+  .iconLabel {
+    @extend %label; 
+    transform: translate(40px, 8px) scale(1);
+
+    &.filled {
+      transform: translate(40px, -5px) scale(0.8);
+      color: colors.$grey60;
+    }
+  }
+
+  .input {
+    width: 100%;
+    background-color: transparent;
+    padding: 8px;
+    font-size: 1rem;
+    outline: 0px;
+    position: relative;
+    top: 8px;
+  }
+}
+
+%code {
+  letter-spacing: 1rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.inputContainer.code {
+  padding: 8px 5px;
+
+  label {
+    visibility: hidden;
+    height: 1px;
+  }
+
+  input {
+    top: 0px;
+    @extend %code
+  }
+
+  input::placeholder {
+    font-weight: 300;
+    @extend %code    
+  }
+}
+
+.inputContainer:focus-within {
+  box-shadow: 0 0 0 1px colors.$main;
+
+  .label {
+    transform: translate(10px, -5px) scale(0.8);
+    color: colors.$main;
+  }
+  .iconLabel {
+    transform: translate(40px, -5px) scale(0.8);
+    color: colors.$main;
+  }
+}
+
+.error {
+  font-size: 0.8rem;
+  color: colors.$error;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.hasError {
+  box-shadow: 0 0 0 1px colors.$error;
+}
+
+.inputContainer.hasError.code {
+  label {
+    visibility: hidden;
+    height: 1px;
+  }
+}
+
+.icon {
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+
+.helper{
+  position: absolute;
+  bottom: -15px;
+  font-size: 10px;
+}

@@ -1,25 +1,28 @@
-import ButtonApp from 'components/ButtonApp'
-import React from 'react'
+import Card from 'components/Card'
 import style from './Modal.module.scss'
-const Modal = ({children, onClickBackDrop = ()=>null, onBtnClose}:{children: any, onClickBackDrop?:Function, onBtnClose?:Function}) => {
+
+const Modal = ({ children, onClickBackDrop = () => null, onBtnClose }: { children: any, onClickBackDrop?: Function, onBtnClose?: Function }) => {
   return (
-   <ModalView onClickBackDrop={onClickBackDrop} onBtnClose={onBtnClose ? ()=>onBtnClose() : undefined}>
+    <ModalView onClickBackDrop={onClickBackDrop} onBtnClose={onBtnClose ? () => onBtnClose() : undefined}>
       {children}
-   </ModalView>
+    </ModalView>
   )
 }
 
-const ModalView = ({children, onClickBackDrop, onBtnClose}:{children: any, onClickBackDrop:Function, onBtnClose?:Function}) => {
+const ModalView = ({ children, onClickBackDrop, onBtnClose }: { children: any, onClickBackDrop: Function, onBtnClose?: Function }) => {
   return (
-    <div className={style.modal_container}>
-      <div className={style.backdrop} onClick={(e)=>onClickBackDrop()}>
-          
-        <div className={style.content}>
-           { onBtnClose && <div className={style.close_btn}>
-              <ButtonApp buttonStyle='default' onClick={()=>onBtnClose()} labelID='component.modal.close'></ButtonApp>
+    <div className={style.modal}>
+      <div className={style.backdrop} onClick={(e) => onClickBackDrop()}>
+        <div className={style.modalContainer}>
+          <Card>
+            <div className={style.content}>
+              {onBtnClose && <button className={style.closeBtn} onClick={() => onBtnClose()}>
+                <span className='only-readers'>Cerrar</span>
+              </button>
+              }
+              {children}
             </div>
-            }
-          {children}
+          </Card>
         </div>
       </div>
     </div>

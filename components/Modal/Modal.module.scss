@@ -1,10 +1,18 @@
-.modal_container{
-  width: 100vw;
-  height: 100vh;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.modal{
   position: fixed;
   z-index: 9999;
   top: 0;
   left: 0;
+  .modalContainer {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+  }
   .backdrop{
     position: relative;
     display: flex;
@@ -13,16 +21,24 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(0,0,0,0.5);
+    background-color: transparentize(colors.$dark, 0.4);;
     .content{
-      min-width: 50%;
+      width: 100%;
       min-height: 350px;
-      .close_btn{
-        position: relative;
+      max-width: 500px;
+      position: relative;
+      .closeBtn{
+        position: absolute;
         z-index: 100;
         max-width: 50px;
-        top: 30px;
-        left: 90%;
+        top: 20px;
+        right: 20px;
+        background-image: url(../../assets/img/icons/close.svg);
+        background-size: contain;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        width: 22px;
+        height: 22px;
       }
     }
   }
