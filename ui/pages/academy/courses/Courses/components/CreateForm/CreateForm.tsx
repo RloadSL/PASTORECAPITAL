@@ -1,5 +1,5 @@
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import style from './CreateForm.module.scss'
@@ -14,6 +14,7 @@ import Modal from 'components/Modal'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
+import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 const courseDataTest: any = {
   title: 'Prueba de pagina de curso',
   excerpt: 'Esta es el comentario breve de la pagina'
@@ -24,17 +25,37 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
   const dispatch = useDispatch<AppDispatch>()
   const { pushErrorsApp } = useSystem()
   const userLogged = useSelector(getUserLogged)
+  const [levels, setlevels] = useState([])
+  useEffect(() => {
+    let fetching = true
+    getLevels().then(res => {
+      if(fetching) setlevels(res as any);
+    }).catch(()=>alert('Error interno refrescar la página.'))
+    return () => {
+      fetching = false
+    }
+  }, [])
+  
+
+  const getLevels = async ()=>{
+    const response = await CourseRepositoryInstance.readLevelsCategoriesFromWp()
+    return response;
+  }
 
   const createCourses = async (data: any): Promise<any> => {
-    if (userLogged.wpToken) {
+   if (userLogged.wpToken) {
       const response = await CourseRepositoryInstance.create(
         data,
         userLogged.wpToken
       )
-
+      
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
+      }else{
+        window.open(`${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`)
+        onClose();
       }
+
     } else {
       pushErrorsApp(
         new ErrorApp({
@@ -65,6 +86,7 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
   return (
     <CreateFormView
       onClose={() => onClose()}
+      levels={levels}
       validationSchema={validationSchema}
       createCourses={(data: any) => createCourses(data)}
     ></CreateFormView>
@@ -74,11 +96,13 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
 const CreateFormView = ({
   createCourses,
   validationSchema,
-  onClose = () => null
+  onClose = () => null,
+  levels = []
 }: {
   createCourses: Function
   validationSchema: any
   onClose: Function
+  levels: {value:string, label:string}[]
 }) => {
   return (
     <Modal onBtnClose={() => onClose()}>
@@ -114,10 +138,7 @@ const CreateFormView = ({
             />
             <SelectApp
               labelID='page.academy.courses.form.create.level'
-              selectOptions={[
-                { label: 'Basic', value: 'basic' },
-                { label: 'Mediun', value: 'mediun' }
-              ]}
+              selectOptions={levels}
               name='level'
               /* icon={password} */
             />

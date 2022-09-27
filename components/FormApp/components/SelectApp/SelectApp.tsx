@@ -27,10 +27,8 @@ const SelectApp = ({
   name,
   error
 }: SELECTAPPPROPS) => {
-  console.log('SelectApp', name, error)
   const _handleChange = useCallback(
     (value: { slug: string; label: string }) => {
-      console.log('onChange', onChange)
       if (onChange) onChange(name, value)
     },
     []

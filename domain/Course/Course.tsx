@@ -82,7 +82,6 @@ export class Course {
     return this._created_at
   }
   constructor (courseData: CourseDto) {
-    console.log(courseData)
     this._id = courseData.id.toString()
     this._tags = courseData.tags
     this._thumbnail_url = courseData.thumbnail_url

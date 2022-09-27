@@ -5,7 +5,12 @@ import { AUTHORS_API_URL, MEDIA_API_URL, POSTS_API_URL, WP_API_CATEGORY, WP_API_
 
 export const createCategory = async (category:CATEGORY) => {
   const response = await HTTP.post(WP_API_CATEGORY, category)
-  console.log(response);
+  return response;
+}
+
+export const getCategories = async (parentSlug?:string):Promise<Array<any>> => {
+  const url = !parentSlug ? WP_API_CATEGORY : WP_API_CATEGORY+`?slug=${parentSlug}`
+  const response = await HTTP.get(url)
   return response;
 }
 

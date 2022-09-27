@@ -33,7 +33,6 @@ const PostExcerpt = ({
   level
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
-console.log(thumbnail)
   return (
     <div>
       <div style={{backgroundImage:`url(${thumbnail})`, backgroundSize:'cover', backgroundPosition:'center'}} className={style.imageContainer}>

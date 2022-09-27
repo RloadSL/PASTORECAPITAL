@@ -24,5 +24,5 @@ export interface PAGES {
   /**
    * id de las categorias separadas por coma "12,20,30".
    */
-  categories?: string
+  level?: any
 }

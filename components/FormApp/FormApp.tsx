@@ -46,7 +46,7 @@ const FormApp = ({
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={values => console.log('FORM',values) /* _onSubmit(values) */}
+        onSubmit={values => _onSubmit(values)}
       >
         {({ errors, touched, setFieldValue }) => {
           return <Form>{childrenWithExtraProp({ errors, touched },setFieldValue)}</Form>
