@@ -1,10 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import style from './SelectApp.module.scss'
-import Select from 'react-select';
+import Select from 'react-select'
+import { FormattedMessage } from 'react-intl'
+import { useCallback } from 'react'
 
 interface SELECTAPPPROPS {
-  labelID: string,
-  selectOptions: Array<object>
+  labelID: string
+  name: string
+  error?: string
+  onChange?: Function
+  selectOptions: Array<{ label: string; slug: string }>
 }
 
 /**
@@ -14,15 +20,44 @@ interface SELECTAPPPROPS {
  * @returns
  */
 
-const SelectApp = ({ labelID, selectOptions }: SELECTAPPPROPS) => {
-  return <SelectAppView labelID={labelID} selectOptions={selectOptions}/>
+const SelectApp = ({
+  labelID,
+  selectOptions,
+  onChange,
+  name,
+  error
+}: SELECTAPPPROPS) => {
+  console.log('SelectApp', name, error)
+  const _handleChange = useCallback(
+    (value: { slug: string; label: string }) => {
+      console.log('onChange', onChange)
+      if (onChange) onChange(name, value)
+    },
+    []
+  )
+
+  return (
+    <SelectAppView
+      error={error}
+      onChange={(value: any) => _handleChange(value)}
+      name={name}
+      labelID={labelID}
+      selectOptions={selectOptions}
+    />
+  )
 }
 
-const SelectAppView = ({ labelID, selectOptions }: SELECTAPPPROPS) => {
+const SelectAppView = ({
+  labelID,
+  selectOptions,
+  onChange,
+  name,
+  error
+}: SELECTAPPPROPS) => {
   const customStyles = {
     input: (provided: any, state: any) => ({
       ...provided,
-      width: state.selectProps.width,
+      width: state.selectProps.width
     }),
     control: (provided: any, state: any) => ({
       ...provided,
@@ -35,24 +70,29 @@ const SelectAppView = ({ labelID, selectOptions }: SELECTAPPPROPS) => {
   }
 
   return (
-    <div className={style.selectContainer}>
-      <label className={style.label}>
-        {labelID}
-      </label>
-      <Select 
-        instanceId={'select'}
-        options={selectOptions} 
-        defaultValue={selectOptions.find(( item:any ) => item.value === 'todos')}
-        styles={customStyles}
-        isSearchable={false}
-        components={{
-          IndicatorSeparator: () => null,
-          DropdownIndicator: () => null
-        }} 
-      />
+    <div>
+      <div className={style.selectContainer}>
+        <label className={style.label}>
+          <FormattedMessage id={labelID}></FormattedMessage>
+        </label>
+        <Select
+          instanceId={'select'}
+          name={name}
+          options={selectOptions}
+          defaultValue={selectOptions.find(
+            (item: any) => item.value === 'todos'
+          )}
+          styles={customStyles}
+          isSearchable={false}
+          onChange={value => (onChange ? onChange(value) : null)}
+          components={{
+            IndicatorSeparator: () => null,
+            DropdownIndicator: () => null
+          }}
+        />
+      </div>
+      {error && <div className={style.error}>{error}</div>}
     </div>
   )
-
-};
+}
 export default SelectApp
-
