@@ -50,7 +50,7 @@ const CourseView = ({ refLoadMore }: any) => {
     <div className={style.coursesPage}>
       <div>
         <form>
-          <SelectApp labelID={'categoría'} selectOptions={options} />
+          <SelectApp name='filter' labelID={'categoría'} selectOptions={options} />
         </form>
       </div>
       <div className='title-container'>
