@@ -47,7 +47,7 @@
   "page.recover-password.form.resetPassword.description": "Introduce una nueva contraseña de al menos, 6 caracteres",
 
   "page.academy.courses.title" : "Academia",
-  "page.academy.courses.btn_create" : "Crear nuevo curso",
+  "page.academy.courses.btn_create" : "<b>Crear</b> nuevo curso",
   "page.academy.courses.create.title" : "Crear nuevo curso de la Academia ",
   "page.academy.courses.form.create.title" : "Título del curso",
   "page.academy.courses.form.create.excerpt" : "Resumen del curso",

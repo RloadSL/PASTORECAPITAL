@@ -1,5 +1,6 @@
 @use '../../styles/partials/variables/colors' as colors;
 @use '../../styles/partials/mixins/devices' as devices;
+@use '../../styles/partials/placeholders';
 
 
 .postGrid {
@@ -23,15 +24,23 @@
 	transition: all;
 }
 
-.cardContainer {
-  padding: 5%;
-	 @include devices.device(smTablet) {
-		max-height: 400px;
-		min-height: 400px;
-	 }
+.createCourseButton {
+	@extend %cardContainer;
+	border: 2px dashed colors.$main;
+	border-radius: 20px;
+	text-transform: uppercase;
+	font-size: 1.1rem;
+	font-weight: normal;
+	color: colors.$grey60;
+	letter-spacing: .2rem;
+	background-color: lighten(colors.$main,42%);
+	width: 100%;
 
-	 @include devices.device(smScreen) {
-		max-height: 450px;
-		min-height: 450px;
-	 }
+	strong {
+		color: colors.$main;
+		text-transform: capitalize;
+		margin-top: 20px;
+		font-size: 1.5rem;
+		letter-spacing: 0px;
+	}
 }
