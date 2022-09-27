@@ -20,3 +20,15 @@
   left: 15px;
   position: absolute;
 }
+
+.error {
+  font-size: 0.8rem;
+  color: colors.$error;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.hasError {
+  box-shadow: 0 0 0 1px colors.$error;
+}

@@ -53,7 +53,7 @@
   "page.academy.courses.form.create.excerpt" : "Resumen del curso",
   "page.academy.courses.form.create.submit" : "Crear curso",
   "page.academy.courses.form.create.excerpt.helper" : "Resumen corto del curso. No más de 300 caracteres",
-
+  "page.academy.courses.form.create.level": "Nivel del curso",
 
   "page.academy/tutorials.title" : "Crypto tutoriales",
 
