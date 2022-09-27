@@ -15,7 +15,8 @@ import PostGridItem from './components/PostGridItem'
 interface POSTGRIDPROPS {
   gridItems: Array<Course>,
   loading: boolean,
-  openCreate: Function
+  openCreate: Function,
+  isAdmin: boolean
 }
 
 /**
@@ -23,17 +24,17 @@ interface POSTGRIDPROPS {
  * @param gridItems Listado de elementos para renderizar en el grid
  * @param loading Cargador
  * @param openCreate Función que abre el modal para crear un nuevo curso
+ * @param isAdmin Variable que gestiona los permisos del usuario para crear cursos
  * @returns
  */
 
-const PostGrid = ({ openCreate }: { openCreate: Function }) => {
+const PostGrid = ({ openCreate, isAdmin }: { openCreate: Function, isAdmin:boolean }) => {
   const courses = useSelector(coursesStore)
   const loading = useSelector(loadingStore)
-
-  return <PostGridView openCreate={openCreate} loading={loading} gridItems={courses || []} />
+  return <PostGridView isAdmin={isAdmin} openCreate={openCreate} loading={loading} gridItems={courses || []} />
 }
 
-const PostGridView = ({ gridItems, loading, openCreate }: POSTGRIDPROPS) => {
+const PostGridView = ({ gridItems, loading, openCreate, isAdmin }: POSTGRIDPROPS) => {
   const itemCreateBtn = () => {
     return (
       <button className={style.createCourseButton} onClick={() => openCreate(true)}>
@@ -53,7 +54,7 @@ const PostGridView = ({ gridItems, loading, openCreate }: POSTGRIDPROPS) => {
   return (
     <div>
       <ul className={style.postGrid}>
-        <li>{itemCreateBtn()}</li>
+        {isAdmin !== false ? <li>{itemCreateBtn()}</li> : null}
         {gridItems.map((item, index) => {
           return (
             <li key={index} className={style.postLink}>
