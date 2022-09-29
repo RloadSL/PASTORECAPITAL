@@ -5,7 +5,21 @@
 
 .cardContainer {
 	@extend %cardContainer;
+
+	@include devices.device(smTablet) {
+		max-height: auto;
+		min-height: auto;
+		padding: 20px;
+	}
+
+	@include devices.device(lgScreen) {
+		max-height: 500px;
+		min-height: 500px;
+	}
 }
+
+
+
 .btnmenu{
 	padding: 10px 12px;
 	position: absolute;
@@ -23,14 +37,3 @@
 	position: relative;
 	padding: 10px;
 }
-
-	@include devices.device(smTablet) {
-		max-height: auto;
-		min-height: auto;
-		padding: 20px;
-	}
-
-	@include devices.device(lgScreen) {
-		max-height: 500px;
-		min-height: 500px;
-	}
