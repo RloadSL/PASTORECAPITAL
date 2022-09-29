@@ -23,11 +23,9 @@ class CoursesRepositoryImpl extends CourseRepository{
     return CoursesRepositoryImpl.instance;
   }
 
-  async create(course: PAGES, wpToken: string): Promise<Course | ErrorApp> {
+  async create(course: any, wpToken: string): Promise<Course | ErrorApp> {
     const response = await createWpCourse(course, wpToken)
     if(response instanceof Course) {
-      await FireFirestore.setDoc(this.coursesPath,response.wpID.toString(), response.toJson());
-      
       return response;
     }else{
       const err = `course.academy@${response}` || 'error.interno';
@@ -46,14 +44,13 @@ class CoursesRepositoryImpl extends CourseRepository{
     return parsedDocs.map(item => new Course(item));
   }; 
 
-  async readFromWp(offset?:number,category?:string): Promise<Course[]> {
-    const response = await getAllPagesFromServer(offset,category)
+  async readFromWp(offset?:number,category?:string, wpToken?:string ): Promise<Course[]> {
+    const response = await getAllPagesFromServer(offset,category, wpToken)
     return response.map((item:any) => new Course(item));
   };
 
   async readLevelsCategoriesFromWp(): Promise<Course[]> {
     const response = await getCategories('levels')
-    
     const levels = response.find((item:any) => item.slug == 'levels').children;
     return levels.map((item:any) => ({value: item.slug, label: item.name, id: item.term_id}));
   };

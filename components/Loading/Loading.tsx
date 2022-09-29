@@ -17,6 +17,5 @@ export const Loading = ({ variant = 'inner-primary' , loading}: { variant?: LOAD
  */
 
 const LoadingView = ({ loadingState, variant }: { loadingState: boolean, variant: LOADINGPROPS }) => {
-  console.log(loadingState)
   return loadingState ? <div className={`${style.loading} ${style[variant]}`}><div className={style.loadingContainer}></div></div> : null;
 }

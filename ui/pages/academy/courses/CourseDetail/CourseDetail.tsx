@@ -15,7 +15,7 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 
 const CourseDetail:NextPage<any> = ({post}:{post:Course}) => {
   const loggedUser = useSelector(getUserLogged);
-  console.log(post)
+  
   const editLink = (token:string) => {
     return `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}`;
   }

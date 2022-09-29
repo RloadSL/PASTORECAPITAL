@@ -35,18 +35,16 @@ class Http {
       console.log(err)
       return {errCode: code}
     }
-    
   }
   
-  put = async <T>(url: string, body: any) => {
-   //Implementar con axios
-  }
   
-  _delete = async <T>(url: string) => {
-    //Implementar con axios
+  
+  delete = async <T>(url: string, headers:any = {}) => {
+    headers = {...this._headers, ...headers};
+    const response = await axios.delete(url,{headers: headers})
+    return response.data;
   }
 }
-
 
 export const HTTP = Http.getInstance()
 

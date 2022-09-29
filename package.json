@@ -12,6 +12,7 @@
   "dependencies": {
     "@redux-devtools/extension": "^3.2.3",
     "@reduxjs/toolkit": "^1.8.5",
+    "@szhsin/react-menu": "^3.2.0",
     "axios": "^0.27.2",
     "firebase": "^9.9.2",
     "formik": "^2.2.9",
