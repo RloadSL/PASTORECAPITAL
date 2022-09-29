@@ -1,6 +1,7 @@
 
 import { FirebaseApp } from 'firebase/app';
 import { connectFunctionsEmulator, Functions, getFunctions, httpsCallable } from 'firebase/functions';
+import { on_cloud_firebase } from './config';
 import FireFirebase from './firebase';
 /**
  * Implentación de Functions de Firebase 
@@ -10,7 +11,7 @@ export class FireFunctions {
   private _functions: Functions;
   private constructor(app: FirebaseApp) {
     this._functions = getFunctions(app);
-    if(FireFirebase.emulatiorEnable){
+    if(FireFirebase.emulatiorEnable  && !on_cloud_firebase ){
       connectFunctionsEmulator(this._functions, "localhost", 5001);
     }
   }

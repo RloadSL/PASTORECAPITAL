@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 /infrastructure/wordpress/config.ts
+/infrastructure/firebase/config.ts
 
 # dependencies
 /node_modules

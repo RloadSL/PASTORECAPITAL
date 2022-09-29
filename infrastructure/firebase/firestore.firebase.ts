@@ -2,6 +2,7 @@ import { FirebaseApp } from 'firebase/app';
 import { limit, onSnapshot, startAt, Unsubscribe, getFirestore, addDoc, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter } from "firebase/firestore";
 import { cleanUndefined } from './utils'
 import FireFirebase from './firebase';
+import { on_cloud_firebase } from './config';
 
 /**
  * Integración con el módulo de firestore de Firebase
@@ -11,7 +12,7 @@ export class FireFirestore {
   private static instance: FireFirestore;
   private constructor(app: FirebaseApp) {
     this._db = getFirestore(app);
-    if (FireFirebase.emulatiorEnable) {
+    if (FireFirebase.emulatiorEnable  && !on_cloud_firebase) {
       connectFirestoreEmulator(this._db, 'localhost', 8080);
     }
   }
