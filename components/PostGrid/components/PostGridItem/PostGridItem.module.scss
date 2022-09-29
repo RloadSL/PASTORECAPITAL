@@ -6,7 +6,6 @@
 .cardContainer {
 	@extend %cardContainer;
 
-
 	@include devices.device(smTablet) {
 		max-height: auto;
 		min-height: auto;
@@ -17,4 +16,24 @@
 		max-height: 500px;
 		min-height: 500px;
 	}
+}
+
+
+
+.btnmenu{
+	padding: 10px 12px;
+	position: absolute;
+	left: 88%;
+	z-index: 999;
+	border-radius: 25px;
+	box-shadow: 1px 1px 5px grey;
+}
+.btnmenu:active{
+	box-shadow: none;
+}
+.header{
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	padding: 10px;
 }

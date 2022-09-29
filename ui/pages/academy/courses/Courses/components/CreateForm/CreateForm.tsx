@@ -1,11 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import style from './CreateForm.module.scss'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { AppDispatch } from 'ui/redux/store'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -17,8 +17,7 @@ import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import fileIcon from '../../../../../../../assets/img/icons/analysis.svg'
 import descriptionIcon from '../../../../../../../assets/img/icons/edit.svg'
 import TextareaApp from 'components/FormApp/components/TextareaApp'
-
-
+import Loading from 'components/Loading'
 
 const courseDataTest: any = {
   title: 'Prueba de pagina de curso',
@@ -27,40 +26,49 @@ const courseDataTest: any = {
 
 const CreateForm = ({ onClose }: { onClose: Function }) => {
   const intl = useIntl()
-  const dispatch = useDispatch<AppDispatch>()
   const { pushErrorsApp } = useSystem()
   const userLogged = useSelector(getUserLogged)
   const [levels, setlevels] = useState([])
+  const [loading, setloading] = useState(false)
   useEffect(() => {
     let fetching = true
-    getLevels().then(res => {
-      if(fetching) setlevels(res as any);
-    }).catch(()=>alert('Error interno refrescar la página.'))
+    getLevels()
+      .then(res => {
+        if (fetching) setlevels(res as any)
+      })
+      .catch(() => {
+        alert('Error interno refrescar la página.')
+        onClose()
+      })
     return () => {
       fetching = false
     }
   }, [])
-  
 
-  const getLevels = async ()=>{
+  const getLevels = async () => {
     const response = await CourseRepositoryInstance.readLevelsCategoriesFromWp()
-    return response;
+    return response
   }
 
   const createCourses = async (data: any): Promise<any> => {
-   if (userLogged.wpToken) {
+    setloading(true)
+    if (userLogged.wpToken) {
       const response = await CourseRepositoryInstance.create(
-        data,
+        {
+          ...data,
+          created_by: { username: userLogged.email, uid: userLogged.uid }
+        },
         userLogged.wpToken
       )
-      
+
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
-      }else{
-        window.open(`${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`)
-        onClose();
+      } else {
+        window.open(
+          `${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`
+        )
+        onClose()
       }
-
     } else {
       pushErrorsApp(
         new ErrorApp({
@@ -69,6 +77,8 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
         })
       )
     }
+
+    setloading(false)
   }
 
   const validationSchema = useCallback(
@@ -93,6 +103,7 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
       onClose={() => onClose()}
       levels={levels}
       validationSchema={validationSchema}
+      loading={loading}
       createCourses={(data: any) => createCourses(data)}
     />
   )
@@ -102,12 +113,14 @@ const CreateFormView = ({
   createCourses,
   validationSchema,
   onClose = () => null,
-  levels = []
+  levels = [],
+  loading
 }: {
   createCourses: Function
   validationSchema: any
   onClose: Function
-  levels: {value:string, label:string}[]
+  loading: boolean
+  levels: { value: string; label: string }[]
 }) => {
   return (
     <Modal onBtnClose={() => onClose()}>
@@ -153,6 +166,7 @@ const CreateFormView = ({
             </div>
           </FormApp>
         </div>
+      <Loading loading={loading} variant='inner-primary'></Loading>
     </Modal>
   )
 }

@@ -32,8 +32,7 @@ const PostExcerpt = ({
   terms,
   level
 }: POSTEXCERPTPROPS) => {
-  console.log('esto', thumbnail)
-  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} terms={terms} level={level} />
+  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} terms={terms} level={level}/>
 }
 
 const PostExcerptView = ({

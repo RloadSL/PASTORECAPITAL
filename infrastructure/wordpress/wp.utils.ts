@@ -11,6 +11,7 @@ export const createCategory = async (category:CATEGORY) => {
 export const getCategories = async (parentSlug?:string):Promise<Array<any>> => {
   const url = !parentSlug ? WP_API_CATEGORY : WP_API_CATEGORY+`?slug=${parentSlug}`
   const response = await HTTP.get(url)
+  console.log('readLevelsCategoriesFromWp', response)
   return response;
 }
 
@@ -24,10 +25,11 @@ export const getAllPostsFromServer = async () => {
   }
 };
 
-export const getAllPagesFromServer = async (offset?:number,category?:string) => {
-  //   get all posts from Server
+export const getAllPagesFromServer = async (offset?:number,category?:string, wpToken?: string) => {
   try {
-    const res = await HTTP.get(WP_API_PAGES_LIST+`${offset ? '&offset='+offset : ''}${category ? '&category='+category : ''}`);
+    const headers = wpToken && {Authorization: `Bearer ${wpToken}`};
+    const url = WP_API_PAGES_LIST+`${offset ? '&offset='+offset : ''}${category ? '&category='+category : ''}${headers ? '&status='+'private' : '&status=publish'}`;
+    const res = await HTTP.get(url, headers);
     return res;
   } catch (error) {
     console.log(error);
@@ -38,6 +40,16 @@ export const getAllPagesFromServer = async (offset?:number,category?:string) => 
 export const getPageFromServer = async (id:string) => {
   try {
     const res = await HTTP.get(`${WP_API_PAGES}/${id}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePageFromServer = async (id:string, wpToken:string) => {
+  try {
+    const headers = wpToken && {Authorization: `Bearer ${wpToken}`};
+    const res = await HTTP.delete(`${WP_API_PAGES}/${id}`, {headers});
     return res;
   } catch (error) {
     console.log(error);

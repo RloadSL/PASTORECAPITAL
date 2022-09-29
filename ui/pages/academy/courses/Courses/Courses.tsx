@@ -4,8 +4,9 @@ import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
 import PostGrid from 'components/PostGrid'
 import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { academyGetCurses } from 'ui/redux/slices/academy/academy.slice'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import { options } from 'ui/utils/test.data'
 import style from './Courses.module.scss'
@@ -19,10 +20,11 @@ const CreateForm = dynamic(() => import('./components/CreateForm'), {
  * @returns
  */
 
-const Courses = ({ }) => {
+const Courses = ({}) => {
   const dispatch = useDispatch<AppDispatch>()
+  const userLogged = useSelector(getUserLogged)
   const refLoadMore = useRef()
-  let isAdmin: boolean = true;
+  let isAdmin: boolean = true
 
   useEffect(() => {
     const onChange: any = (entries: any) => {
@@ -37,21 +39,36 @@ const Courses = ({ }) => {
     observer.observe((refLoadMore.current as unknown) as Element)
   }, [])
 
-  const getCourses = () => {
-    dispatch(academyGetCurses({}))
+
+  useEffect(() => {
+     if(userLogged?.wpToken) getCourses(userLogged?.wpToken)
+  }, [userLogged?.wpToken])
+
+  const getCourses = async (wpToken?:string) => {
+    await dispatch(academyGetCurses({ wpToken: wpToken }))
   }
 
   return <CourseView userType={isAdmin} refLoadMore={refLoadMore} />
 }
 
-const CourseView = ({ refLoadMore, userType }: { refLoadMore: any, userType: boolean }) => {
+const CourseView = ({
+  refLoadMore,
+  userType
+}: {
+  refLoadMore: any
+  userType: boolean
+}) => {
   const [create, setCreate] = useState(false)
 
   return (
     <div className={style.coursesPage}>
       <div>
         <form>
-          <SelectApp name='filter' labelID={'categoría'} selectOptions={options} />
+          <SelectApp
+            name='filter'
+            labelID={'categoría'}
+            selectOptions={options}
+          />
         </form>
       </div>
       <div className='title-container'>
@@ -63,7 +80,7 @@ const CourseView = ({ refLoadMore, userType }: { refLoadMore: any, userType: boo
           </Suspense>
         )}
       </div>
-      <PostGrid openCreate={setCreate} isAdmin={userType} />
+      <PostGrid openCreate={setCreate} />
       <div ref={refLoadMore} id='loadMore'></div>
     </div>
   )

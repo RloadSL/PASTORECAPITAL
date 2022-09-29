@@ -3,19 +3,20 @@ import { Course } from "domain/Course/Course";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { CourseRepositoryInstance } from "infrastructure/repositories/courses.repository";
 
+
+
 export const academyGetCurses = createAsyncThunk(
   'academy@getCurses',
-  async ({ offset, category }: { offset?: number, category?: string }, { getState }) => {
+  async ({ offset, category , wpToken}: { offset?: number, category?: string , wpToken?:string}, { getState }) => {
     try {
       const { academy } = getState() as any;
       if(!offset){
         offset = academy.courses ? academy.courses.length : 0
       }
-      console.log('academy@getCurses offset', offset);
-      const response = await CourseRepositoryInstance.readFromWp(offset, category)
-      return academy.courses ? [...academy.courses, ...response] : response;
+      const response = await CourseRepositoryInstance.readFromWp(offset, category, wpToken)
+      return academy.courses ? {courses: [...academy.courses, ...response], private: wpToken != null} : {courses: response,  private: wpToken != null};
 
-      return academy.courses || [];
+      
     } catch (error) {
       return error;
     }
@@ -26,8 +27,9 @@ const initialState: {
   errorApp: ErrorApp[],
   loading: boolean,
 
-  courses?: Course[]
-} = { errorApp: [], loading: false, courses: undefined };
+  posts?: Course[],
+  privatePosts?: Course[]
+} = { errorApp: [], loading: false, posts: undefined, privatePosts: undefined };
 
 export const academySlice = createSlice({
   name: 'Authentication',
@@ -36,7 +38,12 @@ export const academySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(academyGetCurses.fulfilled, (state, action) => { state.courses = action.payload as Course[]; state.loading = false })
+      .addCase(academyGetCurses.fulfilled, (state, action: any) => { 
+        console.log('extraReducers', action.payload.private)
+        if(!action.payload.private) state.posts = action.payload.courses as Course[];
+        else state.privatePosts = action.payload.courses as Course[];
+        state.loading = false 
+      })
       .addCase(academyGetCurses.pending, (state) => { state.loading = true })
   }
 })
