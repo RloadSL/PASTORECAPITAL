@@ -21,6 +21,13 @@
   position: absolute;
 }
 
+.iconLabel {
+  color: colors.$grey60;
+  font-size: .8rem;
+  left: 45px;
+  position: absolute;
+}
+
 .error {
   font-size: 0.8rem;
   color: colors.$error;
@@ -31,4 +38,18 @@
 
 .hasError {
   box-shadow: 0 0 0 1px colors.$error;
+}
+
+.icon {
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.select {
+  width: 100%;
 }

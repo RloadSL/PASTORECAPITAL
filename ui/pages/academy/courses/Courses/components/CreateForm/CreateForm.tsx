@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import style from './CreateForm.module.scss'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { AppDispatch } from 'ui/redux/store'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import ButtonApp from 'components/ButtonApp'
@@ -125,48 +124,48 @@ const CreateFormView = ({
 }) => {
   return (
     <Modal onBtnClose={() => onClose()}>
-      <div className={style.cardContainer}>
-        <div className={style.header}>
-          <h3 className={style.formTitle}>
-            <FormattedMessage id='page.academy.courses.create.title'></FormattedMessage>
-          </h3>
-        </div>
-        <FormApp
-          validationSchema={validationSchema}
-          initialValues={{
-            title: '',
-            excerpt: '',
-            level: null
-          }}
-          onSubmit={(values: any) => createCourses(values)}
-        >
-          <InputApp
-            labelID='page.academy.courses.form.create.title'
-            type='text'
-            name='title'
-            icon={fileIcon}
-          />
-          <TextareaApp
-            labelID='page.academy.courses.form.create.excerpt'
-            name='excerpt'
-            helper={'page.academy.courses.form.create.excerpt.helper'}
-            icon={descriptionIcon}
-          />
-          <SelectApp
-            labelID='page.academy.courses.form.create.level'
-            selectOptions={levels}
-            name='level'
-            /* icon={password} */
-          />
-          <div style={{ marginTop: '20px' }}>
-            <ButtonApp
-              buttonStyle='secondary'
-              type='submit'
-              labelID='page.academy.courses.form.create.submit'
-            />
+        <div className={style.cardContainer}>
+          <div className={style.header}>
+            <h3 className={style.formTitle}>
+              <FormattedMessage id='page.academy.courses.create.title'></FormattedMessage>
+            </h3>
           </div>
-        </FormApp>
-      </div>
+          <FormApp
+            validationSchema={validationSchema}
+            initialValues={{
+              title: '',
+              excerpt: '',
+              level: null
+            }}
+            onSubmit={(values: any) => createCourses(values)}
+          >
+            <InputApp
+              labelID='page.academy.courses.form.create.title'
+              type='text'
+              name='title'
+              icon={fileIcon}
+            />
+            <TextareaApp
+              labelID='page.academy.courses.form.create.excerpt'
+              name='excerpt'
+              helper={'page.academy.courses.form.create.excerpt.helper'}
+              icon={descriptionIcon}
+            />
+            <SelectApp
+              labelID='page.academy.courses.form.create.level'
+              selectOptions={levels}
+              name='level'
+              icon={fileIcon}
+            />
+            <div style={{ marginTop: '20px' }}>
+              <ButtonApp
+                buttonStyle='secondary'
+                type='submit'
+                labelID='page.academy.courses.form.create.submit'
+              />
+            </div>
+          </FormApp>
+        </div>
       <Loading loading={loading} variant='inner-primary'></Loading>
     </Modal>
   )

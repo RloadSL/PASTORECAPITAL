@@ -22,7 +22,7 @@ const Chips = ({ hasIcon, chips, color = 'main' }: CHIPPROPS) => {
 }
 
 const ChipsView = ({ hasIcon, chips, color = 'main' }: CHIPPROPS) => {
-  return <div className='flex-container'>
+  return <div className='flex-container wrap'>
     {chips.map((item: any, index: any) => {
       return (
         <div key={index} className={`${style[color]} ${style.chipContainer} flex-container align-center`}>

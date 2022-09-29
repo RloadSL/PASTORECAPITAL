@@ -44,18 +44,21 @@ const PostExcerptView = ({
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
   return (
-    <div>
-      <div style={thumbnail ? {backgroundImage:`url(${thumbnail})`, backgroundSize:'cover', backgroundPosition:'center'} : {backgroundSize:'80px'}} className={style.imageContainer}>
-      {level && <span className={style.level}>{level.slug}</span>}
+    <div className={style.postExcerptContainer}>
+      <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
+        {level && <span className={style.level}>{level.slug}</span>}
       </div>
-      <p className={style.title}>{limitTextLength(60, title || '')}</p>
-      <div className={style.description}>
-        {parse(description)}
-      </div>
-      <div className={style.terms}>
-        {terms ? (
-          <Chips hasIcon={iconTag} chips={terms.map(item => item.slug)} color='lightMain' />
-        ) : null}
+      <div className={style.textContent}>
+        <p className={style.title}>{limitTextLength(60, title || '')}</p>
+        <div className={style.description}>
+          {parse(limitTextLength(130, description || ''))}
+        </div>
+        <hr className={style.separator} />
+        <div className={style.terms}>
+          {terms ? (
+            <Chips hasIcon={iconTag} chips={terms.slice(0, 3).map(item => item.slug)} color='lightMain' />
+          ) : null}
+        </div>
       </div>
     </div>
   )

@@ -65,7 +65,7 @@ const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem }: 
   const itemCreateBtn = () => {
     return (
       <button className={style.createCourseButton} onClick={() => openCreate(true)}>
-        <div className='flex-container column'>
+        <div className={style.buttonContent}>
           <Image src={addCourseIcon} alt='' />
           <FormattedMessage
             id='page.academy.courses.btn_create'
