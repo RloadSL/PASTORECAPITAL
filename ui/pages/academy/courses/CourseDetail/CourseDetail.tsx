@@ -11,8 +11,6 @@ import { Course } from 'domain/Course/Course';
 import { useSelector } from 'react-redux';
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors';
 
-
-
 const CourseDetail:NextPage<any> = ({post}:{post:Course}) => {
   const loggedUser = useSelector(getUserLogged);
   console.log(post)

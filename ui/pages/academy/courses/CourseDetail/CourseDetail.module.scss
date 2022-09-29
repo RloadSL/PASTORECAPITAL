@@ -1,8 +1,8 @@
+@use '../../../../../styles/partials/placeholders';
+@use '../../../../../styles/partials/mixins/devices' as devices;
 @import url('http://localhost:8888/platform/wp-content/themes/generatepress_child/style.css');
 
 
 .coursePage {
-  max-width: 1600px;
-  width: 100%;
-  margin: auto;
+ @extend %layoutContainer;
 }

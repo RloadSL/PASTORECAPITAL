@@ -132,13 +132,6 @@ const CreateFormView = ({
               name='title'
               icon={fileIcon}
             />
-            {/* <InputApp
-              labelID='page.academy.courses.form.create.excerpt'
-              type='text'
-              name='excerpt'
-              helper={'page.academy.courses.form.create.excerpt.helper'}
-              icon={descriptionIcon}
-            /> */}
             <TextareaApp
               labelID='page.academy.courses.form.create.excerpt'
               name='excerpt'
@@ -149,7 +142,7 @@ const CreateFormView = ({
               labelID='page.academy.courses.form.create.level'
               selectOptions={levels}
               name='level'
-              /* icon={password} */
+              icon={fileIcon}
             />
             <div style={{ marginTop: '20px' }}>
               <ButtonApp

@@ -16,7 +16,6 @@ export interface TEXTAREAAPPPROPS {
   placeholder?: string
   name: string
   maxLength?: number
-  // inputStyle?: 'default' | 'code'
   icon?: any,
   helper?: string
 }
@@ -71,7 +70,7 @@ const TextareaAppView = ({
   }, [inputRef?.current?.value])
 
   return (
-    <>
+    <div className='position-relative'>
       <div className={style.inputContainer}>
         <label
           className={`${icon ? style.iconLabel : style.label} ${isFloating}`}
@@ -80,7 +79,7 @@ const TextareaAppView = ({
             <FormattedMessage id={labelID} />
           </span>
         </label>
-        <div className='flex-container row align-center'>
+        <div className='flex-container row align-start'>
           {icon != undefined && (
             <div className={`${style.icon}`}>
               <Image className={style.icon} src={icon} alt='' />
@@ -99,10 +98,10 @@ const TextareaAppView = ({
             className={style.input}
           />
         </div>
-        {(helper && !error) && <small className={style.helper}> <FormattedMessage id={helper} /> </small>}
       </div>
+      {(helper && !error) && <small className={style.helper}> <FormattedMessage id={helper} /> </small>}
       {error && <div className={style.error}>{error}</div>}
-    </>
+    </div>
   )
 }
 export default TextareaApp

@@ -55,3 +55,17 @@
 	 min-height: 450px;
 	}
 }
+
+%layoutContainer {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+
+  @include devices.device(lgScreen) {
+    max-width: 1300px;
+  }
+
+  @include devices.device(1900px) {
+    max-width: 1600px;
+  }
+}

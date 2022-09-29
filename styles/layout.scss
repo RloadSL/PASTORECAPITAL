@@ -18,6 +18,10 @@
 	&.column-reverse {
 		flex-direction: column-reverse;
 	}
+
+	&.wrap {
+		flex-wrap: wrap;
+	}
 }
 
 .space-between {
@@ -27,6 +31,19 @@
 .align-center {
 	align-items: center;
 }
+
+.align-start {
+	align-items: flex-start;
+}
+
+.position-relative {
+	position: relative;
+}
+
+.position-absolute {
+	position: absolute;
+}
+
 
 
 //WIDTH AND SPACING

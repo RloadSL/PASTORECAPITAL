@@ -4,10 +4,12 @@ import style from './SelectApp.module.scss'
 import Select from 'react-select'
 import { FormattedMessage } from 'react-intl'
 import { useCallback } from 'react'
+import Image from 'next/image'
 
 interface SELECTAPPPROPS {
   labelID: string
   name: string
+  icon?: any
   error?: string
   onChange?: Function
   selectOptions: Array<{ label: string; value: string }>
@@ -25,7 +27,8 @@ const SelectApp = ({
   selectOptions,
   onChange,
   name,
-  error
+  error,
+  icon
 }: SELECTAPPPROPS) => {
   const _handleChange = useCallback(
     (value: { slug: string; label: string }) => {
@@ -41,6 +44,7 @@ const SelectApp = ({
       name={name}
       labelID={labelID}
       selectOptions={selectOptions}
+      icon={icon}
     />
   )
 }
@@ -50,7 +54,8 @@ const SelectAppView = ({
   selectOptions,
   onChange,
   name,
-  error
+  error,
+  icon
 }: SELECTAPPPROPS) => {
   const customStyles = {
     input: (provided: any, state: any) => ({
@@ -70,24 +75,33 @@ const SelectAppView = ({
   return (
     <div>
       <div className={style.selectContainer}>
-        <label className={style.label}>
-          <FormattedMessage id={labelID}></FormattedMessage>
+        <label className={`${icon ? style.iconLabel : style.label}`}>          
+        <FormattedMessage id={labelID}></FormattedMessage>
         </label>
-        <Select
-          instanceId={'select'}
-          name={name}
-          options={selectOptions}
-          defaultValue={selectOptions.find(
-            (item: any) => item.value === 'todos'
+        <div className='flex-container row align-center'>
+          {icon != undefined && (
+            <div className={`${style.icon}`}>
+              <Image className={style.icon} src={icon} alt='' />
+            </div>
           )}
-          styles={customStyles}
-          isSearchable={false}
-          onChange={value => (onChange ? onChange(value) : null)}
-          components={{
-            IndicatorSeparator: () => null,
-            DropdownIndicator: () => null
-          }}
-        />
+          <Select
+            className={style.select}
+            instanceId={'select'}
+            name={name}
+            options={selectOptions}
+            defaultValue={selectOptions.find(
+              (item: any) => item.value === 'todos'
+            )}
+            styles={customStyles}
+            isSearchable={false}
+            onChange={value => (onChange ? onChange(value) : null)}
+            components={{
+              IndicatorSeparator: () => null,
+              DropdownIndicator: () => null
+            }}
+          />
+        </div>
+
       </div>
       {error && <div className={style.error}>{error}</div>}
     </div>

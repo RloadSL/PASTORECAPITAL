@@ -4,9 +4,35 @@
 @use '../../styles/partials/placeholders'; 
 
 
+.postExcerptContainer {
+  display: flex;
+  flex-direction: column;
+
+  @include devices.device(smTablet) {
+    flex-direction: row;
+  }
+
+  @include devices.device(lgScreen) {
+    flex-direction: column;
+    min-height: calc(500px - 45px);
+  }
+}
+
+.textContent {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .title {
   @extend %secondaryTitle;
-  margin-bottom: 10px;
+  font-size: 1.4rem;
+  margin-bottom: 0px;
+
+  @include devices.device(lgScreen) {
+    margin-top: 20px;
+  } 
 }
 
 .imageContainer {
@@ -19,12 +45,28 @@
   background-image: url(../../assets/img/icons/no-image.svg);
   background-repeat: no-repeat;
   background-position: center;
+
+  @include devices.device(smTablet) {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+  }
+
+  @include devices.device(lgScreen) {
+    width: 100%;
+    height: 150px;
+  }
 }
 
 .description {
   color: colors.$grey60;
-  border-bottom: 1px solid colors.$grey30;
-  padding-bottom: 20px;
+  flex: 1;
+
+  p {
+    margin-bottom: 0px;
+  }
 }
 
 .level {
@@ -42,5 +84,10 @@
 }
 
 .terms {
-  margin-top: 20px;
+  margin-top: 0px;
+}
+
+.separator {
+  border-top: 1px solid colors.$grey30;
+  margin: 10px 0px 10px 0px;
 }
