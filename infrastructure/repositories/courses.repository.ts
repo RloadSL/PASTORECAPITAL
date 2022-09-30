@@ -6,7 +6,7 @@ import { CourseDto } from "infrastructure/dto/course.dto";
 import { PAGES } from "infrastructure/dto/wp.dto";
 import FireFirestore  from "infrastructure/firebase/firestore.firebase";
 import { parseFirestoreDocs } from "infrastructure/firebase/utils";
-import { createWpCourse } from "infrastructure/wordpress/academy/courses.wp";
+import { createWpCourse, deleteWpCourse } from "infrastructure/wordpress/academy/courses.wp";
 import { getAllPagesFromServer, getAllPostsFromServer, getCategories, getPageFromServer } from "infrastructure/wordpress/wp.utils";
 
 class CoursesRepositoryImpl extends CourseRepository{
@@ -38,11 +38,7 @@ class CoursesRepositoryImpl extends CourseRepository{
     return new Course(response);
   }; 
 
-  async readCollection(lastSnapShot?: DocumentSnapshot): Promise<Course[] | undefined> {
-    const snap = await FireFirestore.getCollectionDocs(this.coursesPath, lastSnapShot);
-    const parsedDocs = snap ? parseFirestoreDocs(snap) : [];
-    return parsedDocs.map(item => new Course(item));
-  }; 
+ 
 
   async readFromWp(offset?:number,category?:string, wpToken?:string ): Promise<Course[]> {
     const response = await getAllPagesFromServer(offset,category, wpToken)
@@ -54,25 +50,10 @@ class CoursesRepositoryImpl extends CourseRepository{
     const levels = response.find((item:any) => item.slug == 'levels').children;
     return levels.map((item:any) => ({value: item.slug, label: item.name, id: item.term_id}));
   };
-  
-  onChange(uid:string, callback:Function): Unsubscribe {
-    return FireFirestore.onChangeDoc(`${this.coursesPath}/${uid}`, (courseData:CourseDto)=>{
-      callback(new Course(courseData));
-    })
-  };
 
-  async update(uid: string, data: CourseDto): Promise<void> {
+  async delete(id: number, wpToken:string): Promise<void> {
     try {
-      await FireFirestore.setDoc(this.coursesPath,uid, data)
-    } catch (error) {
-      console.error(error)
-      alert('Error inteno en user.repository')
-    }
-  };
-  
-  async delete(uid: string): Promise<void> {
-    try {
-      await FireFirestore.deleteDoc(this.coursesPath,uid)
+        await deleteWpCourse(id,wpToken);
     } catch (error) {
       console.error(error)
       alert('Error inteno en user.repository')

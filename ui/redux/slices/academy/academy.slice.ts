@@ -23,6 +23,8 @@ export const academyGetCurses = createAsyncThunk(
   }
 )
 
+
+
 const initialState: {
   errorApp: ErrorApp[],
   loading: boolean,
@@ -35,11 +37,27 @@ export const academySlice = createSlice({
   name: 'Authentication',
   initialState,
   reducers: {
+    addPrivateCourse: (state, action) => {
+      state.privatePosts = [action.payload as Course, ...state.privatePosts as Course[]];
+    },
+    removeCourse: (state, action) => {
+      const { id, status } = action.payload; 
+      if(status === 'private'){
+        const index = state.privatePosts?.findIndex(item => item.id === id)
+        if(index != -1 && index != undefined ){
+          state.privatePosts?.splice(index, 1);
+        }
+      }else{
+        const index = state.posts?.findIndex(item => item.id = id)
+        if(index != -1 && index != undefined ){
+          state.posts?.splice(index, 1);
+        }
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(academyGetCurses.fulfilled, (state, action: any) => { 
-        console.log('extraReducers', action.payload.private)
         if(!action.payload.private) state.posts = action.payload.courses as Course[];
         else state.privatePosts = action.payload.courses as Course[];
         state.loading = false 
@@ -49,6 +67,6 @@ export const academySlice = createSlice({
 })
 
 //Estrallendo actions
-//export const { } = academySlice.actions;
+export const { addPrivateCourse, removeCourse } = academySlice.actions;
 
 export default academySlice.reducer;

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import style from './CreateForm.module.scss'
 import * as yup from 'yup'
@@ -18,6 +18,8 @@ import fileIcon from '../../../../../../../assets/img/icons/analysis.svg'
 import descriptionIcon from '../../../../../../../assets/img/icons/edit.svg'
 import TextareaApp from 'components/FormApp/components/TextareaApp'
 import Loading from 'components/Loading'
+import { AppDispatch } from 'ui/redux/store'
+import { addPrivateCourse } from 'ui/redux/slices/academy/academy.slice'
 
 const courseDataTest: any = {
   title: 'Prueba de pagina de curso',
@@ -25,8 +27,10 @@ const courseDataTest: any = {
 }
 
 const CreateForm = ({ onClose }: { onClose: Function }) => {
+  const dispatch = useDispatch<AppDispatch>()
   const intl = useIntl()
   const { pushErrorsApp } = useSystem()
+  
   const userLogged = useSelector(getUserLogged)
   const [levels, setlevels] = useState([])
   const [loading, setloading] = useState(false)
@@ -64,6 +68,7 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
       } else {
+        dispatch(addPrivateCourse(response));
         window.open(
           `${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`
         )

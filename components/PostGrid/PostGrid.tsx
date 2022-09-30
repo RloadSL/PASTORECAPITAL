@@ -21,7 +21,8 @@ interface POSTGRIDPROPS {
   loading: boolean,
   openCreate: Function,
   wpToken?: string,
-  onClickItem: Function
+  onClickItem: Function,
+  deleteCourse:Function
 }
 
 /**
@@ -32,12 +33,13 @@ interface POSTGRIDPROPS {
  * @returns
  */
 
-const PostGrid = ({ openCreate }: { openCreate: Function}) => {
+const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCourse: Function}) => {
   const publicPosts = useSelector(coursesStore)
   const privatePost = useSelector(privateCoursesStore)
   const loading = useSelector(loadingStore)
   const userLogged = useSelector(getUserLogged)
   const router = useRouter()
+
   const onClick = (id:string,slug:string, status:'private' | 'publish', option: 'edit' | 'normal')=>{
     if((userLogged?.wpToken && status == 'private') || option === 'edit'){
       window.open(
@@ -51,17 +53,16 @@ const PostGrid = ({ openCreate }: { openCreate: Function}) => {
         }
       )
     }
-    
   }
 
   let posts:Array<any> = []
   if(publicPosts) posts = posts.concat(publicPosts);
   if(privatePost) posts = [...privatePost,...posts];
 
-  return <PostGridView onClickItem={onClick} wpToken={userLogged?.wpToken} openCreate={openCreate} loading={loading} gridItems={posts} />
+  return <PostGridView deleteCourse={deleteCourse} onClickItem={onClick} wpToken={userLogged?.wpToken} openCreate={openCreate} loading={loading} gridItems={posts} />
 }
 
-const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem }: POSTGRIDPROPS) => {
+const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem , deleteCourse}: POSTGRIDPROPS) => {
   const itemCreateBtn = () => {
     return (
       <button className={style.createCourseButton} onClick={() => openCreate(true)}>
@@ -87,7 +88,7 @@ const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem }: 
             <li key={index} className={style.postLink}>
               <div>
                 <a>
-                  <PostGridItem isAdmin={wpToken != null} onClickItem={(option:string)=>onClickItem(item.id, item.slug, item.status, option)} gridItem={item} />
+                  <PostGridItem deleteCourse={deleteCourse} isAdmin={wpToken != null} onClickItem={(option:string)=>onClickItem(item.id, item.slug, item.status, option)} gridItem={item} />
                 </a>
               </div>
             </li>

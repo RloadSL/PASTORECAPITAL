@@ -32,7 +32,6 @@ const TextareaApp = ({
   icon,
   helper }: TEXTAREAAPPPROPS) => {
 
-  console.log('textareaaaa', error)
   return <TextareaAppView labelID={labelID} onChange={onChange} onBlur={onBlur} error={error} placeholder={placeholder} name={name} maxLength={maxLength} icon={icon} helper={helper} />
 }
 

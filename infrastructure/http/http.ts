@@ -37,8 +37,6 @@ class Http {
     }
   }
   
-  
-  
   delete = async <T>(url: string, headers:any = {}) => {
     headers = {...this._headers, ...headers};
     const response = await axios.delete(url,{headers: headers})

@@ -9,6 +9,7 @@ import { academyGetCurses } from 'ui/redux/slices/academy/academy.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import { options } from 'ui/utils/test.data'
+import DeleteCourse from './components/DeleteCourse'
 import style from './Courses.module.scss'
 
 const CreateForm = dynamic(() => import('./components/CreateForm'), {
@@ -59,7 +60,7 @@ const CourseView = ({
   userType: boolean
 }) => {
   const [create, setCreate] = useState(false)
-
+  const [deleteCourse, setDeleteCourse]:[{id: number, status:string} | null , Function] = useState(null)
   return (
     <div className={style.coursesPage}>
       <div>
@@ -79,8 +80,13 @@ const CourseView = ({
             <CreateForm onClose={() => setCreate(false)}></CreateForm>
           </Suspense>
         )}
+        {deleteCourse && (
+          <Suspense>
+            <DeleteCourse data={deleteCourse} onClose={() => setDeleteCourse(null)}></DeleteCourse>
+          </Suspense>
+        )}
       </div>
-      <PostGrid openCreate={setCreate} />
+      <PostGrid deleteCourse={(value:{id:number, status:string})=>setDeleteCourse(value)} openCreate={setCreate} />
       <div ref={refLoadMore} id='loadMore'></div>
     </div>
   )

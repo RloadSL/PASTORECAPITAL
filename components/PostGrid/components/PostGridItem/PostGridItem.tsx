@@ -18,16 +18,18 @@ import Image from 'next/image'
 const PostGridItem = ({
   gridItem,
   onClickItem,
-  isAdmin = false
+  isAdmin = false,
+  deleteCourse
 }: {
   gridItem: Course
   onClickItem: Function
-  isAdmin:boolean
+  isAdmin:boolean,
+  deleteCourse: Function
 }) => {
-  return <PostGridItemView isAdmin={isAdmin} onClickItem={onClickItem} gridItem={gridItem} />
+  return <PostGridItemView deleteCourse={deleteCourse} isAdmin={isAdmin} onClickItem={onClickItem} gridItem={gridItem} />
 }
 
-const PostGridItemView = ({ gridItem, onClickItem , isAdmin}: any) => {
+const PostGridItemView = ({ gridItem, onClickItem , isAdmin, deleteCourse}: any) => {
   const _renderHeder = ()=>{
     return (
       <div className={style.header} style={{display:'flex' , justifyContent:'space-between'}}>
@@ -42,7 +44,7 @@ const PostGridItemView = ({ gridItem, onClickItem , isAdmin}: any) => {
           </button>}
         >
           <MenuItem onClick={() => onClickItem('edit')}>Editar</MenuItem>
-          <MenuItem>Eliminar</MenuItem>
+          <MenuItem onClick={()=>{deleteCourse({id:gridItem.id, status:gridItem.status})}}>Eliminar</MenuItem>
         </Menu>
         </div>
     )

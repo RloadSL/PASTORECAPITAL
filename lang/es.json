@@ -54,7 +54,8 @@
   "page.academy.courses.form.create.submit" : "Crear curso",
   "page.academy.courses.form.create.excerpt.helper" : "Resumen corto del curso. Máximo 300 caracteres",
   "page.academy.courses.form.create.level": "Nivel del curso",
-
+  "page.academy.courses.delete.title" : "Eliminar curso",
+  "page.academy.courses.delete.menssage" : "Estas seguro de eliminar el curso se perderan todas las lecciones relacionadas con el curso ademas de sus datos.",
   "page.academy/tutorials.title" : "Crypto tutoriales",
 
   "component.navbar.backbuttom": "Atrás",
@@ -79,5 +80,8 @@
   "forms.labels.email": "Email",
   "forms.labels.password": "Contraseña",
   "forms.labels.repeatPassword": "Repetir contraseña",
-  "forms.labels.securityCode": "Código de seguridad"
+  "forms.labels.securityCode": "Código de seguridad",
+
+  "alert.btn.ok" : "Aceptar",
+  "alert.btn.cancel" : "Cancelar"
 }

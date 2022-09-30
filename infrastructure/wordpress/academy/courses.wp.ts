@@ -28,6 +28,12 @@ export const createWpCourse = async (course:PAGES, wpToken: string) => {
   }
 }
 
+export const deleteWpCourse = async (courseId: number, wpToken: string) => {
+  const deleted = await HTTP.delete(WP_API_PAGES+`/${courseId}?force=true`, {Authorization: `Bearer ${wpToken}`})
+  
+  return deleted.data;
+}
+
 const getCategoryAcademy = async (target:'courses' | 'tutorials', wpToken:string):Promise<number> => {
   const academyCat = await getCategories('academy-'+target);
   if(academyCat.length === 0){
