@@ -1,10 +1,10 @@
-@use '../../../../styles/partials/variables/colors' as colors;
-@use '../../../../styles/partials/mixins/devices' as devices;
-@use '../../../../styles/partials/placeholders';
-
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
 
 .cardContainer {
 	@extend %cardContainer;
+	position: relative;
 
 	@include devices.device(smTablet) {
 		max-height: auto;
@@ -18,22 +18,43 @@
 	}
 }
 
-
-
-.btnmenu{
-	padding: 10px 12px;
-	position: absolute;
-	left: 88%;
-	z-index: 999;
+.btnMenu {
 	border-radius: 25px;
-	box-shadow: 1px 1px 5px grey;
+	box-shadow: 1px 1px 5px colors.$grey40;
+	position: absolute;
+	right: 25px;
+	width: 40px;
+	height: 40px;
+	background-color: white;
+	background-image: url(../../../../assets/img/icons/menu-dots-vertical.png);
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
 }
-.btnmenu:active{
+.btnmenu:active {
 	box-shadow: none;
 }
-.header{
+.header {
 	display: flex;
 	justify-content: space-between;
-	position: relative;
+	position: absolute;
 	padding: 10px;
+	width: 100%;
+	left: 0px;
+	z-index: 100;
+	padding-left: 25px;
+
+	.postStatus {
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 100%;
+
+		img {
+			width: 20px !important;
+			height: 20px !important;
+		}
+	}
 }

@@ -1,5 +1,4 @@
 import { Course } from 'domain/Course/Course'
-import Link from 'next/link'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
@@ -95,7 +94,7 @@ const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem , d
           )
         })}
       </ul>
-      {loading ? <div>LOADING</div> : null}
+      {true ? <div>LOADING</div> : null}
     </div>
   )
 }

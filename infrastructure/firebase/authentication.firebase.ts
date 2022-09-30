@@ -1,6 +1,7 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { FirebaseApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged ,Auth, UserCredential, signInWithEmailAndPassword, AuthCredential, connectAuthEmulator, signOut } from "firebase/auth";
+import { on_cloud_firebase } from "./config";
 import FireFirebase  from "./firebase";
 export interface ErrorAuth { errorCode: string, errorMessage:string }
 /**
@@ -12,7 +13,7 @@ class FireAuthentication {
 
   private constructor(app: FirebaseApp) {
     this._auth = getAuth(app);
-    if(FireFirebase.emulatiorEnable){
+    if(FireFirebase.emulatiorEnable && !on_cloud_firebase){
       connectAuthEmulator(this._auth, "http://localhost:9099");
     }
   }
