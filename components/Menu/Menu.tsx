@@ -19,7 +19,7 @@ const Menu = ({ itemList, activeItem }: MENUPROPS) => {
 
 /**
  * Función principal del render
- */
+**/
 
 const MenuView = ({ itemList, activeItem }: MENUPROPS) => {
   return (

@@ -14,6 +14,8 @@ import PostGridItem from './components/PostGridItem'
 import { getIsLogged, getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { useRouter } from 'next/router'
+import LoadMore from 'components/LoadMoreLoading'
+import LoadMoreLoading from 'components/LoadMoreLoading'
 
 interface POSTGRIDPROPS {
   gridItems: Array<Course>,
@@ -21,7 +23,7 @@ interface POSTGRIDPROPS {
   openCreate: Function,
   wpToken?: string,
   onClickItem: Function,
-  deleteCourse:Function
+  deleteCourse: Function
 }
 
 /**
@@ -32,19 +34,19 @@ interface POSTGRIDPROPS {
  * @returns
  */
 
-const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCourse: Function}) => {
+const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCourse: Function }) => {
   const publicPosts = useSelector(coursesStore)
   const privatePost = useSelector(privateCoursesStore)
   const loading = useSelector(loadingStore)
   const userLogged = useSelector(getUserLogged)
   const router = useRouter()
 
-  const onClick = (id:string,slug:string, status:'private' | 'publish', option: 'edit' | 'normal')=>{
-    if((userLogged?.wpToken && status == 'private') || option === 'edit'){
+  const onClick = (id: string, slug: string, status: 'private' | 'publish', option: 'edit' | 'normal') => {
+    if ((userLogged?.wpToken && status == 'private') || option === 'edit') {
       window.open(
         `${WP_EDIT_POST}?post=${id}&action=edit&?&token=${userLogged.wpToken}`
       )
-    }else if(status == 'publish'){
+    } else if (status == 'publish') {
       router.push(
         {
           pathname: '/academy/courses/' + slug,
@@ -54,14 +56,14 @@ const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCo
     }
   }
 
-  let posts:Array<any> = []
-  if(publicPosts) posts = posts.concat(publicPosts);
-  if(privatePost) posts = [...privatePost,...posts];
+  let posts: Array<any> = []
+  if (publicPosts) posts = posts.concat(publicPosts);
+  if (privatePost) posts = [...privatePost, ...posts];
 
   return <PostGridView deleteCourse={deleteCourse} onClickItem={onClick} wpToken={userLogged?.wpToken} openCreate={openCreate} loading={loading} gridItems={posts} />
 }
 
-const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem , deleteCourse}: POSTGRIDPROPS) => {
+const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem, deleteCourse }: POSTGRIDPROPS) => {
   const itemCreateBtn = () => {
     return (
       <button className={style.createCourseButton} onClick={() => openCreate(true)}>
@@ -85,16 +87,14 @@ const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem , d
         {gridItems.map((item, index) => {
           return (
             <li key={index} className={style.postLink}>
-              <div>
-                <a>
-                  <PostGridItem deleteCourse={deleteCourse} isAdmin={wpToken != null} onClickItem={(option:string)=>onClickItem(item.id, item.slug, item.status, option)} gridItem={item} />
-                </a>
+              <div className={style.postItemContainer}>
+                <PostGridItem deleteCourse={deleteCourse} isAdmin={wpToken != null} onClickItem={(option: string) => onClickItem(item.id, item.slug, item.status, option)} gridItem={item} />
               </div>
             </li>
           )
         })}
       </ul>
-      {true ? <div>LOADING</div> : null}
+      {loading ? <LoadMoreLoading /> : null}
     </div>
   )
 }
