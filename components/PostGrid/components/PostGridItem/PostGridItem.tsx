@@ -6,7 +6,10 @@ import style from './PostGridItem.module.scss'
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import menuButton from '../../../../assets/img/icons/menu-dots-vertical.png';
+import publishIcon from '../../../../assets/img/icons/public.svg';
+import privateIcon from '../../../../assets/img/icons/lock-w.svg';
 import Image from 'next/image'
+import { gridItems } from 'ui/utils/test.data'
 
 
 /**
@@ -22,36 +25,36 @@ const PostGridItem = ({
 }: {
   gridItem: Course
   onClickItem: Function
-  isAdmin:boolean
+  isAdmin: boolean
 }) => {
   return <PostGridItemView isAdmin={isAdmin} onClickItem={onClickItem} gridItem={gridItem} />
 }
 
-const PostGridItemView = ({ gridItem, onClickItem , isAdmin}: any) => {
-  const _renderHeder = ()=>{
+const PostGridItemView = ({ gridItem, onClickItem, isAdmin }: any) => {
+  const _renderHeader = () => {
     return (
-      <div className={style.header} style={{display:'flex' , justifyContent:'space-between'}}>
-        <small style={{ color: 'red' }}>{gridItem.status}</small>
+      <div className={style.header} style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div className={style.postStatus} style={gridItem.status === 'publish' ? {backgroundColor:'#62dc62'} : {backgroundColor:'#ff5e86'}}>
+          {gridItem.status === 'publish' ? <Image src={publishIcon} alt='' /> : <Image src={privateIcon} alt='' />}</div>
         <Menu
           align='end'
           offsetY={5}
-          
           menuButton={
-          <button className={style.btnmenu}>
-            <Image objectFit='cover' width={25} height={25} src={menuButton} alt=''/>
-          </button>}
+            <button className={style.btnMenu}>
+              <span className='only-readers'>opciones</span>
+            </button>}
         >
           <MenuItem onClick={() => onClickItem('edit')}>Editar</MenuItem>
           <MenuItem>Eliminar</MenuItem>
         </Menu>
-        </div>
+      </div>
     )
   }
 
   return (
     <Card>
       <div className={style.cardContainer}>
-        {isAdmin && _renderHeder()}
+        {isAdmin && _renderHeader()}
         <div onClick={() => onClickItem()}>
           <PostExcerpt
             thumbnail={gridItem.thumbnail_url}
