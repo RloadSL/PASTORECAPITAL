@@ -14,6 +14,7 @@ export const createWpCourse = async (course:PAGES, wpToken: string) => {
     const pageArg = {
       ...course,
       status:'private',
+      content: '<p>Contenido de la página aquí....</p>',
       categories: [cat.data.id, course.level.id, primaryCat],
       template : 'category-courses.php'
     }
