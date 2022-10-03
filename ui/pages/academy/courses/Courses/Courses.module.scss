@@ -1,10 +1,35 @@
-@use '../../../../../styles/partials/placeholders';
+@use "../../../../../styles/partials/placeholders";
+@use "../../../../../styles/partials/mixins/devices" as devices;
 
 .coursesPage {
   @extend %layoutContainer;
   padding: 2%;
+
+  header {
+    @include devices.device(lgScreen) {
+      flex-direction: row !important;
+    }
+  }
 }
 
-.btn_container_create{
+.btn_container_create {
   padding: 10px;
+}
+
+.titleBlock {
+  width: 100%;
+  text-align: center;
+
+  @include devices.device(lgScreen) {
+    width: 20%;
+    min-width: 10px;
+    text-align: left;
+  }
+  p {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  h1 {
+    font-weight: 500;
+  }
 }

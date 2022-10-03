@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ButtonApp from 'components/ButtonApp'
+import FormApp from 'components/FormApp'
 import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
 import PostGrid from 'components/PostGrid'
 import dynamic from 'next/dynamic'
@@ -10,6 +11,7 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import { AppDispatch } from 'ui/redux/store'
 import { options } from 'ui/utils/test.data'
 import DeleteCourse from './components/DeleteCourse'
+import FilterCourse from './components/FilterCourse'
 import style from './Courses.module.scss'
 
 const CreateForm = dynamic(() => import('./components/CreateForm'), {
@@ -21,7 +23,7 @@ const CreateForm = dynamic(() => import('./components/CreateForm'), {
  * @returns
  */
 
-const Courses = ({}) => {
+const Courses = ({ }) => {
   const dispatch = useDispatch<AppDispatch>()
   const userLogged = useSelector(getUserLogged)
   const refLoadMore = useRef()
@@ -42,10 +44,10 @@ const Courses = ({}) => {
 
 
   useEffect(() => {
-     if(userLogged?.wpToken) getCourses(userLogged?.wpToken)
+    if (userLogged?.wpToken) getCourses(userLogged?.wpToken)
   }, [userLogged?.wpToken])
 
-  const getCourses = async (wpToken?:string) => {
+  const getCourses = async (wpToken?: string) => {
     await dispatch(academyGetCurses({ wpToken: wpToken }))
   }
 
@@ -60,34 +62,28 @@ const CourseView = ({
   userType: boolean
 }) => {
   const [create, setCreate] = useState(false)
-  const [deleteCourse, setDeleteCourse]:[{id: number, status:string} | null , Function] = useState(null)
+  const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState({ id: 0, status: 'private' })
   return (
     <div className={style.coursesPage}>
-      <div>
-        <form>
-          <SelectApp
-            name='filter'
-            labelID={'categoría'}
-            selectOptions={options}
-          />
-        </form>
-      </div>
-      <div className='title-container'>
-        <p className='small-caps'>Academia</p>
-        <h1>Cursos</h1>
-        {create && (
-          <Suspense>
-            <CreateForm onClose={() => setCreate(false)}></CreateForm>
-          </Suspense>
-        )}
-        {deleteCourse && (
-          <Suspense>
-            <DeleteCourse data={deleteCourse} onClose={() => setDeleteCourse(null)}></DeleteCourse>
-          </Suspense>
-        )}
-      </div>
-      <PostGrid deleteCourse={(value:{id:number, status:string})=>setDeleteCourse(value)} openCreate={setCreate} />
+      <header className='title-container flex-container column align-center space-between'>
+        <div className={style.titleBlock}>
+          <p className='small-caps'>Academia</p>
+          <h1 className='main-title'>Cursos</h1>
+        </div>
+        <FilterCourse/>
+      </header>
+      <PostGrid deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
       <div ref={refLoadMore} id='loadMore'></div>
+      {create && (
+        <Suspense>
+          <CreateForm onClose={() => setCreate(false)}></CreateForm>
+        </Suspense>
+      )}
+      {deleteCourse && (
+        <Suspense>
+          <DeleteCourse data={deleteCourse} onClose={() => setDeleteCourse(null)}></DeleteCourse>
+        </Suspense>
+      )}
     </div>
   )
 }

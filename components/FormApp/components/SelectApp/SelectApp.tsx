@@ -18,7 +18,11 @@ interface SELECTAPPPROPS {
 /**
  * Función principal del componente Select, utiliza el componente externo react-select
  * @param labelID Key del json de traducción
- * @param selectOptions Opciones del selector
+ * @param name Name de la base de datos del input
+ * @param icon Icono del input si lo tiene
+ * @param error 
+ * @param onChange Función onChange del componente
+ * @param selectOptions Lista de opciones del selector
  * @returns
  */
 
