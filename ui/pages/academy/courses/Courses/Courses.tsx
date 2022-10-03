@@ -62,7 +62,7 @@ const CourseView = ({
   userType: boolean
 }) => {
   const [create, setCreate] = useState(false)
-  const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState({ id: 0, status: 'private' })
+  const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState(null)
   return (
     <div className={style.coursesPage}>
       <header className='title-container flex-container column align-center space-between'>
