@@ -51,7 +51,7 @@ const DeleteCourseView  = ({
 }) => {
   
   return (
-    <Modal>
+    <Modal onBtnClose={() => onClose()}>
       <div className={style.cardContainer}>
         <div className={style.header}>
           <h3 className={style.formTitle}>
@@ -62,8 +62,8 @@ const DeleteCourseView  = ({
           <FormattedMessage id='page.academy.courses.delete.menssage'></FormattedMessage>
         </p>
         <div className={style.actions}>
-          <ButtonApp labelID='alert.btn.ok' onClick={()=>onDelete()}></ButtonApp>
-          <ButtonApp labelID='alert.btn.cancel' onClick={() => onClose()}></ButtonApp>
+          <ButtonApp labelID='alert.btn.cancel' onClick={() => onClose()}/>
+          <ButtonApp labelID='alert.btn.ok' onClick={()=>onDelete()} buttonStyle='primary'/>
         </div>
       </div>
       <Loading loading={loading}></Loading>
