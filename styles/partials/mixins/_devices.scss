@@ -41,24 +41,24 @@
   box-shadow: 6px 6px 21px -2px rgba($red,$green,$blue,$opacity);
 }
 
-@mixin button($textColor,$bgColor,$hoverTextColor,$hoverBgColor) {
-  a.magnetic-button {
-    color: $textColor;
+// @mixin button($textColor,$bgColor,$hoverTextColor,$hoverBgColor) {
+//   a.magnetic-button {
+//     color: $textColor;
 
-    &::before {
-      background-color: $bgColor;
-    }
+//     &::before {
+//       background-color: $bgColor;
+//     }
 
-    &:hover {
-      color: $hoverTextColor;
-      &::before {
-        transform: scaleX(0.9);
-        background-color: $hoverBgColor;
-      }
-    }
-  }
-}
+//     &:hover {
+//       color: $hoverTextColor;
+//       &::before {
+//         transform: scaleX(0.9);
+//         background-color: $hoverBgColor;
+//       }
+//     }
+//   }
+// }
 
-@mixin hoverMenuBold($textColor){
-  text-shadow: 0 0.015em $textColor,0 -0.015em $textColor,0.01em 0 $textColor,-0.01em 0 $textColor;
-}
+// @mixin hoverMenuBold($textColor){
+//   text-shadow: 0 0.015em $textColor,0 -0.015em $textColor,0.01em 0 $textColor,-0.01em 0 $textColor;
+// }

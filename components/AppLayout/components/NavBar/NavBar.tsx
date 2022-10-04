@@ -7,13 +7,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from 'ui/redux/slices/authentication/autentication.slice'
 import { getIsLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
-import styles from './NavBar.module.scss'
+import style from './NavBar.module.scss'
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
+
 
 const NavBar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const _signOutUser = () => dispatch(signOut());
   const isLogged = useSelector(getIsLogged);
-  
+
   const router = useRouter();
   const titlePage =
     router.route !== '/' ? router.route.replace('/', '') : 'home';
@@ -40,28 +42,49 @@ const NavBarView = ({
   signOut?: Function
 }) => {
   return (
-    <div className={styles.navbarContainer}>
-      <Breadcrumbs/>
-      {back && (
+    <div className={style.navbarContainer}>
+      <Breadcrumbs />
+      {/* {back && (
         <div className={styles['navbar-back']}>
           <button onClick={() => back()}>
             <FormattedMessage id='component.navbar.backbuttom' />
           </button>
         </div>
-      )}
-     
-      <div className={styles['navbar-item']}></div>
-      {linkToSignIn && (
+      )} */}
+
+      <div className={style['navbar-item']}></div>
+      {false && (
         <Link href={'/login'}>
-          <a>
+          <a className={style.loginLink}>
             <FormattedMessage id='component.navbar.signUpBtn' />
           </a>
         </Link>
       )}
-      {signOut && (
-        <button onClick={() => signOut()}>
-          <FormattedMessage id='component.navbar.signOutBtn' />
-        </button>
+      {true && (
+        // <button onClick={() => signOut()}>
+        //   <FormattedMessage id='component.navbar.signOutBtn' />
+        // </button>
+        <div>
+
+          <div>
+            notificaciones
+          </div>
+          <div>
+            <p>Luis López</p>
+          </div>
+          <Menu
+          align='end'
+          offsetY={5}
+          menuButton={
+            <button className='menu-options-btn'>
+              <span className='only-readers'>opciones</span>
+            </button>}
+        >
+          <MenuItem onClick={() => console.log('hola')}>Editar</MenuItem>
+          <MenuItem onClick={()=>console.log('adios')}>Eliminar</MenuItem>
+        </Menu>
+        </div>
+
       )}
     </div>
   )

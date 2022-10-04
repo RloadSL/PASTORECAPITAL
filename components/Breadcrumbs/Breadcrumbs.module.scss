@@ -1,0 +1,17 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+
+.crumbLink {
+  color: colors.$grey50;
+  font-size: .9rem;
+  &::after {
+    content: '>';
+    color: colors.$main;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &:last-child::after {
+    content: '';
+  }
+}

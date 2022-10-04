@@ -61,7 +61,6 @@
   "page.academy.courses.filterTags.label" : "Categoría",
   "page.academy/tutorials.title" : "Crypto tutoriales",
 
-
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",
@@ -87,5 +86,11 @@
   "forms.labels.securityCode": "Código de seguridad",
 
   "alert.btn.ok" : "Aceptar",
-  "alert.btn.cancel" : "Cancelar"
+  "alert.btn.cancel" : "Cancelar",
+
+  "home":"Home",
+  "courses": "Cursos",
+  "tutorials": "Tutoriales",
+  "academy": "Academia",
+  "[slug]": "Curso"
 }
