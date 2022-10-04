@@ -1,10 +1,12 @@
 import { Form, Formik } from 'formik'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { debounce } from "lodash"
 export interface FORMAPPPROPS {
-  onSubmit: Function
-  children: any
+  onSubmit?: Function
+  children?: any
   validationSchema?: any
-  initialValues: Object
+  initialValues?: Object,
+  onChange?: Function
 }
 /**
  * Función de componente principal de formulario
@@ -19,14 +21,16 @@ const FormApp = ({
   validationSchema,
   initialValues
 }: FORMAPPPROPS) => {
-  const [message, setMessage] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const FormRef = useRef<HTMLFormElement>(null);
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const _onSubmit = (values: any) => {
     setSubmitted(true)
     setMessage('')
-    onSubmit(values)
+    if(onSubmit) onSubmit(values)
   }
+
 
   const childrenWithExtraProp = ({ errors, touched }: any, setFieldValue: Function) => {
     return React.Children.map(children, child => {
@@ -44,12 +48,14 @@ const FormApp = ({
       </div>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValues || {}}
         validationSchema={validationSchema}
+        
         onSubmit={values => _onSubmit(values)}
       >
-        {({ errors, touched, setFieldValue }) => {
-          return <Form>{childrenWithExtraProp({ errors, touched },setFieldValue)}</Form>
+        {({ errors, touched, setFieldValue}) => {
+          
+          return <Form ref={FormRef}>{childrenWithExtraProp({ errors, touched },setFieldValue)}</Form>
         }}
       </Formik>
     </div>

@@ -7,16 +7,16 @@ import { CourseRepositoryInstance } from "infrastructure/repositories/courses.re
 
 export const academyGetCurses = createAsyncThunk(
   'academy@getCurses',
-  async ({ offset, category , wpToken}: { offset?: number, category?: string , wpToken?:string}, { getState }) => {
+  async ({ offset, filters , wpToken}: { offset?: number, filters?: any , wpToken?:string}, { getState }) => {
     try {
       const { academy } = getState() as any;
       if(!offset){
         offset = academy.courses ? academy.courses.length : 0
       }
-      const response = await CourseRepositoryInstance.readFromWp(offset, category, wpToken)
+      
+      const response = await CourseRepositoryInstance.readFromWp(offset, filters, wpToken)
       return academy.courses ? {courses: [...academy.courses, ...response], private: wpToken != null} : {courses: response,  private: wpToken != null};
 
-      
     } catch (error) {
       return error;
     }

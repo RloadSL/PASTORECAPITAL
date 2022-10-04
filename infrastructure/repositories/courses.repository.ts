@@ -40,8 +40,8 @@ class CoursesRepositoryImpl extends CourseRepository{
 
  
 
-  async readFromWp(offset?:number,category?:string, wpToken?:string ): Promise<Course[]> {
-    const response = await getAllPagesFromServer(offset,category, wpToken)
+  async readFromWp(offset?:number,filters?:any, wpToken?:string ): Promise<Course[]> {
+    const response = await getAllPagesFromServer(offset,filters, wpToken)
     return response.map((item:any) => new Course(item));
   };
 

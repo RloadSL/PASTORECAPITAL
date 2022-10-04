@@ -22,7 +22,8 @@ export interface INPUTBLOCKPROPS {
   maxLength?: number
   inputStyle?: 'default' | 'code'
   icon?: any,
-  helper?: string
+  helper?: string,
+  value?:string
 }
 
 /**
@@ -50,16 +51,25 @@ const InputApp = ({
   inputStyle,
   type = 'text',
   maxLength,
-  helper
+  helper,
+  value
 }: INPUTBLOCKPROPS) => {
   const [isFloating, setIsFloating] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const [inputValue, setvalue] = useState('')
+  useEffect(() => {
+    inputRef.current?.setAttribute('value', value || '');
+    setvalue(value || '')
+    console.log(value)
+  }, [value])
+  
 
   const _handleChange = useCallback(
     (target: HTMLInputElement) => {
       if (maxLength && target.value.length > maxLength)
         target.value = target.value.substring(0, 4)
       if (onChange) onChange(name, target.value)
+      setvalue(target.value)
       setIsFloating(
         inputRef?.current?.value
           ? `${style.filled} ${style.label}`
@@ -99,6 +109,7 @@ const InputApp = ({
             name={name}
             autoComplete={'autocomplete'}
             placeholder={placeholder}
+            value={inputValue}
             ref={inputRef}
             onChange={e => _handleChange(e.target)}
             onBlur={() => {

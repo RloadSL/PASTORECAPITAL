@@ -1,7 +1,7 @@
 import { Role } from "infrastructure/dto/users.dto";
 import { CATEGORY } from "infrastructure/dto/wp.dto"
 import { HTTP } from "infrastructure/http/http"
-import { AUTHORS_API_URL, MEDIA_API_URL, POSTS_API_URL, WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST } from "./config";
+import { AUTHORS_API_URL, MEDIA_API_URL, POSTS_API_URL, WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_TAGS } from "./config";
 
 export const createCategory = async (category:CATEGORY) => {
   const response = await HTTP.post(WP_API_CATEGORY, category)
@@ -11,7 +11,6 @@ export const createCategory = async (category:CATEGORY) => {
 export const getCategories = async (parentSlug?:string):Promise<Array<any>> => {
   const url = !parentSlug ? WP_API_CATEGORY : WP_API_CATEGORY+`?slug=${parentSlug}`
   const response = await HTTP.get(url)
-  console.log('readLevelsCategoriesFromWp', response)
   return response;
 }
 
@@ -25,10 +24,10 @@ export const getAllPostsFromServer = async () => {
   }
 };
 
-export const getAllPagesFromServer = async (offset?:number,category?:string, wpToken?: string) => {
+export const getAllPagesFromServer = async (offset?:number, filters?: {search?: string, catLevel?: any, tags?:any}, wpToken?: string) => {
   try {
     const headers = wpToken && {Authorization: `Bearer ${wpToken}`};
-    const url = WP_API_PAGES_LIST+`${offset ? '&offset='+offset : ''}${category ? '&category='+category : ''}${headers ? '&status='+'private' : '&status=publish'}`;
+    const url = WP_API_PAGES_LIST+`${offset ? '&offset='+offset : ''}${filters?.search ? '&search='+filters.search : ''}${filters?.tags ? '&tags='+filters.tags : ''}${filters?.catLevel ? '&categories='+filters.catLevel.id : ''}${headers ? '&status='+'private' : '&status=publish'}`;
     const res = await HTTP.get(url, headers);
     return res;
   } catch (error) {
@@ -74,5 +73,16 @@ export const getFeaturedImage = async (id:string) => {
   } catch (error) {
     console.log(error);
     return '';
+  }
+};
+
+
+export const getTagsFromServer = async (search:string) => {
+  try {
+    
+    const res = await HTTP.get(`${WP_API_TAGS}?search=${search.substring(1)}`);
+    return res;
+  } catch (error) {
+    console.log(error);
   }
 };

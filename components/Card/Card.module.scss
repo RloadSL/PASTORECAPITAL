@@ -9,3 +9,19 @@
   width: 100%;
   position: relative;
 }
+
+.autocomplite{
+  border-radius: 0;
+  top: 85%;
+  width: 100%;
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  p{
+    margin: 0;
+  }
+}
+
+.elevationSmall{
+  box-shadow: 5px 5px 12px grey;
+}

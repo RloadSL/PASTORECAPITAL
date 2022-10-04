@@ -1,10 +1,10 @@
 
+import { useCallback } from 'react'
 import style from './Card.module.scss'
 
 export interface CARDPROPS {
   children: any,
-  /**@maria Custom style debe recir nombre de clases no styles directos */
-  customStyle?: string
+  cardStyle?: 'autocomplite' | 'elevationSmall'| Array<'autocomplite' | 'elevationSmall'>
 }
 
 /**
@@ -13,9 +13,20 @@ export interface CARDPROPS {
  * @returns 
  */
 
-const Card = ({children,customStyle}:CARDPROPS) => {
+const Card = ({children,cardStyle}:CARDPROPS) => {
+
+  const styles = useCallback( (cardStyle:any)=>{
+    if(!cardStyle) return '';
+    if(typeof cardStyle === 'string'){
+      return style[cardStyle];
+    }else{
+      return cardStyle.map((className: string) => style[className]).toString().replace(/,/g,' ')
+    }
+  }, [cardStyle])
+
+
   return (
-    <div className={`${style.card} ${customStyle}`}>
+    <div className={`${style.card} ${styles(cardStyle)}`}>
      {children} 
     </div>
   )

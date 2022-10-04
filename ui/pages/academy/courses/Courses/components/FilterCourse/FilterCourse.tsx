@@ -3,14 +3,15 @@ import InputApp from 'components/FormApp/components/InputApp'
 import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
 import style from './FilterCourse.module.scss'
 import searchIcon from '../../../../../../../assets/img/icons/glass.svg'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
+import { debounce } from 'lodash'
+import { getTagsFromServer } from 'infrastructure/wordpress/wp.utils'
+import Card from 'components/Card'
 
-interface FILTERCOURSEPROPS {
-}
-
-const FilterCourse = ({ }: FILTERCOURSEPROPS) => {
+const FilterCourse = ({ onFilter }: any) => {
   const [levels, setlevels] = useState([])
+  const [tags, setTags] = useState([])
   useEffect(() => {
     let fetching = true
     getLevels()
@@ -28,31 +29,92 @@ const FilterCourse = ({ }: FILTERCOURSEPROPS) => {
     const response = await CourseRepositoryInstance.readLevelsCategoriesFromWp()
     return response
   }
+
+  const getTags = async (tags: string) => {
+    const res = await getTagsFromServer(tags)
+    if (res.length > 0) {
+      setTags(res)
+    }
+  }
+
+  const _handleFilter = React.useRef(
+    debounce(value => {
+      setTags([])
+      if (value.search?.trim()[0] === '#') {
+        getTags(value.search)
+      } else {
+        onFilter({...value, tags: value.tags})
+      }
+    }, 300)
+  ).current
+
   return (
-    <FilterCourseView levels={levels} />
+    <FilterCourseView tags={tags} levels={levels} onFilter={_handleFilter} />
   )
 }
 
-const FilterCourseView = ({levels}:any) => {
+const FilterCourseView = ({ levels, onFilter, tags }: any) => {
+  const [tag, settag] = useState('')
+  const _handleOnChange = (newValue: {
+    search?: string
+    catLevel?: string
+    tags?: string
+  }) => {
+    onFilter(newValue)
+  }
+
   return (
     <div className={style.filtersContainer}>
-      <FormApp onSubmit={() => console.log('')} validationSchema={''} initialValues={{}}>
+      <FormApp>
         <div className={style.flexItems}>
           <div className={style.filterSearchItem}>
-            <InputApp labelID={'page.academy.courses.filterSearch.label'} icon={searchIcon} error={''} name={''} type='text' />
+            <InputApp
+            helper='page.academy.courses.filterSearch.helper'
+              value={tag}
+              onChange={(name: string, value: any) =>
+                _handleOnChange({ [name]: value })
+              }
+              labelID={'page.academy.courses.filterSearch.label'}
+              icon={searchIcon}
+              name='search'
+              type='text'
+            />
           </div>
           <div className={style.flexItemsSelect}>
             <div className={style.filterLevelItem}>
-              <SelectApp selectOptions={levels} labelID={'page.academy.courses.filterLevel.label'} error={''} name={''} />
-            </div>
-            <div className={style.filterTagsItem}>
-              <SelectApp selectOptions={[]} labelID={'page.academy.courses.filterTags.label'} error={''} name={''} />
+              <SelectApp
+                onChange={(name: string, value: any) =>
+                  _handleOnChange({ [name]: value })
+                }
+                selectOptions={levels}
+                labelID={'page.academy.courses.filterLevel.label'}
+                name={'catLevel'}
+              />
             </div>
           </div>
+          <input hidden type='submit'></input>
         </div>
       </FormApp>
+      <Card cardStyle={['autocomplite', 'elevationSmall']}>
+        <div>
+          {tags.map((tag: { id: number; name: string }, index: number) => {
+            return (
+              <p
+                onClick={() => {
+                  _handleOnChange({ tags: tag.id.toString() })
+                  settag('#'+tag.name)
+                }}
+                className={style.itemTag}
+                key={index}
+              >
+                #<small>{tag.name}</small>
+              </p>
+            )
+          })}
+        </div>
+      </Card>
     </div>
   )
 }
 
-export default FilterCourse;
+export default FilterCourse
