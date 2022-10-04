@@ -74,6 +74,7 @@ export class Course {
     | undefined {
     return this._content
   }
+  
   /**
    * ISO Date convertir a new Date
    */

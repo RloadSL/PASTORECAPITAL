@@ -35,6 +35,7 @@ class CoursesRepositoryImpl extends CourseRepository{
 
   async read(id: string): Promise<Course | null> {
     const response = await getPageFromServer(id)
+    if(!response) return null;
     return new Course(response);
   }; 
 
