@@ -5,6 +5,8 @@ import style from './DrawerNav.module.scss'
 import {mainMenuItems} from "ui/utils/mainMenu.config"
 import { useRouter } from 'next/router'
 import { string } from 'yup'
+import Image from 'next/image'
+import logoPastore from '../../../../../assets/img/logo-pastore.svg'
 
 
 const DrawerNav = ({ children }: any) => {
@@ -25,6 +27,9 @@ const DrawerNavView = ({ children, activeItem } : { children:any, activeItem?:st
     <div className={style.drawerNav}>
       <aside className={style.aside}>
         {children}
+        <div className={style.logoApp}>
+          <Image src={logoPastore} alt='' />
+        </div>
         <div className={style.menuContainer}>
           <Menu itemList={mainMenuItems} activeItem={activeItem} />
         </div>

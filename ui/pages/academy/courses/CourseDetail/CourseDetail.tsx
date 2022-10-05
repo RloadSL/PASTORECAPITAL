@@ -8,10 +8,11 @@ import { Course } from 'domain/Course/Course'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { useRouter } from 'next/router'
-import { Suspense, useCallback, useEffect, useState } from 'react'
+import { Suspense, useCallback, useEffect, useState, createRef } from 'react'
 import Custom404 from 'pages/404'
 import ButtonApp from 'components/ButtonApp'
 import dynamic from 'next/dynamic'
+import ReadingProgressBar from 'components/ReadingProgressBar'
 const CreateFormLesson = dynamic(() => import('./components/CreateFormLesson'), {
   suspense: true
 })
@@ -65,9 +66,11 @@ const CourseDetailView = ({
   const [create, setCreate] = useState(false)
   const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState(null)
   
+  const target = createRef<HTMLInputElement>()
 
   return (
     <div className={style.coursePage}>
+      <ReadingProgressBar target={target}/>
       <div style={{ position: 'fixed', right: '10px', bottom: '20px' }}>
         <ButtonApp
           onClick={() => setCreate(true)}
@@ -81,7 +84,7 @@ const CourseDetailView = ({
             EDITAR{' '}
           </a>
         ) : null}
-        <div className={style.post}>{parse(post.content?.rendered || '')}</div>
+        <div ref={target} className={style.post}>{parse(post.content?.rendered || '')}</div>
       </div>
       {create && (
         <Suspense>
