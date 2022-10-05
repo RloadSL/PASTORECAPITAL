@@ -14,6 +14,7 @@ import PostGridItem from './components/PostGridItem'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { useRouter } from 'next/router'
 import LoadMoreLoading from 'components/LoadMoreLoading'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 interface POSTGRIDPROPS {
   gridItems: Array<Course>,

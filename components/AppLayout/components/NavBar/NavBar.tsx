@@ -5,27 +5,28 @@ import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from 'ui/redux/slices/authentication/autentication.slice'
-import { getIsLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import {  getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import style from './NavBar.module.scss'
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
-
+import '@szhsin/react-menu/dist/index.css'
+import { useComponentUtils } from 'ui/hooks/components.hooks'
 
 const NavBar = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const _signOutUser = () => dispatch(signOut());
-  const isLogged = useSelector(getIsLogged);
-
-  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>()
+  const _signOutUser = () => dispatch(signOut())
+  const user = useSelector(getUserLogged)
+  const {limitTextLength} = useComponentUtils()
+  const router = useRouter()
   const titlePage =
-    router.route !== '/' ? router.route.replace('/', '') : 'home';
+    router.route !== '/' ? router.route.replace('/', '') : 'home'
 
   return (
     <NavBarView
-      signOut={isLogged ? () => _signOutUser() : undefined}
-      linkToSignIn={!isLogged ? router.route !== '/login' : undefined}
+      userName={limitTextLength(20, `${user?.name} ${user.lastname}`)}
+      signOut={user ? () => _signOutUser() : undefined}
+      linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
-      titlePage={`page.${titlePage}.title`}
     />
   )
 }
@@ -33,11 +34,11 @@ const NavBar = () => {
 const NavBarView = ({
   back,
   signOut,
-  titlePage,
+  userName,
   linkToSignIn
 }: {
   back?: Function
-  titlePage?: string
+  userName?: string
   linkToSignIn?: boolean
   signOut?: Function
 }) => {
@@ -61,33 +62,27 @@ const NavBarView = ({
         </Link>
       )}
       {signOut && (
-        // <button onClick={() => signOut()}>
-        //   <FormattedMessage id='component.navbar.signOutBtn' />
-        // </button>
         <div>
-
+          <div>notificaciones</div>
           <div>
-            notificaciones
-          </div>
-          <div>
-            <p>Luis López</p>
+            <p>{userName || ''}</p>
           </div>
           <Menu
-          align='end'
-          offsetY={5}
-          menuButton={
-            <button className='menu-options-btn'>
-              <span className='only-readers'>opciones</span>
-            </button>}
-        >
-          <MenuItem onClick={() => console.log('hola')}>Editar</MenuItem>
-          <MenuItem onClick={()=>console.log('adios')}>Eliminar</MenuItem>
-        </Menu>
+            align='end'
+            offsetY={5}
+            menuButton={
+              <button className='menu-options-btn'>
+                <span className='only-readers'>opciones</span>
+              </button>
+            }
+          >
+            <MenuItem onClick={() => console.log('hola')}>Editar</MenuItem>
+            <MenuItem onClick={() => console.log('adios')}>Eliminar</MenuItem>
+          </Menu>
         </div>
-
       )}
     </div>
   )
 }
 
-export default NavBar;
+export default NavBar

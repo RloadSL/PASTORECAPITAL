@@ -12,7 +12,7 @@ export class User {
   }
   private _lastname: string;
   public get lastname(): string {
-    return this.lastname;
+    return this._lastname;
   }
 
   private _email: string;
