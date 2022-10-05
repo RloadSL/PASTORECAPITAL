@@ -24,8 +24,8 @@ const NavBar = () => {
 
   return (
     <NavBarView
-      userName={limitTextLength(20, `${user?.name} ${user?.lastname}`)}
-      signOut={user ? () => _signOutUser() : undefined}
+      userName={user ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
+      signOut={user ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
     />
@@ -41,7 +41,7 @@ const NavBarView = ({
   back?: Function
   userName?: string
   linkToSignIn?: boolean
-  signOut?: Function
+  signOut: Function
 }) => {
   return (
     <div className={style.navbarContainer}>
@@ -55,38 +55,38 @@ const NavBarView = ({
       )} */}
 
       <div className={style['navbar-item']}></div>
-      {false && (
+      {!userName && (
         <Link href={'/login'}>
           <a className={style.loginLink}>
             <FormattedMessage id='component.navbar.signUpBtn' />
           </a>
         </Link>
       )}
-      {true && (
+      {userName && (
         <div className={`${style.userInfoContainer} flex-container`}>
-          <div><Notifications hasNotifications={true}/></div>
+          <div><Notifications hasNotifications={true} /></div>
           <div className='flex-container'>
             <div className={style.userInfo}>
               <p className={style.userName}>{userName || ''}</p>
               <p className={style.userProfile}>perfil</p>
             </div>
             <div className={style.optionsMenu}>
-            <Menu
-              align='end'
-              offsetY={5}
-              menuButton={
-                <button className={style.optionsButton}>
-                  <span className='only-readers'>opciones</span>
-                </button>
-              }
-            >
-              <MenuItem onClick={() => console.log('hola')}>Editar</MenuItem>
-              <MenuItem onClick={() => console.log('adios')}>Eliminar</MenuItem>
-            </Menu>
+              <Menu
+                align='end'
+                offsetY={5}
+                menuButton={
+                  <button className={style.optionsButton}>
+                    <span className='only-readers'>opciones</span>
+                  </button>
+                }
+              >
+                <MenuItem onClick={() => console.log('hola')}>perfil</MenuItem>
+                <MenuItem onClick={() => signOut()}>
+                  <FormattedMessage id='component.navbar.signUpBtn' />
+                </MenuItem>
+              </Menu>
             </div>
-
           </div>
-
         </div>
       )}
     </div>
