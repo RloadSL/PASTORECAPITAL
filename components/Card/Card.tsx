@@ -9,7 +9,7 @@ export interface CARDPROPS {
 
 /**
  * Función del componente Card
- * @param customStyle Estilos del componente
+ * @param cardStyle Tipo de card
  * @returns 
  */
 
