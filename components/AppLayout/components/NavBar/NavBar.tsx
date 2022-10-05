@@ -23,7 +23,7 @@ const NavBar = () => {
 
   return (
     <NavBarView
-      userName={limitTextLength(20, `${user?.name} ${user.lastname}`)}
+      userName={limitTextLength(20, `${user?.name} ${user?.lastname}`)}
       signOut={user ? () => _signOutUser() : undefined}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
