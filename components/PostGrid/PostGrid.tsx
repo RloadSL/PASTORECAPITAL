@@ -41,7 +41,7 @@ const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCo
   const userLogged = useSelector(getUserLogged)
   const router = useRouter()
 
-  const onClick = (id: string, slug: string, status: 'private' | 'publish', option: 'edit' | 'normal') => {
+  const onClick = (id: string, slug: string, status: 'private' | 'publish', option: 'edit' | 'normal', title?:string) => {
     if ((userLogged?.wpToken && status == 'private') || option === 'edit') {
       window.open(
         `${WP_EDIT_POST}?post=${id}&action=edit&?&token=${userLogged.wpToken}`
@@ -50,7 +50,7 @@ const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCo
       router.push(
         {
           pathname: '/academy/courses/' + slug,
-          query: { page: id }
+          query: { page: id, title: title }
         }
       )
     }
@@ -79,7 +79,7 @@ const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem, de
       </button>
     );
   }
-
+  
   return (
     <div>
       <ul className={style.postGrid}>
@@ -88,7 +88,7 @@ const PostGridView = ({ gridItems, loading, openCreate, wpToken, onClickItem, de
           return (
             <li key={index} className={style.postLink}>
               <div className={style.postItemContainer}>
-                <PostGridItem deleteCourse={deleteCourse} isAdmin={wpToken != null} onClickItem={(option: string) => onClickItem(item.id, item.slug, item.status, option)} gridItem={item} />
+                <PostGridItem deleteCourse={deleteCourse} isAdmin={wpToken != null} onClickItem={(option: string) => onClickItem(item.id, item.slug, item.status, option, item.title.rendered)} gridItem={item} />
               </div>
             </li>
           )

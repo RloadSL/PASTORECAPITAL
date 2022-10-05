@@ -5,11 +5,9 @@ import React from 'react'
 import style from './PostGridItem.module.scss'
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
-import menuButton from '../../../../assets/img/icons/menu-dots-vertical.png';
 import publishIcon from '../../../../assets/img/icons/public.svg';
 import privateIcon from '../../../../assets/img/icons/lock-w.svg';
 import Image from 'next/image'
-import { gridItems } from 'ui/utils/test.data'
 
 
 /**
