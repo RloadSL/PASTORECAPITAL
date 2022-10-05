@@ -61,7 +61,7 @@ const NavBarView = ({
           </a>
         </Link>
       )}
-      {signOut && (
+      {true && (
         <div>
           <div>notificaciones</div>
           <div>
