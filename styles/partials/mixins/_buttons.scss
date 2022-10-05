@@ -1,0 +1,17 @@
+@use "../../partials/mixins/devices" as devices;
+@use "../variables/colors" as colors;
+
+@mixin button($fontsize, $padding, $color, $background) {
+    width: 100%;
+    border-radius: 80px;
+    padding: $padding;
+    font-size: $fontsize;
+    color: $color;
+    background-color: $background;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding-left: 20px;
+    padding-right: 20px;
+  
+}

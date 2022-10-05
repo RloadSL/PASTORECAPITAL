@@ -3,7 +3,7 @@
 
 .button {
   width: 100%;
-  border-radius: 20px;
+  border-radius: 80px;
   padding: 20px;
   font-size: inherit;
 }
@@ -21,10 +21,16 @@
 
 .primary {
   background-color: colors.$main;
+  color: white;
 }
 
 .secondary {
   background-color: colors.$palette5;
+}
+
+.dark {
+  background-color: colors.$dark;
+  color: white;
 }
 
 .tab {

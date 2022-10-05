@@ -13,27 +13,28 @@ export const mainMenuItems = [
     icon: news,
     label: 'mainMenu.item.label.news',
     children: null,
-    href: '/noticias',
-    path: 'noticias'
+    href: '/news',
+    path: 'news'
   },
   {
     label: 'mainMenu.item.label.academy',
     type: 'accordion',
     path: 'academy',
+    href:'/academy',
     icon: academy,
     children: [
       {
         type: 'link',
         label: 'mainMenu.item.label.courses',
         children: null,
-        href: '/academy/courses/',
+        href: '/academy/courses',
         path:'courses'
       },
       {
         type: 'link',
         label: 'mainMenu.item.label.tutorials',
         children: null,
-        href: '/academy/tutorials/',
+        href: '/academy/tutorials',
         path:'tutorials'
       }
     ]

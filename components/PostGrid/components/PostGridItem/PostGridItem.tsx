@@ -42,7 +42,7 @@ const PostGridItemView = ({ gridItem, onClickItem , isAdmin, deleteCourse}: any)
           align='end'
           offsetY={5}
           menuButton={
-            <button className={style.btnMenu}>
+            <button className='menu-options-btn'>
               <span className='only-readers'>opciones</span>
             </button>}
         >

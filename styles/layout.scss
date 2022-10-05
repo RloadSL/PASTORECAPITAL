@@ -98,10 +98,13 @@
 	@extend %secondaryTitle
 }
 
-
 .small-caps {
 	@extend %smallCaps;
   color: colors.$main;
+}
+
+.uppercase {
+	text-transform: uppercase;
 }
 
 .small-text {
@@ -115,7 +118,6 @@ p {
 .form-container {
 	width: 100%;
 }
-
 
 
 //RESET ACCORDION STYLE FOR THE APP
@@ -152,5 +154,19 @@ p {
 	}
 }
 
-
-
+.menu-options-btn {
+	border-radius: 25px;
+	box-shadow: 1px 1px 5px colors.$grey40;
+	position: absolute;
+	right: 25px;
+	width: 40px;
+	height: 40px;
+	background-color: white;
+	background-image: url(../assets/img/icons/menu-dots-vertical.png);
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.menu-options-btn:active {
+	box-shadow: none;
+}

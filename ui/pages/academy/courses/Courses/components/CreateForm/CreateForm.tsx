@@ -162,7 +162,7 @@ const CreateFormView = ({
               name='level'
               icon={fileIcon}
             />
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: '20px', maxWidth: '300px', margin:'auto' }}>
               <ButtonApp
                 buttonStyle='secondary'
                 type='submit'

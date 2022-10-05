@@ -1,9 +1,20 @@
+@use '../../../../styles/partials/mixins/buttons' as buttons;
+@use '../../../../styles/partials/placeholders';
+@use '../../../../styles/partials/variables/colors' as colors;
+
+
+
 .navbarContainer{
   display: flex;
   justify-content: space-between;
   flex: 1;
   height: 60px;
   padding: 10px;
-  margin: 2%;
- 
+  margin-top: 2%;
+  @extend %layoutContainer;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.loginLink {
+  @include buttons.button(.9rem,2px,white,colors.$main);
 }
