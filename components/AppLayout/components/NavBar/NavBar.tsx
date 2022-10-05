@@ -64,7 +64,7 @@ const NavBarView = ({
         // <button onClick={() => signOut()}>
         //   <FormattedMessage id='component.navbar.signOutBtn' />
         // </button>
-        <div>
+        <div className={style.userInfo}>
 
           <div>
             notificaciones
