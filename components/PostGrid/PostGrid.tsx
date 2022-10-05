@@ -11,11 +11,10 @@ import Image from 'next/image'
 import addCourseIcon from '../../assets/img/icons/add-document.svg'
 import style from './PostGrid.module.scss'
 import PostGridItem from './components/PostGridItem'
-import { getIsLogged, getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { useRouter } from 'next/router'
-import LoadMore from 'components/LoadMoreLoading'
 import LoadMoreLoading from 'components/LoadMoreLoading'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 interface POSTGRIDPROPS {
   gridItems: Array<Course>,
