@@ -1,10 +1,9 @@
-@use '../../../../styles/partials/mixins/buttons' as buttons;
-@use '../../../../styles/partials/placeholders';
-@use '../../../../styles/partials/variables/colors' as colors;
+@use "../../../../styles/partials/mixins/buttons" as buttons;
+@use "../../../../styles/partials/placeholders";
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/text" as text;
 
-
-
-.navbarContainer{
+.navbarContainer {
   display: flex;
   justify-content: space-between;
   flex: 1;
@@ -17,9 +16,42 @@
 }
 
 .loginLink {
-  @include buttons.button(.9rem,2px,white,colors.$main);
+  @include buttons.button(0.9rem, 2px, white, colors.$main);
 }
 
-.userInfo {
+.userInfoContainer {
   position: relative;
+  align-items: center;
+  display: flex;
+
+  .optionsMenu {
+    width: 30px;
+  }
+
+  .userInfo {
+    width: 200px;
+    p {
+      margin: 0px;
+    }
+    .userProfile {
+      color: colors.$main;
+      text-transform: capitalize;
+      font-size: text.$textSmall;
+    }
+  }
+}
+
+.optionsButton {
+  border-radius: 25px;
+  margin: 0px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  background-image: url(../../../../assets/img/icons/arrow-b.svg);
+  background-size: 15px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.optionsButton:active {
+  box-shadow: none;
 }

@@ -2,13 +2,16 @@
 import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 import Link from 'next/link'
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import style from './Breadcrumbs.module.scss'
+
+/**
+ * Función principal del componente breadcrumbs
+ * @returns 
+ */
 
 const Breadcrumbs = () => {
   const router = useRouter()
-
-  
 
   const constructUrl = (item: any) => {
     const befurl = router.route.split('/')

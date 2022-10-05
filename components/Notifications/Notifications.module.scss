@@ -1,0 +1,26 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/placeholders" as holders;
+
+.notifications {
+  background-color: white;
+  border-radius: 100%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.dotAlert {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: colors.$main;
+  position: absolute;
+  border-radius: 100%;
+  left: 0px;
+  top: 5px;
+}
