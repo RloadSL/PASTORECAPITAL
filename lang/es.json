@@ -62,7 +62,13 @@
   "page.academy.courses.filterTags.label" : "Categoría",
   "page.academy/tutorials.title" : "Crypto tutoriales",
 
+  "page.academy.course.add-lesson":"Añadir nueva lección",
 
+  "page.academy.course.lesson.form.create.title" : "Crear nueva lección para este curso",
+  "page.academy.course.lesson.form.create.excerpt" : "Resumen de la lección",
+  "page.academy.course.lesson.form.create.submit" : "Crear lección",
+  "page.academy.course.lesson.form.create.excerpt.helper" : "Resumen corto de la lección. Máximo 300 caracteres",
+  
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",

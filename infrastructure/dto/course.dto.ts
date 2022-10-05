@@ -1,4 +1,4 @@
-export interface CourseDto {
+export interface PostDto {
   id: number,
   categories:WpCat[],
   tags: WpTerm[],
@@ -26,9 +26,11 @@ export interface CourseDto {
 export interface WpCat{
   name: 'Básico' | 'Avanzado' | 'Intermedio',
   slug: 'basic' | 'advanced' | 'medium',
+  term_id?: number
 }
 
 export interface WpTerm {
   name: string,
   slug: string,
+  term_id: number
 }

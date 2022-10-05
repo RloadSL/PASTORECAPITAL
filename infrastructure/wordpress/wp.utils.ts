@@ -1,7 +1,7 @@
 import { Role } from "infrastructure/dto/users.dto";
 import { CATEGORY } from "infrastructure/dto/wp.dto"
 import { HTTP } from "infrastructure/http/http"
-import { AUTHORS_API_URL, MEDIA_API_URL, POSTS_API_URL, WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_TAGS } from "./config";
+import {  WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_POST, WP_API_TAGS } from "./config";
 
 export const createCategory = async (category:CATEGORY) => {
   const response = await HTTP.post(WP_API_CATEGORY, category)
@@ -17,7 +17,7 @@ export const getCategories = async (parentSlug?:string):Promise<Array<any>> => {
 export const getAllPostsFromServer = async () => {
   //   get all posts from Server
   try {
-    const res = await HTTP.get(POSTS_API_URL);
+    const res = await HTTP.get(WP_API_POST);
     return res;
   } catch (error) {
     console.log(error);
@@ -55,26 +55,6 @@ export const deletePageFromServer = async (id:string, wpToken:string) => {
   }
 };
 
-export const getAuthor = async (id:string) => {
-  try {
-    const {
-      data: { name },
-    } = await HTTP.get(`${AUTHORS_API_URL}/${id}`);
-    return name;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getFeaturedImage = async (id:string) => {
-  try {
-    const res = await HTTP.get(`${MEDIA_API_URL}/${id}`);
-    return res.data.guid.rendered;
-  } catch (error) {
-    console.log(error);
-    return '';
-  }
-};
 
 
 export const getTagsFromServer = async (search:string) => {
@@ -86,3 +66,14 @@ export const getTagsFromServer = async (search:string) => {
     console.log(error);
   }
 };
+
+
+export const getCategoryAcademy = async (target:'courses' | 'tutorials' | 'lessons', wpToken:string):Promise<number> => {
+  const academyCat = await getCategories('academy-'+target);
+  if(academyCat.length === 0){
+    const cat = await HTTP.post(WP_API_CATEGORY, {name: 'Academy '+target, slug: 'academy-'+target}, {Authorization: `Bearer ${wpToken}`})
+    return cat.data.id
+  }else{
+    return academyCat[0].id
+  }
+}

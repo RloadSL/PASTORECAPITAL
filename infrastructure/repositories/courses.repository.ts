@@ -1,11 +1,6 @@
 import { Course } from "domain/Course/Course";
 import { CourseRepository } from "domain/Course/course.repository";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
-import { DocumentSnapshot, Unsubscribe } from "firebase/firestore";
-import { CourseDto } from "infrastructure/dto/course.dto";
-import { PAGES } from "infrastructure/dto/wp.dto";
-import FireFirestore  from "infrastructure/firebase/firestore.firebase";
-import { parseFirestoreDocs } from "infrastructure/firebase/utils";
 import { createWpCourse, deleteWpCourse } from "infrastructure/wordpress/academy/courses.wp";
 import { getAllPagesFromServer, getAllPostsFromServer, getCategories, getPageFromServer } from "infrastructure/wordpress/wp.utils";
 
@@ -31,15 +26,13 @@ class CoursesRepositoryImpl extends CourseRepository{
       const err = `course.academy@${response}` || 'error.interno';
       return new ErrorApp({errorCode: err, errorMessage: err }) ;
     }
-}
+  } 
 
   async read(id: string): Promise<Course | null> {
     const response = await getPageFromServer(id)
     if(!response) return null;
     return new Course(response);
   }; 
-
- 
 
   async readFromWp(offset?:number,filters?:any, wpToken?:string ): Promise<Course[]> {
     const response = await getAllPagesFromServer(offset,filters, wpToken)

@@ -1,8 +1,6 @@
 import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/course.dto'
-import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 
-const levels = ['basic', 'advanced', 'medium']
-export class Course {
+export class Post {
   private _id: string
   public get id (): string {
     return this._id
@@ -16,10 +14,6 @@ export class Course {
   private _categories: WpCat[]
   public get categories (): WpCat[] {
     return this._categories
-  }
-
-  public get level (): WpCat | undefined {
-    return this._categories.find(item => levels.includes(item.slug))
   }
 
   private _tags: WpTerm[]
