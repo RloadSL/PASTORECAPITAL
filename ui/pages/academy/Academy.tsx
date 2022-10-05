@@ -2,7 +2,6 @@ import style from './Academy.module.scss'
 import Image from 'next/image'
 import headerImg from '../../../assets/img/landing-academy.png'
 import ourCoursesImg from '../../../assets/img/our-courses.png'
-import ourCoursesBg from '../../../assets/img/our-courses-bg.svg'
 import ourTutorialsImg from '../../../assets/img/our-tutorials.png'
 import ButtonApp from 'components/ButtonApp'
 
