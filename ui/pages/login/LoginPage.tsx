@@ -84,7 +84,8 @@ const LoginPageView = () => {
           </div>
         </div>
         <div className={style.colRight}>
-          <Card /* cardStyle={ style.cardContainer } */>
+          <Card>
+            <div className={style.infoContainer}>
             <Loading />
             <Tabs className={style.tabContainer} selectedIndex={tabIndex} onSelect={(index) => {
               setviewForm(viewForm !== 1 ? 1 : 0)
@@ -107,6 +108,8 @@ const LoginPageView = () => {
                 </TabPanel>
               </div>
             </Tabs>
+            </div>
+
           </Card>
         </div>
       </div>

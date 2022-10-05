@@ -108,17 +108,17 @@
   }
 }
 
-.cardContainer {
+.infoContainer {
   padding: 0% !important;
-  max-width: 450px !important;
+  //max-width: 450px !important;
 
   @include devices.device(tablet) {
     height: 820px;
   }
 
-  @include devices.device(mdScreen) {
-    max-width: 500px !important;
-  }
+  // @include devices.device(mdScreen) {
+  //   //max-width: 500px !important;
+  // }
 
   .loginFormButtons {
     display: flex;

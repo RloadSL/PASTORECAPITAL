@@ -53,14 +53,14 @@ const NavBarView = ({
       )} */}
 
       <div className={style['navbar-item']}></div>
-      {linkToSignIn && (
+      {false && (
         <Link href={'/login'}>
           <a className={style.loginLink}>
             <FormattedMessage id='component.navbar.signUpBtn' />
           </a>
         </Link>
       )}
-      {signOut && (
+      {true && (
         // <button onClick={() => signOut()}>
         //   <FormattedMessage id='component.navbar.signOutBtn' />
         // </button>
