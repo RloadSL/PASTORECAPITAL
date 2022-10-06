@@ -1,0 +1,64 @@
+@use '../../styles/partials/mixins/devices' as devices;
+@use '../../styles/partials/variables/colors' as colors;
+
+.sideCollapsableContainer {
+  left: 0;
+  top: 0;
+  min-height: 100vh;
+  position: fixed;
+  z-index: 999;
+
+  &::after {
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+  }
+
+  &.isOpen {
+    &::after {
+      content: '';
+      width: 100%;
+      height: 100vh;
+      background-color: transparentize(colors.$dark, 0.5);
+      z-index: 800px;
+      position: fixed;
+      pointer-events: none;
+      opacity: 1;
+    }
+  }
+
+  .collapsableButton {
+    position: relative;
+    background-color: transparent;
+    background-image: url('../../assets/img/icons/menu.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    z-index: 999;
+  }
+
+  .sideCollapsable {
+    left: 0;
+    width: 20px;
+    background-color: white;
+    min-height: 100vh;
+    transition: all 0.3s ease-in-out;
+    transform: translate(-200px);
+    position: absolute;
+    top: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 900;
+
+    &.isOpen {
+      width: 300px;
+      transform: translate(0);
+    }
+
+    @include devices.device(tablet) {
+      width: 80px;
+      transform: translate(-200px);
+    }
+  }
+}

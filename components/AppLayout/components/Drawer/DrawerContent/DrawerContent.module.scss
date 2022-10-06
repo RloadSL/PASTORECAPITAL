@@ -3,7 +3,11 @@
 
 .drawerWrapper {
   background-color: colors.$grey20;
-}
+  padding-top: 80px;
 
-.drawerMainContainer {
+
+  @include devices.device(mdScreen) {
+    padding-top: 0px;
+    margin-left: 340px;
+  }
 }

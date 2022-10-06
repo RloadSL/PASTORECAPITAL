@@ -1,7 +1,9 @@
 @use "../../../../styles/partials/mixins/buttons" as buttons;
+@use "../../../../styles/partials/mixins/devices" as devices;
 @use "../../../../styles/partials/placeholders";
 @use "../../../../styles/partials/variables/colors" as colors;
 @use "../../../../styles/partials/variables/text" as text;
+
 
 .navbarContainer {
   display: flex;
@@ -9,10 +11,15 @@
   flex: 1;
   height: 60px;
   padding: 10px;
-  margin-top: 2%;
   @extend %layoutContainer;
   padding-left: 2%;
   padding-right: 2%;
+  margin-top: 2%;
+
+
+  @include devices.device(tablet) {
+    margin-top: 40px;
+  }
 }
 
 .loginLink {
