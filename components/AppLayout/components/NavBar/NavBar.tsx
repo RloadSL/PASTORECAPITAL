@@ -12,7 +12,10 @@ import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import Notifications from 'components/Notifications'
-
+/**
+ * 
+ * @returns 
+ */
 const NavBar = () => {
   const dispatch = useDispatch<AppDispatch>()
   const _signOutUser = () => dispatch(signOut())
@@ -21,7 +24,7 @@ const NavBar = () => {
   const router = useRouter()
   const titlePage =
     router.route !== '/' ? router.route.replace('/', '') : 'home'
-
+ 
   return (
     <NavBarView
       userName={limitTextLength(20, `${user?.name} ${user?.lastname}`)}
