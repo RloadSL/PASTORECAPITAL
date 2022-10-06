@@ -1,20 +1,78 @@
-@use '../../../../../styles/partials/mixins/devices' as devices;
-@use '../../../../../styles/partials/variables/colors' as colors;
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
 
-.aside {
-  background-color: white;
-  height: 100%;
-  display: flex;
-  align-items: center;
+.drawerNav {
+  background-color: lighten(colors.$main, 40%);
+  height: 55px;
+  padding: 5px;
+  padding-right: 20px;
   position: fixed;
-  max-width: 300px;
+  top: 0;
   width: 100%;
   flex-direction: column;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+
+  @include devices.device(smScreen) {
+    height: 70px;
+  }
+
+  @include devices.device(mdScreen) {
+    height: 100%;
+    max-width: 340px;
+    background-color: white;
+    flex-direction: row;
+    width: 100%;
+    padding: 0px;
+
+    &::after {
+      content: "";
+      background-color: colors.$grey20;
+      width: 35px;
+      display: inline-block;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      // -webkit-box-shadow: -7px 2px 19px -14px rgba(120, 83, 189, .8);
+      // -moz-box-shadow: -7px 2px 19px -14px rgba(120, 83, 189, .8);
+      // box-shadow: -7px 2px 19px -14px rgba(120, 83, 189, .8);
+    }
+  }
+
+  .logoMobile {
+    width: 40px;
+    height: 40px;
+    align-self: flex-end;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .logoApp {
+    text-align: center;
+    position: relative;
+    top: 80px;
+  }
+
+  .innerContent {
+    width: 100%;
+    margin-top: 100px;
+
+    @include devices.device(tablet) {
+      flex-direction: column;
+    }
+  }
 
   .menuContainer {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
+  }
+
+  aside {
+    height: 100%;
+    width: 100%;
   }
 }

@@ -17,9 +17,13 @@ interface DRAWERCONTENTPROPS {
 const DrawerContent = ({ navbar, children, footer = false }: DRAWERCONTENTPROPS) => {
   return (
     <div className={style.drawerWrapper}>
-      {navbar && <NavBar />}
       <div className={style.drawerMainContainer}>
+      {navbar && <NavBar />}
       {children}
+
+        {/* <div className={style.drawerContent}>
+          
+        </div> */}
       </div>
     </div>
   )

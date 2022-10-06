@@ -3,16 +3,18 @@
 
 
 
-.grid {
-  @include devices.device(tablet) {
-    display: grid;
-    grid-template-columns: 90px auto;
-    min-height: 500px;
-    height: 100vh;
-  }
+.drawer {
+  // @include devices.device(tablet) {
+  //   display: grid;
+  //   grid-template-columns: 90px auto;
+  //   min-height: 500px;
+  //   height: 100vh;
+  // }
 
-  @include devices.device(smScreen) {
-    grid-template-columns: 300px auto;
-  }
+  // @include devices.device(smScreen) {
+  //   grid-template-columns: 300px auto;
+  // }
+
+
 }
 

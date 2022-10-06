@@ -5,6 +5,9 @@
 
 
 //CONTAINERS
+body {
+	background-color: colors.$grey20;
+}
 
 .flex-container {
 	display: flex;
