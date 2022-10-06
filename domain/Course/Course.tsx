@@ -27,6 +27,11 @@ export class Course {
     return this._tags
   }
 
+  private _lessons?: WpTerm[]
+  public get lessons (): WpTerm[] | undefined {
+    return this._lessons
+  }
+  
   private _status: string
   public get status (): string {
     return this._status
@@ -85,6 +90,7 @@ export class Course {
   constructor (courseData: PostDto) {
     this._id = courseData.id.toString()
     this._tags = courseData.tags
+    this._lessons = courseData.lessons
     this._thumbnail_url = courseData.thumbnail_url
     this._wpID = courseData.id
     this._categories = courseData.categories
@@ -99,6 +105,7 @@ export class Course {
   public toJson = (): PostDto => ({
     id: this._wpID,
     categories: this._categories,
+    lessons : this._lessons,
     status: this._status,
     excerpt: this._excerpt,
     slug: this._slug,

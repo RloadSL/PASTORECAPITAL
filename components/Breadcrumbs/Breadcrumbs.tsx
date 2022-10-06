@@ -41,12 +41,13 @@ const Breadcrumbs = () => {
 
 
   
-  return <BreadcrumbsView crumbs={addCrumb()} title={router.query.title}/>
+  return <BreadcrumbsView crumbs={addCrumb()} title={router.query.courseTitle}/>
 }
 
 const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: string}>, title?:any}) =>{
+  const dynamicRoutes = ['[slug]' , '[lesson]']
   const renderLabel  = (labelId:string) => {
-    if(labelId != '[slug]'){
+    if(!dynamicRoutes.includes(labelId)){
       return (<FormattedMessage
                 id={labelId === '' ? 'home' : labelId}
               />)

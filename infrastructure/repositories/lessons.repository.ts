@@ -39,16 +39,21 @@ class LessonsRepositoryImpl {
     }
   }
 
-  async read(id: string): Promise<Course | null> {
-    const response = await getPageFromServer(id)
-    if (!response) return null;
-    return new Course(response);
+  async read(id: string): Promise<Post | undefined> {
+    try {
+    const res = await HTTP.get(`${WP_API_POST}/${id}`);
+    if(res) return new Post(res);
+    else return undefined
+  } catch (error) {
+    console.log(error);
+  }
+    
   };
 
 
   async delete(id: number, wpToken: string): Promise<void> {
     try {
-      const deleted = await HTTP.delete(WP_API_PAGES+`/${id}?force=true`, {Authorization: `Bearer ${wpToken}`})
+      const deleted = await HTTP.delete(WP_API_POST+`/${id}?force=true`, {Authorization: `Bearer ${wpToken}`})
       return deleted.data;
     } catch (error) {
       console.error(error)

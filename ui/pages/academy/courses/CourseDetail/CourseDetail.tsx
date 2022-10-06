@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from 'axios'
 import parse from 'html-react-parser'
 import style from './CourseDetail.module.scss'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
@@ -12,6 +11,7 @@ import { Suspense, useCallback, useEffect, useState } from 'react'
 import Custom404 from 'pages/404'
 import ButtonApp from 'components/ButtonApp'
 import dynamic from 'next/dynamic'
+import ListLessons from './components/ListLessons'
 const CreateFormLesson = dynamic(() => import('./components/CreateFormLesson'), {
   suspense: true
 })
@@ -27,7 +27,6 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
     if (!post) {
       router.replace('/academy/courses')
     }
-    console.log(post.categories)
   }, [post])
 
   const editLink = (token?: string) => {
@@ -82,6 +81,7 @@ const CourseDetailView = ({
           </a>
         ) : null}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
+        <ListLessons lessons={post.lessons}></ListLessons>
       </div>
       {create && (
         <Suspense>

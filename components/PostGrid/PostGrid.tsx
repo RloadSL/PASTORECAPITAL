@@ -49,7 +49,7 @@ const PostGrid = ({ openCreate, deleteCourse }: { openCreate: Function, deleteCo
       router.push(
         {
           pathname: '/academy/courses/' + slug,
-          query: { page: id, title: title }
+          query: { courseId: id, courseTitle: title }
         }
       )
     }

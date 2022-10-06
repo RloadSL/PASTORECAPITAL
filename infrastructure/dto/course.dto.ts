@@ -2,6 +2,7 @@ export interface PostDto {
   id: number,
   categories:WpCat[],
   tags: WpTerm[],
+  lessons?: any[],
   status: string,
   excerpt: {
     rendered: string,

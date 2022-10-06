@@ -1,0 +1,15 @@
+import { LessonRepositoryInstance } from "infrastructure/repositories/lessons.repository";
+import LessonDetail from "ui/pages/academy/courses/LessonDetail/LessonDetail";
+
+LessonDetail.getInitialProps = async (ctx) => {
+  const {lessonId}:any = ctx.query;  
+  console.log('LessonDetail.getInitialProps', lessonId)
+  const res = await LessonRepositoryInstance.read(lessonId)
+    if(res){
+      return {post : res?.toJson()}
+    }
+    return { post : null }
+    
+  }
+
+export default LessonDetail;
