@@ -28,6 +28,7 @@ const NavBar = () => {
   return (
     <NavBarView
       userName={user ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
+      userRole={user ? user.role.label : undefined }
       signOut={user ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
@@ -39,12 +40,14 @@ const NavBarView = ({
   back,
   signOut,
   userName,
+  userRole,
   linkToSignIn
 }: {
   back?: Function
   userName?: string
   linkToSignIn?: boolean
-  signOut: Function
+  signOut: Function,
+  userRole?:string
 }) => {
   return (
     <div className={style.navbarContainer}>
@@ -71,7 +74,7 @@ const NavBarView = ({
           <div className='flex-container'>
             <div className={style.userInfo}>
               <p className={style.userName}>{userName || ''}</p>
-              <p className={style.userProfile}>perfil</p>
+              <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`} /></p>
             </div>
             <div className={style.optionsMenu}>
               <Menu
@@ -83,9 +86,9 @@ const NavBarView = ({
                   </button>
                 }
               >
-                <MenuItem onClick={() => console.log('hola')}>perfil</MenuItem>
+                <MenuItem onClick={() => console.log('hola')}><FormattedMessage id='component.navbar.profile' /></MenuItem>
                 <MenuItem onClick={() => signOut()}>
-                  <FormattedMessage id='component.navbar.signUpBtn' />
+                  <FormattedMessage id='component.navbar.signOutBtn' />
                 </MenuItem>
               </Menu>
             </div>

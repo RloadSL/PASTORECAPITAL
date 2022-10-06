@@ -5,8 +5,9 @@ import styles from './HomePage.module.scss'
 
 const HomePage:NextPage = () => {
   return (<>
-    <h1 id="h1">Home Page</h1>
-   
+    <video width="400" controls>
+        <source src="https://firebasestorage.googleapis.com/v0/b/pastore-capital.appspot.com/o/_import_60f1222ff0cb64.70258175.mov?alt=media" />
+    </video>
   </>
   )
 }

@@ -53,7 +53,6 @@ const Courses = ({ }) => {
   }
 
   const _filter = (value: any)=>{
-    console.log(value)
     setFilters( pre => ({...pre, ...value}))
   }
 

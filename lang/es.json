@@ -1,4 +1,11 @@
-{
+{ 
+  "role.Guest" : "Invitado",
+  "role.Basic" : "Básico",
+  "role.Plus" : "Plus",
+  "role.Premium" : "Premium",
+  "role.Colaborator" : "Colaborador",
+  "role.Administrador" : "Administrador",
+
   "mainMenu.item.label.academy":"Academia",
   "mainMenu.item.label.news":"Noticias",
   "mainMenu.item.label.afiliates":"Afiliados",
@@ -72,6 +79,7 @@
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",
+  "component.navbar.profile": "Perfil de usuario",
   "component.modal.close" : "X",
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
   "auth/user-not-found": "El usuario no existe",

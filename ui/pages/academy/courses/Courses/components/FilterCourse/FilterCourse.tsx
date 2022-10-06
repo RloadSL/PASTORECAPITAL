@@ -19,7 +19,7 @@ const FilterCourse = ({ onFilter }: any) => {
         if (fetching) setlevels(res as any)
       })
       .catch(() => {
-        alert('Error interno refrescar la página.')
+        console.error('Error interno refrescar la página. Para obtener los niveles')
       })
     return () => {
       fetching = false

@@ -2,6 +2,7 @@ import ButtonApp from 'components/ButtonApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,10 +18,11 @@ const DeleteCourse = ({
   data: { id: number; status: string }
   onClose: Function
 })=>{
-  //const { wpToken } = useSelector(getUserLogged); //OJO ESTE ES EL BUENO
-  const wpToken = ''; // BORRAR AL FINAL
+  const { wpToken } = useSelector(getUserLogged); //OJO ESTE ES EL BUENO
+ 
   const dispatch = useDispatch<AppDispatch>()
   const [loading, setloading] = useState(false)
+  const router = useRouter()
   const onDelete = async () => {
     setloading(true)
     if(wpToken){
@@ -31,7 +33,7 @@ const DeleteCourse = ({
     else{
       alert('Unauthorized')
     }
-
+    router.push('/academy/courses')
     setloading(false)
   }
 

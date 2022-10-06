@@ -14,12 +14,20 @@ import dynamic from 'next/dynamic'
 
 import ListLessons from './components/ListLessons'
 
-const CreateFormLesson = dynamic(() => import('./components/CreateFormLesson'), {
-  suspense: true
-})
-const DeleteLesson = dynamic(() => import('./components/DeleteLesson'), {
-  suspense: true
-})
+const CreateFormLesson = dynamic(
+  () => import('./components/CreateFormLesson'),
+  {
+    suspense: true
+  }
+)
+
+const DeleteCourse = dynamic(
+  () => import('../Courses/components/DeleteCourse'),
+  {
+    suspense: true
+  }
+)
+
 
 const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
   const router = useRouter()
@@ -35,14 +43,13 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
     return `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}`
   }
   const courseCat = useCallback(
-    ()=> post.categories.find(item => item.slug === post.slug)?.term_id,
-    [post.id],
+    () => post.categories.find(item => item.slug === post.slug)?.term_id,
+    [post.id]
   )
-  
 
   return post ? (
     <CourseDetailView
-      courseCat={courseCat() || -1}
+      courseCat={courseCat() || -1}
       isAuthorized={loggedUser?.wpToken != null}
       post={post}
       editLink={editLink(loggedUser?.wpToken)}
@@ -61,16 +68,12 @@ const CourseDetailView = ({
   post: any
   isAuthorized: boolean
   editLink: string
-  courseCat : number
+  courseCat: number
 }) => {
-  const [create, setCreate] = useState(false)
   const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState(null)
-  
-  const target = createRef<HTMLInputElement>()
-
+  const [create, setCreate] = useState(false)
   return (
     <div className={style.coursePage}>
-     
       <div style={{ position: 'fixed', right: '10px', bottom: '20px' }}>
         <ButtonApp
           onClick={() => setCreate(true)}
@@ -79,22 +82,29 @@ const CourseDetailView = ({
       </div>
       <div>
         {post && isAuthorized ? (
-          <a href={editLink} target='_blank' rel='noreferrer'>
-            {' '}
-            EDITAR{' '}
-          </a>
+          <div>
+            <a href={editLink} target='_blank' rel='noreferrer'>
+              EDITAR
+            </a>
+            <button onClick={()=>setDeleteCourse({ id: post.id, status: post.status })}>
+              Eliminar
+            </button>
+          </div>
         ) : null}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <ListLessons lessons={post.lessons}></ListLessons>
       </div>
       {create && (
         <Suspense>
-          <CreateFormLesson courseCat={courseCat}  onClose={() => setCreate(false)}></CreateFormLesson>
+          <CreateFormLesson
+            courseCat={courseCat}
+            onClose={() => setCreate(false)}
+          ></CreateFormLesson>
         </Suspense>
       )}
       {deleteCourse && (
         <Suspense>
-          <DeleteLesson data={deleteCourse} onClose={() => setDeleteCourse(null)}></DeleteLesson>
+          <DeleteCourse data={deleteCourse} onClose={() => setDeleteCourse(null)}></DeleteCourse>
         </Suspense>
       )}
     </div>

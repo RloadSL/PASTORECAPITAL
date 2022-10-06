@@ -48,7 +48,7 @@ export const academySlice = createSlice({
           state.privatePosts?.splice(index, 1);
         }
       }else{
-        const index = state.posts?.findIndex(item => item.id = id)
+        const index = state.posts?.findIndex(item => item.id == id)
         if(index != -1 && index != undefined ){
           state.posts?.splice(index, 1);
         }
