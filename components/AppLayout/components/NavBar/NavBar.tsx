@@ -22,8 +22,7 @@ const NavBar = () => {
   const user = useSelector(getUserLogged)
   const { limitTextLength } = useComponentUtils()
   const router = useRouter()
-  const titlePage =
-    router.route !== '/' ? router.route.replace('/', '') : 'home'
+  
  
   return (
     <NavBarView
@@ -49,6 +48,7 @@ const NavBarView = ({
   signOut: Function,
   userRole?:string
 }) => {
+  console.log(userRole)
   return (
     <div className={style.navbarContainer}>
       <Breadcrumbs />

@@ -2,12 +2,18 @@ import { useState } from 'react';
 import style from './SideCollapsable.module.scss'
 
 interface DRAWERMENUPROPS {
-  children:any
+  children:any,
+  isCollapsed: any
 }
 
-const SideCollapsable = ({children}: DRAWERMENUPROPS) => {
+const SideCollapsable = ({children, isCollapsed}: DRAWERMENUPROPS) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDrawer = () => setIsOpen(!isOpen);
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+    isCollapsed(!isOpen)
+  };
+
+  console.log('¿esta abierto?',isOpen)
 
   return (
     <div className={`${isOpen ? style.isOpen : null} ${style.sideCollapsableContainer}`}>
