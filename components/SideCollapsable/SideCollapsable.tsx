@@ -13,8 +13,6 @@ const SideCollapsable = ({children, isCollapsed}: DRAWERMENUPROPS) => {
     isCollapsed(!isOpen)
   };
 
-  console.log('¿esta abierto?',isOpen)
-
   return (
     <div className={`${isOpen ? style.isOpen : null} ${style.sideCollapsableContainer}`}>
       <button className={style.collapsableButton} onClick={toggleDrawer}>
@@ -22,8 +20,12 @@ const SideCollapsable = ({children, isCollapsed}: DRAWERMENUPROPS) => {
       </button>
       <div className={`${isOpen ? style.isOpen : null} ${style.sideCollapsable}`}>
       {children}
+      <div className={`${isOpen ? style.isOpen : null} ${style.overlay}`}>
+    </div>
       </div>
     </div>
+    
+
   )
 }
 
