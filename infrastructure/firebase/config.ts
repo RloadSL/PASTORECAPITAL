@@ -1,0 +1,1 @@
+export const on_cloud_firebase = true;
