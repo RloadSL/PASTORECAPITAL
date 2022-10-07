@@ -4,7 +4,7 @@
   "role.Plus" : "Plus",
   "role.Premium" : "Premium",
   "role.Colaborator" : "Colaborador",
-  "role.Administrador" : "Administrador",
+  "role.Administrator" : "Administrador",
 
   "mainMenu.item.label.academy":"Academia",
   "mainMenu.item.label.news":"Noticias",

@@ -42,6 +42,10 @@ const DrawerNav = ({ children }: any) => {
 */
 
 const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, activeItem?: string, windowSize: any }) => {
+  const isCollapsed = (qq:boolean) => {
+    console.log('esta abierto en padre?',qq)
+  }
+
   return (
     <div className={style.drawerNav}>
       {windowSize.innerWidth >= 1080 && windowSize.innerWidth <= 1200 ? <div className={style.logoMobile}><Image src={logoPastore} alt='' /></div> : windowSize.innerWidth < 1080 ? <div className={style.logoMobile}><Image src={logoMobile} alt='' /></div> : null}
@@ -55,7 +59,7 @@ const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, ac
             <Menu itemList={mainMenuItems} activeItem={activeItem} />
           </div>
         </aside>) : (
-        <SideCollapsable>
+        <SideCollapsable isCollapsed={isCollapsed}>
           <div className={`${style.innerContent} flex-container`}>
             {windowSize.innerWidth >= 1200 ? <div className={style.logoApp}><Image src={logoPastore} alt='' /></div> : null}
             <div className={style.menuContainer}>
