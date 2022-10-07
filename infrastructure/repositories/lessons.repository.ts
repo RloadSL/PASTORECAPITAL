@@ -42,10 +42,12 @@ class LessonsRepositoryImpl {
   async read(id: string): Promise<Post | undefined> {
     try {
     const res = await HTTP.get(`${WP_API_POST}/${id}`);
+    console.log('async read',res);
     if(res) return new Post(res);
     else return undefined
   } catch (error) {
-    console.log(error);
+    console.error('async read',`${WP_API_POST}/${id}`);
+    return undefined;
   }
     
   };
