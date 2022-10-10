@@ -1,4 +1,15 @@
-//@import url('https://rload.es/pastoreheadless/wp-content/themes/generatepress_child/style.css');
-@import url('http://localhost:8888/platform/wp-content/themes/generatepress_child/style.css');
+@use '../../../../../styles/partials/placeholders';
+@use '../../../../../styles/partials/mixins/devices' as devices;
+@import url('https://rload.es/pastoreheadless/wp-content/themes/generatepress_child/style.css');
+// @import url('http://localhost:8888/platform/wp-content/themes/generatepress_child/style.css');
 
 
+.lessonPage {
+  @extend %layoutContainer;
+
+  .readingContainer {
+    max-width: 1000px;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+ }

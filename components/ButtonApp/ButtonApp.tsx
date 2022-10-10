@@ -7,6 +7,7 @@ interface BUTTONPROPS {
   onClick?: Function,
   type?: TYPEBUTTON,
   buttonStyle?: 'transparent' | 'primary' | 'secondary' | 'default' | 'tab' | 'dark';
+  size?: 'small' | 'default'
 }
 
 /**
@@ -18,9 +19,9 @@ interface BUTTONPROPS {
  * @returns 
  */
 
-const ButtonApp = ({ labelID, onClick, buttonStyle = 'default', type = 'submit' }: BUTTONPROPS) => {
+const ButtonApp = ({ labelID, onClick, buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
   return (
-    <button type={type} className={`${style.button} ${style[buttonStyle]}`} onClick={() => { if (onClick) onClick() }}>
+    <button type={type} className={`${style.button} ${style[buttonStyle]} ${style[size]}`} onClick={() => { if (onClick) onClick() }}>
       <FormattedMessage id={labelID} />
     </button>)
 }

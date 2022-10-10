@@ -1,0 +1,21 @@
+
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.commentsList {
+  color: colors.$dark ;
+
+  h2 {font-weight: 500;}
+
+  .commentsThread {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .commentReplys {
+      width: 90%;
+    }
+  }
+}

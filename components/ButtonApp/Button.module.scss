@@ -33,6 +33,10 @@
   color: white;
 }
 
+.small {
+  padding: 12px
+}
+
 .tab {
   @extend %transparent;
   color: colors.$grey50;

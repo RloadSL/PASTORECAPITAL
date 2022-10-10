@@ -10,6 +10,12 @@
   position: relative;
 }
 
+.outlined {
+  border: 1px solid colors.$grey40;
+  background-color: transparent;
+}
+
+
 .autocomplite{
   border-radius: 0;
   top: 85%;
