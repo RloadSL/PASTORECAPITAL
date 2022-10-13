@@ -7,7 +7,7 @@ import style from './CommentsList.module.scss'
 import SingleComment from './components/SingleComment'
 
 interface COMMENTSLISTPROPS {
-  parent: { id: string; path: string }
+  parent?: { id: string; path: string }
   children?: any
 }
 
