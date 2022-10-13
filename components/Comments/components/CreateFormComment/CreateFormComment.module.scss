@@ -4,17 +4,27 @@
 @use "../../../../styles/partials/placeholders";
 
 .createFormComment {
-  border-top: 1px solid colors.$grey40;
-  margin-top: 20%;
-  padding-top: 10%;
-  .mainTitle {
-    font-size: 1.5rem;
-    font-weight: 500;
+  &.default {
+    border-top: 1px solid colors.$grey40;
+    margin-top: 20%;
+    padding-top: 10%;
+    .mainTitle {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  
+    .submitComment {
+      max-width: 250px;
+      width: 100%;
+    }
   }
 
-  .submitComment {
-    max-width: 250px;
-    width: 100%;
+  &.minified {
+    padding: 2%;
+
+    .submitComment {
+      margin-top: -15px;
+    }
   }
 }
 
