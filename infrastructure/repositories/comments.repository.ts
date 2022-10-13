@@ -1,0 +1,129 @@
+import { Comments } from "domain/Comments/comments";
+import { User } from "domain/User/User";
+import { CommentDto } from "infrastructure/dto/comments.dto";
+import FireFirestore from "../firebase/firestore.firebase";
+import { UserRepositoryImplInstance } from "./users.repository";
+
+
+class CommentsImpl {
+  private static instance: CommentsImpl;
+  readonly commentsPath = 'comments';
+  readonly replayPath = 'replay';
+  private constructor() { };
+
+  public static getInstance(): CommentsImpl {
+    if (!CommentsImpl.instance) {
+      CommentsImpl.instance = new CommentsImpl();
+    }
+    return CommentsImpl.instance;
+  }
+
+  private async parseCommentsSnapShot(cSnap:any){
+    const promises = cSnap.map(async (c:any) => {
+      const comment: CommentDto = { ...c.data(), id: c.id } as CommentDto;
+      comment.owner = await UserRepositoryImplInstance.read(comment.owner as string) as User;
+      return new Comments(comment) 
+    });
+
+    return Promise.all(promises);
+  }
+
+  async createComments(comment: CommentDto) {
+    try {
+      const c = await FireFirestore.createDoc(this.commentsPath, comment);
+      return c;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+    }
+  }
+
+  async createCommentsReplay(comment: CommentDto, parent_comment_id: string) {
+    try {
+      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
+      const c = await FireFirestore.createDoc(path, comment);
+      return c;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+    }
+  }
+
+  async getComments(lastSnap: any): Promise<Comments[]> {
+    try {
+      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap);
+      if (cSnap && cSnap?.length > 0) {
+        const result = await this.parseCommentsSnapShot(cSnap);
+        return result;
+      } else {
+        return [];
+      }
+
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+      return [];
+    }
+  }
+
+  async getCommentsReplay(parent_comment_id: string, lastSnap: any): Promise<Comments[]> {
+    try {
+      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
+      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap);
+      if (cSnap && cSnap?.length > 0) {
+        const result = await this.parseCommentsSnapShot(cSnap);
+        return result;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+      return [];
+    }
+  }
+
+  async updateComments(comment: string, id: string) {
+    try {
+      await FireFirestore.setDoc(this.commentsPath, id, { comment })
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+    }
+  }
+
+  async updateCommentsReplay(comment: string, id: string, parent_comment_id: string) {
+    try {
+      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
+      const c = await FireFirestore.setDoc(path, id, { comment });
+      return c;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+    }
+  }
+
+  async deleteComments(comment: string, id: string) {
+    try {
+      await FireFirestore.deleteDoc(this.commentsPath, id)
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+    }
+  }
+
+  async deleteCommentsReplay(comment: string, id: string, parent_comment_id: string) {
+    try {
+      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
+      const c = await FireFirestore.deleteDoc(path, id);
+      return c;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en comments.repository')
+    }
+  }
+
+
+}
+
+export const CourseRepositoryInstance = CommentsImpl.getInstance();

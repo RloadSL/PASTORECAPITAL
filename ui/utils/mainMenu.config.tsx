@@ -55,4 +55,35 @@ export const mainMenuItems = [
     href: '/consultant',
     path:'consultant'
   },
+  {
+    label: 'mainMenu.item.label.administation',
+    type: 'accordion',
+    isAdministrator: true,
+    path: 'academy',
+    href:'/academy',
+    icon: academy,
+    children: [
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.users',
+        children: null,
+        href: '/academy/courses',
+        path:'courses'
+      },
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.stats',
+        children: null,
+        href: '/academy/tutorials',
+        path:'tutorials'
+      },
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.invoice',
+        children: null,
+        href: '/academy/tutorials',
+        path:'tutorials'
+      }
+    ]
+  },
 ]

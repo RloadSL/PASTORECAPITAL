@@ -4,11 +4,9 @@ import Menu from 'components/Menu'
 import style from './DrawerNav.module.scss'
 import { mainMenuItems } from "ui/utils/mainMenu.config"
 import { useRouter } from 'next/router'
-import { string } from 'yup'
 import Image from 'next/image'
 import logoPastore from '../../../../../assets/img/logo-pastore.svg'
 import logoMobile from '../../../../../assets/img/logo-image.svg'
-import DrawerMenu from 'components/SideCollapsable'
 import SideCollapsable from 'components/SideCollapsable'
 import { useEffect, useState } from 'react'
 

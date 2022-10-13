@@ -7,13 +7,17 @@
   "role.Administrator" : "Administrador",
 
   "mainMenu.item.label.academy":"Academia",
+  "mainMenu.item.label.administation":"Administración",
   "mainMenu.item.label.news":"Noticias",
   "mainMenu.item.label.afiliates":"Afiliados",
   "mainMenu.item.label.consultant":"Asesor Fiscal",
   "mainMenu.item.label.analysis":"Análisis",
   "mainMenu.item.label.courses":"Cursos",
   "mainMenu.item.label.tutorials":"Tutoriales",
-
+  "mainMenu.item.label.users" : "Usuarios",
+  "mainMenu.item.label.stats" : "Estadísticas",
+  "mainMenu.item.label.invoice" : "Facturas",
+  
   "page.home.title": "Bienvenidos",
   "page.home.h1": "KAKAK",
 
