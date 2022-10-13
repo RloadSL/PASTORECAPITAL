@@ -79,6 +79,10 @@
   "page.academy.course.lesson.form.create.excerpt" : "Resumen de la lección",
   "page.academy.course.lesson.form.create.submit" : "Crear lección",
   "page.academy.course.lesson.form.create.excerpt.helper" : "Resumen corto de la lección. Máximo 300 caracteres",
+
+  "page.academy.course.lesson.form.addReply.button" : "Responder",
+  "page.academy.course.lesson.form.closeReply.button" : "Cerrar",
+
   
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",

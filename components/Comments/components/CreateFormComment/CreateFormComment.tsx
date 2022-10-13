@@ -15,10 +15,11 @@ import Loading from 'components/Loading'
 interface CREATEFORMCOMMENTPROPS {
   onCreate: Function,
   validationSchema: any,
-  loading:boolean
+  loading:boolean,
+  formCommentStyle?: 'default' | 'minified'
 }
 
-const CreateFormComment = ({}: any) => {
+const CreateFormComment = ({formCommentStyle}: any) => {
   const intl = useIntl()
   const router = useRouter()
   const userLoggued = useSelector(getUserLogged)
@@ -51,36 +52,29 @@ const CreateFormComment = ({}: any) => {
   )
 
   return (
-    <CreateFormCommentView loading={loading} validationSchema={validationSchema()} onCreate={(comment: string) => _onCreate(comment)} />
+    <CreateFormCommentView formCommentStyle={formCommentStyle} loading={loading} validationSchema={validationSchema()} onCreate={(comment: string) => _onCreate(comment)} />
   )
 }
 
-const CreateFormCommentView = ({onCreate, validationSchema, loading}: CREATEFORMCOMMENTPROPS) => {
+const CreateFormCommentView = ({ formCommentStyle = 'default' }: CREATEFORMCOMMENTPROPS) => {
   return (
-    <div className={style.createFormComment}>
-      <p className={style.mainTitle}>Pregunta al profesor @Maria traducir</p>
-      <p>
-        @Maria traducir Este es un espacio creado para que puedas resolver tus
-        dudas con el prfesor y ver las dudas que han tenido otros alumnos como
-        tu.
-      </p>
-      <FormApp initialValues={{comment: ''}} validationSchema={validationSchema} onSubmit={(data:any) => onCreate(data.comment)}>
-        <TextareaApp
-          labelID='Escribe un comentario @Maria traducir'
-          maxLength={200}
-          name={'comment'}
-        />
+    <div className={`${style.createFormComment} ${style[formCommentStyle]}`}>
+      {formCommentStyle === 'default' ? (
+        <div className={style.textContent}>
+          <p className={style.mainTitle}>Pregunta al profesor</p>
+          <p>
+            Este es un espacio creado para que puedas resolver tus dudas con el prfesor y ver las dudas que han tenido otros alumnos como tu.
+          </p>
+        </div>
+      ) : null}
+      <FormApp onSubmit={() => console.log('envío comentario')}>
+        <TextareaApp labelID={formCommentStyle === 'default' ? 'Escribe un comentario' : 'Escribe tu respuesta'} onChange={() => console.log('envío change')} maxLength={200} name={'comment'} />
         <div className={style.buttonContainer}>
           <div className={style.submitComment}>
-            <ButtonApp
-              labelID='btn.enviar'
-              type='submit'
-              buttonStyle='primary'
-            />
+            <ButtonApp labelID='Enviar' onClick={() => console.log('hola')} type='submit' buttonStyle='primary' size={formCommentStyle === 'minified' ? 'small' : 'default'}/>
           </div>
         </div>
       </FormApp>
-      <Loading customBackdrop='rgba(244,244,246, .5)' variant='inner-secondary' loading={loading}></Loading>
     </div>
   )
 }

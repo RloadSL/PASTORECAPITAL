@@ -1,6 +1,15 @@
 import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
+import dynamic from 'next/dynamic'
+import { Suspense, useState } from 'react'
 import style from './SingleComment.module.scss'
+
+const CreateFormComment = dynamic(
+  () => import('../CreateFormComment'),
+  {
+    suspense: true
+  }
+)
 
 
 type commentData = {
@@ -15,13 +24,14 @@ interface SINGLECOMMENTPROPS {
   isMainComment?: boolean
 }
 
-const SingleComment = ({ comment,isMainComment}: SINGLECOMMENTPROPS) => {
+const SingleComment = ({ comment, isMainComment }: SINGLECOMMENTPROPS) => {
   // console.log(commentText)
   return <SingleCommentView comment={comment} isMainComment={isMainComment} />
 }
 
-const SingleCommentView = ({ comment,isMainComment }: SINGLECOMMENTPROPS) => {
+const SingleCommentView = ({ comment, isMainComment }: SINGLECOMMENTPROPS) => {
   const { publisher, commentText, created_at, total_replys } = comment
+  const [reply, setReply] = useState(false)
 
   //OJO AQUÍ para maquetar el botón y el icono de profesor
   const isTeacher = false;
@@ -42,9 +52,14 @@ const SingleCommentView = ({ comment,isMainComment }: SINGLECOMMENTPROPS) => {
             </div>
             {isMainComment ? (
               <div className={style.replyButton}>
-                <ButtonApp labelID='Reply' onClick={() => console.log('hola')} type='button' buttonStyle='dark' size='small'/>
+                <ButtonApp labelID={reply === false ? 'page.academy.course.lesson.form.addReply.button' : 'page.academy.course.lesson.form.closeReply.button'} onClick={() => setReply(true)} type='button' buttonStyle='dark' size='small' />
               </div>) : null}
           </div>
+          {reply ? (
+            <Suspense>
+              <CreateFormComment formCommentStyle={'minified'} />
+            </Suspense>
+          ) : null}
         </div>
       </Card>
     </div>
