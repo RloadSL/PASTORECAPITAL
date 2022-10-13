@@ -28,27 +28,19 @@ class CommentsImpl {
     return Promise.all(promises);
   }
 
-  async createComments(comment: CommentDto) {
+  async createComments(comment: CommentDto) : Promise<Comments | undefined> {
     try {
-      const c = await FireFirestore.createDoc(this.commentsPath, comment);
-      return c;
+      const cRef = await FireFirestore.createDoc(this.commentsPath, comment);
+      const commentDto = await FireFirestore.getDoc(this.commentsPath, cRef.id)
+      const result = await this.parseCommentsSnapShot([commentDto]);
+      return result[0]
     } catch (error) {
       console.error(error)
       alert('Error inteno en comments.repository')
     }
   }
 
-  async createCommentsReplay(comment: CommentDto, parent_comment_id: string) {
-    try {
-      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
-      const c = await FireFirestore.createDoc(path, comment);
-      return c;
-    } catch (error) {
-      console.error(error)
-      alert('Error inteno en comments.repository')
-    }
-  }
-
+ 
   async getComments(parent: ParentCommentDto, lastSnap?: any): Promise<{comments: Comments[], lastSnapshot: any}> {
     try {
       const conditions = [['parent.id', '==', parent.id as string]]
@@ -68,22 +60,6 @@ class CommentsImpl {
     }
   }
 
-  async getCommentsReplay(parent_comment_id: string, lastSnap: any): Promise<Comments[]> {
-    try {
-      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
-      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap);
-      if (cSnap && cSnap?.length > 0) {
-        const result = await this.parseCommentsSnapShot(cSnap);
-        return result;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      console.error(error)
-      alert('Error inteno en comments.repository')
-      return [];
-    }
-  }
 
   async updateComments(comment: string, id: string) {
     try {

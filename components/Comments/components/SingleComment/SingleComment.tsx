@@ -69,7 +69,7 @@ const SingleCommentView = ({ comment, lastChild}: SINGLECOMMENTPROPS) => {
               </div>
               {reply ? (
                 <Suspense>
-                  <CreateFormComment formCommentStyle={'minified'} />
+                  <CreateFormComment onCreate={(c:Comments) => console.log(c)} parent={{id: comment.id, path: 'comments'}} formCommentStyle={'minified'} />
                 </Suspense>
               ) : null}
             </div>

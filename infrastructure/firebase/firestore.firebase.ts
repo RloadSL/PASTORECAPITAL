@@ -37,7 +37,7 @@ export class FireFirestore {
       }
 
       if (!lastSnap) {
-        const firstQuery = query(collection, ...wheres ,orderBy("created_at"),limit(20));
+        const firstQuery = query(collection, ...wheres ,orderBy("created_at", 'desc'),limit(20));
         
         documentSnapshots = await getDocs(firstQuery);
       } else {
@@ -104,7 +104,7 @@ export class FireFirestore {
     try {
       const collection = this._collection(collectionPath);
       const snap = await addDoc(collection, cleanUndefined(data));
-      return { ...data, docID: snap.id };
+      return { ...data, id: snap.id };
     } catch (error) {
       console.error(error);
       alert('Internal error firebase');

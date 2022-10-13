@@ -7,7 +7,7 @@ export class Comments {
     this._owner = comment.owner
     this._parent = comment.parent
     this._created_at = comment.created_at.toDate()
-    this._total_replays = comment.total_replays
+    this._total_replys = comment.total_replys
     this._comment = comment.comment
   }
 
@@ -37,9 +37,9 @@ export class Comments {
     return this._created_at
   }
 
-  private _total_replays: number
-  public get total_replays (): number  {
-    return this._total_replays
+  private _total_replys: number
+  public get total_replys (): number  {
+    return this._total_replys
   }
 
   private _comment: string
@@ -53,7 +53,7 @@ export class Comments {
       owner: this._owner,
       parent: this._parent,
       created_at: this._created_at,
-      total_replays: this._total_replays,
+      total_replys: this._total_replys,
       comment: this._comment
     }
   }

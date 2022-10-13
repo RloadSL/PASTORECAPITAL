@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import Loading from 'components/Loading'
+import { Comments } from 'domain/Comments/comments'
 
 interface CREATEFORMCOMMENTPROPS {
   onCreate: Function
@@ -19,7 +20,7 @@ interface CREATEFORMCOMMENTPROPS {
   formCommentStyle?: 'default' | 'minified'
 }
 
-const CreateFormComment = ({ formCommentStyle }: any) => {
+const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
   const intl = useIntl()
   const router = useRouter()
   const userLoggued = useSelector(getUserLogged)
@@ -27,16 +28,17 @@ const CreateFormComment = ({ formCommentStyle }: any) => {
 
   const _onCreate = async (comment: string) => {
     setloading(true)
-    const res = await CommentsImplInstance.createComments({
+    const res: Comments | undefined = await CommentsImplInstance.createComments({
       comment: comment,
       created_at: new Date(),
       parent: {
-        id: router.query.lessonId?.toString(),
-        path: 'lessons'
+        id: parent?.id || router.query.lessonId?.toString(),
+        path: parent?.path || 'lessons'
       },
       owner: userLoggued.uid,
-      total_replays: 0
+      total_replys: 0
     })
+    if(res) onCreate(res)
     setloading(false)
   }
 

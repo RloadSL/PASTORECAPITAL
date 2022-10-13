@@ -4,6 +4,7 @@ import { CommentsImplInstance } from 'infrastructure/repositories/comments.repos
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import style from './CommentsList.module.scss'
+import CreateFormComment from './components/CreateFormComment'
 import SingleComment from './components/SingleComment'
 
 interface COMMENTSLISTPROPS {
@@ -49,6 +50,7 @@ const CommentsListView = ({
 }) => {
   return (
     <div className={style.commentsList}>
+       
       {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (

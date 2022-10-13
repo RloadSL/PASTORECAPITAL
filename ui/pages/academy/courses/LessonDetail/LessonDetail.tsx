@@ -63,7 +63,7 @@ const LessonDetailView = ({
           <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
-        <CreateFormComment />
+        <CreateFormComment/>
         <CommentsList />
       </div>
     </div>

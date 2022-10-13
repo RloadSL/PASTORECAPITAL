@@ -5,7 +5,7 @@ export interface CommentDto {
   parent: ParentCommentDto,
   id?: string,
   created_at: any,
-  total_replays: number,
+  total_replys: number,
   comment: string
 }
 
