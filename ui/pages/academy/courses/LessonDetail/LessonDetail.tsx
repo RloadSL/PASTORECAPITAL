@@ -29,7 +29,12 @@ const commentsList = [
       },
       {
         publisher: 'alumno',
-        commentText: 'Pero es que sigo sin entenderlo. ',
+        commentText: 'Pero es que sigo sin entenderlo. Sed consectetur luctus mi at imperdiet. Nullam vel ligula efficitur, eleifend mauris vitae, molestie risus. Integer convallis quis augue eu tempor. ligula efficitur, eleifend mauris vitae, molestie risus. Integer convallis quis augue eu tempor',
+        created_at: '01/10/2022'
+      },
+      {
+        publisher: 'Profesor',
+        commentText: 'Pues voy y te resulevo la duda. ',
         created_at: '01/10/2022'
       }
     ]

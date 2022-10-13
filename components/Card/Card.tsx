@@ -4,7 +4,8 @@ import style from './Card.module.scss'
 
 export interface CARDPROPS {
   children: any,
-  cardStyle?: 'outlined' | 'autocomplite' | 'elevationSmall'| Array<'autocomplite' | 'elevationSmall'>
+  cardStyle?: 'default' | 'outlined' | 'autocomplite' | 'elevationSmall'| Array<'autocomplite' | 'elevationSmall'>
+  backgroundColor?: string
 }
 
 /**
@@ -13,7 +14,7 @@ export interface CARDPROPS {
  * @returns 
  */
 
-const Card = ({children,cardStyle}:CARDPROPS) => {
+const Card = ({children,cardStyle = 'default', backgroundColor='white'}:CARDPROPS) => {
 
   const styles = useCallback( (cardStyle:any)=>{
     if(!cardStyle) return '';
@@ -26,7 +27,7 @@ const Card = ({children,cardStyle}:CARDPROPS) => {
 
 
   return (
-    <div className={`${style.card} ${styles(cardStyle)}`}>
+    <div style={{backgroundColor:backgroundColor}} className={`${style.card} ${styles(cardStyle)}`}>
      {children} 
     </div>
   )

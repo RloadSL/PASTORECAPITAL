@@ -40,27 +40,40 @@ const SingleCommentView = ({ comment, childrenCommentsList }: SINGLECOMMENTPROPS
   return (
     comment ?
     <div className={style.singleComment}>
-      <Card cardStyle='outlined'>
-        <div className={style.innerContent}>
-          {owner.role.level > 1 ? <h1>Profesor</h1> : <h1>Alumno</h1>}
-          <div>{comment.comment}</div>
-        </div>
-        <div className={`${style.bottom}`}>
-          <div className={`${style.innerContent} flex-container`}>
-            <div className='flex-container'>
-              <div className={style.author}><span>Alumno:</span> {owner?.name}</div>
-              <div className={style.date}>{comment.created_at.toLocaleDateString()}</div>
-            </div>
-            {comment.parent.path !== 'comments' ? (
-              <div className={style.replyButton}>
-                <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />
-              </div>) : null}
+      <Card backgroundColor={comment.parent.path !== 'comments' ? '#f5f0ff' : 'white'}>
+        <div className='flex-container'>
+          <div className={`${style.colLeft} ${comment.parent.path !== 'comments' ? style.isReply : ''}`}>
+            { comment.parent.path !== 'comments' ? <div className={style.replyIcon}></div> : null}
           </div>
-          {reply ? (
-            <Suspense>
-              <CreateFormComment formCommentStyle={'minified'} />
-            </Suspense>
-          ) : null}
+          <div className={style.colRight}>
+            <div className={style.top}>
+              <div className={style.innerContent}>
+                <div className='flex-container'>
+                  <div className={style.author}> {owner?.name} </div>
+                  <div className={style.date}>{comment.created_at.toLocaleDateString()}</div>
+                </div>
+              </div>
+            </div>
+            <div className={style.middle}>
+              <div className={style.innerContent}>
+                {isTeacher ? <div>icono</div> : null}
+                <div>{comment.comment}</div>
+              </div>
+            </div>
+            <div className={`${style.bottom}`}>
+              <div className={`${style.innerContent} flex-container`}>
+                {comment.parent.path !== 'comments' ? (
+                  <div className={style.replyButton}>
+                    <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />
+                  </div>) : null}
+              </div>
+              {reply ? (
+                <Suspense>
+                  <CreateFormComment formCommentStyle={'minified'} />
+                </Suspense>
+              ) : null}
+            </div>
+          </div>
         </div>
         {console.log(comment.parent)}
 

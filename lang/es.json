@@ -82,6 +82,8 @@
 
   "page.academy.lesson.form.addReply.button" : "Responder",
   "page.academy.lesson.form.closeReply.button" : "Cerrar",
+  "page.academy.lesson.form.addReply.placeholder" : "Escribe tu respuesta",
+  "page.academy.lesson.form.addComment.placeholder" : "Escribe un comentario",
 
   
   "component.navbar.backbuttom": "Atrás",
