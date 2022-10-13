@@ -4,7 +4,7 @@ import style from './Card.module.scss'
 
 export interface CARDPROPS {
   children: any,
-  cardStyle?: 'autocomplite' | 'elevationSmall'| Array<'autocomplite' | 'elevationSmall'>
+  cardStyle?: 'outlined' | 'autocomplite' | 'elevationSmall'| Array<'autocomplite' | 'elevationSmall'>
 }
 
 /**

@@ -40,13 +40,29 @@ const DrawerNav = ({ children }: any) => {
 */
 
 const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, activeItem?: string, windowSize: any }) => {
-  const isCollapsed = (qq:boolean) => {
-    console.log('esta abierto en padre?',qq)
+
+  const isCollapsed = (isOpen:boolean) => {
+    let bodyContainer = document.querySelector('body');
+    if (bodyContainer) {
+      if (isOpen === true) {
+        bodyContainer.style.overflow = 'hidden';
+      } else {
+        bodyContainer.style.overflow = 'auto';
+      }
+    }
   }
 
   return (
     <div className={style.drawerNav}>
-      {windowSize.innerWidth >= 1080 && windowSize.innerWidth <= 1200 ? <div className={style.logoMobile}><Image src={logoPastore} alt='' /></div> : windowSize.innerWidth < 1080 ? <div className={style.logoMobile}><Image src={logoMobile} alt='' /></div> : null}
+      {windowSize.innerWidth >= 1080 && windowSize.innerWidth <= 1200 ? (
+        <div className={style.logoTablet}>
+          <Image src={logoPastore} alt='Logotipo Pastore Capital' />
+        </div>
+      ) : windowSize.innerWidth < 1080 ? (
+      <div className={style.logoMobile}>
+        <Image src={logoMobile} alt='Logotipo Pastore Capital' /></div>
+      ) : null
+      }
       {windowSize.innerWidth >= 1200 ? (
         <aside className={style.aside}>
           {children}

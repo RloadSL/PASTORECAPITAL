@@ -33,15 +33,22 @@
       display: inline-block;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
-      // -webkit-box-shadow: -7px 2px 19px -14px rgba(120, 83, 189, .8);
-      // -moz-box-shadow: -7px 2px 19px -14px rgba(120, 83, 189, .8);
-      // box-shadow: -7px 2px 19px -14px rgba(120, 83, 189, .8);
     }
   }
 
   .logoMobile {
     width: 40px;
     height: 40px;
+    align-self: flex-end;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .logoTablet {
+    width: 110px;
+    height: auto;
     align-self: flex-end;
 
     img {
