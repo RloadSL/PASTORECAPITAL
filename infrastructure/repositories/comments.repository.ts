@@ -126,4 +126,4 @@ class CommentsImpl {
 
 }
 
-export const CourseRepositoryInstance = CommentsImpl.getInstance();
+export const CommentsImplInstance = CommentsImpl.getInstance();

@@ -1,11 +1,11 @@
 import { Form, Formik } from 'formik'
 import React, { useRef, useState } from 'react'
-import { debounce } from "lodash"
+import { debounce } from 'lodash'
 export interface FORMAPPPROPS {
   onSubmit?: Function
   children?: any
   validationSchema?: any
-  initialValues?: Object,
+  initialValues?: Object
   onChange?: Function
 }
 /**
@@ -21,21 +21,26 @@ const FormApp = ({
   validationSchema,
   initialValues
 }: FORMAPPPROPS) => {
-  const FormRef = useRef<HTMLFormElement>(null);
-  const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const FormRef = useRef<HTMLFormElement>(null)
+  const [message, setMessage] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
   const _onSubmit = (values: any) => {
     setSubmitted(true)
     setMessage('')
-    if(onSubmit) onSubmit(values)
+    if (onSubmit) onSubmit(values)
   }
 
-
-  const childrenWithExtraProp = ({ errors, touched }: any, setFieldValue: Function) => {
+  const childrenWithExtraProp = (
+    { errors, touched }: any,
+    setFieldValue: Function
+  ) => {
     return React.Children.map(children, child => {
       return React.cloneElement(child, {
-        error: errors[child.props.name] && touched[child.props.name] ? errors[child.props.name] : null,
+        error:
+          errors[child.props.name] && touched[child.props.name]
+            ? errors[child.props.name]
+            : null,
         onChange: setFieldValue
       })
     })
@@ -46,16 +51,21 @@ const FormApp = ({
       <div hidden={!submitted} role='alert'>
         {message}
       </div>
-
+      
       <Formik
-        initialValues={initialValues || {}}
+        initialValues={initialValues || {}}
         validationSchema={validationSchema}
-        
-        onSubmit={values => _onSubmit(values)}
+        onSubmit={(values, { resetForm }) => {
+          resetForm({values: initialValues})
+          _onSubmit(values)
+        }}
       >
-        {({ errors, touched, setFieldValue}) => {
-          
-          return <Form ref={FormRef}>{childrenWithExtraProp({ errors, touched },setFieldValue)}</Form>
+        {({ errors, touched, setFieldValue, values }) => {
+          return (
+            <Form ref={FormRef}>
+              {childrenWithExtraProp({ errors, touched }, setFieldValue)}
+            </Form>
+          )
         }}
       </Formik>
     </div>

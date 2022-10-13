@@ -105,6 +105,10 @@
   "forms.labels.repeatPassword": "Repetir contraseña",
   "forms.labels.securityCode": "Código de seguridad",
 
+  "btn.enviar": "Enviar",
+  "btn.accept": "Aceptar",
+  "btn.cancel": "Cancelar",
+
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",
 

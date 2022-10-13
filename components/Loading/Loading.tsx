@@ -4,9 +4,9 @@ import style from './Loading.module.scss'
 
 type LOADINGPROPS = 'inner-primary' | 'outer-primary' | 'inner-secondary' | 'outer-secondary'
 
-export const Loading = ({ variant = 'inner-primary' , loading}: { variant?: LOADINGPROPS, loading?:boolean }) => {
+export const Loading = ({ variant = 'inner-primary' , loading, customBackdrop}: { variant?: LOADINGPROPS, customBackdrop?: string,loading?:boolean }) => {
   const { loadingState } = useSystem()
-  return <LoadingView variant={variant} loadingState={loading || loadingState} />
+  return <LoadingView variant={variant} customBackdrop={customBackdrop} loadingState={loading || loadingState} />
 }
 
 /**
@@ -16,6 +16,6 @@ export const Loading = ({ variant = 'inner-primary' , loading}: { variant?: LOAD
  * @returns 
  */
 
-const LoadingView = ({ loadingState, variant }: { loadingState: boolean, variant: LOADINGPROPS }) => {
-  return loadingState ? <div className={`${style.loading} ${style[variant]}`}><div className={style.loadingContainer}></div></div> : null;
+const LoadingView = ({ loadingState, variant, customBackdrop }: { loadingState: boolean, customBackdrop?:string, variant: LOADINGPROPS }) => {
+  return loadingState ? <div style={customBackdrop ? {backgroundColor: customBackdrop} : {}} className={`${style.loading} ${style[variant]}`}><div className={style.loadingContainer}></div></div> : null;
 }
