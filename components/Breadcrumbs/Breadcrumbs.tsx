@@ -67,7 +67,7 @@ const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: s
             <a className={style.crumbLink}>
            { renderLabel(item.labelId )}
             </a>
-          </Link> : <span className={style.crumbLink}>
+          </Link> : <span key={index.toString()} className={style.crumbLink}>
           { renderLabel(item.labelId )}
           </span>
         )

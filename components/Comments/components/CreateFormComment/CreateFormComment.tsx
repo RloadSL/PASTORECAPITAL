@@ -85,8 +85,8 @@ const CreateFormCommentView = ({
         <TextareaApp
           labelID={
             formCommentStyle === 'default'
-              ? 'Escribe un comentario'
-              : 'Escribe tu respuesta'
+              ? 'page.academy.lesson.form.addComment.placeholder'
+              : 'page.academy.lesson.form.addReply.placeholder'
           }
           onChange={() => console.log('envío change')}
           maxLength={200}

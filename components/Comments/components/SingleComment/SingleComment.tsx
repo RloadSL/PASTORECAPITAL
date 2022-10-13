@@ -39,27 +39,40 @@ const SingleCommentView = ({ comment, isMainComment }: SINGLECOMMENTPROPS) => {
 
   return (
     <div className={style.singleComment}>
-      <Card cardStyle='outlined'>
-        <div className={style.innerContent}>
-          {isTeacher ? <div>icono</div> : null}
-          <div>{commentText}</div>
-        </div>
-        <div className={`${style.bottom}`}>
-          <div className={`${style.innerContent} flex-container`}>
-            <div className='flex-container'>
-              <div className={style.author}><span>Alumno:</span> {publisher}</div>
-              <div className={style.date}>{created_at}</div>
-            </div>
-            {isMainComment ? (
-              <div className={style.replyButton}>
-                <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />
-              </div>) : null}
+      <Card backgroundColor={isMainComment ? '#f5f0ff' : 'white'}>
+        <div className='flex-container'>
+          <div className={`${style.colLeft} ${!isMainComment ? style.isReply : ''}`}>
+            {!isMainComment ? <div className={style.replyIcon}></div> : null}
           </div>
-          {reply ? (
-            <Suspense>
-              <CreateFormComment formCommentStyle={'minified'} />
-            </Suspense>
-          ) : null}
+          <div className={style.colRight}>
+            <div className={style.top}>
+              <div className={style.innerContent}>
+                <div className='flex-container'>
+                  <div className={style.author}> {publisher}</div>
+                  <div className={style.date}>{created_at}</div>
+                </div>
+              </div>
+            </div>
+            <div className={style.middle}>
+              <div className={style.innerContent}>
+                {isTeacher ? <div>icono</div> : null}
+                <div>{commentText}</div>
+              </div>
+            </div>
+            <div className={`${style.bottom}`}>
+              <div className={`${style.innerContent} flex-container`}>
+                {isMainComment ? (
+                  <div className={style.replyButton}>
+                    <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />
+                  </div>) : null}
+              </div>
+              {reply ? (
+                <Suspense>
+                  <CreateFormComment formCommentStyle={'minified'} />
+                </Suspense>
+              ) : null}
+            </div>
+          </div>
         </div>
       </Card>
     </div>
