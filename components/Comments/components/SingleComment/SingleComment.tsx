@@ -52,7 +52,7 @@ const SingleCommentView = ({ comment, isMainComment }: SINGLECOMMENTPROPS) => {
             </div>
             {isMainComment ? (
               <div className={style.replyButton}>
-                <ButtonApp labelID={reply === false ? 'page.academy.course.lesson.form.addReply.button' : 'page.academy.course.lesson.form.closeReply.button'} onClick={() => setReply(true)} type='button' buttonStyle='dark' size='small' />
+                <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />
               </div>) : null}
           </div>
           {reply ? (

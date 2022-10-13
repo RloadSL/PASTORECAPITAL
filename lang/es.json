@@ -80,8 +80,8 @@
   "page.academy.course.lesson.form.create.submit" : "Crear lección",
   "page.academy.course.lesson.form.create.excerpt.helper" : "Resumen corto de la lección. Máximo 300 caracteres",
 
-  "page.academy.course.lesson.form.addReply.button" : "Responder",
-  "page.academy.course.lesson.form.closeReply.button" : "Cerrar",
+  "page.academy.lesson.form.addReply.button" : "Responder",
+  "page.academy.lesson.form.closeReply.button" : "Cerrar",
 
   
   "component.navbar.backbuttom": "Atrás",
@@ -109,7 +109,7 @@
   "forms.labels.repeatPassword": "Repetir contraseña",
   "forms.labels.securityCode": "Código de seguridad",
 
-  "btn.enviar": "Enviar",
+  "btn.send": "Enviar",
   "btn.accept": "Aceptar",
   "btn.cancel": "Cancelar",
 

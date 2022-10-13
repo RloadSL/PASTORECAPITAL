@@ -13,20 +13,20 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import Loading from 'components/Loading'
 
 interface CREATEFORMCOMMENTPROPS {
-  onCreate: Function,
-  validationSchema: any,
-  loading:boolean,
+  onCreate: Function
+  validationSchema: any
+  loading: boolean
   formCommentStyle?: 'default' | 'minified'
 }
 
-const CreateFormComment = ({formCommentStyle}: any) => {
+const CreateFormComment = ({ formCommentStyle }: any) => {
   const intl = useIntl()
   const router = useRouter()
   const userLoggued = useSelector(getUserLogged)
- const [loading, setloading] = useState(false)
+  const [loading, setloading] = useState(false)
 
   const _onCreate = async (comment: string) => {
-    setloading(true);
+    setloading(true)
     const res = await CommentsImplInstance.createComments({
       comment: comment,
       created_at: new Date(),
@@ -37,10 +37,9 @@ const CreateFormComment = ({formCommentStyle}: any) => {
       owner: userLoggued.uid,
       total_replays: 0
     })
-    setloading(false);
+    setloading(false)
   }
 
-  
   const validationSchema = useCallback(
     () =>
       yup.object({
@@ -52,26 +51,55 @@ const CreateFormComment = ({formCommentStyle}: any) => {
   )
 
   return (
-    <CreateFormCommentView formCommentStyle={formCommentStyle} loading={loading} validationSchema={validationSchema()} onCreate={(comment: string) => _onCreate(comment)} />
+    <CreateFormCommentView
+      formCommentStyle={formCommentStyle}
+      loading={loading}
+      validationSchema={validationSchema()}
+      onCreate={(comment: string) => _onCreate(comment)}
+    />
   )
 }
 
-const CreateFormCommentView = ({ formCommentStyle = 'default' }: CREATEFORMCOMMENTPROPS) => {
+const CreateFormCommentView = ({
+  formCommentStyle = 'default',
+  loading,
+  onCreate,
+  validationSchema
+}: CREATEFORMCOMMENTPROPS) => {
   return (
     <div className={`${style.createFormComment} ${style[formCommentStyle]}`}>
       {formCommentStyle === 'default' ? (
         <div className={style.textContent}>
           <p className={style.mainTitle}>Pregunta al profesor</p>
           <p>
-            Este es un espacio creado para que puedas resolver tus dudas con el prfesor y ver las dudas que han tenido otros alumnos como tu.
+            Este es un espacio creado para que puedas resolver tus dudas con el
+            prfesor y ver las dudas que han tenido otros alumnos como tu.
           </p>
         </div>
       ) : null}
-      <FormApp onSubmit={() => console.log('envío comentario')}>
-        <TextareaApp labelID={formCommentStyle === 'default' ? 'Escribe un comentario' : 'Escribe tu respuesta'} onChange={() => console.log('envío change')} maxLength={200} name={'comment'} />
+      <FormApp
+        validationSchema={validationSchema}
+        initialValues={{ comment: '' }}
+        onSubmit={(data: any) => onCreate(data.comment)}
+      >
+        <TextareaApp
+          labelID={
+            formCommentStyle === 'default'
+              ? 'Escribe un comentario'
+              : 'Escribe tu respuesta'
+          }
+          onChange={() => console.log('envío change')}
+          maxLength={200}
+          name="comment"
+        />
         <div className={style.buttonContainer}>
           <div className={style.submitComment}>
-            <ButtonApp labelID='Enviar' onClick={() => console.log('hola')} type='submit' buttonStyle='primary' size={formCommentStyle === 'minified' ? 'small' : 'default'}/>
+            <ButtonApp
+              labelID='btn.send'
+              type='submit'
+              buttonStyle='primary'
+              size={formCommentStyle === 'minified' ? 'small' : 'default'}
+            />
           </div>
         </div>
       </FormApp>
