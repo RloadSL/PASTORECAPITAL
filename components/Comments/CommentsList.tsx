@@ -47,12 +47,15 @@ const CommentsListView = ({
   commentsList: Array<Comments>,
   parent: any
 }) => {
+const [isMainComment, setisMainComment] = useState<boolean>(parent.path !== 'comments')
+
+
   return (
     <div className={style.commentsList}>
       {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
-          <div className={style.commentsThread} key={index}>
+          <div className={`${style.commentsItem} ${isMainComment ? style.threadContainer : style.replysContainer}`} key={index}>
             <SingleComment isLastChild={commentsList.length - 1 === index} key={index} comment={comment} isMainComment={true} />
           </div>
         )

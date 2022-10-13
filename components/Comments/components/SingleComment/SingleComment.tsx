@@ -8,7 +8,6 @@ import { CommentsImplInstance } from 'infrastructure/repositories/comments.repos
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
-import { useComponentUtils } from 'ui/hooks/components.hooks'
 import style from './SingleComment.module.scss'
 
 const CreateFormComment = dynamic(
@@ -18,29 +17,26 @@ const CreateFormComment = dynamic(
   }
 )
 
-
-
-
 interface SINGLECOMMENTPROPS {
   comment: Comments,
   childrenCommentsList?: Array<Comments>
-  lastChild: string
+  isLastChild: string
 }
 
 const SingleComment = ({ comment,  isLastChild }: any) => {
-  return <SingleCommentView lastChild={isLastChild ? 'lastChild' : ''} comment={comment}/>
+  return <SingleCommentView isLastChild={isLastChild} comment={comment}/>
 }
 
-const SingleCommentView = ({ comment, lastChild}: SINGLECOMMENTPROPS) => {
+const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
   const [isMainComment, setisMainComment] = useState<boolean>(comment.parent.path !== 'comments')
-  const {buildClassName} = useComponentUtils()
   const [reply, setReply] = useState(false)
   const owner = comment.owner as User;
 
 
   return (
     comment ?
-    <div className={buildClassName([style.singleComment, lastChild])}>
+    <div className={`${style.singleComment} ${isLastChild ? style.lastChild : ''} ${!isMainComment ? style.isReply : null}`}>
+      <div className={`${isMainComment ? style.isMain : null}`}>
       <Card backgroundColor={isMainComment ? '#f5f0ff' : 'white'}>
         <div className='flex-container'>
           <div className={`${style.colLeft} ${!isMainComment ? style.isReply : ''}`}>
@@ -76,6 +72,7 @@ const SingleCommentView = ({ comment, lastChild}: SINGLECOMMENTPROPS) => {
           </div>
         </div>
       </Card>
+      </div>
       { comment.parent.path !== 'comments' ? 
           <CommentsList parent={{id: comment.id as string, path:'comments'}}></CommentsList> : <></>}
     </div>: <></>
