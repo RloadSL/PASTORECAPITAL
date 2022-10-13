@@ -1,16 +1,50 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Comments } from 'domain/Comments/comments'
+import { CommentsImplInstance } from 'infrastructure/repositories/comments.repository'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import style from './CommentsList.module.scss'
 import SingleComment from './components/SingleComment'
 
 interface COMMENTSLISTPROPS {
-  commentsList: Array<any>,
+  parent: { id: string; path: string }
   children?: any
 }
 
-const CommentsList = ({ commentsList, children }: COMMENTSLISTPROPS) => {
+const CommentsList = ({ parent }: COMMENTSLISTPROPS) => {
+  const [commentsList, setcommentsList] = useState<Array<Comments>>([])
+  const [lastComment, setlastComment] = useState(null)
+  const router = useRouter()
+  useEffect(() => {
+    let fetching = true
+    getComments().then(res => {
+      if (fetching) {
+        const { comments, lastSnapshot } = res
+        setcommentsList(comments)
+        setlastComment(lastSnapshot)
+      }
+    })
+    return () => {
+      fetching = false
+    }
+  }, [])
+
+  const getComments = async () => {
+    const response = await CommentsImplInstance.getComments(
+      { id: parent?.id || router.query.lessonId as string },
+      lastComment
+    )
+    return response
+  }
+
   return <CommentsListView commentsList={commentsList} />
 }
 
-const CommentsListView = ({ commentsList, children }: COMMENTSLISTPROPS) => {
+const CommentsListView = ({
+  commentsList
+}: {
+  commentsList: Array<Comments>
+}) => {
   return (
     <div className={style.commentsList}>
       <h2>Preguntas de alumnos</h2>
@@ -18,24 +52,11 @@ const CommentsListView = ({ commentsList, children }: COMMENTSLISTPROPS) => {
         return (
           <div className={style.commentsThread} key={index}>
             <SingleComment key={index} comment={comment} isMainComment={true} />
-            <div className={style.commentReplys}>
-              {comment.total_replys ? (
-                comment.total_replys.map((reply: any, index: any) => {
-                  return (
-                    <SingleComment key={index} comment={reply} />
-                  )
-                })
-              ) : null
-              }
-            </div>
           </div>
         )
       })}
-
-      {children}
     </div>
   )
 }
 
-
-export default CommentsList;
+export default CommentsList

@@ -1,6 +1,6 @@
 import { Comments } from "domain/Comments/comments";
 import { User } from "domain/User/User";
-import { CommentDto } from "infrastructure/dto/comments.dto";
+import { CommentDto, ParentCommentDto } from "infrastructure/dto/comments.dto";
 import FireFirestore from "../firebase/firestore.firebase";
 import { UserRepositoryImplInstance } from "./users.repository";
 
@@ -49,20 +49,22 @@ class CommentsImpl {
     }
   }
 
-  async getComments(lastSnap: any): Promise<Comments[]> {
+  async getComments(parent: ParentCommentDto, lastSnap?: any): Promise<{comments: Comments[], lastSnapshot: any}> {
     try {
-      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap);
+      const conditions = [['parent.id', '==', parent.id as string]]
+      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap, conditions);
+      
       if (cSnap && cSnap?.length > 0) {
         const result = await this.parseCommentsSnapShot(cSnap);
-        return result;
+        return {comments: result, lastSnapshot: cSnap[cSnap?.length -1]};
       } else {
-        return [];
+        return {comments: [] , lastSnapshot: null};
       }
 
     } catch (error) {
       console.error(error)
       alert('Error inteno en comments.repository')
-      return [];
+      return {comments: [] , lastSnapshot: null};
     }
   }
 

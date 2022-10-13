@@ -6,7 +6,7 @@ export class Comments {
     this._id = comment.id
     this._owner = comment.owner
     this._parent = comment.parent
-    this._created_at = comment.created_at
+    this._created_at = comment.created_at.toDate()
     this._total_replays = comment.total_replays
     this._comment = comment.comment
   }
@@ -22,12 +22,12 @@ export class Comments {
   }
 
   private _parent: {
-    path: string
-    id: string
+    path?: string
+    id?: string
   }
   public get parent (): {
-    path: string
-    id: string
+    path?: string
+    id?: string
   } {
     return this._parent
   }
@@ -37,8 +37,8 @@ export class Comments {
     return this._created_at
   }
 
-  private _total_replays?: number
-  public get total_replays (): number | undefined {
+  private _total_replays: number
+  public get total_replays (): number  {
     return this._total_replays
   }
 
