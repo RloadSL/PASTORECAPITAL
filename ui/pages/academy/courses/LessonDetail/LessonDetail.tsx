@@ -11,40 +11,6 @@ import ReadingProgressBar from 'components/ReadingProgressBar'
 import CommentsList from 'components/Comments'
 import CreateFormComment from 'components/Comments/components/CreateFormComment'
 
-const commentsList = [
-  {
-    publisher: 'Luis López',
-    commentText: 'tengo una duda sobre cómo Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consectetur luctus mi at imperdiet. Nullam vel ligula efficitur, eleifend mauris vitae, molestie risus. Integer convallis quis augue eu tempor.',
-    created_at: '01/10/2022'
-  },
-  {
-    publisher: 'Rocío Pérez',
-    commentText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consectetur luctus mi at imperdiet. ',
-    created_at: '01/10/2022',
-    total_replys: [
-      {
-        publisher: 'Profesor',
-        commentText: 'Pues voy y te resulevo la duda. ',
-        created_at: '01/10/2022'
-      },
-      {
-        publisher: 'alumno',
-        commentText: 'Pero es que sigo sin entenderlo. Sed consectetur luctus mi at imperdiet. Nullam vel ligula efficitur, eleifend mauris vitae, molestie risus. Integer convallis quis augue eu tempor. ligula efficitur, eleifend mauris vitae, molestie risus. Integer convallis quis augue eu tempor',
-        created_at: '01/10/2022'
-      },
-      {
-        publisher: 'Profesor',
-        commentText: 'Pues voy y te resulevo la duda. ',
-        created_at: '01/10/2022'
-      }
-    ]
-  },
-  {
-    publisher: 'Fernando García',
-    commentText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consectetur luctus mi at imperdiet. ',
-    created_at: '02/10/2022'
-  }
-]
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
@@ -98,7 +64,7 @@ const LessonDetailView = ({
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <CreateFormComment />
-        <CommentsList commentsList={commentsList} />
+        <CommentsList />
       </div>
     </div>
   )
