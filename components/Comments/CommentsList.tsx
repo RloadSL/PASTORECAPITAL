@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import ButtonApp from 'components/ButtonApp'
 import { Comments } from 'domain/Comments/comments'
 import { CommentsImplInstance } from 'infrastructure/repositories/comments.repository'
 import { useRouter } from 'next/router'
@@ -38,7 +39,7 @@ const CommentsList = ({ parent }: COMMENTSLISTPROPS) => {
     return response
   }
 
-  return <CommentsListView parent={{ id: parent?.id || router.query.lessonId as string , path: parent?.path}} commentsList={commentsList} />
+  return <CommentsListView parent={{ id: parent?.id || router.query.lessonId as string, path: parent?.path }} commentsList={commentsList} />
 }
 
 const CommentsListView = ({
@@ -48,12 +49,11 @@ const CommentsListView = ({
   commentsList: Array<Comments>,
   parent: any
 }) => {
-const [isMainComment, setisMainComment] = useState<boolean>(parent.path !== 'comments')
+  const [isMainComment, setisMainComment] = useState<boolean>(parent.path !== 'comments')
 
 
   return (
     <div className={style.commentsList}>
-       
       {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
@@ -62,6 +62,9 @@ const [isMainComment, setisMainComment] = useState<boolean>(parent.path !== 'com
           </div>
         )
       })}
+      <div className='text-align-center'>
+        <ButtonApp buttonStyle='link' labelID='Cargar más' onClick={() => console.log('load more')} type='button' />
+      </div>
     </div>
   )
 }

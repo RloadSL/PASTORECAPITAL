@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
+import Chips from 'components/Chips'
 import CommentsList from 'components/Comments/CommentsList'
 import { Comments } from 'domain/Comments/comments'
 import { User } from 'domain/User/User'
@@ -32,7 +33,6 @@ const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
   const [reply, setReply] = useState(false)
   const owner = comment.owner as User;
 
-
   return (
     comment ?
     <div className={`${style.singleComment} ${isLastChild ? style.lastChild : ''} ${!isMainComment ? style.isReply : null}`}>
@@ -45,9 +45,10 @@ const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
           <div className={style.colRight}>
             <div className={style.top}>
               <div className={style.innerContent}>
-                <div className='flex-container'>
+                <div className='flex-container align-center'>
                   <div className={style.author}> {owner?.name} </div>
                   <div className={style.date}>{comment.created_at.toLocaleDateString()}</div>
+                  {owner.role.level > 1 ? <Chips chips={['Profesor']} color='lightMain' /> : null}
                 </div>
               </div>
             </div>
