@@ -37,21 +37,23 @@ const CommentsList = ({ parent }: COMMENTSLISTPROPS) => {
     return response
   }
 
-  return <CommentsListView commentsList={commentsList} />
+  return <CommentsListView parent={{ id: parent?.id || router.query.lessonId as string , path: parent?.path}} commentsList={commentsList} />
 }
 
 const CommentsListView = ({
-  commentsList
+  commentsList,
+  parent
 }: {
-  commentsList: Array<Comments>
+  commentsList: Array<Comments>,
+  parent: any
 }) => {
   return (
     <div className={style.commentsList}>
-      <h2>Preguntas de alumnos</h2>
+      {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
           <div className={style.commentsThread} key={index}>
-            <SingleComment key={index} comment={comment} isMainComment={true} />
+            <SingleComment isLastChild={commentsList.length - 1 === index} key={index} comment={comment} isMainComment={true} />
           </div>
         )
       })}

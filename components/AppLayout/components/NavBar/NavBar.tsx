@@ -48,7 +48,6 @@ const NavBarView = ({
   signOut: Function,
   userRole?:string
 }) => {
-  console.log(userRole)
   return (
     <div className={style.navbarContainer}>
       <Breadcrumbs />
