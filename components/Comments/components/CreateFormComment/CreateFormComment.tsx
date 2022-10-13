@@ -91,7 +91,7 @@ const CreateFormCommentView = ({
               : 'page.academy.lesson.form.addReply.placeholder'
           }
           onChange={() => console.log('envío change')}
-          maxLength={200}
+          maxLength={800}
           name="comment"
         />
         <div className={style.buttonContainer}>
