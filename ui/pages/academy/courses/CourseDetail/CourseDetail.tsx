@@ -12,7 +12,7 @@ import Custom404 from 'pages/404'
 import ButtonApp from 'components/ButtonApp'
 import dynamic from 'next/dynamic'
 
-import ListLessons from './components/ListLessons'
+import ListLessons from '../ListLessons'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
