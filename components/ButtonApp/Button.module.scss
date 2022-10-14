@@ -19,6 +19,18 @@
   @extend %transparent;
 }
 
+.link {
+  @extend %transparent;
+  color: colors.$dark;
+  text-decoration: underline;
+  font-weight: normal;
+  width: fit-content;
+
+  &:hover {
+    color: colors.$main;
+  }
+}
+
 .primary {
   background-color: colors.$main;
   color: white;

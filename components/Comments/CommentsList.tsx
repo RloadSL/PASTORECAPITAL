@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import ButtonApp from 'components/ButtonApp'
 import { Comments } from 'domain/Comments/comments'
 import { CommentsImplInstance } from 'infrastructure/repositories/comments.repository'
 import { useRouter } from 'next/router'
@@ -80,31 +81,21 @@ const CommentsListView = ({
   main?: boolean,
   onCreate: Function
 }) => {
-  const [isMainComment, setisMainComment] = useState<boolean>(
-    parent.path !== 'comments'
-  )
+  const [isMainComment, setisMainComment] = useState<boolean>(parent.path !== 'comments')
+
 
   return (
-    <div>
-       {main && <CreateFormComment onCreate={(res: Comments) => onCreate(res)} />}
-      <div className={style.commentsList}>
-        {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
-        {commentsList.map((comment, index) => {
-          return (
-            <div
-              className={`${style.commentsItem} ${
-                isMainComment ? style.threadContainer : style.replysContainer
-              }`}
-              key={index.toString()+ Math.random()}
-            >
-              <SingleComment
-                isLastChild={commentsList.length - 1 === index}
-                key={index}
-                comment={comment}
-              />
-            </div>
-          )
-        })}
+    <div className={style.commentsList}>
+      {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
+      {commentsList.map((comment, index) => {
+        return (
+          <div className={`${style.commentsItem} ${isMainComment ? style.threadContainer : style.replysContainer}`} key={index}>
+            <SingleComment isLastChild={commentsList.length - 1 === index} key={index} comment={comment} isMainComment={true} />
+          </div>
+        )
+      })}
+      <div className='text-align-center'>
+        <ButtonApp buttonStyle='link' labelID='Cargar más' onClick={() => console.log('load more')} type='button' />
       </div>
     </div>
   )

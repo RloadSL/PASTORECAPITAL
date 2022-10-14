@@ -12,6 +12,10 @@
     margin-top: 3%;
   }
 
+  .colRight {
+    width: 100%;
+  }
+
     &.isReply {
       .colLeft::after {
         content: '';
@@ -35,7 +39,7 @@
 
     .innerContent {
       padding-bottom: 0px;
-      padding-top: 20px;
+      padding-top: 15px;
     }
   }
 
@@ -80,6 +84,7 @@
 
   .date {
     color: colors.$grey60;
+    margin-right: 12px;
   }
 
   .innerContent {
