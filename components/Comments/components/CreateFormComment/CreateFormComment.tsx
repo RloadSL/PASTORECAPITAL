@@ -8,10 +8,11 @@ import style from './CreateFormComment.module.scss'
 import * as yup from 'yup'
 import { useIntl } from 'react-intl'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import Loading from 'components/Loading'
 import { Comments } from 'domain/Comments/comments'
+import { AppDispatch } from 'ui/redux/store'
 
 interface CREATEFORMCOMMENTPROPS {
   onCreate: Function
@@ -25,6 +26,8 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
   const router = useRouter()
   const userLoggued = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
+  const dispatch = useDispatch<AppDispatch>()
+
 
   const _onCreate = async (comment: string) => {
     setloading(true)
@@ -38,7 +41,7 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
       owner: userLoggued.uid,
       total_replys: 0
     })
-    if(res) onCreate(res)
+    if (onCreate) onCreate(res)
     setloading(false)
   }
 
@@ -105,6 +108,7 @@ const CreateFormCommentView = ({
           </div>
         </div>
       </FormApp>
+      <Loading loading={loading} customBackdrop='rgba(244,244,246,.7)'></Loading>
     </div>
   )
 }

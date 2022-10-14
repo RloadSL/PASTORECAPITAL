@@ -7,7 +7,7 @@ import { User } from 'domain/User/User'
 import { CommentsImplInstance } from 'infrastructure/repositories/comments.repository'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import style from './SingleComment.module.scss'
 
 const CreateFormComment = dynamic(
@@ -30,8 +30,9 @@ const SingleComment = ({ comment,  isLastChild }: any) => {
 const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
   const [isMainComment, setisMainComment] = useState<boolean>(comment.parent.path !== 'comments')
   const [reply, setReply] = useState(false)
+  const [NC, setNC] = useState<Comments>()
   const owner = comment.owner as User;
-
+  
 
   return (
     comment ?
@@ -65,7 +66,7 @@ const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
               </div>
               {reply ? (
                 <Suspense>
-                  <CreateFormComment onCreate={(c:Comments) => console.log(c)} parent={{id: comment.id, path: 'comments'}} formCommentStyle={'minified'} />
+                  <CreateFormComment onCreate={(c:Comments) => setNC(c)} parent={{id: comment.id, path: 'comments'}} formCommentStyle={'minified'} />
                 </Suspense>
               ) : null}
             </div>
@@ -74,9 +75,9 @@ const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
       </Card>
       </div>
       { comment.parent.path !== 'comments' ? 
-          <CommentsList parent={{id: comment.id as string, path:'comments'}}></CommentsList> : <></>}
+          <CommentsList newComments={NC} parent={{id: comment.id as string, path:'comments'}}></CommentsList> : <></>}
     </div>: <></>
   )
 }
 
-export default SingleComment;
+export default React.memo(SingleComment);
