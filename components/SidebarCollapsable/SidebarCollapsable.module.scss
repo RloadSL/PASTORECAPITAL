@@ -1,0 +1,102 @@
+
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.sidebarCollapsableContainer {
+  position: fixed;
+  right: 0;
+  top: 55px;
+  height: 100%;
+  z-index: 900;
+  width: 80px;
+
+  @include devices.device(smScreen) {
+    top: 70px;
+  }
+
+  @include devices.device(mdScreen) {
+    top: 0px;
+  }
+
+
+  &.isOpen {
+    width: 300px;
+    transition: all 0.3s ease-in-out;
+
+    .collapsableButton {
+      &::before {
+        transform: rotate(180deg);
+      }
+
+      .label {
+        display: none;
+      }
+    }
+  }
+
+  .collapsableButton {
+    position: absolute;
+    width: 20px;
+    height: auto;
+    margin-bottom: 10px;
+    z-index: 999;
+    left: 0;
+    background-color: colors.$palette8;
+
+    @include devices.device(tablet) {
+      background-color: transparent;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      background-color: transparent;
+      background-image: url('../../assets/img/icons/arrow-dark.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 20px;
+      height: 20px;
+    }
+
+    .label {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      display: none;
+
+
+      @include devices.device(tablet) {
+        display: block;
+      }
+    }
+  }
+
+  .sideCollapsable {
+    right: 0;
+    width: 0px;
+    background-color: colors.$palette8;
+    min-height: 100vh;
+    transition: all 0.3s ease-in-out;
+    transform: translate(0px);
+    position: absolute;
+    top: 0;
+    z-index: 900;
+
+    &.isOpen {
+      width: 300px;
+      // transform: translate(200);
+    }
+
+    @include devices.device(tablet) {
+      width: 80px;
+      transform: translate(0px);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

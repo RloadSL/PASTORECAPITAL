@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import logoPastore from '../../../../../assets/img/logo-pastore.svg'
 import logoMobile from '../../../../../assets/img/logo-image.svg'
-import SideCollapsable from 'components/SideCollapsable'
 import { useEffect, useState } from 'react'
+import MenuCollapsable from 'components/MenuCollapsable'
 
 
 const DrawerNav = ({ children }: any) => {
@@ -73,14 +73,14 @@ const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, ac
             <Menu itemList={mainMenuItems} activeItem={activeItem} />
           </div>
         </aside>) : (
-        <SideCollapsable isCollapsed={isCollapsed}>
+        <MenuCollapsable isCollapsed={isCollapsed}>
           <div className={`${style.innerContent} flex-container`}>
             {windowSize.innerWidth >= 1200 ? <div className={style.logoApp}><Image src={logoPastore} alt='' /></div> : null}
             <div className={style.menuContainer}>
               <Menu itemList={mainMenuItems} activeItem={activeItem} />
             </div>
           </div>
-        </SideCollapsable>
+        </MenuCollapsable>
       )}
     </div>
   )

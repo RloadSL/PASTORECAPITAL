@@ -10,6 +10,10 @@
   .readingContainer {
     max-width: 1000px;
     padding-left: 2%;
-    padding-right: 2%;
+    padding-right: 12%;
+
+    @include devices.device(lgScreen) {
+      padding-right: 2%;
+    }
   }
  }

@@ -10,6 +10,7 @@ import parse from 'html-react-parser'
 import ReadingProgressBar from 'components/ReadingProgressBar'
 import CommentsList from 'components/Comments'
 import CreateFormComment from 'components/Comments/components/CreateFormComment'
+import SidebarCollapsable from 'components/SidebarCollapsable'
 
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
@@ -50,6 +51,17 @@ const LessonDetailView = ({
 }) => {
   const contentRef = useRef<any>();
 
+  const isCollapsed = (isOpen:boolean) => {
+    let bodyContainer = document.querySelector('body');
+    // if (bodyContainer) {
+    //   if (isOpen === true) {
+    //     bodyContainer.style.overflow = 'hidden';
+    //   } else {
+    //     bodyContainer.style.overflow = 'auto';
+    //   }
+    // }
+  }
+
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <ReadingProgressBar target={contentRef} />
@@ -66,6 +78,10 @@ const LessonDetailView = ({
         
         <CommentsList main={true}/>
       </div>
+      <SidebarCollapsable isCollapsed={isCollapsed} label='LECCIONES'>
+        lista de lecciones
+              {/* <ListLessons lessons={post.lessons}></ListLessons> */}
+      </SidebarCollapsable>
     </div>
   )
 }

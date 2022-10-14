@@ -3,7 +3,7 @@
 
 .crumbLink {
   color: colors.$grey50;
-  font-size: .9rem;
+  font-size: .8rem;
   &::after {
     content: '>';
     color: colors.$main;
@@ -13,5 +13,13 @@
 
   &:last-child::after {
     content: '';
+  }
+}
+
+.breadcrumbsContainer {
+  display: none;
+
+  @include devices.device(smTablet) {
+    display: block;
   }
 }
