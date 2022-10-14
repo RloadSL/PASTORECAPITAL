@@ -44,7 +44,7 @@ class CommentsImpl {
   async getComments(parent: ParentCommentDto, lastSnap?: any): Promise<{comments: Comments[], lastSnapshot: any}> {
     try {
       const conditions = [['parent.id', '==', parent.id as string]]
-      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap, conditions);
+      const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap, conditions, 5);
       
       if (cSnap && cSnap?.length > 0) {
         const result = await this.parseCommentsSnapShot(cSnap);
@@ -81,7 +81,7 @@ class CommentsImpl {
     }
   }
 
-  async deleteComments(comment: string, id: string) {
+  async deleteComments(id: string) {
     try {
       await FireFirestore.deleteDoc(this.commentsPath, id)
     } catch (error) {
@@ -90,16 +90,6 @@ class CommentsImpl {
     }
   }
 
-  async deleteCommentsReplay(comment: string, id: string, parent_comment_id: string) {
-    try {
-      const path = `${this.commentsPath}/${parent_comment_id}/${this.replayPath}`
-      const c = await FireFirestore.deleteDoc(path, id);
-      return c;
-    } catch (error) {
-      console.error(error)
-      alert('Error inteno en comments.repository')
-    }
-  }
 
 
 }

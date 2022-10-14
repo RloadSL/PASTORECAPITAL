@@ -3,33 +3,33 @@ import ButtonApp from 'components/ButtonApp'
 import { Comments } from 'domain/Comments/comments'
 import { CommentsImplInstance } from 'infrastructure/repositories/comments.repository'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setLastSnapshoot } from 'ui/redux/slices/comments/coments.slice'
-import { getLastCommentsState } from 'ui/redux/slices/comments/comments.selectors'
-import { AppDispatch } from 'ui/redux/store'
+import { useCallback, useEffect, useState } from 'react'
+
 import style from './CommentsList.module.scss'
 import CreateFormComment from './components/CreateFormComment'
 import SingleComment from './components/SingleComment'
 
 interface COMMENTSLISTPROPS {
   parent?: { id: string; path: string }
-  children?: any,
-  main?: boolean,
+  children?: any
+  main?: boolean
   newComments?: Comments
 }
 
 const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
   const [commentsList, setcommentsList] = useState<Array<Comments>>([])
-  const lastCommentA = useSelector(getLastCommentsState)
-  
+  const [lastSnapshot, setlastSnapshot] = useState<any>(null)
+
   const router = useRouter()
   useEffect(() => {
     let fetching = true
     getComments().then(res => {
       if (fetching) {
         const { comments, lastSnapshot } = res
-        setcommentsList(comments)
+        if (commentsList.length === 0) {
+          setcommentsList(pre => [...comments, ...pre])
+          setlastSnapshot(lastSnapshot)
+        }
       }
     })
     return () => {
@@ -37,25 +37,42 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
     }
   }, [])
 
-
   useEffect(() => {
-    if(newComments){
+    if (newComments) {
       setcommentsList(pre => [newComments, ...pre])
     }
   }, [newComments])
-  
 
   const getComments = async () => {
     const response = await CommentsImplInstance.getComments(
       { id: parent?.id || (router.query.lessonId as string) },
-      lastCommentA
+      lastSnapshot
     )
     return response
   }
 
-  const _onCreate = (c:Comments) => {
-    if(c) setcommentsList(pre => [c, ...pre])
+  const _loadMore = () => {
+    getComments().then(res => {
+      const { comments, lastSnapshot } = res
+      setcommentsList(pre => [...pre, ...comments])
+      if (comments.length < 5) {
+        setlastSnapshot(null)
+      } else {
+        setlastSnapshot(lastSnapshot)
+      }
+    })
   }
+
+  const _onCreate = (c: Comments) => {
+    if (c) setcommentsList(pre => [c, ...pre])
+  }
+
+  const _onDelete = useCallback(async (cId: string) => {
+    await CommentsImplInstance.deleteComments(cId)
+    const deleted = commentsList.findIndex(item => item.id === cId)
+    commentsList.splice(deleted, 1)
+    setcommentsList([...commentsList])
+  }, [])
 
   return (
     <CommentsListView
@@ -66,6 +83,8 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
       commentsList={commentsList}
       main={main}
       onCreate={_onCreate}
+      loadMore={lastSnapshot !== null ? _loadMore : undefined}
+      onDelete={_onDelete}
     />
   )
 }
@@ -74,31 +93,54 @@ const CommentsListView = ({
   commentsList,
   parent,
   main,
-  onCreate
+  onCreate,
+  loadMore,
+  onDelete
 }: {
   commentsList: Array<Comments>
-  parent: any,
-  main?: boolean,
+  parent: any
+  main?: boolean
   onCreate: Function
+  loadMore?: Function
+  onDelete: Function
 }) => {
-  const [isMainComment, setisMainComment] = useState<boolean>(parent.path !== 'comments')
-
+  const [isMainComment, setisMainComment] = useState<boolean>(
+    parent.path !== 'comments'
+  )
 
   return (
     <div className={style.commentsList}>
-             {main && <CreateFormComment onCreate={(res: Comments) => onCreate(res)} />}
+      {main && (
+        <CreateFormComment onCreate={(res: Comments) => onCreate(res)} />
+      )}
 
       {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
-          <div className={`${style.commentsItem} ${isMainComment ? style.threadContainer : style.replysContainer}`} key={index}>
-            <SingleComment isLastChild={commentsList.length - 1 === index} key={index} comment={comment} isMainComment={true} />
+          <div
+            className={`${style.commentsItem} ${
+              isMainComment ? style.threadContainer : style.replysContainer
+            }`}
+            key={comment.id}
+          >
+            <SingleComment
+              isLastChild={commentsList.length - 1 === index}
+              comment={comment}
+              onDelete={onDelete}
+            />
           </div>
         )
       })}
-      <div className='text-align-center'>
-        <ButtonApp buttonStyle='link' labelID='Cargar más' onClick={() => console.log('load more')} type='button' />
-      </div>
+      {loadMore && commentsList.length > 4 && (
+        <div className='text-align-center'>
+          <ButtonApp
+            buttonStyle='link'
+            labelID='Cargar más'
+            onClick={() => loadMore()}
+            type='button'
+          />
+        </div>
+      )}
     </div>
   )
 }

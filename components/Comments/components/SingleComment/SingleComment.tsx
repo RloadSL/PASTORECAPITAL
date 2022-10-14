@@ -5,9 +5,7 @@ import Chips from 'components/Chips'
 import CommentsList from 'components/Comments/CommentsList'
 import { Comments } from 'domain/Comments/comments'
 import { User } from 'domain/User/User'
-import { CommentsImplInstance } from 'infrastructure/repositories/comments.repository'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import React, { Suspense, useEffect, useState } from 'react'
 import style from './SingleComment.module.scss'
 
@@ -21,14 +19,15 @@ const CreateFormComment = dynamic(
 interface SINGLECOMMENTPROPS {
   comment: Comments,
   childrenCommentsList?: Array<Comments>
-  isLastChild: string
+  isLastChild: string,
+  onDelete: Function
 }
 
-const SingleComment = ({ comment,  isLastChild }: any) => {
-  return <SingleCommentView isLastChild={isLastChild} comment={comment}/>
+const SingleComment = ({ comment,  isLastChild, onDelete }: any) => {
+  return <SingleCommentView onDelete={onDelete} isLastChild={isLastChild} comment={comment}/>
 }
 
-const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
+const SingleCommentView = ({ comment, isLastChild, onDelete}: SINGLECOMMENTPROPS) => {
   const [isMainComment, setisMainComment] = useState<boolean>(comment.parent.path !== 'comments')
   const [reply, setReply] = useState(false)
   const [NC, setNC] = useState<Comments>()
@@ -60,6 +59,10 @@ const SingleCommentView = ({ comment, isLastChild}: SINGLECOMMENTPROPS) => {
             </div>
             <div className={`${style.bottom}`}>
               <div className={`${style.innerContent} flex-container`}>
+                { owner.role.level > 1 ? <div>
+                  <ButtonApp labelID={'btn.delete'} onClick={() => onDelete(comment.id)} type='button' buttonStyle='default' size='small' />
+                </div> : null}
+
                 {isMainComment ? (
                   <div className={style.replyButton}>
                     <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />

@@ -1,5 +1,5 @@
 import { FirebaseApp } from 'firebase/app';
-import { limit, onSnapshot, startAt, where ,Unsubscribe, getFirestore, addDoc, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter, QueryConstraint } from "firebase/firestore";
+import { limit, onSnapshot, startAt, where, Unsubscribe, getFirestore, addDoc, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter, QueryConstraint } from "firebase/firestore";
 import { cleanUndefined } from './utils'
 import FireFirebase from './firebase';
 import { on_cloud_firebase } from './config';
@@ -12,7 +12,7 @@ export class FireFirestore {
   private static instance: FireFirestore;
   private constructor(app: FirebaseApp) {
     this._db = getFirestore(app);
-    if (FireFirebase.emulatiorEnable  && !on_cloud_firebase) {
+    if (FireFirebase.emulatiorEnable && !on_cloud_firebase) {
       connectFirestoreEmulator(this._db, 'localhost', 8080);
     }
   }
@@ -25,30 +25,31 @@ export class FireFirestore {
   }
   private _collection = (collectionPath: string): CollectionReference => collection(this._db, collectionPath);
   private _doc = (collectionPath: string, docId: string): DocumentReference => doc(this._db, collectionPath, docId);
-  private _where = (wheres:Array<Array<any>>) => wheres.map( condition => where(condition[0], condition[1], condition[2]))
-  
-  public getCollectionDocs = async (collectionPath: string, lastSnap?: DocumentSnapshot, queryWhere?:Array<Array<string>>) => {
+  private _where = (wheres: Array<Array<any>>) => wheres.map(condition => where(condition[0], condition[1], condition[2]))
+
+  public getCollectionDocs = async (collectionPath: string, lastSnap?: DocumentSnapshot, queryWhere?: Array<Array<string>>, limitItems = 20) => {
     let documentSnapshots;
     try {
       const collection = this._collection(collectionPath);
-      let wheres:QueryConstraint[] = [];
-      if(queryWhere){
-          wheres = this._where(queryWhere); 
+      let wheres: QueryConstraint[] = [];
+      if (queryWhere) {
+        wheres = this._where(queryWhere);
       }
 
       if (!lastSnap) {
-        const firstQuery = query(collection, ...wheres ,orderBy("created_at", 'desc'),limit(20));
-        
+        const firstQuery = query(collection, ...wheres, orderBy("created_at", 'desc'), limit(limitItems));
+
         documentSnapshots = await getDocs(firstQuery);
       } else {
+
         const next = query(this._collection(collectionPath),
-          orderBy("created_at"),
+          ...wheres, 
+          orderBy("created_at", 'desc'),
           startAfter(lastSnap),
-          ...wheres,
-          limit(25));
+          limit(limitItems));
         documentSnapshots = await getDocs(next);
       }
-      
+
       return documentSnapshots.docs;
     } catch (error) {
       console.error(error)

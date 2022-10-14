@@ -13,6 +13,7 @@ import ButtonApp from 'components/ButtonApp'
 import dynamic from 'next/dynamic'
 
 import ListLessons from '../ListLessons'
+import Link from 'next/link'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
@@ -89,6 +90,11 @@ const CourseDetailView = ({
             <button onClick={()=>setDeleteCourse({ id: post.id, status: post.status })}>
               Eliminar
             </button>
+            <Link href={'#'}>
+              <a>
+                Gestionar responsables
+              </a>
+            </Link>
           </div>
         ) : null}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
