@@ -86,6 +86,8 @@ const CommentsListView = ({
 
   return (
     <div className={style.commentsList}>
+             {main && <CreateFormComment onCreate={(res: Comments) => onCreate(res)} />}
+
       {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
