@@ -22,7 +22,7 @@
 
 
   &.isOpen {
-    width: 300px;
+    width: 500px;
     transition: all 0.3s ease-in-out;
 
     .collapsableButton {
@@ -38,12 +38,15 @@
 
   .collapsableButton {
     position: absolute;
-    width: 20px;
-    height: auto;
+    width: 80px;
+    height: 100%;
     margin-bottom: 10px;
     z-index: 999;
-    left: 0;
+    left: 20px;
     background-color: colors.$palette8;
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
 
     @include devices.device(tablet) {
       background-color: transparent;
@@ -65,7 +68,9 @@
       writing-mode: vertical-rl;
       text-orientation: mixed;
       display: none;
-
+      color: colors.$dark;
+      font-size: 1rem;
+      margin-top: 20px;
 
       @include devices.device(tablet) {
         display: block;
@@ -85,8 +90,10 @@
     z-index: 900;
 
     &.isOpen {
-      width: 300px;
-      // transform: translate(200);
+      width: 500px;
+      transition: all 0.3s ease-in-out;
+
+      // transform: translate(500px);
     }
 
     @include devices.device(tablet) {
@@ -96,7 +103,7 @@
   }
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
+// @keyframes fadeIn {
+//   0% { opacity: 0; }
+//   100% { opacity: 1; }
+// }
