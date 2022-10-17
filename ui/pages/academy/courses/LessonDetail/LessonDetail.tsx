@@ -11,6 +11,7 @@ import ReadingProgressBar from 'components/ReadingProgressBar'
 import CommentsList from 'components/Comments'
 import CreateFormComment from 'components/Comments/components/CreateFormComment'
 import SidebarCollapsable from 'components/SidebarCollapsable'
+import ListLessons from '../ListLessons'
 
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
@@ -52,7 +53,7 @@ const LessonDetailView = ({
 }) => {
   const contentRef = useRef<any>();
 
-  const isCollapsed = (isOpen:boolean) => {
+  const isCollapsed = (isOpen: boolean) => {
     let bodyContainer = document.querySelector('body');
     // if (bodyContainer) {
     //   if (isOpen === true) {
@@ -76,12 +77,14 @@ const LessonDetailView = ({
           <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
-        
-        <CommentsList main={true}/>
+
+        <CommentsList main={true} />
       </div>
       <SidebarCollapsable isCollapsed={isCollapsed} label='LECCIONES'>
-        lista de lecciones
-              {/* <ListLessons lessons={post.lessons}></ListLessons> */}
+        <div className={style.lessonsSideBarContainer}>
+          <span className={style.title}>Lecciones</span>
+          <ListLessons lessons={post.lessons} listLessonsStyle={'sidebarLessons'}></ListLessons>
+        </div>
       </SidebarCollapsable>
     </div>
   )

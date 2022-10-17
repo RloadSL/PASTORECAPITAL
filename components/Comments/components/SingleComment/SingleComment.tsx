@@ -8,6 +8,8 @@ import { User } from 'domain/User/User'
 import dynamic from 'next/dynamic'
 import React, { Suspense, useEffect, useState } from 'react'
 import style from './SingleComment.module.scss'
+import iconReply from '../../../../assets/img/icons/reply-arrow.svg'
+import iconDelete from '../../../../assets/img/icons/trash.svg'
 
 const CreateFormComment = dynamic(
   () => import('../CreateFormComment'),
@@ -60,12 +62,12 @@ const SingleCommentView = ({ comment, isLastChild, onDelete}: SINGLECOMMENTPROPS
             <div className={`${style.bottom}`}>
               <div className={`${style.innerContent} flex-container`}>
                 { owner.role.level > 1 ? <div>
-                  <ButtonApp labelID={'btn.delete'} onClick={() => onDelete(comment.id)} type='button' buttonStyle='default' size='small' />
+                  <ButtonApp labelID={'btn.delete'} onClick={() => onDelete(comment.id)} type='button' buttonStyle='delete' size='small' icon={iconDelete}/>
                 </div> : null}
 
                 {isMainComment ? (
                   <div className={style.replyButton}>
-                    <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' />
+                    <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' icon={iconReply}/>
                   </div>) : null}
               </div>
               {reply ? (

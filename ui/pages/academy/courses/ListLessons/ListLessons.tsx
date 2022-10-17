@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+// import React from 'react'
 
 //Los estilos vienen de Wp
 
-const ListLessons = ({lessons}: { lessons: any[] }) => {
+const ListLessons = ({lessons, listLessonsStyle}: { lessons: any[], listLessonsStyle: any }) => {
   const router = useRouter();
 
   const _navigate = (slug:string, id: string)=>{
@@ -17,13 +17,12 @@ const ListLessons = ({lessons}: { lessons: any[] }) => {
     })
   }
 
-  
-  return <ListLessonsView navigate={_navigate} lessons={lessons} />
+  return <ListLessonsView navigate={_navigate} lessons={lessons} listLessonsStyle={listLessonsStyle}/>
 }
 
-const ListLessonsView = ({ lessons, navigate }: { lessons: any[], navigate:Function }) => {
+const ListLessonsView = ({ lessons, navigate, listLessonsStyle }: { lessons: any[], listLessonsStyle: any,navigate:Function }) => {
   return (
-    <div className='lessons' style={{padding: '2%'}}>
+    <div className={`lessons ${listLessonsStyle ? 'sidebarLessons' : ''}`} style={{padding: '2%'}}>
       <ul className='lessons-list'>
         {lessons.map((l, index) => {
           return (

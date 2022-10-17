@@ -3,20 +3,22 @@
 
 .drawerWrapper {
   background-color: colors.$grey20;
+  padding-top: 30px;
+
+  @include devices.device(lgScreen) {
+    padding-top: 80px;
+  }
 
   &.wrapperContainer {
     @include devices.device(mdScreen) {
-      padding-top: 80px;
       margin-left: 340px;
     }
   }
 
   &.wrapperLessons {
-
     @include devices.device(mdScreen) {
-      padding-top: 80px;
       margin-left: 340px;
-      margin-right: 12%;
+      margin-right: 5%;
     }
 
     @include devices.device(lgScreen) {
