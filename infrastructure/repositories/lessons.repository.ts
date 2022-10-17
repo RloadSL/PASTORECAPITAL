@@ -21,16 +21,19 @@ class LessonsRepositoryImpl {
     return LessonsRepositoryImpl.instance;
   }
 
-  create = async (course: { title: string, excerpt: string, courseCat?: number }, wpToken: string) => {
+  create = async (lesson: { title: string, excerpt: string, courseCat?: number }, wpToken: string) => {
     let primaryCat = await getCategoryAcademy('lessons', wpToken)
-    const {courseCat} = course;
-    delete course.courseCat;
+    const {courseCat} = lesson;
+    delete lesson.courseCat;
     const arg = {
-      ...course,
+      ...lesson,
       status: 'private',
       content: '<p>Contenido de la lección aquí....</p>',
       categories: [courseCat, primaryCat],
+      parent_category_id: courseCat
+
     }
+   
     const res = await HTTP.post(WP_API_POST, arg, { Authorization: `Bearer ${wpToken}` })
     if (res.data.id) {
       return new Post({ ...res.data, wpID: res.data.id });
@@ -42,7 +45,6 @@ class LessonsRepositoryImpl {
   async read(id: string): Promise<Post | undefined> {
     try {
     const res = await HTTP.get(`${WP_API_POST}/${id}`);
-    console.log('async read',res);
     if(res) return new Post(res);
     else return undefined
   } catch (error) {

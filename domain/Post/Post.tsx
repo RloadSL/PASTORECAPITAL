@@ -36,6 +36,11 @@ export class Post {
     return this._excerpt
   }
 
+  private _lessons?: WpTerm[]
+  public get lessons (): WpTerm[] | undefined {
+    return this._lessons
+  }
+
   private _thumbnail_url: string
   public get thumbnail_url (): string {
     return this._thumbnail_url
@@ -88,6 +93,7 @@ export class Post {
     this._slug = courseData.slug
     this._title = courseData.title
     this._created_at = new Date(courseData.date)
+    this._lessons = courseData.lessons
   }
 
   public toJson = (): PostDto => ({
@@ -100,6 +106,7 @@ export class Post {
     date: this._created_at,
     content: this._content,
     thumbnail_url: this._thumbnail_url,
-    tags: this._tags
+    tags: this._tags,
+    lessons : this._lessons
   })
 }
