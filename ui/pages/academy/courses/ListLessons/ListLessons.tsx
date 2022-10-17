@@ -6,13 +6,14 @@ import React from 'react'
 const ListLessons = ({lessons}: { lessons: any[] }) => {
   const router = useRouter();
 
-  const _navigate = (slug:string, id: string)=>{
+  const _navigate = (slug:string, id: string, lesson_title: string)=>{
     const route = router.asPath.split('?')[0]+slug;
     router.push({
       pathname: route,
       query: {
         ...router.query,
-        lessonId: id
+        lesson_id: id,
+        lesson_title
       }  
     })
   }
@@ -22,6 +23,7 @@ const ListLessons = ({lessons}: { lessons: any[] }) => {
 }
 
 const ListLessonsView = ({ lessons, navigate }: { lessons: any[], navigate:Function }) => {
+  console.log(lessons)
   return (
     <div className='lessons' style={{padding: '2%'}}>
       <ul className='lessons-list'>
@@ -33,7 +35,7 @@ const ListLessonsView = ({ lessons, navigate }: { lessons: any[], navigate:Funct
                   <div className='lesson-number'>
                     <span>{l.lesson_number}</span>
                   </div>
-                  <div onClick={ () => navigate(l.slug, l.id)}>
+                  <div onClick={ () => navigate(l.slug, l.id, l.title)}>
                     <a>{l.title}</a>
                   </div>
                 </div>

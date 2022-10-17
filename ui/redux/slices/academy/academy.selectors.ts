@@ -11,5 +11,5 @@ import { ErrorApp } from "domain/ErrorApp/ErrorApp";
  */
   export const loadingStore = (store:any):boolean => store.academy.loading
 
-  export const coursesStore = (store:any):Course[] => store.academy.posts
-  export const privateCoursesStore = (store:any):Course[] => store.academy.privatePosts
+  export const postsStore = (store:any):Course[] => store.academy.posts
+  export const privatePostStore = (store:any):Course[] => store.academy.privatePosts

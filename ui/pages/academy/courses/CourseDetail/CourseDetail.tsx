@@ -55,9 +55,7 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
       post={post}
       editLink={editLink(loggedUser?.wpToken)}
     />
-  ) : (
-    <Custom404></Custom404>
-  )
+  ) : <></>
 }
 
 const CourseDetailView = ({

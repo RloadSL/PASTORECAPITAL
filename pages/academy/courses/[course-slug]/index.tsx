@@ -3,8 +3,8 @@ import { CourseRepositoryInstance } from "infrastructure/repositories/courses.re
 import CourseDetail from "ui/pages/academy/courses/CourseDetail/CourseDetail";
 
 CourseDetail.getInitialProps = async (ctx) => {
-const {courseId}:any = ctx.query;  
-const res = await CourseRepositoryInstance.read(courseId)
+const {post_id}:any = ctx.query;  
+const res = await CourseRepositoryInstance.read(post_id)
   if(res){
     return {post : res?.toJson()}
   }

@@ -85,6 +85,10 @@
   "page.academy.lesson.form.addReply.placeholder" : "Escribe tu respuesta",
   "page.academy.lesson.form.addComment.placeholder" : "Escribe un comentario",
 
+  "page.academy.tutorials.form.create.title" : "Título del tutorial",
+  "page.academy.tutorials.form.create.excerpt" : "Resumen del tutorial",
+  "page.academy.tutorials.form.create.submit" : "Crear tutorial",
+  "page.academy.tutorials.form.create.excerpt.helper" : "Resumen corto del tutorial. Máximo 300 caracteres",
   
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",

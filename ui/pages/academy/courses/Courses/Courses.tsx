@@ -22,7 +22,7 @@ const CreateForm = dynamic(() => import('./components/CreateForm'), {
 
 const Courses = ({ }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const [filters, setFilters] = useState({search: '', catLevel: undefined, tags: undefined})
+  const [filters, setFilters] = useState({search: '', categories: undefined, tags: undefined})
   const userLogged = useSelector(getUserLogged)
   const refLoadMore = useRef()
   let isAdmin: boolean = true
@@ -48,7 +48,7 @@ const Courses = ({ }) => {
     if (userLogged?.wpToken) getCourses(filters, userLogged?.wpToken)
   }, [userLogged?.wpToken, filters])
 
-  const getCourses = async (filters:{search: string, catLevel: any, tags: any}, wpToken?:string) => {
+  const getCourses = async (filters:{search: string, categories: any, tags: any}, wpToken?:string) => {
     await dispatch(academyGetCurses({ wpToken: wpToken, filters: filters }))
   }
 
@@ -79,7 +79,7 @@ const CourseView = ({
         </div>
         <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/>
       </header>
-      <PostGrid deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
+      <PostGrid onClickItemTarget='/academy/courses/' deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
       <div ref={refLoadMore} id='loadMore'></div>
       {create && (
         <Suspense>

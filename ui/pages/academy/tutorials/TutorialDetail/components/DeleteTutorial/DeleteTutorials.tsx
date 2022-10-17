@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeAcademyPost } from 'ui/redux/slices/academy/academy.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
-import style from './DeleteCourse.module.scss'
+import style from './DeleteTutorial.module.scss'
 
-const DeleteCourse = ({
+const DeleteTutorial = ({
   data,
   onClose
 }: {
@@ -73,4 +73,4 @@ const DeleteCourseView  = ({
   )
 }
 
-export default DeleteCourse
+export default DeleteTutorial

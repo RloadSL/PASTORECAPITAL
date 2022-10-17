@@ -1,7 +1,7 @@
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
 import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
-import style from './FilterCourse.module.scss'
+import style from './FilterTutorials.module.scss'
 import searchIcon from '../../../../../../../assets/img/icons/glass.svg'
 import React, { useEffect, useState } from 'react'
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
@@ -9,10 +9,12 @@ import { debounce } from 'lodash'
 import { getTagsFromServer } from 'infrastructure/wordpress/wp.utils'
 import Card from 'components/Card'
 
-const FilterCourse = ({ onFilter }: any) => {
-  const [levels, setlevels] = useState([])
+const FilterTutorials = ({ onFilter }: any) => {
+  //const [levels, setlevels] = useState([])
   const [tags, setTags] = useState([])
-  useEffect(() => {
+
+  //Levels
+  /* useEffect(() => {
     let fetching = true
     getLevels()
       .then(res => {
@@ -20,16 +22,16 @@ const FilterCourse = ({ onFilter }: any) => {
       })
       .catch(() => {
         console.error('Error interno refrescar la página. Para obtener los niveles')
-      })
+      }) 
     return () => {
       fetching = false
     }
-  }, [])
+  }, []) */
   
-  const getLevels = async () => {
+  /*  const getLevels = async () => {
     const response = await CourseRepositoryInstance.readLevelsCategoriesFromWp()
     return response
-  }
+  } */
 
   const getTags = async (tags: string) => {
     const res = await getTagsFromServer(tags)
@@ -44,14 +46,13 @@ const FilterCourse = ({ onFilter }: any) => {
       if (value.search?.trim()[0] === '#') {
         getTags(value.search)
       } else {
-        console.log(value)
         onFilter({...value, tags: value.tags})
       }
     }, 300)
   ).current
 
   return (
-    <FilterCourseView tags={tags} levels={levels} onFilter={_handleFilter} />
+    <FilterCourseView tags={tags} levels={[]} onFilter={_handleFilter} />
   )
 }
 
@@ -82,18 +83,18 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
               type='text'
             />
           </div>
-          <div className={style.flexItemsSelect}>
+          {/* <div className={style.flexItemsSelect}>
             <div className={style.filterLevelItem}>
               <SelectApp
                 onChange={(name: string, value: any) =>
-                  _handleOnChange({ [name]: value.id })
+                  _handleOnChange({ [name]: value })
                 }
                 selectOptions={levels}
                 labelID={'page.academy.courses.filterLevel.label'}
                 name={'categories'}
               />
             </div>
-          </div>
+          </div> */}
           <input hidden type='submit'></input>
         </div>
       </FormApp>
@@ -119,4 +120,4 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
   )
 }
 
-export default FilterCourse
+export default FilterTutorials

@@ -20,6 +20,8 @@ const Breadcrumbs = () => {
   }
 
   const addCrumb = useCallback(() => {
+    console.log(router.query)
+
     if(router.route === '/') return [
       {
         labelId: '',
@@ -29,9 +31,10 @@ const Breadcrumbs = () => {
 
     let crumbs: any = []
     for (let crumb of router.route.split('/')) {
+      
       let obj = {
         labelId: crumb,
-        url: `/${constructUrl(crumb)}`
+        url: {pathname: `/${constructUrl(crumb)}`, query: router.query}
       }
       crumbs = [...crumbs, obj]
     }
@@ -39,20 +42,26 @@ const Breadcrumbs = () => {
     return crumbs
   }, [])
 
+  const dynamic_titles = {
+    'course-slug': router.query.post_title,
+    'lesson-slug': router.query.lesson_title,
+    'tutorial-slug' : router.query.post_title
+  }
 
-  
-  return <BreadcrumbsView crumbs={addCrumb()} title={router.query.courseTitle}/>
+  return <BreadcrumbsView crumbs={addCrumb()} title={dynamic_titles}/>
 }
 
 const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: string}>, title?:any}) =>{
-  const dynamicRoutes = ['[slug]' , '[lesson]']
+  
+  
   const renderLabel  = (labelId:string) => {
-    if(!dynamicRoutes.includes(labelId)){
-      return (<FormattedMessage
-                id={labelId === '' ? 'home' : labelId}
-              />)
+    labelId = labelId.replace('[', '').replace(']', '');
+    if(title[labelId]){
+      return title[labelId];
     }else{
-      return title;
+      return (<FormattedMessage
+        id={labelId === '' ? 'home' : labelId}
+      />)
     }
   }
   

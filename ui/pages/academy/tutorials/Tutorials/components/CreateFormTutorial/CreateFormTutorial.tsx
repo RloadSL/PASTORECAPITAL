@@ -3,7 +3,7 @@ import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.re
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
-import style from './CreateForm.module.scss'
+import style from './CreateFormTutorial.module.scss'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
 import FormApp from 'components/FormApp'
@@ -19,14 +19,12 @@ import descriptionIcon from '../../../../../../../assets/img/icons/edit.svg'
 import TextareaApp from 'components/FormApp/components/TextareaApp'
 import Loading from 'components/Loading'
 import { AppDispatch } from 'ui/redux/store'
-import { addAcademyPrivatePost, addAcedemyPrivateCourse } from 'ui/redux/slices/academy/academy.slice'
+import { TutorialRepositoryInstance } from 'infrastructure/repositories/tutorials.repository'
+import { Post } from 'domain/Post/Post'
+import { addAcademyPrivatePost } from 'ui/redux/slices/academy/academy.slice'
 
-const courseDataTest: any = {
-  title: 'Prueba de pagina de curso',
-  excerpt: 'Esta es el comentario breve de la pagina'
-}
 
-const CreateForm = ({ onClose }: { onClose: Function }) => {
+const CreateFormTutorial = ({ onClose }: { onClose: Function }) => {
   const dispatch = useDispatch<AppDispatch>()
   const intl = useIntl()
   const { pushErrorsApp } = useSystem()
@@ -57,7 +55,7 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
   const createCourses = async (data: any): Promise<any> => {
     setloading(true)
     if (userLogged.wpToken) {
-      const response = await CourseRepositoryInstance.create(
+      const response = await TutorialRepositoryInstance.create(
         {
           ...data,
           created_by: { username: userLogged.email, uid: userLogged.uid }
@@ -68,9 +66,10 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
       } else {
-        dispatch(addAcedemyPrivateCourse(response));
+        dispatch(addAcademyPrivatePost(response));
+        const post = response as Post 
         window.open(
-          `${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`
+          `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${userLogged.wpToken}`
         )
         onClose()
       }
@@ -94,10 +93,6 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
         excerpt: yup
           .string()
-          .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
-        level: yup
-          .object()
-          .nullable()
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
       }),
     [intl]
@@ -132,7 +127,7 @@ const CreateFormView = ({
         <div className={style.cardContainer}>
           <div className={style.header}>
             <h3 className={style.formTitle}>
-              <FormattedMessage id='page.academy.courses.create.title'></FormattedMessage>
+              <FormattedMessage id='page.academy.tutorials.form.create.title'></FormattedMessage>
             </h3>
           </div>
           <FormApp
@@ -145,23 +140,18 @@ const CreateFormView = ({
             onSubmit={(values: any) => createCourses(values)}
           >
             <InputApp
-              labelID='page.academy.courses.form.create.title'
+              labelID='page.academy.tutorials.form.create.title'
               type='text'
               name='title'
               icon={fileIcon}
             />
             <TextareaApp
-              labelID='page.academy.courses.form.create.excerpt'
+              labelID='page.academy.tutorials.form.create.excerpt'
               name='excerpt'
-              helper={'page.academy.courses.form.create.excerpt.helper'}
+              helper={'page.academy.tutorials.form.create.excerpt.helper'}
               icon={descriptionIcon}
             />
-            <SelectApp
-              labelID='page.academy.courses.form.create.level'
-              selectOptions={levels}
-              name='level'
-              icon={fileIcon}
-            />
+           
             <div style={{ marginTop: '20px', maxWidth: '300px', margin:'auto' }}>
               <ButtonApp
                 buttonStyle='secondary'
@@ -176,4 +166,4 @@ const CreateFormView = ({
   )
 }
 
-export default CreateForm
+export default CreateFormTutorial
