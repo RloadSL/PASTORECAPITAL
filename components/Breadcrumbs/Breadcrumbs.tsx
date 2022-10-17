@@ -57,7 +57,7 @@ const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: s
   }
   
   return (
-    <div>
+    <div className={style.breadcrumbsContainer}>
       {crumbs.map((item: any, index: any) => {
         return (
           crumbs.length !== index+1 ? <Link

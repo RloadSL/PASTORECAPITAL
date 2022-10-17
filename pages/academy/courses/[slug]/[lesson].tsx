@@ -6,6 +6,7 @@ LessonDetail.getInitialProps = async (ctx) => {
   
   const res = await LessonRepositoryInstance.read(lessonId)
     if(res){
+      console.log(res)
       return {post : res?.toJson()}
     }
     return { post : null }

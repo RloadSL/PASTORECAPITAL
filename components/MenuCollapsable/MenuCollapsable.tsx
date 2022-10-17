@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import style from './SideCollapsable.module.scss'
+import style from './MenuCollapsable.module.scss'
 
 interface DRAWERMENUPROPS {
   children:any,
   isCollapsed: any
 }
 
-const SideCollapsable = ({children, isCollapsed}: DRAWERMENUPROPS) => {
+const MenuCollapsable = ({children, isCollapsed}: DRAWERMENUPROPS) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -29,4 +29,4 @@ const SideCollapsable = ({children, isCollapsed}: DRAWERMENUPROPS) => {
   )
 }
 
-export default SideCollapsable;
+export default MenuCollapsable;
