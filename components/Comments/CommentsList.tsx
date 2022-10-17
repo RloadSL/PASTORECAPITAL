@@ -69,9 +69,14 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
 
   const _onDelete = useCallback(async (cId: string) => {
     await CommentsImplInstance.deleteComments(cId)
-    const deleted = commentsList.findIndex(item => item.id === cId)
-    commentsList.splice(deleted, 1)
-    setcommentsList([...commentsList])
+    setcommentsList((pre) => {
+      const deleted = pre.findIndex(item => item.id === cId)
+      if(deleted != -1) pre.splice(deleted, 1)
+      return [...pre];
+    })
+    
+   
+    
   }, [])
 
   return (
