@@ -25,10 +25,9 @@ const DrawerView = ({ children }: any) => {
     <div className={style.drawer}>
       <div className={visible() ? style.grid : ''}>
         {visible() && <DrawerNav />}
-        <DrawerContent navbar={visible()}>
+        <DrawerContent navbar={visible()} routerPath={router.route}>
           {children}
         </DrawerContent>
-
       </div>
     </div>
   )
