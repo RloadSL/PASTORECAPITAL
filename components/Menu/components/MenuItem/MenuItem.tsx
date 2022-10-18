@@ -46,7 +46,7 @@ const MenuItemView = ({ item, activeItem }: MENUITEMPROPS) => {
 
   const renderLink = (itemChildren?: any) => {
     const data = itemChildren ? itemChildren : item;
-    return (<LinkApp key={data.label} label={data.label} linkHref={data.href} icon={data.icon} />)
+    return (<LinkApp key={data.label} label={data.label} linkHref={data.href} icon={data.icon} target={'_self'} />)
   }
 
   return (

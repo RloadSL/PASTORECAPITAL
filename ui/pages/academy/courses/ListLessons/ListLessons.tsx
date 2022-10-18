@@ -1,46 +1,48 @@
 import { useRouter } from 'next/router'
-// import React from 'react'
+import style from './ListLessons.module.scss'
+interface LISTLESSONSPROPS {
+  lessons: Array<any>
+  listLessonsStyle?: any
+}
 
-//Los estilos vienen de Wp
-
-const ListLessons = ({lessons, listLessonsStyle}: { lessons: any[], listLessonsStyle: any }) => {
+const ListLessons = ({ lessons, listLessonsStyle }: LISTLESSONSPROPS) => {
   const router = useRouter();
 
-  const _navigate = (slug:string, id: string, lesson_title: string)=>{
-    const route = router.asPath.split('?')[0]+slug;
+  const _navigate = (slug: string, id: string, lesson_title: string) => {
+    const route = router.asPath.split('?')[0] + slug;
     router.push({
       pathname: route,
       query: {
         ...router.query,
         lesson_id: id,
         lesson_title
-      }  
+      }
     })
   }
 
-  return <ListLessonsView navigate={_navigate} lessons={lessons} listLessonsStyle={listLessonsStyle}/>
+  return <ListLessonsView navigate={_navigate} lessons={lessons} listLessonsStyle={listLessonsStyle} />
 }
 
-const ListLessonsView = ({ lessons, navigate, listLessonsStyle }: { lessons: any[], listLessonsStyle: any,navigate:Function }) => {
+const ListLessonsView = ({ lessons, navigate, listLessonsStyle }: { lessons: any[], listLessonsStyle: any, navigate: Function }) => {
   return (
-    <div className={`lessons ${listLessonsStyle ? 'sidebarLessons' : ''}`} style={{padding: '2%'}}>
-      <ul className='lessons-list'>
+    <div className={`${style.lessons} ${listLessonsStyle ? style.sidebarLessons : ''}`} style={{ padding: '2%' }}>
+      <ul className={style.lessonsList}>
         {lessons.map((l, index) => {
           return (
             <li key={index.toString()} id={`post-${l.id}`}>
-              <div className='list-link-container flex-container space-between align-center'>
-                <div className='entry-title'>
-                  <div className='lesson-number'>
+              <div className={`flex-container space-between align-center ${style.listLinkContainer}`}>
+                <div className={style.entryTitle}>
+                  <div className={style.lessonNumber}>
                     <span>{l.lesson_number}</span>
                   </div>
-                  <div onClick={ () => navigate(l.slug, l.id, l.title)}>
-                    <a>{l.title}</a>
-                  </div>
+                  <a onClick={() => navigate(l.slug, l.id, l.title)}>
+                    <span>{l.title}</span>
+                  </a>
                 </div>
-                <div>
+                <div className={style.downloadResources}>
                   {l.files && (
                     <a
-                      className='download-resources'
+                      className={style.downloadFilesButton}
                       href={l.files}
                       target='_blank'
                       rel='noopener noreferrer'

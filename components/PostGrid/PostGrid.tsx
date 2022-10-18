@@ -118,8 +118,7 @@ const PostGridView = ({
 
   return (
     <div style={{ position: 'relative' }}>
-      <ul className={style.postGrid}>
-        {wpToken ? <li>{itemCreateBtn()}</li> : null}
+     
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
           hasMore={true}
@@ -127,7 +126,8 @@ const PostGridView = ({
           next={() => {
             console.log('Load More')
           }}
-        >
+        > <ul className={style.postGrid}>
+        {wpToken ? <li>{itemCreateBtn()}</li> : null}
           {gridItems.map((item, index) => {
             return (
               <li key={index} className={style.postLink}>
@@ -149,9 +149,9 @@ const PostGridView = ({
                 </div>
               </li>
             )
-          })}
+          })} </ul>
         </InfiniteScroll>
-      </ul>
+     
       
     </div>
   )

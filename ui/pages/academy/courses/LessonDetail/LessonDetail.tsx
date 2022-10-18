@@ -12,12 +12,15 @@ import CommentsList from 'components/Comments'
 import CreateFormComment from 'components/Comments/components/CreateFormComment'
 import SidebarCollapsable from 'components/SidebarCollapsable'
 import ListLessons from '../ListLessons'
+import ButtonApp from 'components/ButtonApp'
+import iconDelete from '../../../../../assets/img/icons/trash.svg'
+import iconEdit from '../../../../../assets/img/icons/pencil.svg'
+import LinkApp from 'components/LinkApp'
 
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
-  console.log(post)
   /*  useEffect(() => {
      window.addEventListener('contextmenu', function (e) { 
        // do something here... 
@@ -31,7 +34,7 @@ const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   }
 
   return <LessonDetailView
-    courseTitle={router.query.courseTitle as string}
+    courseTitle={router.query.post_title as string}
     ispublisherized={loggedUser?.wpToken != null}
     post={post}
     editLink={editLink(loggedUser?.wpToken)}
@@ -53,24 +56,13 @@ const LessonDetailView = ({
 }) => {
   const contentRef = useRef<any>();
 
-  const isCollapsed = (isOpen: boolean) => {
-    let bodyContainer = document.querySelector('body');
-    // if (bodyContainer) {
-    //   if (isOpen === true) {
-    //     bodyContainer.style.overflow = 'hidden';
-    //   } else {
-    //     bodyContainer.style.overflow = 'auto';
-    //   }
-    // }
-  }
-
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
-        <div>
-          {editLink ? (<a href={editLink} rel='noreferrer' target='_blank'>Editar</a>) : null}
-          {editLink ? (<button>Eliminar</button>) : null}
+        <div className={style.adminButtonsContainer}>
+          {editLink ? (<LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />) : null}
+          {editLink ? (<ButtonApp labelID={'btn.delete'} onClick={() => ()=> console.log('borrar')} type='button' buttonStyle='delete' size='small' icon={iconDelete}/>) : null}
         </div>
         <div>
           <p className='small-caps'>{courseTitle}</p>
@@ -80,7 +72,7 @@ const LessonDetailView = ({
 
         <CommentsList main={true} />
       </div>
-      <SidebarCollapsable isCollapsed={isCollapsed} label='LECCIONES'>
+      <SidebarCollapsable label='LECCIONES'>
         <div className={style.lessonsSideBarContainer}>
           <span className={style.title}>Lecciones</span>
           <ListLessons lessons={post.lessons} listLessonsStyle={'sidebarLessons'}></ListLessons>
