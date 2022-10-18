@@ -35,7 +35,7 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
       comment: comment,
       created_at: new Date(),
       parent: {
-        id: parent?.id || router.query.lessonId?.toString(),
+        id: parent?.id || router.query.lesson_id?.toString(),
         path: parent?.path || 'lessons'
       },
       owner: userLoggued.uid,

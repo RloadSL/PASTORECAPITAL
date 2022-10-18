@@ -45,7 +45,7 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
 
   const getComments = async () => {
     const response = await CommentsImplInstance.getComments(
-      { id: parent?.id || (router.query.lessonId as string) },
+      { id: parent?.id || (router.query.lesson_id as string) },
       lastSnapshot
     )
     return response
@@ -82,7 +82,7 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
   return (
     <CommentsListView
       parent={{
-        id: parent?.id || (router.query.lessonId as string),
+        id: parent?.id || (router.query.lesson_id as string),
         path: parent?.path
       }}
       commentsList={commentsList}

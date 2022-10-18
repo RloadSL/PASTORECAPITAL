@@ -2,9 +2,9 @@ import { LessonRepositoryInstance } from "infrastructure/repositories/lessons.re
 import LessonDetail from "ui/pages/academy/courses/LessonDetail/LessonDetail";
 
 LessonDetail.getInitialProps = async (ctx) => {
-  const {lessonId}:any = ctx.query;  
+  const {lesson_id}:any = ctx.query;  
   
-  const res = await LessonRepositoryInstance.read(lessonId)
+  const res = await LessonRepositoryInstance.read(lesson_id)
     if(res){
       console.log(res)
       return {post : res?.toJson()}

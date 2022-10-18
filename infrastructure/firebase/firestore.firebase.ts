@@ -52,8 +52,8 @@ export class FireFirestore {
 
       return documentSnapshots.docs;
     } catch (error) {
-      console.error(error)
-      alert('Internal error firebase')
+      console.error('getCollectionDocs', error)
+      alert('getCollectionDocs Internal error firebase')
     }
 
   }
