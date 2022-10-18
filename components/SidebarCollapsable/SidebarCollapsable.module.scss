@@ -20,12 +20,13 @@
     top: 0px;
   }
 
-
   &.isOpen {
     width: 500px;
     transition: all 0.3s ease-in-out;
 
     .collapsableButton {
+      height: auto;
+
       &::before {
         transform: rotate(180deg);
       }
@@ -71,6 +72,7 @@
       color: colors.$dark;
       font-size: 1rem;
       margin-top: 20px;
+      letter-spacing: 2px;
 
       @include devices.device(tablet) {
         display: block;

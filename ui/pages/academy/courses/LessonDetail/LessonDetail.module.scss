@@ -1,7 +1,8 @@
 @use '../../../../../styles/partials/placeholders';
 @use '../../../../../styles/partials/mixins/devices' as devices;
-@import url('https://rload.es/pastoreheadless/wp-content/themes/generatepress_child/style.css');
-// @import url('http://localhost:8888/platform/wp-content/themes/generatepress_child/style.css');
+@use '../../../../../styles/partials/variables/colors' as colors;
+//@import url('https://rload.es/pastoreheadless/wp-content/themes/generatepress_child/style.css');
+@import url('http://localhost:8888/platform/wp-content/themes/generatepress_child/style.css');
 
 
 .lessonPage {
@@ -14,6 +15,19 @@
 
     @include devices.device(lgScreen) {
       padding-right: 2%;
+    }
+  }
+
+  .lessonsSideBarContainer {
+    margin-top: 220px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .title {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: colors.$dark;
+      margin-left: 12px;
     }
   }
  }
