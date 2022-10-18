@@ -4,7 +4,7 @@ import PostGrid from 'components/PostGrid'
 import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { academyGetCurses } from 'ui/redux/slices/academy/academy.slice'
+import { academyGetCurses, cleanAcademyPosts } from 'ui/redux/slices/academy/academy.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import DeleteCourse from './components/DeleteCourse'
@@ -24,49 +24,55 @@ const Courses = ({ }) => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({search: '', categories: undefined, tags: undefined})
   const userLogged = useSelector(getUserLogged)
-  const refLoadMore = useRef()
+
   let isAdmin: boolean = true
-  
-  /* useEffect(() => {
-    const onChange: any = (entries: any) => {
-      if (entries[0].isIntersecting) {
-        getCourses(filters)
-      }
+  const [statePost, setStatePost] = useState<'public' | 'private'> ('public')
+
+  useEffect(() => {
+    console.log('REENDER')
+    dispatch(cleanAcademyPosts({})) 
+    if(statePost === 'public'){
+      getCourses(filters, undefined)
+    }else{
+      if (userLogged?.wpToken) getCourses(filters, userLogged?.wpToken)
     }
-    const observer = new IntersectionObserver(onChange, {
-      rootMargin: '100px'
-    })
+   
+ }, [filters, statePost])
 
-    observer.observe((refLoadMore.current as unknown) as Element)
-  }, [filters]) */
+ const _loadMore = (offset:number)=>{
+  console.log('_loadMore', offset)
+  if(statePost === 'public'){
+    getCourses(filters, undefined, offset)
+  }else{
+    if (userLogged?.wpToken) getCourses(filters, userLogged?.wpToken,  offset)
+  }
+ }
 
-  useEffect(() => {
-     getCourses(filters, undefined)
-  }, [filters])
+  
 
-  useEffect(() => {
-    if (userLogged?.wpToken) getCourses(filters, userLogged?.wpToken)
-  }, [userLogged?.wpToken, filters])
-
-  const getCourses = async (filters:{search: string, categories: any, tags: any}, wpToken?:string) => {
-    await dispatch(academyGetCurses({ wpToken: wpToken, filters: filters }))
+  const getCourses = async (filters:{search: string, categories: any, tags: any}, wpToken?:string, offset?:number) => {
+    await dispatch(academyGetCurses({ wpToken, filters , offset}))
   }
 
   const _filter = (value: any)=>{
     setFilters( pre => ({...pre, ...value}))
   }
 
-  return <CourseView onFilter={(value: {search?: string, catLevel?: string, tags?: string})=> _filter(value)} userType={isAdmin} refLoadMore={refLoadMore} />
+  return <CourseView statePost={statePost} setStatePost={(state:"public" | "private")=>setStatePost(state)} loadMore={_loadMore} onFilter={(value: {search?: string, catLevel?: string, tags?: string})=> _filter(value)} userType={isAdmin}  />
 }
 
 const CourseView = ({
-  refLoadMore,
   userType,
-  onFilter
+  onFilter,
+  setStatePost,
+  statePost,
+  loadMore
 }: {
-  refLoadMore: any
   userType: boolean,
-  onFilter: Function
+  onFilter: Function,
+  setStatePost: Function
+  statePost:'public' | 'private',
+  loadMore:Function
 }) => {
   const [create, setCreate] = useState(false)
   const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState(null)
@@ -79,11 +85,11 @@ const CourseView = ({
         </div>
         <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/>
       </header>
-      <PostGrid onClickItemTarget='/academy/courses/' deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
-      <div ref={refLoadMore} id='loadMore'></div>
+      <PostGrid loadMore={loadMore} statePost={statePost} setStatePost={(state:"public" | "private")=>setStatePost(state)} onClickItemTarget='/academy/courses/' deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
+      
       {create && (
         <Suspense>
-          <CreateForm onClose={() => setCreate(false)}></CreateForm>
+          <CreateForm onClose={() =>  {setCreate(false); setStatePost('private')}}></CreateForm>
         </Suspense>
       )}
       {deleteCourse && (

@@ -11,13 +11,8 @@ export const academyGetCurses = createAsyncThunk(
   'academy@getCurses',
   async ({ offset, filters, wpToken }: { offset?: number, filters?: any, wpToken?: string }, { getState }) => {
     try {
-      const { academy } = getState() as any;
-      if (!offset) {
-        offset = academy.courses ? academy.courses.length : 0
-      }
-
       const response = await CourseRepositoryInstance.readFromWp(offset, filters, wpToken)
-      return academy.courses ? { courses: [...academy.courses, ...response], private: wpToken != null } : { courses: response, private: wpToken != null };
+      return { courses: response, offset}; 
 
     } catch (error) {
       return error;
@@ -72,8 +67,12 @@ export const academySlice = createSlice({
     builder
       //CURSOS
       .addCase(academyGetCurses.fulfilled, (state: any, action: any) => {
-        if (!action.payload.private) state.posts = action.payload.courses as Course[];
-        else state.privatePosts = action.payload.courses as Course[];
+        if(state.posts && action.payload.offset){
+          state.posts.items = state.posts.items.concat(action.payload.courses)
+        }else{
+          state.posts.items = action.payload.courses
+        }
+        state.posts.hasMore = action.payload.courses.length === 5;
         state.loading = false
       })
       .addCase(academyGetCurses.pending, (state: any) => { 

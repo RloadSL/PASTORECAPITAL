@@ -20,7 +20,7 @@ const Tutorials = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({search: '', categories: '', tags: undefined})
   const userLogged = useSelector(getUserLogged)
-  const [page, setPage] = useState(1);
+  
   const [statePost, setStatePost] = useState<'public' | 'private'> ('public')
 
   useEffect(() => {

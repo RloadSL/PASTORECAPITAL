@@ -123,7 +123,6 @@ const PostGridView = ({
       </button>
     )
   }
-  console.log(posts)
   return (
     <div style={{ position: 'relative' }}>
       <ButtonApp
