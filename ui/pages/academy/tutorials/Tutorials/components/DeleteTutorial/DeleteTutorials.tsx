@@ -27,7 +27,7 @@ const DeleteTutorial = ({
   const onDelete = async () => {
     setloading(true)
     if(wpToken){
-      //await TutorialRepositoryInstance.delete(data.id, wpToken);
+      await TutorialRepositoryInstance.delete(data.id, wpToken);
       dispatch(removeAcademyPost(data))
       onClose()
     }

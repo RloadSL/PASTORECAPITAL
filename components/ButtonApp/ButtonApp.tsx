@@ -23,7 +23,6 @@ interface BUTTONPROPS {
  */
 
 const ButtonApp = ({ labelID, onClick, icon, buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
-  console.log(style[buttonStyle])
   return (
     <button type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${style[buttonStyle]} ${style[size]}`} onClick={() => { if (onClick) onClick() }}>
       <FormattedMessage id={labelID} />

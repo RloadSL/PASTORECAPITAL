@@ -28,14 +28,13 @@ const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
      }, false);
    }, []) */
 
-
   const editLink = (token?: string) => {
     return token ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}` : undefined;
   }
 
   return <LessonDetailView
     courseTitle={router.query.post_title as string}
-    ispublisherized={loggedUser?.wpToken != null}
+    current_lesson={ parseInt(router.query.current_lesson as string)}
     post={post}
     editLink={editLink(loggedUser?.wpToken)}
   />
@@ -44,18 +43,20 @@ const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
 const LessonDetailView = ({
   post,
   courseTitle,
-  ispublisherized,
   editLink,
-
+  current_lesson
 }: {
   post: any
-  ispublisherized: boolean
-  editLink?: string,
+  editLink?: string
+  current_lesson: number
   courseTitle: string
-
 }) => {
   const contentRef = useRef<any>();
 
+  const renderPaginator = (current_lesson:number)=>{
+    
+  }
+  
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <ReadingProgressBar target={contentRef} />
@@ -72,10 +73,10 @@ const LessonDetailView = ({
 
         <CommentsList main={true} />
       </div>
-      <SidebarCollapsable label='LECCIONES'>
+      <SidebarCollapsable isCollapsed={true} label='LECCIONES'>
         <div className={style.lessonsSideBarContainer}>
           <span className={style.title}>Lecciones</span>
-          <ListLessons lessons={post.lessons} listLessonsStyle={'sidebarLessons'}></ListLessons>
+          <ListLessons formLessonDetail={true} lessons={post.lessons} listLessonsStyle={'sidebarLessons'}></ListLessons>
         </div>
       </SidebarCollapsable>
     </div>

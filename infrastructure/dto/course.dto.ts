@@ -1,6 +1,6 @@
 export interface PostDto {
   id: number,
-  categories:WpCat[],
+  categories: WpCat[],
   tags: WpTerm[],
   lessons?: any[],
   status: string,
@@ -8,8 +8,8 @@ export interface PostDto {
     rendered: string,
     raw: string
   },
-  thumbnail_url:string,
-  content? : {
+  thumbnail_url: string,
+  content?: {
     rendered: string,
     raw: string
   },
@@ -21,17 +21,19 @@ export interface PostDto {
   /**
    * ISO Date convertir a new Date
    */
-  date: string | Date
+  date: string | Date
 }
 
-export interface WpCat{
-  name: 'Básico' | 'Avanzado' | 'Intermedio',
+export interface WpCat {
+  name: 'Básico' | 'Avanzado' | 'Intermedio',
   slug: 'basic' | 'advanced' | 'medium',
   term_id?: number
 }
 
 export interface WpTerm {
-  name: string,
-  slug: string,
-  term_id: number
+  files: string | false
+  id: number
+  lesson_number: number
+  slug: string
+  title: string
 }

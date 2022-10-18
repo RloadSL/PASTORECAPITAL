@@ -37,6 +37,11 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
   useEffect(() => {
     if (!post) {
       router.replace('/academy/courses')
+    }else if(post.lessons && post.lessons.length > 0){
+      const firstLesson = post.lessons[0];
+      const a = document.getElementById('start-academy-course')
+      const url = `/academy/courses/${post.slug}/${firstLesson.slug}/?post_id=${post.id}&post_title=${post.title.rendered}&course-slug=${post.slug}&lesson_id=${firstLesson.id}&lesson_title=${firstLesson.title}&current_lesson=0`
+      a?.setAttribute('href', url)
     }
   }, [post])
 
@@ -50,6 +55,7 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
 
   return post ? (
     <CourseDetailView
+     
       courseCat={courseCat() || -1}
       isAuthorized={loggedUser?.wpToken != null}
       post={post}
@@ -63,6 +69,7 @@ const CourseDetailView = ({
   isAuthorized,
   editLink,
   courseCat
+  
 }: {
   post: any
   isAuthorized: boolean
@@ -96,7 +103,7 @@ const CourseDetailView = ({
           </div>
         ) : null}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
-        <ListLessons lessons={post.lessons}></ListLessons>
+        <ListLessons formLessonDetail={false} lessons={post.lessons}></ListLessons>
       </div>
       {create && (
         <Suspense>
