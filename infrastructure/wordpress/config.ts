@@ -1,6 +1,6 @@
 import { on_cloud_firebase } from "infrastructure/firebase/config";
 
-const WP_HOST = !on_cloud_firebase ? 'http://localhost:8888/pastoreheadless/' : 'https://rload.es/pastoreheadless/';
+const WP_HOST = !on_cloud_firebase ? 'http://localhost:8888/pastoreheadless/' : 'https://rload.es/apipastore/';
 const WP_API = `${WP_HOST}wp-json/wp/v2/`;
 
 export const WP_API_CATEGORY = `${WP_API}categories`;
