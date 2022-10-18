@@ -85,11 +85,9 @@ export const academySlice = createSlice({
         if (!action.payload.private) state.posts = action.payload.courses as Course[];
         else state.privatePosts = action.payload.courses as Course[];
         state.loading = false
-        console.log('fulfilled', state.loading);
       })
       .addCase(academyGetCurses.pending, (state: any) => { 
         state.loading = true 
-        console.log('pending', state.loading);
       })
       //TUTORIALES
       .addCase(academyGetTutorials.fulfilled, (state: any, action: any) => {

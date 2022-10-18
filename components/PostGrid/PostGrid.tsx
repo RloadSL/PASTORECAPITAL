@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import LoadMoreLoading from 'components/LoadMoreLoading'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import Loading from 'components/Loading'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 interface POSTGRIDPROPS {
   gridItems: Array<Course>
@@ -24,6 +25,7 @@ interface POSTGRIDPROPS {
   wpToken?: string
   onClickItem: Function
   deleteCourse: Function
+  loadMore: Function
 }
 
 /**
@@ -37,11 +39,13 @@ interface POSTGRIDPROPS {
 const PostGrid = ({
   openCreate,
   deleteCourse,
-  onClickItemTarget
+  onClickItemTarget,
+  loadMore
 }: {
   openCreate: Function
   deleteCourse: Function
-  onClickItemTarget : string
+  onClickItemTarget: string
+  loadMore:Function
 }) => {
   const publicPosts = useSelector(postsStore)
   const privatePost = useSelector(privatePostStore)
@@ -63,7 +67,7 @@ const PostGrid = ({
     } else if (status == 'publish') {
       router.push({
         pathname: onClickItemTarget + slug,
-        query: { post_id : id, post_title: title }
+        query: { post_id: id, post_title: title }
       })
     }
   }
@@ -80,17 +84,18 @@ const PostGrid = ({
       openCreate={openCreate}
       loading={loading}
       gridItems={posts}
+      loadMore={loadMore}
     />
   )
 }
 
 const PostGridView = ({
   gridItems,
-  loading,
   openCreate,
   wpToken,
   onClickItem,
-  deleteCourse
+  deleteCourse,
+  loadMore
 }: POSTGRIDPROPS) => {
   const itemCreateBtn = () => {
     return (
@@ -112,33 +117,42 @@ const PostGridView = ({
   }
 
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: 'relative' }}>
       <ul className={style.postGrid}>
         {wpToken ? <li>{itemCreateBtn()}</li> : null}
-        {gridItems.map((item, index) => {
-          return (
-            <li key={index} className={style.postLink}>
-              <div className={style.postItemContainer}>
-                <PostGridItem
-                  deleteCourse={deleteCourse}
-                  isAdmin={wpToken != null}
-                  onClickItem={(option: string) =>
-                    onClickItem(
-                      item.id,
-                      item.slug,
-                      item.status,
-                      option,
-                      item.title.rendered
-                    )
-                  }
-                  gridItem={item}
-                />
-              </div>
-            </li>
-          )
-        })}
+        <InfiniteScroll
+          loader={<LoadMoreLoading></LoadMoreLoading>}
+          hasMore={true}
+          dataLength={gridItems.length}
+          next={() => {
+            console.log('Load More')
+          }}
+        >
+          {gridItems.map((item, index) => {
+            return (
+              <li key={index} className={style.postLink}>
+                <div className={style.postItemContainer}>
+                  <PostGridItem
+                    deleteCourse={deleteCourse}
+                    isAdmin={wpToken != null}
+                    onClickItem={(option: string) =>
+                      onClickItem(
+                        item.id,
+                        item.slug,
+                        item.status,
+                        option,
+                        item.title.rendered
+                      )
+                    }
+                    gridItem={item}
+                  />
+                </div>
+              </li>
+            )
+          })}
+        </InfiniteScroll>
       </ul>
-     <Loading loading={loading} variant='outer-primary'></Loading>
+      
     </div>
   )
 }

@@ -15,7 +15,6 @@ import SidebarCollapsable from 'components/SidebarCollapsable'
 const TutorialDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
-  console.log(post)
   /*  useEffect(() => {
      window.addEventListener('contextmenu', function (e) { 
        // do something here... 

@@ -20,7 +20,6 @@ const Breadcrumbs = () => {
   }
 
   const addCrumb = useCallback(() => {
-    console.log(router.query)
 
     if(router.route === '/') return [
       {
