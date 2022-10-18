@@ -34,6 +34,11 @@
 .primary {
   background-color: colors.$main;
   color: white;
+
+  & .icon {
+    filter: brightness(0) invert(1);
+    margin-left: 5px;
+  }
 }
 
 .secondary {

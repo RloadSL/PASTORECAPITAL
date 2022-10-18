@@ -177,3 +177,11 @@ p {
 .menu-options-btn:active {
 	box-shadow: none;
 }
+
+.admin-buttons-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 280px;
+	margin-bottom: 5%;
+}
