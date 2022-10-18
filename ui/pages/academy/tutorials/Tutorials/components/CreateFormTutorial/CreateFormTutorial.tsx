@@ -21,7 +21,6 @@ import Loading from 'components/Loading'
 import { AppDispatch } from 'ui/redux/store'
 import { TutorialRepositoryInstance } from 'infrastructure/repositories/tutorials.repository'
 import { Post } from 'domain/Post/Post'
-import { addAcademyPrivatePost } from 'ui/redux/slices/academy/academy.slice'
 
 
 const CreateFormTutorial = ({ onClose }: { onClose: Function }) => {
@@ -66,7 +65,6 @@ const CreateFormTutorial = ({ onClose }: { onClose: Function }) => {
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
       } else {
-        dispatch(addAcademyPrivatePost(response));
         const post = response as Post 
         window.open(
           `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${userLogged.wpToken}`

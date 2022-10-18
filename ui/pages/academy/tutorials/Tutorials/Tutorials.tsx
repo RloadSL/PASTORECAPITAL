@@ -4,7 +4,7 @@ import PostGrid from 'components/PostGrid'
 import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { academyGetTutorials } from 'ui/redux/slices/academy/academy.slice'
+import { academyGetTutorials, cleanAcademyPosts } from 'ui/redux/slices/academy/academy.slice'
 
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
@@ -20,36 +20,55 @@ const Tutorials = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({search: '', categories: '', tags: undefined})
   const userLogged = useSelector(getUserLogged)
-  const refLoadMore = useRef()
-  let isAdmin: boolean = true
+  const [page, setPage] = useState(1);
+  const [statePost, setStatePost] = useState<'public' | 'private'> ('public')
 
   useEffect(() => {
-    getTutorials(filters, undefined)
- }, [filters])
+    dispatch(cleanAcademyPosts({})) 
+    if(statePost === 'public'){
+      getTutorials(filters, undefined)
+    }else{
+      if (userLogged?.wpToken) getTutorials(filters, userLogged?.wpToken)
+    }
+   
+ }, [filters, statePost])
 
- useEffect(() => {
-   if (userLogged?.wpToken) getTutorials(filters, userLogged?.wpToken)
- }, [userLogged?.wpToken, filters])
+ 
 
- const getTutorials = async (filters:{search: string, categories: any, tags: any}, wpToken?:string) => {
-   await dispatch(academyGetTutorials({ wpToken: wpToken, filters: filters }))
+ const getTutorials = async ( filters:{search: string, categories: any, tags: any, }, wpToken?:string, offset?:number) => {
+   await dispatch(academyGetTutorials({offset, wpToken: wpToken, filters: filters }))
+ }
+
+ const _loadMore = (offset:number)=>{
+  console.log('_loadMore', offset)
+  if(statePost === 'public'){
+    getTutorials(filters, undefined, offset)
+  }else{
+    if (userLogged?.wpToken) getTutorials(filters, userLogged?.wpToken,  offset)
+  }
  }
 
   const _filter = (value: any)=>{
     setFilters( pre => ({...pre, ...value}))
   }
 
-  return <TutorialsView onFilter={(value: {search?: string, catLevel?: string, tags?: string})=> _filter(value)} ></TutorialsView>
+  return <TutorialsView statePost={statePost} setStatePost={(state:"public" | "private")=>setStatePost(state)} loadMore={_loadMore} onFilter={(value: {search?: string, catLevel?: string, tags?: string})=> _filter(value)} ></TutorialsView>
 }
 
 const TutorialsView = ({
   refLoadMore,
   userType,
-  onFilter
+  onFilter,
+  loadMore,
+  setStatePost,
+  statePost
 }: {
   refLoadMore?: any
   userType?: boolean,
-  onFilter: Function
+  onFilter: Function,
+  loadMore: Function,
+  setStatePost: Function
+  statePost:'public' | 'private'
 }) => {
   const [create, setCreate] = useState(false)
   const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState(null)
@@ -62,11 +81,11 @@ const TutorialsView = ({
     </div>
     <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/>
   </header>
-  <PostGrid onClickItemTarget='/academy/tutorials/' deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
+  <PostGrid statePost={statePost} setStatePost={setStatePost} loadMore={loadMore} onClickItemTarget='/academy/tutorials/' deleteCourse={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
   <div ref={refLoadMore} id='loadMore'></div>
   {create && (
     <Suspense>
-      <CreateForm onClose={() => setCreate(false)}></CreateForm>
+      <CreateForm onClose={() => {setCreate(false); setStatePost('private')}}></CreateForm>
     </Suspense>
   )}
   {deleteCourse && (

@@ -119,7 +119,10 @@
   "btn.accept": "Aceptar",
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
-
+  
+  "post.state.private": "Privado",
+  "post.state.public": "Público",
+   
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",
 

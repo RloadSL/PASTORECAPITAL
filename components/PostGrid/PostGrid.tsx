@@ -1,5 +1,5 @@
 import { Course } from 'domain/Course/Course'
-import React from 'react'
+import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import {
@@ -17,15 +17,18 @@ import LoadMoreLoading from 'components/LoadMoreLoading'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import Loading from 'components/Loading'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import ButtonApp from 'components/ButtonApp'
 
 interface POSTGRIDPROPS {
-  gridItems: Array<Course>
+  posts: any
   loading: boolean
   openCreate: Function
   wpToken?: string
   onClickItem: Function
   deleteCourse: Function
   loadMore: Function
+  setStatePost: Function
+  statePost: 'public' | 'private'
 }
 
 /**
@@ -40,15 +43,18 @@ const PostGrid = ({
   openCreate,
   deleteCourse,
   onClickItemTarget,
-  loadMore
+  loadMore,
+  setStatePost,
+  statePost
 }: {
   openCreate: Function
   deleteCourse: Function
   onClickItemTarget: string
-  loadMore:Function
+  loadMore: Function
+  statePost: 'public' | 'private'
+  setStatePost: Function
 }) => {
-  const publicPosts = useSelector(postsStore)
-  const privatePost = useSelector(privatePostStore)
+  const posts = useSelector(postsStore)
   const loading = useSelector(loadingStore)
   const userLogged = useSelector(getUserLogged)
   const router = useRouter()
@@ -72,30 +78,32 @@ const PostGrid = ({
     }
   }
 
-  let posts: Array<any> = []
-  if (publicPosts) posts = posts.concat(publicPosts)
-  if (privatePost) posts = [...privatePost, ...posts]
-
   return (
     <PostGridView
+      setStatePost={() =>
+        setStatePost((pre: string) => (pre === 'public' ? 'private' : 'public'))
+      }
+      statePost={statePost}
       deleteCourse={deleteCourse}
       onClickItem={onClick}
       wpToken={userLogged?.wpToken}
       openCreate={openCreate}
       loading={loading}
-      gridItems={posts}
+      posts={posts}
       loadMore={loadMore}
     />
   )
 }
 
 const PostGridView = ({
-  gridItems,
+  posts,
   openCreate,
   wpToken,
   onClickItem,
   deleteCourse,
-  loadMore
+  loadMore,
+  setStatePost,
+  statePost
 }: POSTGRIDPROPS) => {
   const itemCreateBtn = () => {
     return (
@@ -115,44 +123,50 @@ const PostGridView = ({
       </button>
     )
   }
-
+  console.log(posts)
   return (
     <div style={{ position: 'relative' }}>
-      <ul className={style.postGrid}>
-        {wpToken ? <li>{itemCreateBtn()}</li> : null}
+      <ButtonApp
+        onClick={() => setStatePost()}
+        labelID={`post.state.${statePost === 'private' ? 'public' : 'private'}`}
+      />
+
+      {posts ? (
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
-          hasMore={true}
-          dataLength={gridItems.length}
-          next={() => {
-            console.log('Load More')
-          }}
+          hasMore={posts.hasMore}
+          dataLength={posts.items.length}
+          next={() => loadMore(posts.items.length)}
         >
-          {gridItems.map((item, index) => {
-            return (
-              <li key={index} className={style.postLink}>
-                <div className={style.postItemContainer}>
-                  <PostGridItem
-                    deleteCourse={deleteCourse}
-                    isAdmin={wpToken != null}
-                    onClickItem={(option: string) =>
-                      onClickItem(
-                        item.id,
-                        item.slug,
-                        item.status,
-                        option,
-                        item.title.rendered
-                      )
-                    }
-                    gridItem={item}
-                  />
-                </div>
-              </li>
-            )
-          })}
+          <ul className={style.postGrid}>
+            {wpToken ? <li>{itemCreateBtn()}</li> : null}
+            {posts.items.map((item: any, index: number) => {
+              return (
+                <li key={index} className={style.postLink}>
+                  <div className={style.postItemContainer}>
+                    <PostGridItem
+                      deleteCourse={deleteCourse}
+                      isAdmin={wpToken != null}
+                      onClickItem={(option: string) =>
+                        onClickItem(
+                          item.id,
+                          item.slug,
+                          item.status,
+                          option,
+                          item.title.rendered
+                        )
+                      }
+                      gridItem={item}
+                    />
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
         </InfiniteScroll>
-      </ul>
-      
+      ) : (
+        <h1>Nda que mostrar</h1>
+      )}
     </div>
   )
 }

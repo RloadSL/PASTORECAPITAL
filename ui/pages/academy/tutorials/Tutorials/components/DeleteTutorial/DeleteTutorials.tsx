@@ -2,6 +2,7 @@ import ButtonApp from 'components/ButtonApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
+import { TutorialRepositoryInstance } from 'infrastructure/repositories/tutorials.repository'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -26,14 +27,13 @@ const DeleteTutorial = ({
   const onDelete = async () => {
     setloading(true)
     if(wpToken){
-      await CourseRepositoryInstance.delete(data.id, wpToken);
+      //await TutorialRepositoryInstance.delete(data.id, wpToken);
       dispatch(removeAcademyPost(data))
       onClose()
     }
     else{
       alert('Unauthorized')
     }
-    router.push('/academy/courses')
     setloading(false)
   }
 
