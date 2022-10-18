@@ -7,12 +7,14 @@ interface LINKAPPPROPS {
   label?: string,
   icon?: string
   linkHref?: string
+  target?: '_blank' | '_self' | '_parent' | '_top'
+  linkStyle?: 'default' | 'edit'
 }
 
-export const LinkApp = ({ label, icon, linkHref }: LINKAPPPROPS) => {
+export const LinkApp = ({ label, icon, linkHref, target = '_blank', linkStyle = 'default' }: LINKAPPPROPS) => {
   return (
     <Link href={linkHref ? linkHref : '#'}>
-      <a className={style.linkItem}>
+      <a className={`${style.linkItem} ${style[linkStyle]}`} target={target} >
         {icon ? <span className={style.linkItemIcon}><Image src={icon} alt='' /></span> : null}
         <span className={style.linkItemLabel}>
           <FormattedMessage id={label} />

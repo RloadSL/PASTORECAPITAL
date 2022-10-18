@@ -3,15 +3,14 @@ import style from './SidebarCollapsable.module.scss'
 
 interface SIDEBARCOLLAPSABLEPROPS {
   children: any,
-  isCollapsed: any,
   label?: string
 }
 
-const SidebarCollapsable = ({ children, isCollapsed, label }: SIDEBARCOLLAPSABLEPROPS) => {
+const SidebarCollapsable = ({ children, label }: SIDEBARCOLLAPSABLEPROPS) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
-    isCollapsed(!isOpen)
+    // isCollapsed(!isOpen)
   };
 
   return (

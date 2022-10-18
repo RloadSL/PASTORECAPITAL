@@ -1,6 +1,7 @@
 @use "../../../../../styles/partials/placeholders";
 @use "../../../../../styles/partials/mixins/devices" as devices;
 
+
 .coursesPage {
   @extend %layoutContainer;
   padding: 2%;
