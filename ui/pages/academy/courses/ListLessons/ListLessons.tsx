@@ -10,7 +10,7 @@ const ListLessons = ({ formLessonDetail ,lessons, listLessonsStyle }: LISTLESSON
   const router = useRouter();
 
   const _navigate = (slug: string, id: string, lesson_title: string, current_lesson: number) => {
-    const route = `/academy/courses/${router.query['course-slug']}/` + (!formLessonDetail ? router.query['lesson-slug'] : slug);
+    const route = `/academy/courses/${router.query['course-slug']}/` + (!formLessonDetail ?  slug : router.query['lesson-slug']);
     router.push({
       pathname: route,
       query: {

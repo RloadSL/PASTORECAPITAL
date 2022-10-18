@@ -29,7 +29,6 @@ const Courses = ({ }) => {
   const [statePost, setStatePost] = useState<'public' | 'private'> ('public')
 
   useEffect(() => {
-    console.log('REENDER')
     dispatch(cleanAcademyPosts({})) 
     if(statePost === 'public'){
       getCourses(filters, undefined)
@@ -40,7 +39,6 @@ const Courses = ({ }) => {
  }, [filters, statePost])
 
  const _loadMore = (offset:number)=>{
-  console.log('_loadMore', offset)
   if(statePost === 'public'){
     getCourses(filters, undefined, offset)
   }else{

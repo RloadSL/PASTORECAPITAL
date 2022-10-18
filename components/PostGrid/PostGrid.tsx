@@ -58,7 +58,6 @@ const PostGrid = ({
   const loading = useSelector(loadingStore)
   const userLogged = useSelector(getUserLogged)
   const router = useRouter()
-
   const onClick = (
     id: string,
     slug: string,
@@ -105,6 +104,7 @@ const PostGridView = ({
   setStatePost,
   statePost
 }: POSTGRIDPROPS) => {
+  
   const itemCreateBtn = () => {
     return (
       <button

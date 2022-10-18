@@ -119,7 +119,7 @@ const CommentsListView = ({
         <CreateFormComment onCreate={(res: Comments) => onCreate(res)} />
       )}
 
-      {parent.path != 'comments' ? <h2>Preguntas de alumnos</h2> : <></>}
+      {parent.path != 'comments' && commentsList.length > 0 ? <h2>Preguntas de alumnos</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
           <div
