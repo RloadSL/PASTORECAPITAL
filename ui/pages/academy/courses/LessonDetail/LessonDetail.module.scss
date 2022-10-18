@@ -1,8 +1,8 @@
 @use '../../../../../styles/partials/placeholders';
 @use '../../../../../styles/partials/mixins/devices' as devices;
 @use '../../../../../styles/partials/variables/colors' as colors;
-//@import url('https://rload.es/pastoreheadless/wp-content/themes/generatepress_child/style.css');
-@import url('http://localhost:8888/pastoreheadless/wp-content/themes/generatepress_child/style.css');
+@import url('https://rload.es/apipastore/wp-content/themes/generatepress_child/style.css');
+//@import url('http://localhost:8888/platform/wp-content/themes/generatepress_child/style.css');
 
 
 .lessonPage {
@@ -29,13 +29,5 @@
       color: colors.$dark;
       margin-left: 12px;
     }
-  }
-
-  .adminButtonsContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 280px;
-    margin-bottom: 5%;
   }
  }

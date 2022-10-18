@@ -125,11 +125,13 @@ const PostGridView = ({
   }
   return (
     <div style={{ position: 'relative' }}>
-      <ButtonApp
-        onClick={() => setStatePost()}
-        labelID={`post.state.${statePost === 'private' ? 'public' : 'private'}`}
-      />
-
+      <div className='admin-buttons-container'>
+        <ButtonApp
+          onClick={() => setStatePost()}
+          labelID={`post.state.${statePost === 'private' ? 'public' : 'private'}`}
+          buttonStyle='primary'
+        />
+      </div>
       {posts ? (
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}

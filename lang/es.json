@@ -120,8 +120,8 @@
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
   
-  "post.state.private": "Privado",
-  "post.state.public": "Público",
+  "post.state.private": "Ver contenido privado",
+  "post.state.public": "Ver contenido público",
    
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",

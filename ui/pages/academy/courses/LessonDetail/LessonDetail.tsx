@@ -61,10 +61,12 @@ const LessonDetailView = ({
     <div className={style.lessonPage} ref={contentRef}>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
-        <div className={style.adminButtonsContainer}>
-          {editLink ? (<LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />) : null}
-          {editLink ? (<ButtonApp labelID={'btn.delete'} onClick={() => ()=> console.log('borrar')} type='button' buttonStyle='delete' size='small' icon={iconDelete}/>) : null}
-        </div>
+        {editLink && (
+          <div className='admin-buttons-container'>
+            <LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
+            <ButtonApp labelID={'btn.delete'} onClick={() => console.log('borrar')} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
+          </div>
+        )}
         <div>
           <p className='small-caps'>{courseTitle}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>

@@ -11,9 +11,12 @@ import { Suspense, useCallback, useEffect, useState, createRef } from 'react'
 import Custom404 from 'pages/404'
 import ButtonApp from 'components/ButtonApp'
 import dynamic from 'next/dynamic'
-
+import iconEdit from '../../../../../assets/img/icons/pencil.svg'
+import iconDelete from '../../../../../assets/img/icons/trash.svg'
+import iconAddLesson from '../../../../../assets/img/icons/add-document.svg'
 import ListLessons from '../ListLessons'
 import Link from 'next/link'
+import LinkApp from 'components/LinkApp'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
@@ -80,26 +83,21 @@ const CourseDetailView = ({
   const [create, setCreate] = useState(false)
   return (
     <div className={style.coursePage}>
-      <div style={{ position: 'fixed', right: '10px', bottom: '20px' }}>
-        <ButtonApp
-          onClick={() => setCreate(true)}
-          labelID='page.academy.course.add-lesson'
-        />
-      </div>
       <div>
         {post && isAuthorized ? (
-          <div>
-            <a href={editLink} target='_blank' rel='noreferrer'>
-              EDITAR
-            </a>
-            <button onClick={()=>setDeleteCourse({ id: post.id, status: post.status })}>
-              Eliminar
-            </button>
-            <Link href={'#'}>
-              <a>
-                Gestionar responsables
-              </a>
-            </Link>
+          <div className='admin-buttons-wrapper'>
+            <div className={style.addNewLesson}>
+              <ButtonApp
+                onClick={() => setCreate(true)}
+                labelID='page.academy.course.add-lesson'
+                buttonStyle='primary'
+                icon={iconAddLesson}
+              />
+            </div>
+            <div className='admin-buttons-container'>
+              <LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
+              <ButtonApp labelID={'btn.delete'} onClick={() => setDeleteCourse({ id: post.id, status: post.status })} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
+            </div>
           </div>
         ) : null}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>

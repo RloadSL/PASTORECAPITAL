@@ -10,6 +10,10 @@ import parse from 'html-react-parser'
 import ReadingProgressBar from 'components/ReadingProgressBar'
 /* import CommentsList from 'components/Comments' */
 import SidebarCollapsable from 'components/SidebarCollapsable'
+import ButtonApp from 'components/ButtonApp'
+import LinkApp from 'components/LinkApp'
+import iconEdit from '../../../../../assets/img/icons/pencil.svg'
+import iconDelete from '../../../../../assets/img/icons/trash.svg'
 
 
 const TutorialDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
@@ -21,7 +25,7 @@ const TutorialDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
        e.preventDefault(); 
      }, false);
    }, []) */
-   useEffect(() => {
+  useEffect(() => {
     if (!post) {
       router.replace('/academy/tutorials')
     }
@@ -31,7 +35,7 @@ const TutorialDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
     return token ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}` : undefined;
   }
 
-  return  post ? <LessonDetailView
+  return post ? <LessonDetailView
     courseTitle={router.query.courseTitle as string}
     ispublisherized={loggedUser?.wpToken != null}
     post={post}
@@ -54,37 +58,24 @@ const LessonDetailView = ({
 }) => {
   const contentRef = useRef<any>();
 
-  const isCollapsed = (isOpen:boolean) => {
-    let bodyContainer = document.querySelector('body');
-    // if (bodyContainer) {
-    //   if (isOpen === true) {
-    //     bodyContainer.style.overflow = 'hidden';
-    //   } else {
-    //     bodyContainer.style.overflow = 'auto';
-    //   }
-    // }
-  }
-
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
-        <div>
-          {editLink ? (<a href={editLink} rel='noreferrer' target='_blank'>Editar</a>) : null}
-          {editLink ? (<button>Eliminar</button>) : null}
-        </div>
+        {post && editLink ? (
+          <div className='admin-buttons-wrapper'>
+            <div className='admin-buttons-container'>
+              <LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
+              <ButtonApp labelID={'btn.delete'} onClick={() => console.log('borrar')} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
+            </div>
+          </div>
+        ) : null}
         <div>
           <p className='small-caps'>{courseTitle}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
-        
-       {/*  <CommentsList main={true}/> */}
       </div>
-      <SidebarCollapsable isCollapsed={isCollapsed} label='LECCIONES'>
-        lista de lecciones
-              {/* <ListLessons lessons={post.lessons}></ListLessons> */}
-      </SidebarCollapsable>
     </div>
   )
 }
