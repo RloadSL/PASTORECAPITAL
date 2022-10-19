@@ -18,6 +18,7 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import Loading from 'components/Loading'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ButtonApp from 'components/ButtonApp'
+import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 interface POSTGRIDPROPS {
   posts: any
@@ -104,7 +105,7 @@ const PostGridView = ({
   setStatePost,
   statePost
 }: POSTGRIDPROPS) => {
-  
+  const { editionGranted } = useGuardPermissions()
   const itemCreateBtn = () => {
     return (
       <button
@@ -125,13 +126,13 @@ const PostGridView = ({
   }
   return (
     <div style={{ position: 'relative' }}>
-      <div className='admin-buttons-container'>
+      {editionGranted && <div className='admin-buttons-container'>
         <ButtonApp
           onClick={() => setStatePost()}
           labelID={`post.state.${statePost === 'private' ? 'public' : 'private'}`}
           buttonStyle='primary'
         />
-      </div>
+      </div>}
       {posts ? (
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
@@ -140,14 +141,14 @@ const PostGridView = ({
           next={() => loadMore(posts.items.length)}
         >
           <ul className={style.postGrid}>
-            {wpToken ? <li>{itemCreateBtn()}</li> : null}
+            {editionGranted && <li>{itemCreateBtn()}</li>}
             {posts.items.map((item: any, index: number) => {
               return (
                 <li key={index} className={style.postLink}>
                   <div className={style.postItemContainer}>
                     <PostGridItem
                       deleteCourse={deleteCourse}
-                      isAdmin={wpToken != null}
+                      isAdmin={editionGranted}
                       onClickItem={(option: string) =>
                         onClickItem(
                           item.id,

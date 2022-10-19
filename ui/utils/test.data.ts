@@ -52,3 +52,11 @@ export const options = [
   { value: 'criptomonedas', label: 'Criptomonedas' },
   { value: 'todos', label: 'Todos' }
 ]
+
+export const system_data_config = {
+  edition_permissions: {
+    user : [],
+    colaborator : ['/academy/courses'],
+    administrador : ['all_site']
+  }
+}

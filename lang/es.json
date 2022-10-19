@@ -1,8 +1,9 @@
 { 
-  "role.Guest" : "Invitado",
-  "role.Basic" : "Básico",
-  "role.Plus" : "Plus",
-  "role.Premium" : "Premium",
+  "plan.Guest" : "Invitado",
+  "plan.Basic" : "Básico",
+  "plan.Plus" : "Plus",
+  "plan.Premium" : "Premium",
+  "role.User" : "Usuario",
   "role.Colaborator" : "Colaborador",
   "role.Administrator" : "Administrador",
 
