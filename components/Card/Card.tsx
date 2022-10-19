@@ -1,5 +1,6 @@
 
 import { useCallback } from 'react'
+import { useComponentUtils } from 'ui/hooks/components.hooks'
 import style from './Card.module.scss'
 
 export interface CARDPROPS {
@@ -15,19 +16,19 @@ export interface CARDPROPS {
  */
 
 const Card = ({children,cardStyle = 'default', backgroundColor='white'}:CARDPROPS) => {
-
-  const styles = useCallback( (cardStyle:any)=>{
+  const { buildClassName } = useComponentUtils()
+ /*  const styles = useCallback( (cardStyle:any)=>{
     if(!cardStyle) return '';
     if(typeof cardStyle === 'string'){
       return style[cardStyle];
     }else{
       return cardStyle.map((className: string) => style[className]).toString().replace(/,/g,' ')
     }
-  }, [cardStyle])
+  }, [cardStyle]) */
 
 
   return (
-    <div style={{backgroundColor:backgroundColor}} className={`${style.card} ${styles(cardStyle)}`}>
+    <div style={{backgroundColor:backgroundColor}} className={`${style.card} ${buildClassName(cardStyle, style)}`}>
      {children} 
     </div>
   )

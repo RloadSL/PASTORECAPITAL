@@ -186,10 +186,14 @@ p {
 	box-shadow: none;
 }
 
-.admin-buttons-container {
+.admin-buttons-container, .pagination {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	max-width: 280px;
 	margin-bottom: 5%;
 }
+
+
+
+

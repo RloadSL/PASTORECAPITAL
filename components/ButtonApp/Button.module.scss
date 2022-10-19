@@ -35,6 +35,16 @@
   background-color: colors.$main;
   color: white;
 
+  &.outlined {
+    background-color: transparent;
+    border: 1px solid colors.$main;
+    color: colors.$main;
+
+    & .icon {
+      filter: none;
+    }
+  }
+
   & .icon {
     filter: brightness(0) invert(1);
     margin-left: 5px;
@@ -76,8 +86,13 @@
 }
 
 .icon {
-  display: block;
+  display: flex;
   width: 18px;
   height: auto;
   background-size: contain;
 }
+
+.outlined{
+  background-color: transparent;
+}
+
