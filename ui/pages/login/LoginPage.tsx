@@ -16,6 +16,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
+import dashboardIcon from '../../../assets/img/dashboard.png'
+import loadingIcon from '../../../assets/img/lazy.gif'
 
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
@@ -45,7 +47,7 @@ const LoginPage: NextPage = () => {
       pushErrorsApp(authError)
     }
   }, [authError])
-  return <LoginPageView userCredential={userCredential}/>
+  return <LoginPageView userCredential={userCredential} />
 }
 
 /**
@@ -53,19 +55,27 @@ const LoginPage: NextPage = () => {
  * * @returns
  */
 
-const LoginPageView = ({userCredential}:any) => {
+const LoginPageView = ({ userCredential }: any) => {
   const [viewForm, setviewForm] = useState(0)
   const [tabIndex, setTabIndex] = useState(0)
   const [visibleBuildingDashboard, setVisibleBuildingDashboard] = useState(false)
   useEffect(() => {
-    if(userCredential) setVisibleBuildingDashboard(true)
+    if (userCredential) setVisibleBuildingDashboard(true)
   }, [userCredential])
-  
+
   const renderBuildingDashboard = () => {
     return (
       <Modal>
-        <div>
-          Loading....
+        <div className={style.buildingDashboardContainer}>
+          <div className={style.imageContainer}>
+            <Image src={dashboardIcon} alt='' />
+          </div>
+          <div className={style.textContainer}>
+            <p>Estamos preparando tu perfil</p>
+          </div>
+          <div className={style.loaderContainer}>
+            <Image src={loadingIcon} alt='' />
+          </div>
         </div>
       </Modal>
     )
@@ -100,33 +110,33 @@ const LoginPageView = ({userCredential}:any) => {
         <div className={style.colRight}>
           <Card>
             <div className={style.infoContainer}>
-            <Loading />
-            <Tabs className={style.tabContainer} selectedIndex={tabIndex} onSelect={(index) => {
-              setviewForm(viewForm !== 1 ? 1 : 0)
-              setTabIndex(index);
-            }}>
-              <TabList className={style.loginFormButtons}>
-                <Tab selectedClassName={style.tabSelect} className={style.customTab}>
-                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignIn" />
-                </Tab>
-                <Tab selectedClassName={style.tabSelect} className={style.customTab}>
-                  <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignUp" />
-                </Tab>
-              </TabList>
-              <div className={style.loginFormContainer}>
-                <TabPanel>
-                  <SignIn />
-                </TabPanel>
-                <TabPanel>
-                  <Suspense><SigUp /></Suspense>
-                </TabPanel>
-              </div>
-            </Tabs>
+              <Loading />
+              <Tabs className={style.tabContainer} selectedIndex={tabIndex} onSelect={(index) => {
+                setviewForm(viewForm !== 1 ? 1 : 0)
+                setTabIndex(index);
+              }}>
+                <TabList className={style.loginFormButtons}>
+                  <Tab selectedClassName={style.tabSelect} className={style.customTab}>
+                    <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignIn" />
+                  </Tab>
+                  <Tab selectedClassName={style.tabSelect} className={style.customTab}>
+                    <ButtonApp buttonStyle={"tab"} type="button" labelID="page.login.labelSignUp" />
+                  </Tab>
+                </TabList>
+                <div className={style.loginFormContainer}>
+                  <TabPanel>
+                    <SignIn />
+                  </TabPanel>
+                  <TabPanel>
+                    <Suspense><SigUp /></Suspense>
+                  </TabPanel>
+                </div>
+              </Tabs>
             </div>
           </Card>
         </div>
       </div>
-      { (visibleBuildingDashboard) && renderBuildingDashboard()}
+      {(visibleBuildingDashboard) && renderBuildingDashboard()}
     </div>
   )
 }

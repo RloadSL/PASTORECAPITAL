@@ -1,3 +1,37 @@
+@use '../../styles/partials/variables/colors' as colors;
+@use '../../styles/partials/mixins/devices' as devices;
+@use '../../styles/partials/placeholders'; 
+
 .underConstruction {
-  background-color: red;
+  max-width: 600px;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  margin-top: 10%;
+  font-size: 1.2rem;
+
+  .innerContainer {
+    @extend %cardContainer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      font-weight: 500;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      margin-bottom: 0px;
+    }
+  }
+
+  .imageContainer {
+    background-color: colors.$palette9;
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    padding: 40px;
+    margin-bottom: 20px;
+  }
 }
