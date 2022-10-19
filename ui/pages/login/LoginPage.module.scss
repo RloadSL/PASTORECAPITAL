@@ -182,3 +182,31 @@
   color: colors.$main;
   text-decoration: underline;
 }
+
+.buildingDashboardContainer {
+  position: relative;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .imageContainer {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    top: -100px;
+    margin: auto;
+    right: 0;
+    left: 0;
+  }
+
+  .textContainer {
+    margin-top: 115px;
+    font-size: 1.8rem;
+  }
+  
+  .loaderContainer {
+    width: 100px;
+    margin-top: -20px;
+  }
+}

@@ -1,4 +1,5 @@
-export default function Custom404() {
-  return <div className="working-on">Ups, no hemos encontrado lo que buscas</div>
+import UnderConstruction from "components/UnderConstruction";
 
+export default function Custom404() {
+  return <UnderConstruction messageType="404"/>
 }

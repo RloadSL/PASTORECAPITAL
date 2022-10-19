@@ -6,7 +6,7 @@ import styles from './HomePage.module.scss'
 
 const HomePage:NextPage = () => {
   return (<>
-    <UnderConstruction/>
+    <UnderConstruction messageType="underconstruction"/>
   </>
   )
 }

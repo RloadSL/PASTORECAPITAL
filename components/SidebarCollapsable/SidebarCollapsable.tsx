@@ -10,7 +10,6 @@ const SidebarCollapsable = ({ children, label }: SIDEBARCOLLAPSABLEPROPS) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
-    // isCollapsed(!isOpen)
   };
 
   return (

@@ -151,7 +151,7 @@ const initialState: {
   loggued: boolean,
   loading: boolean,
   code_validated: CODEVALIDATIONSTATE
-} = { userLogged: null, userCredential : null, authError: null, loggued: false, loading: true, code_validated: 'init' };
+} = { userLogged: null, userCredential :null, authError: null, loggued: false, loading: true, code_validated: 'init' };
 
 export const authetication = createSlice({
   name: 'Authentication',
