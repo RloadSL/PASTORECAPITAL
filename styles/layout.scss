@@ -3,7 +3,15 @@
 @use "./partials/mixins/devices" as devices;
 @use "./partials/placeholders" as holders;
 
-
+.working-on {
+	max-width: 600px;
+	margin: auto;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.3rem;
+	margin-top: 20%;
+	color: colors.$main;
+}
 //CONTAINERS
 body {
 	background-color: colors.$grey20;
@@ -51,8 +59,6 @@ body {
 	text-align: center;
 }
 
-
-
 //WIDTH AND SPACING
 
 @for $i from 10 through 100 {
@@ -98,16 +104,16 @@ body {
 }
 
 .main-title {
-	@extend %mainTitle
+	@extend %mainTitle;
 }
 
 .secondary-title {
-	@extend %secondaryTitle
+	@extend %secondaryTitle;
 }
 
 .small-caps {
 	@extend %smallCaps;
-  color: colors.$main;
+	color: colors.$main;
 }
 
 .uppercase {
@@ -119,13 +125,12 @@ body {
 }
 
 p {
-	color: colors.$dark
+	color: colors.$dark;
 }
 
 .form-container {
 	width: 100%;
 }
-
 
 //RESET ACCORDION STYLE FOR THE APP
 .rc-collapse {
@@ -135,7 +140,10 @@ p {
 	.rc-collapse-content {
 		background-color: transparent !important;
 	}
-	.rc-collapse-header-text, .rc-collapse-header-text,.rc-collapse-header,.rc-collapse-item {
+	.rc-collapse-header-text,
+	.rc-collapse-header-text,
+	.rc-collapse-header,
+	.rc-collapse-item {
 		width: 100% !important;
 	}
 
@@ -144,7 +152,7 @@ p {
 	}
 
 	.rc-collapse-header-text::after {
-		content: '';
+		content: "";
 		display: inline-block;
 		width: 20px;
 		height: 20px;
