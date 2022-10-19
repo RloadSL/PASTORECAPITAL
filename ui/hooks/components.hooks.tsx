@@ -1,7 +1,13 @@
 export const useComponentUtils = () => {
 
-  const buildClassName = (arg: Array<string> | string): string => {
-    return typeof arg === 'string' ? arg : arg.join(' ');
+  const buildClassName = (arg: Array<string> | string, style:any): string => {
+   
+    if(!arg) return '';
+    if(typeof arg === 'string'){
+      return style[arg];
+    }else{
+      return arg.map((className: string) => style[className]).toString().replace(/,/g,' ')
+    }
   }
 
   const limitTextLength = (maxChars: number, text: string) => {

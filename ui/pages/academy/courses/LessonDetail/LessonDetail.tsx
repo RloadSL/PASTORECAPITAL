@@ -16,7 +16,7 @@ import ButtonApp from 'components/ButtonApp'
 import iconDelete from '../../../../../assets/img/icons/trash.svg'
 import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import LinkApp from 'components/LinkApp'
-import Link from 'next/link'
+import iconArrow from '../../../../../assets/img/icons/arrow-circle.svg'
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
@@ -28,7 +28,7 @@ const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
      }, false);
    }, []) */
 
-   const _navigatePaginator = (slug: string, id: string, lesson_title: string, current_lesson: number) => {
+  const _navigatePaginator = (slug: string, id: string, lesson_title: string, current_lesson: number) => {
     const route = `/academy/courses/${router.query['course-slug']}/` + slug;
     router.push({
       pathname: route,
@@ -38,7 +38,7 @@ const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
         'lesson-slug': slug,
         lesson_title,
         current_lesson,
-       
+
       }
     })
   }
@@ -51,7 +51,7 @@ const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
 
   return (
     <LessonDetailView
-    _navigatePaginator={_navigatePaginator}
+      _navigatePaginator={_navigatePaginator}
       courseTitle={router.query.post_title as string}
       current_lesson={parseInt(router.query.current_lesson as string)}
       post={post}
@@ -76,23 +76,23 @@ const LessonDetailView = ({
   const contentRef = useRef<any>()
 
   const renderPaginator = () => {
-    /* const route =
-      `/academy/courses/${router.query['course-slug']}/` +
-      (!formLessonDetail ? router.query['lesson-slug'] : slug) */
-
     return (
-      <div>
+      <div className={style.pagination}>
         {current_lesson > 0 && (
-          <ButtonApp onClick={()=>{
-            const nextL = post.lessons[current_lesson - 1]; 
-            _navigatePaginator(nextL.slug, nextL.id, nextL.title, current_lesson - 1)
-          }} labelID='btn.paginator.before'/>
+          <div className={style.before}>
+            <ButtonApp icon={iconArrow} onClick={() => {
+              const nextL = post.lessons[current_lesson - 1];
+              _navigatePaginator(nextL.slug, nextL.id, nextL.title, current_lesson - 1)
+            }} labelID='btn.paginator.before' buttonStyle={['primary', 'outlined']} size='small' />
+          </div>
         )}
         {current_lesson < post.lessons.length - 1 && (
-          <ButtonApp onClick={()=>{
-            const nextL = post.lessons[current_lesson + 1]; 
-            _navigatePaginator(nextL.slug, nextL.id, nextL.title, current_lesson + 1)
-          }} labelID='btn.paginator.next'/>
+          <div className={style.next}>
+            <ButtonApp icon={iconArrow} size='small' buttonStyle={['primary', 'outlined']} onClick={() => {
+              const nextL = post.lessons[current_lesson + 1];
+              _navigatePaginator(nextL.slug, nextL.id, nextL.title, current_lesson + 1)
+            }} labelID='btn.paginator.next' />
+          </div>
         )}
       </div>
     )
@@ -119,7 +119,7 @@ const LessonDetailView = ({
             />
           </div>
         )}
-        <div>
+        <div className={style.headerLesson}>
           <p className='small-caps'>{courseTitle}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
@@ -127,7 +127,7 @@ const LessonDetailView = ({
         {renderPaginator()}
         <CommentsList main={true} />
       </div>
-      <SidebarCollapsable isCollapsed={true} label='LECCIONES'>
+      <SidebarCollapsable label='LECCIONES'>
         <div className={style.lessonsSideBarContainer}>
           <span className={style.title}>Lecciones</span>
           <ListLessons

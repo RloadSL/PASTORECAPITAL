@@ -43,8 +43,11 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
     }else if(post.lessons && post.lessons.length > 0){
       const firstLesson = post.lessons[0];
       const a = document.getElementById('start-academy-course')
+      loggedUser?.role.level > 1 && a?.remove();
       const url = `/academy/courses/${post.slug}/${firstLesson.slug}/?post_id=${post.id}&post_title=${post.title.rendered}&course-slug=${post.slug}&lesson_id=${firstLesson.id}&lesson_title=${firstLesson.title}&current_lesson=0`
+
       a?.setAttribute('href', url)
+      
     }
   }, [post])
 

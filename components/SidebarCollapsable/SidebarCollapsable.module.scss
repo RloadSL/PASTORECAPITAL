@@ -91,11 +91,18 @@
     top: 0;
     z-index: 900;
 
+    & > * {
+      opacity: 0;
+    }
+
     &.isOpen {
       width: 500px;
       transition: all 0.3s ease-in-out;
 
-      // transform: translate(500px);
+      & > * {
+        animation: fadeIn .3s forwards;
+        animation-delay: 0.2s;
+      }
     }
 
     @include devices.device(tablet) {
@@ -105,7 +112,7 @@
   }
 }
 
-// @keyframes fadeIn {
-//   0% { opacity: 0; }
-//   100% { opacity: 1; }
-// }
+@keyframes fadeIn {
+  0% { opacity: 0;}
+  100% { opacity: 1;}
+}
