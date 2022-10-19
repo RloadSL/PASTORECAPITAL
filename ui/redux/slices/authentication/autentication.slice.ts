@@ -17,8 +17,7 @@ export const signInEmailPassword = createAsyncThunk(
       const response = await AuthImplInstance.signInEmailPassword(email, password)
       const { userCredential, error } = response;
       if (!userCredential) return error; //retorna usuario invitado
-      const user = await UserRepositoryImplInstance.read(userCredential.uid)
-      return user;
+      return userCredential;
     } catch (error) {
       return error;
     }
@@ -147,11 +146,12 @@ const _handleResetPassword = (state: any, action:any) => {
 export type CODEVALIDATIONSTATE = 'init' | 'waiting' | 'validated' | 'redirect'
 const initialState: {
   userLogged: User | null,
+  userCredential: any,
   authError: ErrorApp | null,
   loggued: boolean,
   loading: boolean,
   code_validated: CODEVALIDATIONSTATE
-} = { userLogged: null, authError: null, loggued: false, loading: true, code_validated: 'init' };
+} = { userLogged: null, userCredential : null, authError: null, loggued: false, loading: true, code_validated: 'init' };
 
 export const authetication = createSlice({
   name: 'Authentication',
@@ -169,13 +169,19 @@ export const authetication = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signInEmailPassword.fulfilled, _handleSignIn)
+      .addCase(signInEmailPassword.fulfilled, (state, action:any)=>{
+        state.loading = false;
+        if(!(action.payload instanceof ErrorApp))
+          state.userCredential = action.payload 
+        else 
+          state.authError = action.payload
+      })
       .addCase(signInEmailPassword.pending, (state) => { state.loading = true })
       .addCase(signUpEmailPassword.fulfilled, _handleSignIn)
       .addCase(signUpEmailPassword.pending, (state) => { state.loading = true })
       .addCase(createUser.fulfilled, _handleSignIn)
       .addCase(createUser.pending, (state) => { state.loading = true })
-      .addCase(signOut.fulfilled, (state: any, action: any) => { state.userLogged = null, state.loggued = false, state.authError = null, state.loading = false })
+      .addCase(signOut.fulfilled, (state: any) => { state.userLogged = null, state.loggued = false, state.authError = null, state.loading = false , state.userCredential = null})
       .addCase(sendEmailCode.fulfilled, _handleSendMailCode)
       .addCase(sendEmailCode.pending, (state) => { state.loading = true })
       .addCase(validateCode.fulfilled, _handleValidateCode)

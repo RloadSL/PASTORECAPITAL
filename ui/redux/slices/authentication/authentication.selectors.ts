@@ -6,6 +6,8 @@ import { CODEVALIDATIONSTATE } from "./autentication.slice"
  * @returns {User}
  */
 export const getUserLogged = (store:any):User => store.authentication.userLogged
+export const getUserCredentialLogged = (store:any):User => store.authentication.userCredential
+
 /**
  * Devuelve si existe un usuario logado en la aplicación
  * @returns {boolean}

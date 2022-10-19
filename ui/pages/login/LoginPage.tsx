@@ -15,6 +15,7 @@ import ButtonApp from "components/ButtonApp";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import Loading from 'components/Loading'
+import Modal from 'components/Modal'
 
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
@@ -28,7 +29,7 @@ const SigUp = dynamic(() => import('./components/SignUp'), {
 
 const LoginPage: NextPage = () => {
   const router = useRouter()
-  const { isLogged, authError, loadingState } = useAuthentication()
+  const { isLogged, authError, loadingState, userCredential } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const LoginPage: NextPage = () => {
       pushErrorsApp(authError)
     }
   }, [authError])
-  return <LoginPageView />
+  return <LoginPageView userCredential={userCredential}/>
 }
 
 /**
@@ -52,10 +53,23 @@ const LoginPage: NextPage = () => {
  * * @returns
  */
 
-const LoginPageView = () => {
+const LoginPageView = ({userCredential}:any) => {
   const [viewForm, setviewForm] = useState(0)
   const [tabIndex, setTabIndex] = useState(0)
-
+  const [visibleBuildingDashboard, setVisibleBuildingDashboard] = useState(false)
+  useEffect(() => {
+    if(userCredential) setVisibleBuildingDashboard(true)
+  }, [userCredential])
+  
+  const renderBuildingDashboard = () => {
+    return (
+      <Modal>
+        <div>
+          Loading....
+        </div>
+      </Modal>
+    )
+  }
   return (
     <div className={style.loginPage}>
       <div className={style.mainContainer}>
@@ -109,10 +123,10 @@ const LoginPageView = () => {
               </div>
             </Tabs>
             </div>
-
           </Card>
         </div>
       </div>
+      { (visibleBuildingDashboard) && renderBuildingDashboard()}
     </div>
   )
 }

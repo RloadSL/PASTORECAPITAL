@@ -15,8 +15,11 @@ import { AppDispatch } from 'ui/redux/store'
 export default function AppLayout ({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    onChangeAuthState((user: any) => {
-      if(user) dispatch(createUser({uid: user.uid, extradata: user.extradata}))
+    onChangeAuthState(async (user: any) => {
+     
+      if(user){
+        await dispatch(createUser({uid: user.uid, extradata: user.extradata}))
+      } 
       dispatch(setAuthLoading(false))
     })
   }, [])

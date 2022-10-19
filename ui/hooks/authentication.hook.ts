@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { User } from "../../domain/User/User"
 import { CreateUser } from "../../infrastructure/dto/users.dto"
 import { createUser, signInEmailPassword, signUpEmailPassword, cleanAuthErrors, signOut, CODEVALIDATIONSTATE, setCodeValidation } from "../redux/slices/authentication/autentication.slice"
-import { authenticationError, codeValidated, getIsLogged, getUserLogged, isLoading } from "../redux/slices/authentication/authentication.selectors"
+import { authenticationError, codeValidated, getIsLogged, getUserCredentialLogged, getUserLogged, isLoading } from "../redux/slices/authentication/authentication.selectors"
 import { AppDispatch } from "../redux/store"
 import { useSystem } from "./system.hooks"
 /**
@@ -17,6 +17,7 @@ export const useAuthentication = () => {
   
   const dispatch = useDispatch<AppDispatch>()
   const userLogged:User = useSelector(getUserLogged)
+  const userCredential:User = useSelector(getUserCredentialLogged)
   const isLogged:boolean = useSelector(getIsLogged)
   const loadingState:boolean = useSelector(isLoading)
   const authError:ErrorApp= useSelector(authenticationError)
@@ -42,6 +43,7 @@ export const useAuthentication = () => {
     userLogged,
     createUserById,
     cleanError,
-    authError
+    authError,
+    userCredential
   }
 }

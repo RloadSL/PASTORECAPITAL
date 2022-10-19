@@ -40,7 +40,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
   async signInEmailPassword(email: string, password: string): Promise<{ userCredential: FireUser | null, error: ErrorApp | null }> {
     const response: any = await FireAuthentication.signInWithEmailAndPassword(email, password)
     if (!response.errorCode) {
-      this._userLogged = response.user;
+      this._userLogged = response;
       return { userCredential: this._userLogged, error: null };
     }
     else {

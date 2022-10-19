@@ -25,10 +25,16 @@ interface LOGINVALUE {
  * Función del componente SignIn
  */
 
-const SignIn = () => {
+const SignIn = ({onSignIn}: {onSignIn?: Function}) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
   const signIn = (data: LOGINVALUE) => dispatch(signInEmailPassword(data));
+
+
+  const _signIn = async (data: LOGINVALUE)=>{
+    if(onSignIn) onSignIn()
+    await signIn(data)
+  }
 
   const validationSchema = useCallback(
     () =>
@@ -47,7 +53,7 @@ const SignIn = () => {
   )
   return (
     <SignInView
-      signIn={(value: LOGINVALUE) => signIn(value)}
+      signIn={(value: LOGINVALUE) => _signIn(value)}
       validationSchema={validationSchema}
     ></SignInView>
   )
