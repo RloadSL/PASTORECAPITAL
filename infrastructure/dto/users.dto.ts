@@ -26,7 +26,7 @@ export interface UserDto {
   /**
    * Plan del usuario
    */
-  subscrition?: Subscription,
+  subscrition: Subscription,
   /**
    * Urls donde un administrador tendrá opción de edición
    */
@@ -45,6 +45,7 @@ export interface Subscription {
   last_innvoice?: string,
   plan: {
     label: 'Guest' | 'Basic' | 'Plus' | 'Premium',
+    key: 'guest' | 'basic' | 'plus' | 'premium',
     level: 0 | 1 | 2 | 3
   }
 }

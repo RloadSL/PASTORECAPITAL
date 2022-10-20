@@ -17,7 +17,33 @@ class UserRepositoryImplementation extends UserRepository {
 
     return UserRepositoryImplementation.instance;
   }
+
+  readonly userNotLogged = new User({
+    email: '',
+    lastname: '',
+    name: '',
+    role: {
+      key: 'user',
+      label: 'User',
+      level: 0
+    },
+    uid: 'not-logged',
+    subscrition: {
+      created_at : new Date(),
+      plan: {
+        key: 'basic',
+        label: 'Basic',
+        level: 0
+      },
+      updated_at: new Date()
+    }
+  })
+
   async read(uid: string, extradata?: {webToken:string}): Promise<User | null> {
+    if (uid == 'not-logged') {
+      
+      return this.userNotLogged;
+    }
     const userSnap = await FireFirestore.getDoc('users',uid)
     if(userSnap?.exists()){
       let userData:any = {uid: userSnap?.id,...userSnap?.data()};

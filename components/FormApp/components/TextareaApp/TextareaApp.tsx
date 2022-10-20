@@ -59,7 +59,7 @@ const TextareaAppView = ({
           : style.label
       )
     },
-    [onChange, name]
+    [onChange, name, maxLength]
   )
 
   useEffect(() => {

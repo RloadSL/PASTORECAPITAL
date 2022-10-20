@@ -5,7 +5,7 @@ import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.re
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch } from 'react-redux'
-import { removeCourse } from 'ui/redux/slices/academy/academy.slice'
+import { removeAcademyPost } from 'ui/redux/slices/academy/academy.slice'
 import { AppDispatch } from 'ui/redux/store'
 import style from './DeleteLesson.module.scss'
 
@@ -24,7 +24,7 @@ const DeleteLesson = ({
     setloading(true)
     if(wpToken){
       await CourseRepositoryInstance.delete(data.id, wpToken);
-      dispatch(removeCourse(data))
+      dispatch(removeAcademyPost(data))
       onClose()
     }
     else{

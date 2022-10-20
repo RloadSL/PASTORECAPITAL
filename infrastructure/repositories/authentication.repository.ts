@@ -65,7 +65,8 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
     try {
       const role: Role = {
         level: 0,
-        label: 'Guest'
+        label: 'User',
+        key: 'user'
       }
       const response = await FireFunctions.getInstance().onCallFunction('SingUpOnCallFunctions', { ...data, role });
       if (response.status === 200) {

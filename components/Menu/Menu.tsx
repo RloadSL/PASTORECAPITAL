@@ -6,7 +6,7 @@ import style from './Menu.module.scss'
 interface MENUPROPS {
   itemList: Array<any>
   activeItem?: string
-  isLoagged: boolean
+  isLoagged?: boolean
 }
 
 /**

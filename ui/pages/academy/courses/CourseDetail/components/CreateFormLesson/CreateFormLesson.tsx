@@ -17,7 +17,6 @@ import descriptionIcon from '../../../../../../../assets/img/icons/edit.svg'
 import TextareaApp from 'components/FormApp/components/TextareaApp'
 import Loading from 'components/Loading'
 import { AppDispatch } from 'ui/redux/store'
-import { addPrivateCourse } from 'ui/redux/slices/academy/academy.slice'
 import { LessonRepositoryInstance } from 'infrastructure/repositories/lessons.repository'
 
 const CreateFormLesson = ({ onClose, courseCat }: { onClose: Function, courseCat:number }) => {

@@ -10,6 +10,9 @@ import React, { Suspense, useEffect, useState } from 'react'
 import style from './SingleComment.module.scss'
 import iconReply from '../../../../assets/img/icons/reply-arrow.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
+import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 const CreateFormComment = dynamic(
   () => import('../CreateFormComment'),
@@ -22,19 +25,24 @@ interface SINGLECOMMENTPROPS {
   comment: Comments,
   childrenCommentsList?: Array<Comments>
   isLastChild: string,
-  onDelete: Function
+  onDelete: Function,
+  editionGranted:boolean,
+  userLogged: User
 }
 
 const SingleComment = ({ comment,  isLastChild, onDelete }: any) => {
-  return <SingleCommentView onDelete={onDelete} isLastChild={isLastChild} comment={comment}/>
+  const { editionGranted } = useGuardPermissions()
+  const  userLogged  = useSelector(getUserLogged)
+
+  return <SingleCommentView userLogged={userLogged} onDelete={onDelete} editionGranted={editionGranted} isLastChild={isLastChild} comment={comment}/>
 }
 
-const SingleCommentView = ({ comment, isLastChild, onDelete}: SINGLECOMMENTPROPS) => {
+const SingleCommentView = ({ comment, isLastChild, onDelete, editionGranted, userLogged}: SINGLECOMMENTPROPS) => {
   const [isMainComment, setisMainComment] = useState<boolean>(comment.parent.path !== 'comments')
   const [reply, setReply] = useState(false)
   const [NC, setNC] = useState<Comments>()
   const owner = comment.owner as User;
-
+  
   return (
     comment ?
     <div className={`${style.singleComment} ${isLastChild ? style.lastChild : ''} ${!isMainComment ? style.isReply : null}`}>
@@ -50,7 +58,7 @@ const SingleCommentView = ({ comment, isLastChild, onDelete}: SINGLECOMMENTPROPS
                 <div className='flex-container align-center'>
                   <div className={style.author}> {owner?.name} </div>
                   <div className={style.date}>{comment.created_at.toLocaleDateString()}</div>
-                  {owner.role.level > 1 ? <Chips chips={['Profesor']} color='lightMain' /> : null}
+                  {owner.role.level > 0 ? <Chips chips={['Profesor']} color='lightMain' /> : null}
                 </div>
               </div>
             </div>
@@ -61,14 +69,14 @@ const SingleCommentView = ({ comment, isLastChild, onDelete}: SINGLECOMMENTPROPS
             </div>
             <div className={`${style.bottom}`}>
               <div className={`${style.innerContent} flex-container`}>
-                { owner.role.level > 1 ? <div>
+                { (userLogged && editionGranted) && <div>
                   <ButtonApp labelID={'btn.delete'} onClick={() => onDelete(comment.id)} type='button' buttonStyle='delete' size='small' icon={iconDelete}/>
-                </div> : null}
+                </div>}
 
-                {isMainComment ? (
+                {((isMainComment && userLogged) && (editionGranted || owner.uid === userLogged?.uid)) && (
                   <div className={style.replyButton}>
                     <ButtonApp labelID={reply === false ? 'page.academy.lesson.form.addReply.button' : 'page.academy.lesson.form.closeReply.button'} onClick={() => setReply(!reply)} type='button' buttonStyle='dark' size='small' icon={iconReply}/>
-                  </div>) : null}
+                  </div>)}
               </div>
               {reply ? (
                 <Suspense>

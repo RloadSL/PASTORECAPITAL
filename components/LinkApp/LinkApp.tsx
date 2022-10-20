@@ -14,7 +14,7 @@ interface LINKAPPPROPS {
 export const LinkApp = ({ label, icon, linkHref, target = '_blank', linkStyle = 'default' }: LINKAPPPROPS) => {
   return (
     <Link href={linkHref ? linkHref : '#'}>
-      <a className={`${style.linkItem} ${style[linkStyle]}`} target={target} >
+      <a onClick={() => document.body.style.overflow = 'auto'} className={`${style.linkItem} ${style[linkStyle]}`} target={target} >
         {icon ? <span className={style.linkItemIcon}><Image src={icon} alt='' /></span> : null}
         <span className={style.linkItemLabel}>
           <FormattedMessage id={label} />

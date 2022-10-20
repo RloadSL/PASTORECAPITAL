@@ -25,8 +25,8 @@ export class User {
     return this._role;
   }
 
-  private _subscription: Subscription | undefined;
-  public get subscription(): Subscription | undefined {
+  private _subscription: Subscription;
+  public get subscription(): Subscription {
     return this._subscription;
   }
 

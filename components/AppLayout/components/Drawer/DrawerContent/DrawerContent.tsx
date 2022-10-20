@@ -20,8 +20,6 @@ interface DRAWERCONTENTPROPS {
 const DrawerContent = ({ navbar, children, footer = false, routerPath }: DRAWERCONTENTPROPS) => {
   const wrapperStyle =  useCallback(
     () => {
-      console.log(routerPath)
-
       if (routerPath === '/academy/courses/[course-slug]/[lesson-slug]') {
         return style.wrapperLessons
       } else if (routerPath === '/login') {

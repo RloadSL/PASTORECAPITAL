@@ -18,17 +18,22 @@ import Notifications from 'components/Notifications'
  */
 const NavBar = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const _signOutUser = () => dispatch(signOut())
+  
   const user = useSelector(getUserLogged)
   const { limitTextLength } = useComponentUtils()
   const router = useRouter()
   
+  const _signOutUser = () => {
+    router.push('/');
+    dispatch(signOut())
+  }
  
   return (
     <NavBarView
-      userName={user ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
-      userRole={user ? user.role.label : undefined }
-      signOut={user ? () => _signOutUser() : () => null}
+      userName={user && user.uid != 'not-logged' ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
+      userRole={user && user.uid != 'not-logged' ? user.role.label : undefined }
+      userPlan={user && user.uid != 'not-logged' ? user.subscription.plan.label : undefined}
+      signOut= {user && user.uid != 'not-logged' ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
     />
@@ -40,13 +45,15 @@ const NavBarView = ({
   signOut,
   userName,
   userRole,
-  linkToSignIn
+  linkToSignIn,
+  userPlan
 }: {
   back?: Function
   userName?: string
   linkToSignIn?: boolean
   signOut: Function,
-  userRole?:string
+  userRole?:string,
+  userPlan?:string
 }) => {
   return (
     <div className={style.navbarContainer}>
@@ -73,7 +80,7 @@ const NavBarView = ({
           <div className='flex-container'>
             <div className={style.userInfo}>
               <p className={style.userName}>{userName || ''}</p>
-              <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`} /></p>
+              <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`}  /> {userRole === 'User' && <FormattedMessage id={`plan.${userPlan}`}/> }</p>
             </div>
             <div className={style.optionsMenu}>
               <Menu

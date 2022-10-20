@@ -42,7 +42,6 @@ export const signUpEmailPassword = createAsyncThunk(
 export const signOut = createAsyncThunk(
   'auth@signOut',
   async () => {
-    console.log('auth@signOut')
     try {
       await AuthImplInstance.signOut()
       const user = null
@@ -57,6 +56,7 @@ export const createUser = createAsyncThunk(
   'auth@createUser',
   async ({uid , extradata}: {uid: string, extradata?: {webToken:string}}) => {
     try {
+      console.log(uid)
       const user = await UserRepositoryImplInstance.read(uid, extradata)
       return user;
     } catch (error) {
@@ -106,7 +106,8 @@ const _handleSignIn = (state: any, action: any) => {
   if (action.payload instanceof User) {
     state.userLogged = action.payload
     state.authError = null
-    state.loggued = true
+    if( action.payload.uid != 'not-logged')
+      state.loggued = true
   }
   else {
     if (action.payload) {
@@ -181,7 +182,7 @@ export const authetication = createSlice({
       .addCase(signUpEmailPassword.pending, (state) => { state.loading = true })
       .addCase(createUser.fulfilled, _handleSignIn)
       .addCase(createUser.pending, (state) => { state.loading = true })
-      .addCase(signOut.fulfilled, (state: any) => { state.userLogged = null, state.loggued = false, state.authError = null, state.loading = false , state.userCredential = null})
+      .addCase(signOut.fulfilled, (state: any) => { state.loggued = false, state.authError = null, state.loading = false , state.userCredential = null})
       .addCase(sendEmailCode.fulfilled, _handleSendMailCode)
       .addCase(sendEmailCode.pending, (state) => { state.loading = true })
       .addCase(validateCode.fulfilled, _handleValidateCode)

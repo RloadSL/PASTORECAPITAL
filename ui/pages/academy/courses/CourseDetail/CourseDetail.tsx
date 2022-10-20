@@ -17,6 +17,7 @@ import iconAddLesson from '../../../../../assets/img/icons/add-document.svg'
 import ListLessons from '../ListLessons'
 import Link from 'next/link'
 import LinkApp from 'components/LinkApp'
+import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
@@ -36,7 +37,7 @@ const DeleteCourse = dynamic(
 const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
-
+  const { editionGranted } = useGuardPermissions()
   useEffect(() => {
     if (!post) {
       router.replace('/academy/courses')
@@ -61,9 +62,8 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
 
   return post ? (
     <CourseDetailView
-     
       courseCat={courseCat() || -1}
-      isAuthorized={loggedUser?.wpToken != null}
+      isAuthorized={editionGranted}
       post={post}
       editLink={editLink(loggedUser?.wpToken)}
     />
@@ -87,7 +87,7 @@ const CourseDetailView = ({
   return (
     <div className={style.coursePage}>
       <div>
-        {post && isAuthorized ? (
+        {(post && isAuthorized) && (
           <div className='admin-buttons-wrapper'>
             <div className={style.addNewLesson}>
               <ButtonApp
@@ -102,7 +102,7 @@ const CourseDetailView = ({
               <ButtonApp labelID={'btn.delete'} onClick={() => setDeleteCourse({ id: post.id, status: post.status })} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
             </div>
           </div>
-        ) : null}
+        )}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <ListLessons formLessonDetail={false} lessons={post.lessons}></ListLessons>
       </div>

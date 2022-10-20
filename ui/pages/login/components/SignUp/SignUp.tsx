@@ -62,7 +62,6 @@ const SignUp = () => {
     <SignUpView
       signUp={(value: CreateUser) => {
         signUp(value)
-        console.log('signUp')
       }}
       validationSchema={validationSchema}
     ></SignUpView>
