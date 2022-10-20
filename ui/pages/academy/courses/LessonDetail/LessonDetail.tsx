@@ -17,6 +17,7 @@ import iconDelete from '../../../../../assets/img/icons/trash.svg'
 import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import LinkApp from 'components/LinkApp'
 import iconArrow from '../../../../../assets/img/icons/arrow-circle.svg'
+import Head from 'next/head'
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
@@ -99,6 +100,10 @@ const LessonDetailView = ({
   }
   return (
     <div className={style.lessonPage} ref={contentRef}>
+      <Head>
+        <link rel='stylesheet' href='https://rload.es/apipastore/wp-includes/css/dist/block-library/style.min.css'></link>
+        <link rel='stylesheet' href='https://rload.es/apipastore/wp-content/themes/generatepress_child/style.css'></link>
+      </Head>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
         {editLink && (

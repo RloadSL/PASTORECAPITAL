@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import parse from 'html-react-parser'
 import style from './CourseDetail.module.scss'
+
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { NextPage } from 'next'
 import { Course } from 'domain/Course/Course'
@@ -18,6 +19,7 @@ import ListLessons from '../ListLessons'
 import Link from 'next/link'
 import LinkApp from 'components/LinkApp'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import Head from 'next/head'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
@@ -86,6 +88,10 @@ const CourseDetailView = ({
   const [create, setCreate] = useState(false)
   return (
     <div className={style.coursePage}>
+      <Head>
+        <link rel='stylesheet' href='https://rload.es/apipastore/wp-includes/css/dist/block-library/style.min.css'></link>
+        <link rel='stylesheet' href='https://rload.es/apipastore/wp-content/themes/generatepress_child/style.css'></link>
+      </Head>
       <div>
         {(post && isAuthorized) && (
           <div className='admin-buttons-wrapper' style={{paddingLeft:'20px'}}>

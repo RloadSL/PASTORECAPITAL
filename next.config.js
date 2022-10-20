@@ -13,8 +13,9 @@ const nextConfig = {
     localeDetection: false,
   } ,
   images: {
-    domains: ['localhost', 'https://rload.es/apipastore'],
+    domains: ['localhost'],
   }, 
+  
 }
 
 module.exports = nextConfig
