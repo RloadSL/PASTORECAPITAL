@@ -67,7 +67,7 @@
   "page.academy.courses.form.create.level": "Nivel del curso",
   "page.academy.courses.delete.title" : "Eliminar curso",
   "page.academy.courses.delete.menssage" : "¿Estás seguro de eliminar el curso? Se perderán todos los datos y lecciones asociadas a él.",
-  "page.academy.courses.filterSearch.label" : "Buscar por título",
+  "page.academy.courses.filterSearch.label" : "Buscar por título o #hashtag",
   "page.academy.courses.filterSearch.helper" : "Para buscar por hashtag  ejemplo: #crypto",
   "page.academy.courses.filterLevel.label" : "Nivel",
   "page.academy.courses.filterTags.label" : "Categoría",

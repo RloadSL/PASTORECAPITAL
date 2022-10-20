@@ -16,21 +16,21 @@ import Notifications from 'components/Notifications'
  * 
  * @returns 
  */
-const NavBar = () => {
+const NavBar = ({ windowSize }: { windowSize: any }) => {
   const dispatch = useDispatch<AppDispatch>()
   const _signOutUser = () => dispatch(signOut())
   const user = useSelector(getUserLogged)
   const { limitTextLength } = useComponentUtils()
   const router = useRouter()
-  
- 
+
   return (
     <NavBarView
       userName={user ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
-      userRole={user ? user.role.label : undefined }
+      userRole={user ? user.role.label : undefined}
       signOut={user ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
+      windowSize={windowSize}
     />
   )
 }
@@ -40,17 +40,20 @@ const NavBarView = ({
   signOut,
   userName,
   userRole,
-  linkToSignIn
+  linkToSignIn,
+  windowSize
 }: {
   back?: Function
   userName?: string
   linkToSignIn?: boolean
   signOut: Function,
-  userRole?:string
+  userRole?: string,
+  windowSize: any
 }) => {
+
   return (
     <div className={style.navbarContainer}>
-      <Breadcrumbs />
+      {windowSize.innerWidth >= 1080 ? <Breadcrumbs /> : null}
       {/* {back && (
         <div className={styles['navbar-back']}>
           <button onClick={() => back()}>

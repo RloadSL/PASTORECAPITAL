@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import NavBar from '../../NavBar'
 import style from './DrawerContent.module.scss'
 
@@ -18,13 +18,30 @@ interface DRAWERCONTENTPROPS {
  */
 
 const DrawerContent = ({ navbar, children, footer = false, routerPath }: DRAWERCONTENTPROPS) => {
+  const [windowSize, setWindowSize] = useState({ innerWidth: 0, innerHeight: 0 });
+
+  useEffect(() => {
+    const { innerWidth, innerHeight } = window;
+    setWindowSize({ innerWidth, innerHeight });
+    const handleWindowResize = () => {
+      const { innerWidth, innerHeight } = window;
+      setWindowSize({ innerWidth, innerHeight });
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+    console.log(window.innerWidth)
+
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
   const wrapperStyle =  useCallback(
     () => {
-      console.log(routerPath)
-
       if (routerPath === '/academy/courses/[course-slug]/[lesson-slug]') {
         return style.wrapperLessons
-      } else if (routerPath === '/login') {
+      } else if (routerPath === '/login' || routerPath === '/recover-password') {
         return style.wrapperLogin
       } else {
         return style.wrapperContainer
@@ -36,7 +53,7 @@ const DrawerContent = ({ navbar, children, footer = false, routerPath }: DRAWERC
   return (
     <div className={`${style.drawerWrapper} ${wrapperStyle()}`}>
       <div className={style.drawerMainContainer}>
-        {navbar && <NavBar />}
+        {navbar && <NavBar windowSize={windowSize}/>}
         {children}
       </div>
     </div>

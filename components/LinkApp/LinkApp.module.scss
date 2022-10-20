@@ -14,8 +14,15 @@
     background-color:colors.$main;
     color: white;
     border-radius: 80px;
-    min-width: 120px;
-    height: 50px;
+    padding: 10px;
+    height: auto;
+    min-width: 100px;
+
+    @include devices.device(tablet) {
+      padding: 16px;
+      height: 50px;
+      min-width: 120px;
+    }
 
     .linkItemIcon {
       filter:  brightness(0) invert(1);

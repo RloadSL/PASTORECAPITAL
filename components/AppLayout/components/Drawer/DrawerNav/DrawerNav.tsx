@@ -54,7 +54,7 @@ const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, ac
 
   return (
     <div className={style.drawerNav}>
-      {windowSize.innerWidth >= 1080 && windowSize.innerWidth <= 1200 ? (
+      {windowSize.innerWidth >= 1080 && windowSize.innerWidth < 1200 ? (
         <div className={style.logoTablet}>
           <Image src={logoPastore} alt='Logotipo Pastore Capital' />
         </div>

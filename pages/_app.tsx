@@ -11,6 +11,7 @@ import AppLayout from '../components/AppLayout'
 import SnackBar from 'components/SnackBar'
 import SplashScreen from 'components/SplashScreen'
 import Head from 'next/head'
+import Loading from 'components/Loading'
 
 const messages: any = {
   en,
@@ -39,7 +40,7 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
           <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
         <SnackBar></SnackBar>
-        <SplashScreen/>
+        <Loading variant='outer-primary'/>
       </IntlProvider>
     </Provider>
   </>

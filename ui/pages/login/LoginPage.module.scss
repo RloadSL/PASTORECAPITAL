@@ -28,7 +28,8 @@
     }
 
     @include devices.device(lgScreen) {
-      padding: 0px;
+      padding: 100px 0px 100px 0px;
+      
     }
 
     .colLeft,

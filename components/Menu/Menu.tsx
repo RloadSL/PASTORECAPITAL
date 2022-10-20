@@ -6,7 +6,7 @@ import style from './Menu.module.scss'
 interface MENUPROPS {
   itemList: Array<any>
   activeItem?: string
-  isLoagged: boolean
+  isLogged?: boolean
 }
 
 /**
@@ -17,10 +17,10 @@ interface MENUPROPS {
  */
 
 const Menu = ({ itemList, activeItem }: MENUPROPS) => {
-  const isLoagged = useSelector(getIsLogged)
+  const isLogged = useSelector(getIsLogged)
   return (
     <MenuView
-      isLoagged={isLoagged}
+      isLogged={isLogged}
       itemList={itemList}
       activeItem={activeItem}
     />
@@ -31,12 +31,12 @@ const Menu = ({ itemList, activeItem }: MENUPROPS) => {
  * Función principal del render
  **/
 
-const MenuView = ({ itemList, activeItem, isLoagged }: MENUPROPS) => {
+const MenuView = ({ itemList, activeItem, isLogged }: MENUPROPS) => {
   return (
     <ul className={style.menuContainer}>
       {itemList?.map((item, index) => {
         if (item.isAdministrator) {
-          return isLoagged ? <MenuItem key={index} item={item} activeItem={activeItem} /> : null
+          return isLogged ? <MenuItem key={index} item={item} activeItem={activeItem} /> : null
         }else{
           return <MenuItem key={index} item={item} activeItem={activeItem} />
         }

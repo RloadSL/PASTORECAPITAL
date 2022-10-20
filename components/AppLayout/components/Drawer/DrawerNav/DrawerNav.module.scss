@@ -20,7 +20,7 @@
 
   @include devices.device(mdScreen) {
     height: 100%;
-    max-width: 340px;
+    max-width: 320px;
     background-color: white;
     flex-direction: row;
     width: 100%;
@@ -36,6 +36,10 @@
     }
   }
 
+  @include devices.device(lgScreen) {
+    max-width: 340px;
+  }
+
   .logoMobile {
     width: 40px;
     height: 40px;
@@ -49,7 +53,7 @@
   .logoTablet {
     width: 110px;
     height: auto;
-    align-self: flex-end;
+    margin-left: 70px;
 
     img {
       width: 100%;
@@ -59,7 +63,13 @@
   .logoApp {
     text-align: center;
     position: relative;
-    top: 80px;
+    top: 40px;
+    left: -25px;
+
+    @include devices.device(lgScreen) {
+      top: 80px;
+    }
+
   }
 
   .innerContent {

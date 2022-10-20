@@ -1,4 +1,10 @@
+@use "../../styles/partials/mixins/devices" as devices;
+
 .menuContainer {
   margin: auto;
-  width: 75%;
+  width: 85%;
+
+  @include devices.device(lgScreen) {
+    width: 75%;
+  }
 }

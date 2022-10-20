@@ -166,7 +166,7 @@ const PostGridView = ({
           </ul>
         </InfiniteScroll>
       ) : (
-        <h1>Nda que mostrar</h1>
+        <h1>Nada que mostrar</h1>
       )}
     </div>
   )
