@@ -13,7 +13,7 @@ const system_subscription_permission_module = {
   guest: [...system_public_module],
   basic: [...system_public_module],
   plus:[...system_public_module, '/academy/tutorials/[tutorial-slug'],
-  premium:[...system_public_module, '/academy/tutorials/[slug]', '/academy/tutorials/[course-slug]', '/academy/courses/[course-slug]' ,'/academy/tutorials/[course-slug]/[lesson-slug]'],
+  premium:[...system_public_module, '/academy/tutorials/[slug]', '/academy/tutorials/[tutorials-slug]', '/academy/courses/[course-slug]' ,'/academy/courses/[course-slug]/[lesson-slug]'],
 }
 
 
