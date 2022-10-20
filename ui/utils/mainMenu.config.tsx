@@ -60,30 +60,30 @@ export const mainMenuItems = [
     label: 'mainMenu.item.label.administation',
     type: 'accordion',
     isAdministrator: true,
-    path: 'academy',
-    href:'/academy',
+    path: 'administration',
+    href:'/administration',
     icon: academy,
     children: [
       {
         type: 'link',
         label: 'mainMenu.item.label.users',
         children: null,
-        href: '/academy/courses',
-        path:'courses'
+        href: '/administration',
+        path:'administration'
       },
       {
         type: 'link',
         label: 'mainMenu.item.label.stats',
         children: null,
-        href: '/academy/tutorials',
-        path:'tutorials'
+        href: '/administration',
+        path:'administration'
       },
       {
         type: 'link',
         label: 'mainMenu.item.label.invoice',
         children: null,
-        href: '/academy/tutorials',
-        path:'tutorials'
+        href: 'administration',
+        path:'administration'
       }
     ]
   },

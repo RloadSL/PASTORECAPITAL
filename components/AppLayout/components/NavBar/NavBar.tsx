@@ -16,7 +16,7 @@ import Notifications from 'components/Notifications'
  * 
  * @returns 
  */
-const NavBar = () => {
+const NavBar = ({ windowSize }: { windowSize: any }) => {
   const dispatch = useDispatch<AppDispatch>()
   
   const user = useSelector(getUserLogged)
@@ -36,6 +36,7 @@ const NavBar = () => {
       signOut= {user && user.uid != 'not-logged' ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
+      windowSize={windowSize}
     />
   )
 }
@@ -46,7 +47,8 @@ const NavBarView = ({
   userName,
   userRole,
   linkToSignIn,
-  userPlan
+  userPlan,
+  windowSize
 }: {
   back?: Function
   userName?: string
@@ -54,10 +56,12 @@ const NavBarView = ({
   signOut: Function,
   userRole?:string,
   userPlan?:string
+  windowSize: any
 }) => {
+
   return (
     <div className={style.navbarContainer}>
-      <Breadcrumbs />
+      {windowSize.innerWidth >= 1080 ? <Breadcrumbs /> : null}
       {/* {back && (
         <div className={styles['navbar-back']}>
           <button onClick={() => back()}>

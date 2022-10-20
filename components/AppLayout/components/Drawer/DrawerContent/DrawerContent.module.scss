@@ -3,7 +3,15 @@
 
 .drawerWrapper {
   background-color: colors.$grey20;
-  padding-top: 30px;
+  padding-top: 65px;
+
+  @include devices.device(smScreen) {
+    padding-top: 90px;
+  }
+
+  @include devices.device(mdScreen) {
+    padding-top: 40px;
+  }
 
   @include devices.device(lgScreen) {
     padding-top: 80px;

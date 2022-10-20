@@ -72,7 +72,7 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
         <div className={style.flexItems}>
           <div className={style.filterSearchItem}>
             <InputApp
-            helper='page.academy.courses.filterSearch.helper'
+            // helper='page.academy.courses.filterSearch.helper'
               value={tag}
               onChange={(name: string, value: any) =>
                 _handleOnChange({ [name]: value })

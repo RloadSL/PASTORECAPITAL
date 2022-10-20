@@ -7,16 +7,27 @@
 
 .menuItem {
   display: flex;
-  align-items: center !important;
   color: colors.$dark;
   width: 100%;
   font-weight: normal;
   background-color: transparent;
   font-size: 1rem;
   padding: 16px;
+  align-items: center !important;
+
+
+  @include devices.device(mdScreen) {
+    align-items:flex-end;
+  }
 }
 
 .hasChildren {
+  padding: 10px;
+
+  @include devices.device(mdScreen) {
+    padding: 15px;
+  }
+
   &:after {
     content: '';
     display: inline-block;

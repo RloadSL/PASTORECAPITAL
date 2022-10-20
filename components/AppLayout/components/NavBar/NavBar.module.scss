@@ -6,19 +6,19 @@
 
 
 .navbarContainer {
-  display: flex;
-  justify-content: space-between;
+
   flex: 1;
   height: 60px;
   padding: 10px;
   @extend %layoutContainer;
   padding-left: 2%;
   padding-right: 2%;
-  margin-top: 2%;
+  margin-top: 0px;
 
-
-  @include devices.device(tablet) {
-    margin-top: 40px;
+  @include devices.device(smScreen) {
+    //margin-top: 40px;
+      display: flex;
+  justify-content: space-between;
   }
 }
 

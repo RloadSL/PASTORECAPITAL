@@ -88,7 +88,7 @@ const CourseDetailView = ({
     <div className={style.coursePage}>
       <div>
         {(post && isAuthorized) && (
-          <div className='admin-buttons-wrapper'>
+          <div className='admin-buttons-wrapper' style={{paddingLeft:'20px'}}>
             <div className={style.addNewLesson}>
               <ButtonApp
                 onClick={() => setCreate(true)}
