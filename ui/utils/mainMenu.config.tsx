@@ -18,7 +18,7 @@ export const mainMenuItems = [
     label: 'mainMenu.item.label.home',
     children: null,
     href: '/',
-    path: '/'
+    path: '/home'
   },
   {
     type: 'link',

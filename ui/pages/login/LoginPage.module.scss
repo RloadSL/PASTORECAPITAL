@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 80px 3% 100px 3%;
+    padding: 35px 3% 100px 3%;
 
     @include devices.device(tablet) {
       flex-direction: row;

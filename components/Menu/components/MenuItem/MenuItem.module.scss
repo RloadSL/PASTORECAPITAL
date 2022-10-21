@@ -15,7 +15,6 @@
   padding: 16px;
   align-items: center !important;
 
-
   @include devices.device(mdScreen) {
     align-items:flex-end;
   }
@@ -65,9 +64,13 @@
 }
 
 .active {
-  button {
+  %hoverMenu {
     background-color: colors.$palette8;
     border-radius: 25px;
+  }
+
+  button, a {
+    @extend %hoverMenu
   }
 }
 

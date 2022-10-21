@@ -9,7 +9,6 @@ import { AppDispatch } from 'ui/redux/store'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { useRouter } from 'next/router'
 
-
 /**
  * Componente principal de la aplicación
  */

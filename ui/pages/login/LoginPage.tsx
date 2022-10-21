@@ -18,6 +18,7 @@ import Loading from 'components/Loading'
 import Modal from 'components/Modal'
 import dashboardIcon from '../../../assets/img/dashboard.png'
 import loadingIcon from '../../../assets/img/lazy.gif'
+import Link from 'next/link'
 
 
 const SigUp = dynamic(() => import('./components/SignUp'), {
@@ -86,7 +87,11 @@ const LoginPageView = ({ userCredential }: any) => {
         <div className={style.colLeft}>
           <div className={style.colContainer}>
             <div className={style.logo}>
-              <Image src={logo} alt="Pastore Capital logo" />
+              <Link href={'https://pastorecapital.com/'}>
+                <a title='Ir a Pastore Capital' target={'_blank'}>
+                  <Image src={logo} alt="Pastore Capital logo" />
+                </a>
+              </Link>
             </div>
             <div className={style.titleContainer}>
               <h1 className={style.mainTitle}>
