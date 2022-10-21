@@ -27,9 +27,7 @@ const DrawerNav = ({ children }: any) => {
 
     window.addEventListener('resize', handleWindowResize);
 
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
+    
   }, []);
 
   return <DrawerNavView windowSize={windowSize} activeItem={activeItem?.path}>{children}</DrawerNavView>
@@ -52,8 +50,7 @@ const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, ac
     }
   }
 
-  return (
-    <div className={style.drawerNav}>
+  return windowSize.innerWidth > 0 &&  (<div className={style.drawerNav}>
       {windowSize.innerWidth >= 1080 && windowSize.innerWidth < 1200 ? (
         <div className={style.logoTablet}>
           <Image src={logoPastore} alt='Logotipo Pastore Capital' />
