@@ -1,8 +1,5 @@
 @use '../../../../../styles/partials/placeholders';
 @use '../../../../../styles/partials/mixins/devices' as devices;
-@import 'https://rload.es/apipastore/wp-content/themes/generatepress_child/style.css';
-@import 'https://rload.es/apipastore/wp-includes/css/dist/block-library/style.min.css';
-
 
 .lessonPage {
   @extend %layoutContainer;

@@ -3,6 +3,8 @@ import analysis from '../../assets/img/icons/analysis.svg'
 import academy from '../../assets/img/icons/academy.svg'
 import consultant from '../../assets/img/icons/consultant.svg'
 import admin from '../../assets/img/icons/gear.svg'
+import home from '../../assets/img/icons/home.svg'
+
 
 import webinars from '../../assets/img/icons/academy.svg'
 import AMAs from '../../assets/img/icons/academy.svg'
@@ -12,7 +14,7 @@ import afiliates from '../../assets/img/icons/afiliates.svg'
 export const mainMenuItems = [
   {
     type: 'link',
-    icon: news,
+    icon: home,
     label: 'mainMenu.item.label.home',
     children: null,
     href: '/',

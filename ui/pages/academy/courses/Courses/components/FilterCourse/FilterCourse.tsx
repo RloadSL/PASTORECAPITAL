@@ -16,7 +16,8 @@ const FilterCourse = ({ onFilter }: any) => {
     let fetching = true
     getLevels()
       .then(res => {
-        if (fetching) setlevels(res as any)
+        const options = [{value: '', label: 'Todos', id: null}, ...res]
+        if (fetching) setlevels(options as any)
       })
       .catch(() => {
         console.error('Error interno refrescar la página. Para obtener los niveles')
@@ -97,7 +98,7 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
           <input hidden type='submit'></input>
         </div>
       </FormApp>
-      <Card cardStyle={['autocomplite', 'elevationSmall']}>
+      <Card cardStyle={['autocomplete', 'elevationSmall']}>
         <div>
           {tags.map((tag: { id: number; name: string }, index: number) => {
             return (

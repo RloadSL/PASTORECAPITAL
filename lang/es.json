@@ -59,6 +59,13 @@
   "page.recover-password.form.resetPassword.title": "Cambiar contraseña",
   "page.recover-password.form.resetPassword.description": "Introduce una nueva contraseña de al menos, 6 caracteres",
 
+  "page.academy.mainTitle" : "Hola,",
+  "page.academy.mainBlock.title" : "Desarrolla tus habilidades con Pastore Capital",
+  "page.academy.leftBlock.title" : "<b>Nuestros</b> Cursos",
+  "page.academy.rightBlock.title" : "<b>Nuestros</b> Tutoriales",
+  "page.academy.rightBlock.button.label" : "Explorar Tutoriales",
+  "page.academy.leftBlock.button.label" : "Explorar Cursos",
+
   "page.academy.courses.title" : "Academia",
   "page.academy.courses.btn_create" : "<b>Crear</b> nuevo curso",
   "page.academy.courses.create.title" : "Crear nuevo curso de la Academia ",

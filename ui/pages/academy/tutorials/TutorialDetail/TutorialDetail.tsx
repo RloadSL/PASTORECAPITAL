@@ -15,6 +15,7 @@ import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../../assets/img/icons/trash.svg'
 import DeleteTutorial from '../Tutorials/components/DeleteTutorial'
+import WordpressHeader from 'WordpressHeader'
 
 
 const TutorialDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
@@ -62,6 +63,7 @@ const LessonDetailView = ({
 
   return (
     <div className={style.lessonPage} ref={contentRef}>
+     <WordpressHeader/>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
         {post && editLink ? (
@@ -80,7 +82,7 @@ const LessonDetailView = ({
       </div>
       {deleteTutorial && (
         <Suspense>
-          <DeleteTutorial data={deleteTutorial} onClose={() => setDeleteTutorial(null)}/>
+          <DeleteTutorial data={deleteTutorial} onClose={() => setDeleteTutorial(null)} />
         </Suspense>
       )}
     </div>

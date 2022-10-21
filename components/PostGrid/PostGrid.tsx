@@ -133,7 +133,7 @@ const PostGridView = ({
           buttonStyle='primary'
         />
       </div>}
-      {posts ? (
+      {posts?.items.length > 0 ? (
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
           hasMore={posts.hasMore}
@@ -167,7 +167,7 @@ const PostGridView = ({
           </ul>
         </InfiniteScroll>
       ) : (
-        <h1>Nada que mostrar</h1>
+        <p className={style.noResults}>No hemos encontrado nada..</p>
       )}
     </div>
   )

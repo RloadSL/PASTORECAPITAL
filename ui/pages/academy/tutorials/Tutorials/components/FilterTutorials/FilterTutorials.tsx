@@ -98,7 +98,7 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
           <input hidden type='submit'></input>
         </div>
       </FormApp>
-      <Card cardStyle={['autocomplite', 'elevationSmall']}>
+      <Card cardStyle={['autocomplete', 'elevationSmall']}>
         <div>
           {tags.map((tag: { id: number; name: string }, index: number) => {
             return (
