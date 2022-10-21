@@ -43,6 +43,7 @@ export default function AppLayout ({ children }: any) {
 }
 
 export const AppLayoutView = ({ children, alertSubscription, goSubscription, goBack }: any) => {
+  console.log('alertSubscription' ,alertSubscription)
   return (
     <div>
       <Drawer>{children}</Drawer>

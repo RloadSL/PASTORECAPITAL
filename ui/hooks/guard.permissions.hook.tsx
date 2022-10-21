@@ -21,7 +21,7 @@ const system_subscription_permission_module = {
 export const useGuardPermissions = () => {
   const userLogged:User = useSelector(getUserLogged)
   const router = useRouter()
-  const [subscriptionGranted, setSubscriptionGranted] = useState(false)
+  const [subscriptionGranted, setSubscriptionGranted] = useState(true)
 
   const roleGranted = () => { 
     const { role } = userLogged;  
@@ -50,7 +50,7 @@ export const useGuardPermissions = () => {
       
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
-     
+      
       setSubscriptionGranted(authorized) 
       
     }
