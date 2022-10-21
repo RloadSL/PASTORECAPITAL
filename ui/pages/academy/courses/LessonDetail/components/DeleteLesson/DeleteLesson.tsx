@@ -1,11 +1,13 @@
 import ButtonApp from 'components/ButtonApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
 import { LessonRepositoryInstance } from 'infrastructure/repositories/lessons.repository'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
+import { useSystem } from 'ui/hooks/system.hooks'
 import { removeAcademyPost } from 'ui/redux/slices/academy/academy.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
@@ -19,7 +21,7 @@ const DeleteLesson = ({
   onClose: Function
 })=>{
   const { wpToken } = useSelector(getUserLogged);
- 
+  const {pushInfoApp} = useSystem()
   const dispatch = useDispatch<AppDispatch>()
   const [loading, setloading] = useState(false)
   const router = useRouter()
@@ -38,6 +40,8 @@ const DeleteLesson = ({
       pathname: `/academy/courses/${router.query['course-slug']}`,
       query: router.query
     })
+    pushInfoApp(new InfoApp({code: 'message.item.deleted', message:'The item was deleted'}, 'success'));
+
     setloading(false)
   }
 
