@@ -9,18 +9,20 @@ import { getUserLogged } from "ui/redux/slices/authentication/authentication.sel
 const system_public_module = [
   '/', '/login', '/recover-password', '/academy', '/academy/tutorials', '/academy/courses', '/subscription'
 ]
+
 const system_subscription_permission_module = {
   guest: [...system_public_module],
   basic: [...system_public_module],
   plus:[...system_public_module, '/academy/tutorials/[tutorial-slug'],
-  premium:[...system_public_module, '/academy/tutorials/[slug]', '/academy/tutorials/[tutorials-slug]', '/academy/courses/[course-slug]' ,'/academy/courses/[course-slug]/[lesson-slug]'],
+  premium:[...system_public_module, '/academy/tutorials/[tutorial-slug]', '/academy/courses/[course-slug]' ,'/academy/courses/[course-slug]/[lesson-slug]'],
 }
 
 
 export const useGuardPermissions = () => {
   const userLogged:User = useSelector(getUserLogged)
   const router = useRouter()
-  const [subscriptionGranted, setSubscriptionGranted] = useState(true)
+  const [subscriptionGranted, setSubscriptionGranted] = useState(false)
+
   const roleGranted = () => { 
     const { role } = userLogged;  
 
@@ -48,20 +50,20 @@ export const useGuardPermissions = () => {
       
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
-      if(!authorized){
-        setSubscriptionGranted(false) 
-      }else{
-        setSubscriptionGranted(true) 
-      }
+     
+      setSubscriptionGranted(authorized) 
+      
     }
-
     if(userLogged?.uid){
       _subscriptionGranted(userLogged?.subscription, userLogged?.role, router.route); 
     }
   }, [router.route])
+
+  console.log('setSubscriptionGranted', subscriptionGranted)
   return {
     roleGranted,
     subscriptionGranted,
-    editionGranted : editionSetionGranted()
+    editionGranted : editionSetionGranted(),
+    userChecked: !!userLogged 
   }
 }

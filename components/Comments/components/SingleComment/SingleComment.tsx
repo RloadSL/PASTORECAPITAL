@@ -31,6 +31,7 @@ interface SINGLECOMMENTPROPS {
 
 const SingleComment = ({ comment, isLastChild, onDelete }: any) => {
   const { editionGranted } = useGuardPermissions()
+  
   const userLogged = useSelector(getUserLogged)
 
   return (

@@ -137,6 +137,9 @@
   "message.password-updated": "La contraseña ha sido cambiada.",
   "message.item.created": "El item se ha creado correctamente",
   "message.item.deleted": "El item se ha eliminado correctamente",
+  
+  "subscription.user.unauthorized.alert.title": "Usuario sin autorización",
+  "subscription.user.unauthorized.alert.content": "",
 
   "home":"Home",
   "courses": "Cursos",
