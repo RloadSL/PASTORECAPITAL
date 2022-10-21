@@ -19,6 +19,7 @@ import LinkApp from 'components/LinkApp'
 import iconArrow from '../../../../../assets/img/icons/arrow-circle.svg'
 import Head from 'next/head'
 import DeleteLesson from './components/DeleteLesson'
+import WordpressHeader from 'WordpressHeader'
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
@@ -101,10 +102,7 @@ const LessonDetailView = ({
   }
   return (
     <div className={style.lessonPage} ref={contentRef}>
-      <Head>
-        <link rel='stylesheet' href='https://rload.es/apipastore/wp-includes/css/dist/block-library/style.min.css'></link>
-        <link rel='stylesheet' href='https://rload.es/apipastore/wp-content/themes/generatepress_child/style.css'></link>
-      </Head>
+      <WordpressHeader/>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
         {editLink && (

@@ -20,6 +20,7 @@ import Link from 'next/link'
 import LinkApp from 'components/LinkApp'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import Head from 'next/head'
+import WordpressHeader from 'WordpressHeader'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
@@ -88,10 +89,7 @@ const CourseDetailView = ({
   const [create, setCreate] = useState(false)
   return (
     <div className={style.coursePage}>
-      <Head>
-        <link rel='stylesheet' href='https://rload.es/apipastore/wp-includes/css/dist/block-library/style.min.css'></link>
-        <link rel='stylesheet' href='https://rload.es/apipastore/wp-content/themes/generatepress_child/style.css'></link>
-      </Head>
+       <WordpressHeader/>
       <div>
         {(post && isAuthorized) && (
           <div className='admin-buttons-wrapper' style={{paddingLeft:'20px'}}>

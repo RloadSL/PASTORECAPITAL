@@ -4,6 +4,7 @@
 
 .lessonsList {
   color: colors.$dark;
+
   li {
     background-color: white;
     border-left: 4px solid colors.$main;
@@ -72,6 +73,10 @@
 }
 
 .lessons {
+  .title {
+    color: colors.$dark;
+  }
+
   &.sidebarLessons {
     margin-top: 20px;
     li {

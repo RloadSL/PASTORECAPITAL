@@ -31,6 +31,7 @@ const ListLessonsView = ({ lessons, navigate, listLessonsStyle , current_lesson}
   
   return (
     <div className={`${style.lessons} ${listLessonsStyle ? style.sidebarLessons : ''}`} style={{ padding: '2%' }}>
+      <h2 className={style.title}>Lecciones</h2>
       <ul className={style.lessonsList}>
         {lessons.map((l, index) => {
           return (

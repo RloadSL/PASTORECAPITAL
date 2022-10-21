@@ -5,7 +5,7 @@ import style from './Card.module.scss'
 
 export interface CARDPROPS {
   children: any,
-  cardStyle?: 'default' | 'outlined' | 'autocomplite' | 'elevationSmall'| Array<'autocomplite' | 'elevationSmall'>
+  cardStyle?: 'default' | 'outlined' | 'autocomplete' | 'elevationSmall'| Array<'autocomplete' | 'elevationSmall'>
   backgroundColor?: string
 }
 
