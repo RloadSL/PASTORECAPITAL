@@ -128,6 +128,8 @@
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",
 
+  "message.password-updated": "La contraseña ha sido cambiada.",
+
   "home":"Home",
   "courses": "Cursos",
   "tutorials": "Tutoriales",
