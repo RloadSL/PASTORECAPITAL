@@ -18,7 +18,7 @@ const DeleteCourse = ({
   data: { id: number; status: string }
   onClose: Function
 })=>{
-  const { wpToken } = useSelector(getUserLogged); //OJO ESTE ES EL BUENO
+  const { wpToken } = useSelector(getUserLogged);
  
   const dispatch = useDispatch<AppDispatch>()
   const [loading, setloading] = useState(false)

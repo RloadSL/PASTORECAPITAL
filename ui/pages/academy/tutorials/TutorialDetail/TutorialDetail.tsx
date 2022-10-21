@@ -3,7 +3,7 @@ import { PostDto } from 'infrastructure/dto/course.dto'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import parse from 'html-react-parser'
@@ -14,6 +14,7 @@ import ButtonApp from 'components/ButtonApp'
 import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../../assets/img/icons/trash.svg'
+import DeleteTutorial from './components/DeleteTutorial'
 
 
 const TutorialDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
@@ -57,6 +58,7 @@ const LessonDetailView = ({
 
 }) => {
   const contentRef = useRef<any>();
+  const [deleteTutorial, setDeleteTutorial]: [{ id: number, status: string } | null, Function] = useState(null)
 
   return (
     <div className={style.lessonPage} ref={contentRef}>
@@ -66,7 +68,7 @@ const LessonDetailView = ({
           <div className='admin-buttons-wrapper'>
             <div className='admin-buttons-container'>
               <LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
-              <ButtonApp labelID={'btn.delete'} onClick={() => console.log('borrar')} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
+              <ButtonApp labelID={'btn.delete'} onClick={() => setDeleteTutorial({ id: post.id, status: post.status })} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
             </div>
           </div>
         ) : null}
@@ -76,6 +78,11 @@ const LessonDetailView = ({
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
       </div>
+      {deleteTutorial && (
+        <Suspense>
+          <DeleteTutorial data={deleteTutorial} onClose={() => setDeleteTutorial(null)}/>
+        </Suspense>
+      )}
     </div>
   )
 }

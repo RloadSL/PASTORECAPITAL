@@ -1,3 +1,3 @@
-import DeleteTutorial from "./DeleteTutorials";
+import DeleteTutorial from "./DeleteTutorial";
 
 export default DeleteTutorial;

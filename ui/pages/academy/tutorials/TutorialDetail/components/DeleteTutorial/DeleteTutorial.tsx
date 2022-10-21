@@ -1,7 +1,7 @@
 import ButtonApp from 'components/ButtonApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
-import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
+import { TutorialRepositoryInstance } from 'infrastructure/repositories/tutorials.repository'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -18,7 +18,7 @@ const DeleteTutorial = ({
   data: { id: number; status: string }
   onClose: Function
 })=>{
-  const { wpToken } = useSelector(getUserLogged); //OJO ESTE ES EL BUENO
+  const { wpToken } = useSelector(getUserLogged);
  
   const dispatch = useDispatch<AppDispatch>()
   const [loading, setloading] = useState(false)
@@ -26,23 +26,25 @@ const DeleteTutorial = ({
   const onDelete = async () => {
     setloading(true)
     if(wpToken){
-      await CourseRepositoryInstance.delete(data.id, wpToken);
+      await TutorialRepositoryInstance.delete(data.id, wpToken);
       dispatch(removeAcademyPost(data))
       onClose()
     }
     else{
       alert('Unauthorized')
     }
-    router.push('/academy/courses')
+    
+    router.push({
+      pathname: `/academy/tutorials`})
     setloading(false)
   }
 
   return (
-    <DeleteCourseView loading={loading} onDelete={onDelete}  onClose={onClose}/>
+    <DeleteTutorialView loading={loading} onDelete={onDelete}  onClose={onClose}/>
   )
 }
 
-const DeleteCourseView  = ({
+const DeleteTutorialView  = ({
   onClose,
   onDelete,
   loading
@@ -57,11 +59,11 @@ const DeleteCourseView  = ({
       <div className={style.cardContainer}>
         <div className={style.header}>
           <h3 className={style.formTitle}>
-            <FormattedMessage id='page.academy.courses.delete.title'></FormattedMessage>
+            <FormattedMessage id='page.academy.tutorials.modal.delete.title'></FormattedMessage>
           </h3>
         </div>
         <p>
-          <FormattedMessage id='page.academy.courses.delete.menssage'></FormattedMessage>
+          <FormattedMessage id='page.academy.tutorials.modal.delete.message'></FormattedMessage>
         </p>
         <div className={style.actions}>
           <ButtonApp labelID='alert.btn.cancel' onClick={() => onClose()}/>

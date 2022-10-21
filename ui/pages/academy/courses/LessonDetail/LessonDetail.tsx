@@ -3,7 +3,7 @@ import { PostDto } from 'infrastructure/dto/course.dto'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import parse from 'html-react-parser'
@@ -18,6 +18,7 @@ import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import LinkApp from 'components/LinkApp'
 import iconArrow from '../../../../../assets/img/icons/arrow-circle.svg'
 import Head from 'next/head'
+import DeleteLesson from './components/DeleteLesson'
 
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
@@ -75,7 +76,7 @@ const LessonDetailView = ({
   _navigatePaginator: Function
 }) => {
   const contentRef = useRef<any>()
-
+  const [deleteLesson, setDeleteLesson]: [{ id: number, status: string } | null, Function] = useState(null)
   const renderPaginator = () => {
     return (
       <div className={style.pagination}>
@@ -116,7 +117,7 @@ const LessonDetailView = ({
             />
             <ButtonApp
               labelID={'btn.delete'}
-              onClick={() => console.log('borrar')}
+              onClick={() => setDeleteLesson({ id: post.id, status: post.status })}
               type='button'
               buttonStyle='delete'
               size='small'
@@ -142,6 +143,11 @@ const LessonDetailView = ({
           ></ListLessons>
         </div>
       </SidebarCollapsable>
+      {deleteLesson && (
+        <Suspense>
+          <DeleteLesson data={deleteLesson} onClose={() => setDeleteLesson(null)}></DeleteLesson>
+        </Suspense>
+      )}
     </div>
   )
 }
