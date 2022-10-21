@@ -1,7 +1,10 @@
+@use "../../styles/partials/variables/colors" as colors;
+
 .pagination {
 	max-width: 100%;
   display: flex;
   justify-content: space-between;
+	padding-top: 2%;
 
 	.before {
 		button {

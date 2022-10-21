@@ -2,6 +2,7 @@ import news from '../../assets/img/icons/news.svg'
 import analysis from '../../assets/img/icons/analysis.svg'
 import academy from '../../assets/img/icons/academy.svg'
 import consultant from '../../assets/img/icons/consultant.svg'
+import admin from '../../assets/img/icons/gear.svg'
 
 import webinars from '../../assets/img/icons/academy.svg'
 import AMAs from '../../assets/img/icons/academy.svg'
@@ -62,7 +63,7 @@ export const mainMenuItems = [
     isAdministrator: true,
     path: 'administration',
     href:'/administration',
-    icon: academy,
+    icon: admin,
     children: [
       {
         type: 'link',
