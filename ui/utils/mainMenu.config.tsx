@@ -13,6 +13,14 @@ export const mainMenuItems = [
   {
     type: 'link',
     icon: news,
+    label: 'mainMenu.item.label.home',
+    children: null,
+    href: '/',
+    path: '/'
+  },
+  {
+    type: 'link',
+    icon: news,
     label: 'mainMenu.item.label.news',
     children: null,
     href: '/news',

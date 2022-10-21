@@ -1,3 +1,3 @@
-import DeleteCourse from "./DeleteLesson";
+import DeleteLesson from "./DeleteLesson";
 
-export default DeleteCourse;
+export default DeleteLesson;

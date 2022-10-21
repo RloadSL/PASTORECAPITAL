@@ -7,6 +7,7 @@
   "role.Colaborator" : "Colaborador",
   "role.Administrator" : "Administrador",
 
+  "mainMenu.item.label.home":"Dashboard",
   "mainMenu.item.label.academy":"Academia",
   "mainMenu.item.label.administation":"Administración",
   "mainMenu.item.label.news":"Noticias",
@@ -90,7 +91,10 @@
   "page.academy.tutorials.form.create.excerpt" : "Resumen del tutorial",
   "page.academy.tutorials.form.create.submit" : "Crear tutorial",
   "page.academy.tutorials.form.create.excerpt.helper" : "Resumen corto del tutorial. Máximo 300 caracteres",
-  
+  "page.academy.tutorials.modal.delete.title" : "Eliminar tutorial",
+  "page.academy.tutorials.modal.delete.message" : "¿Estás seguro de eliminar el tutorial? Se perderán todos los datos",
+
+
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Autenticarse",
   "component.navbar.signOutBtn": "Salir",
