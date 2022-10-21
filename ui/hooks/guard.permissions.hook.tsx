@@ -59,7 +59,6 @@ export const useGuardPermissions = () => {
     }
   }, [router.route])
 
-  console.log('setSubscriptionGranted', subscriptionGranted)
   return {
     roleGranted,
     subscriptionGranted,

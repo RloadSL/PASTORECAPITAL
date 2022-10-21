@@ -34,7 +34,6 @@ export default function AppLayout ({ children }: any) {
   }, [])
   
   useEffect(() => {
-    console.log('useEffect', subscriptionGranted, userChecked, subscriptionGranted && userChecked)
   }, [subscriptionGranted, userChecked])
 
   const _goSubscription = () => router.push('/subscription')
