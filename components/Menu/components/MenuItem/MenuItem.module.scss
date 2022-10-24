@@ -63,15 +63,20 @@
   }
 }
 
+%hoverMenu {
+  background-color: colors.$palette8;
+  border-radius: 25px;
+}
+
 .active {
-  %hoverMenu {
-    background-color: colors.$palette8;
-    border-radius: 25px;
+  & > button {
+    @extend %hoverMenu
   }
 
-  button, a {
+  & > a {
     @extend %hoverMenu
   }
 }
+
 
 
