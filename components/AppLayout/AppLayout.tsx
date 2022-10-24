@@ -11,7 +11,6 @@ import { useRouter } from 'next/router'
 import AlertApp from 'components/AlertApp'
 import { FormattedMessage } from 'react-intl'
 
-
 /**
  * Componente principal de la aplicación
  */
