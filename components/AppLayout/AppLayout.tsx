@@ -26,7 +26,6 @@ export default function AppLayout ({ children }: any) {
       if(user){
         await dispatch(createUser({uid: user.uid, extradata: user.extradata}))
       }else{
-        console.log('onChangeAuthState', {uid: 'not-logged'})
         await dispatch(createUser({uid: 'not-logged'}))
       } 
       dispatch(setAuthLoading(false))
@@ -43,7 +42,6 @@ export default function AppLayout ({ children }: any) {
 }
 
 export const AppLayoutView = ({ children, alertSubscription, goSubscription, goBack }: any) => {
-  console.log('alertSubscription' ,alertSubscription)
   return (
     <div>
       <Drawer>{children}</Drawer>

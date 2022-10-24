@@ -77,7 +77,8 @@ const PostGrid = ({
       })
     }
   }
-
+  /* console.log('GRID', posts)
+  return <h1>GRID</h1> */
   return (
     <PostGridView
       setStatePost={() =>
@@ -124,6 +125,7 @@ const PostGridView = ({
       </button>
     )
   }
+  
   return (
     <div style={{ position: 'relative' }}>
       {editionGranted && <div className='admin-buttons-container'>
@@ -133,7 +135,7 @@ const PostGridView = ({
           buttonStyle='primary'
         />
       </div>}
-      { posts?.items.length > 0 ? (
+      { posts && (
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
           hasMore={posts.hasMore}
@@ -143,6 +145,7 @@ const PostGridView = ({
         >
           <ul className={style.postGrid}>
             {editionGranted && <li>{itemCreateBtn()}</li>}
+            {(posts.items.length <= 0 && posts.hasMore == false) && <p className={style.noResults}><FormattedMessage id='message.item.no-result'/></p>}
             {posts.items.map((item: any, index: number) => {
               return (
                 <li key={index} className={style.postLink}>
@@ -167,9 +170,7 @@ const PostGridView = ({
             })}
           </ul>
         </InfiniteScroll>
-      ) : !posts ? (
-        <LoadMoreLoading></LoadMoreLoading>
-      ) : <p className={style.noResults}>No hemos encontrado nada..</p>}
+      )}
     </div>
   )
 }

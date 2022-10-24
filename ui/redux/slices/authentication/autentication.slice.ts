@@ -56,7 +56,7 @@ export const createUser = createAsyncThunk(
   'auth@createUser',
   async ({uid , extradata}: {uid: string, extradata?: {webToken:string}}) => {
     try {
-      console.log(uid)
+     
       const user = await UserRepositoryImplInstance.read(uid, extradata)
       return user;
     } catch (error) {

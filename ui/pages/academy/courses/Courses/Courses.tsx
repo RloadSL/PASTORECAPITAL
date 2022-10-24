@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import PostGrid from 'components/PostGrid'
+import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { postsStore } from 'ui/redux/slices/academy/academy.selectors'
 import { academyGetCurses, cleanAcademyPosts } from 'ui/redux/slices/academy/academy.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
@@ -20,22 +22,24 @@ const CreateForm = dynamic(() => import('./components/CreateForm'), {
  * @returns
  */
 
-const Courses = ({ }) => {
+const Courses = ()  => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({search: '', categories: undefined, tags: undefined})
   const userLogged = useSelector(getUserLogged)
+  const posts = useSelector(postsStore)
 
   let isAdmin: boolean = true
   const [statePost, setStatePost] = useState<'public' | 'private'> ('public')
 
   useEffect(() => {
-    dispatch(cleanAcademyPosts({})) 
-    if(statePost === 'public'){
-      getCourses(filters, undefined)
-    }else{
-      if (userLogged?.wpToken) getCourses(filters, userLogged?.wpToken)
+    if(userLogged?.uid){
+      dispatch(cleanAcademyPosts({}))
+      if(statePost === 'public'){
+        getCourses(filters, undefined)
+      }else{
+        if (userLogged?.wpToken) getCourses(filters, userLogged?.wpToken)
+      }
     }
-   
  }, [filters, statePost])
 
  const _loadMore = (offset:number)=>{

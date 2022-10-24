@@ -29,7 +29,7 @@ const DrawerContent = ({ navbar, children, footer = false, routerPath }: DRAWERC
     }
 
     window.addEventListener('resize', handleWindowResize);
-    console.log(window.innerWidth)
+    ///console.log(window.innerWidth)
 
 
     return () => {
