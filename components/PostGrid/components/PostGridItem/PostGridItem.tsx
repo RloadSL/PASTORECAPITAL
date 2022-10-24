@@ -62,6 +62,7 @@ const PostGridItemView = ({ gridItem, onClickItem , isAdmin, deleteCourse}: any)
             description={gridItem.excerpt.rendered}
             terms={gridItem.tags}
             level={gridItem.level}
+            excerptStyle={'card'}
           />
         </div>
       </div>

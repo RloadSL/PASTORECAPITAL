@@ -1,0 +1,16 @@
+@use "../../../styles/partials/placeholders";
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+
+
+.analysisPage {
+  @extend %layoutContainer;
+  padding: 2%;
+  position: relative;
+
+  .addNewArticle {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+  }
+}
