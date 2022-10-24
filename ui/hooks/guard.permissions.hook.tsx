@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 import { getUserLogged } from "ui/redux/slices/authentication/authentication.selectors"
 
 const system_public_module = [
-  '/', '/login', '/recover-password', '/academy', '/academy/tutorials', '/academy/courses', '/subscription'
+  '/', '/login', '/recover-password', '/academy', '/academy/tutorials', '/academy/courses', '/subscription', '/analysis'
 ]
 
 const system_subscription_permission_module = {
