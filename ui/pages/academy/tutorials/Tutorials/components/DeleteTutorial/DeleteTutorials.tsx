@@ -1,12 +1,14 @@
 import ButtonApp from 'components/ButtonApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
 import { CourseRepositoryInstance } from 'infrastructure/repositories/courses.repository'
 import { TutorialRepositoryInstance } from 'infrastructure/repositories/tutorials.repository'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
+import { useSystem } from 'ui/hooks/system.hooks'
 import { removeAcademyPost } from 'ui/redux/slices/academy/academy.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
@@ -23,6 +25,8 @@ const DeleteTutorial = ({
  
   const dispatch = useDispatch<AppDispatch>()
   const [loading, setloading] = useState(false)
+  const {pushInfoApp} = useSystem()
+
   const router = useRouter()
   const onDelete = async () => {
     setloading(true)
@@ -34,6 +38,11 @@ const DeleteTutorial = ({
     else{
       alert('Unauthorized')
     }
+    router.push({
+      pathname: `/academy/tutorials`
+      
+    })
+    pushInfoApp(new InfoApp({code: 'message.item.deleted', message:'The item was deleted'}, 'success'));
     setloading(false)
   }
 

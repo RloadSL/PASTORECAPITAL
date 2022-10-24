@@ -60,7 +60,7 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
   }
   const courseCat = useCallback(
     () => post.categories.find(item => item.slug === post.slug)?.term_id,
-    [post.id]
+    [post?.id]
   )
 
   return post ? (

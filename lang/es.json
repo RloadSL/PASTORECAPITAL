@@ -93,6 +93,8 @@
   "page.academy.lesson.form.closeReply.button" : "Cerrar",
   "page.academy.lesson.form.addReply.placeholder" : "Escribe tu respuesta",
   "page.academy.lesson.form.addComment.placeholder" : "Escribe un comentario",
+  "page.academy.lesson.form.removeComment.message.content" : "Seguro quieres eliminar este comentario se perderá el registro de sus respuestas si las contiene.",
+  "page.academy.lesson.form.removeComment.message.title" : "Eliminar comentario",
 
   "page.academy.tutorials.form.create.title" : "Título del tutorial",
   "page.academy.tutorials.form.create.excerpt" : "Resumen del tutorial",
@@ -138,6 +140,13 @@
    
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",
+
+  "message.password-updated": "La contraseña ha sido cambiada.",
+  "message.item.created": "El item se ha creado correctamente",
+  "message.item.deleted": "El item se ha eliminado correctamente",
+  
+  "subscription.user.unauthorized.alert.title": "Usuario sin autorización",
+  "subscription.user.unauthorized.alert.content": "",
 
   "home":"Home",
   "courses": "Cursos",

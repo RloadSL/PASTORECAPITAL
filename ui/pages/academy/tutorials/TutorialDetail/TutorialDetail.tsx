@@ -14,8 +14,7 @@ import ButtonApp from 'components/ButtonApp'
 import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../../assets/img/icons/trash.svg'
-import DeleteTutorial from './components/DeleteTutorial'
-import Head from 'next/head'
+import DeleteTutorial from '../Tutorials/components/DeleteTutorial'
 import WordpressHeader from 'WordpressHeader'
 
 

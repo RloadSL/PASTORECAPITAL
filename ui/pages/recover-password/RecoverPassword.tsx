@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { CODEVALIDATIONSTATE } from 'ui/redux/slices/authentication/autentication.slice'
 import logo from "../../../assets/img/logo-w.svg";
 import Image from 'next/image'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
 
 const ValidateSecurityCode = dynamic(
   () => import('./components/ValidateSecurityCode'),
@@ -32,7 +33,7 @@ const SetPassword = dynamic(() => import('./components/SetPassword'), {
 const RecoverPasswordPage: NextPage = () => {
   const router = useRouter()
   const { isLogged, authError, loadingState, codeValidatedState, setCodeState, cleanError } = useAuthentication()
-  const { setLoadingState, pushErrorsApp } = useSystem()
+  const { setLoadingState, pushErrorsApp , pushInfoApp} = useSystem()
 
   useEffect(() => {
     if (isLogged) router.push('/')
@@ -52,6 +53,7 @@ const RecoverPasswordPage: NextPage = () => {
   useEffect(() => {
     if (codeValidatedState === 'redirect') {
       router.push('/login')
+      pushInfoApp(new InfoApp({code: 'message.password-updated', message:'The password was updated'}, 'success'));
       setCodeState('init')
     }
   }, [codeValidatedState])

@@ -8,6 +8,8 @@ import { createUser, onChangeAuthState, setAuthLoading } from 'ui/redux/slices/a
 import { AppDispatch } from 'ui/redux/store'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { useRouter } from 'next/router'
+import AlertApp from 'components/AlertApp'
+import { FormattedMessage } from 'react-intl'
 
 /**
  * Componente principal de la aplicación
@@ -15,7 +17,8 @@ import { useRouter } from 'next/router'
 
 export default function AppLayout ({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
-  const {subscriptionGranted} = useGuardPermissions() 
+  const { subscriptionGranted , userChecked} = useGuardPermissions() 
+  
   const router = useRouter();
   useEffect(() => {
     onChangeAuthState(async (user: any) => {
@@ -28,22 +31,26 @@ export default function AppLayout ({ children }: any) {
       dispatch(setAuthLoading(false))
     })
   }, [])
-  useEffect(() => {
-    console.log('useEffect', subscriptionGranted)
-    if(subscriptionGranted === false){
-      alert('Usuario sin autorización suscribete a tu plan correspondiente')
-      router.push('/subscription')
-    }
-  }, [subscriptionGranted])
   
+  useEffect(() => {
+  }, [subscriptionGranted, userChecked])
+
+  const _goSubscription = () => router.push('/subscription')
+  const _goBack = () => router.back()
   const MemoizedLayout = React.memo(AppLayoutView)
-  return <MemoizedLayout>{children}</MemoizedLayout>
+  return <MemoizedLayout goBack={_goBack}  goSubscription={_goSubscription} alertSubscription={!subscriptionGranted && userChecked}>{children}</MemoizedLayout>
 }
 
-export const AppLayoutView = ({ children }: any) => {
+export const AppLayoutView = ({ children, alertSubscription, goSubscription, goBack }: any) => {
+  console.log('alertSubscription' ,alertSubscription)
   return (
     <div>
       <Drawer>{children}</Drawer>
+      <AlertApp onCancel={()=>goBack()} onAction={()=>goSubscription()} visible={alertSubscription} title='subscription.user.unauthorized.alert.title'>
+        { <div>
+          <p><FormattedMessage id='Para acceder a este contenido necesitas suscribirte a uno de los planes que lo habilite'/></p>
+        </div>}
+      </AlertApp>
     </div>
   )
 }
