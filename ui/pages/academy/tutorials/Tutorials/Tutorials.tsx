@@ -116,6 +116,7 @@ const TutorialsView = ({
         />
       </header>
       <PostGrid
+      parent='academy.create.tutorials'
         statePost={statePost}
         setStatePost={setStatePost}
         loadMore={loadMore}

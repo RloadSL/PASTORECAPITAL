@@ -29,7 +29,8 @@ interface POSTGRIDPROPS {
   deleteCourse: Function
   loadMore: Function
   setStatePost: Function
-  statePost: 'public' | 'private'
+  statePost: 'public' | 'private',
+  parent: string
 }
 
 /**
@@ -46,7 +47,8 @@ const PostGrid = ({
   onClickItemTarget,
   loadMore,
   setStatePost,
-  statePost
+  statePost,
+  parent
 }: {
   openCreate: Function
   deleteCourse: Function
@@ -54,6 +56,7 @@ const PostGrid = ({
   loadMore: Function
   statePost: 'public' | 'private'
   setStatePost: Function
+  parent:string
 }) => {
   const posts = useSelector(postsStore)
   const loading = useSelector(loadingStore)
@@ -77,8 +80,7 @@ const PostGrid = ({
       })
     }
   }
-  /* console.log('GRID', posts)
-  return <h1>GRID</h1> */
+
   return (
     <PostGridView
       setStatePost={() =>
@@ -92,6 +94,7 @@ const PostGrid = ({
       loading={loading}
       posts={posts}
       loadMore={loadMore}
+      parent={parent}
     />
   )
 }
@@ -104,8 +107,10 @@ const PostGridView = ({
   deleteCourse,
   loadMore,
   setStatePost,
-  statePost
+  statePost,
+  parent
 }: POSTGRIDPROPS) => {
+  const router = useRouter()
   const { editionGranted } = useGuardPermissions()
   const itemCreateBtn = () => {
     return (
@@ -116,7 +121,7 @@ const PostGridView = ({
         <div className={style.buttonContent}>
           <Image src={addCourseIcon} alt='' />
           <FormattedMessage
-            id='page.academy.courses.btn_create'
+            id={parent}
             values={{
               b: children => <strong>{children}</strong>
             }}

@@ -80,7 +80,6 @@
   "page.academy.courses.filterSearch.helper" : "Para buscar por hashtag  ejemplo: #crypto",
   "page.academy.courses.filterLevel.label" : "Nivel",
   "page.academy.courses.filterTags.label" : "Categoría",
-  "page.academy/tutorials.title" : "Crypto tutoriales",
 
   "page.academy.course.add-lesson":"Añadir nueva lección",
 
@@ -102,7 +101,8 @@
   "page.academy.tutorials.form.create.excerpt.helper" : "Resumen corto del tutorial. Máximo 300 caracteres",
   "page.academy.tutorials.modal.delete.title" : "Eliminar tutorial",
   "page.academy.tutorials.modal.delete.message" : "¿Estás seguro de eliminar el tutorial? Se perderán todos los datos",
-
+  "academy.create.tutorials": "<b>Crear</b> nuevo tutorial",
+  "academy.create.courses": "<b>Crear</b> nuevo curso",
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
