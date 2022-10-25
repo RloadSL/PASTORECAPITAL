@@ -1,6 +1,7 @@
 import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/course.dto'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
-
+import tagIcon  from '../../assets/img/icons/tags.svg' 
+import clock  from '../../assets/img/icons/clock.svg' 
 const levels = ['basic', 'advanced', 'medium']
 export class Course {
   private _id: string
@@ -40,6 +41,7 @@ export class Course {
     rendered: string
     raw: string
   }
+
   public get excerpt (): {
     rendered: string
     raw: string
@@ -66,6 +68,16 @@ export class Course {
     raw: string
   } {
     return this._title
+  }
+
+  private _meta_post: any
+  public get meta_post (): any {
+    return this._meta_post
+  }
+
+  private _author: {username: string, uid: string} | undefined;
+  public get author (): {username: string, uid: string} | undefined {
+    return this._author
   }
 
   private _content?: {
@@ -100,6 +112,8 @@ export class Course {
     this._slug = courseData.slug
     this._title = courseData.title
     this._created_at = new Date(courseData.date)
+    this._author = courseData.created_by
+    this._meta_post = courseData.acf
   }
 
   public toJson = (): PostDto => ({
@@ -113,6 +127,8 @@ export class Course {
     date: this._created_at,
     content: this._content,
     thumbnail_url: this._thumbnail_url,
-    tags: this._tags
+    tags: this._tags,
+    created_by : this._author,
+    acf: []
   })
 }

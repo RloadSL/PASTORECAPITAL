@@ -107,6 +107,7 @@ export class Post {
     content: this._content,
     thumbnail_url: this._thumbnail_url,
     tags: this._tags,
-    lessons : this._lessons
+    lessons : this._lessons,
+    acf: []
   })
 }

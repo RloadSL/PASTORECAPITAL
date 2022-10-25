@@ -4,7 +4,7 @@ import Image from 'next/image'
 type COLOR = 'main' | 'lightMain'
 
 interface CHIPPROPS {
-  chips: Array<string>
+  chips: Array<{label:string, icon?:any}>
   color?: COLOR
   hasIcon?: any
 }
@@ -26,8 +26,8 @@ const ChipsView = ({ hasIcon, chips, color = 'main' }: CHIPPROPS) => {
     {chips.map((item: any, index: any) => {
       return (
         <div key={index} className={`${style[color]} ${style.chipContainer} flex-container align-center`}>
-          {hasIcon ? <span className={`${style.hasIcon} flex-container`}><Image src={hasIcon} width='18px' height='18px' alt='' /></span> : null}
-          <span className={style.chipLabel}>{item}</span>
+          {(hasIcon || item.icon) ? <span className={`${style.hasIcon} flex-container`}><Image src={hasIcon || item.icon} width='18px' height='18px' alt='' /></span> : null}
+          <span className={style.chipLabel}>{item.label}</span>
         </div>
       )
     })}

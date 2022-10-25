@@ -4,7 +4,6 @@ import style from './PostExcerpt.module.scss'
 import parse from 'html-react-parser'
 import React from 'react'
 import { WpCat } from 'infrastructure/dto/course.dto'
-import iconTag from '../../assets/img/icons/tags.svg'
 
 type THUMBNAIL = {
   imgUrl: string
@@ -15,7 +14,7 @@ export interface POSTEXCERPTPROPS {
   title?: string
   description: string
   thumbnail?: string
-  terms?: Array<any>
+  chips?: Array<any>
   level?: WpCat
 }
 
@@ -29,17 +28,17 @@ const PostExcerpt = ({
   title,
   description,
   thumbnail,
-  terms,
+  chips,
   level
 }: POSTEXCERPTPROPS) => {
-  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} terms={terms} level={level}/>
+  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level}/>
 }
 
 const PostExcerptView = ({
   title,
   description,
   thumbnail,
-  terms,
+  chips,
   level
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
@@ -55,8 +54,8 @@ const PostExcerptView = ({
         </div>
         <hr className={style.separator} />
         <div className={style.terms}>
-          {terms ? (
-            <Chips hasIcon={iconTag} chips={terms.slice(0, 3).map(item => item.slug)} color='lightMain' />
+          {chips ? (
+            <Chips  chips={chips.slice(0, 3)} color='lightMain' />
           ) : null}
         </div>
       </div>
