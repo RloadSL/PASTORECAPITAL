@@ -1,8 +1,7 @@
-@use '../../styles/partials/variables/colors' as colors;
-@use '../../styles/partials/variables/text' as text;
-@use '../../styles/partials/mixins/devices' as devices;
-@use '../../styles/partials/placeholders'; 
-
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/placeholders";
 
 .postExcerptContainer {
   display: flex;
@@ -14,7 +13,18 @@
 
   @include devices.device(lgScreen) {
     flex-direction: column;
-    min-height: calc(500px - 45px);
+  }
+
+  &.card {
+    @include devices.device(lgScreen) {
+      min-height: calc(500px - 45px);
+    }
+  }
+
+  &.simple {
+    @include devices.device(lgScreen) {
+      min-height: auto
+    }
   }
 }
 
@@ -32,7 +42,7 @@
 
   @include devices.device(lgScreen) {
     margin-top: 20px;
-  } 
+  }
 }
 
 .imageContainer {
@@ -41,7 +51,7 @@
   position: relative;
   height: 150px;
   margin-bottom: 20px;
-	background-color: lighten(colors.$main,42%);
+  background-color: lighten(colors.$main, 42%);
   background-image: url(../../assets/img/icons/no-image.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -73,7 +83,7 @@
   position: absolute;
   bottom: 10px;
   left: 10px;
-  z-index: 100;
+  z-index: 0;
   background-color: colors.$main;
   color: white;
   border-radius: 15px;

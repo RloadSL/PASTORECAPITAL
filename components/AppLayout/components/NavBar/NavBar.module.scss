@@ -12,10 +12,11 @@
   padding-left: 2%;
   padding-right: 2%;
   margin-top: 0px;
+  display: flex;
+  justify-content: space-between;
 
   @include devices.device(smScreen) {
-    display: flex;
-    justify-content: space-between;
+    padding-right: 10%;
   }
 }
 
@@ -62,4 +63,31 @@
 }
 .optionsButton:active {
   box-shadow: none;
+}
+
+.backButton {
+  margin-bottom: 20px;
+
+  button {
+    background-color: transparent;
+    border: 1px solid colors.$grey50;
+    color: colors.$grey60;
+    border-radius: 20px;
+    padding: 10px;
+    width: 40px;
+    margin: 0px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      background-image: url(../../../../assets/img/icons/arrow-dark.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      width: 100%;
+      height: 10px;
+      margin-right: 10px;
+      filter: grayscale(1) opacity(0.5)
+    }
+  }
 }

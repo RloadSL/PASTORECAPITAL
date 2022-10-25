@@ -1,0 +1,16 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/placeholders";
+
+.categoryGridContainer {
+  
+  &.grid {
+    display: grid;
+  }
+  &.flex {
+    @include devices.device(lgScreen){
+      display: flex;
+    }
+  }
+}

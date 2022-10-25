@@ -68,7 +68,7 @@
   background-color: transparent;
   color: colors.$error;
   border: 1px solid colors.$error;
-  width: fit-content;
+  width: 100%;
   & .icon {
     filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8) invert(0);
     margin-left: 12px;

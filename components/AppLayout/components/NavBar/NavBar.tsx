@@ -18,22 +18,22 @@ import Notifications from 'components/Notifications'
  */
 const NavBar = ({ windowSize }: { windowSize: any }) => {
   const dispatch = useDispatch<AppDispatch>()
-  
+
   const user = useSelector(getUserLogged)
   const { limitTextLength } = useComponentUtils()
   const router = useRouter()
-  
+
   const _signOutUser = () => {
     router.push('/');
     dispatch(signOut())
   }
- 
+
   return (
     <NavBarView
       userName={user && user.uid != 'not-logged' ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
-      userRole={user && user.uid != 'not-logged' ? user.role.label : undefined }
+      userRole={user && user.uid != 'not-logged' ? user.role.label : undefined}
       userPlan={user && user.uid != 'not-logged' ? user.subscription.plan.label : undefined}
-      signOut= {user && user.uid != 'not-logged' ? () => _signOutUser() : () => null}
+      signOut={user && user.uid != 'not-logged' ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
       windowSize={windowSize}
@@ -54,22 +54,20 @@ const NavBarView = ({
   userName?: string
   linkToSignIn?: boolean
   signOut: Function,
-  userRole?:string,
-  userPlan?:string
+  userRole?: string,
+  userPlan?: string
   windowSize: any
 }) => {
 
   return (
     <div className={style.navbarContainer}>
-      {windowSize.innerWidth >= 1080 ? <Breadcrumbs /> : null}
-      {/* {back && (
-        <div className={styles['navbar-back']}>
-          <button onClick={() => back()}>
-            <FormattedMessage id='component.navbar.backbuttom' />
+      {windowSize.innerWidth >= 1080 ? <Breadcrumbs /> : (
+        <div className={style.backButton}>
+          <button onClick={() => back ? back() : null}>
+            <span className='only-readers'><FormattedMessage id='component.navbar.backbuttom' /></span>
           </button>
         </div>
-      )} */}
-
+      )}
       <div className={style['navbar-item']}></div>
       {!userName && (
         <Link href={'/login'}>
@@ -84,7 +82,7 @@ const NavBarView = ({
           <div className='flex-container'>
             <div className={style.userInfo}>
               <p className={style.userName}>{userName || ''}</p>
-              <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`}  /> {userRole === 'User' && <FormattedMessage id={`plan.${userPlan}`}/> }</p>
+              <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`} /> {userRole === 'User' && <FormattedMessage id={`plan.${userPlan}`} />}</p>
             </div>
             <div className={style.optionsMenu}>
               <Menu

@@ -10,7 +10,7 @@
   top: 55px;
   height: 100%;
   z-index: 900;
-  width: 80px;
+  width: 0px;
 
   @include devices.device(smScreen) {
     top: 70px;
@@ -33,6 +33,7 @@
       transition: all 0.3s ease-in-out;
       transform: translateX(0px);
       background-color: transparent;
+      left: 20px;
 
       &::before {
         transform: rotate(180deg);
@@ -50,7 +51,7 @@
     height: 55px;
     margin-bottom: 10px;
     z-index: 999;
-    left: 20px;
+    left: -60px;
     background-color: white;
     display: flex;
     justify-content: center;

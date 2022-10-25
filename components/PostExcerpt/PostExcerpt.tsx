@@ -15,7 +15,8 @@ export interface POSTEXCERPTPROPS {
   description: string
   thumbnail?: string
   chips?: Array<any>
-  level?: WpCat
+  level?: WpCat,
+  excerptStyle?: 'card' | 'simple'
 }
 
 /**
@@ -29,7 +30,8 @@ const PostExcerpt = ({
   description,
   thumbnail,
   chips,
-  level
+  level,
+  excerptStyle
 }: POSTEXCERPTPROPS) => {
   return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level}/>
 }
@@ -39,11 +41,12 @@ const PostExcerptView = ({
   description,
   thumbnail,
   chips,
-  level
+  level,
+  excerptStyle = 'card'
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
   return (
-    <div className={style.postExcerptContainer}>
+    <div className={`${style.postExcerptContainer} ${style[excerptStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
         {level && <span className={style.level}>{level.slug}</span>}
       </div>

@@ -105,7 +105,7 @@
 
 
   "component.navbar.backbuttom": "Atrás",
-  "component.navbar.signUpBtn": "Autenticarse",
+  "component.navbar.signUpBtn": "Iniciar Sesión",
   "component.navbar.signOutBtn": "Salir",
   "component.navbar.profile": "Perfil de usuario",
   "component.modal.close" : "X",
@@ -134,7 +134,7 @@
   "btn.accept": "Aceptar",
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
-  "btn.paginator.before" : "Atrás",
+  "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
