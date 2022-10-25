@@ -13,9 +13,5 @@
     @include devices.device(tablet) {
       padding-right: 12%;
     }
-
-    @include devices.device(smScreen) {
-      padding-right: 0;
-    }
   }
  }

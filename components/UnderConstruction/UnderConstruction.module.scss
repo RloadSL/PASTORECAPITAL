@@ -28,10 +28,16 @@
   .imageContainer {
     background-color: colors.$palette9;
     border-radius: 100%;
-    width: 200px;
-    height: 200px;
     text-align: center;
-    padding: 40px;
     margin-bottom: 20px;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+
+    @include devices.device(mdScreen) {
+      width: 150px;
+      height: 150px;
+      padding: 20px;
+    }
   }
 }

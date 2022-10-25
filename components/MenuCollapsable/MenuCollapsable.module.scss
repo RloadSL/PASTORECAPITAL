@@ -11,9 +11,8 @@
   width: auto;
 
   &.isOpen {
-    animation: fadeIn .3s forwards;
-    background-color: transparentize(colors.$dark, 0.5);
-    width: 100vw;
+    // animation: fadeIn .3s forwards;
+    //width: 100vw;
 
     .collapsableButton {
       background-image: url('../../assets/img/icons/close-menu.svg');
@@ -58,6 +57,20 @@
       width: 80px;
       transform: translate(-200px);
     }
+  }
+}
+
+.overlay {
+  background-color: transparentize(colors.$dark, 0.5);
+  position: absolute;
+  width: 0px;
+  height: 100vh;
+  top: 0;
+  opacity: 0;
+
+  &.isOpen {
+    animation: fadeIn .3s forwards;
+    width: 100%;
   }
 }
 

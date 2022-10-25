@@ -105,7 +105,7 @@
 
 
   "component.navbar.backbuttom": "Atrás",
-  "component.navbar.signUpBtn": "Autenticarse",
+  "component.navbar.signUpBtn": "Iniciar Sesión",
   "component.navbar.signOutBtn": "Salir",
   "component.navbar.profile": "Perfil de usuario",
   "component.modal.close" : "X",
@@ -133,7 +133,7 @@
   "btn.accept": "Aceptar",
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
-  "btn.paginator.before" : "Atrás",
+  "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
@@ -144,7 +144,7 @@
   "message.password-updated": "La contraseña ha sido cambiada.",
   "message.item.created": "El item se ha creado correctamente",
   "message.item.deleted": "El item se ha eliminado correctamente",
-  "message.item.no-result":"No hemos encontrado nada...",
+  "message.item.no-result":"No hemos encontrado nada.",
 
   "subscription.user.unauthorized.alert.title": "Usuario sin autorización",
   "subscription.user.unauthorized.alert.content": "",

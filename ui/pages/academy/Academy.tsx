@@ -6,19 +6,20 @@ import ourTutorialsImg from '../../../assets/img/our-tutorials.png'
 import ButtonApp from 'components/ButtonApp'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
+import LinkApp from 'components/LinkApp'
 
 
 const Academy = () => {
-  const {userLogged} = useAuthentication()
+  const { userLogged } = useAuthentication()
   return (
     <div className={style.academyPage}>
       <header>
         <p className='small-caps'>Academia</p>
-        <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle'/><span> {userLogged?.name}</span></p>
+        <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle' /><span> {userLogged?.name}</span></p>
       </header>
       <div className={style.topContainer}>
         <div className={style.innerContainer}>
-          <p><FormattedMessage id='page.academy.mainBlock.title'/></p>
+          <p><FormattedMessage id='page.academy.mainBlock.title' /></p>
           <div className={style.headerImageContainer}>
             <div className={style.headerImage}>
               <Image src={headerImg} alt='' />
@@ -28,7 +29,7 @@ const Academy = () => {
       </div>
       <div className={style.bottomContainer}>
         <div className={style.leftContainer}>
-        <div className={`flex-container align-center ${style.flexContainer}`}>
+          <div className={`flex-container align-center ${style.flexContainer}`}>
             <div className={style.imageContainer}>
               <Image src={ourCoursesImg} alt='' />
             </div>
@@ -39,11 +40,7 @@ const Academy = () => {
               </div>
               <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
               <div className={style.buttonContainer}>
-                <ButtonApp
-                  buttonStyle='dark'
-                  type='button'
-                  labelID='page.academy.leftBlock.button.label'
-                />
+                <LinkApp target={'_self'} label={'page.academy.leftBlock.button.label'} linkStyle={'button'} linkHref='academy/courses' />
               </div>
             </div>
           </div>
@@ -60,11 +57,7 @@ const Academy = () => {
               </div>
               <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
               <div className={style.buttonContainer}>
-                <ButtonApp
-                  buttonStyle='dark'
-                  type='button'
-                  labelID='page.academy.rightBlock.button.label'
-                />
+                <LinkApp target={'_self'} label={'page.academy.rightBlock.button.label'} linkStyle={'button'} linkHref='academy/tutorials' />
               </div>
             </div>
           </div>

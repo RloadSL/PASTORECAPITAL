@@ -29,6 +29,16 @@
       width: 15px;
     }
   }
+
+  &.button {
+    background-color:colors.$dark;
+    color:white;
+    border-radius: 80px;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+  }
 }
 
 .linkItemIcon {
