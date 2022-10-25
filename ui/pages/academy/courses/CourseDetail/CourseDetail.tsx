@@ -21,6 +21,7 @@ import LinkApp from 'components/LinkApp'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import Head from 'next/head'
 import WordpressHeader from 'WordpressHeader'
+import { PostDto } from 'infrastructure/dto/course.dto'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),
@@ -36,22 +37,20 @@ const DeleteCourse = dynamic(
   }
 )
 
-
-const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
+const CourseDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
   const { editionGranted } = useGuardPermissions()
   useEffect(() => {
     if (!post) {
       router.replace('/academy/courses')
-    }else if(post.lessons && post.lessons.length > 0){
-      const firstLesson = post.lessons[0];
+    } else if (post.lessons && post.lessons.length > 0) {
+      const firstLesson = post.lessons[0]
       const a = document.getElementById('start-academy-course')
-      loggedUser?.role.level > 1 && a?.remove();
+      loggedUser?.role.level > 1 && a?.remove()
       const url = `/academy/courses/${post.slug}/${firstLesson.slug}/?post_id=${post.id}&post_title=${post.title.rendered}&course-slug=${post.slug}&lesson_id=${firstLesson.id}&lesson_title=${firstLesson.title}&current_lesson=0`
 
       a?.setAttribute('href', url)
-      
     }
   }, [post])
 
@@ -59,7 +58,8 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
     return `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}`
   }
   const courseCat = useCallback(
-    () => post.categories.find(item => item.slug === post.slug)?.term_id,
+    () =>
+      post.formatted_categories.find(item => item.slug === post.slug)?.term_id,
     [post?.id]
   )
 
@@ -70,7 +70,9 @@ const CourseDetail: NextPage<any> = ({ post }: { post: Course }) => {
       post={post}
       editLink={editLink(loggedUser?.wpToken)}
     />
-  ) : <></>
+  ) : (
+    <></>
+  )
 }
 
 const CourseDetailView = ({
@@ -78,21 +80,26 @@ const CourseDetailView = ({
   isAuthorized,
   editLink,
   courseCat
-  
 }: {
   post: any
   isAuthorized: boolean
   editLink: string
   courseCat: number
 }) => {
-  const [deleteCourse, setDeleteCourse]: [{ id: number, status: string } | null, Function] = useState(null)
+  const [deleteCourse, setDeleteCourse]: [
+    { id: number; status: string } | null,
+    Function
+  ] = useState(null)
   const [create, setCreate] = useState(false)
   return (
     <div className={style.coursePage}>
-       <WordpressHeader/>
+      <WordpressHeader />
       <div>
-        {(post && isAuthorized) && (
-          <div className='admin-buttons-wrapper' style={{paddingLeft:'20px'}}>
+        {post && isAuthorized && (
+          <div
+            className='admin-buttons-wrapper'
+            style={{ paddingLeft: '20px' }}
+          >
             <div className={style.addNewLesson}>
               <ButtonApp
                 onClick={() => setCreate(true)}
@@ -102,13 +109,30 @@ const CourseDetailView = ({
               />
             </div>
             <div className='admin-buttons-container'>
-              <LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
-              <ButtonApp labelID={'btn.delete'} onClick={() => setDeleteCourse({ id: post.id, status: post.status })} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
+              <LinkApp
+                label={'edit'}
+                linkStyle={'edit'}
+                linkHref={editLink}
+                icon={iconEdit}
+              />
+              <ButtonApp
+                labelID={'btn.delete'}
+                onClick={() =>
+                  setDeleteCourse({ id: post.id, status: post.status })
+                }
+                type='button'
+                buttonStyle='delete'
+                size='small'
+                icon={iconDelete}
+              />
             </div>
           </div>
         )}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
-        <ListLessons formLessonDetail={false} lessons={post.lessons}></ListLessons>
+        <ListLessons
+          formLessonDetail={false}
+          lessons={post.lessons}
+        ></ListLessons>
       </div>
       {create && (
         <Suspense>
@@ -120,7 +144,10 @@ const CourseDetailView = ({
       )}
       {deleteCourse && (
         <Suspense>
-          <DeleteCourse data={deleteCourse} onClose={() => setDeleteCourse(null)}></DeleteCourse>
+          <DeleteCourse
+            data={deleteCourse}
+            onClose={() => setDeleteCourse(null)}
+          ></DeleteCourse>
         </Suspense>
       )}
     </div>

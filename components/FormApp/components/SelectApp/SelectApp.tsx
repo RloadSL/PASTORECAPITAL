@@ -2,7 +2,7 @@
 
 import style from './SelectApp.module.scss'
 import Select from 'react-select'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useCallback } from 'react'
 import Image from 'next/image'
 
@@ -61,10 +61,15 @@ const SelectAppView = ({
   error,
   icon
 }: SELECTAPPPROPS) => {
+  const intl = useIntl()
   const customStyles = {
     input: (provided: any, state: any) => ({
       ...provided,
       width: state.selectProps.width
+    }),
+    menu: (provided: any, state: any) => ({
+      ...provided,
+      zIndex: 999
     }),
     control: (provided: any, state: any) => ({
       ...provided,
@@ -91,6 +96,7 @@ const SelectAppView = ({
           <Select
             className={style.select}
             instanceId={'select'}
+            placeholder={intl.formatMessage({id:'placeholder.select'})}
             name={name}
             options={selectOptions}
             defaultValue={selectOptions.find(

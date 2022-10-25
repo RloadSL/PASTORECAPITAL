@@ -141,6 +141,8 @@
    
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",
+  
+  "placeholder.select" :"Seleccionar",
 
   "message.password-updated": "La contraseña ha sido cambiada.",
   "message.item.created": "El item se ha creado correctamente",
