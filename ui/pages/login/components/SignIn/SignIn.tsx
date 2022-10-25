@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
 import style from '../../LoginPage.module.scss'
@@ -25,14 +25,13 @@ interface LOGINVALUE {
  * Función del componente SignIn
  */
 
-const SignIn = ({onSignIn}: {onSignIn?: Function}) => {
+const SignIn = ({ onSignIn }: { onSignIn?: Function }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const signIn = (data: LOGINVALUE) => dispatch(signInEmailPassword(data));
+  const signIn = (data: LOGINVALUE) => dispatch(signInEmailPassword(data))
 
-
-  const _signIn = async (data: LOGINVALUE)=>{
-    if(onSignIn) onSignIn()
+  const _signIn = async (data: LOGINVALUE) => {
+    if (onSignIn) onSignIn()
     await signIn(data)
   }
 
@@ -63,18 +62,16 @@ const SignIn = ({onSignIn}: {onSignIn?: Function}) => {
  * Función del componente SignInView
  * @param signIn Función para realizar el Sign In en Firebase
  * @param validationSchema Esquema de validación del formulario de YUP
- * @returns 
+ * @returns
  */
 
 const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
+  const [initialValue, setinitialValue] = useState({ email: '', password: '' })
   return (
-
     <div className={style.signInContainer}>
       <div className={style.formTitleContainer}>
         <p className={style.subtitle}>
-          <FormattedMessage
-            id='page.login.signInCaps'
-          />
+          <FormattedMessage id='page.login.signInCaps' />
         </p>
         <h2 className={style.formTitle}>
           <FormattedMessage
@@ -86,13 +83,18 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
       <div>
         <FormApp
           validationSchema={validationSchema}
-          initialValues={{ email: '', password: '' }}
-          onSubmit={(values: any) => signIn(values)}
+          initialValues={initialValue}
+          onSubmit={(values: any) => {
+            signIn(values)
+            setinitialValue({ email: '', password: '' })
+          }}
         >
           <InputApp
             labelID='page.login.labelEmail'
             type='email'
             name='email'
+            onChange={(k:string,v:string) => setinitialValue({...initialValue, email: v})}
+            value={initialValue.email}
             icon={email}
           />
 
@@ -100,19 +102,25 @@ const SignInView = ({ signIn, validationSchema }: LOGINPAGEVIEWPROPS) => {
             labelID='page.login.labelPassword'
             type='password'
             name='password'
+            onChange={(k:string,v:string) => setinitialValue({...initialValue, password: v})}
+            value={initialValue.password}
             icon={password}
           />
           <Link href={'/recover-password'}>
             <a className={`small-text ${style.recoverPass}`}>
-              <FormattedMessage id="page.login.labelRecoverPassword" />
+              <FormattedMessage id='page.login.labelRecoverPassword' />
             </a>
           </Link>
           <div style={{ marginTop: '20px' }}>
-            <ButtonApp buttonStyle="secondary" type='submit' labelID='page.login.labelSignInButton' />
+            <ButtonApp
+              buttonStyle='secondary'
+              type='submit'
+              labelID='page.login.labelSignInButton'
+            />
           </div>
         </FormApp>
-      </div >
-    </div >
+      </div>
+    </div>
   )
 }
 

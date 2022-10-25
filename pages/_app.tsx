@@ -9,8 +9,8 @@ import { Provider } from 'react-redux'
 import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import SnackBar from 'components/SnackBar'
-import Head from 'next/head'
 import Loading from 'components/Loading'
+
 
 const messages: any = {
   en,
@@ -26,6 +26,9 @@ function getDirection (locale: string) {
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
   const locale: any = useRouter().locale || 'es'
+
+  
+  
   return (<>
    {/*  <Head>
       <link

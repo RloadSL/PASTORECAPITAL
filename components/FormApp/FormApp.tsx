@@ -30,7 +30,7 @@ const FormApp = ({
     setMessage('')
     if (onSubmit) onSubmit(values)
   }
-
+  
   const childrenWithExtraProp = (
     { errors, touched }: any,
     setFieldValue: Function
@@ -41,7 +41,10 @@ const FormApp = ({
           errors[child.props.name] && touched[child.props.name]
             ? errors[child.props.name]
             : null,
-        onChange: setFieldValue
+        onChange: (key:string, value:any)=>{
+          setFieldValue(key,value)
+          if(child.props.onChange) child.props.onChange(key, value)
+        }
       })
     })
   }

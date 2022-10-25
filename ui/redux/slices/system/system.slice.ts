@@ -6,7 +6,7 @@ const initialState: {
   errorApp: ErrorApp[],
   infoApp: InfoApp[],
   loading: boolean
-} = {  errorApp : [], loading: false, infoApp: [] };
+} = {  errorApp : [], loading: true, infoApp: [] };
 
 export const system = createSlice({
   name: 'Authentication',

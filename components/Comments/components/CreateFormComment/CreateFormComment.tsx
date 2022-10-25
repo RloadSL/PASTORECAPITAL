@@ -13,6 +13,8 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import Loading from 'components/Loading'
 import { Comments } from 'domain/Comments/comments'
 import { AppDispatch } from 'ui/redux/store'
+import { useSystem } from 'ui/hooks/system.hooks'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
 
 interface CREATEFORMCOMMENTPROPS {
   onCreate: Function
@@ -24,9 +26,9 @@ interface CREATEFORMCOMMENTPROPS {
 const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
   const intl = useIntl()
   const router = useRouter()
+  const {pushInfoApp} = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
-  const dispatch = useDispatch<AppDispatch>()
 
 
   const _onCreate = async (comment: string) => {
@@ -41,6 +43,10 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
       owner: userLoggued.uid,
       total_replys: 0
     })
+    if(res){
+      pushInfoApp(new InfoApp({code: 'message.item.created', message:'The item was deleted'}, 'success'));
+    }
+    
     if (onCreate) onCreate(res)
     setloading(false)
   }
@@ -71,6 +77,8 @@ const CreateFormCommentView = ({
   onCreate,
   validationSchema
 }: CREATEFORMCOMMENTPROPS) => {
+  const [comment, setcomment] = useState('')
+
   return (
     <div className={`${style.createFormComment} ${style[formCommentStyle]}`}>
       {formCommentStyle === 'default' ? (
@@ -84,8 +92,8 @@ const CreateFormCommentView = ({
       ) : null}
       <FormApp
         validationSchema={validationSchema}
-        initialValues={{ comment: '' }}
-        onSubmit={(data: any) => onCreate(data.comment)}
+        initialValues={{ comment: comment}}
+        onSubmit={(data: any) => {onCreate(data.comment); setcomment('')}}
       >
         <TextareaApp
           labelID={
@@ -93,7 +101,8 @@ const CreateFormCommentView = ({
               ? 'page.academy.lesson.form.addComment.placeholder'
               : 'page.academy.lesson.form.addReply.placeholder'
           }
-          onChange={() => console.log('envío change')}
+          onChange={(key:any,value:any)=>setcomment(value)}
+          value = {comment}
           maxLength={800}
           name="comment"
         />

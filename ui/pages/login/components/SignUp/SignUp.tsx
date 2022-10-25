@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import * as yup from 'yup'
 import { FormattedMessage, useIntl } from 'react-intl'
 import style from '../../LoginPage.module.scss'
@@ -22,7 +22,7 @@ interface SINGUPVIEW {
 
 /**
  * Función del componente SignUp
- * @returns 
+ * @returns
  */
 
 const SignUp = () => {
@@ -51,7 +51,10 @@ const SignUp = () => {
           .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
         repeatPassword: yup
           .string()
-          .oneOf([yup.ref('password')], intl.formatMessage({ id: 'forms.errors.matchPass' })),
+          .oneOf(
+            [yup.ref('password')],
+            intl.formatMessage({ id: 'forms.errors.matchPass' })
+          ),
         accept: yup
           .boolean()
           .oneOf([true], intl.formatMessage({ id: 'page.login.errorRequired' }))
@@ -72,10 +75,19 @@ const SignUp = () => {
  * Función del componente SignUpView
  * @param signUp Función para realizar el Sign Up en Firebase
  * @param validationSchema Esquema de validación del formulario de YUP
- * @returns 
+ * @returns
  */
 
 const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
+  const [initialValue, setinitialValue] = useState({
+    email: '',
+    password: '',
+    accept: false,
+    name: '',
+    lastname: '',
+    repeatPassword: ''
+  })
+
   return (
     <div className={style.signUpContainer}>
       <div className={style.formTitleContainer}>
@@ -92,40 +104,79 @@ const SignUpView = ({ signUp, validationSchema }: SINGUPVIEW) => {
       <div>
         <FormApp
           validationSchema={validationSchema}
-          initialValues={{
-            email: '',
-            password: '',
-            accept: false,
-            name: '',
-            lastname: '',
-            repeatPassword: ''
+          initialValues={initialValue}
+          onSubmit={(values: any) => {
+            signUp(values)
+            setinitialValue({
+              email: '',
+              password: '',
+              accept: false,
+              name: '',
+              lastname: '',
+              repeatPassword: ''
+            })
           }}
-          onSubmit={(values: any) => signUp(values)}
         >
-          <InputApp icon={user} labelID='page.login.labelname' type='text' name='name' />
+          <InputApp
+            icon={user}
+            labelID='page.login.labelname'
+            type='text'
+            onChange={(k: string, v: string) =>
+              setinitialValue({ ...initialValue, name: v })
+            }
+            value={initialValue.name}
+            name='name'
+          />
           <InputApp
             labelID='page.login.labellastname'
             type='text'
             name='lastname'
+            onChange={(k: string, v: string) =>
+              setinitialValue({ ...initialValue, lastname: v })
+            }
+            value={initialValue.lastname}
             icon={user}
           />
-          <InputApp icon={email} labelID='page.login.labelEmail' type='email' name='email' />
+          <InputApp
+            icon={email}
+            labelID='page.login.labelEmail'
+            type='email'
+            onChange={(k: string, v: string) =>
+              setinitialValue({ ...initialValue, email: v })
+            }
+            value={initialValue.email}
+            name='email'
+          />
           <InputApp
             labelID='page.login.labelPassword'
             type='password'
             name='password'
+            onChange={(k: string, v: string) =>
+              setinitialValue({ ...initialValue, password: v })
+            }
+            value={initialValue.password}
             icon={password}
           />
           <InputApp
             labelID='page.login.labelRepeatPassword'
             type='password'
             name='repeatPassword'
+            onChange={(k: string, v: string) =>
+              setinitialValue({ ...initialValue, repeatPassword: v })
+            }
+            value={initialValue.repeatPassword}
             icon={password}
           />
 
-          <InputCheckApp labelID='page.signUp.labelAcceptTerms' name='accept' formattedValues={
-            {
-              b: (children: any) => <Link href={'#'}><a>{children}</a></Link>
+          <InputCheckApp
+            labelID='page.signUp.labelAcceptTerms'
+            name='accept'
+            formattedValues={{
+              b: (children: any) => (
+                <Link href={'#'}>
+                  <a>{children}</a>
+                </Link>
+              )
             }}
           />
           <ButtonApp

@@ -10,6 +10,7 @@ import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { useRouter } from 'next/router'
 import AlertApp from 'components/AlertApp'
 import { FormattedMessage } from 'react-intl'
+import { setLoading } from 'ui/redux/slices/system/system.slice'
 
 /**
  * Componente principal de la aplicación
@@ -27,6 +28,7 @@ export default function AppLayout ({ children }: any) {
       }else{
         await dispatch(createUser({uid: 'not-logged'}))
       } 
+      dispatch(setLoading(false))
       dispatch(setAuthLoading(false))
     })
   }, [])

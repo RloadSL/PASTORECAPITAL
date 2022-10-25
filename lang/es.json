@@ -128,6 +128,7 @@
   "forms.labels.password": "Contraseña",
   "forms.labels.repeatPassword": "Repetir contraseña",
   "forms.labels.securityCode": "Código de seguridad",
+  "forms.labels.resend-code" : "Reenviar código de seguridad",
 
   "btn.send": "Enviar",
   "btn.accept": "Aceptar",

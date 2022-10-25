@@ -5,7 +5,7 @@ import InputApp from 'components/FormApp/components/InputApp'
 import React, { useCallback } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useDispatch } from 'react-redux'
-import { validateCode } from 'ui/redux/slices/authentication/autentication.slice'
+import { sendEmailCode, validateCode } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 import * as yup from 'yup'
 
@@ -17,7 +17,9 @@ const ValidateSecurityCode = ({ email }: { email: string }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
   const _validateCode = (code: number) => { if (email) dispatch(validateCode({ code, email })) }
-
+  const _sendEmailCode = () => {
+    dispatch(sendEmailCode({email}))
+  };
   //@maria traducciones
   const validationSchema = useCallback(
     () =>
@@ -33,6 +35,7 @@ const ValidateSecurityCode = ({ email }: { email: string }) => {
   return (
     <ValidateSecurityCodeView
       validationSchema={validationSchema()}
+      sendEmailCode={_sendEmailCode}
       validateCode={(code: number) => _validateCode(code)}
     />
   )
@@ -40,10 +43,12 @@ const ValidateSecurityCode = ({ email }: { email: string }) => {
 
 const ValidateSecurityCodeView = ({
   validationSchema,
-  validateCode
+  validateCode,
+  sendEmailCode
 }: {
   validationSchema: any
-  validateCode: Function
+  validateCode: Function,
+  sendEmailCode: Function
 }) => {
   return (
     <>
@@ -66,6 +71,7 @@ const ValidateSecurityCodeView = ({
         </p>
       </div>
       <div className='margin-top-30'>
+        <ButtonApp buttonStyle="link" labelID='forms.labels.resend-code' onClick={()=>sendEmailCode()}/>
         <div>
           <FormApp
             validationSchema={validationSchema}

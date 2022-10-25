@@ -86,7 +86,7 @@ const SingleCommentView = ({
                       {comment.created_at.toLocaleDateString()}
                     </div>
                     {owner.role.level > 0 ? (
-                      <Chips chips={['Profesor']} color='lightMain' />
+                      <Chips chips={[{label:'Profesor'}]} color='lightMain' />
                     ) : null}
                   </div>
                 </div>

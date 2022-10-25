@@ -17,6 +17,7 @@ export interface TEXTAREAAPPPROPS {
   name: string
   maxLength?: number
   icon?: any,
+  value?: string,
   helper?: string
 }
 
@@ -30,9 +31,10 @@ const TextareaApp = ({
   name,
   maxLength,
   icon,
+  value,
   helper }: TEXTAREAAPPPROPS) => {
 
-  return <TextareaAppView labelID={labelID} onChange={onChange} onBlur={onBlur} error={error} placeholder={placeholder} name={name} maxLength={maxLength} icon={icon} helper={helper} />
+  return <TextareaAppView value={value} labelID={labelID} onChange={onChange} onBlur={onBlur} error={error} placeholder={placeholder} name={name} maxLength={maxLength} icon={icon} helper={helper} />
 }
 
 const TextareaAppView = ({
@@ -44,6 +46,7 @@ const TextareaAppView = ({
   name,
   maxLength,
   icon,
+  value,
   helper }: TEXTAREAAPPPROPS) => {
   const [isFloating, setIsFloating] = useState('')
   const inputRef = useRef<any>(null)
@@ -67,7 +70,7 @@ const TextareaAppView = ({
       inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label
     )
   }, [inputRef?.current?.value])
-
+  console.log('Value TA', value)
   return (
     <div className='position-relative'>
       <div className={style.inputContainer}>
@@ -90,6 +93,7 @@ const TextareaAppView = ({
             autoComplete={'autocomplete'}
             placeholder={placeholder}
             ref={inputRef}
+            value={value}
             onChange={(e: any) => _handleChange(e.target)}
             onBlur={() => {
               if (onBlur) onBlur()
