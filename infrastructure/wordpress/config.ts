@@ -2,7 +2,7 @@ import { on_cloud_firebase, on_cloud_wp } from "infrastructure/firebase/config";
 import { boolean } from "yup";
 
 console.log(on_cloud_firebase && on_cloud_wp)
-export const WP_HOST = on_cloud_firebase && on_cloud_wp ? 'https://rload.es/apipastore/' : 'http://localhost:8888/platform/' ;
+export const WP_HOST = on_cloud_firebase && on_cloud_wp ? 'https://rload.es/apipastore/' : 'http://localhost:8888/pastoreheadless/' ;
 
 const WP_API = `${WP_HOST}wp-json/wp/v2/`;
 

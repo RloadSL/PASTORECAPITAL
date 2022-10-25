@@ -72,7 +72,7 @@ export const academySlice = createSlice({
         }else{
           state.posts.items = action.payload.courses
         }
-        state.posts.hasMore = action.payload.courses.length === 5;
+        state.posts.hasMore = action.payload.courses?.length === 5;
         state.loading = false
       })
       .addCase(academyGetCurses.pending, (state: any) => { 

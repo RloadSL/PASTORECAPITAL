@@ -1,7 +1,7 @@
 export interface PostDto {
   id: number,
-  categories: WpCat[],
-  tags: WpTerm[],
+  formatted_categories: WpCat[],
+  formatted_tags: WpTerm[],
   lessons?: any[],
   status: string,
   created_by?:{username: string, uid: string},

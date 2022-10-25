@@ -83,10 +83,10 @@ export class Post {
   }
   constructor (courseData: PostDto) {
     this._id = courseData.id.toString()
-    this._tags = courseData.tags
+    this._tags = courseData.formatted_tags
     this._thumbnail_url = courseData.thumbnail_url
     this._wpID = courseData.id
-    this._categories = courseData.categories
+    this._categories = courseData.formatted_categories
     this._status = courseData.status
     this._excerpt = courseData.excerpt
     this._content = courseData.content
@@ -98,7 +98,7 @@ export class Post {
 
   public toJson = (): PostDto => ({
     id: this._wpID,
-    categories: this._categories,
+    formatted_categories: this._categories,
     status: this._status,
     excerpt: this._excerpt,
     slug: this._slug,
@@ -106,7 +106,7 @@ export class Post {
     date: this._created_at,
     content: this._content,
     thumbnail_url: this._thumbnail_url,
-    tags: this._tags,
+    formatted_tags: this._tags,
     lessons : this._lessons,
     acf: []
   })
