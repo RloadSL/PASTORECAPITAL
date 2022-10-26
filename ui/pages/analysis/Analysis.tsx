@@ -75,7 +75,9 @@ const AnalysisView = () => {
   return (
     <div className={style.analysisPage}>
       <ArticleFilters />
-      <CategoryGrid posts={fakePosts} componentStyle={'grid'}></CategoryGrid>
+      <CategoryGrid posts={fakePosts} componentStyle={'grid'}/>
+      <CategoryGrid posts={fakePosts} componentStyle={'flex'}/>
+
       <div className={style.addNewArticle}>
         <ButtonApp
           onClick={() => console.log('crear')}

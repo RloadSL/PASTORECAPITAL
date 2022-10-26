@@ -14,9 +14,10 @@ export interface POSTEXCERPTPROPS {
   title?: string
   description: string
   thumbnail?: string
-  chips?: Array<any>
+  chips?: any
   level?: WpCat,
-  excerptStyle?: 'card' | 'simple'
+  excerptStyle?: 'card' | 'simple' | 'column' | 'row' 
+  hasSeparator?: boolean
 }
 
 /**
@@ -31,9 +32,10 @@ const PostExcerpt = ({
   thumbnail,
   chips,
   level,
-  excerptStyle
+  excerptStyle,
+  hasSeparator
 }: POSTEXCERPTPROPS) => {
-  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level}/>
+  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} excerptStyle={excerptStyle} hasSeparator={hasSeparator}/>
 }
 
 const PostExcerptView = ({
@@ -42,7 +44,8 @@ const PostExcerptView = ({
   thumbnail,
   chips,
   level,
-  excerptStyle = 'card'
+  excerptStyle = 'card',
+  hasSeparator = true
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
   return (
@@ -55,7 +58,7 @@ const PostExcerptView = ({
         <div className={style.description}>
           {parse(limitTextLength(130, description || ''))}
         </div>
-        <hr className={style.separator} />
+       {hasSeparator ? <hr className={style.separator} /> : null} 
         <div className={style.terms}>
           {chips ? (
             <Chips  chips={chips.slice(0, 3)} color='lightMain' />

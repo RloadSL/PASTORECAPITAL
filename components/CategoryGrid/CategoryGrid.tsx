@@ -9,24 +9,31 @@ interface CATEGORYGRIDPROPS {
 }
 
 const CategoryGrid = ({ posts, componentStyle = 'flex' }: CATEGORYGRIDPROPS) => {
+
   return <CategoryGridView posts={posts} componentStyle={componentStyle}></CategoryGridView>
 }
 
 const CategoryGridView = ({ posts, componentStyle = 'flex' }: CATEGORYGRIDPROPS) => {
   return (
     <div className={`${style.categoryGridContainer} ${style[componentStyle]}`}>
-        {posts?.map((singlePost, index) => <div key={index}>
-
-          <PostExcerpt
-            thumbnail={singlePost.thumbnail_url}
-            title={singlePost.title}
-            description={singlePost.excerpt}
-            level={singlePost.level}
-            excerptStyle={'simple'}
-          />
-
-        </div>)}
-
+      {posts?.map((singlePost, index) => {
+        return (
+          <div key={index} className={`${index === 0 ? style.firstChild : ''} ${style.categoryGridItem}`}>
+            <Card>
+              <div className={style.innerContainer}>
+                <PostExcerpt
+                  thumbnail={singlePost.thumbnail_url}
+                  title={singlePost.title}
+                  description={singlePost.excerpt}
+                  level={singlePost.level}
+                  excerptStyle={componentStyle === 'flex' ? 'column' : index === 0 ? 'column' : 'row'}
+                  hasSeparator={false}
+                />
+              </div>
+            </Card>
+          </div>
+        )
+      })}
     </div>
   )
 }

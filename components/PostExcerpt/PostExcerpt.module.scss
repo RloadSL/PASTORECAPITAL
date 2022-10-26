@@ -23,8 +23,30 @@
 
   &.simple {
     @include devices.device(lgScreen) {
-      min-height: auto
+      min-height: auto;
     }
+  }
+
+  &.row {
+    @include devices.device(tablet) {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .imageContainer {
+      @include devices.device(tablet) {
+        flex-shrink: unset;
+        max-width: 170px;
+        min-height: 170px;
+      }
+    }
+  }
+
+  &.column {
+    @include devices.device(tablet) {
+      display: flex;
+      flex-direction: column;
+    }  
   }
 }
 
