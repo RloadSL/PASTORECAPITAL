@@ -128,6 +128,7 @@ const CourseDetailView = ({
             </div>
           </div>
         )}
+       {/*  <div className={style.post}>{parse(post.title?.rendered || '')}</div> */}
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <ListLessons
           formLessonDetail={false}
