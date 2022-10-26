@@ -1,31 +1,28 @@
-@use '../../styles/partials/variables/colors' as colors;
-@use '../../styles/partials/mixins/devices' as devices;
-@use '../../styles/partials/placeholders';
-
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/placeholders";
 
 .postGrid {
-  display: flex;
+	display: flex;
 	flex-direction: column;
 	max-width: 100%;
 	width: 100%;
 
-	li {
-		padding: 5px;
-	}
-
 	@include devices.device(lgScreen) {
 		flex-direction: row;
 		flex-wrap: wrap;
-
-		li {
-			width: 33.3%;
-			padding: 10px;
-		}
 	}
 }
 
 .postLink {
-	.postItemContainer:hover{
+	padding: 5px;
+
+	@include devices.device(lgScreen) {
+		width: 33.3%;
+		padding: 10px;
+	}
+
+	.postItemContainer:hover {
 		box-shadow: 0 0 0 2px colors.$main;
 		border-radius: 15px;
 		display: block;
@@ -36,17 +33,26 @@
 	}
 }
 
+.createButtonContainer {
+	padding-right: 10px;
+
+	@include devices.device(lgScreen) {
+		width: 33.3%;
+		padding: 10px;
+	}
+}
+
 .createCourseButton {
 	@extend %cardContainer;
 	border: 2px dashed colors.$main;
 	border-radius: 20px;
 	font-size: 1.2rem;
-	background-color: lighten(colors.$main,42%);
+	background-color: lighten(colors.$main, 42%);
 	width: 100%;
 	color: colors.$main;
 
 	@include devices.device(smTablet) {
-		max-width: 400px ;
+		max-width: 400px;
 		min-height: 80px;
 		padding: 10px;
 	}
@@ -59,14 +65,14 @@
 		font-weight: normal;
 		color: colors.$grey60;
 		font-size: 1.1rem;
-		letter-spacing: .2rem;
+		letter-spacing: 0.2rem;
 	}
 
 	.buttonContent {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-	
+
 		strong {
 			color: colors.$main;
 			text-transform: capitalize;
@@ -81,7 +87,7 @@
 				font-size: 1.5rem;
 			}
 		}
-	
+
 		img {
 			width: 40px !important;
 			height: 40px !important;
