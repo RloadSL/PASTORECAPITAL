@@ -10,7 +10,7 @@ interface UNDERCONSTRUCTIONPROPS {
   messageType: MESSAGECONTENT
 }
 
-const UnderConstruction = ({ messageType }: UNDERCONSTRUCTIONPROPS) => {
+const UnderConstruction = ({ messageType= 'underconstruction' }: UNDERCONSTRUCTIONPROPS) => {
   const renderMessage = () => {
     if (messageType === 'underconstruction') {
       return (
