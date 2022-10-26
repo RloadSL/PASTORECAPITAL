@@ -16,17 +16,19 @@ const FilterCourse = ({ onFilter }: any) => {
     let fetching = true
     getLevels()
       .then(res => {
-        const options = [{value: '', label: 'Todos', id: null}, ...res]
+        const options = [{ value: '', label: 'Todos', id: null }, ...res]
         if (fetching) setlevels(options as any)
       })
       .catch(() => {
-        console.error('Error interno refrescar la página. Para obtener los niveles')
+        console.error(
+          'Error interno refrescar la página. Para obtener los niveles'
+        )
       })
     return () => {
       fetching = false
     }
   }, [])
-  
+
   const getLevels = async () => {
     const response = await CourseRepositoryInstance.readLevelsCategoriesFromWp()
     return response
@@ -46,7 +48,7 @@ const FilterCourse = ({ onFilter }: any) => {
         getTags(value.search)
       } else {
         console.log(value)
-        onFilter({...value, tags: value.tags})
+        onFilter({ ...value, tags: value.tags })
       }
     }, 300)
   ).current
@@ -57,7 +59,7 @@ const FilterCourse = ({ onFilter }: any) => {
 }
 
 const FilterCourseView = ({ levels, onFilter, tags }: any) => {
-  const [tag, settag] = useState('')
+  const [search, setsearch] = useState('')
   const _handleOnChange = (newValue: {
     search?: string
     categories?: string
@@ -72,11 +74,12 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
         <div className={style.flexItems}>
           <div className={style.filterSearchItem}>
             <InputApp
-            // helper='page.academy.courses.filterSearch.helper'
-              value={tag}
-              onChange={(name: string, value: any) =>
+              // helper='page.academy.courses.filterSearch.helper'
+              value={search}
+              onChange={(name: string, value: any) => {
                 _handleOnChange({ [name]: value })
-              }
+                setsearch(value)
+              }}
               labelID={'page.academy.courses.filterSearch.label'}
               icon={searchIcon}
               name='search'
@@ -98,24 +101,26 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
           <input hidden type='submit'></input>
         </div>
       </FormApp>
-      {tags.length > 0 && <Card cardStyle={['autocomplete', 'elevationSmall']}>
-        <div>
-          {tags.map((tag: { id: number; name: string }, index: number) => {
-            return (
-              <p
-                onClick={() => {
-                  _handleOnChange({ tags: tag.id.toString() })
-                  settag('#'+tag.name)
-                }}
-                className={style.itemTag}
-                key={index}
-              >
-                #<small>{tag.name}</small>
-              </p>
-            )
-          })}
-        </div>
-      </Card>}
+      {tags.length > 0 && (
+        <Card cardStyle={['autocomplete', 'elevationSmall']}>
+          <div>
+            {tags.map((tag: { id: number; name: string }, index: number) => {
+              return (
+                <p
+                  onClick={() => {
+                    _handleOnChange({ tags: tag.id.toString() })
+                    setsearch('#' + tag.name)
+                  }}
+                  className={style.itemTag}
+                  key={index}
+                >
+                  #<small>{tag.name}</small>
+                </p>
+              )
+            })}
+          </div>
+        </Card>
+      )}
     </div>
   )
 }

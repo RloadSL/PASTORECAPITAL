@@ -27,7 +27,7 @@ const FilterTutorials = ({ onFilter }: any) => {
       fetching = false
     }
   }, []) */
-  
+
   /*  const getLevels = async () => {
     const response = await CourseRepositoryInstance.readLevelsCategoriesFromWp()
     return response
@@ -46,18 +46,16 @@ const FilterTutorials = ({ onFilter }: any) => {
       if (value.search?.trim()[0] === '#') {
         getTags(value.search)
       } else {
-        onFilter({...value, tags: value.tags})
+        onFilter({ ...value, tags: value.tags })
       }
     }, 300)
   ).current
 
-  return (
-    <FilterCourseView tags={tags} levels={[]} onFilter={_handleFilter} />
-  )
+  return <FilterCourseView tags={tags} levels={[]} onFilter={_handleFilter} />
 }
 
 const FilterCourseView = ({ levels, onFilter, tags }: any) => {
-  const [tag, settag] = useState('')
+  const [search, setsearch] = useState('')
   const _handleOnChange = (newValue: {
     search?: string
     categories?: string
@@ -72,29 +70,19 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
         <div className={style.flexItems}>
           <div className={style.filterSearchItem}>
             <InputApp
-            // helper='page.academy.courses.filterSearch.helper'
-              value={tag}
-              onChange={(name: string, value: any) =>
+              // helper='page.academy.courses.filterSearch.helper'
+              value={search}
+              onChange={(name: string, value: any) => {
                 _handleOnChange({ [name]: value })
-              }
+                setsearch(value)
+              }}
               labelID={'page.academy.courses.filterSearch.label'}
               icon={searchIcon}
               name='search'
               type='text'
             />
           </div>
-          {/* <div className={style.flexItemsSelect}>
-            <div className={style.filterLevelItem}>
-              <SelectApp
-                onChange={(name: string, value: any) =>
-                  _handleOnChange({ [name]: value })
-                }
-                selectOptions={levels}
-                labelID={'page.academy.courses.filterLevel.label'}
-                name={'categories'}
-              />
-            </div>
-          </div> */}
+
           <input hidden type='submit'></input>
         </div>
       </FormApp>
@@ -105,7 +93,7 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
               <p
                 onClick={() => {
                   _handleOnChange({ tags: tag.id.toString() })
-                  settag('#'+tag.name)
+                  setsearch('#' + tag.name)
                 }}
                 className={style.itemTag}
                 key={index}
