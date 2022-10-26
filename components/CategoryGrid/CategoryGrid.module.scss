@@ -4,13 +4,32 @@
 @use "../../styles/partials/placeholders";
 
 .categoryGridContainer {
-  
   &.grid {
-    display: grid;
+    @include devices.device(lgScreen) {
+      display: grid;
+      grid-template-columns: 50% 50%;
+    }
+
+    div:first-child {
+      grid-row: span 3;
+      min-height: auto;
+    }
   }
   &.flex {
-    @include devices.device(lgScreen){
+    @include devices.device(lgScreen) {
       display: flex;
     }
   }
+}
+
+.categoryGridItem {
+  padding: 10px;
+  &.firstChild {
+
+  }
+}
+
+.innerContainer {
+  @extend %cardContainer;
+  padding: 20px;
 }
