@@ -1,9 +1,8 @@
-import { on_cloud_firebase, on_cloud_wp } from "infrastructure/firebase/config";
-import { boolean } from "yup";
+import { env, on_cloud_firebase, on_cloud_wp } from "infrastructure/firebase/config";
 
-console.log(on_cloud_firebase && on_cloud_wp)
-export const WP_HOST = on_cloud_firebase && on_cloud_wp ? 'https://rload.es/apipastore/' : 'http://localhost:8888/pastoreheadless/' ;
-
+const WP_HOST_API_ONCLOUD = env === "prod" ? 'https://api.pastorecapital.com/' : 'https://rload.es/apipastore/'; //Production 
+export const WP_HOST = on_cloud_firebase && on_cloud_wp ? WP_HOST_API_ONCLOUD : 'http://localhost:8888/pastoreheadless/' ;
+console.log(env, WP_HOST)
 const WP_API = `${WP_HOST}wp-json/wp/v2/`;
 
 export const WP_API_CATEGORY = `${WP_API}categories`;
