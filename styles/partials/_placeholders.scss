@@ -44,7 +44,7 @@
 }
 
 %cardContainer {
-	padding: 5%;
+	padding: 15px;
 	@include devices.device(smTablet) {
 	 max-height: 400px;
 	 min-height: 400px;

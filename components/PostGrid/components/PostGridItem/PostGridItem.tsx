@@ -10,6 +10,8 @@ import privateIcon from '../../../../assets/img/icons/lock-w.svg'
 import Image from 'next/image'
 import tagsIcon from '../../../../assets/img/icons/tags.svg'
 import clockIcon from '../../../../assets/img/icons/clock.svg'
+import { useComponentUtils } from 'ui/hooks/components.hooks'
+
 
 /**
  * Función principal del componente item grid que renderiza el elemeto que se estrcutura en el grid
@@ -44,7 +46,9 @@ const PostGridItemView = ({
   isAdmin,
   deleteCourse
 }: any) => {
+  const { limitTextLength } = useComponentUtils();
   const _renderHeader = () => {
+
     return (
       <div
         className={style.header}
@@ -114,8 +118,8 @@ const PostGridItemView = ({
         <div onClick={() => onClickItem()}>
           <PostExcerpt
             thumbnail={gridItem.thumbnail_url}
-            title={gridItem.title.rendered}
-            description={gridItem.excerpt.rendered}
+            title={limitTextLength(60, gridItem.title.rendered || '')}
+            description={limitTextLength(150, gridItem.excerpt.rendered || '')}
             chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
             level={gridItem.level}
             componentStyle={'card'}
