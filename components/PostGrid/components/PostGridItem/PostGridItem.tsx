@@ -118,7 +118,7 @@ const PostGridItemView = ({
             description={gridItem.excerpt.rendered}
             chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
             level={gridItem.level}
-            excerptStyle={'card'}
+            componentStyle={'card'}
           />
         </div>
       </div>

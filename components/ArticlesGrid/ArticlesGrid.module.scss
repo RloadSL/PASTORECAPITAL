@@ -3,7 +3,10 @@
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/placeholders";
 
-.categoryGridContainer {
+.articlesGridContainer {
+  // margin-right: -10px;
+  // margin-left: 10px;
+
   &.grid {
     @include devices.device(lgScreen) {
       display: grid;
@@ -22,7 +25,7 @@
   }
 }
 
-.categoryGridItem {
+.articlesGridItem {
   padding: 10px;
   &.firstChild {
 
