@@ -5,10 +5,6 @@ import parse from 'html-react-parser'
 import React from 'react'
 import { WpCat } from 'infrastructure/dto/course.dto'
 
-type THUMBNAIL = {
-  imgUrl: string
-  altText: string
-}
 
 export interface POSTEXCERPTPROPS {
   title?: string
@@ -16,8 +12,12 @@ export interface POSTEXCERPTPROPS {
   thumbnail?: string
   chips?: any
   level?: WpCat,
-  excerptStyle?: 'card' | 'simple' | 'column' | 'row' 
-  hasSeparator?: boolean
+  componentStyle?: 'card' | 'simple' | 'column' | 'row'
+  hasSeparator?: boolean,
+  footer?: {
+    text?: string,
+    date?: any //OJO al tipado debe ser Date
+  }
 }
 
 /**
@@ -32,10 +32,11 @@ const PostExcerpt = ({
   thumbnail,
   chips,
   level,
-  excerptStyle,
-  hasSeparator
+  componentStyle,
+  hasSeparator,
+  footer
 }: POSTEXCERPTPROPS) => {
-  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} excerptStyle={excerptStyle} hasSeparator={hasSeparator}/>
+  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} componentStyle={componentStyle} hasSeparator={hasSeparator} footer={footer} />
 }
 
 const PostExcerptView = ({
@@ -44,12 +45,13 @@ const PostExcerptView = ({
   thumbnail,
   chips,
   level,
-  excerptStyle = 'card',
-  hasSeparator = true
+  componentStyle = 'card',
+  hasSeparator = true,
+  footer
 }: POSTEXCERPTPROPS) => {
   const { limitTextLength } = useComponentUtils()
   return (
-    <div className={`${style.postExcerptContainer} ${style[excerptStyle]}`}>
+    <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
         {level && <span className={style.level}>{level.slug}</span>}
       </div>
@@ -58,10 +60,13 @@ const PostExcerptView = ({
         <div className={style.description}>
           {parse(limitTextLength(130, description || ''))}
         </div>
-       {hasSeparator ? <hr className={style.separator} /> : null} 
+        {hasSeparator ? <hr className={style.separator} /> : null}
         <div className={style.terms}>
           {chips ? (
-            <Chips  chips={chips.slice(0, 3)} color='lightMain' />
+            <Chips chips={chips.slice(0, 3)} color='lightMain' />
+          ) : null}
+          {footer ? (
+            <p>{footer.text}<span>{footer.date}</span></p>
           ) : null}
         </div>
       </div>

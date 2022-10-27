@@ -26,3 +26,9 @@ export interface PAGES {
    */
   level?: any
 }
+
+export interface WP_TERM {
+  name: string,
+  slug: string,
+  term_id?: number
+}
