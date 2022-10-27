@@ -1,0 +1,57 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
+.selectContainer {
+  background-color: colors.$grey30;
+  padding: 8px 5px 0px 5px;
+  position: relative;
+  margin-bottom: 20px;
+  @extend %borderRadius;
+  background-image: url(../../../../assets/img/icons/arrow-b.svg);
+  background-repeat: no-repeat;
+  background-position: 95% 50% ;
+  background-size: 15px;
+  width: 100%;
+}
+
+.label {
+  color: colors.$grey60;
+  font-size: .8rem;
+  left: 15px;
+  position: absolute;
+}
+
+.iconLabel {
+  color: colors.$grey60;
+  font-size: .8rem;
+  left: 45px;
+  position: absolute;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: colors.$error;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.hasError {
+  box-shadow: 0 0 0 1px colors.$error;
+}
+
+.icon {
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.select {
+  width: 100%;
+}

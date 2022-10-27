@@ -1,24 +1,19 @@
-import ButtonApp from 'components/ButtonApp';
-import LinkApp from 'components/LinkApp';
-import { NextPage } from 'next'
-import React, { useState } from 'react'
-import style from "./Analysis.module.scss";
-import iconDelete from '../../../assets/img/icons/trash.svg'
-import iconEdit from '../../../assets/img/icons/pencil.svg'
-import addArticleIcon from '../../../assets/img/icons/add-document.svg'
-import WordpressHeader from 'WordpressHeader'
-import { FormattedMessage } from 'react-intl';
-import Image from 'next/image'
-import ArticleFilters from './components/ArticleFilters';
-import ArticlesGrid from 'components/ArticlesGrid';
-import WPCategory from 'components/WPCategory';
-import {WPterms} from '../../utils/test.data'
+import ButtonApp from 'components/ButtonApp'
 
+import { NextPage } from 'next'
+import React, { Suspense, useState } from 'react'
+import style from './Analysis.module.scss'
+
+import addArticleIcon from '../../../assets/img/icons/add-document.svg'
+
+import ArticleFilters from './components/ArticleFilters'
+
+import WPCategory from 'components/WPCategory'
+import { WPterms } from '../../utils/test.data'
+import CreateFormArticle from './components/CreateFormArticle'
 
 const Analysis: NextPage<any> = () => {
-  return (
-    <AnalysisView></AnalysisView>
-  )
+  return <AnalysisView></AnalysisView>
 }
 
 const AnalysisView = () => {
@@ -27,22 +22,37 @@ const AnalysisView = () => {
   //     ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}`
   //     : undefined
   // }
-  const [deletePost, setDeletePost]: [{ id: number, status: string } | null, Function] = useState(null)
+  const [create, setCreate] = useState(false)
 
   return (
     <div className={style.analysisPage}>
       {/* <WPCategory articlesPosition={'flex'} category={WPterm}/> */}
       <ArticleFilters />
-      {WPterms.map((WPterm) => {
-        return <WPCategory key={WPterm.term_id.toString()} componentStyle={'grid'} category={WPterm}/>
+      {WPterms.map(WPterm => {
+        return (
+          <WPCategory
+            key={WPterm.term_id.toString()}
+            componentStyle={'grid'}
+            category={WPterm}
+          />
+        )
       })}
       <div className={style.addNewArticle}>
         <ButtonApp
-          onClick={() => console.log('crear')}
+          onClick={() => setCreate(!create)}
           labelID='Añadir nuevo artículo'
           buttonStyle='primary'
           icon={addArticleIcon}
         />
+        {create && (
+          <Suspense>
+            <CreateFormArticle
+              onClose={() => {
+                setCreate(false)
+              }}
+            ></CreateFormArticle>
+          </Suspense>
+        )}
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { Role } from "infrastructure/dto/users.dto";
 import { CATEGORY } from "infrastructure/dto/wp.dto"
 import { HTTP } from "infrastructure/http/http"
-import {  WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_POST, WP_API_POST_LIST, WP_API_TAGS } from "./config";
+import {  WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_PLATFORM, WP_API_POST, WP_API_POST_LIST, WP_API_TAGS } from "./config";
 
 export const createCategory = async (category:CATEGORY) => {
   const response = await HTTP.post(WP_API_CATEGORY, category)
@@ -11,6 +11,11 @@ export const createCategory = async (category:CATEGORY) => {
 export const getCategories = async (parentSlug?:string):Promise<Array<any>> => {
   const url = !parentSlug ? WP_API_CATEGORY : WP_API_CATEGORY+`?slug=${parentSlug}`
   const response = await HTTP.get(url)
+  return response;
+}
+
+export const getCategoriesPlans = async ():Promise<Array<any>> => {
+  const response = await HTTP.get(`${WP_API_PLATFORM}plans`)
   return response;
 }
 

@@ -5,6 +5,9 @@ export const WP_HOST = on_cloud_firebase && on_cloud_wp ? WP_HOST_API_ONCLOUD : 
 console.log(env, WP_HOST)
 const WP_API = `${WP_HOST}wp-json/wp/v2/`;
 
+export const WP_API_ANLALYSIS = `${WP_HOST}wp-json/analysis/v1/`;
+export const WP_API_PLATFORM = `${WP_HOST}wp-json/global/v1/`;
+
 export const WP_API_CATEGORY = `${WP_API}categories`;
 export const WP_API_TAGS = `${WP_API}tags`;
 export const WP_API_PAGES = `${WP_API}pages`;

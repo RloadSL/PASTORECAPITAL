@@ -1,0 +1,36 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+
+
+.inputContainer {
+  margin-bottom: 20px;
+  padding: 12px 5px;
+  position: relative;
+
+  .label {
+    display: flex;
+    font-size: .8rem;
+    align-items: center;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .input {
+    margin-right: 10px;
+    display: inline-block;
+  }
+}
+
+.error {
+  font-size: 0.8rem;
+  color: colors.$error;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.hasError {
+  outline: 1px solid colors.$error;
+}

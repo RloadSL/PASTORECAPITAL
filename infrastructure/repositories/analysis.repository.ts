@@ -1,6 +1,6 @@
 import { Post } from "domain/Post/Post";
 import { HTTP } from "infrastructure/http/http";
-import { WP_API_POST } from "infrastructure/wordpress/config";
+import { WP_API_ANLALYSIS, WP_API_POST } from "infrastructure/wordpress/config";
 
 export class AnalysisRepository {
   private static instance: AnalysisRepository;
@@ -12,6 +12,18 @@ export class AnalysisRepository {
     }
     return AnalysisRepository.instance;
   }
+  getCategories = async ()=>{
+    const res = await HTTP.get(`${WP_API_ANLALYSIS}category`) 
+    if(Array.isArray(res)){
+      return res.map(term => {
+        return {
+          value: term.term_id,
+          label: term.name
+        }
+      })
+    }
+  }
+
   
   createArticle = async ({categories, wpToken,article_args}:{categories: number[],wpToken:string , article_args:{title: string, excerpt?: string}}) => {
      const arg = {

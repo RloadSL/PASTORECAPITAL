@@ -1,8 +1,7 @@
+import dynamic from 'next/dynamic'
 
-import { useDispatch } from "react-redux";
-import Courses from "ui/pages/academy/courses/Courses/Courses";
-import { academyGetCurses } from "ui/redux/slices/academy/academy.slice";
-import { AppDispatch } from "ui/redux/store";
+const Courses = dynamic(() =>
+  import('ui/pages/academy/courses/Courses/Courses').then(mod => mod.default)
+)
 
-
-export default Courses;
+export default Courses
