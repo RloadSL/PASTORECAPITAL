@@ -112,6 +112,7 @@ const PostGridView = ({
 }: POSTGRIDPROPS) => {
   const router = useRouter()
   const { editionGranted } = useGuardPermissions()
+
   const itemCreateBtn = () => {
     return (
       <button

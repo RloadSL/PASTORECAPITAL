@@ -1,5 +1,4 @@
 import Chips from 'components/Chips'
-import { useComponentUtils } from 'ui/hooks/components.hooks'
 import style from './PostExcerpt.module.scss'
 import parse from 'html-react-parser'
 import React from 'react'
@@ -11,7 +10,7 @@ export interface POSTEXCERPTPROPS {
   description: string
   thumbnail?: string
   chips?: any
-  level?: WpCat,
+  level?: WpCat | any,
   componentStyle?: 'card' | 'simple' | 'column' | 'row'
   hasSeparator?: boolean,
   footer?: {
@@ -49,16 +48,15 @@ const PostExcerptView = ({
   hasSeparator = true,
   footer
 }: POSTEXCERPTPROPS) => {
-  const { limitTextLength } = useComponentUtils()
   return (
     <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
-        {level && <span className={style.level}>{level.slug}</span>}
+        {level && <span className={style.level}>{level.name}</span>}
       </div>
       <div className={style.textContent}>
-        <p className={style.title}>{limitTextLength(60, title || '')}</p>
+        <p className={style.title}>{title}</p>
         <div className={style.description}>
-          {parse(limitTextLength(130, description || ''))}
+          {parse(description)}
         </div>
         {hasSeparator ? <hr className={style.separator} /> : null}
         <div className={style.terms}>
@@ -66,7 +64,7 @@ const PostExcerptView = ({
             <Chips chips={chips.slice(0, 3)} color='lightMain' />
           ) : null}
           {footer ? (
-            <p>{footer.text}<span>{footer.date}</span></p>
+            <p className={style.footer}>{footer.text}<span>{footer.date}</span></p>
           ) : null}
         </div>
       </div>

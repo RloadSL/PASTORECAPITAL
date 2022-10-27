@@ -17,7 +17,7 @@
 
   &.card {
     @include devices.device(lgScreen) {
-      min-height: calc(500px - 45px);
+      min-height: calc(400px - 45px);
     }
   }
 
@@ -33,21 +33,40 @@
       flex-direction: row;
     }
 
+    .title {
+      margin-top: 0px;
+      margin-bottom: 15px;
+    }
+
     .imageContainer {
-      @include devices.device(tablet) {
+      width: 170px;
+        height: 170px;
+      @include devices.device(mdScreen) {
         flex-shrink: unset;
-        max-width: 170px;
-        min-height: 170px;
+        width: 170px;
+        height: 170px;
+      }
+
+      @include devices.device(lgScreen) {
+        flex-shrink: unset;
+        height: 170px ;
+        width: 170px ;
       }
     }
   }
 
   &.column {
-    @include devices.device(tablet) {
+    @include devices.device(Tablet) {
       display: flex;
       flex-direction: column;
     }  
+
+    .imageContainer {
+      @include devices.device(lgScreen) {
+        height: 300px !important;
+    }
   }
+}
 }
 
 .textContent {
@@ -72,6 +91,7 @@
   overflow: hidden;
   position: relative;
   height: 150px;
+  width: 100%;
   margin-bottom: 20px;
   background-color: lighten(colors.$main, 42%);
   background-image: url(../../assets/img/icons/no-image.svg);
@@ -88,7 +108,7 @@
 
   @include devices.device(lgScreen) {
     width: 100%;
-    height: 150px;
+    height: 115px;
   }
 }
 
@@ -104,7 +124,7 @@
 .level {
   position: absolute;
   bottom: 10px;
-  left: 10px;
+  right: 10px;
   z-index: 0;
   background-color: colors.$main;
   color: white;
@@ -122,4 +142,8 @@
 .separator {
   border-top: 1px solid colors.$grey30;
   margin: 10px 0px 10px 0px;
+}
+
+.footer {
+  margin-bottom: 0px;
 }
