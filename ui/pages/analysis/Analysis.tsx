@@ -13,9 +13,11 @@ import ArticleFilters from './components/ArticleFilters';
 import ArticlesGrid from 'components/ArticlesGrid';
 import WPCategory from 'components/WPCategory';
 import {WPterms} from '../../utils/test.data'
+import useWindowSize from 'ui/hooks/windowSize.hook';
 
 
 const Analysis: NextPage<any> = () => {
+
   return (
     <AnalysisView></AnalysisView>
   )
@@ -28,6 +30,8 @@ const AnalysisView = () => {
   //     : undefined
   // }
   const [deletePost, setDeletePost]: [{ id: number, status: string } | null, Function] = useState(null)
+
+
 
   return (
     <div className={style.analysisPage}>

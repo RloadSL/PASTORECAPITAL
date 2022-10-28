@@ -13,6 +13,11 @@
 	}
 
 	@include devices.device(lgScreen) {
+		max-height: 450px;
+		min-height: 450px;
+	}
+
+	@include devices.device(1890px) {
 		max-height: 400px;
 		min-height: 400px;
 	}

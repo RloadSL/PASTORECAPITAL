@@ -11,9 +11,10 @@ export interface POSTEXCERPTPROPS {
   thumbnail?: string
   chips?: any
   level?: WpCat | any,
-  componentStyle?: 'card' | 'simple' | 'column' | 'row'
+  componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
   hasSeparator?: boolean,
   footer?: {
+    avatar?: any,
     text?: string,
     date?: any //OJO al tipado debe ser Date
   }
@@ -64,7 +65,10 @@ const PostExcerptView = ({
             <Chips chips={chips.slice(0, 3)} color='lightMain' />
           ) : null}
           {footer ? (
-            <p className={style.footer}>{footer.text}<span>{footer.date}</span></p>
+            <div>
+              <div className={style.avatar}>{footer.avatar}</div>
+              <p className={style.footer}><span className={style.author}>{footer.text}</span><span className={style.date}>{footer.date}</span></p>
+            </div>
           ) : null}
         </div>
       </div>
