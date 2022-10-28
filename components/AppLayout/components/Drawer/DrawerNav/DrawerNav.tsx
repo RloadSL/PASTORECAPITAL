@@ -9,26 +9,27 @@ import logoPastore from '../../../../../assets/img/logo-pastore.svg'
 import logoMobile from '../../../../../assets/img/logo-image.svg'
 import { useEffect, useState } from 'react'
 import MenuCollapsable from 'components/MenuCollapsable'
+import useWindowSize from 'ui/hooks/windowSize.hook'
 
+//OJO crear interface
 
 const DrawerNav = ({ children }: any) => {
   const router = useRouter()
   const routeUrl = router.pathname;
+  const windowSize = useWindowSize();
   
-  
-  
-  const [windowSize, setWindowSize] = useState({ innerWidth: 0, innerHeight: 0 });
+  // const [windowSize, setWindowSize] = useState({ innerWidth: 0, innerHeight: 0 });
   const [activeItem, setActiveItem] = useState<any>('/')
 
-  useEffect(() => {
-    const { innerWidth, innerHeight } = window;
-    setWindowSize({ innerWidth, innerHeight });
-    const handleWindowResize = () => {
-      const { innerWidth, innerHeight } = window;
-      setWindowSize({ innerWidth, innerHeight });
-    }
-    window.addEventListener('resize', handleWindowResize);
-  }, []);
+  // useEffect(() => {
+  //   const { innerWidth, innerHeight } = window;
+  //   setWindowSize({ innerWidth, innerHeight });
+  //   const handleWindowResize = () => {
+  //     const { innerWidth, innerHeight } = window;
+  //     setWindowSize({ innerWidth, innerHeight });
+  //   }
+  //   window.addEventListener('resize', handleWindowResize);
+  // }, []);
 
   useEffect(() => {
     const active = router.route === '/' ? mainMenuItems[0] : mainMenuItems.find(item => router.route.includes(item.path));
@@ -56,17 +57,17 @@ const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, ac
     }
   }
 
-  return windowSize.innerWidth > 0 ?  (<div className={style.drawerNav}>
-      {windowSize.innerWidth >= 1080 && windowSize.innerWidth < 1200 ? (
+  return windowSize.width > 0 ?  (<div className={style.drawerNav}>
+      {windowSize.width >= 1080 && windowSize.width < 1200 ? (
         <div className={style.logoTablet}>
           <Image src={logoPastore} alt='Logotipo Pastore Capital' />
         </div>
-      ) : windowSize.innerWidth < 1080 ? (
+      ) : windowSize.width < 1080 ? (
       <div className={style.logoMobile}>
         <Image src={logoMobile} alt='Logotipo Pastore Capital' /></div>
       ) : null
       }
-      {windowSize.innerWidth >= 1200 ? (
+      {windowSize.width >= 1200 ? (
         <aside className={style.aside}>
           {children}
           <div className={style.logoApp}>
@@ -78,7 +79,7 @@ const DrawerNavView = ({ children, activeItem, windowSize }: { children: any, ac
         </aside>) : (
         <MenuCollapsable isCollapsed={isCollapsed}>
           <div className={`${style.innerContent} flex-container`}>
-            {windowSize.innerWidth >= 1200 ? <div className={style.logoApp}><Image src={logoPastore} alt='' /></div> : null}
+            {windowSize.width >= 1200 ? <div className={style.logoApp}><Image src={logoPastore} alt='' /></div> : null}
             <div className={style.menuContainer}>
               <Menu itemList={mainMenuItems} activeItem={activeItem} />
             </div>
