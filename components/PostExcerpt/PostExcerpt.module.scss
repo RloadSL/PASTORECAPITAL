@@ -60,6 +60,7 @@
     @include devices.device(tablet) {
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
 
     .title {
@@ -151,19 +152,27 @@
 }
 
 .footer {
-  margin-bottom: 0px;
-  color: colors.$grey60;
-  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
 
-  & .author {
-    font-weight: bold;
-    &::after {
-      content: ' | ';
-      font-weight: normal;
+  & .content {
+    margin-bottom: 0px;
+    color: colors.$grey60;
+    font-size: .9rem;
+    margin-top: 0px;
+  
+    & .author {
+      font-weight: bold;
+      &::after {
+        content: ' | ';
+        font-weight: normal;
+      }
+    }
+  
+    & .date {
+  
     }
   }
 
-  & .date {
-
-  }
 }

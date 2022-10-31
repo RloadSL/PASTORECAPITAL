@@ -39,7 +39,7 @@ const ArticlesGridView = ({ category, posts, componentStyle = 'flex', windowSize
                   level={level}
                   componentStyle={componentStyle === 'flex' ? 'column' : index === 0 && windowSize.width > 1500 ? 'column' : 'row'}
                   hasSeparator={false}
-                  footer={{ text: `${singlePost.author.name}`, date: singlePost.date }}
+                  footer={{text: `${singlePost.author.name}`, date: singlePost.date }}
                 />
               </div>
             </Card>
