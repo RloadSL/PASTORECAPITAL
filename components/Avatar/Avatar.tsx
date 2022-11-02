@@ -35,12 +35,17 @@ const colorPalette = [
   },
 ]
 
+interface AVATARPROPS {
+  renderItem: any
+  size?: 'small' | 'large'
+}
 
-const Avatar = ({ renderItem }: { renderItem: any }) => {
+
+const Avatar = ({ renderItem, size = 'small' }: AVATARPROPS ) => {
   const randomColor = useRef(colorPalette[randomIntFromInterval(0, 6)]);
   
   return (
-    <div className={style.avatarContainer} style={{ backgroundColor: randomColor.current.base }}>
+    <div className={`${style.avatarContainer} ${style[size]}`} style={{ backgroundColor: randomColor.current.base }}>
       <div className={style.letter} style={{ color: randomColor.current.main }}>{renderItem.toUpperCase()}</div>
     </div>
   )

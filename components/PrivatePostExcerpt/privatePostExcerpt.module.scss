@@ -1,0 +1,184 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/placeholders";
+
+.postExcerptContainer {
+  display: flex;
+  flex-direction: column;
+
+  // &.card {
+  //   @include devices.device(lgScreen) {
+  //     min-height: calc(400px - 45px);
+  //   }
+  // }
+
+  .imageContainer {
+    width: 100%;
+    height: 170px;
+    
+  // @include devices.device(smTablet) {
+  //   flex-shrink: unset;
+  //   width: 170px;
+  //   height: 170px;
+  // }
+
+  // @include devices.device(lgScreen) {
+  //   flex-shrink: unset;
+  //   height: 185px ;
+  //   width: 185px ;
+  // }
+}
+
+  &.simple {
+    @include devices.device(lgScreen) {
+      min-height: auto;
+    }
+  }
+
+  &.row {
+    // @include devices.device(tablet) {
+    //   display: flex;
+    //   flex-direction: row;
+    // }
+
+    .title {
+      margin-top: 0px;
+      margin-bottom: 15px;
+    }
+
+    // .imageContainer {
+    //     width: 100%;
+    //     height: 170px;
+        
+    //   // @include devices.device(smTablet) {
+    //   //   flex-shrink: unset;
+    //   //   width: 170px;
+    //   //   height: 170px;
+    //   // }
+
+    //   // @include devices.device(lgScreen) {
+    //   //   flex-shrink: unset;
+    //   //   height: 185px ;
+    //   //   width: 185px ;
+    //   // }
+    // }
+  }
+
+  &.column {
+    @include devices.device(tablet) {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .title {
+      margin-top: 30px;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+  //   .imageContainer {
+  //     @include devices.device(lgScreen) {
+  //       height: 300px !important;
+  //   }
+  // }
+}
+}
+
+.textContent {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  @extend %secondaryTitle;
+  font-size: 1.4rem;
+  margin-bottom: 0px;
+
+  @include devices.device(lgScreen) {
+    margin-top: 20px;
+  }
+}
+
+.imageContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  height: 150px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: lighten(colors.$main, 42%);
+  background-image: url(../../assets/img/icons/no-image.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @include devices.device(smTablet) {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+  }
+
+  @include devices.device(lgScreen) {
+    width: 100%;
+    height: 115px;
+  }
+}
+
+.description {
+  color: colors.$dark;
+  flex: 1;
+  p {
+    margin-bottom: 25px;
+  }
+}
+
+// .level {
+//   position: absolute;
+//   bottom: 10px;
+//   right: 10px;
+//   z-index: 0;
+//   background-color: colors.$main;
+//   color: white;
+//   border-radius: 15px;
+//   padding: 5px;
+//   padding-left: 10px;
+//   padding-right: 10px;
+//   font-size: text.$textSmall;
+// }
+
+.terms {
+  margin-top: 0px;
+}
+
+.separator {
+  border-top: 1px solid colors.$grey30;
+  margin: 10px 0px 10px 0px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+
+  & .content {
+    margin-bottom: 0px;
+    color: colors.$grey60;
+    font-size: .9rem;
+    margin-top: 0px;
+  
+    & .author {
+      font-weight: bold;
+      display: block;
+    }
+  
+    & .date {
+  
+    }
+  }
+
+}

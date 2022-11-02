@@ -1,14 +1,22 @@
 .avatarContainer {
   border-radius: 100%;
-  width: 25px;
-  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 10px;
 
-  & .letter {
+  &.small {
+    width: 25px;
+    height: 25px;
+  }
 
+  &.large {
+    width: 40px;
+    height: 40px;
+
+    & .letter {
+      font-size: 1.5rem;
+    }
   }
 
   .image {

@@ -26,11 +26,13 @@ interface POSTGRIDPROPS {
   openCreate: Function
   wpToken?: string
   onClickItem: Function
-  deleteCourse: Function
+  deleteItem: Function
   loadMore: Function
   setStatePost: Function
   statePost: 'public' | 'private',
-  parent: string
+  parent: string,
+  typeItem?: 'privateExcerpt' | 'excerpt'
+  alignment?: 'row' | 'column'
 }
 
 /**
@@ -43,20 +45,24 @@ interface POSTGRIDPROPS {
 
 const PostGrid = ({
   openCreate,
-  deleteCourse,
+  deleteItem,
   onClickItemTarget,
   loadMore,
   setStatePost,
   statePost,
-  parent
+  parent,
+  typeItem,
+  alignment
 }: {
   openCreate: Function
-  deleteCourse: Function
+  deleteItem: Function
   onClickItemTarget: string
   loadMore: Function
   statePost: 'public' | 'private'
   setStatePost: Function
   parent:string
+  typeItem?: 'privateExcerpt' | 'excerpt',
+  alignment?: 'row' | 'column'
 }) => {
   const posts = useSelector(postsStore)
   const loading = useSelector(loadingStore)
@@ -87,7 +93,7 @@ const PostGrid = ({
         setStatePost((pre: string) => (pre === 'public' ? 'private' : 'public'))
       }
       statePost={statePost}
-      deleteCourse={deleteCourse}
+      deleteItem={deleteItem}
       onClickItem={onClick}
       wpToken={userLogged?.wpToken}
       openCreate={openCreate}
@@ -95,6 +101,8 @@ const PostGrid = ({
       posts={posts}
       loadMore={loadMore}
       parent={parent}
+      typeItem={typeItem}
+      alignment={alignment}
     />
   )
 }
@@ -104,11 +112,13 @@ const PostGridView = ({
   openCreate,
   wpToken,
   onClickItem,
-  deleteCourse,
+  deleteItem,
   loadMore,
   setStatePost,
   statePost,
-  parent
+  parent,
+  typeItem,
+  alignment = 'row'
 }: POSTGRIDPROPS) => {
   const router = useRouter()
   const { editionGranted } = useGuardPermissions()
@@ -149,7 +159,7 @@ const PostGridView = ({
           dataLength={posts.items.length}
           next={() => loadMore(posts.items.length)}
         >
-          <ul className={style.postGrid}>
+          <ul className={`${style.postGrid} ${style[alignment]}`}>
             {editionGranted && <li className={style.createButtonContainer}>{itemCreateBtn()}</li>}
             {(posts.items.length <= 0 && posts.hasMore == false) && <p className={style.noResults}><FormattedMessage id='message.item.no-result'/></p>}
             {posts.items.map((item: any, index: number) => {
@@ -157,7 +167,7 @@ const PostGridView = ({
                 <li key={index} className={style.postLink}>
                   <div className={style.postItemContainer}>
                     <PostGridItem
-                      deleteCourse={deleteCourse}
+                      deleteItem={deleteItem}
                       isAdmin={editionGranted}
                       onClickItem={(option: string) =>
                         onClickItem(
@@ -169,6 +179,7 @@ const PostGridView = ({
                         )
                       }
                       gridItem={item}
+                      typeItem={typeItem}
                     />
                   </div>
                 </li>
