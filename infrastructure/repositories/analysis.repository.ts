@@ -12,32 +12,34 @@ export class AnalysisRepository {
     }
     return AnalysisRepository.instance;
   }
-  getCategories = async ({only_analysis}:{ only_analysis : 0 | 1} =  {only_analysis : 0}) => {
+  getCategories = async ({only_analysis}:{ only_analysis : -1 | 0 | 1} =  {only_analysis : -1}) => {
     const res = await HTTP.get(`${WP_API_ANLALYSIS}category?only_analysis=${only_analysis}`) 
     if(Array.isArray(res)){
       return res.map(term => {
         return {
           value: term.term_id,
-          label: term.name
+          label: term.name,
+          term: term
         }
       })
     }else{
       return {
         value: res.term_id,
-        label: res.name
+        label: res.name,
+        term: res
       }
     }
   }
 
   
   createArticle = async (categories: number[],wpToken:string , article_args:{title: string, excerpt?: string, created_by: any}):Promise<string | Post> => {
-    const a_category = (await this.getCategories({only_analysis: 1})) as {label: string, value: any}
-    
+    const a_category = (await this.getCategories({only_analysis: 1})) as {label: string, value: any}[]
+   
     const arg = {
       ...article_args,
       status: 'private',
       content: '<p>Contenido de la lección aquí....</p>',
-      categories: [...categories, a_category.value]
+      categories: [...categories, a_category[0].value]
     }
     const res = await HTTP.post(WP_API_POST, arg, { Authorization: `Bearer ${wpToken}` })
     if (res.data.id) {
@@ -47,22 +49,38 @@ export class AnalysisRepository {
     }
   }
 
-  async getArticle(userDataToken:string, query:{
+  async getArticles(userDataToken?:string, wpToken?:string, query?:{
     post_status?: 'private' | 'publish',
     posts_per_page?: number,
     offset?: number,
-    search?: string
+    /**
+     * @description Buscador por string
+     */
+    search?: string,
+    /**
+     * @description Slug de la categoría
+     */
+    category_name?:string
   }){
     let params:string = '' 
-    type query_type = 'post_status' | 'posts_per_page' | 'offset' | 'search';
-    Object.keys(query).forEach((key )=>{
-
-      if(query[key as query_type]){
-        params += `${key}=${query[key as query_type]}`;
-      } 
-    })
-    const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?${params}`) 
-
+    type query_type = 'post_status' | 'posts_per_page' | 'offset' | 'search' | 'category_name';
+    if(query){
+      Object.keys(query).forEach((key )=>{
+        if(query[key as query_type]){
+          params += `${key}=${query[key as query_type]}`;
+        } 
+      })
+    }
+    if(query?.post_status === 'private' && !wpToken){
+      return alert('Bad reques wpToken is needed to private post')
+    }
+    const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?${params}`, HTTP.getHeaders(wpToken)) 
+    if(res.success){
+      const posts = res.hits.map((item:any) => new Post(item));
+      return posts
+    }else{
+      return [];
+    }
   } 
 }
 

@@ -51,7 +51,6 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
 
     getCategoriesPlansWP()
       .then(res => {
-        console.log(res)
         if (fetching) setcategoriesPlans(res as any)
       })
       .catch(() => {
@@ -85,17 +84,16 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
 
   const createCourses = async (data: any): Promise<any> => {
     setloading(true)
-   
+    
     if (userLogged.wpToken) {
       const response = await AnalysisRepositoryInstance.createArticle(
-        [data.category, ...data.activated_to_plans],
+        [data.category, ...data.activated_to_plans].map(item => parseInt(item)),
         userLogged.wpToken,
         {
           title: data.title,
           excerpt: data.excerpt,
           created_by: { username: userLogged.email, uid: userLogged.uid , name:`${userLogged.name} ${userLogged.lastname}`}
-        },
-        
+        }
       )
 
       if (response instanceof ErrorApp) {

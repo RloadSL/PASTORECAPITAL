@@ -1,47 +1,45 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ButtonApp from 'components/ButtonApp'
 
 import { NextPage } from 'next'
 import React, { Suspense, useEffect, useState } from 'react'
 import style from './Analysis.module.scss'
-
 import addArticleIcon from '../../../assets/img/icons/add-document.svg'
-import WordpressHeader from 'WordpressHeader'
 import { FormattedMessage } from 'react-intl';
-import Image from 'next/image'
-
-import ArticlesGrid from 'components/ArticlesGrid';
-
-import useWindowSize from 'ui/hooks/windowSize.hook';
 import SubscriptionBanner from 'components/SubscriptionBanner';
 import bannerImage from '../../../assets/img/banner.png'
-
 import ArticleFilters from './components/ArticleFilters'
-
 import WPCategory from 'components/WPCategory'
-import { WPterms } from '../../utils/test.data'
 import CreateFormArticle from './components/CreateFormArticle'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 const Analysis: NextPage<any> = () => {
+  const [wpCategories, setWpCategories] = useState<Array<any>>([])
   const userLogged = useSelector(getUserLogged);
+
   useEffect(() => {
     let fetching = true
-    
-   // AnalysisRepositoryInstance.getArticle(userLogged.)
-    return () => {fetching = false}
+    if(userLogged?.uid){
+      AnalysisRepositoryInstance.getCategories()
+      .then(categories => {
+        if(fetching){
+          setWpCategories(categories as Array<any>)
+        }
+      })
+    }
+   
+    return () => {
+      fetching= false
+    }
   }, [])
   
-  return <AnalysisView></AnalysisView>
+  
+  return <AnalysisView categories={wpCategories}></AnalysisView>
 }
 
-const AnalysisView = () => {
-  // const editLink = (token?: string) => {
-  //   return token
-  //     ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${token}`
-  //     : undefined
-  // }
+const AnalysisView = ({categories}:any) => {
   const [create, setCreate] = useState(false)
 
   //El contenido del banner lo monto desde el padre para que sea totalmente configurable ya que no se qué mostraré en cada banner
@@ -90,9 +88,11 @@ const AnalysisView = () => {
         backgroundColor={'#DADDE5'}
       />
 
-      {WPterms.map((WPterm) => {
-        return <WPCategory key={WPterm.term_id.toString()} componentStyle={'grid'} category={WPterm} />
+      {categories.map((WPterm:any) => {
+        const {term} = WPterm;
+        return <WPCategory key={term.term_id.toString()} componentStyle={'grid'} category={term} />
       })}
+
       <div className={style.addNewArticle}>
         <ButtonApp
           onClick={() => setCreate(!create)}

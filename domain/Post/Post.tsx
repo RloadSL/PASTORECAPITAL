@@ -74,6 +74,11 @@ export class Post {
     return this._content
   }
   
+  private _author: {username: string, uid: string, name: string} | undefined;
+  public get author (): {username: string, uid: string, name: string} | undefined {
+    return this._author
+  }
+
   /**
    * ISO Date convertir a new Date
    */
@@ -81,19 +86,20 @@ export class Post {
   public get created_at (): Date {
     return this._created_at
   }
-  constructor (courseData: PostDto) {
-    this._id = courseData.id.toString()
-    this._tags = courseData.formatted_tags
-    this._thumbnail_url = courseData.thumbnail_url
-    this._wpID = courseData.id
-    this._categories = courseData.formatted_categories
-    this._status = courseData.status
-    this._excerpt = courseData.excerpt
-    this._content = courseData.content
-    this._slug = courseData.slug
-    this._title = courseData.title
-    this._created_at = new Date(courseData.date)
-    this._lessons = courseData.lessons
+  constructor (post: PostDto) {
+    this._id = post.id.toString()
+    this._tags = post.formatted_tags
+    this._thumbnail_url = post.thumbnail_url
+    this._wpID = post.id
+    this._categories = post.formatted_categories
+    this._status = post.status
+    this._excerpt = post.excerpt
+    this._content = post.content
+    this._slug = post.slug
+    this._title = post.title
+    this._created_at = new Date(post.date)
+    this._lessons = post.lessons
+    this._author = post.created_by
   }
 
   public toJson = (): PostDto => ({
@@ -108,6 +114,7 @@ export class Post {
     thumbnail_url: this._thumbnail_url,
     formatted_tags: this._tags,
     lessons : this._lessons,
+    created_by : this._author,
     acf: []
   })
 }

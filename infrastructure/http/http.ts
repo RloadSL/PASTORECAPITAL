@@ -4,7 +4,7 @@ import axios, { AxiosError } from 'axios';
 
 class Http {
   private static instance: Http;
-  private _headers = {
+  private _headers:any = {
     'Content-Type': 'application/json'
   }
   private constructor() {}
@@ -43,7 +43,14 @@ class Http {
     console.log(response)
     return response.data;
   }
+
+  getHeaders(AuthorizationToken?:string){
+    if(AuthorizationToken) this._headers.Authorization = 'Bearer '+AuthorizationToken;
+    return this._headers;
+  }
 }
+
+
 
 export const HTTP = Http.getInstance()
 

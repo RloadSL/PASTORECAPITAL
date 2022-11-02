@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { randomIntFromInterval } from 'ui/utils/component.utils';
 import style from './avatar.module.scss'
 
 
@@ -35,19 +37,14 @@ const colorPalette = [
 
 
 const Avatar = ({ renderItem }: { renderItem: any }) => {
-  const [randomColorScheme,setRandomColorScheme] = useState(colorPalette[0])
-
-  //lo meto dentro de useEffect para que no se genere un color cada vez que redimensiono
-  useEffect(() => {
-    setRandomColorScheme(colorPalette[Math.floor(Math.random() * colorPalette.length)])
-  }, [randomColorScheme]);
-
+  const randomColor = useRef(colorPalette[randomIntFromInterval(0, 6)]);
+  
   return (
-    <div className={style.avatarContainer} style={{ backgroundColor: randomColorScheme.base }}>
-      <div className={style.letter} style={{ color: randomColorScheme.main }}>{renderItem}</div>
+    <div className={style.avatarContainer} style={{ backgroundColor: randomColor.current.base }}>
+      <div className={style.letter} style={{ color: randomColor.current.main }}>{renderItem.toUpperCase()}</div>
     </div>
   )
 }
 
-export default Avatar
+export default React.memo(Avatar) 
 

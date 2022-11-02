@@ -25,7 +25,6 @@ class TutorialRepositoryImpl {
       content: '<p>Contenido de la lección aquí....</p>',
       categories: [primaryCat]
     }
-   console.log(arg);
     const res = await HTTP.post(WP_API_POST, arg, { Authorization: `Bearer ${wpToken}` })
     if (res.data.id) {
       return new Post({ ...res.data, wpID: res.data.id });

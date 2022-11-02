@@ -4,8 +4,10 @@ export interface PostDto {
   formatted_tags: WpTerm[],
   lessons?: any[],
   status: string,
-  created_by?:{username: string, uid: string},
+  created_by?:{username: string, uid: string, name: string},
   acf:Array<any>,
+  
+
   excerpt: {
     rendered: string,
     raw: string
