@@ -29,8 +29,9 @@ export interface PostDto {
 }
 
 export interface WpCat {
-  name: 'Básico' | 'Avanzado' | 'Intermedio',
-  slug: 'basic' | 'advanced' | 'medium',
+  name: string,
+  slug: string,
+  parent: WpCat | 0,
   term_id?: number
 }
 

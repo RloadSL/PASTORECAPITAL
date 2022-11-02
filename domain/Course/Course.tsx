@@ -75,8 +75,8 @@ export class Course {
     return this._meta_post
   }
 
-  private _author: {username: string, uid: string} | undefined;
-  public get author (): {username: string, uid: string} | undefined {
+  private _author: {username: string, uid: string , name:string} | undefined;
+  public get author (): {username: string, uid: string, name:string} | undefined {
     return this._author
   }
 

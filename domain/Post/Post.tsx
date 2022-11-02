@@ -61,7 +61,10 @@ export class Post {
   } {
     return this._title
   }
-
+  private _author: {username: string, uid: string , name:string} | undefined;
+  public get author (): {username: string, uid: string, name:string} | undefined {
+    return this._author
+  }
   private _content?: {
     rendered: string
     raw: string
@@ -74,11 +77,6 @@ export class Post {
     return this._content
   }
   
-  private _author: {username: string, uid: string, name: string} | undefined;
-  public get author (): {username: string, uid: string, name: string} | undefined {
-    return this._author
-  }
-
   /**
    * ISO Date convertir a new Date
    */
@@ -114,7 +112,7 @@ export class Post {
     thumbnail_url: this._thumbnail_url,
     formatted_tags: this._tags,
     lessons : this._lessons,
-    created_by : this._author,
-    acf: []
+    acf: [],
+    created_by: this._author
   })
 }
