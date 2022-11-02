@@ -23,7 +23,7 @@ import style from './analysisCategory.module.scss'
  * @returns
  */
 
- let fakeCategory = 'flashss'
+ let fakeCategory = 'flash-updates'
  const fakeArticlesList = [
   {
     title:'Este es el título de una noticia sobre bitcoins',
