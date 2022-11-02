@@ -18,25 +18,6 @@ interface DRAWERCONTENTPROPS {
  */
 
 const DrawerContent = ({ navbar, children, footer = false, routerPath }: DRAWERCONTENTPROPS) => {
-  const [windowSize, setWindowSize] = useState({ innerWidth: 0, innerHeight: 0 });
-
-  useEffect(() => {
-    const { innerWidth, innerHeight } = window;
-    setWindowSize({ innerWidth, innerHeight });
-    const handleWindowResize = () => {
-      const { innerWidth, innerHeight } = window;
-      setWindowSize({ innerWidth, innerHeight });
-    }
-
-    window.addEventListener('resize', handleWindowResize);
-    ///console.log(window.innerWidth)
-
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-
   const wrapperStyle =  useCallback(
     () => {
       if (routerPath === '/academy/courses/[course-slug]/[lesson-slug]') {
@@ -53,7 +34,7 @@ const DrawerContent = ({ navbar, children, footer = false, routerPath }: DRAWERC
   return (
     <div className={`${style.drawerWrapper} ${wrapperStyle()}`}>
       <div className={style.drawerMainContainer}>
-        {navbar && <NavBar windowSize={windowSize}/>}
+        {navbar && <NavBar />}
         {children}
       </div>
     </div>

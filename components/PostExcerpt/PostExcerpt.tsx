@@ -3,6 +3,7 @@ import style from './PostExcerpt.module.scss'
 import parse from 'html-react-parser'
 import React from 'react'
 import { WpCat } from 'infrastructure/dto/course.dto'
+import Avatar from 'components/Avatar'
 
 
 export interface POSTEXCERPTPROPS {
@@ -11,9 +12,10 @@ export interface POSTEXCERPTPROPS {
   thumbnail?: string
   chips?: any
   level?: WpCat | any,
-  componentStyle?: 'card' | 'simple' | 'column' | 'row'
+  componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
   hasSeparator?: boolean,
   footer?: {
+    // avatar?: any,
     text?: string,
     date?: any //OJO al tipado debe ser Date
   }
@@ -64,7 +66,10 @@ const PostExcerptView = ({
             <Chips chips={chips.slice(0, 3)} color='lightMain' />
           ) : null}
           {footer ? (
-            <p className={style.footer}>{footer.text}<span>{footer.date}</span></p>
+            <div className={style.footer}>
+              <div className={style.avatar}><Avatar renderItem={footer.text ? footer.text[0] : null}/></div>
+              <p className={style.content}><span className={style.author}>{footer.text}</span><span className={style.date}>{footer.date}</span></p>
+            </div>
           ) : null}
         </div>
       </div>

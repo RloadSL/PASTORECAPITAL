@@ -1,0 +1,56 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.subscriptionBannerContainer {
+    @extend %cardContainer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
+    margin: 20px auto;
+    max-width: 100%;
+
+
+    @include devices.device(smTablet) {
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 900px;
+      font-size: 150%;
+    }
+
+    .imageContainer {
+      max-width: 100px;
+      position: static;
+
+      @include devices.device(smTablet) {
+        max-width: 200px;
+        position: absolute;
+      }
+
+      @include devices.device(smScreen) {
+        max-width: 250px;
+      }
+    }
+
+    .colLeft {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      @include devices.device(smTablet) {
+        flex-direction: row;
+      }
+
+      .colLeftContent {
+        @include devices.device(smTablet) {
+          margin-left: 250px;
+        }
+      }
+    }
+
+    .colRight {
+      display: flex;
+    }
+}

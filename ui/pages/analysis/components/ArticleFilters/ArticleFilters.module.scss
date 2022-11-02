@@ -1,5 +1,33 @@
-.articleFilters {
+@use "../../../../../styles/partials/placeholders";
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
 
+.filtersContainer {
+  .filterLabel {
+    color: colors.$dark;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .filterListContainer {
+    overflow: scroll;
+    max-width: 100%;
+
+
+    @include devices.device(smScreen) {
+      max-width: 900px;
+      overflow: auto;
+    }
+
+    .filterList {
+      display: flex;
+  
+      li {
+        min-width: 120px;
+        margin-right: 15px;
+      }
+    }
+  }
 }
 
 .adminButtons {

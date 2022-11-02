@@ -13,4 +13,90 @@
     bottom: 2%;
     right: 2%;
   }
+
+  .bannerColLeft{
+    color: colors.$dark;
+    font-weight: 300;
+
+    p{
+      margin: 0px;
+
+      strong {
+        font-weight: 500;
+      }
+    }
+
+    & .subtitle {
+      letter-spacing: 1px;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      strong {
+        color: colors.$main;
+      }
+    }
+
+    & .title {
+      font-size: 2rem;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        background-image: url(../../../assets/img/icons/unlock.svg);
+        background-size: contain;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .bannerColRight {
+    color: colors.$dark;
+    display: flex;
+    align-items: center;
+
+    .list {
+      margin-top: 20px;
+      font-size: 1rem;
+
+      @include devices.device(smTablet) {
+        margin-top: 0px;
+        font-size: 1.2rem;
+      }
+
+      @include devices.device(smScreen) {
+        font-size: 1.3rem;
+      }
+
+      li {
+        display: flex;
+        &::before {
+          content: '';
+          display: block;
+          width: 15px;
+          height: 15px;
+          background-image: url(../../../assets/img/icons/comment-check.svg);
+          background-repeat: no-repeat;
+          background-size: contain;
+          margin-right: 10px;
+          flex-shrink: 0;
+          margin-bottom: 5px;
+
+          @include devices.device(smTablet) {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+  }
+
+  .fakeButton {
+    background-color: colors.$dark;
+    border-radius: 50px;
+    color: white;
+    height: fit-content;
+    font-size: 1.2rem;
+    padding: 15px 35px;
+  }
 }

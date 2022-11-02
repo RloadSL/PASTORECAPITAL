@@ -12,11 +12,13 @@ import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import Notifications from 'components/Notifications'
+import useWindowSize from 'ui/hooks/windowSize.hook'
 /**
- * 
+ * OJO crear un interface
  * @returns 
  */
-const NavBar = ({ windowSize }: { windowSize: any }) => {
+const NavBar = () => {
+  const windowSize = useWindowSize();
   const dispatch = useDispatch<AppDispatch>()
 
   const user = useSelector(getUserLogged)
@@ -61,7 +63,7 @@ const NavBarView = ({
 
   return (
     <div className={style.navbarContainer}>
-      {windowSize.innerWidth >= 1080 ? <Breadcrumbs /> : (
+      {windowSize.width >= 1080 ? <Breadcrumbs /> : (
         <div className={style.backButton}>
           <button onClick={() => back ? back() : null}>
             <span className='only-readers'><FormattedMessage id='component.navbar.backbuttom' /></span>
