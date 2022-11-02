@@ -1,3 +1,3 @@
-import AnalysisCategories from "ui/pages/analysis/categories/Categories";
+import AnalysisCategory from "ui/pages/analysis/categories/AnalysisCategory";
 
-export default AnalysisCategories
+export default AnalysisCategory

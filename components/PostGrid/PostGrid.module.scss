@@ -8,10 +8,30 @@
 	max-width: 100%;
 	width: 100%;
 
-	@include devices.device(lgScreen) {
-		flex-direction: row;
+	&.row {
+		flex-direction: row !important;
 		flex-wrap: wrap;
 	}
+
+	&.column {
+		flex-direction: column !important;
+		flex-wrap: wrap;
+
+		@include devices.device(lgScreen) {
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding-right: 150px;
+		}
+
+		.postLink {
+			width: 100%;
+		}
+	}
+
+	// @include devices.device(lgScreen) {
+	// 	flex-direction: row;
+	// 	flex-wrap: wrap;
+	// }
 }
 
 .postLink {

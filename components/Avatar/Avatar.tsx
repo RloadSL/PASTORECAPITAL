@@ -33,9 +33,14 @@ const colorPalette = [
   },
 ]
 
+interface AVATARPROPS {
+  renderItem: any
+  size?: 'small' | 'large'
+}
 
-const Avatar = ({ renderItem }: { renderItem: any }) => {
-  const [randomColorScheme,setRandomColorScheme] = useState(colorPalette[0])
+
+const Avatar = ({ renderItem, size = 'small' }: AVATARPROPS) => {
+  const [randomColorScheme, setRandomColorScheme] = useState(colorPalette[0])
 
   //lo meto dentro de useEffect para que no se genere un color cada vez que redimensiono
   useEffect(() => {
@@ -43,7 +48,7 @@ const Avatar = ({ renderItem }: { renderItem: any }) => {
   }, [randomColorScheme]);
 
   return (
-    <div className={style.avatarContainer} style={{ backgroundColor: randomColorScheme.base }}>
+    <div className={`${style.avatarContainer} ${style[size]}`} style={{ backgroundColor: randomColorScheme.base }}>
       <div className={style.letter} style={{ color: randomColorScheme.main }}>{renderItem}</div>
     </div>
   )

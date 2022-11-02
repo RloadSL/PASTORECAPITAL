@@ -11,6 +11,7 @@ import Image from 'next/image'
 import tagsIcon from '../../../../assets/img/icons/tags.svg'
 import clockIcon from '../../../../assets/img/icons/clock.svg'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
+import PrivatePostExcerpt from 'components/PrivatePostExcerpt'
 
 /**
  * Función principal del componente item grid que renderiza el elemeto que se estrcutura en el grid
@@ -22,21 +23,22 @@ const PostGridItem = ({
   gridItem,
   onClickItem,
   isAdmin = false,
-  deleteCourse,
-  typeItem = 'excertp'
+  deleteItem,
+  typeItem = 'excerpt'
 }: {
-  gridItem: Course
+  gridItem: Course //OJO este esta reciebidno course
   onClickItem: Function
   isAdmin: boolean
-  deleteCourse: Function
-  typeItem?: 'excertp' | 'twitter'
+  deleteItem: Function
+  typeItem?: 'privateExcerpt' | 'excerpt'
 }) => {
   return (
     <PostGridItemView
-      deleteCourse={deleteCourse}
+      deleteItem={deleteItem}
       isAdmin={isAdmin}
       onClickItem={onClickItem}
       gridItem={gridItem}
+      typeItem={typeItem}
     />
   )
 }
@@ -45,7 +47,7 @@ const PostGridItemView = ({
   gridItem,
   onClickItem,
   isAdmin,
-  deleteCourse,
+  deleteItem,
   typeItem
 }: any) => {
   const { limitTextLength } = useComponentUtils()
@@ -81,7 +83,7 @@ const PostGridItemView = ({
           <MenuItem onClick={() => onClickItem('edit')}>Editar</MenuItem>
           <MenuItem
             onClick={() => {
-              deleteCourse({ id: gridItem.id, status: gridItem.status })
+              deleteItem({ id: gridItem.id, status: gridItem.status })
             }}
           >
             Eliminar
@@ -110,13 +112,13 @@ const PostGridItemView = ({
       return []
     }
   }
-
+  console.log(typeItem)
   return (
     <Card>
-      <div className={style.cardContainer}>
+      <div className={typeItem === 'excerpt' ? style.cardContainer : style.privateCardContainer}>
         {isAdmin && _renderHeader()}
         <div onClick={() => onClickItem()}>
-          {typeItem === 'excertp' ? (
+          {typeItem === 'excerpt' ? (
             <PostExcerpt
               thumbnail={gridItem.thumbnail_url}
               title={limitTextLength(60, gridItem.title.rendered || '')}
@@ -129,7 +131,17 @@ const PostGridItemView = ({
               componentStyle={'card'}
             />
           ) : (
-            <>Twitter</>
+            <PrivatePostExcerpt
+              thumbnail={gridItem.thumbnail_url}
+              title={limitTextLength(60, gridItem.title.rendered || '')}
+              description={limitTextLength(
+                250,
+                gridItem.excerpt.rendered || ''
+              )}
+              chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
+              level={gridItem.level}
+              componentStyle={'card'}
+            />
           )}
         </div>
       </div>
