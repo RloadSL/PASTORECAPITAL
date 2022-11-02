@@ -67,7 +67,7 @@ export class AnalysisRepository {
     if(query){
       Object.keys(query).forEach((key )=>{
         if(query[key as query_type]){
-          params += `${key}=${query[key as query_type]}`;
+          params += `${key}=${query[key as query_type]}&`;
         } 
       })
     }
