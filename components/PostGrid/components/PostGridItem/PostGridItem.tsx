@@ -112,7 +112,7 @@ const PostGridItemView = ({
       return []
     }
   }
-  console.log(typeItem)
+  console.log('aquiii',typeItem)
   return (
     <Card>
       <div className={typeItem === 'excerpt' ? style.cardContainer : style.privateCardContainer}>
