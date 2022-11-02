@@ -5,7 +5,7 @@
 .analysisCategoryPage {
   @extend %layoutContainer;
 
-  .flashUpdates {
+  .collapsedItem {
     display:flex;
     justify-content: space-between;
   }

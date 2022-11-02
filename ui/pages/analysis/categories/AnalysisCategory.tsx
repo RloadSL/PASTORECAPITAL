@@ -23,7 +23,7 @@ import style from './analysisCategory.module.scss'
  * @returns
  */
 
- const fakeCategory = 'flash-updates'
+ let fakeCategory = 'flashss'
  const fakeArticlesList = [
   {
     title:'Este es el título de una noticia sobre bitcoins',
@@ -110,14 +110,13 @@ const AnalysisCategoryView = ({
         </div>
         {/* <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/> */}
       </header>
-      {fakeCategory === 'flash-updates' ? (
-        <div className={style.flashUpdates}>
-          <PostGrid parent='analysis.create.article' loadMore={loadMore} statePost={statePost} setStatePost={(state: "public" | "private") => setStatePost(state)} onClickItemTarget='/analysis/' deleteItem={(value: { id: number, status: string }) => setDeleteArticle(value)} openCreate={setCreate} typeItem={'privateExcerpt'} alignment={'column'} />
-          <LatestArticles articlesList={fakeArticlesList}/>
+        <div className={fakeCategory === 'flash-updates' ? style.collapsedItem : ''}>
+          <PostGrid parent='analysis.create.article' loadMore={loadMore} statePost={statePost} setStatePost={(state: "public" | "private") => setStatePost(state)} onClickItemTarget='/analysis/' deleteItem={(value: { id: number, status: string }) => setDeleteArticle(value)} openCreate={setCreate} typeItem={fakeCategory === 'flash-updates' ? 'privateExcerpt' : 'excerpt'} alignment={fakeCategory === 'flash-updates' ? 'column' : 'row'} />
+          {fakeCategory === 'flash-updates' && <LatestArticles articlesList={fakeArticlesList}/> }
         </div>
-      ) : (
+       {/* : (
         <PostGrid parent='analysis.create.article' loadMore={loadMore} statePost={statePost} setStatePost={(state: "public" | "private") => setStatePost(state)} onClickItemTarget='/analysis/' deleteItem={(value: { id: number, status: string }) => setDeleteArticle(value)} openCreate={setCreate} />
-      )}
+      )} */}
 
 
       {/* {create && (
