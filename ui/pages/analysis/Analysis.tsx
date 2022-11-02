@@ -8,10 +8,9 @@ import addArticleIcon from '../../../assets/img/icons/add-document.svg'
 import WordpressHeader from 'WordpressHeader'
 import { FormattedMessage } from 'react-intl';
 import Image from 'next/image'
-import ArticleFilters from './components/ArticleFilters';
+
 import ArticlesGrid from 'components/ArticlesGrid';
-import WPCategory from 'components/WPCategory';
-import { WPterms } from '../../utils/test.data'
+
 import useWindowSize from 'ui/hooks/windowSize.hook';
 import SubscriptionBanner from 'components/SubscriptionBanner';
 import bannerImage from '../../../assets/img/banner.png'
