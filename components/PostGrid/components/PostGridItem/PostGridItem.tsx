@@ -12,7 +12,6 @@ import tagsIcon from '../../../../assets/img/icons/tags.svg'
 import clockIcon from '../../../../assets/img/icons/clock.svg'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 
-
 /**
  * Función principal del componente item grid que renderiza el elemeto que se estrcutura en el grid
  * @param gridItem Elemento para renderizar
@@ -23,12 +22,14 @@ const PostGridItem = ({
   gridItem,
   onClickItem,
   isAdmin = false,
-  deleteCourse
+  deleteCourse,
+  typeItem = 'excertp'
 }: {
   gridItem: Course
   onClickItem: Function
   isAdmin: boolean
   deleteCourse: Function
+  typeItem?: 'excertp' | 'twitter'
 }) => {
   return (
     <PostGridItemView
@@ -44,11 +45,11 @@ const PostGridItemView = ({
   gridItem,
   onClickItem,
   isAdmin,
-  deleteCourse
+  deleteCourse,
+  typeItem
 }: any) => {
-  const { limitTextLength } = useComponentUtils();
+  const { limitTextLength } = useComponentUtils()
   const _renderHeader = () => {
-
     return (
       <div
         className={style.header}
@@ -108,22 +109,28 @@ const PostGridItemView = ({
     } catch (error) {
       return []
     }
-    
   }
-  
+
   return (
     <Card>
       <div className={style.cardContainer}>
         {isAdmin && _renderHeader()}
         <div onClick={() => onClickItem()}>
-          <PostExcerpt
-            thumbnail={gridItem.thumbnail_url}
-            title={limitTextLength(60, gridItem.title.rendered || '')}
-            description={limitTextLength(250, gridItem.excerpt.rendered || '')}
-            chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
-            level={gridItem.level}
-            componentStyle={'card'}
-          />
+          {typeItem === 'excertp' ? (
+            <PostExcerpt
+              thumbnail={gridItem.thumbnail_url}
+              title={limitTextLength(60, gridItem.title.rendered || '')}
+              description={limitTextLength(
+                250,
+                gridItem.excerpt.rendered || ''
+              )}
+              chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
+              level={gridItem.level}
+              componentStyle={'card'}
+            />
+          ) : (
+            <>Twitter</>
+          )}
         </div>
       </div>
     </Card>
