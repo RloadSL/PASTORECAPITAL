@@ -26,6 +26,7 @@ import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
+import { Post } from 'domain/Post/Post'
 
 const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
   const dispatch = useDispatch<AppDispatch>()
@@ -84,20 +85,23 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
 
   const createCourses = async (data: any): Promise<any> => {
     setloading(true)
-    console.log(data)
-    /* if (userLogged.wpToken) {
+   
+    if (userLogged.wpToken) {
       const response = await AnalysisRepositoryInstance.createArticle(
+        [data.category, ...data.activated_to_plans],
+        userLogged.wpToken,
         {
-          ...data,
-          created_by: { username: userLogged.email, uid: userLogged.uid }
+          title: data.title,
+          excerpt: data.excerpt,
+          created_by: { username: userLogged.email, uid: userLogged.uid , name:`${userLogged.name} ${userLogged.lastname}`}
         },
-        userLogged.wpToken
+        
       )
 
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
-      } else {
-       // dispatch(addAcedemyPrivateCourse(response));
+      } else if(response instanceof Post){
+        console.log(response.toJson())
         window.open(
           `${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`
         )
@@ -110,7 +114,7 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
           errorMessage: 'Unauthorized'
         })
       )
-    } */
+    }
 
     setloading(false)
   }
@@ -179,9 +183,7 @@ const CreateFormView = ({
             activated_to_plans: undefined
           }}
           validationSchema={validationSchema}
-          onSubmit={async values => {
-            console.log(JSON.stringify(values, null, 2))
-          }}
+          onSubmit={values => createCourses(values)}
         >
           {({ values, errors, touched }) => (
             <Form>

@@ -1,7 +1,7 @@
 import ButtonApp from 'components/ButtonApp'
 
 import { NextPage } from 'next'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import style from './Analysis.module.scss'
 
 import addArticleIcon from '../../../assets/img/icons/add-document.svg'
@@ -11,8 +11,19 @@ import ArticleFilters from './components/ArticleFilters'
 import WPCategory from 'components/WPCategory'
 import { WPterms } from '../../utils/test.data'
 import CreateFormArticle from './components/CreateFormArticle'
+import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 const Analysis: NextPage<any> = () => {
+  const userLogged = useSelector(getUserLogged);
+  useEffect(() => {
+    let fetching = true
+    
+   // AnalysisRepositoryInstance.getArticle(userLogged.)
+    return () => {fetching = false}
+  }, [])
+  
   return <AnalysisView></AnalysisView>
 }
 

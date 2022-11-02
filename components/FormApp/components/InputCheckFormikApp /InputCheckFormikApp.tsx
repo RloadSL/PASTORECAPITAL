@@ -25,7 +25,6 @@ export interface INPUTCHECKBLOCKPROPS {
 
 const InputCheckFormikApp = ({value,children, error, name, onBlur }: INPUTCHECKBLOCKPROPS) => {
   const [field, meta] = useField({name, type: "checkbox" , value});
-  console.log(field)
   return (
     <>
       <div className={error ? `${style.hasError} ${style.inputContainer}` : style.inputContainer}>

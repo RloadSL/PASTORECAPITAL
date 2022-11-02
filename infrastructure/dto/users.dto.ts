@@ -24,6 +24,10 @@ export interface UserDto {
    */
   wpToken?: string,
   /**
+   * Datos del usuario encryptados para enviarlo al wp
+   */
+  userDataToken?: string,
+  /**
    * Plan del usuario
    */
   subscrition: Subscription,

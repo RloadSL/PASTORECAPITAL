@@ -96,7 +96,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
       }
       
       if (callback) {
-        callback(user ?  {uid: user.uid, extradata: {wpToken: wpAuth.wp_token}} : null)
+        callback(user ?  {uid: user.uid, extradata: {wpToken: wpAuth.wp_token, userDataToken: wpAuth.UserData}} : null)
       }
     })
   }

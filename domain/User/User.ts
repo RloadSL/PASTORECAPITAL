@@ -41,6 +41,11 @@ export class User {
     return this._wpToken;
   }
 
+  private _userDataToken: string | undefined;
+  public get userDataToken(): string | undefined {
+    return this._userDataToken;
+  }
+
   constructor(userData: UserDto) {
     this._uid = userData.uid;
     this._email = userData.email;
@@ -50,6 +55,7 @@ export class User {
     this._wpToken = userData.wpToken;
     this._subscription = userData.subscrition
     this._edition_section = userData.edition_section
+    this._userDataToken = userData.userDataToken
   }
 
   public toJson = (): UserDto => ({
@@ -60,6 +66,6 @@ export class User {
     role: this._role,
     wpToken: this._wpToken,
     subscrition: this._subscription,
-    edition_section: this._edition_section
+    edition_section: this._edition_section,
   });
 }
