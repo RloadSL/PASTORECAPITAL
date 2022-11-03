@@ -1,4 +1,40 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/text" as text;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/placeholders";
+
 .latestArticlesContainer {
-  border: 1px solid red;
   max-width: 30%;
+  padding-right: 2%;
+
+  li {
+    border-bottom: 1px solid colors.$grey40;
+    padding-bottom: 20px;
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+  .articleTitle {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 0px;
+  }
+
+  .authorContainer {
+    span {
+      color: colors.$grey60;
+    }
+    .author {
+      font-weight: bold;
+
+      &::after {
+        content: '|';
+        font-weight: normal;
+        display: inline-block;
+        margin: auto 5px;
+      }
+    }
+  }
 }

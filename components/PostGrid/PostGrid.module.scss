@@ -17,6 +17,10 @@
 		flex-direction: column !important;
 		flex-wrap: wrap;
 
+		@include devices.device(tablet) {
+			padding-right: 40px;
+		}
+
 		@include devices.device(lgScreen) {
 			flex-direction: row;
 			flex-wrap: wrap;
@@ -25,6 +29,27 @@
 
 		.postLink {
 			width: 100%;
+		}
+
+		.createButtonContainer {
+			width: 100%;
+		}
+
+		.createCourseButton {
+			width: 100%;
+			padding: 2%;
+			max-width: fit-content;
+
+			.buttonContent {
+				flex-direction: row;
+
+				.buttonImage {
+					width: 45px;
+					height: auto;
+					flex-shrink: 0;
+					margin-right: 10px;
+				}
+			}
 		}
 	}
 
@@ -108,13 +133,13 @@
 			}
 		}
 
-		img {
-			width: 40px !important;
-			height: 40px !important;
+		.buttonImage {
+			width: 40px;
+			height: 40px;
 
 			@include devices.device(lgScreen) {
-				width: 80px !important;
-				height: 80px !important;
+				width: 80px;
+				height: 80px;
 			}
 		}
 

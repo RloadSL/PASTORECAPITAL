@@ -3,7 +3,7 @@
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/placeholders";
 
-.postExcerptContainer {
+.collapsedPostContainer {
   display: flex;
   flex-direction: column;
 
@@ -95,7 +95,7 @@
 
 .title {
   @extend %secondaryTitle;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-bottom: 0px;
 
   @include devices.device(lgScreen) {
