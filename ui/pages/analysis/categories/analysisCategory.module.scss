@@ -4,9 +4,17 @@
 
 .analysisCategoryPage {
   @extend %layoutContainer;
+  padding: 2%;
+  position: relative;
 
   .collapsedItem {
     display:flex;
     justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+
+    @include devices.device(tablet){
+      flex-direction: row;
+    }
   }
 }

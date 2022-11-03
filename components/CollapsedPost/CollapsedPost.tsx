@@ -1,12 +1,13 @@
 import Chips from 'components/Chips'
-import style from './privatePostExcerpt.module.scss'
+import style from './CollapsedPost.module.scss'
 import parse from 'html-react-parser'
 import React from 'react'
 import { WpCat } from 'infrastructure/dto/course.dto'
 import Avatar from 'components/Avatar'
+import LockedContent from 'components/LockedContent'
 
 
-export interface PRIVATEPOSTEXCERPTPROPS {
+export interface COLLAPSEDPOSTPROPS {
   title?: string
   description: string
   thumbnail?: string
@@ -32,7 +33,7 @@ const fakeheader = {
   date: '20 Feb 2022'
 }
 
-const PrivatePostExcerpt = ({
+const CollapsedPost = ({
   title,
   description,
   thumbnail,
@@ -41,11 +42,11 @@ const PrivatePostExcerpt = ({
   componentStyle,
   hasSeparator,
   header
-}: PRIVATEPOSTEXCERPTPROPS) => {
-  return <PrivatePostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} componentStyle={componentStyle} hasSeparator={hasSeparator} header={header} />
+}: COLLAPSEDPOSTPROPS) => {
+  return <CollapsedPostView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} componentStyle={componentStyle} hasSeparator={hasSeparator} header={header} />
 }
 
-const PrivatePostExcerptView = ({
+const CollapsedPostView = ({
   title,
   description,
   thumbnail,
@@ -54,9 +55,9 @@ const PrivatePostExcerptView = ({
   componentStyle = 'card',
   hasSeparator = true,
   header = fakeheader
-}: PRIVATEPOSTEXCERPTPROPS) => {
+}: COLLAPSEDPOSTPROPS) => {
   return (
-    <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
+    <div className={`${style.collapsedPostContainer} ${style[componentStyle]}`}>
       {chips ? <Chips chips={chips.slice(0, 3)} color='lightMain' /> : null}
       {header ? (
         <div className={style.header}>
@@ -66,20 +67,23 @@ const PrivatePostExcerptView = ({
           <p className={style.content}><span className={style.author}>{header.text}</span><span className={style.date}>{header.date}</span></p>
         </div>
       ) : null}
-      <div className={style.textContent}>
+        <LockedContent/>
+
+      {/*HE COMENTADO ESTO PARA INTEGRAR EL BLOQUE DE LOCKED CONTENT*/}
+      {/* <div className={style.textContent}>
         <p className={style.title}>{title}</p>
         <div className={style.description}>
           {parse(description)}
         </div>
-      </div>
-      <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
+      </div> */}
+      {/* <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
       </div>
       <div className={style.terms}>
         <div className={style.footer}>
           redes
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
-export default React.memo(PrivatePostExcerpt)
+export default React.memo(CollapsedPost)

@@ -69,7 +69,6 @@ const AnalysisView = ({categories}:any) => {
       <header>
         <p className={`main-title`}><FormattedMessage id='Análisis' /></p>
       </header>
-      {/* <WPCategory articlesPosition={'flex'} category={WPterm}/> */}
       <ArticleFilters />
       <SubscriptionBanner
         linkHref={'#'}
@@ -90,7 +89,7 @@ const AnalysisView = ({categories}:any) => {
 
       {categories.map((WPterm:any) => {
         const {term} = WPterm;
-        return <WPCategory key={term.term_id.toString()} componentStyle={'grid'} category={term} />
+        return <WPCategory key={term.term_id.toString()} componentStyle={'flex'} category={term} />
       })}
 
       <div className={style.addNewArticle}>

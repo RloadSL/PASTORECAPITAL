@@ -1,0 +1,25 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/mixins/devices" as devices;
+
+.lockedContentContainer {
+  width: 100%;
+  height: 230px;
+  background-image: url('../../assets/img/blockedImage.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+  p {
+    color: colors.$dark;
+  }
+
+  button {
+    max-width: 200px;
+    margin-top: 20px;
+  }
+
+}

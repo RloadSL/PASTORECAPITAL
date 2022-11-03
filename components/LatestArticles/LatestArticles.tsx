@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import style from './latestArticles.module.scss'
 
@@ -9,20 +8,20 @@ interface LATESTARTICLESPROPS {
 export default function LatestArticles({ articlesList }: LATESTARTICLESPROPS) {
   return (
     <div className={style.latestArticlesContainer}>
-      <p>
-        <FormattedMessage id='Últimas publicaciones' />
+      <p className='small-caps'>
+        <FormattedMessage id='Artículos destacados' />
       </p>
       <ul>
-        {articlesList.map((article, index) => {
+        {articlesList.map((article:any, index:number) => {
           return (
             <li key={index}>
-            <div>
-              <p>{article.title}</p>
-              <p>{article.description}</p>
-              <div></div>
-            </div>
-          </li>
-            )
+              <div>
+                <p className={style.articleTitle}>{article.title}</p>
+                <p>{article.description}</p>
+                <div className={style.authorContainer}><span className={style.author}>{article.author}</span><span>{article.date}</span></div>
+              </div>
+            </li>
+          )
         })}
       </ul>
 

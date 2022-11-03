@@ -130,7 +130,9 @@ const PostGridView = ({
         onClick={() => openCreate(true)}
       >
         <div className={style.buttonContent}>
-          <Image src={addCourseIcon} alt='' />
+          <div className={style.buttonImage}>
+            <Image src={addCourseIcon} alt='' />
+          </div>
           <FormattedMessage
             id={parent}
             values={{
@@ -143,7 +145,7 @@ const PostGridView = ({
   }
   
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', width:'100%' }}>
       {editionGranted && <div className='admin-buttons-container'>
         <ButtonApp
           onClick={() => setStatePost()}

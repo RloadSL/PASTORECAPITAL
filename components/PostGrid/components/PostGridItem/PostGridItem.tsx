@@ -11,7 +11,7 @@ import Image from 'next/image'
 import tagsIcon from '../../../../assets/img/icons/tags.svg'
 import clockIcon from '../../../../assets/img/icons/clock.svg'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
-import PrivatePostExcerpt from 'components/PrivatePostExcerpt'
+import CollapsedPost from 'components/CollapsedPost'
 
 /**
  * Función principal del componente item grid que renderiza el elemeto que se estrcutura en el grid
@@ -131,7 +131,7 @@ const PostGridItemView = ({
               componentStyle={'card'}
             />
           ) : (
-            <PrivatePostExcerpt
+            <CollapsedPost
               thumbnail={gridItem.thumbnail_url}
               title={limitTextLength(60, gridItem.title.rendered || '')}
               description={limitTextLength(

@@ -103,7 +103,7 @@ const AnalysisCategoryView = ({
   const [deleteArticle, setDeleteArticle]: [{ id: number, status: string } | null, Function] = useState(null)
   return (
     <div className={style.analysisCategoryPage}>
-      <header className='title-container flex-container column align-center space-between'>
+      <header className='title-container flex-container column space-between'>
         <div className={style.titleBlock}>
           <p className='small-caps'>Análisis</p>
           <h1 className='main-title'>{fakeCategory}</h1>
@@ -111,7 +111,7 @@ const AnalysisCategoryView = ({
         {/* <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/> */}
       </header>
         <div className={fakeCategory === 'flash-updates' ? style.collapsedItem : ''}>
-          <PostGrid parent='analysis.create.article' loadMore={loadMore} statePost={statePost} setStatePost={(state: "public" | "private") => setStatePost(state)} onClickItemTarget='/analysis/' deleteItem={(value: { id: number, status: string }) => setDeleteArticle(value)} openCreate={setCreate} typeItem={fakeCategory === 'flash-updates' ? 'privateExcerpt' : 'excerpt'} alignment={fakeCategory === 'flash-updates' ? 'column' : 'row'} />
+          <PostGrid parent='page.analysis.articles.form.create.submit' loadMore={loadMore} statePost={statePost} setStatePost={(state: "public" | "private") => setStatePost(state)} onClickItemTarget='/analysis/' deleteItem={(value: { id: number, status: string }) => setDeleteArticle(value)} openCreate={setCreate} typeItem={fakeCategory === 'flash-updates' ? 'privateExcerpt' : 'excerpt'} alignment={fakeCategory === 'flash-updates' ? 'column' : 'row'} />
           {fakeCategory === 'flash-updates' && <LatestArticles articlesList={fakeArticlesList}/> }
         </div>
        {/* : (
