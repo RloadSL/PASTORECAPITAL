@@ -7,12 +7,13 @@ type TYPEBUTTON = 'button' | 'submit'
 type BUTTONSTYLE = 'transparent' | 'primary' | 'secondary' | 'default' | 'tab' | 'dark' | 'link' | 'delete' | 'outlined'
 
 interface BUTTONPROPS {
-  labelID: string,
+  labelID?: string,
   onClick?: Function,
   type?: TYPEBUTTON,
   buttonStyle?: BUTTONSTYLE | Array<BUTTONSTYLE>;
   size?: 'small' | 'default'
   icon?: any
+  children?:any
 }
 
 /**
@@ -25,11 +26,11 @@ interface BUTTONPROPS {
  * @returns 
  */
 
-const ButtonApp = ({ labelID, onClick, icon, buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
+const ButtonApp = ({children ,labelID, onClick, icon, buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
   const { buildClassName } = useComponentUtils()
   return (
     <button type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${buildClassName(buttonStyle, style)} ${style[size]}`} onClick={() => { if (onClick) onClick() }}>
-      <FormattedMessage id={labelID} />
+      {children ? children : <FormattedMessage id={labelID} />}
       {icon ? <span className={style.icon}><Image src={icon} alt={''}/></span> : null}
     </button>)
 }

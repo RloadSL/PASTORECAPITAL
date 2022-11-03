@@ -108,6 +108,9 @@
   "page.analysis.articles.form.create.excerpt" : "Resumen del artículo",
   "page.analysis.articles.form.create.category" : "Categoría del artículo",
   "page.analysis.articles.form.create.submit" : "Crear artículo",
+  "page.analysis.category.form.create.title" : "Crear nueva categoría para Análisis",
+  "page.analysis.category.form.create.name" : "Nombre de la categoría",
+  "page.analysis.category.form.create.description" : "Descripción de la categoría",
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
@@ -120,6 +123,7 @@
   "auth/network-request-failed" : "Error interno, inténtalo más tarde.",
   "user@not-found": "El usuario no existe",
   "course.academy@term_exists" : "El curso ya existe en la plataforma",
+  "api_wp@term_exists": "La categoría o el tag ya existen en la BD",
   "Unauthorized": "Usuario no autorizado",
   "code@invalid": "Código inválido",
   "code@expired": "El código a expirado",

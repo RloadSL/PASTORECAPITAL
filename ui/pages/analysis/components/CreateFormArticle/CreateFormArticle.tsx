@@ -198,7 +198,7 @@ const CreateFormView = ({
               />
               <SelectFormikApp
                 selectOptions={categories}
-                labelID={'page.academy.courses.filterLevel.label'}
+                labelID={'page.analysis.articles.form.create.category'}
                 name={'category'}
               />
               {/* @maria Make component Checklist */}

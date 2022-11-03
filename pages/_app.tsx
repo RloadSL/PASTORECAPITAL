@@ -26,16 +26,9 @@ function getDirection (locale: string) {
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
   const locale: any = useRouter().locale || 'es'
-
   
   
   return (<>
-   {/*  <Head>
-      <link
-      rel="stylesheet" 
-      href="http://localhost:8888/pastoreheadless/wp-includes/css/dist/block-library/style.min.css"
-      />
-    </Head> */}
     <Provider store={store}>
       <IntlProvider locale={locale} messages={messages[locale]}>
         <AppLayout dir={getDirection(locale)}>

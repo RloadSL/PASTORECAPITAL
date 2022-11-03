@@ -121,7 +121,7 @@ const TutorialsView = ({
         setStatePost={setStatePost}
         loadMore={loadMore}
         onClickItemTarget='/academy/tutorials/'
-        deleteCourse={(value: { id: number; status: string }) =>
+        deleteItem={(value: { id: number; status: string }) =>
           setDeleteCourse(value)
         }
         openCreate={setCreate}

@@ -1,6 +1,7 @@
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { Post } from "domain/Post/Post";
 import { HTTP } from "infrastructure/http/http";
-import { WP_API_ANLALYSIS, WP_API_POST } from "infrastructure/wordpress/config";
+import { WP_API_ANLALYSIS, WP_API_CATEGORY, WP_API_POST } from "infrastructure/wordpress/config";
 
 export class AnalysisRepository {
   private static instance: AnalysisRepository;
@@ -12,6 +13,20 @@ export class AnalysisRepository {
     }
     return AnalysisRepository.instance;
   }
+
+  createCategory = async (wpToken:string , category_args:{name: string, description?: string}):Promise<any> => {
+    const analysis_cat = await HTTP.get(`${WP_API_ANLALYSIS}category?only_analysis=1`); 
+    if(!analysis_cat[0].term_id) return alert('No existe la categoria de analysis en la API de wp')
+    const arg = {
+      ...category_args,
+      parent: analysis_cat[0].term_id
+    } 
+    
+    const res = await HTTP.post(WP_API_CATEGORY, arg, HTTP.getHeaders(wpToken)) 
+    
+    return res.errCode ? new ErrorApp({errorCode: 'api_wp@'+res.errCode, errorMessage: res.errCode}) : null;
+  }
+
   getCategories = async ({only_analysis}:{ only_analysis : -1 | 0 | 1} =  {only_analysis : -1}) => {
     const res = await HTTP.get(`${WP_API_ANLALYSIS}category?only_analysis=${only_analysis}`) 
     if(Array.isArray(res)){

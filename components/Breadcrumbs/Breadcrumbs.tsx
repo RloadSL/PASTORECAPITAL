@@ -44,7 +44,8 @@ const Breadcrumbs = () => {
   const dynamic_titles = {
     'course-slug': router.query.post_title,
     'lesson-slug': router.query.lesson_title,
-    'tutorial-slug' : router.query.post_title
+    'tutorial-slug' : router.query.post_title,
+    'category-slug' : router.query.category_name,
   }
 
   return <BreadcrumbsView crumbs={addCrumb()} title={dynamic_titles}/>
