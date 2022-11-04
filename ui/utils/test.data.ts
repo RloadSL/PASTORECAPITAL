@@ -158,3 +158,62 @@ export const fakeCategoryPosts = [
     tags: ["tag1", "tag2", "tag3"],
   },
 ];
+
+export const article = {
+  "id": 347,
+  "formatted_categories": [
+    {
+      "term_id": 59,
+      "name": "Analysis",
+      "slug": "analysis",
+      "parent": 0,
+      "taxonomy": "category"
+    },
+    {
+      "term_id": 66,
+      "name": "Basic",
+      "slug": "basic-plans",
+      "parent": {
+        "term_id": 64,
+        "name": "Plans",
+        "slug": "plans",
+        "parent": 0,
+        "taxonomy": "category"
+      },
+      "taxonomy": "category"
+    },
+    {
+      "term_id": 60,
+      "name": "Bitcoin",
+      "slug": "bitcoin",
+      "parent": {
+        "term_id": 59,
+        "name": "Analysis",
+        "slug": "analysis",
+        "parent": 0,
+        "taxonomy": "category"
+      },
+      "taxonomy": "category"
+    }
+  ],
+  "formatted_tags": null,
+  "status": "publish",
+  "created_by": {
+    "username": "jose@rload.es",
+    "uid": "GNMEGhQawvaOXkXawa5EdNYwyc93",
+    "name": "Jose Manuel  Acevedo Medina"
+  },
+  "acf": [],
+  "excerpt": {
+    "rendered": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"",
+    "raw": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
+  },
+  "thumbnail_url": false,
+  "content": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"",
+  "slug": "art-1",
+  "title": {
+    "rendered": "Art 1",
+    "raw": "Art 1"
+  },
+  "date": "2022-11-02 15:59:03"
+}

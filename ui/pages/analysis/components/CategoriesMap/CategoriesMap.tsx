@@ -50,7 +50,7 @@ const CategoriesMapView = ({
   return (
     <div className={style.filtersContainer}>
       <span className={style.filterLabel}>
-        <FormattedMessage id='Mis categorías' />
+        <FormattedMessage id='Categorías' />
       </span>
       <div className={style.filterListContainer}>
         <ul className={style.filterList}>
@@ -71,7 +71,7 @@ const CategoriesMapView = ({
                       : () => null
                   }
                   type='button'
-                  buttonStyle='primary'
+                  buttonStyle='default'
                   size='small'
                 >
                   {cat.name}
@@ -87,7 +87,7 @@ const CategoriesMapView = ({
             labelID={'page.analysis.category.form.create.title'}
             onClick={() => onCreate()}
             type='button'
-            buttonStyle='primary'
+            buttonStyle={['primary','outlined']}
             size='small'
             icon={addIcon}
           />

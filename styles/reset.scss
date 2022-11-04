@@ -44,6 +44,12 @@ button {
     font-weight: bold;
     background-color: colors.$grey40;
     margin: 5px;
+    color: colors.$dark;
+
+    // &:hover {
+    //     background-color: colors.$dark;
+    //     color: white;
+    // }
 }
 
 input {

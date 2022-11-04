@@ -141,7 +141,7 @@ const PostGridItemView = ({
                 gridItem.excerpt.rendered || ''
               )}
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
-              level={gridItem.level}
+              level={{label:gridItem.level?.name}}
               componentStyle={'card'}
               footer={{
                 text: `${gridItem.author?.name || gridItem.author[0]?.name}`,

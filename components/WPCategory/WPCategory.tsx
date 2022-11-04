@@ -9,6 +9,8 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { Post } from 'domain/Post/Post'
 import Loading from 'components/Loading'
+import Link from 'next/link'
+import ButtonApp from 'components/ButtonApp'
 
 interface WPCATEGORYPROPS {
   componentStyle?: 'flex' | 'grid'
@@ -53,6 +55,13 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
       ) : (
         <></>
       )}
+      <div className={style.buttonContainer}>
+        <ButtonApp
+          onClick={() => console.log('hola')}
+          labelID='Explorar categoría'
+          buttonStyle={'dark'}
+        />
+      </div>
 
       <Loading loading={loading} variant='inner-primary' />
     </div>
@@ -67,7 +76,11 @@ const WPCategoryView = ({
 }: WPCATEGORYPROPS) => {
   return (
     <div className={style.categoryContainer}>
-      <h2>{category.name}</h2>
+      <h2 className={style.title}>
+        <Link href={'#'}>
+          {category.name}
+        </Link>
+      </h2>
       <ArticlesGrid componentStyle={componentStyle} posts={articles} />
     </div>
   )

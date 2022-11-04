@@ -1,4 +1,27 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/mixins/devices" as devices;
+
 .categoryContainer {
   position: relative;
   min-height: 500px;
+  margin-bottom: 50px;
+
+  .buttonContainer {
+    @include devices.device(smTablet) {
+      width: fit-content;
+      margin: auto;
+    }
+  }
+
+  .title {
+    margin-bottom: 0px;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: colors.$dark;
+    margin-top: 50px;
+
+    &:hover {
+      color: colors.$main;
+    }
+  }
 }
