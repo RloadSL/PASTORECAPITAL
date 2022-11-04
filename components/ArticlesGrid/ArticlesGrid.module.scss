@@ -19,7 +19,18 @@
       height: 100%;
     }
   }
+
   &.flex {
+
+    &>div {
+      width: 100%;
+      min-height: auto;
+
+      @include devices.device(lgScreen) {
+        width: 33.3%;
+        min-height: auto;      }
+    }
+
     @include devices.device(lgScreen) {
       display: flex;
     }
@@ -28,6 +39,7 @@
 
 .articlesGridItem {
   padding: 10px;
+
   &.firstChild {
   }
 }
@@ -38,4 +50,10 @@
   height: 100%;
   min-height: 200px;
   max-height: none;
+
+  &:hover {
+    box-shadow: 0 0 0 2px colors.$main;
+    border-radius: 25px;
+    cursor: pointer;
+  }
 }

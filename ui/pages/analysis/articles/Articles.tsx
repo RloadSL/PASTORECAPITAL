@@ -1,5 +1,9 @@
+import { Post } from 'domain/Post/Post'
+import { PostDto } from 'infrastructure/dto/course.dto'
 import { NextPage } from 'next'
-import React from 'react'
+import { article } from 'ui/utils/test.data'
+
+const postArticle = new Post(article as any)
 
 const AnalysisArticles:NextPage<any> = () => {
   return (
@@ -9,7 +13,9 @@ const AnalysisArticles:NextPage<any> = () => {
 
 const AnalysisArticlesView = () => {
   return (
-    <div>Articles</div>
+    <div>Articles
+      <h1>{postArticle.title.rendered}</h1>
+    </div>
   )
 }
 
