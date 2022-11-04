@@ -6,18 +6,17 @@ import { WpCat } from 'infrastructure/dto/course.dto'
 import Avatar from 'components/Avatar'
 import LockedContent from 'components/LockedContent'
 
-
 export interface COLLAPSEDPOSTPROPS {
   title?: string
   description: string
   thumbnail?: string
   chips?: any
-  level?: WpCat | any,
+  level?: WpCat | any
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
-  hasSeparator?: boolean,
+  hasSeparator?: boolean
   header?: {
     // avatar?: any,
-    text?: string,
+    text?: string
     date?: any //OJO al tipado debe ser Date
   }
 }
@@ -28,10 +27,7 @@ export interface COLLAPSEDPOSTPROPS {
  * @returns
  */
 
-const fakeheader = {
-  text: 'John Doe',
-  date: '20 Feb 2022'
-}
+
 
 const CollapsedPost = ({
   title,
@@ -43,7 +39,18 @@ const CollapsedPost = ({
   hasSeparator,
   header
 }: COLLAPSEDPOSTPROPS) => {
-  return <CollapsedPostView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} componentStyle={componentStyle} hasSeparator={hasSeparator} header={header} />
+  return (
+    <CollapsedPostView
+      title={title}
+      description={description}
+      thumbnail={thumbnail}
+      chips={chips}
+      level={level}
+      componentStyle={componentStyle}
+      hasSeparator={hasSeparator}
+      header={header}
+    />
+  )
 }
 
 const CollapsedPostView = ({
@@ -54,7 +61,7 @@ const CollapsedPostView = ({
   level,
   componentStyle = 'card',
   hasSeparator = true,
-  header = fakeheader
+  header
 }: COLLAPSEDPOSTPROPS) => {
   return (
     <div className={`${style.collapsedPostContainer} ${style[componentStyle]}`}>
@@ -62,27 +69,43 @@ const CollapsedPostView = ({
       {header ? (
         <div className={style.header}>
           <div className={style.avatar}>
-            <Avatar size={'large'} renderItem={header.text ? header.text[0] : null} />
+            <Avatar
+              size={'large'}
+              renderItem={header.text ? header.text[0] : null}
+            />
           </div>
-          <p className={style.content}><span className={style.author}>{header.text}</span><span className={style.date}>{header.date}</span></p>
+          <p className={style.content}>
+            <span className={style.author}>{header.text}</span>
+            <span className={style.date}>{header.date}</span>
+          </p>
         </div>
       ) : null}
-        <LockedContent/>
+      {/* */}
 
       {/*HE COMENTADO ESTO PARA INTEGRAR EL BLOQUE DE LOCKED CONTENT*/}
-      {/* <div className={style.textContent}>
+      <div className={style.textContent}>
         <p className={style.title}>{title}</p>
-        <div className={style.description}>
-          {parse(description)}
-        </div>
-      </div> */}
-      {/* <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
+        <div className={style.description}>{parse(description)}</div>
       </div>
+      {thumbnail === 'locked' ? (
+        <LockedContent />
+      ) : (
+        <div
+          style={
+            thumbnail
+              ? {
+                  backgroundImage: `url(${thumbnail})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }
+              : { backgroundSize: '80px' }
+          }
+          className={style.imageContainer}
+        ></div>
+      )}
       <div className={style.terms}>
-        <div className={style.footer}>
-          redes
-        </div>
-      </div> */}
+        <div className={style.footer}>redes</div>
+      </div>
     </div>
   )
 }

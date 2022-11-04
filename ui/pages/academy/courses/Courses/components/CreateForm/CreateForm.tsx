@@ -59,7 +59,7 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
       const response = await CourseRepositoryInstance.create(
         {
           ...data,
-          created_by: { username: userLogged.email, uid: userLogged.uid }
+          created_by: { username: userLogged.email, uid: userLogged.uid , name: `${userLogged.name} ${userLogged.lastname}` }
         },
         userLogged.wpToken
       )

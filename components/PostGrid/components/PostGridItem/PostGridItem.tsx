@@ -1,7 +1,7 @@
 import Card from 'components/Card'
 import PostExcerpt from 'components/PostExcerpt'
 import { Course } from 'domain/Course/Course'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import style from './PostGridItem.module.scss'
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
@@ -12,6 +12,7 @@ import tagsIcon from '../../../../assets/img/icons/tags.svg'
 import clockIcon from '../../../../assets/img/icons/clock.svg'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import CollapsedPost from 'components/CollapsedPost'
+import { Post } from 'domain/Post/Post'
 
 /**
  * Función principal del componente item grid que renderiza el elemeto que se estrcutura en el grid
@@ -112,10 +113,23 @@ const PostGridItemView = ({
       return []
     }
   }
-  console.log('aquiii',typeItem)
+  const getLevel = useCallback(
+    (post: Post) =>
+      post.categories.find(
+        cat => cat.parent != 0 && cat.parent.slug === 'plans'
+      ),
+    []
+  )
+
   return (
     <Card>
-      <div className={typeItem === 'excerpt' ? style.cardContainer : style.privateCardContainer}>
+      <div
+        className={
+          typeItem === 'excerpt'
+            ? style.cardContainer
+            : style.privateCardContainer
+        }
+      >
         {isAdmin && _renderHeader()}
         <div onClick={() => onClickItem()}>
           {typeItem === 'excerpt' ? (
@@ -129,17 +143,25 @@ const PostGridItemView = ({
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
               level={gridItem.level}
               componentStyle={'card'}
+              footer={{
+                text: `${gridItem.author?.name || gridItem.author[0]?.name}`,
+                date: gridItem.created_at.toLocaleDateString()
+              }}
             />
           ) : (
             <CollapsedPost
+              header={{
+                text: `${gridItem.author?.name || gridItem.author[0]?.name}`,
+                date: gridItem.created_at.toLocaleDateString()
+              }}
               thumbnail={gridItem.thumbnail_url}
               title={limitTextLength(60, gridItem.title.rendered || '')}
               description={limitTextLength(
                 250,
-                gridItem.excerpt.rendered || ''
+                gridItem.content.rendered || ''
               )}
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
-              level={gridItem.level}
+              level={getLevel(gridItem)}
               componentStyle={'card'}
             />
           )}

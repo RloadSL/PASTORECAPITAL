@@ -6,7 +6,7 @@ import {
   loadingStore,
   postsStore,
   privatePostStore
-} from 'ui/redux/slices/academy/academy.selectors'
+} from 'ui/redux/slices/wp-headless-api/wp-headless-api.selectors'
 import Image from 'next/image'
 import addCourseIcon from '../../assets/img/icons/add-document.svg'
 import style from './PostGrid.module.scss'
@@ -86,7 +86,6 @@ const PostGrid = ({
       })
     }
   }
-
   return (
     <PostGridView
       setStatePost={() =>

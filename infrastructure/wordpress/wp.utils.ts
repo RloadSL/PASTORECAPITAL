@@ -1,29 +1,36 @@
 import { Role } from "infrastructure/dto/users.dto";
 import { CATEGORY } from "infrastructure/dto/wp.dto"
 import { HTTP } from "infrastructure/http/http"
-import {  WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_PLATFORM, WP_API_POST, WP_API_POST_LIST, WP_API_TAGS } from "./config";
+import { WP_API_CATEGORY, WP_API_PAGES, WP_API_PAGES_LIST, WP_API_PLATFORM, WP_API_POST, WP_API_POST_LIST, WP_API_TAGS } from "./config";
 
-export const createCategory = async (category:CATEGORY) => {
+export const createCategory = async (category: CATEGORY) => {
   const response = await HTTP.post(WP_API_CATEGORY, category)
   return response;
 }
 
-export const getCategories = async (parentSlug?:string):Promise<Array<any>> => {
-  const url = !parentSlug ? WP_API_CATEGORY : WP_API_CATEGORY+`?slug=${parentSlug}`
+export const getCategory = async (cat: number) => {
+
+  const response = await HTTP.get(`${WP_API_CATEGORY}/${cat}`)
+
+  return response;
+}
+
+export const getCategories = async (parentSlug?: string): Promise<Array<any>> => {
+  const url = !parentSlug ? WP_API_CATEGORY : WP_API_CATEGORY + `?slug=${parentSlug}`
   const response = await HTTP.get(url)
   return response;
 }
 
-export const getCategoriesPlans = async ():Promise<Array<any>> => {
+export const getCategoriesPlans = async (): Promise<Array<any>> => {
   const response = await HTTP.get(`${WP_API_PLATFORM}plans`)
   return response;
 }
 
-export const getAllPostsFromServer = async (offset?:number, filters?: {search?: string, categories?: string, tags?:any}, wpToken?: string) => {
+export const getAllPostsFromServer = async (offset?: number, filters?: { search?: string, categories?: string, tags?: any }, wpToken?: string) => {
   //   get all posts from Server
   try {
-    const headers = wpToken && {Authorization: `Bearer ${wpToken}`};
-    const url = WP_API_POST_LIST+`${offset ? '&offset='+offset : ''}${filters?.search ? '&search='+filters.search : ''}${filters?.tags ? '&tags='+filters.tags : ''}${filters?.categories ? '&categories='+filters.categories : ''}${headers ? '&status='+'private' : '&status=publish'}`;
+    const headers = wpToken && { Authorization: `Bearer ${wpToken}` };
+    const url = WP_API_POST_LIST + `${offset ? '&offset=' + offset : ''}${filters?.search ? '&search=' + filters.search : ''}${filters?.tags ? '&tags=' + filters.tags : ''}${filters?.categories ? '&categories=' + filters.categories : ''}${headers ? '&status=' + 'private' : '&status=publish'}`;
     const res = await HTTP.get(url, headers);
     return res;
   } catch (error) {
@@ -31,10 +38,10 @@ export const getAllPostsFromServer = async (offset?:number, filters?: {search?: 
   }
 };
 
-export const getAllPagesFromServer = async (offset?:number, filters?: {search?: string, categories?: string, tags?:any}, wpToken?: string) => {
+export const getAllPagesFromServer = async (offset?: number, filters?: { search?: string, categories?: string, tags?: any }, wpToken?: string) => {
   try {
-    const headers = wpToken && {Authorization: `Bearer ${wpToken}`};
-    const url = WP_API_PAGES_LIST+`${offset ? '&offset='+offset : ''}${filters?.search ? '&search='+filters.search : ''}${filters?.tags ? '&tags='+filters.tags : ''}${filters?.categories ? '&categories='+ filters.categories : ''}${headers ? '&status='+'private' : '&status=publish'}`;
+    const headers = wpToken && { Authorization: `Bearer ${wpToken}` };
+    const url = WP_API_PAGES_LIST + `${offset ? '&offset=' + offset : ''}${filters?.search ? '&search=' + filters.search : ''}${filters?.tags ? '&tags=' + filters.tags : ''}${filters?.categories ? '&categories=' + filters.categories : ''}${headers ? '&status=' + 'private' : '&status=publish'}`;
     const res = await HTTP.get(url, headers);
     return res;
   } catch (error) {
@@ -45,7 +52,7 @@ export const getAllPagesFromServer = async (offset?:number, filters?: {search?: 
 
 
 
-export const getPageFromServer = async (id:string) => {
+export const getPageFromServer = async (id: string) => {
   try {
     const res = await HTTP.get(`${WP_API_PAGES}/${id}`);
     return res;
@@ -54,10 +61,10 @@ export const getPageFromServer = async (id:string) => {
   }
 };
 
-export const deletePageFromServer = async (id:string, wpToken:string) => {
+export const deletePageFromServer = async (id: string, wpToken: string) => {
   try {
-    const headers = wpToken && {Authorization: `Bearer ${wpToken}`};
-    const res = await HTTP.delete(`${WP_API_PAGES}/${id}`, {headers});
+    const headers = wpToken && { Authorization: `Bearer ${wpToken}` };
+    const res = await HTTP.delete(`${WP_API_PAGES}/${id}`, { headers });
     return res;
   } catch (error) {
     console.log(error);
@@ -66,9 +73,9 @@ export const deletePageFromServer = async (id:string, wpToken:string) => {
 
 
 
-export const getTagsFromServer = async (search:string) => {
+export const getTagsFromServer = async (search: string) => {
   try {
-    
+
     const res = await HTTP.get(`${WP_API_TAGS}?search=${search.substring(1)}`);
     return res;
   } catch (error) {
@@ -77,13 +84,13 @@ export const getTagsFromServer = async (search:string) => {
 };
 
 
-export const getCategoryAcademy = async (target:'courses' | 'tutorial' | 'lessons', wpToken?:string):Promise<number> => {
-  const academyCat = await getCategories('academy-'+target);
-  
-  if(academyCat.length === 0 && wpToken){
-    const cat = await HTTP.post(WP_API_CATEGORY, {name: 'Academy '+target, slug: 'academy-'+target}, {Authorization: `Bearer ${wpToken}`})
+export const getCategoryAcademy = async (target: 'courses' | 'tutorial' | 'lessons', wpToken?: string): Promise<number> => {
+  const academyCat = await getCategories('academy-' + target);
+
+  if (academyCat.length === 0 && wpToken) {
+    const cat = await HTTP.post(WP_API_CATEGORY, { name: 'Academy ' + target, slug: 'academy-' + target }, { Authorization: `Bearer ${wpToken}` })
     return cat.data.id
-  }else{
+  } else {
     return academyCat.length > 0 ? academyCat[0].id : -1
   }
 }

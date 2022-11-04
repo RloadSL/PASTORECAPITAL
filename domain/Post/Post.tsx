@@ -86,10 +86,10 @@ export class Post {
   }
   constructor (post: PostDto) {
     this._id = post.id.toString()
-    this._tags = post.formatted_tags
+    this._tags = post.formatted_tags || []
     this._thumbnail_url = post.thumbnail_url
     this._wpID = post.id
-    this._categories = post.formatted_categories
+    this._categories = post.formatted_categories || []
     this._status = post.status
     this._excerpt = post.excerpt
     this._content = post.content

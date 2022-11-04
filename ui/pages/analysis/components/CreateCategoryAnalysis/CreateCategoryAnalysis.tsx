@@ -17,27 +17,50 @@ import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 
 import { Post } from 'domain/Post/Post'
+import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
+import { getCategories, getCategory } from 'infrastructure/wordpress/wp.utils'
+import { WP_TERM } from 'infrastructure/dto/wp.dto'
 
-const CreateCategoryAnalysis = ({ onClose }: { onClose: Function }) => {
+const CreateCategoryAnalysis = ({ onClose, cat}: { onClose: Function, cat?:number }) => {
   const intl = useIntl()
   const { pushErrorsApp } = useSystem()
 
   const userLogged = useSelector(getUserLogged)
 
   const [loading, setloading] = useState(false)
+  const [category, setcategory] = useState(undefined)
+
+  useEffect(() => {
+   if(cat){
+    setloading(true);
+    getCategory(cat).then(res => {
+      setcategory(res)
+      setloading(false)
+    })
+   } 
+  }, [cat])
+  
 
   const _createCat = async (data: any): Promise<any> => {
+   
     setloading(true)
-    console.log(111,data)
     if (userLogged.wpToken) {
-      const response = await AnalysisRepositoryInstance.createCategory(
+      const response = await AnalysisRepositoryInstance.setCategory(
         userLogged.wpToken,
-        data
+        {
+          ...data,
+          created_by: {
+            username: userLogged.email,
+            uid: userLogged.uid,
+            name: `${userLogged.name} ${userLogged.lastname}  `
+          }
+        },
+        cat
       )
 
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
-      } else{
+      } else {
         onClose()
       }
     } else {
@@ -60,7 +83,8 @@ const CreateCategoryAnalysis = ({ onClose }: { onClose: Function }) => {
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
         description: yup
           .string()
-          .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
+          .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
+        collapsable_items: yup.boolean().default(false)
       }),
     [intl]
   )
@@ -71,6 +95,7 @@ const CreateCategoryAnalysis = ({ onClose }: { onClose: Function }) => {
       validationSchema={validationSchema}
       loading={loading}
       createCat={(data: any) => _createCat(data)}
+      cat={category}
     />
   )
 }
@@ -79,49 +104,61 @@ const CreateCategoryAnalysisView = ({
   createCat,
   validationSchema,
   onClose = () => null,
-  loading
+  loading,
+  cat
 }: {
   createCat: Function
   validationSchema: any
   onClose: Function
   loading: boolean
+  cat?:any
 }) => {
+  console.log(cat)
   return (
     <Modal onBtnClose={() => onClose()}>
       <div className={style.cardContainer}>
         <div className={style.header}>
           <h3 className={style.formTitle}>
-            <FormattedMessage id='page.analysis.category.form.create.title'></FormattedMessage>
+            <FormattedMessage id={`page.analysis.category.form.${cat ? 'update' : 'create'}.title`}></FormattedMessage>
           </h3>
         </div>
         <Formik
+          enableReinitialize
           initialValues={{
-            name: '',
-            description: '',
+            name: cat?.name,
+            description: cat?.description,
+            collapsable_items: cat?.collapsable_items || false,
           }}
           validationSchema={validationSchema}
           onSubmit={values => createCat(values)}
         >
-          {({ values, errors, touched }) => (
-            <Form>
-              <InputFormikApp
-                labelID='page.analysis.category.form.create.name'
-                type='text'
-                name='name'
-                icon={fileIcon}
-              />
-              <TextareaFormikApp
-                labelID='page.analysis.category.form.create.description'
-                name='description'
-                icon={fileIcon}
-              />
-              <ButtonApp
-                buttonStyle='secondary'
-                type='submit'
-                labelID='page.analysis.articles.form.create.submit'
-              />
-            </Form>
-          )}
+          {({ values, errors, touched }) => {
+            
+            return (
+              <Form>
+                <InputFormikApp
+                  labelID='page.analysis.category.form.create.name'
+                  type='text'
+                  name='name'
+                  icon={fileIcon}
+                />
+                
+                <TextareaFormikApp
+                  labelID='page.analysis.category.form.create.description'
+                  name='description'
+                  icon={fileIcon}
+                />
+                <InputCheckFormikApp name='collapsable_items'>
+                  Items de la categoria en formato desplegable
+                </InputCheckFormikApp>
+                <ButtonApp
+                  buttonStyle='secondary'
+                  type='submit'
+                  labelID='page.analysis.articles.form.create.submit'
+                />
+              </Form>
+            )
+          }}
         </Formik>
       </div>
       <Loading loading={loading} variant='inner-primary'></Loading>

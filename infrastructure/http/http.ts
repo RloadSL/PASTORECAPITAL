@@ -44,8 +44,9 @@ class Http {
     return response.data;
   }
 
-  getHeaders(AuthorizationToken?:string){
+  getHeaders(AuthorizationToken?:string, userDatatoken?:string){
     if(AuthorizationToken) this._headers.Authorization = 'Bearer '+AuthorizationToken;
+    
     return this._headers;
   }
 }

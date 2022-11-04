@@ -5,18 +5,17 @@ import React from 'react'
 import { WpCat } from 'infrastructure/dto/course.dto'
 import Avatar from 'components/Avatar'
 
-
 export interface POSTEXCERPTPROPS {
   title?: string
   description: string
   thumbnail?: string
   chips?: any
-  level?: WpCat | any,
+  level?: WpCat | any
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
-  hasSeparator?: boolean,
+  hasSeparator?: boolean
   footer?: {
     // avatar?: any,
-    text?: string,
+    text?: string
     date?: any //OJO al tipado debe ser Date
   }
 }
@@ -37,7 +36,18 @@ const PostExcerpt = ({
   hasSeparator,
   footer
 }: POSTEXCERPTPROPS) => {
-  return <PostExcerptView title={title} description={description} thumbnail={thumbnail} chips={chips} level={level} componentStyle={componentStyle} hasSeparator={hasSeparator} footer={footer} />
+  return (
+    <PostExcerptView
+      title={title}
+      description={description}
+      thumbnail={thumbnail}
+      chips={chips}
+      level={level}
+      componentStyle={componentStyle}
+      hasSeparator={hasSeparator}
+      footer={footer}
+    />
+  )
 }
 
 const PostExcerptView = ({
@@ -52,23 +62,37 @@ const PostExcerptView = ({
 }: POSTEXCERPTPROPS) => {
   return (
     <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
-      <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
+      <div
+        style={
+          thumbnail
+            ? {
+                backgroundImage: `url(${thumbnail})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }
+            : { backgroundSize: '80px' }
+        }
+        className={style.imageContainer}
+      >
         {level && <span className={style.level}>{level.name}</span>}
       </div>
       <div className={style.textContent}>
         <p className={style.title}>{title}</p>
-        <div className={style.description}>
-          {parse(description)}
-        </div>
+        <div className={style.description}>{parse(description)}</div>
         {hasSeparator ? <hr className={style.separator} /> : null}
         <div className={style.terms}>
-          {chips ? (
-            <Chips chips={chips.slice(0, 3)} color='lightMain' />
-          ) : null}
+          {chips ? <Chips chips={chips.slice(0, 3)} color='lightMain' /> : null}
           {footer ? (
             <div className={style.footer}>
-              <div className={style.avatar}><Avatar renderItem={footer.text ? footer.text[0] : null}/></div>
-              <p className={style.content}><span className={style.author}>{footer.text}</span><span className={style.date}>{footer.date}</span></p>
+              {footer.text != 'undefined' && (
+                <div className={style.avatar}>
+                  <Avatar renderItem={footer.text ? footer.text[0] : null} />
+                </div>
+              )}
+              <p className={style.content}>
+                {footer.text != 'undefined' && <span className={style.author}>{footer.text}</span>}
+                <span className={style.date}>{footer.date}</span>
+              </p>
             </div>
           ) : null}
         </div>

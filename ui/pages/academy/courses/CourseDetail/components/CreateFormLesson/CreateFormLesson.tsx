@@ -35,7 +35,7 @@ const CreateFormLesson = ({ onClose, courseCat }: { onClose: Function, courseCat
         {
           ...data,
           courseCat,
-          created_by: { username: userLogged.email, uid: userLogged.uid }
+          created_by: { username: userLogged.email, uid: userLogged.uid , name: `${userLogged.name} ${userLogged.lastname}  `}
         },
         userLogged.wpToken
       )

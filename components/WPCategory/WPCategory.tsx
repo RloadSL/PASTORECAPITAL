@@ -65,7 +65,6 @@ const WPCategoryView = ({
   articles,
   loading
 }: WPCATEGORYPROPS) => {
-  console.log(loading)
   return (
     <div className={style.categoryContainer}>
       <h2>{category.name}</h2>

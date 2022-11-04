@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import academyReducer from './slices/academy/academy.slice';
+import academyReducer from './slices/wp-headless-api/wp-headless-api.slice';
 import  autheticationReducer  from './slices/authentication/autentication.slice'
 import systemReducer from './slices/system/system.slice';
 import  commentsReducer  from './slices/comments/coments.slice'

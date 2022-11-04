@@ -84,7 +84,7 @@ const CategoriesMapView = ({
       {editionGranted && (
         <div className={`admin-buttons-container ${style.adminButtons}`}>
           <ButtonApp
-            labelID={'Añadir categoría'}
+            labelID={'page.analysis.category.form.create.title'}
             onClick={() => onCreate()}
             type='button'
             buttonStyle='primary'

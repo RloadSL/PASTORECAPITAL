@@ -108,9 +108,13 @@
   "page.analysis.articles.form.create.excerpt" : "Resumen del artículo",
   "page.analysis.articles.form.create.category" : "Categoría del artículo",
   "page.analysis.articles.form.create.submit" : "Crear artículo",
-  "page.analysis.category.form.create.title" : "Crear nueva categoría para Análisis",
+  "page.analysis.category.form.create.title" : "Crear nueva categoría",
   "page.analysis.category.form.create.name" : "Nombre de la categoría",
   "page.analysis.category.form.create.description" : "Descripción de la categoría",
+  "page.analysis.category.form.update.title": "Modificar categoría",
+  "page.analysis.category.form.remove.title": "Eliminar categoría",
+  "page.analysis.category.form.remove.content": "Seguro deseas eliminar la categoría, esto pondrá en estado deshabilitado todo el contenido relacionado.",
+
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",

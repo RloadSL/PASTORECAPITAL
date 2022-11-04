@@ -14,7 +14,7 @@ const system_subscription_permission_module = {
   guest: [...system_public_module],
   basic: [...system_public_module],
   plus:[...system_public_module, '/academy/tutorials/[tutorial-slug'],
-  premium:[...system_public_module, '/academy/tutorials/[tutorial-slug]', '/academy/courses/[course-slug]' ,'/academy/courses/[course-slug]/[lesson-slug]'],
+  premium:[...system_public_module, '/academy/tutorials/[tutorial-slug]', '/academy/courses/[course-slug]' ,'/academy/courses/[course-slug]/[lesson-slug]', '/analysis/[category-slug]'],
 }
 
 
@@ -47,7 +47,7 @@ export const useGuardPermissions = () => {
       if(role?.level === 2) return setSubscriptionGranted(true);
       
       const key_sub = subscription?.plan.key || 'guest';
-      
+      console.log(route)
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
       

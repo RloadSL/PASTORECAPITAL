@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   academyGetTutorials,
   cleanAcademyPosts
-} from 'ui/redux/slices/academy/academy.slice'
+} from 'ui/redux/slices/wp-headless-api/wp-headless-api.slice'
 
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
