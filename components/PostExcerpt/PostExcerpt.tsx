@@ -50,10 +50,14 @@ const PostExcerptView = ({
   hasSeparator = true,
   footer
 }: POSTEXCERPTPROPS) => {
+  console.log('este es el',level)
   return (
     <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
-        {level && <span className={style.level}>{level.name}</span>}
+        {/* {level && <div className={style.level}><span className={style.levelLabel}>{level.label}</span> {level.icon !== undefined && <span className={style.levelIcon}>{level.icon}</span>}</div>} */}
+        {level.label && <div className={style.level}>
+          <Chips chips={[{label:level.label,icon:level.icon?.src}]} color='main' />
+        </div>}
       </div>
       <div className={style.textContent}>
         <p className={style.title}>{title}</p>
@@ -67,7 +71,7 @@ const PostExcerptView = ({
           ) : null}
           {footer ? (
             <div className={style.footer}>
-              <div className={style.avatar}><Avatar renderItem={footer.text ? footer.text[0] : null}/></div>
+              <div className={style.avatar}><Avatar renderItem={footer.text ? footer.text[0] : null} /></div>
               <p className={style.content}><span className={style.author}>{footer.text}</span><span className={style.date}>{footer.date}</span></p>
             </div>
           ) : null}

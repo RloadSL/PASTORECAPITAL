@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import style from './ArticlesGrid.module.scss'
+import lockIcon from '../../assets/img/icons/lock-w.svg'
 
 type articlestyles = 'flex' | 'grid';
 interface ARTICLESGRIDPROPS {
@@ -27,10 +28,13 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize }: ARTICL
     [],
   )
 
+
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
 
       {posts?.map((singlePost, index) => {
+          const postLevel = getLevel(singlePost)
+          // console.log('aqui esto',postLevel?.name)
         return (
           <div key={index} className={`${index === 0 ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>
@@ -40,7 +44,7 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize }: ARTICL
                     thumbnail={singlePost.thumbnail_url}
                     title={limitTextLength(index === 0 ? 100 : 40, singlePost.title.rendered)}
                     description={limitTextLength(index === 0 && windowSize.width > 1500 ? 350 : 150, singlePost.excerpt.rendered)}
-                    level={getLevel(singlePost)}
+                    level={{label:postLevel?.name,icon:lockIcon}}
                     componentStyle={componentStyle === 'flex' && windowSize.width > 1500 ? 'column' : index === 0 && windowSize.width > 1500 ? 'column' : 'row'}
                     hasSeparator={false}
                     footer={{ text: `${singlePost.author?.name}`, date: singlePost.created_at.toLocaleDateString() }}

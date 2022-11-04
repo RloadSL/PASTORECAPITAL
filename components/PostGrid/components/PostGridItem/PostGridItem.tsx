@@ -112,7 +112,7 @@ const PostGridItemView = ({
       return []
     }
   }
-  console.log('aquiii',typeItem)
+  console.log('aquiii',gridItem.level)
   return (
     <Card>
       <div className={typeItem === 'excerpt' ? style.cardContainer : style.privateCardContainer}>
@@ -127,7 +127,7 @@ const PostGridItemView = ({
                 gridItem.excerpt.rendered || ''
               )}
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
-              level={gridItem.level}
+              level={{label:gridItem.level?.name}}
               componentStyle={'card'}
             />
           ) : (
