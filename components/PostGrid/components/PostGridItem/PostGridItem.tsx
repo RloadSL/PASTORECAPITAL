@@ -137,7 +137,7 @@ const PostGridItemView = ({
               thumbnail={gridItem.thumbnail_url}
               title={limitTextLength(60, gridItem.title.rendered || '')}
               description={limitTextLength(
-                250,
+                200,
                 gridItem.excerpt.rendered || ''
               )}
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}

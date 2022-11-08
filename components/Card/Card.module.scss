@@ -17,13 +17,14 @@
 }
 
 
-.autocomplete{
+.autocomplete {
   border-radius: 0;
   top: 85%;
   width: 100%;
   z-index: 9999;
   position: absolute;
   left: 0;
+  height: auto !important;
   p{
     margin: 0;
   }

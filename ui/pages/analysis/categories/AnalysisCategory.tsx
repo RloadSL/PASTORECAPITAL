@@ -23,6 +23,10 @@ import ButtonApp from 'components/ButtonApp'
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { FormattedMessage } from 'react-intl'
+import LinkApp from 'components/LinkApp'
+import iconEdit from '../../../../assets/img/icons/pencil.svg'
+import iconDelete from '../../../../assets/img/icons/trash.svg'
+
 
 // const CreateForm = dynamic(() => import('./components/CreateForm'), {
 //   suspense: true
@@ -66,7 +70,7 @@ const AnalysisCategory = () => {
   })
   const userLogged = useSelector(getUserLogged)
   const { userDataToken, wpToken } = userLogged || {}
-  const { query , replace} = useRouter()
+  const { query, replace } = useRouter()
 
   const [statePost, setStatePost] = useState<'public' | 'private'>('public')
 
@@ -106,14 +110,14 @@ const AnalysisCategory = () => {
     setFilters(pre => ({ ...pre, ...value }))
   }
 
-  const _onDeleteCat = async ()=>{
-    if(wpToken) await AnalysisRepositoryInstance.deleteCategory(wpToken, parseInt(query.cat as string) )
-    replace('/analysis', undefined, {shallow: true})
+  const _onDeleteCat = async () => {
+    if (wpToken) await AnalysisRepositoryInstance.deleteCategory(wpToken, parseInt(query.cat as string))
+    replace('/analysis', undefined, { shallow: true })
   }
 
   return (
     <AnalysisCategoryView
-    onDeleteCat={_onDeleteCat}
+      onDeleteCat={_onDeleteCat}
       statePost={statePost}
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
       loadMore={_loadMore}
@@ -164,20 +168,26 @@ const AnalysisCategoryView = ({
         <div className={style.titleBlock}>
           <p className='small-caps'>Análisis</p>
           <h1 className='main-title'>{query.category_name}</h1>
-          <ButtonApp
-            labelID={'page.analysis.category.form.update.title'}
-            onClick={() => setCategory(true)}
-            type='button'
-            buttonStyle='primary'
-            size='small'
-          />
-           <ButtonApp
-            labelID={'page.analysis.category.form.remove.title'}
-            onClick={() => setDeleteCat(true)}
-            type='button'
-            buttonStyle='primary'
-            size='small'
-          />
+          <div className={`admin-buttons-wrapper`}>
+            <div className={`admin-buttons-container ${style.adminButtons}`}>
+              <ButtonApp
+                labelID={'page.analysis.category.form.update.title'}
+                onClick={() => setCategory(true)}
+                type='button'
+                buttonStyle={['primary', 'outlined']}
+                size='small'
+                icon={iconEdit}
+              />
+              <ButtonApp
+                labelID={'page.analysis.category.form.remove.title'}
+                onClick={() => setDeleteCat(true)}
+                type='button'
+                buttonStyle='delete'
+                size='small'
+                icon={iconDelete}
+              />
+            </div>
+          </div>
         </div>
         {/* <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/> */}
       </header>

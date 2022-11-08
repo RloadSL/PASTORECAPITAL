@@ -1,3 +1,3 @@
-import AnalysisArticles from "ui/pages/analysis/articles/Articles";
+import AnalysisArticleDetail from "ui/pages/analysis/articles/AnalysisArticleDetail";
 
-export default AnalysisArticles
+export default AnalysisArticleDetail

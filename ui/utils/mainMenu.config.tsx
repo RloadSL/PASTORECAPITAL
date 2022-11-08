@@ -52,10 +52,25 @@ export const mainMenuItems = [
     ]
   },
   {
-    type: 'link',
+    type: 'accordion',
     icon: analysis,
-    label: 'mainMenu.item.label.analysis',
-    children: null,
+    label: 'mainMenu.item.label.tempName',
+    children: [
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.analysis',
+        children: null,
+        href: '/analysis',
+        path:'analysis'
+      },
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.flashUpdates',
+        children: null,
+        href: '/analysis/flash-updates',
+        path:'analysis/flash-updates'
+      }
+    ],
     href: '/analysis',
     path:'analysis'
   },

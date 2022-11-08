@@ -17,6 +17,10 @@ body {
 	background-color: colors.$grey20;
 }
 
+.hidden {
+	display: none;
+}
+
 .flex-container {
 	display: flex;
 	&.row {

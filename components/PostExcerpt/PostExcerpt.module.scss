@@ -156,6 +156,11 @@
   align-items: center;
   margin-top: 5px;
 
+  & .date {
+    // margin-top: 12px;
+    display: inline-block;
+  }
+
   & .content {
     margin-bottom: 0px;
     color: colors.$grey60;
@@ -168,10 +173,6 @@
         content: ' | ';
         font-weight: normal;
       }
-    }
-  
-    & .date {
-  
     }
   }
 

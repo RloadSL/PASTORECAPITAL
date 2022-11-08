@@ -7,6 +7,11 @@
   padding: 2%;
   position: relative;
 
+  .adminButtons {
+    max-width: 420px !important;
+    margin-bottom: 50px;
+  }
+
   .collapsedItem {
     display:flex;
     justify-content: space-between;
