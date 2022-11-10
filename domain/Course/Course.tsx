@@ -1,4 +1,4 @@
-import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/course.dto'
+import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/post.dto'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import tagIcon  from '../../assets/img/icons/tags.svg' 
 import clock  from '../../assets/img/icons/clock.svg' 

@@ -127,7 +127,7 @@ const CreateCategoryAnalysisView = ({
           initialValues={{
             name: cat?.name,
             description: cat?.description,
-            collapsable_items: cat?.collapsable_items || false,
+            collapsable_items: cat?.collapsable_items === "1" && true,
           }}
           validationSchema={validationSchema}
           onSubmit={values => createCat(values)}

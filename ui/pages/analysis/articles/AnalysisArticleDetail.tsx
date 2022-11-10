@@ -1,6 +1,5 @@
 import ReadingProgressBar from 'components/ReadingProgressBar'
 import { Post } from 'domain/Post/Post'
-import { PostDto } from 'infrastructure/dto/course.dto'
 import { NextPage } from 'next'
 import { useRef } from 'react'
 import { article } from 'ui/utils/test.data'
@@ -8,16 +7,17 @@ import style from './analysisArticleDetail.module.scss'
 import parse from 'html-react-parser'
 import WordpressHeader from 'WordpressHeader'
 import SocialMediaButtons from 'components/SocialMediaButtons'
+import { PostDto } from 'infrastructure/dto/post.dto'
 
-const postArticle = new Post(article as any)
 
-const AnalysisArticleDetail:NextPage<any> = () => {
+const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
+
   return (
-    <AnalysisArticleDetailView></AnalysisArticleDetailView>
+    <AnalysisArticleDetailView post={new Post(post)}></AnalysisArticleDetailView>
   )
 }
 
-const AnalysisArticleDetailView = () => {
+const AnalysisArticleDetailView = ({post}:{post:Post}) => {
   const contentRef = useRef<any>()
 
   return (
@@ -44,10 +44,10 @@ const AnalysisArticleDetailView = () => {
           </div>
         )} */}
         <div className={style.headerLesson}>
-          <p className='small-caps'>{'titular'}</p>
-          <h1 className='main-title'>{postArticle.title.rendered}</h1>
+          <p className='small-caps'>{post.author?.name}</p>
+          <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
-        <div className={style.post}>{parse(postArticle.content?.rendered || '')}</div>
+        <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <div><SocialMediaButtons></SocialMediaButtons></div>
 
         {/* {renderPaginator()} */}

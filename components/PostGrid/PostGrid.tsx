@@ -82,7 +82,7 @@ const PostGrid = ({
     } else if (status == 'publish') {
       router.push({
         pathname: onClickItemTarget + slug,
-        query: { post_id: id, post_title: title }
+        query: {...router.query, post_id: id, post_title: title }
       })
     }
   }

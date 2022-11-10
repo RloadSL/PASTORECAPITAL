@@ -21,7 +21,7 @@ import LinkApp from 'components/LinkApp'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import Head from 'next/head'
 import WordpressHeader from 'WordpressHeader'
-import { PostDto } from 'infrastructure/dto/course.dto'
+import { PostDto } from 'infrastructure/dto/post.dto'
 
 const CreateFormLesson = dynamic(
   () => import('./components/CreateFormLesson'),

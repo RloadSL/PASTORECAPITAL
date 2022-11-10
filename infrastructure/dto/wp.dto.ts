@@ -30,5 +30,8 @@ export interface PAGES {
 export interface WP_TERM {
   name: string,
   slug: string,
-  term_id?: number
+  term_id?: number,
+  metas?: any,
+  parent?: any,
+  taxonomy?: string
 }

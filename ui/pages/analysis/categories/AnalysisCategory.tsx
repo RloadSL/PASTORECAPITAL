@@ -26,7 +26,7 @@ import { FormattedMessage } from 'react-intl'
 import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
-
+import { Post } from 'domain/Post/Post'
 
 // const CreateForm = dynamic(() => import('./components/CreateForm'), {
 //   suspense: true
@@ -37,29 +37,6 @@ import iconDelete from '../../../../assets/img/icons/trash.svg'
  * @returns
  */
 
-const fakeArticlesList = [
-  {
-    title: 'Este es el título de una noticia sobre bitcoins',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    author: 'John Doe',
-    date: '20 Feb 2022'
-  },
-  {
-    title: 'Tips para estar a la ultima en criptomonedas',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    author: 'John Doe',
-    date: '20 Feb 2022'
-  },
-  {
-    title: 'Ethereum empuja con fuerza la caída del bitcoin a nivel mundial',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s',
-    author: 'John Doe',
-    date: '20 Feb 2022'
-  }
-]
 
 const AnalysisCategory = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -68,6 +45,7 @@ const AnalysisCategory = () => {
     categories: undefined,
     tags: undefined
   })
+  const [outstandingArt, setOutstandingArt] = useState([])
   const userLogged = useSelector(getUserLogged)
   const { userDataToken, wpToken } = userLogged || {}
   const { query, replace } = useRouter()
@@ -84,6 +62,10 @@ const AnalysisCategory = () => {
       }
     }
   }, [filters, statePost])
+
+  useEffect(() => {
+    if (userLogged?.uid) getOutstandingArticles().then((res)=> setOutstandingArt(res))
+  })
 
   const _loadMore = (offset: number) => {
     if (statePost === 'public') {
@@ -103,7 +85,14 @@ const AnalysisCategory = () => {
         wpToken,
         query: { offset, category_name: query['category-slug'] as string }
       })
-    ) //OJO nombre de función academygetCourses
+    )
+  }
+
+  const getOutstandingArticles = async () => {
+    if(query['category-slug']){
+      const response = await AnalysisRepositoryInstance.getOutstandingArticles(query['category-slug'] as string)
+      return response;
+    } else return []
   }
 
   const _filter = (value: any) => {
@@ -111,12 +100,17 @@ const AnalysisCategory = () => {
   }
 
   const _onDeleteCat = async () => {
-    if (wpToken) await AnalysisRepositoryInstance.deleteCategory(wpToken, parseInt(query.cat as string))
+    if (wpToken)
+      await AnalysisRepositoryInstance.deleteCategory(
+        wpToken,
+        parseInt(query.cat as string)
+      )
     replace('/analysis', undefined, { shallow: true })
   }
 
   return (
     <AnalysisCategoryView
+      outstandingArt={outstandingArt}
       onDeleteCat={_onDeleteCat}
       statePost={statePost}
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
@@ -137,8 +131,10 @@ const AnalysisCategoryView = ({
   setStatePost,
   statePost,
   loadMore,
-  onDeleteCat
+  onDeleteCat,
+  outstandingArt
 }: {
+  outstandingArt: Post[]
   userType: boolean
   onFilter: Function
   onDeleteCat: Function
@@ -158,9 +154,7 @@ const AnalysisCategoryView = ({
   const { query } = useRouter()
   const privateCats = ['flash-updates']
 
-  const isPrivateExcerpt = useRef(
-    privateCats.includes(query['category-slug'] as string)
-  )
+  const isPrivateExcerpt = useRef(query.collapsable_items === '1')
 
   return (
     <div className={style.analysisCategoryPage}>
@@ -197,7 +191,7 @@ const AnalysisCategoryView = ({
           loadMore={loadMore}
           statePost={statePost}
           setStatePost={(state: 'public' | 'private') => setStatePost(state)}
-          onClickItemTarget='/analysis/'
+          onClickItemTarget={encodeURI(`/analysis/${query['category-slug']}/`) }
           deleteItem={(value: { id: number; status: string }) =>
             setDeleteArticle(value)
           }
@@ -205,9 +199,7 @@ const AnalysisCategoryView = ({
           typeItem={isPrivateExcerpt.current ? 'privateExcerpt' : 'excerpt'}
           alignment={isPrivateExcerpt.current ? 'column' : 'row'}
         />
-        {isPrivateExcerpt.current && (
-          <LatestArticles articlesList={fakeArticlesList} />
-        )}
+        {(isPrivateExcerpt.current && outstandingArt.length > 0) && <LatestArticles articlesList={outstandingArt} />}
       </div>
 
       {updateCat && (

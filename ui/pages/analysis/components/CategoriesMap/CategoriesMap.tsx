@@ -64,7 +64,8 @@ const CategoriesMapView = ({
                           navigate(
                             {
                               cat: cat.term_id,
-                              category_name: cat.name
+                              category_name: cat.name,
+                              collapsable_items : cat.metas.collapsable_items || false
                             },
                             cat.slug
                           )

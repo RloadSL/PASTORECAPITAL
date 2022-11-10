@@ -23,8 +23,8 @@ export interface INPUTCHECKBLOCKPROPS {
  * @returns 
  */
 
-const InputCheckFormikApp = ({value,children, error, name, onBlur }: any) => {
-  const [field, meta] = useField({name, type: "checkbox" , value});
+const InputCheckFormikApp = ({children, error, name, onBlur }: any) => {
+  const [field, meta] = useField({name, type: "checkbox" });
   return (
     <>
       <div className={error ? `${style.hasError} ${style.inputContainer}` : style.inputContainer}>

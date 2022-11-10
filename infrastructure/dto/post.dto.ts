@@ -4,10 +4,8 @@ export interface PostDto {
   formatted_tags: WpTerm[],
   lessons?: any[],
   status: string,
-  created_by?:{username: string, uid: string, name: string},
-  acf:Array<any>,
-  
-
+  created_by?: { username: string, uid: string, name: string },
+  acf: Array<any>, 
   excerpt: {
     rendered: string,
     raw: string
@@ -25,13 +23,14 @@ export interface PostDto {
   /**
    * ISO Date convertir a new Date
    */
-  date: string | Date
+  date: string | Date,
+  metas?: any,
 }
 
 export interface WpCat {
   name: string,
   slug: string,
-  parent: WpCat | 0,
+  parent: WpCat | 0,
   term_id?: number
 }
 

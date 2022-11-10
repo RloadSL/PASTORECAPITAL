@@ -2,7 +2,7 @@ import Chips from 'components/Chips'
 import style from './PostExcerpt.module.scss'
 import parse from 'html-react-parser'
 import React from 'react'
-import { WpCat } from 'infrastructure/dto/course.dto'
+import { WpCat } from 'infrastructure/dto/post.dto'
 import Avatar from 'components/Avatar'
 
 export interface POSTEXCERPTPROPS {

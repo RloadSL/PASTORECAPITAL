@@ -1,4 +1,4 @@
-import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/course.dto'
+import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/post.dto'
 
 export class Post {
   private _id: string
@@ -84,6 +84,9 @@ export class Post {
   public get created_at (): Date {
     return this._created_at
   }
+
+  metas?: any;
+
   constructor (post: PostDto) {
     this._id = post.id.toString()
     this._tags = post.formatted_tags || []
@@ -98,6 +101,7 @@ export class Post {
     this._created_at = new Date(post.date)
     this._lessons = post.lessons
     this._author = post.created_by
+    this.metas = post.metas
   }
 
   public toJson = (): PostDto => ({

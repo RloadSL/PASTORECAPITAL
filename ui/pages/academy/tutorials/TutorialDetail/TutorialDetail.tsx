@@ -1,5 +1,5 @@
 import style from './TutorialDetail.module.scss'
-import { PostDto } from 'infrastructure/dto/course.dto'
+import { PostDto } from 'infrastructure/dto/post.dto'
 import { WP_EDIT_POST } from 'infrastructure/wordpress/config'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'

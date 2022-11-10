@@ -38,7 +38,6 @@ export const getAnalysisArticles = createAsyncThunk(
   'analysis@getAnalysisArticles',
   async ({ wpToken, userDataToken, query }: { wpToken?: string, userDataToken?: string, query?: ANALYSIS_QUERY }, { getState }) => {
     try {
-      console.log(query)
       const response = await AnalysisRepositoryInstance.getArticles(userDataToken, wpToken, { ...query, posts_per_page: 5 })
       
       return { articles: response, offset: query?.offset };
