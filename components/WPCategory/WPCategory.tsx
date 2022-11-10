@@ -58,7 +58,7 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
       <div className={style.buttonContainer}>
         <ButtonApp
           onClick={() => console.log('hola')}
-          labelID='Explorar categoría'
+          labelID='page.analysis.category.button.label'
           buttonStyle={'dark'}
         />
       </div>

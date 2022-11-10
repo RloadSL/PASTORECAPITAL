@@ -50,7 +50,7 @@ const CategoriesMapView = ({
   return (
     <div className={style.filtersContainer}>
       <span className={style.filterLabel}>
-        <FormattedMessage id='Categorías' />
+        <FormattedMessage id='page.analysis.categoryFilter.title' />
       </span>
       <div className={style.filterListContainer}>
         <ul className={style.filterList}>

@@ -67,7 +67,7 @@ export const mainMenuItems = [
         type: 'link',
         label: 'mainMenu.item.label.flashUpdates',
         children: null,
-        href: '/analysis/flash-updates',
+        href: '/analysis/flash-updates/?cat=62&category_name=Flash+Updates',
         path:'analysis/flash-updates'
       }
     ],

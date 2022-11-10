@@ -21,7 +21,9 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: transparentize(colors.$dark, 0.4);;
+    // background-color: transparentize(colors.$dark, 0.4);;
+    background-image: url(../../assets/img/backdrop-bg.jpg);
+    background-size: cover;
     .content{
       width: 100%;
       min-height: 350px;
