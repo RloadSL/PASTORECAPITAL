@@ -7,38 +7,49 @@ import { useComponentUtils } from 'ui/hooks/components.hooks'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import style from './ArticlesGrid.module.scss'
 import lockIcon from '../../assets/img/icons/lock-w.svg'
+import { WP_TERM } from 'infrastructure/dto/wp.dto'
 
 type articlestyles = 'flex' | 'grid';
 interface ARTICLESGRIDPROPS {
   posts?: Array<Post>, //@jose no olvidar quitar el any
   componentStyle?: articlestyles | Array<articlestyles>
-
+  category: WP_TERM
   windowSize?: any
 }
 
-const ArticlesGrid = ({ posts, componentStyle = 'flex' }: ARTICLESGRIDPROPS) => {
+const ArticlesGrid = ({ posts, componentStyle = 'flex', category }: ARTICLESGRIDPROPS) => {
   const windowSize = useWindowSize();
-  return <ArticlesGridView windowSize={windowSize} posts={posts} componentStyle={componentStyle} />
+  return <ArticlesGridView category={category} windowSize={windowSize} posts={posts} componentStyle={componentStyle} />
 }
 
-const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize }: ARTICLESGRIDPROPS) => {
+const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category }: ARTICLESGRIDPROPS) => {
   const { buildClassName, limitTextLength } = useComponentUtils();
   const getLevel = useCallback(
     (post: Post) => post.categories.find(cat => cat.parent != 0 && cat.parent.slug === 'plans'),
     [],
   )
 
+  
 
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
-
-      {posts?.map((singlePost, index) => {
+        {posts?.map((singlePost, index) => {
           const postLevel = getLevel(singlePost)
-          // console.log('aqui esto',postLevel?.name)
+          const query:any = {
+            cat: category.term_id,
+            category_name: category.name,
+            collapsable_items: category.metas.collapsable_items || false,
+            post_id : singlePost.id,
+            post_title : singlePost.title.rendered
+          }
+         console.log(singlePost)
         return (
-          <div key={index} className={`${index === 0 ? style.firstChild : ''} ${style.articlesGridItem}`}>
+          <div key={singlePost.id} className={`${index === 0 ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>
-              <Link href={'#'}>
+              <Link href={{
+                pathname: encodeURI(`/analysis/${category.slug}/${singlePost.slug}`),
+                query
+              }}>
                 <div className={style.innerContainer}>
                   <PostExcerpt
                     thumbnail={singlePost.thumbnail_url}

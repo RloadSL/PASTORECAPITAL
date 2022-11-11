@@ -11,18 +11,22 @@ import { Post } from 'domain/Post/Post'
 import Loading from 'components/Loading'
 import Link from 'next/link'
 import ButtonApp from 'components/ButtonApp'
+import { useRouter } from 'next/router'
 
 interface WPCATEGORYPROPS {
   componentStyle?: 'flex' | 'grid'
   category: WP_TERM
   articles?: Array<Post>
   loading?: boolean
+  routerProps?: any
 }
 
 const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
   const userLogged = useSelector(getUserLogged)
   const [articles, setArticles] = useState<Post[]>([])
   const [loading, setloading] = useState<boolean>(true)
+  const router = useRouter()
+
   useEffect(() => {
     let fetching = true
     if (userLogged?.uid) {
@@ -43,10 +47,18 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
       fetching = false
     }
   }, [category])
+
+  const navigate = (queryparams: any, slug: string) => {
+    router.push({
+      pathname: router.asPath + slug,
+      query: queryparams
+    })
+  }
   return (
     <div className={style.categoryContainer}>
       {articles.length > 0 ? (
         <WPCategoryView
+          routerProps={{ asPath: router.asPath }}
           loading={loading}
           articles={articles}
           componentStyle={componentStyle}
@@ -57,7 +69,16 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
       )}
       <div className={style.buttonContainer}>
         <ButtonApp
-          onClick={() => console.log('hola')}
+          onClick={() =>
+            navigate(
+              {
+                cat: category.term_id,
+                category_name: category.name,
+                collapsable_items: category.metas.collapsable_items || false
+              },
+              category.slug
+            )
+          }
           labelID='page.analysis.category.button.label'
           buttonStyle={'dark'}
         />
@@ -72,16 +93,22 @@ const WPCategoryView = ({
   componentStyle,
   category,
   articles,
-  loading
+  loading,
+  routerProps
 }: WPCATEGORYPROPS) => {
   return (
     <div className={style.categoryContainer}>
       <h2 className={style.title}>
-        <Link href={'#'}>
-          {category.name}
-        </Link>
+        <Link href={{
+          pathname: routerProps.asPath + category.slug,
+          query: {
+            cat: category.term_id,
+            category_name: category.name,
+            collapsable_items: category.metas.collapsable_items || false
+          }
+        }}>{category.name}</Link>
       </h2>
-      <ArticlesGrid componentStyle={componentStyle} posts={articles} />
+      <ArticlesGrid category={category} componentStyle={componentStyle} posts={articles} />
     </div>
   )
 }

@@ -127,7 +127,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories }: any) => {
       {categories.map((WPterm: any, index: number) => {
         const { term } = WPterm
         return (
-          <div key={index}>
+          <div key={term.id}>
             <WPCategory
               key={term.term_id.toString()}
               componentStyle={'grid'}
