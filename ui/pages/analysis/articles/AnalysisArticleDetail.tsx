@@ -8,10 +8,10 @@ import parse from 'html-react-parser'
 import WordpressHeader from 'WordpressHeader'
 import SocialMediaButtons from 'components/SocialMediaButtons'
 import { PostDto } from 'infrastructure/dto/post.dto'
+import { useRouter } from 'next/router'
 
 
 const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
-  console.log(post)
   return (
     <AnalysisArticleDetailView post={new Post(post)}></AnalysisArticleDetailView>
   )
@@ -19,7 +19,7 @@ const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
 
 const AnalysisArticleDetailView = ({post}:{post:Post}) => {
   const contentRef = useRef<any>()
- 
+  const {query} = useRouter();
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <WordpressHeader/>
@@ -44,6 +44,7 @@ const AnalysisArticleDetailView = ({post}:{post:Post}) => {
           </div>
         )} */}
         <div className={style.headerLesson}>
+          <p className='small-caps'>{query.category_name}</p>
           <p className='small-caps'>{post.author?.name}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
