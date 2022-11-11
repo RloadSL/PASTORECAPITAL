@@ -117,11 +117,11 @@ export class AnalysisRepository {
 
   async getArticle(id?: string) {
     try {
-      const res = await HTTP.get(`${WP_API_ANLALYSIS}/${id}`);
+      const res = await HTTP.get(`${WP_API_ANLALYSIS}articles/${id}`);
       if(res) return new Post(res);
       else return undefined
     } catch (error) {
-      console.error('async read',`${WP_API_POST}/${id}`);
+      console.error('async read',`${WP_API_ANLALYSIS}articles/${id}`, error);
       return undefined;
     }
   }

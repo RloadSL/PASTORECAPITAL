@@ -11,7 +11,7 @@ import { PostDto } from 'infrastructure/dto/post.dto'
 
 
 const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
-
+  console.log(post)
   return (
     <AnalysisArticleDetailView post={new Post(post)}></AnalysisArticleDetailView>
   )
@@ -19,7 +19,7 @@ const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
 
 const AnalysisArticleDetailView = ({post}:{post:Post}) => {
   const contentRef = useRef<any>()
-
+ 
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <WordpressHeader/>
