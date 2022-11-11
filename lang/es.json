@@ -106,6 +106,9 @@
   "academy.create.tutorials": "<b>Crear</b> nuevo tutorial",
   "academy.create.courses": "<b>Crear</b> nuevo curso",
 
+  "page.analysis.title" : "Análisis",
+  "page.analysis.categoryFilter.title" : "Categorías",
+  "page.analysis.category.button.label" : "Explorar Categoría",
   "page.analysis.articles.form.create.title" : "Crear nuevo artículo",
   "page.analysis.articles.form.create.excerpt" : "Resumen del artículo",
   "page.analysis.articles.form.create.category" : "Categoría del artículo",

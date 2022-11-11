@@ -115,7 +115,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories }: any) => {
     <div className={style.analysisPage}>
       <header>
         <p className={`main-title`}>
-          <FormattedMessage id='Análisis' />
+          <FormattedMessage id='page.analysis.title' />
         </p>
       </header>
       <CategoriesMap
@@ -127,14 +127,14 @@ const AnalysisView = ({ categories, editionGranted, getCategories }: any) => {
       {categories.map((WPterm: any, index: number) => {
         const { term } = WPterm
         return (
-          <>
+          <div key={index}>
             <WPCategory
               key={term.term_id.toString()}
               componentStyle={'grid'}
               category={term}
             />
             {renderBanners(index)}
-          </>
+          </div>
         )
       })}
 
@@ -142,7 +142,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories }: any) => {
         {editionGranted && (
           <ButtonApp
             onClick={() => setCreate(!create)}
-            labelID='Añadir nuevo artículo'
+            labelID='page.analysis.articles.form.create.title'
             buttonStyle='primary'
             icon={addArticleIcon}
           />

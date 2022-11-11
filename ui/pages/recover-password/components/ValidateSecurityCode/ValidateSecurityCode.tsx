@@ -18,7 +18,7 @@ const ValidateSecurityCode = ({ email }: { email: string }) => {
   const dispatch = useDispatch<AppDispatch>()
   const _validateCode = (code: number) => { if (email) dispatch(validateCode({ code, email })) }
   const _sendEmailCode = () => {
-    dispatch(sendEmailCode({email}))
+    dispatch(sendEmailCode({ email }))
   };
   //@maria traducciones
   const validationSchema = useCallback(
@@ -70,17 +70,19 @@ const ValidateSecurityCodeView = ({
           />
         </p>
       </div>
-      <div className='margin-top-30'>
-        <ButtonApp buttonStyle="link" labelID='forms.labels.resend-code' onClick={()=>sendEmailCode()}/>
+      <div>
         <div>
           <FormApp
             validationSchema={validationSchema}
             initialValues={{ code: '' }}
             onSubmit={(values: any) => validateCode(values.code)}
           >
-            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' maxLength={4}/>
+            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' maxLength={4} />
             <ButtonApp buttonStyle='secondary' type='submit' labelID='page.recover-password.form.validateCode.submit' />
           </FormApp>
+        </div>
+        <div style={{marginLeft:'-10px'}}>
+          <ButtonApp size='small' buttonStyle="link" labelID='forms.labels.resend-code' onClick={() => sendEmailCode()} />
         </div>
       </div>
 
