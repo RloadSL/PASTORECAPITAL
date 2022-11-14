@@ -4,13 +4,13 @@ import { HTTP } from "infrastructure/http/http";
 import { WP_API_ANLALYSIS, WP_API_CATEGORY, WP_API_POST } from "infrastructure/wordpress/config";
 
 export interface ANALYSIS_QUERY {
-  post_status?: 'private' | 'publish',
+  post_status?: 'private' | 'publish' | 'public',
   posts_per_page?: number,
   offset?: number,
   /**
    * @description Buscador por string
    */
-  search?: string,
+  s?: string,
   /**
    * @description Slug de la categoría
    */
@@ -85,8 +85,10 @@ export class AnalysisRepository {
 
   async getArticles(userDataToken?: string, wpToken?: string, query?: ANALYSIS_QUERY) {
     let params: string = userDataToken ? `user-data=${userDataToken}&` : ''
-    type query_type = 'post_status' | 'posts_per_page' | 'offset' | 'search' | 'category_name';
+    type query_type = 'post_status' | 'posts_per_page' | 'offset' | 's' | 'category_name';
     if (query) {
+      if(query.post_status && query.post_status === 'public') query.post_status = 'publish';
+
       Object.keys(query).forEach((key) => {
         if (query[key as query_type]) {
           params += `${key}=${query[key as query_type]}&`;
@@ -125,6 +127,16 @@ export class AnalysisRepository {
       return undefined;
     }
   }
+
+  async deleteArticle(id: number, wpToken: string): Promise<void> {
+    try {
+      const deleted = await HTTP.delete(WP_API_POST + `/${id}?force=true`, { Authorization: `Bearer ${wpToken}` })
+      return deleted.data;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en user.repository')
+    }
+  };
 }
 
 export const AnalysisRepositoryInstance = AnalysisRepository.getInstance();

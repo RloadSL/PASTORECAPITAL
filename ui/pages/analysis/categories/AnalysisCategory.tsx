@@ -27,6 +27,7 @@ import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
+import WpSearch from 'components/WPSearch'
 
 const CreateFormArticle = dynamic(() => import('../components/CreateFormArticle'), {
   suspense: true
@@ -65,7 +66,7 @@ const AnalysisCategory = () => {
 
   useEffect(() => {
     if (userLogged?.uid) getOutstandingArticles().then((res)=> setOutstandingArt(res))
-  })
+  },[])
 
   const _loadMore = (offset: number) => {
     if (statePost === 'public') {
@@ -83,7 +84,7 @@ const AnalysisCategory = () => {
       getAnalysisArticles({
         userDataToken,
         wpToken,
-        query: { offset, category_name: query['category-slug'] as string }
+        query: { offset, post_status: statePost,category_name: query['category-slug'] as string, s: filters.search }
       })
     )
   }
@@ -108,10 +109,20 @@ const AnalysisCategory = () => {
     replace('/analysis', undefined, { shallow: true })
   }
 
+  const _onDeleteArt = async (data:  { id: number; status: string })=>{
+    if (wpToken){
+      await AnalysisRepositoryInstance.deleteArticle(
+        data.id,
+        wpToken,
+      )
+      setFilters(pre => ({...pre}))
+    }
+  }
   return (
     <AnalysisCategoryView
       outstandingArt={outstandingArt}
       onDeleteCat={_onDeleteCat}
+      onDeleteArt={_onDeleteArt}
       statePost={statePost}
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
       loadMore={_loadMore}
@@ -132,12 +143,14 @@ const AnalysisCategoryView = ({
   statePost,
   loadMore,
   onDeleteCat,
+  onDeleteArt,
   outstandingArt
 }: {
   outstandingArt: Post[]
   userType: boolean
   onFilter: Function
   onDeleteCat: Function
+  onDeleteArt: Function
   setStatePost: Function
   statePost: 'public' | 'private'
   loadMore: Function
@@ -152,8 +165,6 @@ const AnalysisCategoryView = ({
     Function
   ] = useState(null)
   const { query } = useRouter()
-  const privateCats = ['flash-updates']
-
   const isPrivateExcerpt = useRef(query.collapsable_items === '1')
 
   return (
@@ -183,7 +194,7 @@ const AnalysisCategoryView = ({
             </div>
           </div>
         </div>
-        {/* <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/> */}
+        <WpSearch onFilter={(value: {search?: string, tags?: string})=>onFilter(value)}/>
       </header>
       <div className={isPrivateExcerpt.current ? style.collapsedItem : ''}>
         <PostGrid
@@ -227,9 +238,27 @@ const AnalysisCategoryView = ({
           </AlertApp>
         </Suspense>
       )}
+       {deleteArticle && (
+        <Suspense>
+          <AlertApp
+            title='page.analysis.articles.form.remove.title'
+            visible={deleteArticle}
+            onAction={() => {
+              onDeleteArt(deleteArticle)
+              setDeleteArticle(null)
+            }}
+            onCancel={() => setDeleteArticle(null)}
+          >
+            <p>
+              <FormattedMessage id='page.analysis.articles.form.remove.content' />
+            </p>
+          </AlertApp>
+        </Suspense>
+      )}
        {createArt && (
           <Suspense>
             <CreateFormArticle
+              cat={parseInt(query.cat as string)}
               onClose={() => {
                 setCreateArt(false)
               }}

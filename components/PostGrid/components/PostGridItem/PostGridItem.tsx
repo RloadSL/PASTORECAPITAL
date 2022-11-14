@@ -156,10 +156,7 @@ const PostGridItemView = ({
               }}
               thumbnail={gridItem.thumbnail_url}
               title={limitTextLength(60, gridItem.title.rendered || '')}
-              description={limitTextLength(
-                250,
-                gridItem.content.rendered || ''
-              )}
+              description={gridItem.content.rendered || ''}
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
               level={getLevel(gridItem)}
               componentStyle={'card'}

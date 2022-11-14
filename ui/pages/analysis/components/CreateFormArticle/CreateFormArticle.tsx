@@ -27,9 +27,15 @@ import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
 import { Post } from 'domain/Post/Post'
+import LoadMoreLoading from 'components/LoadMoreLoading'
 
-const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
-  const dispatch = useDispatch<AppDispatch>()
+const CreateFormArticle = ({
+  onClose,
+  cat
+}: {
+  onClose: Function
+  cat?: number
+}) => {
   const intl = useIntl()
   const { pushErrorsApp } = useSystem()
 
@@ -84,7 +90,7 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
 
   const createCourses = async (data: any): Promise<any> => {
     setloading(true)
-    
+
     if (userLogged.wpToken) {
       const response = await AnalysisRepositoryInstance.createArticle(
         [data.category, ...data.activated_to_plans].map(item => parseInt(item)),
@@ -92,14 +98,17 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
         {
           title: data.title,
           excerpt: data.excerpt,
-          created_by: { username: userLogged.email, uid: userLogged.uid , name:`${userLogged.name} ${userLogged.lastname}`}
+          created_by: {
+            username: userLogged.email,
+            uid: userLogged.uid,
+            name: `${userLogged.name} ${userLogged.lastname}`
+          }
         }
       )
 
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
-      } else if(response instanceof Post){
-        console.log(response.toJson())
+      } else if (response instanceof Post) {
         window.open(
           `${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`
         )
@@ -131,7 +140,7 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
         activated_to_plans: yup
           .array()
-          .of(yup.number())
+          .of(yup.string())
           .min(1, intl.formatMessage({ id: 'forms.errors.errorRequired' }))
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
       }),
@@ -145,6 +154,7 @@ const CreateFormArticle = ({ onClose }: { onClose: Function }) => {
       categoriesPlans={categoriesPlans}
       validationSchema={validationSchema}
       loading={loading}
+      cat={cat}
       createCourses={(data: any) => createCourses(data)}
     />
   )
@@ -156,8 +166,10 @@ const CreateFormView = ({
   onClose = () => null,
   categories = [],
   categoriesPlans,
-  loading
+  loading,
+  cat
 }: {
+  cat?: number
   createCourses: Function
   validationSchema: any
   onClose: Function
@@ -165,6 +177,18 @@ const CreateFormView = ({
   categories: { value: string; label: string }[]
   categoriesPlans: { value: string; label: string; key: string }[]
 }) => {
+  const initialValues: {
+    title: string,
+    excerpt: string,
+    category: any,
+    activated_to_plans: string[]
+  } = {
+    title: '',
+    excerpt: '',
+    category: cat,
+    activated_to_plans: []
+  } 
+
   return (
     <Modal onBtnClose={() => onClose()}>
       <div className={style.cardContainer}>
@@ -174,12 +198,7 @@ const CreateFormView = ({
           </h3>
         </div>
         <Formik
-          initialValues={{
-            title: '',
-            excerpt: '',
-            category: undefined,
-            activated_to_plans: undefined
-          }}
+          initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={values => createCourses(values)}
         >
@@ -196,38 +215,52 @@ const CreateFormView = ({
                 name='excerpt'
                 icon={fileIcon}
               />
-              <SelectFormikApp
-                selectOptions={categories}
-                labelID={'page.analysis.articles.form.create.category'}
-                name={'category'}
-              />
-              {/* @maria Make component Checklist */}
-             <div className='checklist'>
-             <p>Seleccione el plan correspondiente</p>
-              <div role='group' style={{display: 'flex'}} aria-labelledby='checkbox-group'>
-                
-                {categoriesPlans.map(plan => (
-                  <InputCheckFormikApp
-                    name={'activated_to_plans'}
-                    labelID={`plan.${plan.label}`}
-                    key={plan.key}
-                    value={plan.value.toString()}
-                  >
-                    <FormattedMessage id={`plan.${plan.label}`}/>
-                  </InputCheckFormikApp>
-                ))}
-              </div>
-              {(errors['activated_to_plans'] && touched['activated_to_plans'] ) && <p>{errors['activated_to_plans']}</p>}
-              <div
-                style={{ marginTop: '20px', maxWidth: '300px', margin: 'auto' }}
-              >
-                <ButtonApp
-                  buttonStyle='secondary'
-                  type='submit'
-                  labelID='page.analysis.articles.form.create.submit'
+              {!cat && (
+                <SelectFormikApp
+                  selectOptions={categories}
+                  labelID={'page.analysis.articles.form.create.category'}
+                  name={'category'}
                 />
+              )}
+              {/* @maria Make component Checklist */}
+              <div className='checklist'>
+                <p>Seleccione el plan correspondiente</p>
+                <div
+                  role='group'
+                  style={{ display: 'flex' }}
+                  aria-labelledby='checkbox-group'
+                >
+                  {categoriesPlans.map(plan => (
+                    <div key={plan.key}>
+                      <InputCheckFormikApp
+                        name={'activated_to_plans'}
+                        labelID={`plan.${plan.label}`}
+                        value={plan.value.toString()}
+                        checked = {values.activated_to_plans?.includes(plan.value.toString())}
+                      >
+                        <FormattedMessage id={`plan.${plan.label}`} />
+                      </InputCheckFormikApp>
+                    </div>
+                  ))}
+                </div>
+                {errors['activated_to_plans'] &&
+                  touched['activated_to_plans'] && (
+                    <p>{errors['activated_to_plans']}</p>
+                  )}
+                <div
+                  style={{
+                    marginTop: '20px',
+                    maxWidth: '300px',
+                    margin: 'auto'
+                  }}
+                >
+                  <ButtonApp
+                    buttonStyle='secondary'
+                    type='submit'
+                    labelID='page.analysis.articles.form.create.submit'
+                  />
+                </div>
               </div>
-             </div>
             </Form>
           )}
         </Formik>
