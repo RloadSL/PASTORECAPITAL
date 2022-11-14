@@ -29,8 +29,6 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
     [],
   )
 
-  
-
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
         {posts?.map((singlePost, index) => {
@@ -42,7 +40,6 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
             post_id : singlePost.id,
             post_title : singlePost.title.rendered
           }
-         console.log(singlePost)
         return (
           <div key={singlePost.id} className={`${index === 0 ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>
