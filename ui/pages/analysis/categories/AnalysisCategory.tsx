@@ -28,9 +28,9 @@ import iconEdit from '../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
 
-// const CreateForm = dynamic(() => import('./components/CreateForm'), {
-//   suspense: true
-// })
+const CreateFormArticle = dynamic(() => import('../components/CreateFormArticle'), {
+  suspense: true
+})
 
 /**
  * Función principal del componente Analysis Category
@@ -142,7 +142,7 @@ const AnalysisCategoryView = ({
   statePost: 'public' | 'private'
   loadMore: Function
 }) => {
-  const [create, setCreate] = useState(false)
+  const [createArt, setCreateArt] = useState(false)
   const [deleteCat, setDeleteCat] = useState(false)
 
   const [updateCat, setCategory] = useState(false)
@@ -195,7 +195,7 @@ const AnalysisCategoryView = ({
           deleteItem={(value: { id: number; status: string }) =>
             setDeleteArticle(value)
           }
-          openCreate={setCreate}
+          openCreate={setCreateArt}
           typeItem={isPrivateExcerpt.current ? 'privateExcerpt' : 'excerpt'}
           alignment={isPrivateExcerpt.current ? 'column' : 'row'}
         />
@@ -227,6 +227,15 @@ const AnalysisCategoryView = ({
           </AlertApp>
         </Suspense>
       )}
+       {createArt && (
+          <Suspense>
+            <CreateFormArticle
+              onClose={() => {
+                setCreateArt(false)
+              }}
+            ></CreateFormArticle>
+          </Suspense>
+        )}
     </div>
   )
 }
