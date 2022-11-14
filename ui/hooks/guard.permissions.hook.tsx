@@ -15,7 +15,8 @@ const system_public_module = [
   '/academy/courses',
   '/subscription',
   '/analysis',
-  '/analysis/[category-slug]'
+  '/analysis/[category-slug]',
+  '/analysis/[category-slug]/[article-slug]' //OJO QUITAR
 ]
 
 const system_subscription_permission_module = {

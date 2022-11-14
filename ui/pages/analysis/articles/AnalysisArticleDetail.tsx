@@ -1,7 +1,7 @@
 import ReadingProgressBar from 'components/ReadingProgressBar'
 import { Post } from 'domain/Post/Post'
 import { NextPage } from 'next'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { article } from 'ui/utils/test.data'
 import style from './analysisArticleDetail.module.scss'
 import parse from 'html-react-parser'
@@ -9,6 +9,7 @@ import WordpressHeader from 'WordpressHeader'
 import SocialMediaButtons from 'components/SocialMediaButtons'
 import { PostDto } from 'infrastructure/dto/post.dto'
 import { useRouter } from 'next/router'
+import { useComponentUtils } from 'ui/hooks/components.hooks'
 
 
 const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
@@ -18,8 +19,18 @@ const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
 }
 
 const AnalysisArticleDetailView = ({post}:{post:Post}) => {
-  const contentRef = useRef<any>()
-  const {query} = useRouter();
+  const contentRef = useRef<any>();
+  // const { buildClassName } = useComponentUtils()
+
+  // useEffect(() => {
+  //   if (post) {
+  //     const contentSidebar = document.querySelector('.gutentoc');
+  //     contentSidebar?.classList.add('contentSidebar')
+  //   }
+  // }, [post])
+
+
+  const {query} = useRouter()
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <WordpressHeader/>
@@ -45,7 +56,7 @@ const AnalysisArticleDetailView = ({post}:{post:Post}) => {
         )} */}
         <div className={style.headerLesson}>
           <p className='small-caps'>{query.category_name}</p>
-          <p className='small-caps'>{post.author?.name}</p>
+          {/* <p className='small-caps'>{post.author?.name}</p> */}
           <h1 className='main-title'>{post.title.rendered}</h1>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
