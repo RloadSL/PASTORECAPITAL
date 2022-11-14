@@ -52,25 +52,10 @@ export const mainMenuItems = [
     ]
   },
   {
-    type: 'accordion',
+    type: 'link',
     icon: analysis,
-    label: 'mainMenu.item.label.tempName',
-    children: [
-      {
-        type: 'link',
-        label: 'mainMenu.item.label.analysis',
-        children: null,
-        href: '/analysis',
-        path:'analysis'
-      },
-      {
-        type: 'link',
-        label: 'mainMenu.item.label.flashUpdates',
-        children: null,
-        href: '/analysis/flash-updates/?cat=62&category_name=Flash+Updates',
-        path:'analysis/flash-updates'
-      }
-    ],
+    label: 'mainMenu.item.label.analysis',
+    children: null,
     href: '/analysis',
     path:'analysis'
   },
