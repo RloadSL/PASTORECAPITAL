@@ -61,6 +61,7 @@
 
 .postLink {
 	padding: 5px;
+	width: 100%;
 
 	@include devices.device(lgScreen) {
 		width: 33.3%;
