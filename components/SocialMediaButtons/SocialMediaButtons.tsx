@@ -25,7 +25,7 @@ const SocialMediaButtons = ({}: SOCIALMEDIABUTTONSPROPS) => {
 
 const SocialMediaButtonsView = ({ }: SOCIALMEDIABUTTONSPROPS) => {
   return <div className={style.socialMediaButtonsContainer}>
-    <ul className='flex-container'>
+    <ul className='flex-container justify-end'>
       <li>
         <TwitterShareButton
           url={'https://github.com/next-share'}

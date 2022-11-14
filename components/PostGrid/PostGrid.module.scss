@@ -67,16 +67,6 @@
 		width: 33.3%;
 		padding: 10px;
 	}
-
-	.postItemContainer:hover {
-		box-shadow: 0 0 0 2px colors.$main;
-		border-radius: 15px;
-		display: block;
-		cursor: pointer;
-		@include devices.device(smTablet) {
-			border-radius: 20px;
-		}
-	}
 }
 
 .createButtonContainer {

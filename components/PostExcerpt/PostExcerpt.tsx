@@ -17,7 +17,7 @@ export interface POSTEXCERPTPROPS {
     // avatar?: any,
     text?: string
     date?: any //OJO al tipado debe ser Date
-  }
+  } | null
 }
 
 /**

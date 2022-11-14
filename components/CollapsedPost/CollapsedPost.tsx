@@ -1,16 +1,19 @@
 import Chips from 'components/Chips'
 import style from './CollapsedPost.module.scss'
 import parse from 'html-react-parser'
-import React from 'react'
+import React, { useState } from 'react'
 import { WpCat } from 'infrastructure/dto/post.dto'
 import Avatar from 'components/Avatar'
 import LockedContent from 'components/LockedContent'
+import { useComponentUtils } from 'ui/hooks/components.hooks'
+import SocialMediaButtons from 'components/SocialMediaButtons'
 
 export interface COLLAPSEDPOSTPROPS {
   title?: string
   description: string
   thumbnail?: string
   chips?: any
+  // isCollapsed: boolean
   level?: WpCat | any
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
   hasSeparator?: boolean
@@ -37,7 +40,8 @@ const CollapsedPost = ({
   level,
   componentStyle,
   hasSeparator,
-  header
+  header,
+  // isCollapsed
 }: COLLAPSEDPOSTPROPS) => {
   return (
     <CollapsedPostView
@@ -49,6 +53,7 @@ const CollapsedPost = ({
       componentStyle={componentStyle}
       hasSeparator={hasSeparator}
       header={header}
+      // isCollapsed={isCollapsed}
     />
   )
 }
@@ -61,8 +66,16 @@ const CollapsedPostView = ({
   level,
   componentStyle = 'card',
   hasSeparator = true,
-  header
+  header,
+  // isCollapsed
 }: COLLAPSEDPOSTPROPS) => {
+  const { limitTextLength } = useComponentUtils()
+  const [isCollapsed, setIsCollapsed] = useState(true)
+  const renderCollapsedText = () => {
+    setIsCollapsed(!isCollapsed)
+    console.log('estoy recogido',isCollapsed)
+  }
+
   return (
     <div className={`${style.collapsedPostContainer} ${style[componentStyle]}`}>
       {chips ? <Chips chips={chips.slice(0, 3)} color='lightMain' /> : null}
@@ -82,10 +95,14 @@ const CollapsedPostView = ({
       ) : null}
       {/* */}
 
-      {/*HE COMENTADO ESTO PARA INTEGRAR EL BLOQUE DE LOCKED CONTENT*/}
       <div className={style.textContent}>
         <p className={style.title}>{title}</p>
-        <div className={style.description}>{parse(description)}</div>
+        <div className={style.description}>
+          {isCollapsed ? parse(description) : parse(limitTextLength(250,description))}
+        </div>
+        <button className={style.seeMore} onClick={()=>renderCollapsedText()}>
+          {isCollapsed ? 'Ver menos' : 'Ver más'}
+        </button>
       </div>
       {thumbnail === 'locked' ? (
         <LockedContent />
@@ -104,7 +121,7 @@ const CollapsedPostView = ({
         ></div>
       )}
       <div className={style.terms}>
-        <div className={style.footer}>redes</div>
+        <div className={style.footer}><SocialMediaButtons/></div>
       </div>
     </div>
   )
