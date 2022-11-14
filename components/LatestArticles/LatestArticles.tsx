@@ -1,4 +1,5 @@
 import { Post } from 'domain/Post/Post'
+import Link from 'next/link'
 import { FormattedMessage } from 'react-intl'
 import style from './latestArticles.module.scss'
 
@@ -17,8 +18,11 @@ export default function LatestArticles({ articlesList }: LATESTARTICLESPROPS) {
           return (
             <li key={index}>
               <div>
-                <p className={style.articleTitle}>{article.title.raw}</p>
-                <p>{article.excerpt.raw}</p>
+                <Link href={{pathname: '/analysis'}}>
+                  <p className={style.articleTitle}>{article.title.rendered}</p>
+                </Link>
+                
+                <p>{article.excerpt.rendered}</p>
                 <div className={style.authorContainer}><span className={style.author}>{article.author?.name}</span><span>{article.created_at.toLocaleDateString()}</span></div>
               </div>
             </li>
