@@ -12,6 +12,7 @@ import { AppDispatch } from 'ui/redux/store'
 import DeleteCourse from './components/DeleteCourse'
 import FilterCourse from './components/FilterCourse'
 import style from './Courses.module.scss'
+import { useRouter } from 'next/router'
 
 const CreateForm = dynamic(() => import('./components/CreateForm'), {
   suspense: true
@@ -27,6 +28,8 @@ const Courses = ()  => {
   const [filters, setFilters] = useState({search: '', categories: undefined, tags: undefined})
   const userLogged = useSelector(getUserLogged)
   const posts = useSelector(postsStore)
+  const router = useRouter()
+  console.log(router)
 
   let isAdmin: boolean = true
   const [statePost, setStatePost] = useState<'public' | 'private'> ('public')

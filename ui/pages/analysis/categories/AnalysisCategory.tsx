@@ -65,7 +65,7 @@ const AnalysisCategory = () => {
 
   useEffect(() => {
     if (userLogged?.uid) getOutstandingArticles().then((res)=> setOutstandingArt(res))
-  })
+  },[])
 
   const _loadMore = (offset: number) => {
     if (statePost === 'public') {

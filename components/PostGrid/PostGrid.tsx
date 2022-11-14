@@ -166,7 +166,6 @@ const PostGridView = ({
             {posts.items.map((item: any, index: number) => {
               return (
                 <li key={index} className={style.postLink}>
-                  <div className={style.postItemContainer}>
                     <PostGridItem
                       deleteItem={deleteItem}
                       isAdmin={editionGranted}
@@ -182,7 +181,7 @@ const PostGridView = ({
                       gridItem={item}
                       typeItem={typeItem}
                     />
-                  </div>
+                  {/* </div> */}
                 </li>
               )
             })}

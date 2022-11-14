@@ -1,7 +1,7 @@
 import Card from 'components/Card'
 import PostExcerpt from 'components/PostExcerpt'
 import { Course } from 'domain/Course/Course'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import style from './PostGridItem.module.scss'
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
@@ -13,6 +13,7 @@ import clockIcon from '../../../../assets/img/icons/clock.svg'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import CollapsedPost from 'components/CollapsedPost'
 import { Post } from 'domain/Post/Post'
+import { useRouter } from 'next/router'
 
 /**
  * Función principal del componente item grid que renderiza el elemeto que se estrcutura en el grid
@@ -52,6 +53,8 @@ const PostGridItemView = ({
   typeItem
 }: any) => {
   const { limitTextLength } = useComponentUtils()
+  const router = useRouter();
+  // console.log(router.query['category-slug'])
   const _renderHeader = () => {
     return (
       <div
@@ -122,6 +125,7 @@ const PostGridItemView = ({
   )
 
   return (
+    <div className={`${style.postItemContainer} ${router.query['category-slug'] === 'flash-updates' ? '' : style.hasHoverColor }`}>
     <Card>
       <div
         className={
@@ -131,23 +135,25 @@ const PostGridItemView = ({
         }
       >
         {isAdmin && _renderHeader()}
-        <div onClick={() => onClickItem()}>
+        <div>
           {typeItem === 'excerpt' ? (
-            <PostExcerpt
-              thumbnail={gridItem.thumbnail_url}
-              title={limitTextLength(60, gridItem.title.rendered || '')}
-              description={limitTextLength(
-                200,
-                gridItem.excerpt.rendered || ''
-              )}
-              chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
-              level={{label:gridItem.level?.name}}
-              componentStyle={'card'}
-              footer={{
-                text: `${gridItem.author?.name || gridItem.author[0]?.name}`,
-                date: gridItem.created_at.toLocaleDateString()
-              }}
-            />
+            <div onClick={() => onClickItem()}>
+              <PostExcerpt
+                thumbnail={gridItem.thumbnail_url}
+                title={limitTextLength(60, gridItem.title.rendered || '')}
+                description={limitTextLength(
+                  200,
+                  gridItem.excerpt.rendered || ''
+                )}
+                chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
+                level={{ label: gridItem.level?.name }}
+                componentStyle={'card'}
+                footer={router.pathname !== '/academy/courses' ? {
+                  text: `${gridItem.author?.name || gridItem.author[0]?.name}`,
+                  date: gridItem.created_at.toLocaleDateString()
+                } : null}
+              />
+            </div>
           ) : (
             <CollapsedPost
               header={{
@@ -156,18 +162,21 @@ const PostGridItemView = ({
               }}
               thumbnail={gridItem.thumbnail_url}
               title={limitTextLength(60, gridItem.title.rendered || '')}
-              description={limitTextLength(
-                250,
-                gridItem.content.rendered || ''
-              )}
+              // description={limitTextLength(
+              //   250,
+              //   gridItem.content.rendered || ''
+              // )}
+              description={gridItem.content.rendered || ''}
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
               level={getLevel(gridItem)}
               componentStyle={'card'}
+            // isCollapsed={isCollapsed}
             />
           )}
         </div>
       </div>
     </Card>
+    </div>
   )
 }
 
