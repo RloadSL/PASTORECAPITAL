@@ -166,7 +166,6 @@ const PostGridItemView = ({
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
               level={getLevel(gridItem)}
               componentStyle={'card'}
-            // isCollapsed={isCollapsed}
             />
           )}
         </div>

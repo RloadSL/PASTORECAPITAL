@@ -15,8 +15,7 @@ const system_public_module = [
   '/academy/courses',
   '/subscription',
   '/analysis',
-  '/analysis/[category-slug]',
-  '/analysis/[category-slug]/[article-slug]' //OJO QUITAR
+  '/analysis/[category-slug]'
 ]
 
 const system_subscription_permission_module = {
@@ -27,8 +26,8 @@ const system_subscription_permission_module = {
     ...system_public_module,
     '/academy/tutorials/[tutorial-slug]',
     '/academy/courses/[course-slug]',
-    '/academy/courses/[course-slug]/[lesson-slug]'
-    
+    '/academy/courses/[course-slug]/[lesson-slug]',
+    '/analysis/[category-slug]/[article-slug]'
   ]
 }
 
@@ -62,7 +61,6 @@ export const useGuardPermissions = () => {
       if (role?.level === 2) return setSubscriptionGranted(true)
 
       const key_sub = subscription?.plan.key || 'guest'
-      console.log(route)
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
 

@@ -1,5 +1,6 @@
 import { Post } from 'domain/Post/Post'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 import style from './latestArticles.module.scss'
 
@@ -8,6 +9,8 @@ interface LATESTARTICLESPROPS {
 }
 
 export default function LatestArticles({ articlesList }: LATESTARTICLESPROPS) {
+const { asPath, query } = useRouter()
+console.log(asPath)
   return (
     <div className={style.latestArticlesContainer}>
       <p className='small-caps'>
@@ -18,7 +21,11 @@ export default function LatestArticles({ articlesList }: LATESTARTICLESPROPS) {
           return (
             <li key={index}>
               <div>
-                <Link href={{pathname: '/analysis'}}>
+                <Link href={{pathname: asPath.split('?')[0] + article.slug, query: {
+                  ...query,
+                  post_id: article.id,
+                  post_title: article.title.rendered
+                }}}>
                   <p className={style.articleTitle}>{article.title.rendered}</p>
                 </Link>
                 

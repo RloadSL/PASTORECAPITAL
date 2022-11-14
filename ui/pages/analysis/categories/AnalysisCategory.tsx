@@ -28,6 +28,7 @@ import iconEdit from '../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
 import WpSearch from 'components/WPSearch'
+import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 const CreateFormArticle = dynamic(() => import('../components/CreateFormArticle'), {
   suspense: true
@@ -39,7 +40,7 @@ const CreateFormArticle = dynamic(() => import('../components/CreateFormArticle'
  */
 
 
-const AnalysisCategory = () => {
+const AnalysisCategory: NextPage<any> = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({
     search: '',
@@ -50,7 +51,6 @@ const AnalysisCategory = () => {
   const userLogged = useSelector(getUserLogged)
   const { userDataToken, wpToken } = userLogged || {}
   const { query, replace } = useRouter()
-
   const [statePost, setStatePost] = useState<'public' | 'private'>('public')
 
   useEffect(() => {
@@ -65,7 +65,8 @@ const AnalysisCategory = () => {
   }, [filters, statePost])
 
   useEffect(() => {
-    if (userLogged?.uid) getOutstandingArticles().then((res)=> setOutstandingArt(res))
+    if ((userLogged?.uid && userLogged.subscription.plan.level > 2) || userLogged?.role.level > 1)
+       getOutstandingArticles().then((res)=> setOutstandingArt(res))
   },[])
 
   const _loadMore = (offset: number) => {
@@ -131,13 +132,12 @@ const AnalysisCategory = () => {
         catLevel?: string
         tags?: string
       }) => _filter(value)}
-      userType={true}
     />
   )
 }
 
 const AnalysisCategoryView = ({
-  userType,
+ 
   onFilter,
   setStatePost,
   statePost,
@@ -147,7 +147,6 @@ const AnalysisCategoryView = ({
   outstandingArt
 }: {
   outstandingArt: Post[]
-  userType: boolean
   onFilter: Function
   onDeleteCat: Function
   onDeleteArt: Function
@@ -157,15 +156,15 @@ const AnalysisCategoryView = ({
 }) => {
   const [createArt, setCreateArt] = useState(false)
   const [deleteCat, setDeleteCat] = useState(false)
-
   const [updateCat, setCategory] = useState(false)
-
   const [deleteArticle, setDeleteArticle]: [
     { id: number; status: string } | null,
     Function
   ] = useState(null)
   const { query } = useRouter()
   const isPrivateExcerpt = useRef(query.collapsable_items === '1')
+  const { editionGranted } = useGuardPermissions()
+
 
   return (
     <div className={style.analysisCategoryPage}>
@@ -174,7 +173,7 @@ const AnalysisCategoryView = ({
           <p className='small-caps'>Análisis</p>
           <h1 className='main-title'>{query.category_name}</h1>
           <div className={`admin-buttons-wrapper`}>
-            <div className={`admin-buttons-container ${style.adminButtons}`}>
+            {editionGranted && <div className={`admin-buttons-container ${style.adminButtons}`}>
               <ButtonApp
                 labelID={'page.analysis.category.form.update.title'}
                 onClick={() => setCategory(true)}
@@ -191,7 +190,7 @@ const AnalysisCategoryView = ({
                 size='small'
                 icon={iconDelete}
               />
-            </div>
+            </div>}
           </div>
         </div>
         <WpSearch onFilter={(value: {search?: string, tags?: string})=>onFilter(value)}/>
