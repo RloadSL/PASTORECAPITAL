@@ -41,7 +41,7 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
             post_title : singlePost.title.rendered
           }
         return (
-          <div key={singlePost.id} className={`${index === 0 ? style.firstChild : ''} ${style.articlesGridItem}`}>
+          <div key={singlePost.id} className={`${index === 0 && componentStyle === 'grid' ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>
               <Link href={{
                 pathname: encodeURI(`/analysis/${category.slug}/${singlePost.slug}`),
@@ -53,7 +53,7 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
                     title={limitTextLength(index === 0 ? 100 : 40, singlePost.title.rendered)}
                     description={limitTextLength(index === 0 && windowSize.width > 1500 ? 350 : 150, singlePost.excerpt.rendered)}
                     level={{label:postLevel?.name,icon:lockIcon}}
-                    componentStyle={componentStyle === 'flex' && windowSize.width > 1500 ? 'column' : index === 0 && windowSize.width > 1500 ? 'column' : 'row'}
+                    componentStyle={componentStyle === 'flex' && windowSize.width > 1500 ? 'card' : index === 0 && windowSize.width > 1500 ? 'column' : 'row'}
                     hasSeparator={false}
                     footer={{ text: `${singlePost.author?.name}`, date: singlePost.created_at.toLocaleDateString() }}
                   />

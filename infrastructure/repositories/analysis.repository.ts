@@ -108,7 +108,7 @@ export class AnalysisRepository {
   }
 
   async getOutstandingArticles(category_name?: string) {
-    const res = await HTTP.get(`${WP_API_ANLALYSIS}articles/outstanding${category_name ? '?category_name='+ category_name : ''}`, HTTP.getHeaders())
+    const res = await HTTP.get(`${WP_API_ANLALYSIS}articles/outstanding?posts_per_page=3${category_name ? '&category_name='+ category_name : ''}`, HTTP.getHeaders())
     if (res.success) {
       const posts = res.hits.map((item: any) => new Post(item));
       return posts

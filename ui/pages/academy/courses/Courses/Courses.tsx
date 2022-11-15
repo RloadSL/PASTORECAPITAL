@@ -88,7 +88,13 @@ const CourseView = ({
           <p className='small-caps'>Academia</p>
           <h1 className='main-title'>Cursos</h1>
         </div>
-        <FilterCourse onFilter={(value: {search?: string, catLevel?: string, tags?: string})=>onFilter(value)}/>
+        <FilterCourse
+          onFilter={(value: {
+            search?: string
+            catLevel?: string
+            tags?: string
+          }) => onFilter(value)}
+        />
       </header>
       <PostGrid parent='academy.create.courses' loadMore={loadMore} statePost={statePost} setStatePost={(state:"public" | "private")=>setStatePost(state)} onClickItemTarget='/academy/courses/' deleteItem={(value: { id: number, status: string }) => setDeleteCourse(value)} openCreate={setCreate} />
       
