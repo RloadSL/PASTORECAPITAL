@@ -57,8 +57,7 @@ const PostGridItemView = ({
   footerType
 }: any) => {
   const { limitTextLength } = useComponentUtils()
-  const router = useRouter()
-  // console.log(router.query['category-slug'])
+ 
   const _renderHeader = () => {
     return (
       <div
@@ -131,7 +130,7 @@ const PostGridItemView = ({
   return (
     <div
       className={`${style.postItemContainer} ${
-        router.query['category-slug'] === 'flash-updates'
+        typeItem === 'privateExcerpt'
           ? ''
           : style.hasHoverColor
       }`}
