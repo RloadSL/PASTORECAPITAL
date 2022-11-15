@@ -20,6 +20,7 @@ import CreateCategoryAnalysis from './components/CreateCategoryAnalysis'
 
 const Analysis: NextPage<any> = () => {
   const [wpCategories, setWpCategories] = useState<Array<any>>([])
+  const [artOutsanding, setartOutsanding] = useState([])
   const [loading, setLoading] = useState<boolean>(true)
 
   const userLogged = useSelector(getUserLogged)
@@ -32,10 +33,12 @@ const Analysis: NextPage<any> = () => {
       AnalysisRepositoryInstance.getCategories().then(categories => {
         if (fetching) {
           setWpCategories(categories as Array<any>)
-          setLoading(false)
         }
       })
     }
+
+    AnalysisRepositoryInstance.getOutstandingArticles().then(res => setartOutsanding(res))
+
     if (Object.keys(router.query).length > 0) {
       router.replace('/analysis', undefined, { shallow: true })
     }
@@ -58,11 +61,12 @@ const Analysis: NextPage<any> = () => {
       getCategories={_getCategories}
       editionGranted={editionGranted}
       categories={wpCategories}
+      artOutsanding={artOutsanding}
     ></AnalysisView>
   )
 }
 
-const AnalysisView = ({ categories, editionGranted, getCategories }: any) => {
+const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding }: any) => {
   const [create, setCreate] = useState(false)
   const [createCategory, setCreateCategory] = useState(false)
 
@@ -123,7 +127,13 @@ const AnalysisView = ({ categories, editionGranted, getCategories }: any) => {
         editionGranted={editionGranted}
         categories={categories.map((item: any) => item.term)}
       />
-
+      <WPCategory
+        componentStyle={'flex'}
+        category={{name: 'Artículos destacados', slug:'art-outstanding', metas: false}}
+        posts = {artOutsanding}
+        
+      />
+      {artOutsanding.length > 0 && renderBanners(1)}
       {categories.map((WPterm: any, index: number) => {
         const { term } = WPterm
         return (

@@ -19,9 +19,10 @@ interface WPCATEGORYPROPS {
   articles?: Array<Post>
   loading?: boolean
   routerProps?: any
+  posts?: Post[]
 }
 
-const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
+const WPCategory = ({ componentStyle, category, posts }: WPCATEGORYPROPS) => {
   const userLogged = useSelector(getUserLogged)
   const [articles, setArticles] = useState<Post[]>([])
   const [loading, setloading] = useState<boolean>(true)
@@ -29,7 +30,7 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
 
   useEffect(() => {
     let fetching = true
-    if (userLogged?.uid) {
+    if (userLogged?.uid && !posts) {
       AnalysisRepositoryInstance.getArticles(
         userLogged?.userDataToken,
         userLogged?.wpToken,
@@ -43,6 +44,10 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
       })
     }
 
+    if (posts) {
+      setArticles(posts)
+      setloading(false)
+    }
     return () => {
       fetching = false
     }
@@ -67,22 +72,24 @@ const WPCategory = ({ componentStyle, category }: WPCATEGORYPROPS) => {
       ) : (
         <></>
       )}
-      <div className={style.buttonContainer}>
-        <ButtonApp
-          onClick={() =>
-            navigate(
-              {
-                cat: category.term_id,
-                category_name: category.name,
-                collapsable_items: category.metas.collapsable_items || false
-              },
-              category.slug
-            )
-          }
-          labelID='page.analysis.category.button.label'
-          buttonStyle={'dark'}
-        />
-      </div>
+      {category.term_id && (
+        <div className={style.buttonContainer}>
+          <ButtonApp
+            onClick={() =>
+              navigate(
+                {
+                  cat: category.term_id,
+                  category_name: category.name,
+                  collapsable_items: category.metas.collapsable_items || false
+                },
+                category.slug
+              )
+            }
+            labelID='page.analysis.category.button.label'
+            buttonStyle={'dark'}
+          />
+        </div>
+      )}
 
       <Loading loading={loading} variant='inner-primary' />
     </div>
@@ -99,16 +106,28 @@ const WPCategoryView = ({
   return (
     <div className={style.categoryContainer}>
       <h2 className={style.title}>
-        <Link href={{
-          pathname: routerProps.asPath + category.slug,
-          query: {
-            cat: category.term_id,
-            category_name: category.name,
-            collapsable_items: category.metas.collapsable_items || false
-          }
-        }}>{category.name}</Link>
+        {category.term_id ? (
+          <Link
+            href={{
+              pathname: routerProps.asPath + category.slug,
+              query: {
+                cat: category.term_id,
+                category_name: category.name,
+                collapsable_items: category.metas.collapsable_items || false
+              }
+            }}
+          >
+            {category.name}
+          </Link>
+        ) : (
+          category.name
+        )}
       </h2>
-      <ArticlesGrid category={category} componentStyle={componentStyle} posts={articles} />
+      <ArticlesGrid
+        category={category}
+        componentStyle={componentStyle}
+        posts={articles}
+      />
     </div>
   )
 }
