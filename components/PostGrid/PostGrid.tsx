@@ -33,6 +33,8 @@ interface POSTGRIDPROPS {
   parent: string,
   typeItem?: 'privateExcerpt' | 'excerpt'
   alignment?: 'row' | 'column'
+  footerType?: 'text' | 'chips'
+
 }
 
 /**
@@ -52,6 +54,7 @@ const PostGrid = ({
   statePost,
   parent,
   typeItem,
+  footerType = 'chips',
   alignment
 }: {
   openCreate: Function
@@ -61,7 +64,8 @@ const PostGrid = ({
   statePost: 'public' | 'private'
   setStatePost: Function
   parent:string
-  typeItem?: 'privateExcerpt' | 'excerpt',
+  typeItem?: 'privateExcerpt' | 'excerpt'
+  footerType?: 'text' | 'chips'
   alignment?: 'row' | 'column'
 }) => {
   const posts = useSelector(postsStore)
@@ -102,6 +106,7 @@ const PostGrid = ({
       parent={parent}
       typeItem={typeItem}
       alignment={alignment}
+      footerType={footerType}
     />
   )
 }
@@ -117,7 +122,8 @@ const PostGridView = ({
   statePost,
   parent,
   typeItem,
-  alignment = 'row'
+  alignment = 'row',
+  footerType 
 }: POSTGRIDPROPS) => {
   const router = useRouter()
   const { editionGranted } = useGuardPermissions()
@@ -156,7 +162,6 @@ const PostGridView = ({
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
           hasMore={posts.hasMore}
-          
           dataLength={posts.items.length}
           next={() => loadMore(posts.items.length)}
         >
@@ -180,8 +185,8 @@ const PostGridView = ({
                       }
                       gridItem={item}
                       typeItem={typeItem}
+                      footerType={footerType}
                     />
-                  {/* </div> */}
                 </li>
               )
             })}

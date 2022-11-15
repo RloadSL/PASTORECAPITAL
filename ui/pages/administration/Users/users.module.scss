@@ -1,0 +1,33 @@
+@use '../../../../styles/partials/placeholders';
+@use '../../../../styles/partials/mixins/devices' as devices;
+@use '../../../../styles/partials/variables/colors' as colors;
+
+.userItem{
+  display: flex;
+  padding-right: 20px;
+  width: 100%;
+  justify-content: center;
+  .information, .actions{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 5px;
+    border-bottom: grey 1px solid; 
+  }
+  .content{
+    .filters{
+      display: flex;
+    }
+  }
+  .actions{
+    width: 20%;
+    position: relative;
+    .menu-options-btn{
+      position: relative;
+      top: inherit;
+      right: inherit;
+    }
+  }
+  
+}

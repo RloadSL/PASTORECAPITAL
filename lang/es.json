@@ -123,6 +123,9 @@
   "page.analysis.category.form.remove.title": "Borrar categoría",
   "page.analysis.category.form.remove.content": "Seguro deseas eliminar la categoría, esto pondrá en estado deshabilitado todo el contenido relacionado.",
 
+  "page.administration.users.filter.placeholder" : "Buscar por nombre de usuario o email",
+  "page.administration.users.filter.role_level" : "Role del usuario",
+  "page.administration.users.filter.subscription_level" : "Plan del usuario",
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
@@ -133,6 +136,7 @@
   "auth/user-not-found": "El usuario no existe",
   "auth/email-already-exists": "El email ya esta en uso en la plataforma",
   "auth/network-request-failed" : "Error interno, inténtalo más tarde.",
+  "firestore@error" : "Error interno, permisos insuficientes para realizar esta operación por favor contacte con un Administrador. Gracias",
   "user@not-found": "El usuario no existe",
   "course.academy@term_exists" : "El curso ya existe en la plataforma",
   "api_wp@term_exists": "La categoría o el tag ya existen en la BD",
@@ -157,6 +161,7 @@
   "btn.delete": "Eliminar",
   "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
+  "btn.search": "Buscar",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    

@@ -79,8 +79,8 @@ export const mainMenuItems = [
         type: 'link',
         label: 'mainMenu.item.label.users',
         children: null,
-        href: '/administration',
-        path:'administration'
+        href: '/administration/users',
+        path:'administration/users'
       },
       {
         type: 'link',

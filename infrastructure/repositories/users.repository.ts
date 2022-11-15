@@ -4,7 +4,8 @@ import { User } from "../../domain/User/User";
 import { UserRepository } from "../../domain/User/user.repository";
 import FireFirestore  from "../firebase/firestore.firebase";
 import { UpdateUser, UserDto } from "infrastructure/dto/users.dto";
-import { Unsubscribe } from "firebase/firestore";
+import { QuerySnapshot, Unsubscribe } from "firebase/firestore";
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 /**
  * Implementación de los casos de usos para los usuarios de la plataforma
  */
@@ -41,7 +42,6 @@ class UserRepositoryImplementation extends UserRepository {
 
   async read(uid: string, extradata?: {webToken:string}): Promise<User | null> {
     if (uid == 'not-logged') {
-      
       return this.userNotLogged;
     }
     const userSnap = await FireFirestore.getDoc('users',uid)
@@ -77,6 +77,20 @@ class UserRepositoryImplementation extends UserRepository {
       alert('Error inteno en user.repository')
     }
   };
+
+  /**
+   * Administration functions
+   */
+
+  async getAll() : Promise<ErrorApp | User[]>{
+    const querySnap = await FireFirestore.getCollectionDocs('users')
+    if(querySnap instanceof ErrorApp){
+      return querySnap as ErrorApp;
+    }else{
+      return querySnap?.map((item) => new User(item.data() as UserDto))
+    }
+  }
+
 }
 
 export const UserRepositoryImplInstance = UserRepositoryImplementation.getInstance()

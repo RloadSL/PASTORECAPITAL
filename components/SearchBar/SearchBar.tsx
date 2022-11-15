@@ -1,12 +1,12 @@
 import InputApp from 'components/FormApp/components/InputApp'
-import style from './wp-search.module.scss'
+import style from './search.module.scss'
 import searchIcon from '../../assets/img/icons/glass.svg'
 import React, { useEffect, useState } from 'react'
 import { debounce } from 'lodash'
 import { getTagsFromServer } from 'infrastructure/wordpress/wp.utils'
 import Card from 'components/Card'
 
-const WpSearch = ({ onFilter }: any) => {
+const SearchBar = ({ onFilter, placeholder, enableTags= true }: any) => {
   const [tags, setTags] = useState([])
   
 
@@ -21,7 +21,7 @@ const WpSearch = ({ onFilter }: any) => {
   const _handleFilter = React.useRef(
     debounce(value => {
       setTags([])
-      if (value.search?.trim()[0] === '#') {
+      if (value.search?.trim()[0] === '#' && enableTags) {
         getTags(value.search)
       } else {
         onFilter({ ...value, tags: value.tags })
@@ -30,11 +30,11 @@ const WpSearch = ({ onFilter }: any) => {
   ).current
 
   return (
-    <WpSearchView tags={tags} onFilter={_handleFilter} />
+    <SearchBarView placeholder={placeholder} tags={tags} onFilter={_handleFilter} />
   )
 }
 
-const WpSearchView = ({ onFilter, tags }: any) => {
+const SearchBarView = ({ onFilter, tags, placeholder }: any) => {
   const [search, setsearch] = useState('')
   const _handleOnChange = (newValue: {
     search?: string
@@ -54,7 +54,7 @@ const WpSearchView = ({ onFilter, tags }: any) => {
                 _handleOnChange({ [name]: value })
                 setsearch(value)
               }}
-              labelID={'page.academy.courses.filterSearch.label'}
+              labelID={placeholder || 'page.academy.courses.filterSearch.label'}
               icon={searchIcon}
               name='search'
               type='text'
@@ -87,4 +87,4 @@ const WpSearchView = ({ onFilter, tags }: any) => {
   )
 }
 
-export default WpSearch
+export default SearchBar

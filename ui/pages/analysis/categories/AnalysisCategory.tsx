@@ -27,7 +27,7 @@ import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
-import WpSearch from 'components/WPSearch'
+import SearchBar from 'components/SearchBar'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 const CreateFormArticle = dynamic(() => import('../components/CreateFormArticle'), {
@@ -193,7 +193,7 @@ const AnalysisCategoryView = ({
             </div>}
           </div>
         </div>
-        <WpSearch onFilter={(value: {search?: string, tags?: string})=>onFilter(value)}/>
+        <SearchBar onFilter={(value: {search?: string, tags?: string})=>onFilter(value)}/>
       </header>
       <div className={isPrivateExcerpt.current ? style.collapsedItem : ''}>
         <PostGrid
@@ -207,6 +207,7 @@ const AnalysisCategoryView = ({
           }
           openCreate={setCreateArt}
           typeItem={isPrivateExcerpt.current ? 'privateExcerpt' : 'excerpt'}
+          footerType='text'
           alignment={isPrivateExcerpt.current ? 'column' : 'row'}
         />
         {(isPrivateExcerpt.current && outstandingArt.length > 0) && <LatestArticles articlesList={outstandingArt} />}

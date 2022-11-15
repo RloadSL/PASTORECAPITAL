@@ -3,6 +3,7 @@ import { limit, onSnapshot, startAt, where, Unsubscribe, getFirestore, addDoc, c
 import { cleanUndefined } from './utils'
 import FireFirebase from './firebase';
 import { on_cloud_firebase } from './config';
+import { ErrorApp } from 'domain/ErrorApp/ErrorApp';
 
 /**
  * Integración con el módulo de firestore de Firebase
@@ -52,8 +53,7 @@ export class FireFirestore {
 
       return documentSnapshots.docs;
     } catch (error) {
-      console.error('getCollectionDocs', error)
-      alert('getCollectionDocs Internal error firebase')
+      return new ErrorApp({errorCode: 'firestore@error', errorMessage: 'firestore@error'})      
     }
 
   }
