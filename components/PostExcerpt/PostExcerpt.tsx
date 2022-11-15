@@ -87,7 +87,11 @@ const PostExcerptView = ({
             </div>
           ) : null}
           {hasSeparator ? <hr className={style.separator} /> : null}
-          {chips ? <Chips chips={chips.slice(0, 3)} color='lightMain' /> : null}
+          {chips ? (
+            <div className={style.chipsContainer}>
+              <Chips chips={chips.slice(0, 3)} color='lightMain' />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
