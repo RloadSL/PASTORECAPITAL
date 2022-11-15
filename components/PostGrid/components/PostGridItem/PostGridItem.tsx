@@ -54,7 +54,7 @@ const PostGridItemView = ({
 }: any) => {
   const { limitTextLength } = useComponentUtils()
   const router = useRouter();
-  // console.log(router.query['category-slug'])
+  console.log(router)
   const _renderHeader = () => {
     return (
       <div
@@ -148,7 +148,7 @@ const PostGridItemView = ({
                 chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
                 level={{ label: gridItem.level?.name }}
                 componentStyle={'card'}
-                footer={router.pathname !== '/academy/courses' ? {
+                footer={router.pathname !== '/academy/' ? {
                   text: `${gridItem.author?.name || gridItem.author[0]?.name}`,
                   date: gridItem.created_at.toLocaleDateString()
                 } : null}
@@ -166,7 +166,6 @@ const PostGridItemView = ({
               chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
               level={getLevel(gridItem)}
               componentStyle={'card'}
-            // isCollapsed={isCollapsed}
             />
           )}
         </div>

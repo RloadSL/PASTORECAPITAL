@@ -18,7 +18,11 @@
   z-index: 200;
 
   @include devices.device(smScreen) {
-    padding-right: 10%;
+    padding-right: 5%;
+  }
+
+  @include devices.device(1770px) {
+    padding-right: 0%;
   }
 }
 
