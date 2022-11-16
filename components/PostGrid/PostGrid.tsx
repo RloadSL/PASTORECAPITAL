@@ -4,8 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import {
   loadingStore,
-  postsStore,
-  privatePostStore
+  postsStore
 } from 'ui/redux/slices/wp-headless-api/wp-headless-api.selectors'
 import Image from 'next/image'
 import addCourseIcon from '../../assets/img/icons/add-document.svg'
@@ -19,6 +18,7 @@ import Loading from 'components/Loading'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ButtonApp from 'components/ButtonApp'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import { Post } from 'domain/Post/Post'
 
 interface POSTGRIDPROPS {
   posts: any
@@ -55,7 +55,8 @@ const PostGrid = ({
   parent,
   typeItem,
   footerType = 'chips',
-  alignment
+  alignment,
+  staticPosts
 }: {
   openCreate: Function
   deleteItem: Function
@@ -67,6 +68,7 @@ const PostGrid = ({
   typeItem?: 'privateExcerpt' | 'excerpt'
   footerType?: 'text' | 'chips'
   alignment?: 'row' | 'column'
+  staticPosts?: Post[]
 }) => {
   const posts = useSelector(postsStore)
   const loading = useSelector(loadingStore)
@@ -101,7 +103,7 @@ const PostGrid = ({
       wpToken={userLogged?.wpToken}
       openCreate={openCreate}
       loading={loading}
-      posts={posts}
+      posts={staticPosts || posts}
       loadMore={loadMore}
       parent={parent}
       typeItem={typeItem}
@@ -114,7 +116,6 @@ const PostGrid = ({
 const PostGridView = ({
   posts,
   openCreate,
-  wpToken,
   onClickItem,
   deleteItem,
   loadMore,

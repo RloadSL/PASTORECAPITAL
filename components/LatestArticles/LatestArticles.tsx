@@ -10,7 +10,7 @@ interface LATESTARTICLESPROPS {
 
 export default function LatestArticles({ articlesList }: LATESTARTICLESPROPS) {
 const { asPath, query } = useRouter()
-console.log(asPath)
+
   return (
     <div className={style.latestArticlesContainer}>
       <p className='small-caps'>

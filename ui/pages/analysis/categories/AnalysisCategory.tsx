@@ -90,6 +90,8 @@ const AnalysisCategory: NextPage<any> = () => {
     )
   }
 
+ 
+
   const getOutstandingArticles = async () => {
     if(query['category-slug']){
       const response = await AnalysisRepositoryInstance.getOutstandingArticles(query['category-slug'] as string)
