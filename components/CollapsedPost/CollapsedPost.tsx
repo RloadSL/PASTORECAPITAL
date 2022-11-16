@@ -70,10 +70,9 @@ const CollapsedPostView = ({
   // isCollapsed
 }: COLLAPSEDPOSTPROPS) => {
   const { limitTextLength } = useComponentUtils()
-  const [isCollapsed, setIsCollapsed] = useState(true)
+  const [isCollapsed, setIsCollapsed] = useState(false)
   const renderCollapsedText = () => {
     setIsCollapsed(!isCollapsed)
-    console.log('estoy recogido',isCollapsed)
   }
 
   return (
@@ -121,7 +120,7 @@ const CollapsedPostView = ({
         ></div>
       )}
       <div className={style.terms}>
-        <div className={style.footer}><SocialMediaButtons/></div>
+        {/* <div className={style.footer}><SocialMediaButtons/></div> */}
       </div>
     </div>
   )
