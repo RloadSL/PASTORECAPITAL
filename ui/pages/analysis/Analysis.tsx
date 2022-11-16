@@ -125,7 +125,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
       <CategoriesMap
         onCreate={() => setCreateCategory(true)}
         editionGranted={editionGranted}
-        categories={categories.map((item: any) => item.term)}
+        categories={categories.map((item: any, index:number) => item.term)}
       />
       <WPCategory
         componentStyle={'flex'}

@@ -5,6 +5,7 @@ import {
   FacebookShareButton,
   FacebookIcon,
 } from 'next-share'
+import { HOST } from 'infrastructure/contants'
 
 
 interface SOCIALMEDIABUTTONSPROPS {
@@ -33,9 +34,9 @@ const SocialMediaButtonsView = ({title,description,url}: SOCIALMEDIABUTTONSPROPS
       </li>
       <li>
         <FacebookShareButton
-          url={url}
+          url={`${HOST}${url}`}
           quote={description}
-          // hashtag={'#nextshare'}
+          hashtag={'#pastorecapital'}
         >
           <FacebookIcon size={32} iconFillColor={'#110151'} bgStyle={{ fill: 'white', outline: '1px solid #110151', borderRadius: '100%' }} round />
         </FacebookShareButton>
