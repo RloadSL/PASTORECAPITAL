@@ -20,6 +20,7 @@ import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { FormattedMessage } from 'react-intl'
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
+import { LOGO_PASTORE_URL } from 'infrastructure/contants'
 
 const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
   const {wpToken} = useSelector(getUserLogged) || {}
@@ -60,10 +61,13 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
   // }, [post])
 
 
-  const {query} = useRouter()
+  const {query, asPath} = useRouter();
+  const router = useRouter()
+
+  console.log(router)
   return (
     <div className={style.lessonPage} ref={contentRef}>
-      <WordpressHeader/>
+      <WordpressHeader title={post.title.rendered} metaDescription={post.excerpt.rendered} metaThumbnail={post.thumbnail_url || LOGO_PASTORE_URL}/>
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
         {editLink && (
@@ -86,13 +90,13 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
         )} 
         <div className={style.headerLesson}>
           <p className='small-caps'>{query.category_name}</p>
-          {/* <p className='small-caps'>{post.author?.name}</p> */}
           <h1 className='main-title'>{post.title.rendered}</h1>
+          <p className='author'>{post.author?.name} | <span className='date'>{'fecha'}</span></p>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
-        <div><SocialMediaButtons></SocialMediaButtons></div>
-
-        {/* {renderPaginator()} */}
+        <div className={style.socialSharing}>
+          <SocialMediaButtons title={post.title.rendered} url={asPath} description={post.excerpt.rendered}/>
+        </div>
       </div>
       {deleteArticle && (
         <Suspense>

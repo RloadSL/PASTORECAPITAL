@@ -7,8 +7,17 @@
 .lessonPage {
   @extend %layoutContainer;
 
+  .headerLesson {
+    max-width: 890px;
+  }
+
   .post {
     color: colors.$dark;
+  }
+
+  .socialSharing {
+    display: flex;
+    justify-content: flex-start;
   }
 
   .readingContainer {

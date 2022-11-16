@@ -12,7 +12,7 @@ import {
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import DeleteTutorial from './components/DeleteTutorial'
-import FilterCourse from './components/FilterTutorials'
+import FilterTutorials from './components/FilterTutorials'
 import style from './Tutorials.module.scss'
 
 const CreateForm = dynamic(() => import('./components/CreateFormTutorial'), {
@@ -107,7 +107,7 @@ const TutorialsView = ({
           <p className='small-caps'>Academia</p>
           <h1 className='main-title'>Tutoriales</h1>
         </div>
-        <FilterCourse
+        <FilterTutorials
           onFilter={(value: {
             search?: string
             catLevel?: string

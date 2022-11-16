@@ -8,9 +8,9 @@ import {
 
 
 interface SOCIALMEDIABUTTONSPROPS {
-  // title:string
-  // quote:string
-  // url:string
+  title:string
+  description:string
+  url:any
 }
 
 /**
@@ -19,26 +19,23 @@ interface SOCIALMEDIABUTTONSPROPS {
  * @returns 
  */
 
-const SocialMediaButtons = ({}: SOCIALMEDIABUTTONSPROPS) => {
-  return <SocialMediaButtonsView></SocialMediaButtonsView>
+const SocialMediaButtons = ({title,description,url}: SOCIALMEDIABUTTONSPROPS) => {
+  return <SocialMediaButtonsView title={title} url={url} description={description}/>
 }
 
-const SocialMediaButtonsView = ({ }: SOCIALMEDIABUTTONSPROPS) => {
+const SocialMediaButtonsView = ({title,description,url}: SOCIALMEDIABUTTONSPROPS) => {
   return <div className={style.socialMediaButtonsContainer}>
     <ul className='flex-container justify-end'>
       <li>
-        <TwitterShareButton
-          url={'https://github.com/next-share'}
-          title={'next-share is a social share buttons for your next React apps.'}
-        >
+        <TwitterShareButton url={url} title={title}>
           <TwitterIcon size={32} iconFillColor={'#110151'} bgStyle={{ fill: 'white', outline: '1px solid #110151', borderRadius: '100%' }} round />
         </TwitterShareButton>
       </li>
       <li>
         <FacebookShareButton
-          url={'https://github.com/next-share'}
-          quote={'next-share is a social share buttons for your next React apps.'}
-          hashtag={'#nextshare'}
+          url={url}
+          quote={description}
+          // hashtag={'#nextshare'}
         >
           <FacebookIcon size={32} iconFillColor={'#110151'} bgStyle={{ fill: 'white', outline: '1px solid #110151', borderRadius: '100%' }} round />
         </FacebookShareButton>

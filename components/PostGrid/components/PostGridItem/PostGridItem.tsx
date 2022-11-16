@@ -149,6 +149,7 @@ const PostGridItemView = ({
               <div onClick={() => onClickItem()}>
                 <PostExcerpt
                   thumbnail={gridItem.thumbnail_url}
+                  hasSeparator={false}
                   title={limitTextLength(60, gridItem.title.rendered || '')}
                   description={limitTextLength(
                     200,

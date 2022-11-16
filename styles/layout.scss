@@ -129,6 +129,15 @@ body {
 	color: colors.$main;
 }
 
+.author {
+	font-weight: 500;
+	color: colors.$grey60;
+}
+
+.date {
+	font-weight: normal;
+}
+
 .uppercase {
 	text-transform: uppercase;
 }

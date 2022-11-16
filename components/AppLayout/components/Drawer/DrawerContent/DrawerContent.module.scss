@@ -10,11 +10,11 @@
   }
 
   @include devices.device(mdScreen) {
-    padding-top: 40px;
+    padding-top: 20px;
   }
 
   @include devices.device(lgScreen) {
-    padding-top: 80px;
+    padding-top: 40px;
   }
 
   &.wrapperContainer {

@@ -51,10 +51,10 @@ const FilterTutorials = ({ onFilter }: any) => {
     }, 300)
   ).current
 
-  return <FilterCourseView tags={tags} levels={[]} onFilter={_handleFilter} />
+  return <FilterTutorialsView tags={tags} levels={[]} onFilter={_handleFilter} />
 }
 
-const FilterCourseView = ({ levels, onFilter, tags }: any) => {
+const FilterTutorialsView = ({ levels, onFilter, tags }: any) => {
   const [search, setsearch] = useState('')
   const _handleOnChange = (newValue: {
     search?: string
@@ -86,24 +86,27 @@ const FilterCourseView = ({ levels, onFilter, tags }: any) => {
           <input hidden type='submit'></input>
         </div>
       </FormApp>
-      <Card cardStyle={['autocomplete', 'elevationSmall']}>
-        <div>
-          {tags.map((tag: { id: number; name: string }, index: number) => {
-            return (
-              <p
-                onClick={() => {
-                  _handleOnChange({ tags: tag.id.toString() })
-                  setsearch('#' + tag.name)
-                }}
-                className={style.itemTag}
-                key={index}
-              >
-                #<small>{tag.name}</small>
-              </p>
-            )
-          })}
-        </div>
-      </Card>
+      {tags.length > 0 && (
+
+        <Card cardStyle={['autocomplete', 'elevationSmall']}>
+          <div>
+            {tags.map((tag: { id: number; name: string }, index: number) => {
+              return (
+                <p
+                  onClick={() => {
+                    _handleOnChange({ tags: tag.id.toString() })
+                    setsearch('#' + tag.name)
+                  }}
+                  className={style.itemTag}
+                  key={index}
+                >
+                  #<small>{tag.name}</small>
+                </p>
+              )
+            })}
+          </div>
+        </Card>
+      )}
     </div>
   )
 }

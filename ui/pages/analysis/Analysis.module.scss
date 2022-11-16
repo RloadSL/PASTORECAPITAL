@@ -8,6 +8,10 @@
   padding: 2%;
   position: relative;
 
+  @include devices.device(smScreen) {
+    padding-right: 5%;
+  }
+
   .addNewArticle {
     position: fixed;
     bottom: 2%;
