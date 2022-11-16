@@ -51,20 +51,9 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
     { id: number; status: string } | null,
     Function
   ] = useState(null)
-  // const { buildClassName } = useComponentUtils()
-
-  // useEffect(() => {
-  //   if (post) {
-  //     const contentSidebar = document.querySelector('.gutentoc');
-  //     contentSidebar?.classList.add('contentSidebar')
-  //   }
-  // }, [post])
-
 
   const {query, asPath} = useRouter();
-  const router = useRouter()
 
-  console.log(router)
   return (
     <div className={style.lessonPage} ref={contentRef}>
       <WordpressHeader title={post.title.rendered} metaDescription={post.excerpt.rendered} metaThumbnail={post.thumbnail_url || LOGO_PASTORE_URL}/>
@@ -73,7 +62,7 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
         {editLink && (
           <div className='admin-buttons-container'>
             <LinkApp
-              label={'edit'}
+              label={'btn.edit'}
               linkStyle={'edit'}
               linkHref={editLink}
               icon={iconEdit}

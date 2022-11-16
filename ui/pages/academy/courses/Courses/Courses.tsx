@@ -13,6 +13,7 @@ import DeleteCourse from './components/DeleteCourse'
 import FilterCourse from './components/FilterCourse'
 import style from './Courses.module.scss'
 import { useRouter } from 'next/router'
+import { FormattedMessage } from 'react-intl'
 
 const CreateForm = dynamic(() => import('./components/CreateForm'), {
   suspense: true
@@ -28,8 +29,7 @@ const Courses = ()  => {
   const [filters, setFilters] = useState({search: '', categories: undefined, tags: undefined})
   const userLogged = useSelector(getUserLogged)
   const posts = useSelector(postsStore)
-  const router = useRouter()
-  console.log(router)
+  // const router = useRouter()
 
   let isAdmin: boolean = true
   const [statePost, setStatePost] = useState<'public' | 'private'> ('public')
@@ -85,8 +85,12 @@ const CourseView = ({
     <div className={style.coursesPage}>
       <header className='title-container flex-container column align-center space-between'>
         <div className={style.titleBlock}>
-          <p className='small-caps'>Academia</p>
-          <h1 className='main-title'>Cursos</h1>
+          <p className='small-caps'>
+            <FormattedMessage id='page.academy.title'/>
+          </p>
+          <h1 className='main-title'>
+            <FormattedMessage id='page.academy.courses.title'/>
+          </h1>
         </div>
         <FilterCourse
           onFilter={(value: {

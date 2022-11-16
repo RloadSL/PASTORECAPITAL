@@ -68,7 +68,8 @@
   "page.academy.rightBlock.button.label" : "Explorar Tutoriales",
   "page.academy.leftBlock.button.label" : "Explorar Cursos",
 
-  "page.academy.courses.title" : "Academia",
+  "page.academy.title" : "Academia",
+  "page.academy.courses.title" : "Cursos",
   "page.academy.courses.btn_create" : "<b>Crear</b> nuevo curso",
   "page.academy.courses.create.title" : "Crear nuevo curso de la Academia ",
   "page.academy.courses.form.create.title" : "Título del curso",
@@ -159,6 +160,7 @@
   "btn.accept": "Aceptar",
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
+  "btn.edit": "Editar",
   "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
   "btn.search": "Buscar",
