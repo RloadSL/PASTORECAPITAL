@@ -9,3 +9,11 @@
 @forward "./reset";
 @forward "./layout";
 @use "partials/fonts";
+
+
+ul.table{
+  li{
+    padding: 5px;
+    border-bottom: grey 1px solid; 
+  }
+}

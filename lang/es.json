@@ -184,5 +184,8 @@
   "academy": "Academia",
   "subscription" : "Suscripción",
   "[slug]": "Curso",
-  "analysis" : "Análisis"
+  "analysis" : "Análisis",
+  "administration" : "Administración",
+  "users" : "Usuarios",
+  "uid" : "Detalle de Usuario"
 }

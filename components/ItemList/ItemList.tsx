@@ -22,12 +22,12 @@ const ItemList = ({ items }: LISTCONTAINERPROPS) => {
 const ItemListView = ({ items }: LISTCONTAINERPROPS) => {
   return (
     <div className={style.listContainer}>
-      <ul>
+      <ul className={`table`}>
         {items.map(item =>
           typeof item === 'string' ? (
-            <ItemView item={item} />
+            <ItemView   item={item} />
           ) : (
-            <ItemView> {item} </ItemView>
+            <ItemView key={item.key}>  {item} </ItemView>
           )
         )}
       </ul>

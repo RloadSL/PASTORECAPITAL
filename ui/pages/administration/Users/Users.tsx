@@ -7,6 +7,7 @@ import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import { User } from 'domain/User/User'
 import { Form, Formik } from 'formik'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
+import { useRouter } from 'next/router'
 import { FormEvent, useEffect, useState } from 'react'
 import { useSystem } from 'ui/hooks/system.hooks'
 import ActionsAdmin from './components/ActionsAdmin/ActionsAdmin'
@@ -39,9 +40,17 @@ const Users = () => {
 }
 
 const UsersView = ({ users }: { users: User[] }) => {
+  const {push, asPath} = useRouter();
+
   const renderUserItem = (user: User) => {
     return (
-      <div className={style.userItem}>
+      <div className={style.userItem} key={user.uid}>
+        <div className={`${style.information} ${style.checked}`}>
+          <div>
+            <input style={{cursor: 'pointer'}} type="checkbox" />
+          </div>
+         
+        </div>
         <div className={style.information}>
           <div className={style.name}>{`${user.name} ${user.lastname}`}</div>
           <div className={style.email}>{user.email}</div>
@@ -65,7 +74,7 @@ const UsersView = ({ users }: { users: User[] }) => {
                 </button>
               }
             >
-              <MenuItem onClick={() => alert('Editar')}>Editar</MenuItem>
+              <MenuItem onClick={() => push(`${asPath}${user.uid}`)}>Detalle</MenuItem>
               <MenuItem onClick={() => alert('Bloquer')}>Bloquear</MenuItem>
             </Menu>
           </div>
@@ -126,7 +135,9 @@ const UsersView = ({ users }: { users: User[] }) => {
               console.log(value)
             }
           />
-          {renderFilters()}
+          <div className={style.selected}>
+            {renderFilters()}
+          </div>
         </div>
 
         <ItemList items={users.map(user => renderUserItem(user))} />

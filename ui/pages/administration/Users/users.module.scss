@@ -7,19 +7,19 @@
   padding-right: 20px;
   width: 100%;
   justify-content: center;
+  
   .information, .actions{
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 5px;
-    border-bottom: grey 1px solid; 
+    justify-content: center;
+    
   }
-  .content{
-    .filters{
-      display: flex;
-    }
+
+  .checked{
+    width: 100px;
   }
+  
   .actions{
     width: 20%;
     position: relative;
@@ -31,3 +31,17 @@
   }
   
 }
+.content{
+  .filters{
+    display: flex;
+    .selected{
+      form{
+        display :flex;
+        * {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+

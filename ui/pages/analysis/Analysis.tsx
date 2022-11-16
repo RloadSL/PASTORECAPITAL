@@ -97,21 +97,29 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
   }
 
   const renderBanners = (index: number) => {
-    return index % 2 === 0 ? (
-      <SubscriptionBanner
-        linkHref={'#'}
-        colLeftContent={BannerContentColLeft()}
-        colRightContent={BannerContentColRight()}
-        backgroundColor={'#DADDE5'}
-      />
-    ) : (
-      <SubscriptionBanner
-        linkHref={'#'}
-        image={bannerImage}
-        colLeftContent={BannerContentColLeft()}
-        colRightContent={<div className={style.fakeButton}>Learn More</div>}
-        backgroundColor={'#DADDE5'}
-      />
+    return (
+      <div key={index}>
+        {
+          index % 2 === 0 ? (
+            <SubscriptionBanner
+              
+              linkHref={'#'}
+              colLeftContent={BannerContentColLeft()}
+              colRightContent={BannerContentColRight()}
+              backgroundColor={'#DADDE5'}
+            />
+          ) : (
+            <SubscriptionBanner
+            
+              linkHref={'#'}
+              image={bannerImage}
+              colLeftContent={BannerContentColLeft()}
+              colRightContent={<div className={style.fakeButton}>Learn More</div>}
+              backgroundColor={'#DADDE5'}
+            />
+          )
+        }
+      </div>
     )
   }
 
@@ -137,9 +145,8 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
       {categories.map((WPterm: any, index: number) => {
         const { term } = WPterm
         return (
-          <div key={term.id}>
+          <div key={term.term_id}>
             <WPCategory
-              key={term.term_id.toString()}
               componentStyle={'grid'}
               category={term}
             />
