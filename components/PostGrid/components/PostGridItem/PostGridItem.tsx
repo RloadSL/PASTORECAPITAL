@@ -29,7 +29,7 @@ const PostGridItem = ({
   typeItem = 'excerpt',
   footerType = 'chips'
 }: {
-  gridItem: Course //OJO este esta reciebidno course
+  gridItem: Post //OJO este esta reciebidno course
   onClickItem: Function
   isAdmin: boolean
   deleteItem: Function
@@ -55,7 +55,14 @@ const PostGridItemView = ({
   deleteItem,
   typeItem,
   footerType
-}: any) => {
+}: {
+  gridItem: any,
+  onClickItem : Function,
+  isAdmin : boolean,
+  deleteItem : any,
+  typeItem: any,
+  footerType : any
+}) => {
   const { limitTextLength } = useComponentUtils()
  
   const _renderHeader = () => {
@@ -176,13 +183,13 @@ const PostGridItemView = ({
             ) : (
               <CollapsedPost
                 header={{
-                  text: `${gridItem.author?.name || gridItem.author[0]?.name}`,
+                  text: `${gridItem.author?.name}`,
                   date: gridItem.created_at.toLocaleDateString()
                 }}
-                thumbnail={gridItem.thumbnail_url}
+                lockedContent={!gridItem.metas?.permission_garanted}
                 title={limitTextLength(60, gridItem.title.rendered || '')}
-                description={gridItem.content.rendered || ''}
-                chips={makeChips([gridItem.meta_post, ...gridItem.tags])}
+                description={gridItem.content?.rendered || ''}
+                chips={[]}
                 level={getLevel(gridItem)}
                 componentStyle={'card'}
               />

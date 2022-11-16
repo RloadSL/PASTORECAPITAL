@@ -135,6 +135,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
         editionGranted={editionGranted}
         categories={categories.map((item: any) => item.term)}
       />
+      
       <WPCategory
         componentStyle={'flex'}
         category={{name: 'Artículos destacados', slug:'art-outstanding', metas: false}}

@@ -60,7 +60,6 @@ const PostExcerptView = ({
   hasSeparator = true,
   footer
 }: POSTEXCERPTPROPS) => {
-  console.log(chips)
   return (
     <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>

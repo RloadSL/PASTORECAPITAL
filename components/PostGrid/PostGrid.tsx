@@ -68,7 +68,7 @@ const PostGrid = ({
   typeItem?: 'privateExcerpt' | 'excerpt'
   footerType?: 'text' | 'chips'
   alignment?: 'row' | 'column'
-  staticPosts?: Post[]
+  staticPosts?: any
 }) => {
   const posts = useSelector(postsStore)
   const loading = useSelector(loadingStore)
@@ -103,7 +103,7 @@ const PostGrid = ({
       wpToken={userLogged?.wpToken}
       openCreate={openCreate}
       loading={loading}
-      posts={staticPosts || posts}
+      posts={ staticPosts || posts}
       loadMore={loadMore}
       parent={parent}
       typeItem={typeItem}

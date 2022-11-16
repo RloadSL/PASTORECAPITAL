@@ -2,7 +2,7 @@ import Card from 'components/Card'
 import PostExcerpt from 'components/PostExcerpt'
 import { Post } from 'domain/Post/Post'
 import Link from 'next/link'
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import style from './ArticlesGrid.module.scss'
@@ -29,22 +29,31 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
     [],
   )
 
+  const getCatgory = useCallback(
+    (post: Post) => post.categories.find(cat => cat.parent != 0 && cat.parent.slug === 'analysis'),
+    [],
+  )  
+  
+
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
         {posts?.map((singlePost, index) => {
           const postLevel = getLevel(singlePost)
+          const postCat:any = category.term_id ? category : getCatgory(singlePost)
           const query:any = {
             cat: category.term_id,
-            category_name: category.name,
-            collapsable_items: category.metas.collapsable_items || false,
+            category_name: postCat.name,
+            collapsable_items: postCat.metas.collapsable_items || false,
             post_id : singlePost.id,
             post_title : singlePost.title.rendered
           }
+          
+          const urlPost = encodeURI(`/analysis/${postCat?.slug}/${postCat.metas.collapsable_items !== '1'? singlePost.slug : ''}`)
         return (
           <div key={singlePost.id} className={`${index === 0 && componentStyle === 'grid' ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>
               <Link href={{
-                pathname: encodeURI(`/analysis/${category.slug}/${singlePost.slug}`),
+                pathname: urlPost,
                 query
               }}>
                 <div className={style.innerContainer}>

@@ -164,8 +164,9 @@ export class AnalysisRepository {
     }
   }
 
-  async getOutstandingArticles(category_name?: string) {
-    const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?posts_per_page=3&destacar_articulo=1&${category_name ? 'category_name=' + category_name : ''}`, HTTP.getHeaders())
+  async getOutstandingArticles(category_name?: string, userDataToken?: string) {
+    let userData: string = userDataToken ? `user-data=${userDataToken}` : ''
+    const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?${userData}&posts_per_page=3&destacar_articulo=1&${category_name ? 'category_name=' + category_name : ''}`, HTTP.getHeaders())
     if (res.success) {
       const posts = res.hits.map((item: any) => new Post(item));
       return posts

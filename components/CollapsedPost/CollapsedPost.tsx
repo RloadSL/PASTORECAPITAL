@@ -11,7 +11,7 @@ import SocialMediaButtons from 'components/SocialMediaButtons'
 export interface COLLAPSEDPOSTPROPS {
   title?: string
   description: string
-  thumbnail?: string
+  lockedContent: boolean
   chips?: any
   // isCollapsed: boolean
   level?: WpCat | any
@@ -30,24 +30,22 @@ export interface COLLAPSEDPOSTPROPS {
  * @returns
  */
 
-
-
 const CollapsedPost = ({
   title,
   description,
-  thumbnail,
+  lockedContent = true,
   chips,
   level,
   componentStyle,
   hasSeparator,
-  header,
-  // isCollapsed
-}: COLLAPSEDPOSTPROPS) => {
+  header
+}: // isCollapsed
+COLLAPSEDPOSTPROPS) => {
   return (
     <CollapsedPostView
       title={title}
       description={description}
-      thumbnail={thumbnail}
+      lockedContent={lockedContent}
       chips={chips}
       level={level}
       componentStyle={componentStyle}
@@ -61,14 +59,14 @@ const CollapsedPost = ({
 const CollapsedPostView = ({
   title,
   description,
-  thumbnail,
+  lockedContent,
   chips,
   level,
   componentStyle = 'card',
   hasSeparator = true,
-  header,
-  // isCollapsed
-}: COLLAPSEDPOSTPROPS) => {
+  header
+}: // isCollapsed
+COLLAPSEDPOSTPROPS) => {
   const { limitTextLength } = useComponentUtils()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const renderCollapsedText = () => {
@@ -97,28 +95,20 @@ const CollapsedPostView = ({
       <div className={style.textContent}>
         <p className={style.title}>{title}</p>
         <div className={style.description}>
-          {isCollapsed ? parse(description) : parse(limitTextLength(250,description))}
+          {isCollapsed
+            ? parse(description)
+            : parse(limitTextLength(250, description))}
         </div>
-        <button className={style.seeMore} onClick={()=>renderCollapsedText()}>
-          {isCollapsed ? 'Ver menos' : 'Ver más'}
-        </button>
+        {!lockedContent && (
+          <button
+            className={style.seeMore}
+            onClick={() => renderCollapsedText()}
+          >
+            {isCollapsed ? 'Ver menos' : 'Ver más'}
+          </button>
+        )}
       </div>
-      {thumbnail === 'locked' ? (
-        <LockedContent />
-      ) : (
-        <div
-          style={
-            thumbnail
-              ? {
-                  backgroundImage: `url(${thumbnail})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }
-              : { backgroundSize: '80px' }
-          }
-          className={style.imageContainer}
-        ></div>
-      )}
+      {lockedContent && <LockedContent />}
       <div className={style.terms}>
         {/* <div className={style.footer}><SocialMediaButtons/></div> */}
       </div>
