@@ -1,5 +1,5 @@
 import Chips from 'components/Chips'
-import style from './CollapsedPost.module.scss'
+import style from './collapsedPost.module.scss'
 import parse from 'html-react-parser'
 import React, { useState } from 'react'
 import { WpCat } from 'infrastructure/dto/post.dto'
