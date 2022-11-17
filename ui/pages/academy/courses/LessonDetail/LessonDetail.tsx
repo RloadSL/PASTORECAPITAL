@@ -24,12 +24,12 @@ import WordpressHeader from 'WordpressHeader'
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
-  /*  useEffect(() => {
+   useEffect(() => {
      window.addEventListener('contextmenu', function (e) { 
        // do something here... 
        e.preventDefault(); 
      }, false);
-   }, []) */
+   }, [])
 
   const _navigatePaginator = (slug: string, id: string, lesson_title: string, current_lesson: number) => {
     const route = `/academy/courses/${router.query['course-slug']}/` + slug;
@@ -76,6 +76,7 @@ const LessonDetailView = ({
   courseTitle: string
   _navigatePaginator: Function
 }) => {
+  const {query} = useRouter()
   const contentRef = useRef<any>()
   const [deleteLesson, setDeleteLesson]: [{ id: number, status: string } | null, Function] = useState(null)
   const renderPaginator = () => {
@@ -125,7 +126,7 @@ const LessonDetailView = ({
         )}
         <div className={style.headerLesson}>
           <p className='small-caps'>{courseTitle}</p>
-          <h1 className='main-title'>{post.title.rendered}</h1>
+          <h1 className='main-title'>{parseInt(query.current_lesson as string) + 1}. {post.title.rendered}</h1>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         {renderPaginator()}

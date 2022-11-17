@@ -7,9 +7,10 @@ import Avatar from 'components/Avatar'
 import LockedContent from 'components/LockedContent'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import SocialMediaButtons from 'components/SocialMediaButtons'
+import { useRouter } from 'next/router'
 
 export interface COLLAPSEDPOSTPROPS {
-  title?: string
+  title: string
   description: string
   lockedContent: boolean
   chips?: any
@@ -73,6 +74,7 @@ COLLAPSEDPOSTPROPS) => {
     setIsCollapsed(!isCollapsed)
   }
 
+  const {asPath} = useRouter()
   return (
     <div className={`${style.collapsedPostContainer} ${style[componentStyle]}`}>
       {chips ? <Chips chips={chips.slice(0, 3)} color='lightMain' /> : null}
@@ -110,7 +112,7 @@ COLLAPSEDPOSTPROPS) => {
       </div>
       {lockedContent && <LockedContent />}
       <div className={style.terms}>
-        <div className={style.footer}><SocialMediaButtons/></div>
+        <div className={style.footer}><SocialMediaButtons title={title} description={description} url={asPath}/></div>
       </div>
     </div>
   )

@@ -51,7 +51,7 @@ const AnalysisCategory: NextPage<any> = () => {
   const { userDataToken, wpToken } = userLogged || {}
   const { query, replace } = useRouter()
   const [statePost, setStatePost] = useState<'public' | 'private'>('public')
-
+  
   useEffect(() => {
     if (userLogged?.uid) {
       dispatch(cleanAcademyPosts({})) //OJO al nombre de esta función que hace referencia a Academy
