@@ -1,4 +1,5 @@
 import { Comments } from "domain/Comments/comments";
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { User } from "domain/User/User";
 import { CommentDto, ParentCommentDto } from "infrastructure/dto/comments.dto";
 import FireFirestore from "../firebase/firestore.firebase";
@@ -46,7 +47,7 @@ class CommentsImpl {
       const conditions = [['parent.id', '==', parent.id as string]]
       const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap, conditions, 5);
       
-      if (cSnap && cSnap?.length > 0) {
+      if (!(cSnap instanceof ErrorApp)) {
         const result = await this.parseCommentsSnapShot(cSnap);
         return {comments: result, lastSnapshot: cSnap[cSnap?.length -1]};
       } else {

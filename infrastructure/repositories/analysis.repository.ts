@@ -163,7 +163,12 @@ export class AnalysisRepository {
       return [];
     }
   }
-
+  /**
+   * Obtiene un listado de articulos destacados previamente seleccionados en el wp-headless
+   * @param category_name Nombre de la categoría que se desa traer los destacados
+   * @param userDataToken Datos del usuario que esta logado para poder restringir o no el contenido desde el headless dependiendo de su plan. 
+   * @returns 
+   */
   async getOutstandingArticles(category_name?: string, userDataToken?: string) {
     let userData: string = userDataToken ? `user-data=${userDataToken}` : ''
     const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?${userData}&posts_per_page=3&destacar_articulo=1&${category_name ? 'category_name=' + category_name : ''}`, HTTP.getHeaders())
