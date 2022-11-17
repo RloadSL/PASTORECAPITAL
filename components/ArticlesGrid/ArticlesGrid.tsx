@@ -60,9 +60,9 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
                   <PostExcerpt
                     thumbnail={singlePost.thumbnail_url}
                     title={limitTextLength(index === 0 ? 100 : 40, singlePost.title.rendered)}
-                    description={limitTextLength(index === 0 && windowSize.width > 1500 ? 350 : 150, singlePost.excerpt.rendered)}
+                    description={limitTextLength(index === 0 && windowSize.width > 1500 && componentStyle !== 'flex' ? 350 : 150, singlePost.excerpt.rendered)}
                     level={{label:postLevel?.name,icon:lockIcon}}
-                    componentStyle={componentStyle === 'flex' && windowSize.width > 1500 ? 'card' : index === 0 && windowSize.width > 1500 ? 'column' : 'row'}
+                    componentStyle={componentStyle === 'flex' && windowSize.width >= 1500 ? 'card' : index === 0 && windowSize.width >= 1500 ? 'column' : 'row'}
                     hasSeparator={false}
                     footer={{ text: `${singlePost.author?.name}`, date: singlePost.created_at.toLocaleDateString() }}
                   />

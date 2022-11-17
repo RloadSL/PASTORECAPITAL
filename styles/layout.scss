@@ -154,6 +154,31 @@ p {
 	width: 100%;
 }
 
+.back-button {
+	background: transparent;
+
+	&:hover {
+		color: colors.$main;
+	}
+
+	span {
+		display: flex;
+		align-items: center;
+		font-weight: normal;
+		&::before {
+			content: '';
+			width: 15px;
+			height: 30px;
+			display: inline-block;
+			background-image: url(../assets/img/icons/arrow-dark.svg);
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
+			margin-right: 5px;
+		}
+	}
+}
+
 //RESET ACCORDION STYLE FOR THE APP
 .rc-collapse {
 	border-radius: 0px !important;

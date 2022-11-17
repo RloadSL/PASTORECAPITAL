@@ -19,6 +19,14 @@
     @include devices.device(lgScreen) {
       min-height: calc(400px - 45px);
     }
+
+    .terms {
+      @include devices.device(1900px) {
+        position: absolute;
+        bottom: 12px;
+        width: 94%;
+      }
+    }
   }
 
   &.simple {
@@ -97,7 +105,7 @@
   margin-bottom: 0px;
 
   @include devices.device(lgScreen) {
-    margin-top: 20px;
+    margin-top: 12px;
   }
 }
 
@@ -130,7 +138,7 @@
 .description {
   color: colors.$dark;
   flex: 1;
-  margin-top: 12px;
+  margin-top: 0px;
   p {
     margin-bottom: 0px;
   }

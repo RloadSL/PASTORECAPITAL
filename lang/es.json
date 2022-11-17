@@ -161,6 +161,7 @@
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
   "btn.edit": "Editar",
+  "btn.back": "Volver",
   "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
   "btn.search": "Buscar",
