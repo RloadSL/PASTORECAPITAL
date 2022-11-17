@@ -7,7 +7,12 @@ import { CourseRepositoryInstance } from "infrastructure/repositories/courses.re
 import { TutorialRepositoryInstance } from "infrastructure/repositories/tutorials.repository";
 
 
+//Todas las funcionalidades de este redux responden sobre Post por lo que se almacenan en el mismo estado 
+//Academy && Analysis
 
+/**
+ * Obtener cursos desde el headless
+ */
 export const academyGetCurses = createAsyncThunk(
   'academy@getCurses',
   async ({ offset, filters, wpToken }: { offset?: number, filters?: any, wpToken?: string }, { getState }) => {
@@ -20,7 +25,9 @@ export const academyGetCurses = createAsyncThunk(
     }
   }
 )
-
+/**
+ * Obtener tutoriales desde el headless
+ */
 export const academyGetTutorials = createAsyncThunk(
   'academy@getTutorials',
   async ({ offset, filters, wpToken }: { offset?: number, filters?: any, wpToken?: string }, { getState }) => {
@@ -33,13 +40,15 @@ export const academyGetTutorials = createAsyncThunk(
     }
   }
 )
-
+/**
+ * Obtener artículos desde el headless
+ */
 export const getAnalysisArticles = createAsyncThunk(
   'analysis@getAnalysisArticles',
   async ({ wpToken, userDataToken, query }: { wpToken?: string, userDataToken?: string, query?: ANALYSIS_QUERY }, { getState }) => {
     try {
       const response = await AnalysisRepositoryInstance.getArticles(userDataToken, wpToken, { ...query, posts_per_page: 5 })
-      
+
       return { articles: response, offset: query?.offset };
 
     } catch (error) {
@@ -48,17 +57,32 @@ export const getAnalysisArticles = createAsyncThunk(
   }
 )
 
-
+/**
+ * Estado inicial 
+ */
 const initialState: {
+  /**
+   * Errores devueltos por las llamadas
+   */
   errorApp: ErrorApp[],
   loading: boolean,
-
-  posts?: { items: Course[] | Post[], hasMore: boolean },
+  /**
+   * Respuesta de las llamadas GET
+   */
+  posts?: { 
+    /**
+     * Posts devueltos por el headless
+     */
+    items: Course[] | Post[], 
+    /**
+     * Bandera del loadmore
+     */
+    hasMore: boolean },
   privatePosts?: Course[] | Post[]
 } = { errorApp: [], loading: false, posts: undefined, privatePosts: undefined };
 
-export const academySlice = createSlice({
-  name: 'Authentication',
+export const wpHeadless = createSlice({
+  name: 'WpHeadless',
   initialState,
   reducers: {
     cleanAcademyPosts: (state, action) => {
@@ -119,6 +143,6 @@ export const academySlice = createSlice({
 })
 
 //Estrallendo actions
-export const { cleanAcademyPosts, removeAcademyPost, addAcedemyPrivateCourse } = academySlice.actions;
+export const { cleanAcademyPosts, removeAcademyPost, addAcedemyPrivateCourse } = wpHeadless.actions;
 
-export default academySlice.reducer;
+export default wpHeadless.reducer;
