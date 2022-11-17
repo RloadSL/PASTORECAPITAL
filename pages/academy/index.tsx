@@ -1,7 +1,5 @@
 
-import dynamic from "next/dynamic";
-const Academy = dynamic(() =>
-  import('ui/pages/academy/Academy').then((mod) => mod.default)
-)
+import Academy from 'ui/pages/academy/Academy';
+
 
 export default Academy;
