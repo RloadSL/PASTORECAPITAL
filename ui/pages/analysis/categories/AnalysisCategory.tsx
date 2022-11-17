@@ -223,9 +223,10 @@ const AnalysisCategoryView = ({
         />
       </header>
       {outstandingPost && (
-        <button onClick={() => setoutstandingPost(undefined)}>
-          {' '}
-          {'< Atras'}{' '}
+        <button className='back-button' onClick={() => setoutstandingPost(undefined)}>
+          <span>
+          <FormattedMessage id="btn.back"/>
+          </span>
         </button>
       )}
       <div className={isPrivateExcerpt.current ? style.collapsedItem : ''}>

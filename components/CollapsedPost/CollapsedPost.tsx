@@ -110,7 +110,7 @@ COLLAPSEDPOSTPROPS) => {
       </div>
       {lockedContent && <LockedContent />}
       <div className={style.terms}>
-        {/* <div className={style.footer}><SocialMediaButtons/></div> */}
+        <div className={style.footer}><SocialMediaButtons/></div>
       </div>
     </div>
   )

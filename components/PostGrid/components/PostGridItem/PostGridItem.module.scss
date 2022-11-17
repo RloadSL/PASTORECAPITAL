@@ -18,8 +18,8 @@
 	}
 
 	@include devices.device(1890px) {
-		max-height: 410px;
-		min-height: 410px;
+		max-height: 420px;
+		min-height: 420px;
 	}
 }
 
@@ -35,9 +35,9 @@
 
 .privateCardContainer {
 	@extend %cardContainer;
+	min-height: auto;
 	position: relative;
 	max-height: 100%;
-	min-height: none;
 }
 
 .btnMenu {
