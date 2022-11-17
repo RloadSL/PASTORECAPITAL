@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic'
 
-const Courses = dynamic(() =>
-  import('ui/pages/academy/courses/Courses/Courses').then(mod => mod.default)
-)
+import Courses from 'ui/pages/academy/courses/Courses/Courses';
+
 
 export default Courses
