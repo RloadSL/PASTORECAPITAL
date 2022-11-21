@@ -24,27 +24,27 @@ import { LOGO_PASTORE_URL } from 'infrastructure/contants'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
 
-const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
-  const {wpToken} = useSelector(getUserLogged) || {}
+const AnalysisArticleDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
+  const { wpToken } = useSelector(getUserLogged) || {}
   const { replace } = useRouter()
   const setGarant = useContext(SubscriptionGranted)
 
   useEffect(() => {
-    
-    if(!post.metas.permission_garanted){
-      console.log('AnalysisArticleDetail' , post.metas.permission_garanted )
-      setGarant({garanted: 'no_garant'});
-    } 
+
+    if (!post.metas.permission_garanted) {
+      console.log('AnalysisArticleDetail', post.metas.permission_garanted)
+      setGarant({ garanted: 'no_garant' });
+    }
   }, [post])
-  
+
 
   const editLink = useRef<any>().current = wpToken
-  ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${wpToken}`
-  : undefined
+    ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${wpToken}`
+    : undefined
 
-  
-  const _onDeleteArt = async ()=>{
-    if (wpToken){
+
+  const _onDeleteArt = async () => {
+    if (wpToken) {
       await AnalysisRepositoryInstance.deleteArticle(
         post.id,
         wpToken,
@@ -58,46 +58,59 @@ const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
   )
 }
 
-const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, editLink?:string, onDeleteArt: Function}) => {
+const AnalysisArticleDetailView = ({ post, editLink, onDeleteArt }: { post: Post, editLink?: string, onDeleteArt: Function }) => {
   const contentRef = useRef<any>();
   const [deleteArticle, setDeleteArticle]: [
     { id: number; status: string } | null,
     Function
   ] = useState(null)
 
-  const {query, asPath} = useRouter();
+  const { query, asPath } = useRouter();
 
   return (
     <div className={style.lessonPage} ref={contentRef}>
-      <WordpressHeader title={post.title.rendered} metaDescription={post.excerpt.rendered} metaThumbnail={post.thumbnail_url || LOGO_PASTORE_URL}/>
+      <WordpressHeader title={post.title.rendered} metaDescription={post.excerpt.rendered} metaThumbnail={post.thumbnail_url || LOGO_PASTORE_URL} />
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
-        {editLink && (
-          <div className='admin-buttons-container'>
-            <LinkApp
-              label={'btn.edit'}
-              linkStyle={'edit'}
-              linkHref={editLink}
-              icon={iconEdit}
-            />
-            <ButtonApp
-              labelID={'btn.delete'}
-              onClick={() => setDeleteArticle({ id: post.id, status: post.status })}
-              type='button'
-              buttonStyle='delete'
-              size='small'
-              icon={iconDelete}
-            />
-          </div>
-        )} 
         <div className={style.headerLesson}>
+          {editLink && (
+            <div className='admin-buttons-container' style={{ maxWidth: '100%'}}>
+              <div className='edit-delete-buttons'>
+                <LinkApp
+                  label={'btn.edit'}
+                  linkStyle={'edit'}
+                  linkHref={editLink}
+                  icon={iconEdit}
+                />
+                <ButtonApp
+                  labelID={'btn.delete'}
+                  onClick={() => setDeleteArticle({ id: post.id, status: post.status })}
+                  type='button'
+                  buttonStyle='delete'
+                  size='small'
+                  icon={iconDelete}
+                />
+              </div>
+              <div className='flex-container align-center'>
+                <span>Usuario:</span>
+                <ButtonApp
+                  labelID={'Premium'}
+                  onClick={() => setDeleteArticle({ id: post.id, status: post.status })}
+                  type='button'
+                  buttonStyle={['primary', 'outlined']}
+                  size='small'
+                // icon={iconDelete}
+                />
+              </div>
+            </div>
+          )}
           <p className='small-caps'>{query.category_name}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
           <p className='author'>{post.author?.name} | <span className='date'>{post.created_at.toLocaleDateString()}</span></p>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <div className={style.socialSharing}>
-          <SocialMediaButtons title={post.title.rendered} url={asPath} description={post.excerpt.rendered}/>
+          <SocialMediaButtons title={post.title.rendered} url={asPath} description={post.excerpt.rendered} />
         </div>
       </div>
       {deleteArticle && (

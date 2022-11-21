@@ -242,8 +242,12 @@ p {
 	margin-bottom: 0px;
 	margin-top: 5%;
 
-	@include devices.device(smTablet) {
+	.edit-delete-buttons {
 		max-width: 280px;
+		display: flex;
+	}
+
+	@include devices.device(smTablet) {
 		margin-bottom: 0px;
 		margin-top: 2%;
 	}
