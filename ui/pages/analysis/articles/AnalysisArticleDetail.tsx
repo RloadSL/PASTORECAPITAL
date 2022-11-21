@@ -26,15 +26,15 @@ import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
 import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
 import { getCategoriesPlans } from 'infrastructure/wordpress/wp.utils'
 import { Field, Form, Formik } from 'formik'
+import LoadMoreLoading from 'components/LoadMoreLoading'
 
 const AnalysisArticleDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const { wpToken } = useSelector(getUserLogged) || {}
-  const { replace } = useRouter()
+  const { replace, reload } = useRouter()
   const setGarant = useContext(SubscriptionGranted)
 
   useEffect(() => {
     if (!post.metas.permission_garanted) {
-      console.log('AnalysisArticleDetail', post.metas.permission_garanted)
       setGarant({ garanted: 'no_garant' })
     }
   }, [post])
@@ -49,8 +49,15 @@ const AnalysisArticleDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
       replace('/analysis', undefined, { shallow: true })
     }
   }
-  const _onUpdatePlan = (value: any) => {
-    console.log(value)
+  const _onUpdatePlan = async ({ activated_to_plan }: any) => {
+    if (wpToken) {
+      await AnalysisRepositoryInstance.setPlanArticle(
+        post.id,
+        activated_to_plan,
+        wpToken
+      )
+      reload()
+    }
   }
   return (
     <AnalysisArticleDetailView
@@ -79,6 +86,7 @@ const AnalysisArticleDetailView = ({
     Function
   ] = useState(null)
   const [createArt, setCreateArt] = useState(false)
+  const [loading, setloading] = useState(false)
 
   const { query, asPath } = useRouter()
   const plans = useRef(post.getCatgoryByParent('plans'))
@@ -117,23 +125,32 @@ const AnalysisArticleDetailView = ({
           initialValues={{
             activated_to_plan: plans.current?.term_id?.toString()
           }}
-          onSubmit={values => {onUpdatePlan(values); setCreateArt(false)}}
+          onSubmit={values => {
+            onUpdatePlan(values)
+            setCreateArt(false)
+          }}
         >
           {({ values, errors, touched }) => (
             <Form className={style.form}>
-              <div  style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-              {categoriesPlans.map((plan: any) => (
-                <div role='group' key={plan.key}>
-                  <label>
-                    <Field
-                      type='radio'
-                      name='activated_to_plan'
-                      value={plan.value.toString()}
-                    />
-                    {plan.label}
-                  </label>
-                </div>
-              ))}
+              <div
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'center'
+                }}
+              >
+                {categoriesPlans.map((plan: any) => (
+                  <div role='group' key={plan.key}>
+                    <label>
+                      <Field
+                        type='radio'
+                        name='activated_to_plan'
+                        value={plan.value.toString()}
+                      />
+                      {plan.label}
+                    </label>
+                  </div>
+                ))}
               </div>
               <div
                 style={{
@@ -182,16 +199,22 @@ const AnalysisArticleDetailView = ({
               size='small'
               icon={iconDelete}
             />
-
-            <ButtonApp
-              onClick={() => setCreateArt(true)}
-              type='button'
-              buttonStyle='delete'
-              size='small'
-              icon={iconEdit}
-            >
-              {plans.current?.name}
-            </ButtonApp>
+            {!loading ? (
+              <ButtonApp
+                onClick={() => {
+                  setloading(true)
+                  setCreateArt(true)
+                }}
+                type='button'
+                buttonStyle='delete'
+                size='small'
+                icon={iconEdit}
+              >
+                {plans.current?.name}
+              </ButtonApp>
+            ) : (
+              <LoadMoreLoading></LoadMoreLoading>
+            )}
           </div>
         )}
         <div className={style.headerLesson}>
