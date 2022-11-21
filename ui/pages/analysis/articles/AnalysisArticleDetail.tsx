@@ -115,7 +115,7 @@ const AnalysisArticleDetailView = ({
 
   const updatePlan = () => (
     <div className='checklist'>
-      <p>Seleccione el plan correspondiente</p>
+      <p style={{ textAlign: 'center' }}>Seleccione el plan correspondiente</p>
       <div
         role='group'
         style={{ display: 'flex' }}
@@ -181,43 +181,51 @@ const AnalysisArticleDetailView = ({
       />
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
-        {editLink && (
-          <div className='admin-buttons-container'>
-            <LinkApp
-              label={'btn.edit'}
-              linkStyle={'edit'}
-              linkHref={editLink}
-              icon={iconEdit}
-            />
-            <ButtonApp
-              labelID={'btn.delete'}
-              onClick={() =>
-                setDeleteArticle({ id: post.id, status: post.status })
-              }
-              type='button'
-              buttonStyle='delete'
-              size='small'
-              icon={iconDelete}
-            />
-            {!loading ? (
-              <ButtonApp
-                onClick={() => {
-                  setloading(true)
-                  setCreateArt(true)
-                }}
-                type='button'
-                buttonStyle='delete'
-                size='small'
-                icon={iconEdit}
-              >
-                {plans.current?.name}
-              </ButtonApp>
-            ) : (
-              <LoadMoreLoading></LoadMoreLoading>
-            )}
-          </div>
-        )}
         <div className={style.headerLesson}>
+          {editLink && (
+            <div
+              className='admin-buttons-container'
+              style={{ maxWidth: '100%' }}
+            >
+              <div className='edit-delete-buttons'>
+                <LinkApp
+                  label={'btn.edit'}
+                  linkStyle={'edit'}
+                  linkHref={editLink}
+                  icon={iconEdit}
+                />
+                <ButtonApp
+                  labelID={'btn.delete'}
+                  onClick={() =>
+                    setDeleteArticle({ id: post.id, status: post.status })
+                  }
+                  type='button'
+                  buttonStyle='delete'
+                  size='small'
+                  icon={iconDelete}
+                />
+              </div>
+              <div className='flex-container align-center'>
+                <span>Usuario:</span>
+                {!loading ? (
+                  <ButtonApp
+                    onClick={() => {
+                      setloading(true)
+                      setCreateArt(true)
+                    }}
+                    type='button'
+                    buttonStyle={['primary', 'outlined']}
+                    size='small'
+                    // icon={iconDelete}
+                  >
+                    {plans.current?.name}
+                  </ButtonApp>
+                ) : (
+                  <LoadMoreLoading />
+                )}
+              </div>
+            </div>
+          )}
           <p className='small-caps'>{query.category_name}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
           <p className='author'>
@@ -256,7 +264,10 @@ const AnalysisArticleDetailView = ({
           <AlertApp
             title='page.analysis.articles.form.update'
             visible={createArt}
-            onCancel={() => setCreateArt(false)}
+            onCancel={() => {
+              setCreateArt(false)
+              setloading(false)
+            }}
           >
             {categoriesPlans && updatePlan()}
           </AlertApp>

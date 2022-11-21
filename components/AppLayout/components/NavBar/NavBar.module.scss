@@ -32,6 +32,10 @@
   @include devices.device(smScreen) {
     @include buttons.button(0.9rem, 2px, white, colors.$main);
   }
+
+  @include devices.device(lgScreen) {
+    margin-right: 20px;
+  }
 }
 
 .userInfoContainer {
