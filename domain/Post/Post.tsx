@@ -37,7 +37,7 @@ export class Post {
   }
 
   private _lessons?: WpTerm[]
-  public get lessons (): WpTerm[] | undefined {
+  public get lessons (): WpTerm[] | undefined {
     return this._lessons
   }
 
@@ -61,22 +61,25 @@ export class Post {
   } {
     return this._title
   }
-  private _author: {username: string, uid: string , name:string} | undefined;
-  public get author (): {username: string, uid: string, name:string} | undefined {
+  private _author: { username: string; uid: string; name: string } | undefined
+  public get author ():
+    | { username: string; uid: string; name: string }
+    | undefined {
     return this._author
   }
   private _content?: {
     rendered: string
     raw: string
   }
-  public get content ():{
+  public get content ():
+    | {
         rendered: string
         raw: string
       }
     | undefined {
     return this._content
   }
-  
+
   /**
    * ISO Date convertir a new Date
    */
@@ -85,14 +88,14 @@ export class Post {
     return this._created_at
   }
 
-  metas?: any;
+  metas?: any
 
   constructor (post: PostDto) {
     this._id = post.id.toString()
-    this._tags = post.formatted_tags || []
+    this._tags = post.formatted_tags || []
     this._thumbnail_url = post.thumbnail_url
     this._wpID = post.id
-    this._categories = post.formatted_categories || []
+    this._categories = post.formatted_categories || []
     this._status = post.status
     this._excerpt = post.excerpt
     this._content = post.content
@@ -103,6 +106,11 @@ export class Post {
     this._author = post.created_by
     this.metas = post.metas
   }
+
+  public getCatgoryByParent = (parentSlug: string) =>
+    this._categories.find(
+      cat => cat.parent != 0 && cat.parent.slug === parentSlug
+    )
 
   public toJson = (): PostDto => ({
     id: this._wpID,
@@ -115,7 +123,7 @@ export class Post {
     content: this._content,
     thumbnail_url: this._thumbnail_url,
     formatted_tags: this._tags,
-    lessons : this._lessons,
+    lessons: this._lessons,
     acf: [],
     created_by: this._author,
     metas: this.metas

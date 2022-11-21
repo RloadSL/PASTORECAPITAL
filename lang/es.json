@@ -116,6 +116,7 @@
   "page.analysis.articles.form.create.submit" : "Crear artículo",
   "page.analysis.articles.form.remove.title": "Borrar Artículo",
   "page.analysis.articles.form.remove.content": "Seguro deseas eliminar el artículo, esto pondrá en estado deshabilitado todo el contenido relacionado.",
+  "page.analysis.articles.form.update": "Actualizar artículo",
 
   "page.analysis.category.form.create.title" : "Crear categoría",
   "page.analysis.category.form.create.name" : "Nombre de la categoría",

@@ -213,6 +213,23 @@ export class AnalysisRepository {
       alert('Error inteno en user.repository')
     }
   };
+
+  /**
+   * Elimina un artículo de análisis 
+   * @param id Id del artículo
+   * @param id Id de la categoría del plan
+   * @param wpToken Token de seguridad de WP obtenido si eres colaborador o administrador 
+   * @returns 
+   */
+   async setPlanArticle(id: number, term_id : number, wpToken: string): Promise<void> {
+    try {
+      await HTTP.post( `${WP_API_ANLALYSIS}articles/set-plan/${id}/${term_id}`, {},{ Authorization: `Bearer ${wpToken}` })
+      return;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en analysis.repository')
+    }
+  };
 }
 
 export const AnalysisRepositoryInstance = AnalysisRepository.getInstance();
