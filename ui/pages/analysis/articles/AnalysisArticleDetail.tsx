@@ -88,6 +88,15 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
               size='small'
               icon={iconDelete}
             />
+
+            <ButtonApp
+              labelID={'btn.delete'}
+              onClick={() => setDeleteArticle({ id: post.id, status: post.status })}
+              type='button'
+              buttonStyle='delete'
+              size='small'
+              icon={iconEdit}
+            />
           </div>
         )} 
         <div className={style.headerLesson}>
