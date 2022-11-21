@@ -13,7 +13,7 @@ const AlertApp = ({
   onCancel
 }: {
   title: string
-  onAction: Function
+  onAction?: Function
   onCancel: Function
   children: any
   visible: boolean
@@ -21,6 +21,7 @@ const AlertApp = ({
   const [loading, setloading] = useState(false)
 
   const _onAction = async () => {
+    if(!onAction) return;
     setloading(true)
     await onAction()
     setloading(false)
@@ -30,7 +31,7 @@ const AlertApp = ({
     <AlertAppView
       title={title}
       loading={loading}
-      onOk={() => _onAction()}
+      onOk={onAction ? () => _onAction() : undefined}
       onCancel={() => onCancel()}
     >
       {children}
@@ -49,7 +50,7 @@ const AlertAppView = ({
 }: {
   title: string
   onCancel: Function
-  onOk: Function
+  onOk?: Function
   loading: boolean
   children: any
 }) => {
@@ -64,14 +65,14 @@ const AlertAppView = ({
           </div>
           {children}
         </div>
-        <div className={style.actions}>
+        {onOk && <div className={style.actions}>
           <ButtonApp labelID='alert.btn.cancel' onClick={() => onCancel()} />
           <ButtonApp
             labelID='alert.btn.ok'
             onClick={() => onOk()}
             buttonStyle='primary'
           />
-        </div>
+        </div>}
       </div>
       <Loading loading={loading}></Loading>
     </Modal>

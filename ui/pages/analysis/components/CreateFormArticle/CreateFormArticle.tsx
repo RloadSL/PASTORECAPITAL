@@ -31,10 +31,12 @@ import LoadMoreLoading from 'components/LoadMoreLoading'
 
 const CreateFormArticle = ({
   onClose,
-  cat
+  cat,
+  post
 }: {
   onClose: Function
-  cat?: number
+  cat?: number,
+  post?:Post
 }) => {
   const intl = useIntl()
   const { pushErrorsApp } = useSystem()

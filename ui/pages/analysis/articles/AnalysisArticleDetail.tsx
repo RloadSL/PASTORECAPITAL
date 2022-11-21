@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ReadingProgressBar from 'components/ReadingProgressBar'
 import { Post } from 'domain/Post/Post'
 import { NextPage } from 'next'
@@ -21,55 +22,146 @@ import { FormattedMessage } from 'react-intl'
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { LOGO_PASTORE_URL } from 'infrastructure/contants'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
+import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
+import { getCategoriesPlans } from 'infrastructure/wordpress/wp.utils'
+import { Field, Form, Formik } from 'formik'
 
-const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
-  const {wpToken} = useSelector(getUserLogged) || {}
+const AnalysisArticleDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
+  const { wpToken } = useSelector(getUserLogged) || {}
   const { replace } = useRouter()
   const setGarant = useContext(SubscriptionGranted)
 
   useEffect(() => {
-    
-    if(!post.metas.permission_garanted){
-      console.log('AnalysisArticleDetail' , post.metas.permission_garanted )
-      setGarant({garanted: 'no_garant'});
-    } 
+    if (!post.metas.permission_garanted) {
+      console.log('AnalysisArticleDetail', post.metas.permission_garanted)
+      setGarant({ garanted: 'no_garant' })
+    }
   }, [post])
-  
 
-  const editLink = useRef<any>().current = wpToken
-  ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${wpToken}`
-  : undefined
+  const editLink = (useRef<any>().current = wpToken
+    ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${wpToken}`
+    : undefined)
 
-  
-  const _onDeleteArt = async ()=>{
-    if (wpToken){
-      await AnalysisRepositoryInstance.deleteArticle(
-        post.id,
-        wpToken,
-      )
+  const _onDeleteArt = async () => {
+    if (wpToken) {
+      await AnalysisRepositoryInstance.deleteArticle(post.id, wpToken)
       replace('/analysis', undefined, { shallow: true })
     }
   }
-
+  const _onUpdatePlan = (value: any) => {
+    console.log(value)
+  }
   return (
-    <AnalysisArticleDetailView onDeleteArt={_onDeleteArt} post={new Post(post)} editLink={editLink}></AnalysisArticleDetailView>
+    <AnalysisArticleDetailView
+      onDeleteArt={_onDeleteArt}
+      post={new Post(post)}
+      editLink={editLink}
+      onUpdatePlan={_onUpdatePlan}
+    ></AnalysisArticleDetailView>
   )
 }
 
-const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, editLink?:string, onDeleteArt: Function}) => {
-  const contentRef = useRef<any>();
+const AnalysisArticleDetailView = ({
+  post,
+  editLink,
+  onDeleteArt,
+  onUpdatePlan
+}: {
+  post: Post
+  editLink?: string
+  onDeleteArt: Function
+  onUpdatePlan: Function
+}) => {
+  const contentRef = useRef<any>()
   const [deleteArticle, setDeleteArticle]: [
     { id: number; status: string } | null,
     Function
   ] = useState(null)
+  const [createArt, setCreateArt] = useState(false)
 
-  const {query, asPath} = useRouter();
+  const { query, asPath } = useRouter()
+  const plans = useRef(post.getCatgoryByParent('plans'))
+  const [categoriesPlans, setCategoriesPlans] = useState<any>(null)
+
+  useEffect(() => {
+    if (!categoriesPlans && createArt) {
+      getCategoriesPlansWP().then(res => setCategoriesPlans(res))
+    }
+  }, [createArt])
+
+  const getCategoriesPlansWP = async () => {
+    const response = await getCategoriesPlans()
+    if (Array.isArray(response)) {
+      return response.map(term => {
+        return {
+          value: term.term_id,
+          label: term.name,
+          key: term.slug
+        }
+      })
+    } else {
+      return []
+    }
+  }
+
+  const updatePlan = () => (
+    <div className='checklist'>
+      <p>Seleccione el plan correspondiente</p>
+      <div
+        role='group'
+        style={{ display: 'flex' }}
+        aria-labelledby='checkbox-group'
+      >
+        <Formik
+          initialValues={{
+            activated_to_plan: plans.current?.term_id?.toString()
+          }}
+          onSubmit={values => {onUpdatePlan(values); setCreateArt(false)}}
+        >
+          {({ values, errors, touched }) => (
+            <Form className={style.form}>
+              <div  style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+              {categoriesPlans.map((plan: any) => (
+                <div role='group' key={plan.key}>
+                  <label>
+                    <Field
+                      type='radio'
+                      name='activated_to_plan'
+                      value={plan.value.toString()}
+                    />
+                    {plan.label}
+                  </label>
+                </div>
+              ))}
+              </div>
+              <div
+                style={{
+                  marginTop: '20px',
+                  maxWidth: '300px',
+                  margin: 'auto'
+                }}
+              >
+                <ButtonApp
+                  buttonStyle='secondary'
+                  type='submit'
+                  labelID='page.analysis.articles.form.update'
+                />
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  )
 
   return (
     <div className={style.lessonPage} ref={contentRef}>
-      <WordpressHeader title={post.title.rendered} metaDescription={post.excerpt.rendered} metaThumbnail={post.thumbnail_url || LOGO_PASTORE_URL}/>
+      <WordpressHeader
+        title={post.title.rendered}
+        metaDescription={post.excerpt.rendered}
+        metaThumbnail={post.thumbnail_url || LOGO_PASTORE_URL}
+      />
       <ReadingProgressBar target={contentRef} />
       <div className={style.readingContainer}>
         {editLink && (
@@ -82,7 +174,9 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
             />
             <ButtonApp
               labelID={'btn.delete'}
-              onClick={() => setDeleteArticle({ id: post.id, status: post.status })}
+              onClick={() =>
+                setDeleteArticle({ id: post.id, status: post.status })
+              }
               type='button'
               buttonStyle='delete'
               size='small'
@@ -90,23 +184,31 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
             />
 
             <ButtonApp
-              labelID={'btn.delete'}
-              onClick={() => setDeleteArticle({ id: post.id, status: post.status })}
+              onClick={() => setCreateArt(true)}
               type='button'
               buttonStyle='delete'
               size='small'
               icon={iconEdit}
-            />
+            >
+              {plans.current?.name}
+            </ButtonApp>
           </div>
-        )} 
+        )}
         <div className={style.headerLesson}>
           <p className='small-caps'>{query.category_name}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
-          <p className='author'>{post.author?.name} | <span className='date'>{post.created_at.toLocaleDateString()}</span></p>
+          <p className='author'>
+            {post.author?.name} |{' '}
+            <span className='date'>{post.created_at.toLocaleDateString()}</span>
+          </p>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <div className={style.socialSharing}>
-          <SocialMediaButtons title={post.title.rendered} url={asPath} description={post.excerpt.rendered}/>
+          <SocialMediaButtons
+            title={post.title.rendered}
+            url={asPath}
+            description={post.excerpt.rendered}
+          />
         </div>
       </div>
       {deleteArticle && (
@@ -122,6 +224,18 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
             <p>
               <FormattedMessage id='page.analysis.articles.form.remove.content' />
             </p>
+          </AlertApp>
+        </Suspense>
+      )}
+
+      {createArt && (
+        <Suspense>
+          <AlertApp
+            title='page.analysis.articles.form.update'
+            visible={createArt}
+            onCancel={() => setCreateArt(false)}
+          >
+            {categoriesPlans && updatePlan()}
           </AlertApp>
         </Suspense>
       )}
