@@ -70,7 +70,14 @@ const AnalysisCategory: NextPage<any> = () => {
         setOutstandingArt(res)
         if(query.post_id && query.collapsable_items === '1'){
           const selected = res.find((item:Post) => item.id === query.post_id)
-          setselectedArt({ items: [selected], hasMore: false })
+          if(selected){
+            setselectedArt({ items: [selected], hasMore: false })
+          }else{
+            AnalysisRepositoryInstance.getArticle(query.post_id as string).then((art)=>{
+              setselectedArt({ items: [art], hasMore: false })
+            })
+          }
+         
         }
         
       } )

@@ -64,7 +64,6 @@ const PostGridItemView = ({
   footerType : any
 }) => {
   const { limitTextLength } = useComponentUtils()
-  
   const _renderHeader = () => {
     return (
       <div
