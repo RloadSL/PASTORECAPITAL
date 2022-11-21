@@ -5,6 +5,7 @@ import { AuthenticationRepository } from "../../domain/Authentication/authentica
 import { CreateUser, Role } from "../dto/users.dto";
 import FireAuthentication  from "../firebase/authentication.firebase";
 import { FireFunctions, FireFunctionsInstance } from "../firebase/functions.firebase";
+import { getCookies, setCookie, deleteCookie } from 'cookies-next';
 
 /**
  * Implementación del repositorio de Authenticación basado en Firebase Authentication.
@@ -96,6 +97,8 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
       }
       
       if (callback) {
+        if(wpAuth?.UserData) setCookie('user-data', wpAuth?.UserData);
+        else deleteCookie('user-data')
         callback(user ?  {uid: user.uid, extradata: {wpToken: wpAuth.wp_token, userDataToken: wpAuth.UserData}} : null)
       }
     })

@@ -53,6 +53,7 @@ const AnalysisCategory: NextPage<any> = () => {
   const [statePost, setStatePost] = useState<'public' | 'private'>('public')
   
   useEffect(() => {
+   
     if (userLogged?.uid) {
       dispatch(cleanAcademyPosts({})) //OJO al nombre de esta función que hace referencia a Academy
       if (statePost === 'public') {
@@ -67,7 +68,7 @@ const AnalysisCategory: NextPage<any> = () => {
     if (userLogged?.uid)
       getOutstandingArticles().then(res =>{
         setOutstandingArt(res)
-        if(query.post_id){
+        if(query.post_id && query.collapsable_items === '1'){
           const selected = res.find((item:Post) => item.id === query.post_id)
           setselectedArt({ items: [selected], hasMore: false })
         }
@@ -95,7 +96,8 @@ const AnalysisCategory: NextPage<any> = () => {
           offset,
           post_status: statePost,
           category_name: query['category-slug'] as string,
-          s: filters.search
+          s: filters.search,
+          tags: filters.tags
         }
       })
     )

@@ -1,7 +1,7 @@
 import ReadingProgressBar from 'components/ReadingProgressBar'
 import { Post } from 'domain/Post/Post'
 import { NextPage } from 'next'
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { article } from 'ui/utils/test.data'
 import style from './analysisArticleDetail.module.scss'
 import parse from 'html-react-parser'
@@ -21,15 +21,28 @@ import { FormattedMessage } from 'react-intl'
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { LOGO_PASTORE_URL } from 'infrastructure/contants'
+import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
 
 const AnalysisArticleDetail:NextPage<any> = ({post}:{post:PostDto}) => {
   const {wpToken} = useSelector(getUserLogged) || {}
   const { replace } = useRouter()
+  const setGarant = useContext(SubscriptionGranted)
+
+  useEffect(() => {
+    
+    if(!post.metas.permission_garanted){
+      console.log('AnalysisArticleDetail' , post.metas.permission_garanted )
+      setGarant({garanted: 'no_garant'});
+    } 
+  }, [post])
+  
+
   const editLink = useRef<any>().current = wpToken
   ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${wpToken}`
   : undefined
 
-
+  
   const _onDeleteArt = async ()=>{
     if (wpToken){
       await AnalysisRepositoryInstance.deleteArticle(
