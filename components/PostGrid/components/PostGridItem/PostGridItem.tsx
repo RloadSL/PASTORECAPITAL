@@ -64,7 +64,7 @@ const PostGridItemView = ({
   footerType : any
 }) => {
   const { limitTextLength } = useComponentUtils()
- 
+  
   const _renderHeader = () => {
     return (
       <div
@@ -167,7 +167,7 @@ const PostGridItemView = ({
                       ? makeChips([gridItem.meta_post, ...gridItem.tags])
                       : null
                   }
-                  level={{ label: gridItem.level?.name }}
+                  level={{ label: gridItem.level?.name || getLevel(gridItem)?.name}}
                   componentStyle={'card'}
                   footer={
                     footerType === 'text'

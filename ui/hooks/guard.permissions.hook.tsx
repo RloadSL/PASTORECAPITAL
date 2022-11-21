@@ -16,12 +16,13 @@ const system_public_module = [
   '/subscription',
   '/analysis',
   '/analysis/[category-slug]'
+  
 ]
 
 const system_subscription_permission_module = {
-  guest: [...system_public_module],
-  basic: [...system_public_module],
-  plus: [...system_public_module, '/academy/tutorials/[tutorial-slug'],
+  guest: [...system_public_module , '/analysis/[category-slug]/[article-slug]'],
+  basic: [...system_public_module, '/analysis/[category-slug]/[article-slug]'],
+  plus: [...system_public_module, '/academy/tutorials/[tutorial-slug', '/analysis/[category-slug]/[article-slug]'],
   premium: [
     ...system_public_module,
     '/academy/tutorials/[tutorial-slug]',
@@ -64,8 +65,9 @@ export const useGuardPermissions = () => {
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
 
-      setSubscriptionGranted(authorized)
+      //setSubscriptionGranted(authorized)
     }
+
     if (userLogged?.uid) {
       _subscriptionGranted(
         userLogged?.subscription,

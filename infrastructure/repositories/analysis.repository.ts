@@ -15,7 +15,8 @@ export interface ANALYSIS_QUERY {
   /**
    * @description Slug de la categoría
    */
-  category_name?: string
+  category_name?: string,
+  tags?: number
 }
 /**
  * Servicios de análisis necesarios para su correcto funcionamiento implementado con el patron Singlenton
@@ -139,8 +140,9 @@ export class AnalysisRepository {
    * @returns 
    */
   async getArticles(userDataToken?: string, wpToken?: string, query?: ANALYSIS_QUERY) {
+   
     let params: string = userDataToken ? `user-data=${userDataToken}&` : ''
-    type query_type = 'post_status' | 'posts_per_page' | 'offset' | 's' | 'category_name';
+    type query_type = 'post_status' | 'posts_per_page' | 'offset' | 's' | 'category_name' | 'tags';
     if (query) {
       if (query.post_status && query.post_status === 'public') query.post_status = 'publish';
 
@@ -158,6 +160,7 @@ export class AnalysisRepository {
     const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?${params}`, HTTP.getHeaders(wpToken))
     if (res.success) {
       const posts = res.hits.map((item: any) => new Post(item));
+      
       return posts
     } else {
       return [];
@@ -184,9 +187,10 @@ export class AnalysisRepository {
    * @param id Id del artículo
    * @returns 
    */
-  async getArticle(id?: string) {
+  async getArticle(id: string, userDataToken?: string) {
     try {
-      const res = await HTTP.get(`${WP_API_ANLALYSIS}articles/${id}`);
+      let userData: string = userDataToken ? `user-data=${userDataToken}` : ''
+      const res = await HTTP.get(`${WP_API_ANLALYSIS}articles/${id}?${userData}`);
       if (res) return new Post(res);
       else return undefined
     } catch (error) {

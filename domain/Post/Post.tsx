@@ -117,6 +117,7 @@ export class Post {
     formatted_tags: this._tags,
     lessons : this._lessons,
     acf: [],
-    created_by: this._author
+    created_by: this._author,
+    metas: this.metas
   })
 }
