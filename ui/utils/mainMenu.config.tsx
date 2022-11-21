@@ -60,12 +60,51 @@ export const mainMenuItems = [
     path:'analysis'
   },
   {
-    type: 'link',
+    type: 'accordion',
     icon: consultant,
     label: 'mainMenu.item.label.consultant',
-    children: null,
     href: '/consultant',
-    path:'consultant'
+    path:'consultant',
+    children: [
+      {
+        type: 'link',
+        label: 'Asesores',
+        children: null,
+        href: '/academy/courses',
+        path:'courses'
+      },
+      {
+        type: 'link',
+        label: 'Recursos',
+        children: null,
+        href: '/academy/tutorials',
+        path:'tutorials'
+      }
+    ]
+  },
+  {
+    type: 'link',
+    icon: consultant,
+    label: 'Discord',
+    children: null,
+    href: '/discord',
+    path:'discord'
+  },
+  {
+    type: 'link',
+    icon: consultant,
+    label: 'Webinars',
+    children: null,
+    href: '/webinars',
+    path:'webinars'
+  },
+  {
+    type: 'link',
+    icon: consultant,
+    label: 'AMAs',
+    children: null,
+    href: '/amas',
+    path:'amas'
   },
   {
     label: 'mainMenu.item.label.administation',

@@ -80,7 +80,7 @@ const AnalysisArticleDetailView = ({post, editLink, onDeleteArt}:{post:Post, edi
         <div className={style.headerLesson}>
           <p className='small-caps'>{query.category_name}</p>
           <h1 className='main-title'>{post.title.rendered}</h1>
-          <p className='author'>{post.author?.name} | <span className='date'>{'fecha'}</span></p>
+          <p className='author'>{post.author?.name} | <span className='date'>{post.created_at.toLocaleDateString()}</span></p>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>
         <div className={style.socialSharing}>
