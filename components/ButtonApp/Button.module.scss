@@ -69,6 +69,7 @@
   color: colors.$error;
   border: 1px solid colors.$error;
   width: 100%;
+  max-width: 160px;
   & .icon {
     filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8) invert(0);
     margin-left: 12px;

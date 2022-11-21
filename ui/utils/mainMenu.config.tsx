@@ -62,30 +62,30 @@ export const mainMenuItems = [
   {
     type: 'accordion',
     icon: consultant,
-    label: 'mainMenu.item.label.consultant',
+    label: 'mainMenu.item.label.taxConsultant',
     href: '/consultant',
     path:'consultant',
     children: [
       {
         type: 'link',
-        label: 'Asesores',
+        label: 'mainMenu.item.label.consultants',
         children: null,
-        href: '/academy/courses',
-        path:'courses'
+        href: '/',
+        path:'counsultant'
       },
       {
         type: 'link',
-        label: 'Recursos',
+        label: 'mainMenu.item.label.resources',
         children: null,
-        href: '/academy/tutorials',
-        path:'tutorials'
+        href: '/',
+        path:'consultant'
       }
     ]
   },
   {
     type: 'link',
     icon: consultant,
-    label: 'Discord',
+    label: 'mainMenu.item.label.discord',
     children: null,
     href: '/discord',
     path:'discord'
@@ -93,7 +93,7 @@ export const mainMenuItems = [
   {
     type: 'link',
     icon: consultant,
-    label: 'Webinars',
+    label: 'mainMenu.item.label.webinars',
     children: null,
     href: '/webinars',
     path:'webinars'
@@ -101,7 +101,7 @@ export const mainMenuItems = [
   {
     type: 'link',
     icon: consultant,
-    label: 'AMAs',
+    label: 'mainMenu.item.label.amas',
     children: null,
     href: '/amas',
     path:'amas'
