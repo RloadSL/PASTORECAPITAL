@@ -219,6 +219,7 @@ const AnalysisCategoryView = ({
           </div>
         </div>
         <SearchBar
+        placeholder={'Buscar por palabra clave'}
           onFilter={(value: { search?: string; tags?: string }) =>
             onFilter(value)
           }

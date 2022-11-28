@@ -154,7 +154,7 @@ const CreateCategoryAnalysisView = ({
                 <ButtonApp
                   buttonStyle='secondary'
                   type='submit'
-                  labelID='page.analysis.articles.form.create.submit'
+                  labelID={`page.analysis.category.form.${cat ? 'update' : 'create'}.title`}
                 />
               </Form>
             )

@@ -14,7 +14,7 @@ const ModalView = ({ children, onClickBackDrop, onBtnClose }: { children: any, o
     <div className={style.modal}>
       <div className={style.backdrop} onClick={(e) => onClickBackDrop()}>
         <div className={style.modalContainer}>
-          <Card>
+          <Card cardStyle={'modal'}>
             <div className={style.content}>
               {onBtnClose && <button className={style.closeBtn} onClick={() => onBtnClose()}>
                 <span className='only-readers'>Cerrar</span>
