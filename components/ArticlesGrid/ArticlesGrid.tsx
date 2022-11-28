@@ -33,13 +33,15 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
     (post: Post) => post.categories.find(cat => cat.parent != 0 && cat.parent.slug === 'analysis'),
     [],
   )  
-  
-
+console.log(posts)
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
         {posts?.map((singlePost, index) => {
+          
           const postLevel = getLevel(singlePost)
           const postCat:any = category.term_id ? category : getCatgory(singlePost)
+          if(!postCat?.name) console.log(singlePost)
+
           const query:any = {
             cat: category.term_id,
             category_name: postCat.name,
@@ -48,7 +50,7 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
             post_title : singlePost.title.rendered
           }
           
-          const urlPost = encodeURI(`/analysis/${postCat?.slug}/${postCat.metas.collapsable_items !== '1'? singlePost.slug : ''}`)
+          const urlPost = encodeURI(`/research/bitcoins-altcoins/${postCat?.slug}/${postCat.metas.collapsable_items !== '1'? singlePost.slug : ''}`)
         return (
           <div key={singlePost.id} className={`${index === 0 && componentStyle === 'grid' ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>

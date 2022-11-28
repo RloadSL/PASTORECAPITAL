@@ -1,0 +1,212 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/placeholders";
+
+.academyPage {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  header {
+    margin-bottom: 40px;
+    .topTitle {
+      display: flex;
+      align-content: center;
+      font-weight: 500;
+      font-size: 2.5rem;
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        background-image: url(../../../assets/img/hello-user.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: relative;
+        bottom: -12px;
+      }
+
+      span {
+        margin: auto 10px;
+      }
+    }
+
+    p {
+      margin: 0px;
+    }
+  }
+
+  .topContainer {
+    background-color: colors.$main;
+    color: white;
+    background-image: url(../../../assets/img/our-courses-bg.svg);
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position: center;
+    @extend %borderRadius;
+    margin-bottom: 40px;
+    @include devices.device(650px) {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .headerImageContainer {
+      position: relative;
+
+      @include devices.device(lgScreen) {
+        overflow: visible;
+        min-height: 250px;
+        width: 550px;
+      }
+    }
+
+    .headerImage {
+      max-width: 300px;
+      margin: auto;
+      @include devices.device(650px) {
+        position: absolute;
+        top: -110px;
+        right: 8%;
+        width: 250px;
+
+        @include devices.device(mdScreen) {
+          width: 350px;
+          top: -150px;
+        }
+
+        @include devices.device(lgScreen) {
+          max-width: 400px;
+          top: -110px;
+          width: 100%;
+        }
+      }
+    }
+
+    .innerContainer {
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      @include devices.device(650px) {
+        display: flex;
+        width: 90%;
+      }
+
+      @include devices.device(lgScreen) {
+        justify-content: flex-start;
+        align-items: center;
+        margin-left: 35%;
+      }
+
+      p {
+        color: white;
+        font-weight: 500;
+        font-size: 1.5rem;
+        text-align: center;
+        max-width: 300px;
+        margin: auto;
+        padding-top: 5%;
+
+        @include devices.device(650px) {
+          max-width: 350px;
+          padding-top: 0px;
+          margin-left: 5%;
+          text-align: left;
+        }
+
+        @include devices.device(smTablet) {
+          text-align: center;
+          margin-left: auto;
+        }
+
+        @include devices.device(lgScreen) {
+          width: 70%;
+          max-width: 350px;
+        }
+      }
+    }
+  }
+
+  .bottomContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    @include devices.device(mdScreen) {
+      flex-direction: row;
+    }
+
+    .flexContainer {
+      flex-direction: column;
+
+      @include devices.device(650px) {
+        flex-direction: row;
+      }
+    }
+
+    p {
+      margin: 0px;
+    }
+
+    %containers {
+      padding: 30px;
+      width: 100%;
+      @extend %borderRadius;
+      margin-top: 20px;
+
+      @include devices.device(mdScreen) {
+        margin-top: 0px;
+      }
+    }
+
+    .imageContainer {
+      max-width: 120px;
+
+      @include devices.device(tablet) {
+        flex-shrink: 0;
+      }
+
+      @include devices.device(lgScreen) {
+        max-width: 180px;
+      }
+    }
+
+    .textContainer {
+      margin-left: 30px;
+
+      .titleBlock {
+        margin-bottom: 20px
+      }
+
+      .buttonContainer {
+        margin-top: 20px;
+        max-width: 300px;
+      }
+
+      .title {
+        font-weight: 500;
+        font-size: 1.5rem;
+        text-transform: uppercase
+      }
+    }
+
+    .leftContainer {
+      @extend %containers;
+      background-color: colors.$palette6;
+
+      @include devices.device(mdScreen) {
+        margin-right: 10px;
+      }
+    }
+
+    .rightContainer {
+      @extend %containers;
+      background-color: lighten(colors.$dark,75%);
+
+      @include devices.device(mdScreen) {
+        margin-left: 10px;
+      }
+    }
+  }
+}

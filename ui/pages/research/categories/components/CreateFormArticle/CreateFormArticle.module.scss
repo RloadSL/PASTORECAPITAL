@@ -1,0 +1,17 @@
+@use '../../../../../../styles/partials/placeholders'; 
+@use '../../../../../../styles/partials/variables/colors' as colors;
+@use '../../../../../../styles/partials/mixins/devices' as devices;
+
+
+.cardContainer {
+  @extend %cardContainer;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  max-height: 100% !important;
+}
+
+.formTitle {
+  text-align: center;
+  color: colors.$dark;
+  margin-bottom: 50px;
+}

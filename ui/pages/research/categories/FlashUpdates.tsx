@@ -12,21 +12,17 @@ import {
 } from 'ui/redux/slices/wp-headless-api/wp-headless-api.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
-import style from './analysisCategory.module.scss'
+import style from './flashUpdatesCategory.module.scss'
 import { useRouter } from 'next/router'
-import CreateCategoryAnalysis from '../components/CreateCategoryAnalysis'
-import ButtonApp from 'components/ButtonApp'
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { FormattedMessage } from 'react-intl'
-import iconEdit from '../../../../assets/img/icons/pencil.svg'
-import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 const CreateFormArticle = dynamic(
-  () => import('../components/CreateFormArticle'),
+  () => import('./components/CreateFormArticle'),
   {
     suspense: true
   }
@@ -37,7 +33,7 @@ const CreateFormArticle = dynamic(
  * @returns
  */
 
-const AnalysisCategory: NextPage<any> = () => {
+const FlashUpdates: NextPage<any> = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({
     search: '',
@@ -177,14 +173,12 @@ const AnalysisCategoryView = ({
   selectedPost?: any
 }) => {
   const [createArt, setCreateArt] = useState(false)
-  const [deleteCat, setDeleteCat] = useState(false)
-  const [updateCat, setCategory] = useState(false)
   const [deleteArticle, setDeleteArticle]: [
     { id: number; status: string } | null,
     Function
   ] = useState(null)
   const { query } = useRouter()
-  const isPrivateExcerpt = useRef(false)
+  const isPrivateExcerpt = useRef(true)
   const { editionGranted } = useGuardPermissions()
   const [outstandingPost, setoutstandingPost] = useState<
     { items: Post[]; hasMore: false } | undefined
@@ -203,26 +197,7 @@ const AnalysisCategoryView = ({
           <p className='small-caps'>Análisis</p>
           <h1 className='main-title'>{query.category_name}</h1>
           <div className={`admin-buttons-wrapper`}>
-            {editionGranted && (
-              <div className={`admin-buttons-container ${style.adminButtons}`}>
-                <ButtonApp
-                  labelID={'page.analysis.category.form.update.title'}
-                  onClick={() => setCategory(true)}
-                  type='button'
-                  buttonStyle={['primary', 'outlined']}
-                  size='small'
-                  icon={iconEdit}
-                />
-                <ButtonApp
-                  labelID={'page.analysis.category.form.remove.title'}
-                  onClick={() => setDeleteCat(true)}
-                  type='button'
-                  buttonStyle='delete'
-                  size='small'
-                  icon={iconDelete}
-                />
-              </div>
-            )}
+            
           </div>
         </div>
         <SearchBar
@@ -264,31 +239,8 @@ const AnalysisCategoryView = ({
         )}
       </div>
 
-      {updateCat && (
-        <Suspense>
-          <CreateCategoryAnalysis
-            cat={parseInt(query.cat as string)}
-            onClose={() => {
-              setCategory(false)
-            }}
-          ></CreateCategoryAnalysis>
-        </Suspense>
-      )}
 
-      {deleteCat && (
-        <Suspense>
-          <AlertApp
-            title='page.analysis.category.form.remove.title'
-            visible={deleteCat}
-            onAction={() => onDeleteCat()}
-            onCancel={() => setDeleteCat(false)}
-          >
-            <p>
-              <FormattedMessage id='page.analysis.category.form.remove.content' />
-            </p>
-          </AlertApp>
-        </Suspense>
-      )}
+     
       {deleteArticle && (
         <Suspense>
           <AlertApp
@@ -320,4 +272,4 @@ const AnalysisCategoryView = ({
   )
 }
 
-export default AnalysisCategory
+export default FlashUpdates

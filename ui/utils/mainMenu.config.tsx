@@ -52,12 +52,27 @@ export const mainMenuItems = [
     ]
   },
   {
-    type: 'link',
+    type: 'accordion',
     icon: analysis,
-    label: 'mainMenu.item.label.analysis',
-    children: null,
-    href: '/analysis',
-    path:'analysis'
+    label: 'mainMenu.item.label.research',
+    href: null,
+    path: null,
+    children: [
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.analysis',
+        children: null,
+        href: '/research/bitcoins-altcoins',
+        path: 'research/bitcoins-altcoins'
+      },
+      {
+        type: 'link',
+        label: 'mainMenu.item.label.flashUpdates',
+        children: null,
+        href: '/research/flash-updates',
+        path: 'research/flash-updates'
+      }
+    ]
   },
   {
     type: 'accordion',

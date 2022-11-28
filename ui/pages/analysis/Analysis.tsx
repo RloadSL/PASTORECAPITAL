@@ -32,6 +32,7 @@ const Analysis: NextPage<any> = () => {
     if (userLogged?.uid) {
       AnalysisRepositoryInstance.getCategories().then(categories => {
         if (fetching) {
+          console.log(categories)
           setWpCategories(categories as Array<any>)
         }
       })
@@ -40,7 +41,7 @@ const Analysis: NextPage<any> = () => {
     AnalysisRepositoryInstance.getOutstandingArticles().then(res => setartOutsanding(res))
 
     if (Object.keys(router.query).length > 0) {
-      router.replace('/analysis', undefined, { shallow: true })
+      router.replace('/research/bitcoins-altcoins', undefined, { shallow: true })
     }
 
     return () => {

@@ -14,8 +14,8 @@ const system_public_module = [
   '/academy/tutorials',
   '/academy/courses',
   '/subscription',
-  '/analysis',
-  '/analysis/[category-slug]'
+  '/research/bitcoins-altcoins',
+  '/research/bitcoins-altcoins/[category-slug]'
   
 ]
 

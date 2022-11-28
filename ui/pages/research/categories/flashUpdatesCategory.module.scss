@@ -1,0 +1,25 @@
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/placeholders";
+
+.analysisCategoryPage {
+  @extend %layoutContainer;
+  padding: 2%;
+  position: relative;
+
+  .adminButtons {
+    max-width: 420px !important;
+    margin-bottom: 50px;
+  }
+
+  .collapsedItem {
+    display:flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+
+    @include devices.device(tablet){
+      flex-direction: row;
+    }
+  }
+}

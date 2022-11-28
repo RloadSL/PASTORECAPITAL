@@ -7,11 +7,16 @@ export const createCategory = async (category: CATEGORY) => {
   const response = await HTTP.post(WP_API_CATEGORY, category)
   return response;
 }
+/**
+ * get category headdless
+ * @param cat Category ID
+ * @param category Category slug
+ * @returns 
+ */
+export const getCategory = async (cat?: number, category?:string) => {
 
-export const getCategory = async (cat: number) => {
-
-  const response = await HTTP.get(`${WP_API_CATEGORY}/${cat}`)
-
+  const response = cat ? await HTTP.get(`${WP_API_CATEGORY}/${cat}`)
+  : await HTTP.get(`${WP_API_CATEGORY}?slug=${category}`)
   return response;
 }
 
