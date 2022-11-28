@@ -27,7 +27,6 @@ const CreateFormArticle = dynamic(
     suspense: true
   }
 )
-
 /**
  * Función principal del componente Analysis Category
  * @returns
@@ -64,7 +63,7 @@ const FlashUpdates: NextPage<any> = () => {
     if (userLogged?.uid)
       getOutstandingArticles().then(res =>{
         setOutstandingArt(res)
-        if(query.post_id && query.collapsable_items === '1'){
+        if(query.post_id){
           const selected = res.find((item:Post) => item.id === query.post_id)
           if(selected){
             setselectedArt({ items: [selected], hasMore: false })
