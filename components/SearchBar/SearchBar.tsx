@@ -9,8 +9,6 @@ import Card from 'components/Card'
 const SearchBar = ({ onFilter, placeholder, enableTags= true }: any) => {
   const [tags, setTags] = useState([])
   
-
-
   const getTags = async (tags: string) => {
     const res = await getTagsFromServer(tags)
     if (res.length > 0) {
