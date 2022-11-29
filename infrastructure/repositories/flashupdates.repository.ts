@@ -34,8 +34,6 @@ export class FlashUpdatesRepository {
     return FlashUpdatesRepository.instance;
   }
   
-  
-  
   /**
    * Crea un artículo asignandola a una subcategoría de análisis 
    * @param categories ID de las categorias a las que se asignará este artículo

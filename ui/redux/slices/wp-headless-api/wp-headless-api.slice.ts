@@ -4,6 +4,7 @@ import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { Post } from "domain/Post/Post";
 import { AnalysisRepositoryInstance, ANALYSIS_QUERY } from "infrastructure/repositories/analysis.repository";
 import { CourseRepositoryInstance } from "infrastructure/repositories/courses.repository";
+import { FlashUpdatesRepositoryInstance } from "infrastructure/repositories/flashupdates.repository";
 import { TutorialRepositoryInstance } from "infrastructure/repositories/tutorials.repository";
 
 
@@ -43,7 +44,24 @@ export const academyGetTutorials = createAsyncThunk(
 /**
  * Obtener artículos desde el headless
  */
-export const getAnalysisArticles = createAsyncThunk(
+export const getFlashArticles = createAsyncThunk(
+  'analysis@getFlashArticles',
+  async ({ wpToken, userDataToken, query }: { wpToken?: string, userDataToken?: string, query?: ANALYSIS_QUERY }, { getState }) => {
+    try {
+      const response = await FlashUpdatesRepositoryInstance.getArticles(userDataToken, wpToken, { ...query, posts_per_page: 5 })
+
+      return { articles: response, offset: query?.offset };
+
+    } catch (error) {
+      return error;
+    }
+  }
+)
+
+/**
+ * Obtener artículos desde el headless
+ */
+ export const getAnalysisArticles = createAsyncThunk(
   'analysis@getAnalysisArticles',
   async ({ wpToken, userDataToken, query }: { wpToken?: string, userDataToken?: string, query?: ANALYSIS_QUERY }, { getState }) => {
     try {
@@ -138,7 +156,17 @@ export const wpHeadless = createSlice({
         state.loading = false
       })
       .addCase(getAnalysisArticles.pending, (state: any) => { state.loading = true })
-
+      //FlASH UPDATES
+      .addCase(getFlashArticles.fulfilled, (state: any, action: any) => {
+        if (state.posts && action.payload.offset) {
+          state.posts.items = state.posts.items.concat(action.payload.articles)
+        } else {
+          state.posts.items = action.payload.articles
+        }
+        state.posts.hasMore = action.payload.articles.length === 5;
+        state.loading = false
+      })
+      .addCase(getFlashArticles.pending, (state: any) => { state.loading = true })
   }
 })
 

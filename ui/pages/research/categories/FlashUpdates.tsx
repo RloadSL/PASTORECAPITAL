@@ -8,7 +8,8 @@ import { Suspense, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   cleanAcademyPosts,
-  getAnalysisArticles
+  getAnalysisArticles,
+  getFlashArticles
 } from 'ui/redux/slices/wp-headless-api/wp-headless-api.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
@@ -20,6 +21,7 @@ import { FormattedMessage } from 'react-intl'
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import { FlashUpdatesRepositoryInstance } from 'infrastructure/repositories/flashupdates.repository'
 
 const CreateFormArticle = dynamic(
   () => import('./components/CreateFormArticle'),
@@ -91,13 +93,13 @@ const FlashUpdates: NextPage<any> = () => {
     offset?: number
   ) => {
     await dispatch(
-      getAnalysisArticles({
+      getFlashArticles({
         userDataToken,
         wpToken,
         query: {
           offset,
           post_status: statePost,
-          category_name: query['category-slug'] as string,
+          category_name: 'flash-updates',
           s: filters.search,
           tags: filters.tags
         }
@@ -106,38 +108,30 @@ const FlashUpdates: NextPage<any> = () => {
   }
 
   const getOutstandingArticles = async () => {
-    if (query['category-slug']) {
-      const response = await AnalysisRepositoryInstance.getOutstandingArticles(
-        query['category-slug'] as string,
+   
+      const response = await FlashUpdatesRepositoryInstance.getOutstandingArticles(
+        'flash-updates',
         userDataToken
       )
       return response
-    } else return []
+    
   }
 
   const _filter = (value: any) => {
     setFilters(pre => ({ ...pre, ...value }))
   }
 
-  const _onDeleteCat = async () => {
-    if (wpToken)
-      await AnalysisRepositoryInstance.deleteCategory(
-        wpToken,
-        parseInt(query.cat as string)
-      )
-    replace('/research/bitcoins-altcoins', undefined, { shallow: true })
-  }
+  
 
   const _onDeleteArt = async (data: { id: number; status: string }) => {
     if (wpToken) {
-      await AnalysisRepositoryInstance.deleteArticle(data.id, wpToken)
+      await FlashUpdatesRepositoryInstance.deleteArticle(data.id, wpToken)
       setFilters(pre => ({ ...pre }))
     }
   }
   return (
-    <AnalysisCategoryView
+    <FlashUpdatesView
       outstandingArt={outstandingArt}
-      onDeleteCat={_onDeleteCat}
       onDeleteArt={_onDeleteArt}
       statePost={statePost}
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
@@ -152,19 +146,17 @@ const FlashUpdates: NextPage<any> = () => {
   )
 }
 
-const AnalysisCategoryView = ({
+const FlashUpdatesView = ({
   onFilter,
   setStatePost,
   statePost,
   loadMore,
-  onDeleteCat,
   onDeleteArt,
   outstandingArt,
   selectedPost
 }: {
   outstandingArt: Post[]
   onFilter: Function
-  onDeleteCat: Function
   onDeleteArt: Function
   setStatePost: Function
   statePost: 'public' | 'private'
