@@ -189,10 +189,12 @@ const PostGridItemView = ({
                 title={limitTextLength(60, gridItem.title.rendered || '')}
                 description={gridItem.content?.rendered || ''}
                 chips={[]}
-                level={getLevel(gridItem)}
+                level={isAdmin ? gridItem.getCatgoryByParent('plans') : undefined}
                 componentStyle={'card'}
+                metas={ gridItem.metas}
               />
             )}
+           
           </div>
         </div>
       </Card>

@@ -8,14 +8,16 @@ import LockedContent from 'components/LockedContent'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import SocialMediaButtons from 'components/SocialMediaButtons'
 import { useRouter } from 'next/router'
+import { WP_TERM } from 'infrastructure/dto/wp.dto'
 
 export interface COLLAPSEDPOSTPROPS {
   title: string
   description: string
   lockedContent: boolean
   chips?: any
+  metas?:any
   // isCollapsed: boolean
-  level?: WpCat | any
+  level?: WP_TERM | any
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
   hasSeparator?: boolean
   header?: {
@@ -39,9 +41,11 @@ const CollapsedPost = ({
   level,
   componentStyle,
   hasSeparator,
-  header
+  header,
+  metas
 }: // isCollapsed
 COLLAPSEDPOSTPROPS) => {
+
   return (
     <CollapsedPostView
       title={title}
@@ -89,6 +93,8 @@ COLLAPSEDPOSTPROPS) => {
           <p className={style.content}>
             <span className={style.author}>{header.text}</span>
             <span className={style.date}>{header.date}</span>
+            <br/>
+            {level && <span className={style.description}>Plan: {level.name}</span>}
           </p>
         </div>
       ) : null}

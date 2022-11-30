@@ -169,7 +169,7 @@ const PostGridView = ({
           <ul className={`${style.postGrid} ${style[alignment]}`}>
             {editionGranted && <li className={style.createButtonContainer}>{itemCreateBtn()}</li>}
             {(posts.items.length <= 0 && posts.hasMore == false) && <p className={style.noResults}><FormattedMessage id='message.item.no-result'/></p>}
-            {posts.items.map((item: any, index: number) => {
+            {posts.items.map((item: Post, index: number) => {
               return (
                 <li key={index} className={style.postLink}>
                     <PostGridItem
