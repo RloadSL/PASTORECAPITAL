@@ -37,7 +37,6 @@ const Breadcrumbs = () => {
       }
       crumbs = [...crumbs, obj]
     }
-    console.log(crumbs)
     return crumbs
   }, [])
 

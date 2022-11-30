@@ -32,7 +32,6 @@ const Analysis: NextPage<any> = () => {
     if (userLogged?.uid) {
       AnalysisRepositoryInstance.getCategories().then(categories => {
         if (fetching) {
-          console.log(categories)
           setWpCategories(categories as Array<any>)
         }
       })
