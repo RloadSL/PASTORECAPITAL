@@ -32,7 +32,7 @@ const DrawerNav = ({ children }: any) => {
   // }, []);
 
   useEffect(() => {
-    const active = router.route === '/' ? mainMenuItems[0] : mainMenuItems.find(item => router.route.includes(item.path));
+    const active = router.route === '/' ? mainMenuItems[0] : mainMenuItems.find(item => router.route.includes(item.path as string));
     setActiveItem(active)
   }, [router.route])
   
