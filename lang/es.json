@@ -142,6 +142,7 @@
   "component.navbar.signOutBtn": "Salir",
   "component.navbar.profile": "Perfil de usuario",
   "component.modal.close" : "X",
+  "component.filter-search-bar.label" : "Buscar por palabra clave",
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
   "auth/user-not-found": "El usuario no existe",
   "auth/email-already-exists": "El email ya esta en uso en la plataforma",

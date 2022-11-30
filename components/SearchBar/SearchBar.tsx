@@ -6,7 +6,7 @@ import { debounce } from 'lodash'
 import { getTagsFromServer } from 'infrastructure/wordpress/wp.utils'
 import Card from 'components/Card'
 
-const SearchBar = ({ onFilter, placeholder, enableTags= true }: any) => {
+const SearchBar = ({ onFilter, placeholder, enableTags= true }: {enableTags?: boolean,placeholder?: string,onFilter:any  }) => {
   const [tags, setTags] = useState([])
   
   const getTags = async (tags: string) => {
@@ -52,7 +52,7 @@ const SearchBarView = ({ onFilter, tags, placeholder }: any) => {
                 _handleOnChange({ [name]: value })
                 setsearch(value)
               }}
-              labelID={placeholder || 'page.academy.courses.filterSearch.label'}
+              labelID={placeholder || 'component.filter-search-bar.label'}
               icon={searchIcon}
               name='search'
               type='text'

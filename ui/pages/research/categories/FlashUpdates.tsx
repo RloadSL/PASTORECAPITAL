@@ -192,12 +192,14 @@ const FlashUpdatesView = ({
     <div className={style.analysisCategoryPage}>
       <header className='title-container flex-container column space-between'>
         <div className={style.titleBlock}>
-          <p className='small-caps'>Análisis</p>
+          <p className='small-caps'>
+            <FormattedMessage id={'flash-updates'}/>
+          </p>
           <h1 className='main-title'>{query.category_name}</h1>
           <div className={`admin-buttons-wrapper`}></div>
         </div>
         <SearchBar
-          onFilter={(value: { search?: string; tags?: string }) =>
+          onFilter={(value: { search?: string; tags?: string}) =>
             onFilter(value)
           }
         />
