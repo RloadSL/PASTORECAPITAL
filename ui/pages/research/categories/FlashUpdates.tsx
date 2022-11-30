@@ -23,8 +23,16 @@ import SearchBar from 'components/SearchBar'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { FlashUpdatesRepositoryInstance } from 'infrastructure/repositories/flashupdates.repository'
 
+
 const CreateFormArticle = dynamic(
   () => import('./components/CreateFormArticle'),
+  {
+    suspense: true
+  }
+)
+
+const WpUpdatePlan = dynamic(
+  () => import('components/UpdatePostPlan'),
   {
     suspense: true
   }
@@ -48,9 +56,7 @@ const FlashUpdates: NextPage<any> = () => {
   const { userDataToken, wpToken } = userLogged || {}
   const { query, replace } = useRouter()
   const [statePost, setStatePost] = useState<'public' | 'private'>('public')
-  
   useEffect(() => {
-   
     if (userLogged?.uid) {
       dispatch(cleanAcademyPosts({})) //OJO al nombre de esta función que hace referencia a Academy
       if (statePost === 'public') {
@@ -63,21 +69,21 @@ const FlashUpdates: NextPage<any> = () => {
 
   useEffect(() => {
     if (userLogged?.uid)
-      getOutstandingArticles().then(res =>{
+      getOutstandingArticles().then(res => {
         setOutstandingArt(res)
-        if(query.post_id){
-          const selected = res.find((item:Post) => item.id === query.post_id)
-          if(selected){
+        if (query.post_id) {
+          const selected = res.find((item: Post) => item.id === query.post_id)
+          if (selected) {
             setselectedArt({ items: [selected], hasMore: false })
-          }else{
-            AnalysisRepositoryInstance.getArticle(query.post_id as string).then((art)=>{
-              setselectedArt({ items: [art], hasMore: false })
-            })
+          } else {
+            AnalysisRepositoryInstance.getArticle(query.post_id as string).then(
+              art => {
+                setselectedArt({ items: [art], hasMore: false })
+              }
+            )
           }
-         
         }
-        
-      } )
+      })
   }, [])
 
   const _loadMore = (offset: number) => {
@@ -108,20 +114,17 @@ const FlashUpdates: NextPage<any> = () => {
   }
 
   const getOutstandingArticles = async () => {
-   
-      const response = await FlashUpdatesRepositoryInstance.getOutstandingArticles(
+    const response =
+      await FlashUpdatesRepositoryInstance.getOutstandingArticles(
         'flash-updates',
         userDataToken
       )
-      return response
-    
+    return response
   }
 
   const _filter = (value: any) => {
     setFilters(pre => ({ ...pre, ...value }))
   }
-
-  
 
   const _onDeleteArt = async (data: { id: number; status: string }) => {
     if (wpToken) {
@@ -132,6 +135,7 @@ const FlashUpdates: NextPage<any> = () => {
   return (
     <FlashUpdatesView
       outstandingArt={outstandingArt}
+      userTokens={{ userDataToken, wpToken }}
       onDeleteArt={_onDeleteArt}
       statePost={statePost}
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
@@ -153,7 +157,8 @@ const FlashUpdatesView = ({
   loadMore,
   onDeleteArt,
   outstandingArt,
-  selectedPost
+  selectedPost,
+  userTokens
 }: {
   outstandingArt: Post[]
   onFilter: Function
@@ -162,6 +167,7 @@ const FlashUpdatesView = ({
   statePost: 'public' | 'private'
   loadMore: Function
   selectedPost?: any
+  userTokens: { userDataToken?: string; wpToken?: string }
 }) => {
   const [createArt, setCreateArt] = useState(false)
   const [deleteArticle, setDeleteArticle]: [
@@ -174,12 +180,13 @@ const FlashUpdatesView = ({
   const [outstandingPost, setoutstandingPost] = useState<
     { items: Post[]; hasMore: false } | undefined
   >()
-  
-  useEffect(() => {
-    if(selectedPost) setoutstandingPost(selectedPost);
-  }, [selectedPost])
-  
+  const [updatePLan, setUpdatePLan] = useState<
+    { id: string; plan_id: string } | undefined
+  >(undefined)
 
+  useEffect(() => {
+    if (selectedPost) setoutstandingPost(selectedPost)
+  }, [selectedPost])
 
   return (
     <div className={style.analysisCategoryPage}>
@@ -187,9 +194,7 @@ const FlashUpdatesView = ({
         <div className={style.titleBlock}>
           <p className='small-caps'>Análisis</p>
           <h1 className='main-title'>{query.category_name}</h1>
-          <div className={`admin-buttons-wrapper`}>
-            
-          </div>
+          <div className={`admin-buttons-wrapper`}></div>
         </div>
         <SearchBar
           onFilter={(value: { search?: string; tags?: string }) =>
@@ -198,9 +203,12 @@ const FlashUpdatesView = ({
         />
       </header>
       {outstandingPost && (
-        <button className='back-button' onClick={() => setoutstandingPost(undefined)}>
+        <button
+          className='back-button'
+          onClick={() => setoutstandingPost(undefined)}
+        >
           <span>
-          <FormattedMessage id="btn.back"/>
+            <FormattedMessage id='btn.back' />
           </span>
         </button>
       )}
@@ -208,9 +216,12 @@ const FlashUpdatesView = ({
         <PostGrid
           parent='page.analysis.articles.form.create.submit'
           loadMore={loadMore}
+          setPlan={({ id, plan_id }: any) => setUpdatePLan({ id, plan_id })}
           statePost={statePost}
           setStatePost={(state: 'public' | 'private') => setStatePost(state)}
-          onClickItemTarget={encodeURI(`/research/bitcoins-altcoins/${query['category-slug']}/`)}
+          onClickItemTarget={encodeURI(
+            `/research/bitcoins-altcoins/${query['category-slug']}/`
+          )}
           deleteItem={(value: { id: number; status: string }) =>
             setDeleteArticle(value)
           }
@@ -230,8 +241,6 @@ const FlashUpdatesView = ({
         )}
       </div>
 
-
-     
       {deleteArticle && (
         <Suspense>
           <AlertApp
@@ -259,6 +268,22 @@ const FlashUpdatesView = ({
           ></CreateFormArticle>
         </Suspense>
       )}
+
+      {updatePLan && <Suspense>
+        <AlertApp
+          title='page.analysis.articles.form.update'
+          visible={updatePLan != undefined}
+          onCancel={() => {
+            setUpdatePLan(undefined)
+          }}
+        >
+          <WpUpdatePlan wpToken = {userTokens.wpToken}
+            post_id={updatePLan?.id}
+            current_plan_id={updatePLan?.plan_id}/>
+            
+         
+        </AlertApp>
+      </Suspense>}
     </div>
   )
 }

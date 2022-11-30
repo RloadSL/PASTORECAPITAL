@@ -99,3 +99,13 @@ export const getCategoryAcademy = async (target: 'courses' | 'tutorial' | 'lesso
     return academyCat.length > 0 ? academyCat[0].id : -1
   }
 }
+
+export const updatePlanPost = async (id: string, wpToken: string, catPlanId:string) => {
+  try {
+   
+    const res = await HTTP.post(`${WP_API_PLATFORM}articles/set-plan/${id}/${catPlanId}`,{},{ Authorization: `Bearer ${wpToken}` });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

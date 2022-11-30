@@ -26,6 +26,7 @@ const PostGridItem = ({
   onClickItem,
   isAdmin = false,
   deleteItem,
+  setPlan,
   typeItem = 'excerpt',
   footerType = 'chips'
 }: {
@@ -33,6 +34,7 @@ const PostGridItem = ({
   onClickItem: Function
   isAdmin: boolean
   deleteItem: Function
+  setPlan?:Function
   typeItem?: 'privateExcerpt' | 'excerpt'
   footerType?: 'text' | 'chips'
 }) => {
@@ -44,6 +46,7 @@ const PostGridItem = ({
       gridItem={gridItem}
       typeItem={typeItem}
       footerType={footerType}
+      setPlan={setPlan}
     />
   )
 }
@@ -54,7 +57,8 @@ const PostGridItemView = ({
   isAdmin,
   deleteItem,
   typeItem,
-  footerType
+  footerType,
+  setPlan
 }: {
   gridItem: any,
   onClickItem : Function,
@@ -62,6 +66,7 @@ const PostGridItemView = ({
   deleteItem : any,
   typeItem: any,
   footerType : any
+  setPlan?: Function
 }) => {
   const { limitTextLength } = useComponentUtils()
   const _renderHeader = () => {
@@ -94,6 +99,7 @@ const PostGridItemView = ({
           }
         >
           <MenuItem onClick={() => onClickItem('edit')}>Editar</MenuItem>
+          {setPlan && <MenuItem onClick={() => setPlan({ id: gridItem.id, plan_id: gridItem.getCatgoryByParent('plans').term_id})} >Cambiar Plan</MenuItem>}
           <MenuItem
             onClick={() => {
               deleteItem({ id: gridItem.id, status: gridItem.status })

@@ -27,6 +27,7 @@ interface POSTGRIDPROPS {
   wpToken?: string
   onClickItem: Function
   deleteItem: Function
+  setPlan?:Function
   loadMore: Function
   setStatePost: Function
   statePost: 'public' | 'private',
@@ -48,6 +49,7 @@ interface POSTGRIDPROPS {
 const PostGrid = ({
   openCreate,
   deleteItem,
+  setPlan,
   onClickItemTarget,
   loadMore,
   setStatePost,
@@ -60,6 +62,7 @@ const PostGrid = ({
 }: {
   openCreate: Function
   deleteItem: Function
+  setPlan?:Function
   onClickItemTarget: string
   loadMore: Function
   statePost: 'public' | 'private'
@@ -99,6 +102,7 @@ const PostGrid = ({
       }
       statePost={statePost}
       deleteItem={deleteItem}
+      setPlan={setPlan}
       onClickItem={onClick}
       wpToken={userLogged?.wpToken}
       openCreate={openCreate}
@@ -118,6 +122,7 @@ const PostGridView = ({
   openCreate,
   onClickItem,
   deleteItem,
+  setPlan,
   loadMore,
   setStatePost,
   statePost,
@@ -174,6 +179,7 @@ const PostGridView = ({
                 <li key={index} className={style.postLink}>
                     <PostGridItem
                       deleteItem={deleteItem}
+                      setPlan={setPlan}
                       isAdmin={editionGranted}
                       onClickItem={(option: string) =>
                         onClickItem(

@@ -33,7 +33,6 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
     (post: Post) => post.categories.find(cat => cat.parent != 0 && cat.parent.slug === 'analysis'),
     [],
   )  
-console.log(posts)
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
         {posts?.map((singlePost, index) => {
