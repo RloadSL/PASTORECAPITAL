@@ -14,7 +14,7 @@ const Research = () => {
   return (
     <div className={style.academyPage}>
       <header>
-        <p className='small-caps'>Esto es para Reseach Reformatear @maria</p>
+        <p className='small-caps'>Research</p>
         <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle' /><span> {userLogged?.name}</span></p>
       </header>
       <div className={style.topContainer}>
