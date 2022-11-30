@@ -4,8 +4,12 @@
 @use "../../styles/partials/placeholders";
 
 .latestArticlesContainer {
-  max-width: 30%;
+  max-width: 100%;
   padding-right: 2%;
+
+  @include devices.device(smScreen) {
+    max-width: 30%;
+  }
 
   li {
     border-bottom: 1px solid colors.$grey40;
@@ -13,6 +17,12 @@
 
     &:last-child {
       border: none;
+    }
+
+    &:hover {
+      .articleTitle {
+        color: colors.$main;
+      }
     }
   }
 

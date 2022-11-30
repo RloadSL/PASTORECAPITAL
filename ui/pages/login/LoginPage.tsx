@@ -66,7 +66,7 @@ const LoginPageView = ({ userCredential }: any) => {
 
   const renderBuildingDashboard = () => {
     return (
-      <Modal>
+      <Modal modalStyle={'imgOverflow'}>
         <div className={style.buildingDashboardContainer}>
           <div className={style.imageContainer}>
             <Image src={dashboardIcon} alt='' />

@@ -1,7 +1,7 @@
 import { env, on_cloud_firebase, on_cloud_wp } from "infrastructure/firebase/config";
 
 const WP_HOST_API_ONCLOUD = env === "prod" ? 'https://api.pastorecapital.com/' : 'https://rload.es/apipastore/'; //Production 
-export const WP_HOST = on_cloud_firebase && on_cloud_wp ? WP_HOST_API_ONCLOUD : 'http://localhost:8888/pastoreheadless/' ;
+export const WP_HOST = on_cloud_firebase && on_cloud_wp ? WP_HOST_API_ONCLOUD : 'http://localhost:8888/platform/' ;
 const WP_API = `${WP_HOST}wp-json/wp/v2/`;
 export const WP_API_ANLALYSIS = `${WP_HOST}wp-json/analysis/v1/`;
 export const WP_API_FlUSH_UPDATES = `${WP_HOST}wp-json/flash-updates/v1/`;

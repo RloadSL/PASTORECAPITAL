@@ -15,10 +15,10 @@
   .collapsedItem {
     display:flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
 
-    @include devices.device(tablet){
+    @include devices.device(smScreen){
       flex-direction: row;
     }
   }

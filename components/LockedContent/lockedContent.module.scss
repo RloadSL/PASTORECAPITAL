@@ -22,4 +22,15 @@
     margin-top: 20px;
   }
 
+  .loginLink {
+    background-color: colors.$dark;
+    color: white;
+    border-radius: 30px;
+    padding: 15px;
+
+    &:hover {
+      background-color: colors.$main;
+    }
+  }
+
 }

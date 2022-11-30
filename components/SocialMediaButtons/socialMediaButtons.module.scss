@@ -1,3 +1,25 @@
-.socialMediaButtonsContainer {
+@use "../../styles/partials/variables/colors" as colors;
 
+.socialMediaButtonsContainer {
+  button {
+    height: 32px !important;
+  }
+
+  li {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+
+  .socialButton {
+    box-shadow: 0 0 0 0.5px colors.$dark;
+    border-radius:100%;
+    width:35px;
+    height:35px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+  }
 }
