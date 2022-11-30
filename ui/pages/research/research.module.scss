@@ -193,7 +193,7 @@
 
     .leftContainer {
       @extend %containers;
-      background-color: colors.$palette6;
+      background-color: lighten(colors.$dark,78%);
 
       @include devices.device(mdScreen) {
         margin-right: 10px;
@@ -202,7 +202,7 @@
 
     .rightContainer {
       @extend %containers;
-      background-color: lighten(colors.$dark,75%);
+      background-color: lighten(colors.$warning,25%);
 
       @include devices.device(mdScreen) {
         margin-left: 10px;

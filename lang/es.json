@@ -130,6 +130,8 @@
   "page.analysis.category.form.update.title": "Editar categoría",
   "page.analysis.category.form.remove.title": "Borrar categoría",
   "page.analysis.category.form.remove.content": "Seguro deseas eliminar la categoría, esto pondrá en estado deshabilitado todo el contenido relacionado.",
+  "page.research.landing.button.label":"Explorar",
+  "page.flashUpdates.lockedContent.text":"Para ver el contenido debes ser usuario Premium",
 
   "page.administration.users.filter.placeholder" : "Buscar por nombre de usuario o email",
   "page.administration.users.filter.role_level" : "Role del usuario",

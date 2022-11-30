@@ -192,18 +192,26 @@
   justify-content: center;
   align-items: center;
   .imageContainer {
-    width: 300px;
+    width: 200px;
     height: auto;
     position: absolute;
     top: -100px;
     margin: auto;
     right: 0;
     left: 0;
+
+    @include devices.device(smScreen) {
+      width: 300px;
+    }
   }
 
   .textContainer {
     margin-top: 115px;
-    font-size: 1.8rem;
+    font-size: 1.2rem;
+
+    @include devices.device(smScreen) {
+      font-size: 1.8rem;
+    }
   }
   
   .loaderContainer {
