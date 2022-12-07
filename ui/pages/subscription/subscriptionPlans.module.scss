@@ -1,0 +1,191 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/placeholders";
+
+.subscriptionPlansPage {
+  @extend %layoutContainer;
+  padding-left: 2%;
+  padding-right: 2%;
+
+  header {
+    margin-bottom: 100px;
+  }
+
+.is-block {
+  display: block;
+  word-break: initial;
+}
+
+.content-area {
+  @include devices.device(tablet) {
+    margin-top: 120px;
+  }
+}
+
+article {
+  .inside-article {
+    padding: 5px !important;
+    @include devices.device(tablet) {
+      padding: inherit !important;
+    }
+  }
+}
+
+// .pricing-table {
+
+//   &>.wpb_wrapper {
+//     overflow-x: auto;
+//     margin-right: -45px;
+
+//     @include devices.device(tablet) {
+//       margin-right: auto;
+//       overflow-x: hidden;
+//       margin-top: 80px;
+
+//     }
+//   }
+// }
+
+.grid-container {
+  max-width: 1500px !important;
+}
+
+.suscribe-btn {
+  color: white;
+  background-color: colors.$dark;
+  border-radius: 50px;
+  padding: 20px;
+  width: 100%;
+  display: block;
+  max-width: 220px;
+  margin: auto;
+  font-weight: bold;
+  margin-bottom: 20px !important;
+}
+
+.title-container {
+  color: colors.$dark;
+  .subtitle {
+    text-align: center;
+    text-transform: uppercase;
+
+    @include devices.device(tablet) {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+table,td,th {
+  border-bottom: 0px;
+}
+
+table {
+  font-size: .8rem;
+  border: 1px solid colors.$grey40;
+  border-spacing: 0px;
+  @include devices.device(tablet) {
+    font-size: 1rem;
+  }
+  td {
+    width: 25%;
+    line-height: 1.2rem;
+    padding: 20px;
+  }
+  thead {
+    tr {
+      line-height: 50px;
+
+      td {
+        text-align: center;
+        font-weight: 500;
+        color: colors.$dark;
+        font-size: 1.2rem;
+
+
+        &:nth-child(2) {
+          background-color: colors.$palette7;
+        }
+        &:nth-child(3) {
+          background-color: colors.$palette5;
+        }
+        &:nth-child(4) {
+          background-color: colors.$main;
+          color: white;
+        }
+      }
+    }
+  }
+  tbody {
+    color: colors.$dark;
+
+    .subheader {
+      background-color: colors.$grey30;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: right;
+      line-height: 50px;
+
+      td {
+        padding: 20px;
+      }
+    }
+
+    .price {
+      color: colors.$grey50;
+      justify-content: center;
+      align-items: center;
+
+      &_qty {
+        font-weight: bold;
+        color: colors.$main;
+        font-size: 1.5rem;
+        margin-right: 10px;
+      }
+    }
+
+    
+
+    tr {
+      line-height: 30px;
+
+      &:last-child {
+        td {
+            border-bottom: 1px solid colors.$grey30;
+          }
+        }
+
+      td {
+        text-align: center;
+        border-bottom: 0;
+        padding: 10px;
+        border-right: 1px solid colors.$grey30;
+
+      }
+      td:first-child {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.prices {
+  p {
+    margin: 0px;
+  }
+  td {
+    padding-top: 50px;
+    padding-bottom: 20px;
+  }
+}
+
+.monthly,
+.yearly {
+  display: none;
+}
+
+.selected-price {
+  font-weight: bold;
+  color: colors.$main;
+}
+
+}

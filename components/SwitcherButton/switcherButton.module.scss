@@ -1,0 +1,63 @@
+
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/placeholders";
+
+.billedButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  margin: auto;
+  position: relative;
+
+  @include devices.device(tablet) {
+    width: 360px;
+  }
+
+  label {
+    font-size: .8rem;
+    position: absolute;
+    cursor: pointer;
+    width: 50%;
+    z-index: 800;
+
+    &.labelYearly {
+      left: 0;
+    }
+
+    &.labelMonthly {
+      right: 0;
+      text-align: right;
+    }
+    @include devices.device(tablet) {
+      font-size: 1rem;
+    }
+  }
+
+  input {
+    visibility: hidden;
+    width: 0px;
+  }
+}
+
+$radioSize: 25px;
+
+.radioButton {
+  background-color: colors.$main;
+  width: 70px;
+  height: $radioSize;
+  border-radius: 30px;
+  position: relative;
+  box-shadow: 0 0 0 2px colors.$main;
+
+  .circle {
+    background-color: white;
+    height: $radioSize;
+    width: $radioSize;
+    border-radius: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+  }
+}

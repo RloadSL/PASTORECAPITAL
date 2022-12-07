@@ -1,0 +1,96 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/placeholders";
+
+.taxConsultantPage {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  header {
+    margin-bottom: 40px;
+    .topTitle {
+      display: flex;
+      align-content: center;
+      font-weight: 500;
+      font-size: 2.5rem;
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        background-image: url(../../../assets/img/hello-user.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: relative;
+        bottom: -12px;
+      }
+
+      span {
+        margin: auto 10px;
+      }
+    }
+
+    p {
+      margin: 0px;
+    }
+  }
+
+  .bottomContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    max-width: 1000px;
+
+    p {
+      margin: 0px;
+    }
+
+    %containers {
+      padding: 30px;
+      width: 100%;
+      @extend %borderRadius;
+      margin-bottom: 20px;
+    }
+
+    .imageContainer {
+      max-width: 120px;
+
+      @include devices.device(tablet) {
+        flex-shrink: 0;
+      }
+
+      @include devices.device(lgScreen) {
+        max-width: 180px;
+      }
+    }
+
+    .textContainer {
+      margin-left: 30px;
+
+      .titleBlock {
+        margin-bottom: 20px
+      }
+
+      .buttonContainer {
+        margin-top: 20px;
+        max-width: 300px;
+      }
+
+      .title {
+        font-weight: 500;
+        font-size: 1.5rem;
+        text-transform: uppercase
+      }
+    }
+
+    .leftContainer {
+      @extend %containers;
+      background-color: lighten(colors.$dark,78%);
+    }
+
+    .rightContainer {
+      @extend %containers;
+      background-color: lighten(colors.$palette5,15%);
+    }
+  }
+}
