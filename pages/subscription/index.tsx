@@ -1,3 +1,3 @@
-import SubscriptionSelectPlan from "ui/pages/subscription/SubscriptionSelectPlan";
+import SubscriptionPlans from "ui/pages/subscription/SubscriptionPlans";
 
-export default SubscriptionSelectPlan;
+export default SubscriptionPlans;

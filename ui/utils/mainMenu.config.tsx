@@ -78,22 +78,22 @@ export const mainMenuItems = [
     type: 'accordion',
     icon: consultant,
     label: 'mainMenu.item.label.taxConsultant',
-    href: '/consultant',
-    path:'consultant',
+    href: null,
+    path: null,
     children: [
       {
         type: 'link',
         label: 'mainMenu.item.label.consultants',
         children: null,
-        href: '/',
-        path:'counsultant'
+        href: '/tax-consultant/consultants',
+        path:'tax-consultant/consultants'
       },
       {
         type: 'link',
         label: 'mainMenu.item.label.resources',
         children: null,
-        href: '/',
-        path:'consultant'
+        href: '/tax-consultant/resources',
+        path:'tax-consultant/resources'
       }
     ]
   },
