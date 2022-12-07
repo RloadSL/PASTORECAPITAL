@@ -1,5 +1,4 @@
-import { UserCredential } from "firebase/auth";
-import { User } from "./User";
+import { User } from "../UserConsultant/User";
 
 export abstract class UserRepository {
   constructor() { };

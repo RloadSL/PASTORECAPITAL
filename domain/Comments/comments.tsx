@@ -1,4 +1,4 @@
-import { User } from 'domain/User/User'
+import { User } from 'domain/UserConsultant/User'
 import { CommentDto } from 'infrastructure/dto/comments.dto'
 
 export class Comments {
