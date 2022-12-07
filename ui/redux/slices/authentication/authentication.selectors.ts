@@ -1,5 +1,5 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp"
-import { User } from "domain/User/User"
+import { User } from "domain/UserConsultant/User"
 import { CODEVALIDATIONSTATE } from "./autentication.slice"
 /**
  * Devuelve el usuario que esta logado en la aplicación o null en caso de invitado
