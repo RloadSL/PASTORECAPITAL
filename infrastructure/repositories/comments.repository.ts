@@ -1,6 +1,6 @@
 import { Comments } from "domain/Comments/comments";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
-import { User } from "domain/User/User";
+import { User } from "domain/UserConsultant/User";
 import { CommentDto, ParentCommentDto } from "infrastructure/dto/comments.dto";
 import FireFirestore from "../firebase/firestore.firebase";
 import { UserRepositoryImplInstance } from "./users.repository";
