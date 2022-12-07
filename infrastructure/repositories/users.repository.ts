@@ -1,6 +1,6 @@
 
 
-import { User } from "../../domain/UserConsultant/User";
+import { User } from "../../domain/User/User";
 import { UserRepository } from "../../domain/User/user.repository";
 import FireFirestore  from "../firebase/firestore.firebase";
 import { UpdateUser, UserDto } from "infrastructure/dto/users.dto";

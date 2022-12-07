@@ -1,6 +1,6 @@
 import { Avatar } from "domain/Interfaces/Avatar";
 import { Country } from "domain/Interfaces/Country";
-import { User } from "domain/UserConsultant/User";
+import { User } from "domain/User/User";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
 import userConsultantRepository from "infrastructure/repositories/userConsultant.repository";
@@ -64,7 +64,7 @@ export class UserConsultant{
   }
 
   async getServices(query:any){
-    await userConsultantRepository.getServices(query);
+    await userConsultantRepository.getService(query);
   }
 
   async closeConsultantAccount(){

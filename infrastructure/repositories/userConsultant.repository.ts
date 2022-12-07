@@ -26,7 +26,7 @@ class UserConsultantRepository{
    * Retorna todos los servicios de un asesor [ElasticSearch]
    * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
   */
-  getServices(id:string){}
+  getService(id:string){}
   /**
    * Retorna los datos de un Asesor
    * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
