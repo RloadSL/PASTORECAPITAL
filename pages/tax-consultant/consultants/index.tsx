@@ -1,9 +1,14 @@
+/**
+ * Esto es el listado de los asesores
+ */
+
+
 import React from 'react'
 
-const index = () => {
+const Consultants = () => {
   return (
-    <div>Página asesores</div>
+    <div>Página listado asesores</div>
   )
 }
 
-export default index;
+export default Consultants;
