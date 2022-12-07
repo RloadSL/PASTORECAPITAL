@@ -6,12 +6,15 @@ import resourcesImg from '../../../assets/img/resources.png'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import LinkApp from 'components/LinkApp'
+import ConsultantMenu from './components/ConsultantMenu'
 
 
 const TaxConsultant = () => {
   const { userLogged } = useAuthentication()
   return (
     <div className={style.taxConsultantPage}>
+            <ConsultantMenu></ConsultantMenu>
+
       <header>
         <p className='small-caps'>Asesor Fiscal</p>
         <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle' /><span> {userLogged?.name}</span></p>
