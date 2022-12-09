@@ -1,4 +1,4 @@
-import { User } from "domain/UserConsultant/User"
+import { User } from "domain/User/User"
 
 export interface CommentDto {
   owner: string | User,

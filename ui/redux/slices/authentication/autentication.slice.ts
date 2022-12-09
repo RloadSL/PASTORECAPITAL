@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import { AuthImplInstance } from 'infrastructure/repositories/authentication.repository';
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository';
-import { User } from '../../../../domain/UserConsultant/User'
+import { User } from '../../../../domain/User/User'
 import { CreateUser } from '../../../../infrastructure/dto/users.dto';
 
 

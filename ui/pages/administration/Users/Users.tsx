@@ -4,7 +4,7 @@ import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/Selec
 import ItemList from 'components/ItemList'
 import SearchBar from 'components/SearchBar'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
-import { User } from 'domain/UserConsultant/User'
+import { User } from 'domain/User/User'
 import { Form, Formik } from 'formik'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { useRouter } from 'next/router'

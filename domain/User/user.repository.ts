@@ -1,4 +1,4 @@
-import { User } from "../UserConsultant/User";
+import { User } from "./User";
 
 export abstract class UserRepository {
   constructor() { };

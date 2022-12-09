@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { User } from 'domain/UserConsultant/User'
+import { User } from 'domain/User/User'
 import { Role, Subscription } from 'infrastructure/dto/users.dto'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
