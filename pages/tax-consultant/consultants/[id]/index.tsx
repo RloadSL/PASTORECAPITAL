@@ -1,9 +1,3 @@
-import React from 'react'
-
-const ConsultantProfile = () => {
-  return (
-    <div>Perfil del asesor</div>
-  )
-}
+import ConsultantProfile from "ui/pages/tax-consultant/categories/ConsultantProfile";
 
 export default ConsultantProfile;

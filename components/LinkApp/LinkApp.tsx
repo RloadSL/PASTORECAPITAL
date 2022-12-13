@@ -8,7 +8,7 @@ interface LINKAPPPROPS {
   icon?: string
   linkHref?: string
   target?: '_blank' | '_self' | '_parent' | '_top'
-  linkStyle?: 'default' | 'edit' | 'button'
+  linkStyle?: 'default' | 'edit' | 'button' | 'vertical'
 }
 
 export const LinkApp = ({ label, icon, linkHref, target = '_blank', linkStyle = 'default' }: LINKAPPPROPS) => {
@@ -16,9 +16,11 @@ export const LinkApp = ({ label, icon, linkHref, target = '_blank', linkStyle = 
     <Link href={linkHref ? linkHref : '#'}>
       <a onClick={() => document.body.style.overflow = 'auto'} className={`${style.linkItem} ${style[linkStyle]}`} target={target} >
         {icon ? <span className={style.linkItemIcon}><Image src={icon} alt='' /></span> : null}
-        <span className={style.linkItemLabel}>
+        {label ? (
+          <span className={style.linkItemLabel}>
           <FormattedMessage id={label} />
         </span>
+        ) : ''}
       </a>
     </Link>
   )

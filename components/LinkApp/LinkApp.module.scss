@@ -39,6 +39,14 @@
     justify-content: center;
     font-weight: bold;
   }
+
+  &.vertical {
+    flex-direction: column;
+
+    .linkItemIcon {
+      margin-right: 0px;
+    }
+  }
 }
 
 .linkItemIcon {
