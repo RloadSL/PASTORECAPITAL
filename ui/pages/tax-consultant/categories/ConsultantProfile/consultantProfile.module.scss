@@ -1,0 +1,185 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
+.consultantProfile {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  .profileDashboardGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+
+    @include devices.device(smScreen) {
+      grid-template-columns: 70% 1fr;
+      // height: 70vh;
+    }
+
+    .newClients {
+      ul {
+        padding: 12px;
+        .client {
+          margin-bottom: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .buttonBlock {
+          max-width: 200px;
+          transform: scale(0.9);
+        }
+      }
+
+      // @include devices.device(smScreen) {
+      //   grid-column: 1/2;
+
+      // }
+    }
+
+    .calendly,  .allClients {
+      background-color: white;
+      border-radius: 20px;
+      min-height: 80px;
+      display: flex;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .allClients {
+      //background-color: orange;
+    }
+
+    .activeServices {
+      // grid-column: 1/3;
+      // @include devices.device(smScreen) {
+      //   grid-column: 2/2;
+
+      // }
+      .cardContainer {
+        padding: 20px;
+        width: 100%;
+
+        .activeService {
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+          &Title {
+            width: 100%;
+          }
+        }
+      }
+
+
+    }
+
+    .allServices {
+      .rotationContainer {
+        @include devices.device(tablet) {
+          transform: rotate(-90deg);
+          position: absolute;
+          width: 220px;
+          left: -70px;
+          top: 80px;
+
+        }
+      }
+      .buttonBlock {
+        @include devices.device(tablet) {
+          position: relative;
+          width: 80px;
+          margin-right: 20px;
+        }
+      }
+
+      .servicesBlock {
+        width: 100%;
+        ul {
+          @include devices.device(tablet) {
+            display: flex;
+            min-height: 200px;
+            flex-wrap: nowrap;
+          }
+
+          .serviceItem {
+            @include devices.device(tablet) {
+              width: 38%;
+              margin-right: 20px;
+            }
+
+            &:last-child {
+              margin-right: 0px;
+            }
+
+            .service {
+              padding: 18px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              height: 100%;
+
+              p {
+                margin: 0px;
+              }
+
+              &Title {
+                color: colors.$main;
+                font-weight: bold;
+                font-size: 1.2rem;
+              }
+
+              &Price {
+                font-weight: bold;
+                font-size: 1.2rem;
+                &::after {
+                  content: '€';
+                }
+              }
+            }
+            
+          }
+        }
+      }
+    }
+
+    .rightBlock {
+      // grid-column: 1/3;
+      @include devices.device(smScreen) {
+        grid-row: span 2;
+      }
+      .rightInnerContainer {
+        display: flex;
+        @include devices.device(smScreen) {
+          flex-direction: column;
+        }
+      }
+    }
+
+    .gridItem {
+      &Title {
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 2px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &Container {
+        @include devices.device(tablet) {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .cardContainer {
+    @extend %cardContainer;
+    position: relative;
+    max-height: auto;
+    min-height: auto;
+  }
+}

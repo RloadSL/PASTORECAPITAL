@@ -2,19 +2,15 @@ import style from './tax-consultant.module.scss'
 import Image from 'next/image'
 import consultantImg from '../../../assets/img/consultant.png'
 import resourcesImg from '../../../assets/img/resources.png'
-// import ButtonApp from 'components/ButtonApp'
 import { FormattedMessage } from 'react-intl'
 import { useAuthentication } from 'ui/hooks/authentication.hook'
 import LinkApp from 'components/LinkApp'
-import ConsultantMenu from './components/ConsultantMenu'
 
 
 const TaxConsultant = () => {
   const { userLogged } = useAuthentication()
   return (
     <div className={style.taxConsultantPage}>
-            <ConsultantMenu></ConsultantMenu>
-
       <header>
         <p className='small-caps'>Asesor Fiscal</p>
         <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle' /><span> {userLogged?.name}</span></p>

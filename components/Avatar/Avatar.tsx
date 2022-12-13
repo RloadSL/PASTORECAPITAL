@@ -36,17 +36,25 @@ const colorPalette = [
 ]
 
 interface AVATARPROPS {
-  renderItem: any
+  renderItem: string | null
   size?: 'small' | 'large'
 }
 
+/**
+ * Componente para renderizar la primera letra del avatr de un usuario
+ * @param renderItem Texto para renderizar
+ * @param size Tamaño del avatar 'small' | 'large'
+ * @returns 
+ */
 
 const Avatar = ({ renderItem, size = 'small' }: AVATARPROPS ) => {
   const randomColor = useRef(colorPalette[randomIntFromInterval(0, 6)]);
   
   return (
     <div className={`${style.avatarContainer} ${style[size]}`} style={{ backgroundColor: randomColor.current.base }}>
-      <div className={style.letter} style={{ color: randomColor.current.main }}>{renderItem.toUpperCase()}</div>
+      <div className={style.letter} style={{ color: randomColor.current.main }}>
+        {renderItem !== null ? renderItem.toUpperCase() : ''}
+      </div>
     </div>
   )
 }

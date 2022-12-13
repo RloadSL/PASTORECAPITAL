@@ -1,8 +1,52 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
 .consultantMenuContainer {
+  background-color: lighten(colors.$dark,75%);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include devices.device(smTablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 10px 5px 10px;
+  }
+
+  @include devices.device(smScreen) {
+    justify-content: center;
+  }
+
   .menuBlock {
-    background-color: red;
-    img {
-      display: none !important;
+    width: 100%;
+    max-width: 600px;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      will-change: auto;
+      transform: scale(.9);
+
+      a {
+        padding: 8px !important;
+      }
+    }
+  }
+
+  .avatarBlock {
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    border: 1px solid colors.$main;
+
+    @include devices.device(smScreen) {
+      margin-right: 20px;
     }
   }
 }
+

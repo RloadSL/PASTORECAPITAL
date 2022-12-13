@@ -1,0 +1,10 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/placeholders";
+
+.avatarNameContainer {
+  display: flex;
+  color: colors.$dark;
+  font-weight: 500;
+  align-items: center;
+}
