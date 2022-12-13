@@ -219,3 +219,55 @@ export const article = {
   },
   "date": "2022-11-02 15:59:03"
 }
+
+export const clientsList = [
+  {
+    name: 'Irene',
+    lastname: 'Martín'
+  },
+  {
+    name: 'Jose',
+    lastname: 'Pérez'
+  },
+  {
+    name: 'Beatriz',
+    lastname: 'Cáceres'
+  },
+  {
+    name: 'Andrea Martina',
+    lastname: 'Martínez'
+  },
+  {
+    name: 'Luisa',
+    lastname: 'Martínez'
+  }
+]
+
+export const servicesList = [
+  {
+    name: 'Declaración de la renta',
+    description: 'Gestión y presentación de la declaración de la renta',
+    price: '60',
+    duration:null,
+    clients:'45'
+  },
+  {
+    name: 'Presentación de Recurso notificación Agencia tributaria',
+    description: 'Gestión y presentación de la declaración de la renta',
+    price: '60',
+    duration:null,
+  },
+  {
+    name: 'Asesoría autónomos',
+    description: 'Resolución de dudas para autónomos',
+    price: '35',
+    duration:'30',
+    clients:'5'
+  },
+  {
+    name: 'Asesoría para venta en Amazon',
+    description: 'Asesoría para comenzar a vender productos en Amazon marketplace',
+    price: '60',
+    duration: '1h'
+  }
+]
