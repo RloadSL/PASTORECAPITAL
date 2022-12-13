@@ -1,0 +1,84 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
+.dashboard {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  &Grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+
+    @include devices.device(smScreen) {
+      grid-template-columns: 70% 1fr;
+      // height: 70vh;
+    }
+
+    .newClients {
+
+
+      // @include devices.device(smScreen) {
+      //   grid-column: 1/2;
+
+      // }
+    }
+
+    .calendly,  .allClients {
+      background-color: white;
+      border-radius: 20px;
+      min-height: 80px;
+      display: flex;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .allClients {
+      //background-color: orange;
+    }
+
+
+
+    
+
+    .rightBlock {
+      // grid-column: 1/3;
+      @include devices.device(smScreen) {
+        grid-row: span 2;
+      }
+      .rightInnerContainer {
+        display: flex;
+        @include devices.device(smScreen) {
+          flex-direction: column;
+        }
+      }
+    }
+
+    .gridItem {
+      &Title {
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 2px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &Container {
+        @include devices.device(tablet) {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .cardContainer {
+    @extend %cardContainer;
+    position: relative;
+    max-height: auto;
+    min-height: auto;
+  }
+}

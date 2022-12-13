@@ -1,9 +1,3 @@
-import React from 'react'
+import Services from "ui/pages/tax-consultant/consultants/Services/Services";
 
-const Services = () => {
-  return (
-    <div>Listado de servicios del asesor</div>
-  )
-}
-
-export default Services;
+export default Services

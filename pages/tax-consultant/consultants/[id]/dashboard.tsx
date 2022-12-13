@@ -1,9 +1,3 @@
-import React from 'react'
+import Dashboard from "ui/pages/tax-consultant/consultants/Dashboard/Dashboard";
 
-const ConsultantDashboard = () => {
-  return (
-    <div>Dashboard del asesor</div>
-  )
-}
-
-export default ConsultantDashboard;
+export default Dashboard

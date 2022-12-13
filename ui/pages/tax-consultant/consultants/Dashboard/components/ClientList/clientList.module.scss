@@ -1,0 +1,34 @@
+@use "../../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../../styles/partials/placeholders";
+
+.clientList {
+  ul {
+    padding: 12px;
+    .client {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .buttonBlock {
+      max-width: 200px;
+      transform: scale(0.9);
+    }
+  }
+
+  .cardContainer {
+    @extend %cardContainer;
+    position: relative;
+    max-height: auto;
+    min-height: auto;
+  }
+
+  .emptyContent {
+    height: 100%;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
