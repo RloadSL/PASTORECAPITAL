@@ -1,5 +1,7 @@
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
+import StorageFirebase from "infrastructure/firebase/storage.firebase";
+import FireFirestore from "../firebase/firestore.firebase";
 
 class UserConsultantRepository{
   private static instance: UserConsultantRepository;
@@ -35,7 +37,18 @@ class UserConsultantRepository{
   /**
    * Modifica o crea los datos del asesor
    */
-  setUserConsultant(data: UserConsultantDto):UserConsultantDto{
+  async setUserConsultant(data: UserConsultantDto){
+    if(typeof data.avatar === 'string'){
+      const avtUri = await StorageFirebase.UploadBase64(`user_consultant/${data.uid}/avatar`, data.avatar as string)
+      data.avatar = {
+        created_at: new Date(),
+        size : 200,
+        url : avtUri
+      }
+    }
+    
+    data.created_at = new Date();
+    FireFirestore.createDoc('user_consultant', data)
     const res:any = null;
     return res;
   }

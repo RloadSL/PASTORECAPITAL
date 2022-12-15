@@ -50,9 +50,7 @@ export default function AppLayout ({ children }: any) {
     })
   }, [])
 
-  useEffect(() => {
-    //console.log('subscriptionGranted', subscriptionGranted)
-  }, [subscriptionGranted, userChecked])
+ 
 
   const _goSubscription = () => router.push('/subscription')
   const _goBack = () => router.back()

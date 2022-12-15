@@ -15,8 +15,9 @@ const system_public_module = [
   '/academy/courses',
   '/subscription',
   '/research/bitcoins-altcoins',
-  '/research/bitcoins-altcoins/[category-slug]'
-  
+  '/research/bitcoins-altcoins/[category-slug]',
+  '/tax-consultant',
+  '/tax-consultant/consultants'
 ]
 
 const system_subscription_permission_module = {
@@ -65,7 +66,7 @@ export const useGuardPermissions = () => {
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
 
-      //setSubscriptionGranted(authorized)
+      setSubscriptionGranted(authorized)
     }
 
     if (userLogged?.uid) {

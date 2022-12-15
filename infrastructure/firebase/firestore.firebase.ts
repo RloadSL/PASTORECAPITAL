@@ -62,9 +62,8 @@ export class FireFirestore {
       const docRef = this._doc(collectionPath, docId);
       const snapshot = await getDoc(docRef);
       return snapshot
-    } catch (error) {
-      console.error(error)
-      alert('Internal error firebase')
+    } catch (error:any) {
+      alert('Firebase response: '+error.code);
     }
   }
   /**
@@ -76,9 +75,8 @@ export class FireFirestore {
     try {
       const docRef = this._doc(collectionPath, docId);
       await deleteDoc(docRef)
-    } catch (error) {
-      console.error(error)
-      alert('Internal error firebase')
+    } catch (error:any) {
+      alert('Firebase response: '+error.code);
     }
   }
   /**
@@ -91,9 +89,8 @@ export class FireFirestore {
     try {
       const docRef = this._doc(collectionPath, docId);
       await setDoc(docRef, cleanUndefined(data));
-    } catch (error) {
-      console.error(error)
-      alert('Internal error firebase')
+    } catch (error:any) {
+      alert('Firebase response: '+error.code);
     }
   }
   /**
@@ -106,9 +103,9 @@ export class FireFirestore {
       const collection = this._collection(collectionPath);
       const snap = await addDoc(collection, cleanUndefined(data));
       return { ...data, id: snap.id };
-    } catch (error) {
-      console.error(error);
-      alert('Internal error firebase');
+    } catch (error:any) {
+      
+      alert('Firebase response: '+error.code);
     }
   }
 

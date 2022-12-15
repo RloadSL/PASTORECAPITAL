@@ -25,6 +25,7 @@ export interface INPUTBLOCKPROPS {
   icon?: any,
   helper?: string,
   value?:string,
+  disabled?:boolean
 }
 
 /**
@@ -51,6 +52,7 @@ const InputFormikApp = ({
   onBlur,
   inputStyle,
   type = 'text',
+  disabled,
   maxLength,
   helper,
   value,
@@ -89,6 +91,7 @@ const InputFormikApp = ({
             {...field}
             maxLength={maxLength}
             type={type}
+            disabled={disabled}
             name={name}
             autoComplete={'autocomplete'}
             placeholder={placeholder}

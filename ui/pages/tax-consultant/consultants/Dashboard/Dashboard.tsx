@@ -7,6 +7,7 @@ import LinkApp from 'components/LinkApp';
 import ClientList from './components/ClientList';
 import PortfolioServiceList from './components/PortfolioServiceList';
 import ActiveServiceList from './components/ActiveServiceList';
+import { NextPage } from 'next';
 
 interface DashboardProps {
 }
@@ -17,7 +18,7 @@ interface DashboardProps {
  * @returns 
  */
 
-const Dashboard = ({}:DashboardProps) => {
+const Dashboard:NextPage = () => {
   return <DashboardView></DashboardView>
 }
 

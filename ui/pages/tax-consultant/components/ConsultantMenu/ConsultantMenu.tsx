@@ -39,16 +39,16 @@ const ConsultantMenuView = ({ }: ConsultantMenuProps) => {
             <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('dashboard')} linkHref={'#'} icon={dashboardIcon} target={'_self'} />
           </li>
           <li>
-            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('servicios')} linkHref={'#'} icon={servicesIcon} target={'_self'} />
+            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('services')} linkHref={'#'} icon={servicesIcon} target={'_self'} />
           </li>
           <li>
-            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('clientes')} linkHref={'#'} icon={clientsIcon} target={'_self'} />
+            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('clients')} linkHref={'#'} icon={clientsIcon} target={'_self'} />
           </li>
           <li>
-            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('preguntas')} linkHref={'#'} icon={questionIcon} target={'_self'} />
+            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('questions')} linkHref={'#'} icon={questionIcon} target={'_self'} />
           </li>
           <li>
-            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('recursos')} linkHref={'#'} icon={resourcesIcon} target={'_self'} />
+            <LinkApp key={null} linkStyle={'vertical'} label={renderLabel('resources')} linkHref={'#'} icon={resourcesIcon} target={'_self'} />
           </li>
         </ul>
       </div>
