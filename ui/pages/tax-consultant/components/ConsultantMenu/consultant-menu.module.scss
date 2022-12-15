@@ -39,11 +39,6 @@
   }
 
   .avatarBlock {
-    border-radius: 100%;
-    width: 60px;
-    height: 60px;
-    border: 1px solid colors.$main;
-
     @include devices.device(smScreen) {
       margin-right: 20px;
     }

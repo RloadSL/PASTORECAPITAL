@@ -3,6 +3,8 @@
 @use "../../../../../styles/partials/placeholders";
 
 .editProfile{
-  display: flex;
-  flex-direction: column;
+  @extend %layoutContainer;
+  padding: 2%;
+  // display: flex;
+  // flex-direction: column;
 }

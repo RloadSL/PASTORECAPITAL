@@ -21,6 +21,7 @@ import { useRouter } from 'next/router'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import Loading from 'components/Loading'
 import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
+import UserImage from 'components/UserImage'
 
 const EditProfile = () => {
   const [loading, setloading] = useState(false)
@@ -87,11 +88,13 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
     }
 
     return (
-      <div>
+      <div className={style.editProfile}>
         <div style={{ display: 'flex' }}>
-          {avatar && <img width={200} height={200} alt='avatar' src={avatar} />}
+          {/* {avatar && <img width={200} height={200} alt='avatar' src={avatar} />} */}
+          {avatar && <UserImage image={avatar} />}
+
           <div style={{ margin: 10 }}>
-            <p>Imagen de perfil</p>
+            <div>Imagen de perfil</div>
             <p>Recomendado 800x800</p>
             <label style={{ background: 'gray' }} htmlFor='avatarFile'>
               SELECCIONAR IMAGEN

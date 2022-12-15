@@ -7,7 +7,8 @@ import resourcesIcon from '../../../../../assets/img/icons/notebook.svg'
 import Avatar from 'components/Avatar'
 import LinkApp from 'components/LinkApp'
 import useWindowSize from 'ui/hooks/windowSize.hook'
-import Image from 'next/image'
+import userImg from '../../../../../assets/img/user.jpeg'
+import UserImage from 'components/UserImage'
 
 
 
@@ -31,7 +32,7 @@ const ConsultantMenuView = ({ }: ConsultantMenuProps) => {
   return (
     <div className={style.consultantMenuContainer}>
       <div className={style.avatarBlock}>
-      <Image src={''} alt=''/>
+      <UserImage image={userImg}/>
       </div>
       <div className={style.menuBlock}>
         <ul>
