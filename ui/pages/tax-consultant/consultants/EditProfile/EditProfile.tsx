@@ -21,11 +21,12 @@ import { useRouter } from 'next/router'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import Loading from 'components/Loading'
 import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
+import UserImage from 'components/UserImage'
 
 const EditProfile = () => {
   const [loading, setloading] = useState(false)
   const userLogged = useSelector(getUserLogged)
-  const {query, replace}  = useRouter()
+  const { query, replace } = useRouter()
 
   const userData = useRef({
     name: userLogged?.role.level == 2 ? query?.name : userLogged?.name,
@@ -72,7 +73,7 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
   const [avatar, setAvatarSrc] = useState<string | undefined>()
   const inputAvatarRef = useRef<HTMLInputElement>(null)
   const AvatarPicker = () => {
-    function onSelectFile (e: React.ChangeEvent<HTMLInputElement>) {
+    function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
       if (e.target.files && e.target.files.length > 0) {
         const reader = new FileReader()
         reader.addEventListener('load', () =>
@@ -83,20 +84,23 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
     }
 
     return (
-      <div>
-        <div style={{ display: 'flex' }}>
-          {avatar && <img width={200} height={200} alt='avatar' src={avatar} />}
-          <div style={{ margin: 10 }}>
-            <p>Imagen de perfil</p>
-            <p>Recomendado 800x800</p>
-            <label style={{ background: 'gray' }} htmlFor='avatarFile'>
-              SELECCIONAR IMAGEN
+      <div className={style.editProfile}>
+        <p className='small-caps'>Apariencia</p>
+        <div className='flex-container align-center'>
+          <div className={style.avatarBlock}>
+            <UserImage image={avatar} size={'large'} userImageStyle={['rounded', 'nobordered']} />
+          </div>
+          <div className={style.infoBlock}>
+            <p className='secondary-title'>Imagen de perfil</p>
+            {/* <p>Recomendado 800x800</p> */}
+            <label className='fake-button' htmlFor='avatarFile'>
+              <span>Seleccionar Imagen</span>
               <input
                 hidden
                 id='avatarFile'
                 ref={inputAvatarRef}
                 type='file'
-                accept='image/*'
+                accept='image/jpg,image/png'
                 onChange={onSelectFile}
               />
             </label>
@@ -198,21 +202,24 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
 
   return (
     <div className={style.editProfile}>
-      <div className={style.consultanMenu}>
-        <ConsultantMenu />
+      <ConsultantMenu avatarImg={avatar}/>
+      <div className={style.avatarBlock}>
+        <div className={style.avatar}>{AvatarPicker()}</div>
+        <div>
+          <p className='small-caps'>
+            <FormattedMessage id='page.tax-consultant.create-edit.title'></FormattedMessage>
+          </p>
+        </div>
       </div>
-      <div className={style.avatar}>{AvatarPicker()}</div>
-      <div className={style.form}>
-        <div className={style.cardContainer}>
-          <div className={style.header}>
-            <h3 className={style.formTitle}>
-              <FormattedMessage id='page.tax-consultant.create-edit.title'></FormattedMessage>
-            </h3>
+      <div className={style.userInfoBlock}>
+        <div className={style.nameLastnameBlock}>
+          <div className='fake-input'>
+            <span className='label'>Nombre:</span> <span>{userData.name}</span>
           </div>
-          <div className={style.personalData}>
-            <p>Nombre: {userData.name}</p>
-            <p>Apellidos: {userData.lastname}</p>
-          </div>
+          <div className='fake-input'>
+            <span className='label'>Apellidos:</span> <span>{userData.lastname}</span>
+          </div>        </div>
+        <div className={style.formBlock}>
           {renderFormik()}
         </div>
       </div>

@@ -183,6 +183,34 @@ p {
 	}
 }
 
+
+.fake-button {
+	background-color: colors.$grey40;
+	padding: 15px 30px;
+	display: block;
+	border-radius: 80px;
+	color: colors.$dark;
+	font-weight: bold;
+	cursor: pointer;
+
+	&:hover {
+		background-color: colors.$grey50;
+	}
+}
+
+.fake-input {
+	display: flex;
+	flex-direction: column;
+	background-color: colors.$grey30;
+	padding: 10px 15px;
+	border-radius: 20px;
+
+	.label {
+		font-size: .9rem;
+		color: grey;
+	}
+}
+
 //RESET ACCORDION STYLE FOR THE APP
 .rc-collapse {
 	border-radius: 0px !important;
