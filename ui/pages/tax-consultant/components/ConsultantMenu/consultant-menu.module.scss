@@ -39,9 +39,21 @@
   }
 
   .avatarBlock {
+    position: relative;
+
     @include devices.device(smScreen) {
       margin-right: 20px;
     }
+  }
+
+  .editProfileButton {
+    background-color: colors.$dark;
+    position: absolute;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    top: 40px;
+    right: 0px
   }
 }
 

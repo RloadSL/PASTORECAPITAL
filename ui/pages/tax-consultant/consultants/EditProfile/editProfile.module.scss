@@ -5,6 +5,23 @@
 .editProfile{
   @extend %layoutContainer;
   padding: 2%;
-  // display: flex;
-  // flex-direction: column;
+
+  .avatarBlock {
+    margin-right: 50px;
+  }
+
+  .userInfoBlock {
+    max-width: 1000px;
+
+    .nameLastnameBlock {
+      display: flex;
+      margin-bottom: 20px;
+      
+      & > div {
+        width: 48%;
+        margin-right: 5px;
+      }
+    }
+  }
+
 }

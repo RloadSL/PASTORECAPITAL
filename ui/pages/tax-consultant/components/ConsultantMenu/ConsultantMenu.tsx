@@ -9,17 +9,19 @@ import LinkApp from 'components/LinkApp'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import userImg from '../../../../../assets/img/user.jpeg'
 import UserImage from 'components/UserImage'
+import Link from 'next/link'
 
 
 
 interface ConsultantMenuProps {
+  avatarImg?: any
 }
 
-const ConsultantMenu = ({ }: ConsultantMenuProps) => {
+const ConsultantMenu = ({ avatarImg }: ConsultantMenuProps) => {
   return <ConsultantMenuView></ConsultantMenuView>
 }
 
-const ConsultantMenuView = ({ }: ConsultantMenuProps) => {
+const ConsultantMenuView = ({ avatarImg }: ConsultantMenuProps) => {
   const windowSize = useWindowSize();
 
   const renderLabel = (itemLabel: string) => {
@@ -32,7 +34,10 @@ const ConsultantMenuView = ({ }: ConsultantMenuProps) => {
   return (
     <div className={style.consultantMenuContainer}>
       <div className={style.avatarBlock}>
-      <UserImage image={userImg}/>
+        <UserImage size={'small'} image={avatarImg} />
+        <Link href={'#'}>
+          <a className={style.editProfileButton}>ir</a>
+        </Link>
       </div>
       <div className={style.menuBlock}>
         <ul>
