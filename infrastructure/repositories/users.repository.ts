@@ -62,7 +62,7 @@ class UserRepositoryImplementation extends UserRepository {
 
   async update(uid: string, data: UpdateUser): Promise<void> {
     try {
-      await FireFirestore.setDoc('users',uid, data)
+       await FireFirestore.setDoc('users',uid, data)
     } catch (error) {
       console.error(error)
       alert('Error inteno en user.repository')

@@ -63,6 +63,7 @@ export class FireFirestore {
       const snapshot = await getDoc(docRef);
       return snapshot
     } catch (error:any) {
+      console.log(error)
       alert('Firebase response: '+error.code);
     }
   }
@@ -87,8 +88,10 @@ export class FireFirestore {
    */
   public setDoc = async (collectionPath: string, docId: string, data: any) => {
     try {
+      
       const docRef = this._doc(collectionPath, docId);
-      await setDoc(docRef, cleanUndefined(data));
+      const res= await setDoc(docRef, cleanUndefined(data), {merge: true});
+      console.log(collectionPath, docId, data)
     } catch (error:any) {
       alert('Firebase response: '+error.code);
     }

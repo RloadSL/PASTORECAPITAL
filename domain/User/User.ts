@@ -1,9 +1,20 @@
+import { Timestamp } from "firebase/firestore";
 import { Role, Subscription, UserDto } from "infrastructure/dto/users.dto"
 
 export class User {
   private _uid: string;
   public get uid(): string {
     return this._uid;
+  }
+
+  private _created_at?: Date;
+  public get created_at(): Date | undefined {
+    return this._created_at;
+  }
+
+  private _collaboration?: any;
+  public get collaboration(): any | undefined {
+    return this._collaboration;
   }
 
   private _name: string;
@@ -56,6 +67,8 @@ export class User {
     this._subscription = userData.subscrition
     this._edition_section = userData.edition_section
     this._userDataToken = userData.userDataToken
+    this._created_at = userData.created_at instanceof Timestamp ? userData.created_at?.toDate() :  userData.created_at
+    this._collaboration = userData.collaboration
   }
 
   public toJson = (): UserDto => ({
@@ -67,5 +80,7 @@ export class User {
     wpToken: this._wpToken,
     subscrition: this._subscription,
     edition_section: this._edition_section,
+    created_at: this._created_at,
+    collaboration: this.collaboration
   });
 }

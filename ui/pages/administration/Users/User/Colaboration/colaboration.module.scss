@@ -1,0 +1,44 @@
+
+.App {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.App .column {
+  width: 100%;
+  padding: 20px;
+}
+
+.droppable-col {
+  width: 100%;
+  background-color: white;
+  padding: 10px 10px 0 10px;
+  border-radius: 7px;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh;
+  //box-shadow: 5px 5px 5px gray;
+}
+
+.item {
+  margin-bottom: 10px;
+  background-color: #c2c2c2;
+  border: 1px solid white;
+  padding: 5px;
+  border-radius: 7px;
+  h3, p{
+    margin: 5px;
+    color: white
+  }
+}
+
+.item.dragging {
+  background-color: coral;
+}
+
+.btnContainer{
+  display: flex;
+  justify-content: center;
+}

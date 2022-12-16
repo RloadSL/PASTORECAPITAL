@@ -6,6 +6,14 @@
   "role.User" : "Usuario",
   "role.Colaborator" : "Colaborador",
   "role.Administrator" : "Administrador",
+  "permissions.consultant" : "Asesor",
+  "consultant.permission.description" : "Crea un perfil de asesor para brindar este servicio",
+  "permissions.teacher" : "Profesor",
+  "teacher.permission.description" : "Permite gestionar contenido en los cursos de Análisis",
+  "permissions.tutorials" : "Tutoriales",
+  "tutorials.permission.description" : "Permite gestionar contenido en los tutoriales de Análisis",
+
+  
 
   "mainMenu.item.label.home":"Dashboard",
   "mainMenu.item.label.academy":"Academia",
@@ -180,10 +188,12 @@
   "forms.helper.userdata.update" : "Los datos personales solo se cambian desde la configuración de usuario.",
 
   "btn.send": "Enviar",
+  "btn.save": "Guardar",
   "btn.accept": "Aceptar",
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
   "btn.edit": "Editar",
+  "btn.manage": "Gestionar",
   "btn.back": "Volver",
   "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
@@ -223,6 +233,7 @@
   "dashboard" : "Dashboard",
   "services" : "Servicios",
   "clients" : "Clientes",
-  "questions" : "Preguntas"
+  "questions" : "Preguntas",
+  "colaboration" : "Gestion de Colaborador"
   
 }

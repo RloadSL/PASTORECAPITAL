@@ -1,8 +1,11 @@
+import { Timestamp } from "firebase/firestore"
+
 export interface UpdateUser {
-  name:string,
-  lastname:string,
+  name?:string,
+  lastname?:string,
   email?:string,
-  role?: Role
+  role?: Role,
+  collaboration?:any
 }
 
 export interface CreateUser {
@@ -19,6 +22,7 @@ export interface UserDto {
   lastname:string,
   email:string,
   role: Role,
+  created_at?: Timestamp | Date,
   /**
    * Token para poder editar en el headless de wordpress si eres administrador
    */
@@ -35,6 +39,10 @@ export interface UserDto {
    * Urls donde un administrador tendrá opción de edición
    */
   edition_section? : Array<string>,
+  /**
+   * Permisos asignados de un colaborador
+   */
+  collaboration?: any
 }
 
 export interface Role {

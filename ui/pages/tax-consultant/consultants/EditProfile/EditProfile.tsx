@@ -38,10 +38,6 @@ const EditProfile = () => {
     if (userLogged?.role.level == 1 && !query.id) {
       replace('/tax-consultant/consultants')
     }
-    if (userLogged?.role.level == 2 && (!userData.current.name || !userData.current.lastname || !userData.current.uid )) {
-      alert('Parametros inválidos')
-      replace('/tax-consultant/consultants')
-    }
   }, [userLogged,replace, query.id]) 
  
 
