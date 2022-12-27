@@ -57,9 +57,9 @@ const UsersView = ({ users }: { users: User[] }) => {
         </div>
         <div className={style.information}>
           <div className={style.role}>{user.role.label}</div>
-          <div className={style.subscrition}>
+          {user.role.level === 0 && <div className={style.subscrition}>
             {user.subscription.plan.label}
-          </div>
+          </div>}
         </div>
         <div className={style.actions}>
           <div className={style.menu}>

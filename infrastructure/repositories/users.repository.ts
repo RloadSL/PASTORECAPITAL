@@ -9,7 +9,7 @@ import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 /**
  * Implementación de los casos de usos para los usuarios de la plataforma
  */
-class UserRepositoryImplementation extends UserRepository {
+class UserRepositoryImplementation{
   private static instance: UserRepositoryImplementation;
   public static getInstance(): UserRepositoryImplementation {
     if (!UserRepositoryImplementation.instance) {
@@ -60,12 +60,15 @@ class UserRepositoryImplementation extends UserRepository {
     })
   };
 
-  async update(uid: string, data: UpdateUser): Promise<void> {
+  async update(uid: string, data: UpdateUser): Promise<User | null> {
     try {
        await FireFirestore.setDoc('users',uid, data)
+       const user = await this.read(uid);
+       return user;
     } catch (error) {
       console.error(error)
       alert('Error inteno en user.repository')
+      return null;
     }
   };
   

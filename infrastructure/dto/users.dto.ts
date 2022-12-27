@@ -47,8 +47,8 @@ export interface UserDto {
 
 export interface Role {
   level : 0 | 1 | 2,
-  label: 'User' | 'Colaborator' | 'Administrador',
-  key: 'user' | 'colaborator' | 'administrador'
+  label: 'User' | 'Collaborator' | 'Administrator',
+  key: 'user' | 'collaborator' | 'administrator'
 }
 
 export interface Subscription {

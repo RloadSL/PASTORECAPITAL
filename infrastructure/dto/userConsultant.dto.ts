@@ -10,6 +10,7 @@ export interface UserConsultantDto {
   keywords?: string[];
   linkedin?: string;
   created_at?: Date;
+  state?: 'new' | 'active' | 'disabled'
 }
 
 export interface UserConsultantInitialValues {

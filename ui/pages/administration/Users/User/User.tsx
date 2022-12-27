@@ -1,8 +1,8 @@
 import ButtonApp from 'components/ButtonApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import Loading from 'components/Loading'
-import { Form, Formik } from 'formik'
-import { UserDto } from 'infrastructure/dto/users.dto'
+import { Field, Form, Formik } from 'formik'
+import { Role, UserDto } from 'infrastructure/dto/users.dto'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -10,14 +10,21 @@ import * as yup from 'yup'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import style from './user.module.scss'
 import { useIntl } from 'react-intl'
+import { ROLES } from 'domain/Constants/roles'
 const User: NextPage<any> = () => {
   const { query, replace } = useRouter()
   const [userDto, setUserDto] = useState<UserDto | undefined>()
 
   useEffect(() => {
     let fetching = true
-    const { uid } = query
-    UserRepositoryImplInstance.read(uid as string).then(user => {
+    _getData(fetching)
+    return () => {
+      fetching = false
+    }
+  }, [query.uid])
+
+  const _getData = (fetching: boolean) => {
+    UserRepositoryImplInstance.read(query.uid as string).then(user => {
       if (user && fetching === true) {
         setUserDto(user.toJson())
       } else {
@@ -25,18 +32,19 @@ const User: NextPage<any> = () => {
         replace('/administration/users/')
       }
     })
-
-    return () => {
-      fetching = false
-    }
-  }, [query.uid])
+  }
 
   const _editUserData = (data: any) => {
     console.log(data)
   }
 
+  const _onSaveRole = async (data: Role) => {
+    await UserRepositoryImplInstance.update(query.uid as string, {role : data})
+    _getData(true);
+  }
+
   return userDto ? (
-    <UserView userDataDto={userDto} onSubmit={_editUserData} />
+    <UserView onSaveRole={_onSaveRole} userDataDto={userDto} onSubmit={_editUserData} />
   ) : (
     <Loading loading={true}></Loading>
   )
@@ -44,12 +52,14 @@ const User: NextPage<any> = () => {
 
 const UserView = ({
   userDataDto,
-  onSubmit
+  onSubmit,
+  onSaveRole
 }: {
   userDataDto: UserDto
-  onSubmit: Function
+  onSubmit: Function,
+  onSaveRole: Function
 }) => {
-  const { push , basePath, asPath} = useRouter()
+  const { push, basePath, asPath } = useRouter()
   const intl = useIntl()
   const validationSchema = useRef(
     yup.object({
@@ -114,6 +124,55 @@ const UserView = ({
     )
   }
 
+  const renderFormikRole = () => {
+    return (
+      <Formik
+        initialValues={{
+          role: userDataDto.role.key
+        }}
+        onSubmit={values => {
+          onSaveRole( ROLES.find(item => item.key === values.role))
+        }}
+      >
+        {({ values, errors, touched }) => (
+          <Form className={style.form}>
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'space-around',
+                alignItems: 'center'
+              }}
+            >
+              <p style={{marginRight: 20}}>Role activo del usuario:</p>
+              {ROLES.map((role: Role) => (
+                <div role='group' key={role.key}>
+                  <label>
+                    <Field type='radio' name='role' value={role.key} />
+                    {role.label}
+                  </label>
+                </div>
+              ))}
+              <div
+                style={{
+                  marginTop: '20px',
+                  maxWidth: '300px',
+                  margin: 'auto'
+                }}
+              >
+                <ButtonApp
+                  buttonStyle='link'
+                  type='submit'
+                  labelID='btn.save'
+                />
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    )
+  }
+
   return (
     <div className={style.content}>
       <div className={style.header}>
@@ -124,27 +183,23 @@ const UserView = ({
         <div>
           <p>Alta de usuario: {userDataDto.created_at?.toLocaleString()}</p>
         </div>
-        {userDataDto.role.level < 1 && <div className='plan'>Renderizar subscription</div>}
+        {userDataDto.role.level < 1 && (
+          <div className='plan'>Renderizar subscription</div>
+        )}
         <div className='role'>
-          <div style={{display: 'flex', justifyContent: 'space-around'}}>
-            <div>
-              <p>Role: {userDataDto.role.label}</p>
-            </div>
-            <div>
-              <ButtonApp
-                 buttonStyle='link'
-                 type='button'
-                labelID='btn.edit'
-              />
-            </div>
-            {userDataDto.role.level === 1 && (<div>
-            <ButtonApp
-                buttonStyle='link'
-                type='button'
-                labelID='btn.manage'
-                onClick={()=> push(asPath + 'colaboration')}
-              />
-            </div>)}
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <div style={{ display: 'flex' }}>{renderFormikRole()}</div>
+
+            {userDataDto.role.level === 1 && (
+              <div>
+                <ButtonApp
+                  buttonStyle='primary'
+                  type='button'
+                  labelID='btn.manage'
+                  onClick={() => push(asPath + 'colaboration')}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

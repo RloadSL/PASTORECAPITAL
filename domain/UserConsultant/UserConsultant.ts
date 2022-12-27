@@ -14,39 +14,32 @@ export class UserConsultant{
   country:Country;
   avatar:Avatar;
   description:string;
-  keywords: string[];
-  linkeding: string;
-  created_at: Date;
-
-  private constructor(user:User, data:UserConsultantDto){
+  keywords?: string[];
+  linkedin?: string;
+  created_at?: Date;
+  state?: 'new' | 'active' | 'disabled';
+  constructor(user:User, data:UserConsultantDto){
     this.uid = user.uid;
     this.name = user.name;
     this.lastname = user.lastname;
-    this.id = data.id;
+    this.id = data.id as string;
     this.country = data.country;
-    this.avatar = data.avatar;
+    this.avatar = data.avatar as Avatar;
     this.description = data.description;
     this.keywords = data.keywords;
-    this.linkeding =  data.linkeding;
+    this.linkedin =  data.linkedin;
     this.created_at = data.created_at;
+    this.state = data.state;
   }
 
   private update(data: UserConsultantDto){
-    this.id = data.id;
+    this.id = data.id as string;
     this.country = data.country;
-    this.avatar = data.avatar;
+    this.avatar = data.avatar as Avatar;
     this.description = data.description;
     this.keywords = data.keywords;
-    this.linkeding =  data.linkeding;
+    this.linkedin =  data.linkedin;
     this.created_at = data.created_at;
-  }
-
-  getInstance(user:User,data:UserConsultantDto){
-    if(!UserConsultant.instance){
-      UserConsultant.instance = new UserConsultant(user, data);
-    } 
-    
-    return UserConsultant.instance;
   }
 
   async set(data:UserConsultantDto){

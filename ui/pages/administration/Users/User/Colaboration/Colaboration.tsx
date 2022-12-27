@@ -33,7 +33,7 @@ const Colaboration = () => {
         const disabled:any[] = []
   
         collaborationPermissions.forEach(items => {
-          if(user?.collaboration[items.id ]){
+          if(user?.collaboration && user?.collaboration[items.id ]){
             enabled.push(items)
           }else{
             disabled.push(items)

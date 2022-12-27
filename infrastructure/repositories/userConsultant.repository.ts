@@ -1,8 +1,13 @@
+import { QueryElastic } from "domain/Interfaces/QueryElastic";
+import { User } from "domain/User/User";
+import { UserConsultant } from "domain/UserConsultant/UserConsultant";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
+import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 import StorageFirebase from "infrastructure/firebase/storage.firebase";
 import FireFirestore from "../firebase/firestore.firebase";
-
+import {HTTP} from '../http/http'
+import { UserRepositoryImplInstance } from "./users.repository";
 class UserConsultantRepository{
   private static instance: UserConsultantRepository;
 
@@ -34,6 +39,24 @@ class UserConsultantRepository{
    * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
    */
   getUserConsultant(id:string){}
+  /**
+   * Retorna los datos de un Asesor
+   * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
+   */
+  async searchUserConsultants(query?:QueryElastic){
+    const response:any = await FireFunctionsInstance.onCallFunction('getConsultantsTriggerFunctions');
+    console.log(response)
+    if(response.error){
+      return response;
+    }else{
+      const promises = response.items.map(async (item: any) =>{
+        const user = await UserRepositoryImplInstance.read(item.uid);
+        return new UserConsultant(user as User, item)
+      }) 
+      response.items = await Promise.all(promises)
+    }
+    return response;
+  }
   /**
    * Modifica o crea los datos del asesor
    */

@@ -2,13 +2,8 @@
  * Esto es el listado de los asesores
  */
 
+import Consultants from 'ui/pages/tax-consultant/consultants/Consultants';
 
-import React from 'react'
 
-const Consultants = () => {
-  return (
-    <div>Página listado asesores</div>
-  )
-}
 
 export default Consultants;
