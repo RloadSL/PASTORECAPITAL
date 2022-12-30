@@ -1,0 +1,13 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
+.cardConsultant{
+  &Item {
+    cursor: pointer;
+  }
+}
+
+.new{
+  background-color: red;
+}

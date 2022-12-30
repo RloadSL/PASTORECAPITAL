@@ -2,6 +2,7 @@
 import SearchBar from 'components/SearchBar'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
@@ -31,7 +32,7 @@ const Consultants = () => {
     if (userLogged?.uid) {
       dispatch(
         searchConsultants({
-          query: { match: { data: search }  },
+          query: { match: { data: search } },
           paginator: {
             from: pagination,
             size: 6
@@ -57,22 +58,16 @@ const ConsultantsViews = ({
 }) => {
   const { replace, asPath, query } = useRouter()
   return (
-    <div className={style.Cosultants}>
+    <div className={style.consultantsPage}>
       <header>
-        <h1>Asesor fiscal</h1>
+        <p className='small-caps'><FormattedMessage id={'page.tax-consultant.consultants.smallTitle'} /></p>
+        <h1 className={`main-title`}><FormattedMessage id={'page.tax-consultant.consultants.title'} /></h1>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+          <FormattedMessage id={'page.tax-consultant.consultants.description'} />
         </p>
       </header>
-      <div className={style.filtersConatiner}>
+
+      <div className={style.filtersContainer}>
         <SearchBar
           enableTags={false}
           onFilter={(f: any) => {
@@ -80,10 +75,10 @@ const ConsultantsViews = ({
           }}
         />
       </div>
-      <div className={style.Listconsultants}>
+      <div className={style.consultantsList}>
         {
           consultants.map(item => {
-            return ( <CardConsultant {...item} key={item.id}/> )
+            return (<CardConsultant {...item} key={item.id} />)
           })
         }
       </div>

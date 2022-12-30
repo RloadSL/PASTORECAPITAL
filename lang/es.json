@@ -144,7 +144,11 @@
   "page.administration.users.filter.placeholder" : "Buscar por nombre de usuario o email",
   "page.administration.users.filter.role_level" : "Role del usuario",
   "page.administration.users.filter.subscription_level" : "Plan del usuario",
-
+  "page.tax-consultant.consultants.smallTitle" : "Asesor Fiscal",
+  "page.tax-consultant.consultants.title" : "Asesores",
+  "page.tax-consultant.consultants.description" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset", 
+  "page.tax-consultant.profile.smallTitle" : "Perfil de Asesor",
+  "page.tax-consultant.profile.services.smallTitle" : "Servicios",
   "page.tax-consultant.create-edit.about-me" : "SOBRE MI", 
   "page.tax-consultant.create-edit.tell-us-about-you" : "Cuentanos más sobre ti", 
   "page.tax-consultant.create-edit.title" : "Mis datos", 

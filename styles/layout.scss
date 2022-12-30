@@ -50,6 +50,10 @@ body {
 	&-center {
 		justify-content: center;
 	}
+
+	&-between {
+		justify-content: space-between;
+	}
 }
 
 .space-between {

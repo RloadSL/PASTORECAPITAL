@@ -282,5 +282,24 @@ export const servicesList = [
     description: 'Asesoría para comenzar a vender productos en Amazon marketplace',
     price: '60',
     duration: '1h'
+  },
+  {
+    name: 'Presentación de Recurso notificación Agencia tributaria',
+    description: 'Gestión y presentación de la declaración de la renta',
+    price: '60',
+    duration:null,
+  },
+  {
+    name: 'Asesoría autónomos',
+    description: 'Resolución de dudas para autónomos',
+    price: '35',
+    duration:'30',
+    clients:'5'
+  },
+  {
+    name: 'Asesoría para venta en Amazon',
+    description: 'Asesoría para comenzar a vender productos en Amazon marketplace',
+    price: '60',
+    duration: '1h'
   }
 ]

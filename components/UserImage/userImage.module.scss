@@ -25,6 +25,11 @@
     height: 200px;
   }
 
+  &.medium {
+    width: 100px;
+    height: 100px;
+  }
+
   &.rounded {
     border-radius: 100%;
     position: relative;
@@ -43,7 +48,6 @@
 }
 
 .noAvatarImage {
-  
   background-color: lighten(colors.$dark,72%);
   background-image: url(../../assets/img/icons//no-image.svg);
   background-repeat: no-repeat;
@@ -53,6 +57,16 @@
   &.large {
     height: 200px;
     width: 200px;
+  }
+
+  &.medium {
+    height: 100px;
+    width: 100px;
+
+    @include devices.device(lgScreen){
+      height: 150px;
+      width: 150px;
+    }
   }
 
   &.small {

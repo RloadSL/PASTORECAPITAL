@@ -19,6 +19,6 @@ export const useComponentUtils = () => {
       return text;
     }
   }
-
+  
   return { buildClassName, limitTextLength }
 }

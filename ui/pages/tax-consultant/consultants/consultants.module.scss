@@ -2,7 +2,23 @@
 @use "../../../../styles/partials/variables/colors" as colors;
 @use "../../../../styles/partials/placeholders";
 
-.Cosultants{
+.consultantsPage{
   @extend %layoutContainer;
   padding: 2%;
+
+  header {
+    max-width: 1000px;
+  }
+}
+
+.consultantsList {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 15px;
+
+  @include devices.device(tablet){
+    grid-template-columns: 48% 48%;
+    grid-gap: 20px;
+  }
+
 }

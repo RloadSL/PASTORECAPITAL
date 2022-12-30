@@ -1,9 +1,3 @@
-import React from 'react'
+import Profile from "ui/pages/tax-consultant/consultants/[id]/Profile/Profile"
 
-const index = () => {
-  return (
-    <div>PROFILE</div>
-  )
-}
-
-export default index
+export default Profile

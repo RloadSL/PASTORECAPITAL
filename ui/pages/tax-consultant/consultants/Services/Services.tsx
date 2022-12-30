@@ -4,6 +4,7 @@ import { clientsList, servicesList } from 'ui/utils/test.data'
 import Card from 'components/Card'
 import ButtonApp from 'components/ButtonApp'
 import addIcon from '../../../../../assets/img/icons/add.svg'
+import ConsultantServiceList from '../../components/ConsultantServiceList'
 
 
 interface ServicesProps {
@@ -36,8 +37,9 @@ const ServicesView = ({ }: ServicesProps) => {
             icon={addIcon}
           />
         </div>
+        <ConsultantServiceList services={servicesList} isOwner={false} consultantServiceListStyle={'fullList'} />
 
-        <ul>
+        {/* <ul>
           {servicesList.map((service: any, index: number) => {
             return (
               <li key={index}>
@@ -49,7 +51,7 @@ const ServicesView = ({ }: ServicesProps) => {
               </li>
             )
           })}
-        </ul>
+        </ul> */}
 
       </div>
     </div>

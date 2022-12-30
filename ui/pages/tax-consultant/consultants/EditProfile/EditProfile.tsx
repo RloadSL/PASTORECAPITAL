@@ -82,9 +82,7 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
         reader.readAsDataURL(e.target.files[0])
       }
     }
-    /**
-     * @maria por que tanto string literal en las clases
-     */
+
     return (
       <div className={style.editProfile}>
         <p className='small-caps'>Apariencia</p>

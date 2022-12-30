@@ -1,0 +1,20 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
+.consultantShortDetails{
+  &Container {
+    padding: 15px;
+  }
+}
+
+.user {
+  &Image {
+    margin-right: 20px;
+  }
+  &Info {
+    .title {
+      @extend %secondaryTitle
+    }
+  }
+}

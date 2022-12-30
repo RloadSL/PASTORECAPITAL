@@ -16,7 +16,7 @@ interface UserImageProps {
 /**
  * Componente de imagen del usuario
  * @param image Imagen para renderizar
- * @param size tamaño de la imagen {ancho,alto}, por defecto es pequeña
+ * @param size tamaño de la imagen {ancho,alto}, por defecto es pequeña 'small' | 'medium' | 'large'
  * @param userImageStyle Estilo del contenedor de la imagen, redondo o cuadrado
  * @returns 
  */
