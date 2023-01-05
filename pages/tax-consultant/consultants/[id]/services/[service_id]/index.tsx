@@ -1,9 +1,2 @@
-import React from 'react'
-
-const ServiceDetail = () => {
-  return (
-    <div>Detalle del servicio</div>
-  )
-}
-
-export default ServiceDetail;
+import Service from "ui/pages/tax-consultant/consultants/[id]/Services/[service_id]/Service/Service"
+export default Service

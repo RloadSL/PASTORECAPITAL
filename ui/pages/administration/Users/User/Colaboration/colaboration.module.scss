@@ -1,3 +1,11 @@
+@use "../../../../../../styles/partials/placeholders";
+@use "../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../styles/partials/variables/colors" as colors;
+
+.collaboration {
+  @extend %layoutContainer;
+  padding:2%;
+}
 
 .App {
   display: flex;

@@ -1,0 +1,72 @@
+@use "../../../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../../../styles/partials/placeholders";
+
+.serviceDetail {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  &Content {
+    max-width: 1000px;
+  }
+
+  footer {
+    border-top: 1px solid colors.$grey40;
+    margin-top: 20px;
+    text-align: right;
+    max-width: 1000px;
+
+    small {
+      color: colors.$dark;
+    }
+  }
+}
+
+.price {
+  &Button {
+    max-width: 200px;
+    width: 100%;
+    margin-top: 20px;
+
+    &Container {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &Label {
+    margin-bottom: 0px;
+  }
+
+  &Qty {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.successCard {
+  background-color: colors.$main;
+  @extend %borderRadius;
+  padding: 2%;
+  max-width: 600px;
+  text-align: center;
+
+  &Container {
+    p{
+    color: white;
+    }
+  }
+
+  &Title {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .imageContainer,.buttonContainer {
+    max-width: 250px;
+    margin: auto;
+  }
+
+}

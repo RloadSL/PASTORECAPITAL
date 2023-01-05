@@ -213,11 +213,11 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
       </div>
       <div className={style.userInfoBlock}>
         <div className={style.nameLastnameBlock}>
-          <div className='fake-input'>
-            <span className='label'>Nombre:</span> <span>{userData.name}</span>
+          <div className={`fake-input ${style.input}`}>
+            <span className={`label ${style.label}`}>Nombre:</span> <span>{userData.name}</span>
           </div>
-          <div className='fake-input'>
-            <span className='label'>Apellidos:</span> <span>{userData.lastname}</span>
+          <div className={`fake-input ${style.input}`}>
+          <span className={`label ${style.label}`}>Apellidos:</span> <span>{userData.lastname}</span>
           </div>        </div>
         <div className={style.formBlock}>
           {renderFormik()}

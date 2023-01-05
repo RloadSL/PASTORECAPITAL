@@ -40,32 +40,35 @@ const Users = () => {
 }
 
 const UsersView = ({ users }: { users: User[] }) => {
-  const {push, asPath} = useRouter();
+  const { push, asPath } = useRouter();
 
   const renderUserItem = (user: User) => {
     return (
       <div className={style.userItem} key={user.uid}>
         <div className={`${style.information} ${style.checked}`}>
           <div>
-            <input style={{cursor: 'pointer'}} type="checkbox" />
+            <input style={{ cursor: 'pointer' }} type="checkbox" />
           </div>
-         
+
         </div>
         <div className={style.information}>
           <div className={style.name}>{`${user.name} ${user.lastname}`}</div>
           <div className={style.email}>{user.email}</div>
         </div>
         <div className={style.information}>
-          <div className={style.role}>{user.role.label}</div>
-          {user.role.level === 0 && <div className={style.subscrition}>
-            {user.subscription.plan.label}
-          </div>}
+          <div className={style.role}>
+            <div className={style.roleLabel}>{user.role.label}</div>
+            {user.role.level === 0 && <div className={style.subscrition}> /
+              {user.subscription.plan.label}
+            </div>}
+          </div>
         </div>
         <div className={style.actions}>
-          <div className={style.menu}>
+          <div className={style.menuContainer}>
             <Menu
               align='end'
               offsetY={5}
+              className={style.menu}
               menuButton={
                 <button
                   className={`menu-options-btn ${style['menu-options-btn']}`}
@@ -74,8 +77,8 @@ const UsersView = ({ users }: { users: User[] }) => {
                 </button>
               }
             >
-              <MenuItem onClick={() => push(`${asPath}${user.uid}`)}>Detalle</MenuItem>
-              <MenuItem onClick={() => alert('Bloquer')}>Bloquear</MenuItem>
+              <MenuItem className={style.menuOption} onClick={() => push(`${asPath}${user.uid}`)}>Detalle</MenuItem>
+              <MenuItem className={style.menuOption} onClick={() => alert('Bloquer')}>Bloquear</MenuItem>
             </Menu>
           </div>
         </div>
@@ -84,19 +87,19 @@ const UsersView = ({ users }: { users: User[] }) => {
   }
 
   const renderFilters = () => {
-    const handleOnChange = (event: { role_level: number , subscription_level: number}) => {
+    const handleOnChange = (event: { role_level: number, subscription_level: number }) => {
       console.log("Form::onChange", event);
     };
 
     return (
       <Formik
-        initialValues={{ role_level: null , subscription_level: null} as any}
+        initialValues={{ role_level: null, subscription_level: null } as any}
         onSubmit={handleOnChange}
       >
-        {({ values, errors, touched , submitForm}) => (
+        {({ values, errors, touched, submitForm }) => (
           <Form>
             <SelectFormikApp
-              onChange={(e:any)=> submitForm()}
+              onChange={(e: any) => submitForm()}
               selectOptions={[
                 { label: 'User', value: 0 },
                 { label: 'Colaborator', value: 1 },
@@ -106,7 +109,7 @@ const UsersView = ({ users }: { users: User[] }) => {
               name={'role_level'}
             />
             <SelectFormikApp
-              onChange={(e:any)=> submitForm()}
+              onChange={(e: any) => submitForm()}
               selectOptions={[
                 { label: 'User', value: 0 },
                 { label: 'Colaborator', value: 1 },
@@ -122,20 +125,22 @@ const UsersView = ({ users }: { users: User[] }) => {
   }
 
   return (
-    <div className={style.container}>
+    <div className={style.usersPage}>
       <div className={style.header}>
-        <h1>Usuarios de la plataforma</h1>
+        <h1 className='main-title'>Usuarios de la plataforma</h1>
       </div>
       <div className={style.content}>
         <div className={style.filters}>
-          <SearchBar
-            enableTags={false}
-            placeholder={'page.administration.users.filter.placeholder'}
-            onFilter={(value: { search?: string; tags?: string }) =>
-              console.log(value)
-            }
-          />
-          <div className={style.selected}>
+          <div className={style.filtersSearchContainer}>
+            <SearchBar
+              enableTags={false}
+              placeholder={'page.administration.users.filter.placeholder'}
+              onFilter={(value: { search?: string; tags?: string }) =>
+                console.log(value)
+              }
+            />
+          </div>
+          <div className={style.filtersSelectsContainer}>
             {renderFilters()}
           </div>
         </div>

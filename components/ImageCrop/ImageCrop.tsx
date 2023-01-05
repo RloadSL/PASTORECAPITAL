@@ -11,8 +11,9 @@ import ReactCrop, {
 import 'react-image-crop/dist/ReactCrop.css'
 import { canvasPreview } from './canvaspreview'
 import { useDebounceEffect } from './useDebounceEffect'
+import style from './imagecrop.module.scss'
 
-function centerAspectCrop (
+function centerAspectCrop(
   mediaWidth: number,
   mediaHeight: number,
   aspect: number
@@ -33,14 +34,14 @@ function centerAspectCrop (
   )
 }
 
-const ImageCrop = ({ src , onComplited}: { src: string, onComplited: Function }) => {
+const ImageCrop = ({ src, onComplited }: { src: string, onComplited: Function }) => {
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
 
   const imageRef = useRef<HTMLImageElement>(null)
 
-  function onImageLoad (e: React.SyntheticEvent<HTMLImageElement>) {
+  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget
     setCrop(centerAspectCrop(width, height, 1))
   }
@@ -55,7 +56,7 @@ const ImageCrop = ({ src , onComplited}: { src: string, onComplited: Function })
       ) {
         // We use canvasPreview as it's much faster than imgPreview.
         canvasPreview(imageRef.current, previewCanvasRef.current, completedCrop)
-      
+
       }
     },
     100,
@@ -63,40 +64,47 @@ const ImageCrop = ({ src , onComplited}: { src: string, onComplited: Function })
   )
 
   return (
-    <div style={{display:'flex'}}>
-      {!!completedCrop && (
-        <div style={{marginRight: 20}}>
-          <canvas
-            ref={previewCanvasRef}
-            style={{
-              border: '1px solid black',
-              objectFit: 'contain',
-              width: completedCrop.width,
-              height: completedCrop.height,
-            }}
-          />
-          <ButtonApp onClick={()=> onComplited(previewCanvasRef.current?.toDataURL())}>
-            Aceptar
-          </ButtonApp>
-        </div>
-          
+    <div className={style.imageCrop}>
+      <p>Configura tu imagen de perfil</p>
+      <div className={style.imageCropContainer}>
+        {!!completedCrop && (
+          <div style={{ marginRight: 20 }}>
+            <canvas
+              ref={previewCanvasRef}
+              style={{
+                border: '1px solid grey',
+                borderRadius:'100%',
+                objectFit: 'contain',
+                // width: completedCrop.width,
+                // height: completedCrop.height,
+
+              }}
+            />
+          </div>
         )}
-      <ReactCrop
-        aspect={1}
-        onComplete={c => setCompletedCrop(c)}
-        crop={crop}
-        onChange={c => setCrop(c)}
-      >
-        <img
-          style={{ width: '100%' }}
-          onLoad={onImageLoad}
-          alt='Crop'
-          ref={imageRef}
-          src={src}
-        />
-      </ReactCrop>
-      
+        <ReactCrop
+          aspect={1}
+          onComplete={c => setCompletedCrop(c)}
+          crop={crop}
+          onChange={c => setCrop(c)}
+        >
+          <img
+            onLoad={onImageLoad}
+            alt='Crop'
+            ref={imageRef}
+            src={src}
+          />
+        </ReactCrop>
+      </div>
+      <div className={style.buttonContainer}>
+      <ButtonApp onClick={() => onComplited(previewCanvasRef.current?.toDataURL())}>
+        Aceptar
+      </ButtonApp>
+      </div>
+
     </div>
+
+
   )
 }
 

@@ -1,47 +1,83 @@
-@use '../../../../styles/partials/placeholders';
-@use '../../../../styles/partials/mixins/devices' as devices;
-@use '../../../../styles/partials/variables/colors' as colors;
+@use "../../../../styles/partials/placeholders";
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
 
-.userItem{
+.usersPage {
+  @extend %layoutContainer;
+  padding: 2%;
+}
+
+.userItem {
   display: flex;
   padding-right: 20px;
   width: 100%;
   justify-content: center;
-  
-  .information, .actions{
+
+  .information,
+  .actions {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
   }
 
-  .checked{
+  .checked {
     width: 100px;
   }
-  
-  .actions{
+
+  .actions {
     width: 20%;
     position: relative;
-    .menu-options-btn{
+    .menu-options-btn {
       position: relative;
       top: inherit;
       right: inherit;
     }
   }
-  
 }
-.content{
-  .filters{
+.content {
+  color: colors.$dark;
+  .filters {
     display: flex;
-    .selected{
-      form{
-        display :flex;
+    width: 100%;
+
+    &SearchContainer {
+      width: 50%;
+    }
+
+    &SelectsContainer {
+      width: 50%;
+
+      form {
+        display: flex;
         * {
           margin-right: 10px;
+          width: 100%;
         }
       }
     }
   }
 }
+
+.role {
+  font-size: 0.9rem;
+  color: colors.$grey60;
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.menu {
+  padding: 12px;
+
+  &Option {
+    border-bottom: 0px !important;
+    padding: 10px !important;
+  }
+
+}
+
 

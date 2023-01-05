@@ -2,7 +2,7 @@
 @use "../../../../../styles/partials/variables/colors" as colors;
 @use "../../../../../styles/partials/placeholders";
 
-.editProfile{
+.editProfile {
   @extend %layoutContainer;
   padding: 2%;
 
@@ -14,14 +14,44 @@
     max-width: 1000px;
 
     .nameLastnameBlock {
-      display: flex;
-      margin-bottom: 20px;
+      display: block;
+
+      @include devices.device(tablet) {
+        display: flex;
+      }
       
       & > div {
-        width: 48%;
-        margin-right: 5px;
+        width: 100%;
+        margin-bottom: 20px;
+
+        @include devices.device(tablet) {
+          width: 48.5%;
+        }
       }
     }
   }
 
+  .input {
+    .label {
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: block;
+        background-image: url(../../../../../assets/img/icons/user.svg);
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        margin-right: 12px;
+      }
+    }
+
+    &:first-child {
+      margin-right: 20px;
+    }
+  }
+}
+
+.imageCropContainer {
+  padding: 2%;
 }

@@ -174,12 +174,12 @@ const UserView = ({
   }
 
   return (
-    <div className={style.content}>
+    <div className={style.user}>
       <div className={style.header}>
-        <h1>Información de usuario</h1>
+        <h1 className='main-title'>Información de usuario</h1>
       </div>
-      <div className='body'>
-        <div className='info'>{renderFormik()}</div>
+      <div>
+        <div className={style.userMainDetails}>{renderFormik()}</div>
         <div>
           <p>Alta de usuario: {userDataDto.created_at?.toLocaleString()}</p>
         </div>
@@ -187,8 +187,9 @@ const UserView = ({
           <div className='plan'>Renderizar subscription</div>
         )}
         <div className='role'>
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <div style={{ display: 'flex' }}>{renderFormikRole()}</div>
+          <p className='small-caps margin-top-50'>Configurar rol del usuario</p>
+          <div>
+            <div>{renderFormikRole()}</div>
 
             {userDataDto.role.level === 1 && (
               <div>

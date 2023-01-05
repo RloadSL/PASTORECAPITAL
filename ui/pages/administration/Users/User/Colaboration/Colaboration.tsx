@@ -100,9 +100,9 @@ const Colaboration = () => {
    } 
 
   return (
-    <div className={'content'}>
+    <div className={style.collaboration}>
       <div className={'header'}>
-        <h1>Getión de permisos de Colaboradores</h1>
+        <h1 className='main-title'>Gestión de permisos de Colaboradores</h1>
       </div>
       <div className='body'>
       <div className={style.App}>

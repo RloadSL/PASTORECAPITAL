@@ -1,1 +1,50 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/placeholders";
 @import "~react-image-crop/src/ReactCrop.scss";
+
+.imageCrop {
+  padding: 4%;
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include devices.device(tablet) {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  img {
+    width: 100%;
+    //max-width: 400px;
+
+    @include devices.device(tablet) {
+      max-width: 600px;
+    }
+  }
+
+  canvas {
+    width: 150px;
+    height: 150px;
+
+    @include devices.device(tablet) {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
+
+.buttonContainer {
+  max-width: 250px;
+  margin: auto;
+  margin-top: 20px;
+}

@@ -1,0 +1,30 @@
+@use "../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../styles/partials/placeholders";
+
+.services {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  header {
+    margin-bottom: 50px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  &AddButton {
+    max-width: 250px;
+    margin-bottom: 20px;
+
+    // @include devices.device(smTablet) {
+    //   max-width: 250px;
+    // }
+  }
+
+  &List {
+    max-width: 1000px;
+  }
+
+}

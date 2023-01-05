@@ -3,14 +3,30 @@
 @use "../../../../../styles/partials/placeholders";
 
 .consultantServiceList {
-  display: flex;
-  flex-direction: column;
 
-  @include devices.device(lgScreen) {
-    flex-direction: row;
+  &.gridContainer {
+    flex-direction: column;
+    display: flex;
+
+
+      @include devices.device(1400px) {
+        flex-direction: row;
+      }
   }
+
+  &.blockContainer {
+    flex-direction: column;
+    display: flex;
+  }
+
+  // @include devices.device(lgScreen) {
+  //   flex-direction: row;
+  // }
   .rotationContainer {
-    @include devices.device(lgScreen) {
+    transform: none;
+    position: static;
+
+    @include devices.device(1400px) {
       transform: rotate(-90deg);
       position: absolute;
       width: 245px;
@@ -18,8 +34,14 @@
       top: 95px;
     }
   }
+
+  .simpleContainer {
+    width: 245px;
+    margin-bottom: 20px;
+  }
+
   .buttonBlock {
-    @include devices.device(lgScreen) {
+    @include devices.device(1400px) {
       position: relative;
       width: 80px;
       margin-right: 20px;
@@ -30,39 +52,59 @@
     width: 100%;
     ul {
       @include devices.device(lgScreen) {
-        display: grid;
+        //display: grid;
         grid-gap: 20px;
         min-height: 200px;
         grid-template-columns: 1fr 1fr 1fr;
       }
 
       &.fullList {
-        @include devices.device(smTablet) {
-          display: grid;
-          // min-height: 200px;
-          grid-gap: 20px;
-          grid-template-columns: 1fr 1fr;
+       
+        &.blockContainer {
+          display: block;
         }
-        @include devices.device(tablet) {
-          grid-template-columns: 1fr 1fr 1fr;
+
+        &.gridContainer {
+          display: block;
+          @include devices.device(smTablet) {
+            display: grid;
+            // min-height: 200px;
+            grid-gap: 20px;
+            grid-template-columns: 1fr 1fr;
+          }
+          @include devices.device(tablet) {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
         }
-        // .serviceItem {
-        //   @include devices.device(lgScreen) {
-        //     //width: 38%;
-        //   }
-        // }
       }
 
       &.shortList {
-        @include devices.device(lgScreen) {
-          // display: flex;
-          // min-height: 200px;
-          flex-wrap: nowrap;
+        // @include devices.device(lgScreen) {
+        //   // display: flex;
+        //   // min-height: 200px;
+        //   flex-wrap: nowrap;
+        // }
+
+        &.blockContainer {
+          display: block;
+        }
+
+        &.gridContainer {
+          display: block;
+          @include devices.device(smTablet) {
+            display: grid;
+            // min-height: 200px;
+            grid-gap: 20px;
+            grid-template-columns: 1fr 1fr;
+          }
+          // @include devices.device(tablet) {
+          //   grid-template-columns: 1fr 1fr 1fr;
+          // }
         }
 
         .serviceItem {
           @include devices.device(smScreen) {
-            min-height: auto !important;
+            min-height: auto;
             margin-bottom: 12px !important;
           }
 
@@ -73,11 +115,12 @@
       }
 
       &.columnList {
-        @include devices.device(lgScreen) {
-          // display: flex;
-          // min-height: 200px;
-          flex-wrap: nowrap;
-        }
+        display: block;
+        // @include devices.device(lgScreen) {
+        //   // display: flex;
+        //   // min-height: 200px;
+        //   flex-wrap: nowrap;
+        // }
 
         .serviceItem {
           @include devices.device(smScreen) {
@@ -93,22 +136,22 @@
 
       .serviceItem {
         margin-bottom: 15px;
-        @include devices.device(tablet) {
-          //width: 38%;
-          //margin-right: 20px;
-          min-height: 250px;
-          margin-bottom: 0px;
-        }
+        // @include devices.device(tablet) {
+        //   //width: 38%;
+        //   //margin-right: 20px;
+        //   min-height: 250px;
+        //   margin-bottom: 0px;
+        // }
 
         &:last-child {
           margin-right: 0px;
         }
 
         .service {
-          padding: 18px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          padding: 25px;
+          // display: flex;
+          // flex-direction: column;
+          // justify-content: space-between;
           height: 100%;
 
           p {
@@ -121,23 +164,33 @@
             border-radius: 100%;
             flex-shrink: 0;
             margin-right: 10px;
+            position: relative;
+            top: 5px;
+          }
+
+          &InfoBlock {
+            width: 100%;
           }
 
           &Title {
             color: colors.$main;
             font-weight: bold;
             font-size: 1.2rem;
+            margin-bottom: 12px !important;
           }
 
-          &Price,
-          &Duration {
-            font-size: 0.9rem;
-            strong {
-              font-size: 1.2rem;
-            }
-            &::after {
-              content: "€";
-            }
+          // &Price,
+          // &Duration {
+          //   font-size: 0.9rem;
+          //   strong {
+          //     font-size: 1.2rem;
+          //   }
+          // }
+        }
+
+        &Price {
+          &::after {
+            content: "€";
           }
         }
       }
@@ -153,5 +206,11 @@
     align-items: center;
     background-color: white;
     border-radius: 20px;
+  }
+
+  .editBlock {
+    margin-left: 20px;
+    will-change:auto;
+    transform: scale(.9);
   }
 }

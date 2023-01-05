@@ -1,0 +1,13 @@
+@use "../../../../../styles/partials/placeholders";
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+
+.user {
+  @extend %layoutContainer;
+  padding: 2%; 
+
+  &MainDetails {
+    max-width: 1000px;
+  }
+
+}

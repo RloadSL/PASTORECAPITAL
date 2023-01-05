@@ -1,10 +1,10 @@
-import ConsultantMenu from '../../components/ConsultantMenu'
+import ConsultantMenu from '../../../components/ConsultantMenu'
 import style from './services.module.scss'
 import { clientsList, servicesList } from 'ui/utils/test.data'
 import Card from 'components/Card'
 import ButtonApp from 'components/ButtonApp'
 import addIcon from '../../../../../assets/img/icons/add.svg'
-import ConsultantServiceList from '../../components/ConsultantServiceList'
+import ConsultantServiceList from '../../../components/ConsultantServiceList'
 
 
 interface ServicesProps {
@@ -28,7 +28,7 @@ const ServicesView = ({ }: ServicesProps) => {
       </header>
       <div>
         <h1 className='small-caps'>Servicios</h1>
-        <div className={style.buttonBlock}>
+        {/* <div className={style.servicesAddButton}>
           <ButtonApp
             labelID='Añadir servicio'
             type='submit'
@@ -36,23 +36,10 @@ const ServicesView = ({ }: ServicesProps) => {
             size={'default'}
             icon={addIcon}
           />
+        </div> */}
+        <div className={style.servicesList}>
+          <ConsultantServiceList services={servicesList} isOwner={true} consultantServiceListStyle={'fullList'} displayStyle={'blockContainer'}/>
         </div>
-        <ConsultantServiceList services={servicesList} isOwner={false} consultantServiceListStyle={'fullList'} />
-
-        {/* <ul>
-          {servicesList.map((service: any, index: number) => {
-            return (
-              <li key={index}>
-                <Card>
-                  <div className={style.cardContainer}>
-                    <p>{service.name}</p>
-                  </div>
-                </Card>
-              </li>
-            )
-          })}
-        </ul> */}
-
       </div>
     </div>
   )

@@ -84,7 +84,7 @@ const DashboardView = ({}:DashboardProps) => {
             </div>
           </div>
           <div>
-            <ConsultantServiceList services={services} maxServicesShown={3} consultantServiceListStyle={'shortList'}/>
+            <ConsultantServiceList services={services} maxServicesShown={2} consultantServiceListStyle={'shortList'}/>
           </div>
         </div>
       </div>

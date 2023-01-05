@@ -60,6 +60,10 @@ body {
 	justify-content: space-between;
 }
 
+.justify-end {
+	justify-content: flex-end;
+}
+
 .align-center {
 	align-items: center;
 }
@@ -206,7 +210,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	background-color: colors.$grey30;
-	padding: 10px 15px;
+	padding: 20px 15px;
 	border-radius: 20px;
 
 	.label {
