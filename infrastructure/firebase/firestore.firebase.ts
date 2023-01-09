@@ -89,7 +89,7 @@ export class FireFirestore {
   public setDoc = async (collectionPath: string, docId: string, data: any) => {
     try {
       const docRef = this._doc(collectionPath, docId);
-      const res= await setDoc(docRef, cleanUndefined(data), {merge: true});
+      const res = await setDoc(docRef, cleanUndefined(data), {merge: true});
     } catch (error:any) {
       alert('Firebase response: '+error.code);
     }

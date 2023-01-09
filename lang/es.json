@@ -214,7 +214,8 @@
   "message.item.created": "El item se ha creado correctamente",
   "message.item.deleted": "El item se ha eliminado correctamente",
   "message.item.no-result":"No hemos encontrado nada",
-
+  "message.item.updated" : "Actualización exitoza",
+  
   "subscription.user.unauthorized.alert.title": "Usuario sin autorización",
   "subscription.user.unauthorized.alert.content": "",
 

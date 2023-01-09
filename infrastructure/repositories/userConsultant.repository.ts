@@ -5,6 +5,7 @@ import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
 import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 import StorageFirebase from "infrastructure/firebase/storage.firebase";
+import firestoreFirebase from "../firebase/firestore.firebase";
 import FireFirestore from "../firebase/firestore.firebase";
 import {HTTP} from '../http/http'
 import { UserRepositoryImplInstance } from "./users.repository";
@@ -38,14 +39,21 @@ class UserConsultantRepository{
    * Retorna los datos de un Asesor
    * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
    */
-  getUserConsultant(id:string){}
+  async getUserConsultant(id:string): Promise<UserConsultant | undefined>{
+    const ref = await firestoreFirebase.getDoc('user_consultant', id);
+    if(ref?.exists()){
+      const data = ref?.data() as UserConsultantDto
+      const user = await UserRepositoryImplInstance.read(data.uid);
+      return new UserConsultant(user as User, {...data, id: ref.id})
+    }
+  }
   /**
-   * Retorna los datos de un Asesor
-   * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
+   * Retorna los datos de los Asesores bajo filtros
+   * @param query filtros de búsqueda
    */
   async searchUserConsultants(query?:QueryElastic){
     const response:any = await FireFunctionsInstance.onCallFunction('getConsultantsTriggerFunctions');
-    console.log(response)
+    
     if(response.error){
       return response;
     }else{
@@ -60,20 +68,26 @@ class UserConsultantRepository{
   /**
    * Modifica o crea los datos del asesor
    */
-  async setUserConsultant(data: UserConsultantDto){
-    if(typeof data.avatar === 'string'){
-      const avtUri = await StorageFirebase.UploadBase64(`user_consultant/${data.uid}/avatar`, data.avatar as string)
-      data.avatar = {
-        created_at: new Date(),
-        size : 200,
-        url : avtUri
+  async setUserConsultant(data: UserConsultantDto):Promise<any>{
+    try {
+      if(typeof data.avatar === 'string'){
+        const avtUri = await StorageFirebase.UploadBase64(`user_consultant/${data.uid}/avatar`, data.avatar as string)
+        data.avatar = {
+          created_at: new Date(),
+          size : 200,
+          url : avtUri
+        }
       }
-    }
-    
-    data.created_at = new Date();
-    FireFirestore.createDoc('user_consultant', data)
-    const res:any = null;
-    return res;
+     
+      if(data.id){
+        FireFirestore.setDoc('user_consultant', data.id, data)
+      }else{
+        FireFirestore.createDoc('user_consultant', data)
+      }
+    } catch (error) {
+      return error;
+    } 
+  
   }
   /**
    * Elimina el perfil del asesor, esto no quiere decir que elimine el usuario ni su capacidad de colaboración en este módulo

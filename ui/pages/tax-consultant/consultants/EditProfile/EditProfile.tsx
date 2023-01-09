@@ -1,7 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import style from './editProfile.module.scss'
 
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import ConsultantMenu from '../../components/ConsultantMenu'
 import ImageCrop from 'components/ImageCrop'
 import Modal from 'components/Modal'
@@ -9,7 +15,7 @@ import ButtonApp from 'components/ButtonApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import { Form, Formik } from 'formik'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 import {
   UserConsultantDto,
@@ -20,27 +26,65 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import { useRouter } from 'next/router'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import Loading from 'components/Loading'
-import { SubscriptionGranted } from 'components/AppLayout/AppLayout'
 import UserImage from 'components/UserImage'
-
+import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
+import { useSystem } from 'ui/hooks/system.hooks'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
+import * as yup from 'yup'
+import SelectCountryFormikApp from 'components/FormApp/components/SelectCountryFormikApp/SelectCountryFormikApp'
 const EditProfile = () => {
   const [loading, setloading] = useState(false)
+  const [consultant, setConsultant] = useState<UserConsultant | undefined>()
   const userLogged = useSelector(getUserLogged)
   const { query, replace } = useRouter()
+  const { pushInfoApp } = useSystem()
 
   const userData = useRef({
-    name: userLogged?.role.level == 2 ? query?.name : userLogged?.name,
-    lastname: userLogged?.role.level == 2 ? query?.lastname : userLogged?.lastname,
-    uid: userLogged?.role.level == 2 ? query?.uid : userLogged?.uid
-  })
-
-
+    name: userLogged?.role.level == 2 ? '' : userLogged?.name,
+    lastname: userLogged?.role.level == 2 ? '' : userLogged?.lastname,
+    uid: userLogged?.role.level == 2 ? '' : userLogged?.uid
+  }).current
+  //Get consultant ref
   useEffect(() => {
-    if (userLogged?.role.level == 1 && !query.id) {
+    let fetch = true
+    if (query.id) {
+      userConsultantRepository
+        .getUserConsultant(query.id as string)
+        .then(consultantRes => {
+          if (fetch) {
+            if (!consultantRes) {
+              return replace('/tax-consultant/consultants')
+            }
+            userData.name = consultantRes?.name as string
+            userData.lastname = consultantRes?.lastname as string
+            userData.uid = consultantRes?.uid as string
+            setConsultant(consultantRes)
+            setInitialValues({
+              country: consultantRes.country?.iso,
+              description: consultantRes?.description,
+              keywords: consultantRes?.keywords?.toString(),
+              linkedin: consultantRes?.linkedin
+            })
+          }
+        })
+    }
+
+    return () => {
+      fetch = false
+    }
+  }, [query])
+
+  //Permisos
+  useEffect(() => {
+    /*  if (userLogged?.role.level < 1 || !query.id) {
+      replace('/tax-consultant/consultants')
+    } */
+
+    if (userLogged?.role.level == 1 && userLogged.uid === null) {
+      //comprobar propietario
       replace('/tax-consultant/consultants')
     }
-  }, [userLogged,replace, query.id]) 
- 
+  }, [userLogged, replace, query.id])
 
   const [initialValues, setInitialValues] =
     useState<UserConsultantInitialValues>({
@@ -51,29 +95,42 @@ const EditProfile = () => {
     })
 
   const _onSubmit = async (values: UserConsultantDto) => {
-    values.uid = userData.current.uid as string;
-    const response = await userConsultantRepository.setUserConsultant(values)
-    console.log(response)
+    values.uid = userData.uid as string
+    const response = await userConsultantRepository.setUserConsultant({
+      ...values,
+      id: consultant?.id
+    })
+    if (!response) {
+      pushInfoApp(
+        new InfoApp(
+          { code: 'message.item.updated', message: 'The item was updated' },
+          'success'
+        )
+      )
+    }
   }
-
+  
   return (
     <>
       <EditProfileView
         initialValues={initialValues}
         onSubmit={_onSubmit}
-        userData={userData.current}
+        userData={userData}
+        currentavatar={consultant?.avatar?.url}
       ></EditProfileView>
       <Loading variant='outer-primary' loading={loading}></Loading>
     </>
   )
 }
 
-const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
+const EditProfileView = ({ initialValues, userData, onSubmit, currentavatar }: any) => {
   const [imgSrc, setImgSrc] = useState<undefined | string>('')
   const [avatar, setAvatarSrc] = useState<string | undefined>()
   const inputAvatarRef = useRef<HTMLInputElement>(null)
+  const intl = useIntl()
+
   const AvatarPicker = () => {
-    function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    function onSelectFile (e: React.ChangeEvent<HTMLInputElement>) {
       if (e.target.files && e.target.files.length > 0) {
         const reader = new FileReader()
         reader.addEventListener('load', () =>
@@ -82,13 +139,17 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
         reader.readAsDataURL(e.target.files[0])
       }
     }
-
+    
     return (
       <div className={style.editProfile}>
         <p className='small-caps'>Apariencia</p>
         <div className='flex-container align-center'>
           <div className={style.avatarBlock}>
-            <UserImage image={avatar} size={'large'} userImageStyle={['rounded', 'nobordered']} />
+            <UserImage
+              image={avatar || currentavatar}
+              size={'large'}
+              userImageStyle={['rounded', 'nobordered']}
+            />
           </div>
           <div className={style.infoBlock}>
             <p className='secondary-title'>Imagen de perfil</p>
@@ -124,47 +185,37 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
   }
 
   const renderFormik = () => {
+    const validationSchema = yup.object({
+      keywords: yup
+        .string()
+        .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
+      country: yup.string().required(intl.formatMessage({ id: 'page.login.errorRequired' })),
+      description: yup
+      .string()
+      .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
+    })
+    
     return (
       <Formik
+        enableReinitialize
         initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={values => {
           if (avatar) values.avatar = avatar
+          if (values.keywords)
+            values.keywords = values.keywords
+              .split(',')
+              .map((item: string) => item.trim())
           onSubmit(values)
         }}
       >
         {({ values, errors, touched }) => (
           <Form>
-            <SelectFormikApp
-              selectOptions={[
-                {
-                  label: 'España',
-                  value: {
-                    label: 'Spain',
-                    iso: 'es',
-                    flagUrl: ''
-                  }
-                },
-                {
-                  label: 'Inglaterra',
-                  value: {
-                    label: 'England',
-                    iso: 'en',
-                    flagUrl: ''
-                  }
-                },
-                {
-                  label: 'Francia',
-                  value: {
-                    label: 'France',
-                    iso: 'fr',
-                    flagUrl: ''
-                  }
-                }
-              ]}
+            <SelectCountryFormikApp
               labelID={'forms.labels.location'}
               name={'country'}
+              value={values.country}
             />
-
             <TextareaFormikApp
               labelID='page.tax-consultant.create-edit.form.label.description'
               name='description'
@@ -173,7 +224,7 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
             <InputFormikApp
               labelID='page.tax-consultant.create-edit.form.label.keyword'
               type='text'
-              name='keyword'
+              name='keywords'
             />
 
             <InputFormikApp
@@ -202,7 +253,7 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
 
   return (
     <div className={style.editProfile}>
-      <ConsultantMenu avatarImg={avatar}/>
+      <ConsultantMenu avatarImg={avatar} />
       <div className={style.avatarBlock}>
         <div className={style.avatar}>{AvatarPicker()}</div>
         <div>
@@ -214,14 +265,15 @@ const EditProfileView = ({ initialValues, userData, onSubmit }: any) => {
       <div className={style.userInfoBlock}>
         <div className={style.nameLastnameBlock}>
           <div className={`fake-input ${style.input}`}>
-            <span className={`label ${style.label}`}>Nombre:</span> <span>{userData.name}</span>
+            <span className={`label ${style.label}`}>Nombre:</span>{' '}
+            <span>{userData.name}</span>
           </div>
           <div className={`fake-input ${style.input}`}>
-          <span className={`label ${style.label}`}>Apellidos:</span> <span>{userData.lastname}</span>
-          </div>        </div>
-        <div className={style.formBlock}>
-          {renderFormik()}
+            <span className={`label ${style.label}`}>Apellidos:</span>{' '}
+            <span>{userData.lastname}</span>
+          </div>{' '}
         </div>
+        <div className={style.formBlock}>{renderFormik()}</div>
       </div>
     </div>
   )

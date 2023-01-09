@@ -4,26 +4,27 @@ import { User } from "domain/User/User";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
 import userConsultantRepository from "infrastructure/repositories/userConsultant.repository";
-
+import countryList from 'react-select-country-list'
 export class UserConsultant{
   private static instance: UserConsultant;
   id:string;
   uid:string;
   name:string;
   lastname:string;
-  country:Country;
-  avatar:Avatar;
+  country?:Country;
+  avatar?:Avatar;
   description:string;
   keywords?: string[];
   linkedin?: string;
   created_at?: Date;
   state?: 'new' | 'active' | 'disabled';
   constructor(user:User, data:UserConsultantDto){
+   
     this.uid = user.uid;
     this.name = user.name;
     this.lastname = user.lastname;
     this.id = data.id as string;
-    this.country = data.country;
+    this.country =  this.parseCountry(data.country)
     this.avatar = data.avatar as Avatar;
     this.description = data.description;
     this.keywords = data.keywords;
@@ -31,10 +32,16 @@ export class UserConsultant{
     this.created_at = data.created_at;
     this.state = data.state;
   }
-
+  private parseCountry = (isoCountry?: string)=>{
+    return isoCountry ? {
+      flagUrl : `https://flagcdn.com/32x24/${isoCountry?.toLocaleLowerCase()}.png`,
+      iso: isoCountry as string,
+      label: countryList().getLabel(isoCountry as string)
+    } : undefined;
+  }
   private update(data: UserConsultantDto){
     this.id = data.id as string;
-    this.country = data.country;
+    this.country = this.parseCountry(data.country);
     this.avatar = data.avatar as Avatar;
     this.description = data.description;
     this.keywords = data.keywords;

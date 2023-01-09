@@ -4,17 +4,17 @@ import { Country } from "domain/Interfaces/Country";
 export interface UserConsultantDto {
   id?:string;
   uid:string;
-  country:Country;
-  avatar: Avatar | string;
+  country?:string;
+  avatar?: Avatar | string;
   description:string;
   keywords?: string[];
   linkedin?: string;
-  created_at?: Date;
+  created_at: Date;
   state?: 'new' | 'active' | 'disabled'
 }
 
 export interface UserConsultantInitialValues {
-  country?:Country;
+  country?:string;
   description?:string;
   keywords?: string;
   linkedin?: string;

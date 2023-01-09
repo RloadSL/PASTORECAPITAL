@@ -13,7 +13,7 @@ const nextConfig = {
     localeDetection: false,
   } ,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'firebasestorage.googleapis.com'],
   }, 
   
 }
