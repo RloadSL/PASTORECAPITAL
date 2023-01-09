@@ -28,7 +28,7 @@ const ConsultantShortDetails = ({
       </div>
 
       <div className={style.userInfo}>
-        <p>{country ? country.label : 'Sin país asignado'}</p>
+        <p className={style.country}>{country ? country.label : 'Sin país asignado'}</p>
         <p className={style.title}>
           {name} {lastname}
         </p>

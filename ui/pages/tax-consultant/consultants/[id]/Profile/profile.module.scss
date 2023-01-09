@@ -5,6 +5,11 @@
 .profile {
   @extend %layoutContainer;
   padding: 2%;
+  margin-top: 20px;
+
+  @include devices.device(smTablet) {
+  margin-top: 0px;
+  }
 
   &Description {
     max-width: 1000px;
@@ -16,15 +21,22 @@
   }
 
   &ShortDetails {
-    display: flex;
-    justify-content: space-between;
+    @include devices.device(smTablet) {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
 .rightContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-end;
+
+  @include devices.device(smTablet) {
+    flex-direction: column;
+  }
 }
 
 .chatLink {
