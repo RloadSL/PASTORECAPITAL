@@ -34,7 +34,7 @@ export class UserConsultant{
   }
   private parseCountry = (isoCountry?: string)=>{
     return isoCountry ? {
-      flagUrl : `https://flagcdn.com/32x24/${isoCountry?.toLocaleLowerCase()}.png`,
+      flagUrl : `https://flagcdn.com/w40/${isoCountry?.toLocaleLowerCase()}.jpg`,
       iso: isoCountry as string,
       label: countryList().getLabel(isoCountry as string)
     } : undefined;

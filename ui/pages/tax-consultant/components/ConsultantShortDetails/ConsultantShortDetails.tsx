@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Chips from 'components/Chips'
 import UserImage from 'components/UserImage'
 import style from './consultantShortDetails.module.scss'
@@ -7,8 +8,8 @@ interface ConsultantShortDetailsProps {
   avatar: any
   name: string
   lastname: string
-  keywords: Array<{ label: string, icon?: any }>
-  state: 'new' | 'active' | 'disabled'
+  keywords: Array<string> | undefined
+  state: 'new' | 'active' | 'disabled' | undefined
 }
 
 const ConsultantShortDetails = ({ 
@@ -28,11 +29,11 @@ const ConsultantShortDetails = ({
       </div>
 
       <div className={style.userInfo}>
-        <p>{country ? country.label : 'Sin país asignado'}</p>
+        <p>{country?.flagUrl && <img alt='country' src={country?.flagUrl}></img>} {country ? country.label : 'Sin país asignado'}</p>
         <p className={style.title}>
           {name} {lastname}
         </p>
-        {keywords?.length > 0 ? (
+        {(keywords && keywords?.length > 0) ? (
           <div className={style.chipsContainer}>
             <Chips chips={keywords.slice(0, 3)} color='lightMain' />
           </div>

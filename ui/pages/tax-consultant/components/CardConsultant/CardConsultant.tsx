@@ -7,16 +7,11 @@ import Card from 'components/Card'
 import UserImage from 'components/UserImage'
 import Chips from 'components/Chips'
 import ConsultantShortDetails from '../ConsultantShortDetails'
+import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
 
 //@jose estas mezclando interfaces con otra forma de tipado, si hemos hecho los componentes complejos con interfaces lo suyo es seguir así no?, aquí ya lo he arreglado
 interface cardConsultantProps {
-  id: string
-  country: Country
-  avatar: Avatar
-  name: string
-  lastname: string
-  keywords: Array<{ label: string, icon?: any }>
-  state: 'new' | 'active' | 'disabled'
+  consultant: UserConsultant
 }
 
 /**
@@ -33,21 +28,15 @@ interface cardConsultantProps {
 
 
 const CardConsultant = ({
-  id,
-  country,
-  name,
-  lastname,
-  avatar,
-  keywords,
-  state
+  consultant
 }: cardConsultantProps) => {
-  const fakeKeywords = [{ label: 'Abogado' }, { label: 'Asesoría Fiscal' }]
+  
   return (
     <div className={style.cardConsultantItem}>
-      <Link href={`/tax-consultant/consultants/${id}`}>
+      <Link href={`/tax-consultant/consultants/${consultant.id}`}>
         <a>
           <Card cardStyle={'modal'}>
-            <ConsultantShortDetails  country={country} name={name} lastname={lastname} avatar={avatar} keywords={fakeKeywords} state={state} />
+            <ConsultantShortDetails  country={consultant.country} name={consultant.name} lastname={consultant.lastname} avatar={consultant.avatar} keywords={consultant.keywords} state={consultant.state} />
           </Card>
         </a>
       </Link>

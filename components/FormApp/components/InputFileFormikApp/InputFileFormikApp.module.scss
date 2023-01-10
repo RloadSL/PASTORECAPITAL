@@ -1,0 +1,86 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/text" as text;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
+
+
+.inputContainer {
+  background-color: colors.$grey30;
+  padding: 12px 5px;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  min-height: 100px;
+  @extend %borderRadius;
+
+  .label {
+   
+  }
+
+
+  .input {
+    width: 100%;
+    background-color: transparent;
+    padding: 8px;
+    font-size: 1rem;
+    outline: 0px;
+    position: relative;
+    border: none;
+    min-height: 100px;
+  }
+}
+
+.inputContainer:focus-within {
+  box-shadow: 0 0 0 1px colors.$main;
+
+  .label {
+    transform: translate(10px, -5px) scale(0.8);
+    color: colors.$main;
+  }
+  .iconLabel {
+    transform: translate(40px, -5px) scale(0.8);
+    color: colors.$main;
+  }
+}
+
+.error {
+  font-size: 0.8rem;
+  color: colors.$error;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.hasError {
+  box-shadow: 0 0 0 1px colors.$error;
+}
+
+.inputContainer.hasError.code {
+  label {
+    visibility: hidden;
+    height: 1px;
+  }
+}
+
+.icon {
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-top: 8px;
+}
+
+.helper{
+  font-size: text.$textSmall;
+  color: colors.$grey60;
+  margin-top: -15px;
+  display: block;
+  margin-bottom: 20px;
+  margin-left: 12px;
+}
+

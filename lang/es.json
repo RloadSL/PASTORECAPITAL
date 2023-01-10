@@ -157,6 +157,13 @@
   "page.tax-consultant.create-edit.form.label.keyword" : "Añade palabras claves separadas por coma", 
   "page.tax-consultant.create-edit.form.label.linkeding" : "Tu perfil de linkeding", 
 
+  "page.tax-consultant.create-service.title" : "Añadir nueva asesoría",
+  "page.tax-consultant.create-service.form.title" : "Título de la asesoría",
+  "page.tax-consultant.create-service.form.image" : "Añadir foto",
+  "page.tax-consultant.create-service.form.description" : "Descripción",
+  "page.tax-consultant.create-service.form.functions" : "¿Cómo funciona?",
+
+
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
@@ -239,6 +246,7 @@
   "services" : "Servicios",
   "clients" : "Clientes",
   "questions" : "Preguntas",
-  "colaboration" : "Gestion de Colaborador"
+  "colaboration" : "Gestion de Colaborador",
+  "id" : "Detalle"
   
 }

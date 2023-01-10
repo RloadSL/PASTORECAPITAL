@@ -3,52 +3,109 @@ import ConsultantShortDetails from 'ui/pages/tax-consultant/components/Consultan
 import style from './profile.module.scss'
 import { servicesList } from 'ui/utils/test.data'
 import ConsultantServiceList from 'ui/pages/tax-consultant/components/ConsultantServiceList'
+import { useEffect, useState } from 'react'
+import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
+import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
+import { useRouter } from 'next/router'
+import LinkApp from 'components/LinkApp'
+import iconEdit from '../../../../../../assets/img/icons/pencil.svg'
+import addIcon from '../../../../../../assets/img/icons/add.svg'
+
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import ButtonApp from 'components/ButtonApp'
 
 
-interface ProfileProps {
-  country: any
-  avatar: any
-  name: string
-  lastname: string
-  keywords: Array<{ label: string, icon?: any }>
-  state: 'new' | 'active' | 'disabled'
-}
+const Profile = () => {
+  const [loading, setloading] = useState(false)
+  const [consultant, setConsultant] = useState<UserConsultant | undefined>()
+  const { query, replace, asPath } = useRouter()
+  const services: any = servicesList
+  const userLogged = useSelector(getUserLogged)
+  //Get consultant ref
+  useEffect(() => {
+    let fetch = true
+    if (query.id) {
+      userConsultantRepository
+        .getUserConsultant(query.id as string)
+        .then(consultantRes => {
+          if (fetch) {
+            if (!consultantRes) {
+              return replace('/tax-consultant/consultants')
+            }
+            setConsultant(consultantRes)
+          }
+        })
+    }
 
-const Profile = ({
-  country,
-  name,
-  lastname,
-  avatar,
-  keywords,
-  state }: ProfileProps) => {
-  const fakeKeywords = [{ label: 'Abogado' }, { label: 'Asesoría Fiscal' }];
-  const services: any = servicesList;
+    return () => {
+      fetch = false
+    }
+  }, [query])
+
+  const isAdmin = ()=>{
+    return  (userLogged?.role.level >= 2 || userLogged?.uid === consultant?.uid)
+  }
 
   return (
-
     <div className={style.profile}>
       <header>
         <div className='small-caps'>
           <FormattedMessage id={'page.tax-consultant.profile.smallTitle'} />
         </div>
+        <div className={style.admin_actions}>
+        {
+          isAdmin() && <LinkApp
+           label={'btn.edit'}
+           linkStyle={'edit'}
+           linkHref={asPath+'/edit'}
+           icon={iconEdit}
+         />
+        }
+        </div>
         <div className={style.profileShortDetails}>
-          <ConsultantShortDetails country={country} name={'Paco'} lastname={'Pérez'} avatar={avatar} keywords={fakeKeywords} state={state} />
+          <ConsultantShortDetails
+            country={consultant?.country}
+            name={consultant?.name as string}
+            lastname={consultant?.lastname as string}
+            avatar={consultant?.avatar}
+            keywords={consultant?.keywords}
+            state={consultant?.state}
+          />
           <div className={style.rightContainer}>
             <div className={style.chatLink}></div>
-            <span className={style.linkedinIcon}>linkedin</span>
+            {consultant?.linkedin && (
+              <a href={consultant?.linkedin} className={style.linkedinIcon}>
+                linkedin
+              </a>
+            )}
           </div>
         </div>
         <div className={style.profileDescription}>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi blanditiis, modi quis, quo laudantium cum nihil tempore nemo delectus quaerat, tempora corrupti vitae? Magni impedit maiores voluptatibus sapiente fuga inventore.
-          </p>
+          <p>{consultant?.description}</p>
         </div>
       </header>
       <div className={style.profileServices}>
         <p className='small-caps'>
-          <FormattedMessage id={'page.tax-consultant.profile.services.smallTitle'} />
+          <FormattedMessage
+            id={'page.tax-consultant.profile.services.smallTitle'}
+          />
         </p>
-        <ConsultantServiceList services={services} isOwner={false} consultantServiceListStyle={'fullList'} />
+        <div className={style.admin_actions} style={{width: 260}}>
+        {
+          isAdmin() && <LinkApp
+          label='Añadir servicio'
+          linkStyle={'edit'}
+          linkHref={asPath+'/services/create'}
+          icon={addIcon}
+        />
+        }
+        </div>
+        <ConsultantServiceList
+          services={services}
+          isOwner={false}
+          consultantServiceListStyle={'fullList'}
+        />
       </div>
       <div className={style.profileConversation}>
         <p className='main-title'>Ask to the expert</p>
@@ -57,4 +114,4 @@ const Profile = ({
   )
 }
 
-export default Profile;
+export default Profile

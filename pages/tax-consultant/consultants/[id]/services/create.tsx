@@ -1,8 +1,5 @@
+import EditService from "ui/pages/tax-consultant/consultants/[id]/Services/EditService/EditService";
 
-const ServiceCreate = () => {
-  return (
-    <div>Crear nuevo servicio</div>
-  )
-}
 
-export default ServiceCreate;
+
+export default EditService;

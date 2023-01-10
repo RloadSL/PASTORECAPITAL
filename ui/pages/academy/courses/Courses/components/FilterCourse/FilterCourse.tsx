@@ -1,5 +1,5 @@
 import FormApp from 'components/FormApp'
-import InputApp from 'components/FormApp/components/InputApp'
+import InputApp from 'components/FormApp/components/InputCheckApp/InputApp'
 import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
 import style from './FilterCourse.module.scss'
 import searchIcon from '../../../../../../../assets/img/icons/glass.svg'

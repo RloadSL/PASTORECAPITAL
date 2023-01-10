@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SearchBar from 'components/SearchBar'
+import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -14,7 +15,7 @@ import style from './consultants.module.scss'
 
 const Consultants = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const consultants: any[] = useSelector(getConsultants)
+  const consultants: UserConsultant[] = useSelector(getConsultants)
   const userLogged = useSelector(getUserLogged)
   const { query } = useRouter()
   const searchString = typeof window !== 'undefined' ? query.s : ''
@@ -53,7 +54,7 @@ const ConsultantsViews = ({
   consultants,
   onFilter
 }: {
-  consultants: any[]
+  consultants: UserConsultant[]
   onFilter: Function
 }) => {
   const { replace, asPath, query } = useRouter()
@@ -78,7 +79,7 @@ const ConsultantsViews = ({
       <div className={style.consultantsList}>
         {
           consultants.map(item => {
-            return (<CardConsultant {...item} key={item.id} />)
+            return (<CardConsultant consultant={item} key={item.id} />)
           })
         }
       </div>
