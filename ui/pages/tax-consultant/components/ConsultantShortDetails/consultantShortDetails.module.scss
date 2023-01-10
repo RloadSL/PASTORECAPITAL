@@ -4,7 +4,11 @@
 
 .consultantShortDetails{
   &Container {
-    padding: 15px;
+
+    @include devices.device(smTablet) {
+      padding: 15px;
+
+    }
   }
 }
 
@@ -15,6 +19,10 @@
   &Info {
     .title {
       @extend %secondaryTitle
+    }
+
+    .country {
+      margin-bottom: 0px;
     }
   }
 }

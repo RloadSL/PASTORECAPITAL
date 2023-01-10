@@ -54,14 +54,26 @@
   background-position: center;
   border-radius: 100%;
 
+
+
   &.large {
-    height: 200px;
+    height: 80px;
+    width: 80px;
+
+    @include devices.device(smTablet) {
+      height: 200px;
     width: 200px;
+    }
   }
 
   &.medium {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
+
+    @include devices.device(smTablet){
+      height: 100px;
+      width: 100px;
+    }
 
     @include devices.device(lgScreen){
       height: 150px;
