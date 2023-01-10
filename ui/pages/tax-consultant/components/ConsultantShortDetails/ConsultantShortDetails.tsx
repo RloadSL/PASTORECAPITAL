@@ -29,7 +29,7 @@ const ConsultantShortDetails = ({
       </div>
 
       <div className={style.userInfo}>
-        <p className={style.country}>{country ? country.label : 'Sin país asignado'}</p>
+        <p>{country?.flagUrl && <img alt='country' src={country?.flagUrl}></img>} {country ? country.label : 'Sin país asignado'}</p>
         <p className={style.title}>
           {name} {lastname}
         </p>
