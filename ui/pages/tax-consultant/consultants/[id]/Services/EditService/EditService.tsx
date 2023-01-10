@@ -7,7 +7,8 @@ import * as yup from 'yup'
 import ButtonApp from 'components/ButtonApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
-import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp/InputFileFormikApp'
+import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
+import InputListFormik from 'components/FormApp/components/InputListFormik/InputListFormik'
 const EditService = () => {
   const intl = useIntl()
   const [initialValues, setInitialValues] = useState<any>({
@@ -43,23 +44,40 @@ const EditService = () => {
             <InputFormikApp
               labelID='page.tax-consultant.create-service.form.title'
               type='text'
-              name='keywords'
+              name='title'
             />
             <InputFileFormikApp 
                labelID='page.tax-consultant.create-service.form.image'
                name='image'
-          
+               accept='image/*'
             />
-
             <TextareaFormikApp
               labelID='page.tax-consultant.create-service.form.description'
               name='description'
             />
 
+            <InputListFormik name='functions' labelID='page.tax-consultant.create-service.form.functions'/>
+            <div>
             <InputFormikApp
-              labelID='page.tax-consultant.create-service.form.functions'
+              labelID='page.tax-consultant.create-service.form.time'
               type='text'
-              name='linkedin'
+              name='time'
+            />
+             <InputFormikApp
+              labelID='page.tax-consultant.create-service.form.price'
+              type='text'
+              name='price'
+            />
+            </div>
+            <InputFormikApp
+              labelID='page.tax-consultant.create-service.form.keywords'
+              type='text'
+              name='keywords'
+            />
+            <InputFileFormikApp 
+               labelID='page.tax-consultant.create-service.form.form'
+               name='form'
+               accept='.pdf'
             />
             <div
               style={{

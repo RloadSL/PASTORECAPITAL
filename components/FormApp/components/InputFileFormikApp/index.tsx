@@ -1,3 +1,3 @@
-import InputFormikApp from "./InputFileFormikApp";
+import InputFileFormikApp from "./InputFileFormikApp";
 
-export default InputFormikApp;
+export default InputFileFormikApp;

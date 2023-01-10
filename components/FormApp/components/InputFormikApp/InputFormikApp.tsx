@@ -73,14 +73,14 @@ const InputFormikApp = ({
         className={`${style.inputContainer} ${error ? style.hasError : ''} ${error ? style.hasError : ''
           } ${inputStyle ? style[inputStyle] : ''}`}
       >
-        <label
+        {labelID && (<label
           htmlFor={name}
           className={`${icon ? style.iconLabel : style.label} ${isFloating}`}
         >
           <span>
             <FormattedMessage id={labelID} />
           </span>
-        </label>
+        </label>)}
         <div className='flex-container row align-center'>
           {icon != undefined && (
             <div className={`${style.icon}`}>

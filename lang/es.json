@@ -161,9 +161,11 @@
   "page.tax-consultant.create-service.form.title" : "Título de la asesoría",
   "page.tax-consultant.create-service.form.image" : "Añadir foto",
   "page.tax-consultant.create-service.form.description" : "Descripción",
+  "page.tax-consultant.create-service.form.time" : "Duración",
+  "page.tax-consultant.create-service.form.price" : "Duración",
   "page.tax-consultant.create-service.form.functions" : "¿Cómo funciona?",
-
-
+  "page.tax-consultant.create-service.form.keywords" : "Añade palabras clave",
+  "page.tax-consultant.create-service.form.form" : "Subir formulario de contratación",
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
@@ -209,6 +211,7 @@
   "btn.paginator.before" : "Anterior",
   "btn.paginator.next" : "Siguiente",
   "btn.search": "Buscar",
+  "btn.add-item": "Añadir item",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    
@@ -247,6 +250,6 @@
   "clients" : "Clientes",
   "questions" : "Preguntas",
   "colaboration" : "Gestion de Colaborador",
-  "id" : "Detalle"
-  
+  "id" : "Detalle",
+  "-": "-"
 }

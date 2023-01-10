@@ -1,4 +1,4 @@
-import InputApp from 'components/FormApp/components/InputCheckApp/InputApp'
+import InputApp from 'components/FormApp/components/InputApp'
 import style from './search.module.scss'
 import searchIcon from '../../assets/img/icons/glass.svg'
 import React, { useEffect, useState } from 'react'
