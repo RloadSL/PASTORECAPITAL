@@ -4,10 +4,10 @@
 
 .consultantShortDetails{
   &Container {
+    padding: 10px;
 
     @include devices.device(smTablet) {
       padding: 15px;
-
     }
   }
 }
@@ -18,11 +18,20 @@
   }
   &Info {
     .title {
-      @extend %secondaryTitle
+      @extend %secondaryTitle;
+      margin-bottom: 5px;
     }
 
     .country {
       margin-bottom: 0px;
     }
   }
+}
+
+.flagIcon {
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  background-position: center;
+  margin-right: 8px;
 }

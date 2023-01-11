@@ -157,8 +157,8 @@
   "page.tax-consultant.create-edit.form.label.keyword" : "Añade palabras claves separadas por coma", 
   "page.tax-consultant.create-edit.form.label.linkeding" : "Tu perfil de linkeding", 
 
-  "page.tax-consultant.create-service.title" : "Añadir nueva asesoría",
-  "page.tax-consultant.create-service.form.title" : "Título de la asesoría",
+  "page.tax-consultant.create-service.title" : "Añadir nuevo servicio",
+  "page.tax-consultant.create-service.form.title" : "Título del servicio",
   "page.tax-consultant.create-service.form.image" : "Añadir foto",
   "page.tax-consultant.create-service.form.description" : "Descripción",
   "page.tax-consultant.create-service.form.time" : "Duración en minutos",

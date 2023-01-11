@@ -43,25 +43,25 @@ const Profile = () => {
     }
   }, [query])
 
-  const isAdmin = ()=>{
-    return  (userLogged?.role.level >= 2 || userLogged?.uid === consultant?.uid)
+  const isAdmin = () => {
+    return (userLogged?.role.level >= 2 || userLogged?.uid === consultant?.uid)
   }
 
   return (
     <div className={style.profile}>
       <header>
-        <div className='small-caps'>
-          <FormattedMessage id={'page.tax-consultant.profile.smallTitle'} />
-        </div>
-        <div className={style.admin_actions}>
-        {
-          isAdmin() && <LinkApp
-           label={'btn.edit'}
-           linkStyle={'edit'}
-           linkHref={asPath+'/edit'}
-           icon={iconEdit}
-         />
-        }
+        <div className={`flex-container align-center`}>
+          <div className='small-caps'>
+            <FormattedMessage id={'page.tax-consultant.profile.smallTitle'} />
+          </div>
+          {
+            isAdmin() && <div className={style.adminButtons}><LinkApp
+            label={'btn.edit'}
+            linkStyle={'edit'}
+            linkHref={asPath + '/edit'}
+            icon={iconEdit}
+          /></div>
+          }
         </div>
         <div className={style.profileShortDetails}>
           <ConsultantShortDetails
@@ -91,15 +91,16 @@ const Profile = () => {
             id={'page.tax-consultant.profile.services.smallTitle'}
           />
         </p>
-        <div className={style.admin_actions} style={{width: 260}}>
-        {
-          isAdmin() && <LinkApp
-          label='Añadir servicio'
-          linkStyle={'edit'}
-          linkHref={asPath+'/services/create'}
-          icon={addIcon}
-        />
-        }
+        <div className={style.buttonContainer}>
+          {
+            isAdmin() && <LinkApp
+              label='Añadir servicio'
+              linkStyle={'edit'}
+              linkHref={asPath + '/services/create'}
+              icon={addIcon}
+              target={'_self'}
+            />
+          }
         </div>
         <ConsultantServiceList
           services={services}

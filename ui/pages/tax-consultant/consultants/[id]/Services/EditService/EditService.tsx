@@ -1,5 +1,4 @@
 import style from './edit-service.module.scss'
-
 import React, { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Form, Formik } from 'formik'
@@ -12,6 +11,7 @@ import InputListFormik from 'components/FormApp/components/InputListFormik/Input
 import serviceRepository from 'infrastructure/repositories/service.repository'
 import { useRouter } from 'next/router'
 import { ServiceDto } from 'infrastructure/dto/service.dto'
+import LinkApp from 'components/LinkApp'
 const EditService = () => {
   const intl = useIntl()
   const {query} = useRouter()
@@ -133,7 +133,7 @@ const EditService = () => {
   }
 
   return (
-    <div className={style.createService}>
+    <div className={style.editService}>
       <div>
         <p className='small-caps'>
           <FormattedMessage id='page.tax-consultant.create-service.title'></FormattedMessage>
