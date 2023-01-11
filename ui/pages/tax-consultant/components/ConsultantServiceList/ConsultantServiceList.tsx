@@ -6,6 +6,9 @@ import addIcon from '../../../../../assets/img/icons/add.svg'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import iconEdit from '../../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../../assets/img/icons/trash.svg'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import serviceRepository from 'infrastructure/repositories/service.repository'
 
 
 interface ConsultantServiceListProps {
@@ -22,7 +25,18 @@ interface ConsultantServiceListProps {
  * @returns 
  */
 
-const ConsultantServiceList = ({ services, consultantServiceListStyle = 'shortList', maxServicesShown = 20, isOwner = true, displayStyle = 'gridContainer' }: ConsultantServiceListProps) => {
+const ConsultantServiceList = ({  consultantServiceListStyle = 'shortList', maxServicesShown = 20, isOwner = true, displayStyle = 'gridContainer' }: ConsultantServiceListProps) => {
+  const [services, setservices] = useState([]);
+  const {query} = useRouter();
+
+  useEffect(() => {
+    let fetch = true
+    serviceRepository.getService
+    return () => {
+      fetch = false
+    }
+  }, [query])
+  
 
   return <ConsultantServiceListView services={services} maxServicesShown={maxServicesShown} isOwner={isOwner} consultantServiceListStyle={consultantServiceListStyle} displayStyle={displayStyle}></ConsultantServiceListView>
 }
@@ -40,7 +54,7 @@ const ConsultantServiceListView = ({ services, consultantServiceListStyle = 'sho
     }
     return services;
   }
-
+  const serviceToRender = useRef(renderServicesShown()).current
   const setBackgroundColor = (itemIndex: number) => {
     const colors: Array<string> = ['#E8E288', '#ff8360', '#F15BB5', '#4CC9F0', '#7209B7'];
     return colors[itemIndex % colors.length]
@@ -65,7 +79,7 @@ const ConsultantServiceListView = ({ services, consultantServiceListStyle = 'sho
       <div className={style.servicesBlock}>
         {services.length !== 0 ? (
           <ul className={buildClassName([consultantServiceListStyle,displayStyle], style)}>
-            {renderServicesShown().map((service: any, index: number) => {
+            {serviceToRender.map((service: any, index: number) => {
               return (
                 <li className={style.serviceItem} key={index}>
                   <Card>

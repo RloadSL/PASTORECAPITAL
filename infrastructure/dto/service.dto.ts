@@ -1,11 +1,19 @@
+
 export interface ServiceDto {
-  id:string
-  title: string
-  description: string
-  duration:number
-  price:number
-  keywords:string[]
-  required_form:boolean
-  createdAt: Date
-  userConsultantId:string
+  id?:string
+  title?: string
+  image?: {
+    created_at: any,
+    url: string
+  } | File
+  description?: string
+  duration?:number
+  price?:number
+  keywords?:string[]
+  form?: {
+    created_at: any,
+    url: string
+  } | File
+  created_at?: Date
+  userConsultantId?:string
 }

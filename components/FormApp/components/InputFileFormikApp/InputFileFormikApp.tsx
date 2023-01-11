@@ -7,15 +7,9 @@ import style from './InputFileFormikApp.module.scss'
 
 export interface TEXTAREAAPPPROPS {
   labelID: any
-  onChange?: Function
-  onBlur?: Function
-  error?: string | undefined
-  placeholder?: string
+  thumb?:boolean
   name: string
-  maxLength?: number
   icon?: any
-  value?: string
-  helper?: string
   accept?:string
 }
 
@@ -23,16 +17,19 @@ const InputFileFormikApp = ({
   labelID,
   name,
   icon,
-  accept
+  accept,
+  thumb=true
 }: TEXTAREAAPPPROPS) => {
   const [field, meta, form] = useField({ name })
   const [file, setFile] = useState<any>()
+  const [fileName, setFileName] = useState<string>()
   
 
   const makeThumb = (files: FileList) => {
     let reader = new FileReader()
     reader.onloadend = () => {
       setFile(reader.result)
+      setFileName(files[0].name)
     }
     reader.readAsDataURL(files[0])
   }
@@ -40,7 +37,7 @@ const InputFileFormikApp = ({
   return (
     <div className='position-relative'>
       <label className={style.inputContainer}>
-        {file && (
+        {(file && thumb) && (
           <img
             src={file}
             alt={file.name}
@@ -48,13 +45,18 @@ const InputFileFormikApp = ({
             style={{width: '100%', objectFit: 'cover'}}
           />
         )}
+        {
+          !thumb && (
+            <p>{fileName || ''}</p>
+          )
+        }
         <div className='flex-container row align-center'>
           <div className={`${style.icon}`}>
             {icon != undefined && (
               <Image className={style.icon} src={icon} alt='' />
             )}
           </div>
-          {<FormattedMessage id={labelID} />}
+          { (!file) && (<FormattedMessage id={labelID} />)}
           <input
             type={'file'}
             hidden

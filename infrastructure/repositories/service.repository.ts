@@ -1,4 +1,7 @@
 import { ServiceDto } from "infrastructure/dto/service.dto";
+import firestoreFirebase from "infrastructure/firebase/firestore.firebase";
+import FireFirestore  from "infrastructure/firebase/firestore.firebase";
+import storageFirebase from "infrastructure/firebase/storage.firebase";
 
 class ServiceRepository {
   private static instance: ServiceRepository;
@@ -21,12 +24,35 @@ class ServiceRepository {
   /**
    * Crea y retorna un servicio para el Asesor [ElasticSearch]
    */
-  createService(data: ServiceDto) { }
+  async createService(data: ServiceDto) { 
+    if(data.image){
+      data.image = {
+        url: await storageFirebase.UploadFile('services', data.image as File),
+        created_at: new Date()
+      }
+    }  
+
+    if(data.form){
+      data.form = {
+        url: await storageFirebase.UploadFile('services', data.form as File),
+        created_at: new Date()
+      }
+    } 
+
+    if(data.id){
+      FireFirestore.setDoc('services', data.id, data)
+    }else{
+      FireFirestore.createDoc('services', data)
+    }
+  }
   /**
    * Retorna todos los servicios de un asesor [ElasticSearch]
-   * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
+   * @param cid Identificador de los datos del asesor en firebase  tabla (user_consultant)
   */
-  getService(id: string) { }
+  async getServices(cid: string) { 
+    const res = firestoreFirebase.getCollectionDocs('services',undefined,[['userConsultantId', '==' , cid]])
+     parseFirestoreDocs(res);
+  }
   /**
    * Modifica o crea los datos del servicio
    */

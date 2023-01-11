@@ -9,34 +9,64 @@ import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
 import InputListFormik from 'components/FormApp/components/InputListFormik/InputListFormik'
+import serviceRepository from 'infrastructure/repositories/service.repository'
+import { useRouter } from 'next/router'
+import { ServiceDto } from 'infrastructure/dto/service.dto'
 const EditService = () => {
   const intl = useIntl()
+  const {query} = useRouter()
   const [initialValues, setInitialValues] = useState<any>({
-    country: undefined,
+    title: '',
+    image: null,
     description: '',
+    functions: [],
+    time: null,
+    price: null,
     keywords: '',
-    linkedin: ''
+    form: null
   })
+
+  const _onSubmit = async (values:ServiceDto)=>{
+    await serviceRepository.createService({
+      ...values, 
+      userConsultantId: query.id as string,
+      created_at: new Date()
+    })
+  }
 
   const renderFormik = () => {
     const validationSchema = yup.object({
-      keywords: yup
+      title: yup
         .string()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
-      country: yup
-        .string()
+      price: yup
+        .number()
+        .nullable()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
+      time: yup
+        .number()
+        .nullable()
+        .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
+      functions: yup
+        .array()
+        .of(
+          yup
+            .string()
+            .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
+        ),
       description: yup
         .string()
+        .nullable()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
     })
 
     return (
       <Formik
         enableReinitialize
+        validationSchema={validationSchema}
         initialValues={initialValues}
         onSubmit={values => {
-         console.log(values)
+          _onSubmit(values)
         }}
       >
         {({ values, errors, touched }) => (
@@ -46,38 +76,42 @@ const EditService = () => {
               type='text'
               name='title'
             />
-            <InputFileFormikApp 
-               labelID='page.tax-consultant.create-service.form.image'
-               name='image'
-               accept='image/*'
+            <InputFileFormikApp
+              labelID='page.tax-consultant.create-service.form.image'
+              name='image'
+              accept='image/*'
             />
             <TextareaFormikApp
               labelID='page.tax-consultant.create-service.form.description'
               name='description'
             />
 
-            <InputListFormik name='functions' labelID='page.tax-consultant.create-service.form.functions'/>
+            <InputListFormik
+              name='functions'
+              labelID='page.tax-consultant.create-service.form.functions'
+            />
             <div>
-            <InputFormikApp
-              labelID='page.tax-consultant.create-service.form.time'
-              type='text'
-              name='time'
-            />
-             <InputFormikApp
-              labelID='page.tax-consultant.create-service.form.price'
-              type='text'
-              name='price'
-            />
+              <InputFormikApp
+                labelID='page.tax-consultant.create-service.form.time'
+                type='text'
+                name='time'
+              />
+              <InputFormikApp
+                labelID='page.tax-consultant.create-service.form.price'
+                type='text'
+                name='price'
+              />
             </div>
             <InputFormikApp
               labelID='page.tax-consultant.create-service.form.keywords'
               type='text'
               name='keywords'
             />
-            <InputFileFormikApp 
-               labelID='page.tax-consultant.create-service.form.form'
-               name='form'
-               accept='.pdf'
+            <InputFileFormikApp
+              labelID='page.tax-consultant.create-service.form.form'
+              name='form'
+              accept='.pdf'
+              thumb = {false}
             />
             <div
               style={{
@@ -106,7 +140,7 @@ const EditService = () => {
         </p>
       </div>
       <div className={style.formContainer}>
-       <div className={style.formBlock}>{renderFormik()}</div>
+        <div className={style.formBlock}>{renderFormik()}</div>
       </div>
     </div>
   )

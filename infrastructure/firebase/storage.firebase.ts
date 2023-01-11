@@ -1,5 +1,5 @@
 import { FirebaseApp } from "firebase/app";
-import { FirebaseStorage, getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
+import { FirebaseStorage, getDownloadURL, getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
 import firestoreFirebase from "./firestore.firebase";
 import FireFirebase from './firebase';
 class StorageFirebase {
@@ -25,6 +25,15 @@ class StorageFirebase {
     const url = await getDownloadURL(snap.ref);
     return url;
   }
+    /**
+   * UploadFile
+   */
+    public async UploadFile(path:string, file:File) {
+      const storageRef = ref(this._storage, path);
+      const snap = await uploadBytes(storageRef, file)
+      const url = await getDownloadURL(snap.ref);
+      return url;
+    }
 }
 
 export default StorageFirebase.getInstance(FireFirebase.app)
