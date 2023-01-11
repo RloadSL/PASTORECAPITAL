@@ -27,9 +27,18 @@
     }
   }
 }
-.admin_actions{
-  width: 140px;
+
+.adminButtons {
+  transform: scale(.9);
+  margin-left: 20px;
 }
+
+.buttonContainer {
+  max-width: 100%;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
 .rightContainer {
   display: flex;
   flex-direction: row;

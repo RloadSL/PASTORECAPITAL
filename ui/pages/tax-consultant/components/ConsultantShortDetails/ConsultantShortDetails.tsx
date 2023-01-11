@@ -9,10 +9,10 @@ interface ConsultantShortDetailsProps {
   name: string
   lastname: string
   keywords: Array<string> | undefined
-  state: 'new' | 'active' | 'disabled' | undefined
+  state: 'new' | 'active' | 'disabled' | undefined
 }
 
-const ConsultantShortDetails = ({ 
+const ConsultantShortDetails = ({
   country,
   name,
   lastname,
@@ -29,7 +29,9 @@ const ConsultantShortDetails = ({
       </div>
 
       <div className={style.userInfo}>
-        <p>{country?.flagUrl && <img alt='country' src={country?.flagUrl}></img>} {country ? country.label : 'Sin país asignado'}</p>
+        <p>
+          {country?.flagUrl && <div className='flex-container'><div className={style.flagIcon} style={{ backgroundImage: `url(${country?.flagUrl})` }}></div><span>{country ? country.label : 'Sin país asignado'}</span></div>}
+        </p>
         <p className={style.title}>
           {name} {lastname}
         </p>

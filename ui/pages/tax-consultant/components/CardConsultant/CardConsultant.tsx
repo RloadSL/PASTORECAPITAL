@@ -9,13 +9,13 @@ import Chips from 'components/Chips'
 import ConsultantShortDetails from '../ConsultantShortDetails'
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
 
-//@jose estas mezclando interfaces con otra forma de tipado, si hemos hecho los componentes complejos con interfaces lo suyo es seguir así no?, aquí ya lo he arreglado
 interface cardConsultantProps {
   consultant: UserConsultant
 }
 
 /**
  * Componente de card de asesor para el listado de asesores
+ * @param consultant
  * @param id Id del
  * @param country Paìs del asesor
  * @param avatar Imagen del asesor
