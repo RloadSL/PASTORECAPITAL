@@ -21,7 +21,7 @@ import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis
 import { number } from 'yup/lib/locale'
 import InputCheckApp from 'components/FormApp/components/InputCheckApp'
 import { getCategoriesPlans } from 'infrastructure/wordpress/wp.utils'
-import InputApp from 'components/FormApp/components/InputCheckApp/InputApp'
+import InputApp from 'components/FormApp/components/InputApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import style from './edit-service.module.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Form, Formik } from 'formik'
 import * as yup from 'yup'
@@ -11,10 +12,11 @@ import InputListFormik from 'components/FormApp/components/InputListFormik/Input
 import serviceRepository from 'infrastructure/repositories/service.repository'
 import { useRouter } from 'next/router'
 import { ServiceDto } from 'infrastructure/dto/service.dto'
-import LinkApp from 'components/LinkApp'
+import Loading from 'components/Loading'
 const EditService = () => {
   const intl = useIntl()
-  const {query} = useRouter()
+  const { query, push, replace } = useRouter()
+  const [loading, setLoading] = useState(false)
   const [initialValues, setInitialValues] = useState<any>({
     title: '',
     image: null,
@@ -26,12 +28,49 @@ const EditService = () => {
     form: null
   })
 
-  const _onSubmit = async (values:ServiceDto)=>{
-    await serviceRepository.createService({
-      ...values, 
-      userConsultantId: query.id as string,
-      created_at: new Date()
-    })
+  useEffect(() => {
+    let fetch = true
+    if (query.service_id) {
+      serviceRepository
+        .getService(query.service_id as string)
+        .then(service => {
+          if (fetch) {
+            if (!service) {
+              return replace(`/tax-consultant/consultants/${query.id}`)
+            }
+            setInitialValues({
+              title: service.title,
+              image: service.image,
+              description: service.description,
+              functions: service.functions,
+              time: service.time,
+              price: service.price,
+              keywords: service.keywords.toString(),
+              form: service.form
+            })
+          }
+        })
+    }
+  }, [])
+
+  const _onSubmit = async (values: ServiceDto) => {
+    setLoading(true)
+    if(query.service_id){
+      await serviceRepository.setService({
+        ...values,
+        id: query.service_id as string
+      })
+      push(`/tax-consultant/consultants/${query.id}/services/${query.service_id}`)
+    }else{
+      const newService = await serviceRepository.createService({
+        ...values,
+        userConsultantId: query.id as string,
+        created_at: new Date()
+      })
+      push(`/tax-consultant/consultants/${query.id}/services/${newService}`)
+    }
+    
+    setLoading(false)
   }
 
   const renderFormik = () => {
@@ -49,6 +88,7 @@ const EditService = () => {
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       functions: yup
         .array()
+        .nullable()
         .of(
           yup
             .string()
@@ -111,7 +151,7 @@ const EditService = () => {
               labelID='page.tax-consultant.create-service.form.form'
               name='form'
               accept='.pdf'
-              thumb = {false}
+              thumb={false}
             />
             <div
               style={{
@@ -127,7 +167,7 @@ const EditService = () => {
               />
             </div>
           </Form>
-        )} 
+        )}
       </Formik>
     )
   }
@@ -142,6 +182,7 @@ const EditService = () => {
       <div className={style.formContainer}>
         <div className={style.formBlock}>{renderFormik()}</div>
       </div>
+      <Loading loading={loading} variant='inner-primary' />
     </div>
   )
 }

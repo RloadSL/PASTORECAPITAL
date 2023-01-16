@@ -15,7 +15,15 @@ const nextConfig = {
   images: {
     domains: ['localhost', 'firebasestorage.googleapis.com'],
   }, 
-  
+  async redirects() {
+    return [
+      {
+        source: '/tax-consultant/consultants/:id/services/',
+        destination: '/tax-consultant/consultants/:id/',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

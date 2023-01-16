@@ -20,7 +20,6 @@ const Profile = () => {
   const [loading, setloading] = useState(false)
   const [consultant, setConsultant] = useState<UserConsultant | undefined>()
   const { query, replace, asPath } = useRouter()
-  const services: any = servicesList
   const userLogged = useSelector(getUserLogged)
   //Get consultant ref
   useEffect(() => {
@@ -58,7 +57,7 @@ const Profile = () => {
             isAdmin() && <div className={style.adminButtons}><LinkApp
             label={'btn.edit'}
             linkStyle={'edit'}
-            linkHref={asPath + '/edit'}
+            linkHref={asPath + 'edit'}
             icon={iconEdit}
           /></div>
           }
@@ -94,17 +93,15 @@ const Profile = () => {
         <div className={style.buttonContainer}>
           {
             isAdmin() && <LinkApp
-              label='Añadir servicio'
+              label='btn.add.service'
               linkStyle={'edit'}
-              linkHref={asPath + '/services/create'}
+              linkHref={asPath + 'services/create'}
               icon={addIcon}
               target={'_self'}
             />
           }
         </div>
         <ConsultantServiceList
-          services={services}
-          isOwner={false}
           consultantServiceListStyle={'fullList'}
         />
       </div>

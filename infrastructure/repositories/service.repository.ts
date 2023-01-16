@@ -1,7 +1,9 @@
+import Service from "domain/Service/Service";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import firestoreFirebase from "infrastructure/firebase/firestore.firebase";
 import FireFirestore  from "infrastructure/firebase/firestore.firebase";
 import storageFirebase from "infrastructure/firebase/storage.firebase";
+import { parseFirestoreDocs } from "infrastructure/firebase/utils";
 
 class ServiceRepository {
   private static instance: ServiceRepository;
@@ -24,7 +26,7 @@ class ServiceRepository {
   /**
    * Crea y retorna un servicio para el Asesor [ElasticSearch]
    */
-  async createService(data: ServiceDto) { 
+  async createService(data: ServiceDto): Promise<string> { 
     if(data.image){
       data.image = {
         url: await storageFirebase.UploadFile('services', data.image as File),
@@ -38,26 +40,48 @@ class ServiceRepository {
         created_at: new Date()
       }
     } 
-
+    let result;
     if(data.id){
-      FireFirestore.setDoc('services', data.id, data)
+      await FireFirestore.setDoc('services', data.id, data)
+      result = data.id;
     }else{
-      FireFirestore.createDoc('services', data)
+      result = (await FireFirestore.createDoc('services', data)).id
     }
+
+    return result;
+  }
+  /**
+   * Retorna unservicio servicios de un asesor [ElasticSearch]
+   * @param sid Identificador del servicio
+  */
+  async getService(sid: string):Promise<Service | undefined > { 
+    const res:any = await firestoreFirebase.getDoc('services',sid)
+    if(res.exists()){
+      const result = new Service({...res.data(), id: res.id})
+      return  result;  
+    }
+    return undefined;
   }
   /**
    * Retorna todos los servicios de un asesor [ElasticSearch]
    * @param cid Identificador de los datos del asesor en firebase  tabla (user_consultant)
   */
   async getServices(cid: string) { 
-    const res = firestoreFirebase.getCollectionDocs('services',undefined,[['userConsultantId', '==' , cid]])
-     parseFirestoreDocs(res);
+    
+    const res:any = await firestoreFirebase.getCollectionDocs('services',undefined,[['userConsultantId', '==' , cid]])
+    const result = parseFirestoreDocs(res).map(items => new Service({...items, id: items.docID}))
+    
+    return  result; 
   }
   /**
    * Modifica o crea los datos del servicio
    */
-  setService(data: ServiceDto):ServiceDto{
-    const res:any = null;
+  async setService(data: ServiceDto){
+    if( data.keywords && !Array.isArray(data.keywords) ){
+      data.keywords = (data.keywords as string).split(',');
+    }
+
+    const res:any = await firestoreFirebase.setDoc('services',data.id as string, data)
     return res;
   }
   /**

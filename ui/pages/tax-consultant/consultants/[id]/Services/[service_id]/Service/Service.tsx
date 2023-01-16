@@ -4,14 +4,13 @@ import Image from 'next/image'
 import clappingHands from '../../../../../../../../assets/img/clappingHands.png'
 
 
-interface ServiceProps {
-}
 
-const Service = ({ }: ServiceProps) => {
+
+const Service = () => {
   return (<ServiceView />)
 }
 
-const ServiceView = ({ }: ServiceProps) => {
+const ServiceView = () => {
   return (
     <div className={style.serviceDetail}>
       <header>
@@ -35,7 +34,7 @@ const ServiceView = ({ }: ServiceProps) => {
             <ButtonApp
               buttonStyle='primary'
               type='submit'
-              labelID='Contratar'
+              labelID='btn.hire'
             />
           </div>
 

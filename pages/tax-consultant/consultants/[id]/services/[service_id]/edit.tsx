@@ -1,9 +1,4 @@
-import React from 'react'
+import EditService from "../create";
 
-const ServiceEdition = () => {
-  return (
-    <div>Edicion del servicio</div>
-  )
-}
 
-export default ServiceEdition;
+export default EditService;

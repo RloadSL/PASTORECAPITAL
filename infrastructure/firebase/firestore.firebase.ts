@@ -53,6 +53,7 @@ export class FireFirestore {
 
       return documentSnapshots.docs;
     } catch (error) {
+      console.log(error)
       return new ErrorApp({errorCode: 'firestore@error', errorMessage: 'firestore@error'})      
     }
 

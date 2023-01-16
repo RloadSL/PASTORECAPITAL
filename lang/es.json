@@ -212,6 +212,8 @@
   "btn.paginator.next" : "Siguiente",
   "btn.search": "Buscar",
   "btn.add-item": "Añadir item",
+  "btn.hire" : "Contratar",
+  "btn.add.service" : "Añadir servicio",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    
@@ -251,5 +253,6 @@
   "questions" : "Preguntas",
   "colaboration" : "Gestion de Colaborador",
   "id" : "Detalle",
-  "-": "-"
+  "-": "-",
+  "service_id" : "Detalle de Servicio"
 }

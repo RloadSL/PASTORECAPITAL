@@ -9,103 +9,133 @@ import iconDelete from '../../../../../assets/img/icons/trash.svg'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import serviceRepository from 'infrastructure/repositories/service.repository'
-
+import Service from 'domain/Service/Service'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { toHoursAndMinutes } from 'ui/utils/component.utils'
+import Link from 'next/link'
 
 interface ConsultantServiceListProps {
-  services: Array<any>
-  isOwner?: Boolean //Solo para mostrar u oucltar el botón e añadir servicio en desarrollo OJO
+  services?: Service[]
   maxServicesShown?: number
+  isAdmin?: boolean
   consultantServiceListStyle?: 'fullList' | 'shortList' | any
   displayStyle?: 'blockContainer' | 'gridContainer'
 }
 
 /**
  * Componente para renderizar el listado de servicio en el dashboard del asesor
- * @param services Listado de servicios del asesor 
- * @returns 
+ * @param services Listado de servicios del asesor
+ * @returns
  */
 
-const ConsultantServiceList = ({  consultantServiceListStyle = 'shortList', maxServicesShown = 20, isOwner = true, displayStyle = 'gridContainer' }: ConsultantServiceListProps) => {
-  const [services, setservices] = useState([]);
-  const {query} = useRouter();
+const ConsultantServiceList = ({
+  consultantServiceListStyle = 'shortList',
+  maxServicesShown = 20,
+  displayStyle = 'gridContainer'
+}: ConsultantServiceListProps) => {
+  const [services, setServices] = useState<Service[]>([])
+  const userLogged = useSelector(getUserLogged)
 
+  const { query } = useRouter()
   useEffect(() => {
     let fetch = true
-    serviceRepository.getService
+    if (query.id)
+      serviceRepository.getServices(query.id as string).then(res => {
+        if (fetch) {
+          setServices(res)
+        }
+      })
     return () => {
       fetch = false
     }
   }, [query])
-  
 
-  return <ConsultantServiceListView services={services} maxServicesShown={maxServicesShown} isOwner={isOwner} consultantServiceListStyle={consultantServiceListStyle} displayStyle={displayStyle}></ConsultantServiceListView>
+  const isAdmin = () => {
+    return userLogged?.role.level >= 2 || userLogged?.uid === query.id
+  }
+
+  return (
+    <ConsultantServiceListView
+      isAdmin={isAdmin()}
+      services={services}
+      maxServicesShown={maxServicesShown}
+      consultantServiceListStyle={consultantServiceListStyle}
+      displayStyle={displayStyle}
+    ></ConsultantServiceListView>
+  )
 }
 
-const ConsultantServiceListView = ({ services, consultantServiceListStyle = 'shortList', maxServicesShown = 20, isOwner = true, displayStyle='gridContainer' }: ConsultantServiceListProps) => {
-
-  // const maxServices = 3; //máximo número de servicios que se renderizan en el portfolio del dashboard
-
-  const { buildClassName } = useComponentUtils()
-
-
-  const renderServicesShown = () => {
-    if (maxServicesShown < 20) {
-      return services.slice(0, maxServicesShown);
-    }
-    return services;
-  }
-  const serviceToRender = useRef(renderServicesShown()).current
+const ConsultantServiceListView = ({
+  isAdmin,
+  services,
+  consultantServiceListStyle = 'shortList',
+  maxServicesShown = 20,
+  displayStyle = 'gridContainer'
+}: ConsultantServiceListProps) => {
+  const { buildClassName, limitTextLength } = useComponentUtils()
+  const {asPath} = useRouter()
   const setBackgroundColor = (itemIndex: number) => {
-    const colors: Array<string> = ['#E8E288', '#ff8360', '#F15BB5', '#4CC9F0', '#7209B7'];
+    const colors: Array<string> = [
+      '#E8E288',
+      '#ff8360',
+      '#F15BB5',
+      '#4CC9F0',
+      '#7209B7'
+    ]
     return colors[itemIndex % colors.length]
   }
 
   return (
     <div className={`${style.consultantServiceList} ${style[displayStyle]}`}>
-      {isOwner ? (
-        <div className={style.buttonBlock}>
-          <div className={displayStyle === 'gridContainer' && consultantServiceListStyle === 'shortList' ? style.rotationContainer : style.simpleContainer}>
-            <ButtonApp
-              labelID='Añadir servicio'
-              type='button'
-              buttonStyle='primary'
-              size={'default'}
-              icon={addIcon}
-            />
-          </div>
-        </div>
-      ) : null}
-
       <div className={style.servicesBlock}>
-        {services.length !== 0 ? (
-          <ul className={buildClassName([consultantServiceListStyle,displayStyle], style)}>
-            {serviceToRender.map((service: any, index: number) => {
+        {services?.length !== 0 ? (
+          <ul
+            className={buildClassName(
+              [consultantServiceListStyle, displayStyle],
+              style
+            )}
+          >
+            {services?.map((service, index: number) => {
               return (
-                <li className={style.serviceItem} key={index}>
+                <li className={style.serviceItem} key={service.id}>
                   <Card>
                     <div className={`${style.service} flex-container`}>
-                      <div className={style.colorSpot} style={{ backgroundColor: setBackgroundColor(index) }}>
-                      </div>
+                      <div
+                        className={style.colorSpot}
+                        style={{ backgroundColor: setBackgroundColor(index) }}
+                      ></div>
                       <div className={style.serviceInfoBlock}>
-                        <p className={style.serviceTitle}>{service.name}</p>
-                        <p className={style.serviceDescription}>{service.description}</p>
+                        <Link href={asPath+ `services/${service.id}`}>
+                        <a className={style.serviceTitle}>{service.title}</a>
+                        </Link>
+                        
+                        <p className={style.serviceDescription}>
+                          {limitTextLength(70, service.description)}
+                        </p>
                         <hr />
                         <div className='flex-container justify-between'>
                           <p className={style.serviceDuration}>
-                            <span>Duración: <strong>2h</strong></span>
+                            <span>
+                              Duración: <strong>{toHoursAndMinutes(service.time * 60)}</strong>
+                            </span>
                           </p>
                           <p className={style.servicePrice}>
-                            <span>Precio:<strong>{service.price}</strong></span>
+                            <span>
+                              Precio:<strong>{service.price}</strong>
+                            </span>
                           </p>
                         </div>
-
                       </div>
-                      {isOwner === true && consultantServiceListStyle === 'fullList' ? (
-                        <div className={`${style.editBlock} edit-delete-buttons`}>
+                      {isAdmin === true &&
+                      consultantServiceListStyle === 'fullList' ? (
+                        <div
+                          className={`${style.editBlock} edit-delete-buttons`}
+                        >
                           <LinkApp
                             label={'btn.edit'}
                             linkStyle={'edit'}
-                            linkHref={'#'}
+                            linkHref={asPath+`services/${service.id}/edit`}
                             icon={iconEdit}
                           />
                           <ButtonApp
@@ -117,7 +147,9 @@ const ConsultantServiceListView = ({ services, consultantServiceListStyle = 'sho
                             icon={iconDelete}
                           />
                         </div>
-                      ) : ''}
+                      ) : (
+                        ''
+                      )}
                     </div>
                   </Card>
                 </li>

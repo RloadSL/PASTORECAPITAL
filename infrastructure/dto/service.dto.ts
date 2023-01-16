@@ -7,13 +7,14 @@ export interface ServiceDto {
     url: string
   } | File
   description?: string
-  duration?:number
+  time?:number
   price?:number
   keywords?:string[]
+  functions?: string[]
   form?: {
     created_at: any,
     url: string
   } | File
-  created_at?: Date
+  created_at?: any
   userConsultantId?:string
 }

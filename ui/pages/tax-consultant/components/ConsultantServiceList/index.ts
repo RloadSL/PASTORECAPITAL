@@ -1,3 +1,3 @@
-import ConsultantServiceList from "./consultantServiceList";
+import ConsultantServiceList from "./ConsultantServiceList";
 
 export default ConsultantServiceList

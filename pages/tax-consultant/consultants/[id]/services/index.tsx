@@ -1,3 +1,4 @@
-import Services from "ui/pages/tax-consultant/consultants/[id]/Services/Services";
+import Profile from "ui/pages/tax-consultant/consultants/[id]/Profile/Profile";
+//import Services from "ui/pages/tax-consultant/consultants/[id]/Services/Services";
 
-export default Services
+export default Profile

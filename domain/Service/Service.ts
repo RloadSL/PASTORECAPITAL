@@ -4,24 +4,31 @@ import { ServiceDto } from "infrastructure/dto/service.dto";
 export default class Service {
   id:string
   title: string
+  image?: any
   description: string
-  duration:number
+  time:number
   price:number
   keywords:string[]
-  required_form:boolean
-  createdAt: Date
+  functions?:string[]
+  form?:{
+    url:string,
+    created_at: Date
+  }
+  created_at: Date
   userConsultantId:string
 
   constructor(data:ServiceDto){
-    this.id = data.id
-    this.title = data.title
-    this.description = data.description
-    this.duration = data.duration
-    this.price = data.price
-    this.keywords = data.keywords
-    this.required_form = data.required_form
-    this.createdAt = data.createdAt
-    this.userConsultantId = data.userConsultantId
+    this.id = data.id as string
+    this.title = data.title as string
+    this.image = data.image
+    this.description = data.description as string
+    this.time = data.time as number
+    this.price = data.price as number
+    this.keywords = data.keywords as Array<string>
+    this.form = data.form as any
+    this.created_at = data.created_at?.toDate() 
+    this.userConsultantId = data.userConsultantId as string
+    this.functions = data.functions
   }
 
   getClients(query: QueryElastic){}

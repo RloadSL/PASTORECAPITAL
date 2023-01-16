@@ -28,17 +28,8 @@ const ServicesView = ({ }: ServicesProps) => {
       </header>
       <div>
         <h1 className='small-caps'>Servicios</h1>
-        {/* <div className={style.servicesAddButton}>
-          <ButtonApp
-            labelID='Añadir servicio'
-            type='submit'
-            buttonStyle='primary'
-            size={'default'}
-            icon={addIcon}
-          />
-        </div> */}
         <div className={style.servicesList}>
-          <ConsultantServiceList services={servicesList} isOwner={true} consultantServiceListStyle={'fullList'} displayStyle={'blockContainer'}/>
+          <ConsultantServiceList consultantServiceListStyle={'fullList'} displayStyle={'blockContainer'}/>
         </div>
       </div>
     </div>

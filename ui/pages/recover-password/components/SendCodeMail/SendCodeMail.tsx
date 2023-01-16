@@ -1,6 +1,6 @@
 import ButtonApp from "components/ButtonApp";
 import FormApp from "components/FormApp";
-import InputApp from "components/FormApp/components/InputCheckApp/InputApp";
+import InputApp from "components/FormApp/components/InputApp";
 import { useCallback } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
