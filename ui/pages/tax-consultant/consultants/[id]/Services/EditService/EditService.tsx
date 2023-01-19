@@ -12,9 +12,15 @@ import serviceRepository from 'infrastructure/repositories/service.repository'
 import { useRouter } from 'next/router'
 import { ServiceDto } from 'infrastructure/dto/service.dto'
 import LinkApp from 'components/LinkApp'
+import arrowIcon from '../../../../../../../assets/img/icons/arrow-dark.svg'
+import caseIcon from '../../../../../../../assets/img/icons/case-p.svg'
+import coinsIcon from '../../../../../../../assets/img/icons/coins.svg'
+import timeIcon from '../../../../../../../assets/img/icons/time.svg'
+
+
 const EditService = () => {
   const intl = useIntl()
-  const {query} = useRouter()
+  const { query } = useRouter()
   const [initialValues, setInitialValues] = useState<any>({
     title: '',
     image: null,
@@ -26,9 +32,9 @@ const EditService = () => {
     form: null
   })
 
-  const _onSubmit = async (values:ServiceDto)=>{
+  const _onSubmit = async (values: ServiceDto) => {
     await serviceRepository.createService({
-      ...values, 
+      ...values,
       userConsultantId: query.id as string,
       created_at: new Date()
     })
@@ -75,6 +81,7 @@ const EditService = () => {
               labelID='page.tax-consultant.create-service.form.title'
               type='text'
               name='title'
+              icon={caseIcon}
             />
             <InputFileFormikApp
               labelID='page.tax-consultant.create-service.form.image'
@@ -90,17 +97,23 @@ const EditService = () => {
               name='functions'
               labelID='page.tax-consultant.create-service.form.functions'
             />
-            <div>
-              <InputFormikApp
-                labelID='page.tax-consultant.create-service.form.time'
-                type='text'
-                name='time'
-              />
-              <InputFormikApp
-                labelID='page.tax-consultant.create-service.form.price'
-                type='text'
-                name='price'
-              />
+            <div className={style.flexContainer}>
+              <div className={style.flexContainerItem}>
+                <InputFormikApp
+                  labelID='page.tax-consultant.create-service.form.time'
+                  type='text'
+                  name='time'
+                  icon={timeIcon}
+                />
+              </div>
+              <div className={style.flexContainerItem}>
+                <InputFormikApp
+                  labelID='page.tax-consultant.create-service.form.price'
+                  type='text'
+                  name='price'
+                  icon={coinsIcon}
+                />
+              </div>
             </div>
             <InputFormikApp
               labelID='page.tax-consultant.create-service.form.keywords'
@@ -111,7 +124,7 @@ const EditService = () => {
               labelID='page.tax-consultant.create-service.form.form'
               name='form'
               accept='.pdf'
-              thumb = {false}
+              thumb={false}
             />
             <div
               style={{
@@ -127,21 +140,33 @@ const EditService = () => {
               />
             </div>
           </Form>
-        )} 
+        )}
       </Formik>
     )
   }
 
   return (
     <div className={style.editService}>
-      <div>
-        <p className='small-caps'>
-          <FormattedMessage id='page.tax-consultant.create-service.title'></FormattedMessage>
-        </p>
+      <div className={style.editServiceContainer}>
+        <header>
+          <LinkApp
+            label='btn.back'
+            linkHref={'#'}
+            icon={arrowIcon}
+            target={'_self'}
+          />
+        </header>
+        <div>
+          <p className='small-caps'>
+            <FormattedMessage id='page.tax-consultant.create-service.title'></FormattedMessage>
+          </p>
+        </div>
+        <div className={style.formContainer}>
+          <div className={style.formBlock}>{renderFormik()}</div>
+        </div>
       </div>
-      <div className={style.formContainer}>
-        <div className={style.formBlock}>{renderFormik()}</div>
-      </div>
+
+
     </div>
   )
 }
