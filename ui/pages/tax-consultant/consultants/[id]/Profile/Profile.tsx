@@ -1,7 +1,6 @@
 import { FormattedMessage } from 'react-intl'
 import ConsultantShortDetails from 'ui/pages/tax-consultant/components/ConsultantShortDetails'
 import style from './profile.module.scss'
-import { servicesList } from 'ui/utils/test.data'
 import ConsultantServiceList from 'ui/pages/tax-consultant/components/ConsultantServiceList'
 import { useEffect, useState } from 'react'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
@@ -14,6 +13,7 @@ import addIcon from '../../../../../../assets/img/icons/add.svg'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import ButtonApp from 'components/ButtonApp'
+import CommentsListApp from 'components/CommentsApp'
 
 
 const Profile = () => {
@@ -106,7 +106,12 @@ const Profile = () => {
         />
       </div>
       <div className={style.profileConversation}>
-        <p className='main-title'>Ask to the expert</p>
+        <div className='main-title'>
+        <CommentsListApp infoData={{
+          mainTitle: 'Preguntas:',
+          description: 'Comenta tus dudas con el asesor.'
+        }} parent={{id: query.id as string, path: 'user_consultant'}} main={true} />
+        </div>
       </div>
     </div>
   )

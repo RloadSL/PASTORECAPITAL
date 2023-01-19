@@ -1,0 +1,106 @@
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/placeholders";
+.singleComment {
+  color: colors.$dark;
+  width: 100%;
+
+  .isMain {
+    margin-bottom: 3%;
+    margin-top: 3%;
+  }
+
+  .colRight {
+    width: 100%;
+  }
+
+    &.isReply {
+      .colLeft::after {
+        content: '';
+        width: 1px;
+        height: 100%;
+        background-color: colors.$grey40;
+        display: block;
+        margin: auto;
+        margin-top: 0px;
+      }
+    }
+
+    &.isReply.lastChild {
+      .colLeft::after {
+        width: 0px !important;
+      }
+    }
+
+  .top {
+    font-size: 0.8rem;
+
+    .innerContent {
+      padding-bottom: 0px;
+      padding-top: 15px;
+    }
+  }
+
+  .middle {
+    .innerContent {
+      padding-bottom: 0px;
+      padding-top: 15px;
+    }
+  }
+
+  .bottom {
+    font-size: 0.8rem;
+
+    .innerContent {
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  .replyContainer {
+    align-self: flex-end;
+  }
+
+  .author {
+    font-weight: bold;
+
+    &::after {
+      content: "";
+      width: 1px;
+      border-right: 1px solid colors.$grey50;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    span {
+      color: colors.$grey60;
+      font-weight: normal;
+    }
+  }
+
+  .date {
+    color: colors.$grey60;
+    margin-right: 12px;
+  }
+
+  .innerContent {
+    padding: 30px 20px;
+  }
+
+  .replyIcon {
+    width: 50px;
+    height: 50px;
+    background-color: colors.$palette8;
+    border-radius: 100%;
+    background-image: url(../../../../assets/img/icons/reply-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.replyButton {
+  margin-left: 12px;
+}

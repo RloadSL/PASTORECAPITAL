@@ -1,13 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import style from './editProfile.module.scss'
 
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ConsultantMenu from '../../components/ConsultantMenu'
 import ImageCrop from 'components/ImageCrop'
 import Modal from 'components/Modal'
@@ -109,7 +103,7 @@ const EditProfile = () => {
       )
     }
   }
-  
+
   return (
     <>
       <EditProfileView
@@ -123,7 +117,12 @@ const EditProfile = () => {
   )
 }
 
-const EditProfileView = ({ initialValues, userData, onSubmit, currentavatar }: any) => {
+const EditProfileView = ({
+  initialValues,
+  userData,
+  onSubmit,
+  currentavatar
+}: any) => {
   const [imgSrc, setImgSrc] = useState<undefined | string>('')
   const [avatar, setAvatarSrc] = useState<string | undefined>()
   const inputAvatarRef = useRef<HTMLInputElement>(null)
@@ -139,14 +138,14 @@ const EditProfileView = ({ initialValues, userData, onSubmit, currentavatar }: a
         reader.readAsDataURL(e.target.files[0])
       }
     }
-    
+
     return (
       <div className={style.editProfile}>
         <p className='small-caps'>Apariencia</p>
         <div className='flex-container align-center'>
           <div className={style.avatarBlock}>
             <UserImage
-              image={avatar || currentavatar}
+              image={avatar || currentavatar}
               size={'large'}
               userImageStyle={['rounded', 'nobordered']}
             />
@@ -189,12 +188,14 @@ const EditProfileView = ({ initialValues, userData, onSubmit, currentavatar }: a
       keywords: yup
         .string()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
-      country: yup.string().required(intl.formatMessage({ id: 'page.login.errorRequired' })),
+      country: yup
+        .string()
+        .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       description: yup
-      .string()
-      .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
+        .string()
+        .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
     })
-    
+
     return (
       <Formik
         enableReinitialize

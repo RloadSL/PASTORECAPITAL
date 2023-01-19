@@ -254,5 +254,6 @@
   "colaboration" : "Gestion de Colaborador",
   "id" : "Detalle",
   "-": "-",
-  "service_id" : "Detalle de Servicio"
+  "service_id" : "Detalle de Servicio",
+  "payment" : "Pagos"
 }

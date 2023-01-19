@@ -19,13 +19,13 @@ import { InfoApp } from 'domain/InfoApp/InfoApp'
 interface CREATEFORMCOMMENTPROPS {
   onCreate: Function
   validationSchema: any
-  loading: boolean
+  loading: boolean,
+  description?: string
   formCommentStyle?: 'default' | 'minified'
 }
 
-const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
+const CreateFormComment = ({ formCommentStyle, parent, onCreate, description }: any) => {
   const intl = useIntl()
-  const router = useRouter()
   const {pushInfoApp} = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
@@ -37,8 +37,8 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
       comment: comment,
       created_at: new Date(),
       parent: {
-        id: parent?.id || router.query.lesson_id?.toString(),
-        path: parent?.path || 'lessons'
+        id: parent?.id,
+        path: parent?.path
       },
       owner: userLoggued.uid,
       total_replys: 0
@@ -65,6 +65,7 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
     <CreateFormCommentView
       formCommentStyle={formCommentStyle}
       loading={loading}
+      description={description}
       validationSchema={validationSchema()}
       onCreate={(comment: string) => _onCreate(comment)}
     />
@@ -75,7 +76,8 @@ const CreateFormCommentView = ({
   formCommentStyle = 'default',
   loading,
   onCreate,
-  validationSchema
+  validationSchema,
+  description
 }: CREATEFORMCOMMENTPROPS) => {
   const [comment, setcomment] = useState('')
 
@@ -83,10 +85,9 @@ const CreateFormCommentView = ({
     <div className={`${style.createFormComment} ${style[formCommentStyle]}`}>
       {formCommentStyle === 'default' ? (
         <div className={style.textContent}>
-          <div className={style.mainTitle}>Pregunta al profesor</div>
+          <div className={style.mainTitle}>Preguntas:</div>
           <div>
-            Este es un espacio creado para que puedas resolver tus dudas con el
-            prfesor y ver las dudas que han tenido otros alumnos como tu.
+            {description}
           </div>
         </div>
       ) : null}

@@ -1,0 +1,31 @@
+
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.commentsList {
+  color: colors.$dark ;
+
+  h2 {font-weight: 500;}
+  .threadContainer{
+    background-color: white;
+    margin-bottom: 30px;
+  }
+  .replysContainer {
+    background-color: transparent;
+  }
+  .commentsItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    //background-color: white;
+    border-radius: 30px;
+    padding: 0px 3%;
+    //margin-bottom: 20px;
+
+    .commentReplys {
+      width: 90%;
+    }
+  }
+}

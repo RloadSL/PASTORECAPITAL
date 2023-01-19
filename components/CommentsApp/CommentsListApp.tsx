@@ -14,15 +14,20 @@ interface COMMENTSLISTPROPS {
   children?: any
   main?: boolean
   newComments?: Comments
+  infoData?: {
+    mainTitle: string,
+    description?: string
+  }
 }
 
-const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
+const CommentsListApp = ({ parent, main, newComments, infoData }: COMMENTSLISTPROPS) => {
   const [commentsList, setcommentsList] = useState<Array<Comments>>([])
   const [lastSnapshot, setlastSnapshot] = useState<any>(null)
 
   const router = useRouter()
   useEffect(() => {
     let fetching = true
+    if(parent?.id)
     getComments().then(res => {
       if (fetching && res.comments) {
         const { comments, lastSnapshot } = res
@@ -35,7 +40,7 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
     return () => {
       fetching = false
     }
-  }, [])
+  }, [parent?.id])
 
   useEffect(() => {
     if (newComments) {
@@ -45,7 +50,7 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
 
   const getComments = async () => {
     const response = await CommentsImplInstance.getComments(
-      { id: parent?.id },
+      { id: parent?.id || (router.query.lesson_id as string) },
       lastSnapshot
     )
     return response
@@ -79,11 +84,12 @@ const CommentsList = ({ parent, main, newComments }: COMMENTSLISTPROPS) => {
   return (
     <CommentsListView
       parent={{
-        id: parent?.id || (router.query.lesson_id as string),
+        id: parent?.id,
         path: parent?.path
       }}
       commentsList={commentsList}
       main={main}
+      infoData={infoData}
       onCreate={_onCreate}
       loadMore={lastSnapshot !== null ? _loadMore : undefined}
       onDelete={_onDelete}
@@ -97,7 +103,8 @@ const CommentsListView = ({
   main,
   onCreate,
   loadMore,
-  onDelete
+  onDelete,
+  infoData
 }: {
   commentsList: Array<Comments>
   parent: any
@@ -105,6 +112,7 @@ const CommentsListView = ({
   onCreate: Function
   loadMore?: Function
   onDelete: Function
+  infoData: any
 }) => {
   const [isMainComment, setisMainComment] = useState<boolean>(
     parent.path !== 'comments'
@@ -113,10 +121,10 @@ const CommentsListView = ({
   return (
     <div className={style.commentsList}>
       {main && (
-        <CreateFormComment onCreate={(res: Comments) => onCreate(res)} />
+        <CreateFormComment description={infoData.description} parent={parent} onCreate={(res: Comments) => onCreate(res)} />
       )}
 
-      {parent.path != 'comments' && commentsList.length > 0 ? <h2>Preguntas de alumnos</h2> : <></>}
+      {parent.path != 'comments' && commentsList.length > 0 ? <h2>{infoData?.mainTitle}</h2> : <></>}
       {commentsList.map((comment, index) => {
         return (
           <div
@@ -147,4 +155,4 @@ const CommentsListView = ({
   )
 }
 
-export default CommentsList
+export default CommentsListApp

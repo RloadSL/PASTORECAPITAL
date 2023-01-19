@@ -1,9 +1,4 @@
 import React from 'react'
+import Payment from 'ui/pages/tax-consultant/consultants/[id]/Services/[service_id]/Payment/Payment';
 
-const PaymentService = () => {
-  return (
-    <div>Proceso de pago</div>
-  )
-}
-
-export default PaymentService;
+export default Payment;

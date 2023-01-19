@@ -35,7 +35,7 @@ function reducerPermission(state:any, action:{garanted: 'garant' | 'no_garant'}
 
 export default function AppLayout ({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
-  const { subscriptionGranted, userChecked } = useGuardPermissions()
+  //const { subscriptionGranted, userChecked } = useGuardPermissions()
 
   const router = useRouter()
   useEffect(() => {
@@ -59,7 +59,6 @@ export default function AppLayout ({ children }: any) {
     <MemoizedLayout
       goBack={_goBack}
       goSubscription={_goSubscription}
-      alertSubscription={!subscriptionGranted && userChecked}
     >
       {children}
     </MemoizedLayout>
