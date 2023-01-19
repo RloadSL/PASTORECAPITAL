@@ -35,7 +35,7 @@ const InputFileFormikApp = ({
   }
 
   return (
-    <div className='position-relative'>
+    <div className={style.inputFileContainer}>
       <label className={style.inputContainer}>
         {(file && thumb) && (
           <img
@@ -46,16 +46,13 @@ const InputFileFormikApp = ({
           />
         )}
         {
-          !thumb && (
-            <p>{fileName || ''}</p>
-          )
+          !thumb && fileName ? (
+            <p>{fileName}</p>
+          ) : ''
         }
-        <div className='flex-container row align-center'>
-          <div className={`${style.icon}`}>
-            {icon != undefined && (
-              <Image className={style.icon} src={icon} alt='' />
-            )}
-          </div>
+        {!file && <div className={style.noFile}></div>}
+        <span>
+         
           { (!file) && (<FormattedMessage id={labelID} />)}
           <input
             type={'file'}
@@ -69,7 +66,7 @@ const InputFileFormikApp = ({
             }}
             className={style.input}
           />
-        </div>
+        </span>
       </label>
       {meta.error && meta.touched && (
         <div className={style.error}>{meta.error}</div>

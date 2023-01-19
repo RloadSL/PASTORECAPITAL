@@ -9,7 +9,6 @@ import { useRouter } from 'next/router'
 import LinkApp from 'components/LinkApp'
 import iconEdit from '../../../../../../assets/img/icons/pencil.svg'
 import addIcon from '../../../../../../assets/img/icons/add.svg'
-
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import ButtonApp from 'components/ButtonApp'

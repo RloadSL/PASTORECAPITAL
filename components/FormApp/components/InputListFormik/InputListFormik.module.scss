@@ -8,3 +8,30 @@
   display: flex;
   flex-direction: column;
 }
+
+.listItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &Step {
+    width: 20px;
+    color: colors.$dark;
+
+    @include devices.device(smTablet) {
+      width: 50px;
+    }
+  }
+
+  div {
+    margin-bottom: 0px !important;
+  }
+}
+
+.buttonContainer {
+  margin-bottom: 20px;
+
+  @include devices.device(smTablet) {
+    max-width: 200px;
+  }
+}

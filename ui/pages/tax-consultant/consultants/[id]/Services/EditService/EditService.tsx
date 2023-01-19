@@ -13,6 +13,15 @@ import serviceRepository from 'infrastructure/repositories/service.repository'
 import { useRouter } from 'next/router'
 import { ServiceDto } from 'infrastructure/dto/service.dto'
 import Loading from 'components/Loading'
+import LinkApp from 'components/LinkApp'
+import arrowIcon from '../../../../../../../assets/img/icons/arrow-dark.svg'
+import caseIcon from '../../../../../../../assets/img/icons/case-p.svg'
+import coinsIcon from '../../../../../../../assets/img/icons/coins.svg'
+import timeIcon from '../../../../../../../assets/img/icons/time.svg'
+
+
+
+
 const EditService = () => {
   const intl = useIntl()
   const { query, push, replace } = useRouter()
@@ -115,6 +124,7 @@ const EditService = () => {
               labelID='page.tax-consultant.create-service.form.title'
               type='text'
               name='title'
+              icon={caseIcon}
             />
             <InputFileFormikApp
               labelID='page.tax-consultant.create-service.form.image'
@@ -130,17 +140,23 @@ const EditService = () => {
               name='functions'
               labelID='page.tax-consultant.create-service.form.functions'
             />
-            <div>
-              <InputFormikApp
-                labelID='page.tax-consultant.create-service.form.time'
-                type='text'
-                name='time'
-              />
-              <InputFormikApp
-                labelID='page.tax-consultant.create-service.form.price'
-                type='text'
-                name='price'
-              />
+            <div className={style.flexContainer}>
+              <div className={style.flexContainerItem}>
+                <InputFormikApp
+                  labelID='page.tax-consultant.create-service.form.time'
+                  type='text'
+                  name='time'
+                  icon={timeIcon}
+                />
+              </div>
+              <div className={style.flexContainerItem}>
+                <InputFormikApp
+                  labelID='page.tax-consultant.create-service.form.price'
+                  type='text'
+                  name='price'
+                  icon={coinsIcon}
+                />
+              </div>
             </div>
             <InputFormikApp
               labelID='page.tax-consultant.create-service.form.keywords'
@@ -174,13 +190,23 @@ const EditService = () => {
 
   return (
     <div className={style.editService}>
-      <div>
-        <p className='small-caps'>
-          <FormattedMessage id='page.tax-consultant.create-service.title'></FormattedMessage>
-        </p>
-      </div>
-      <div className={style.formContainer}>
-        <div className={style.formBlock}>{renderFormik()}</div>
+      <div className={style.editServiceContainer}>
+        <header>
+          <LinkApp
+            label='btn.back'
+            linkHref={'#'}
+            icon={arrowIcon}
+            target={'_self'}
+          />
+        </header>
+        <div>
+          <p className='small-caps'>
+            <FormattedMessage id='page.tax-consultant.create-service.title'></FormattedMessage>
+          </p>
+        </div>
+        <div className={style.formContainer}>
+          <div className={style.formBlock}>{renderFormik()}</div>
+        </div>
       </div>
       <Loading loading={loading} variant='inner-primary' />
     </div>

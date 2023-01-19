@@ -1,9 +1,25 @@
-@use '../../../../../../../styles/partials/variables/colors' as colors;
-@use '../../../../../../../styles/partials/mixins/devices' as devices;
-@use '../../../../../../../styles/partials/placeholders'; 
+@use "../../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../../styles/partials/placeholders";
 
 .editService {
   @extend %layoutContainer;
   padding: 2%;
-  position: relative;
+
+  &Container {
+    max-width: 1000px;
+  }
+
+  .flexContainer {
+    @include devices.device(tablet) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &Item {
+      @include devices.device(tablet) {
+        width: 49%;
+      }
+    }
+  }
 }
