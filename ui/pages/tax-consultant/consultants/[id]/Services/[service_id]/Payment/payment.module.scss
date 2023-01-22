@@ -1,0 +1,19 @@
+@use "../../../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../../../styles/partials/placeholders";
+
+.payment {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  &Content {
+    max-width: 1000px;
+  }
+
+  .order_info{
+
+  }
+  .stripe_form{
+    
+  }
+}
