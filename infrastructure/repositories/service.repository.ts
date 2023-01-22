@@ -2,6 +2,7 @@ import Service from "domain/Service/Service";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import firestoreFirebase from "infrastructure/firebase/firestore.firebase";
 import FireFirestore  from "infrastructure/firebase/firestore.firebase";
+import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 import storageFirebase from "infrastructure/firebase/storage.firebase";
 import { parseFirestoreDocs } from "infrastructure/firebase/utils";
 
@@ -87,7 +88,15 @@ class ServiceRepository {
   /**
    * Procesa la contratación del servicio por parte del usuario
    */
-  hireService(data:any){}
+  async hireServiceIntent(data:any){
+    const res = await FireFunctionsInstance.onCallFunction('PaymentIntentTriggerFunctions', data)
+    if(!res.error){
+      return res;
+    }else{
+      return null;
+    }
+    
+  }
   /**
    * Integration calendly
    */

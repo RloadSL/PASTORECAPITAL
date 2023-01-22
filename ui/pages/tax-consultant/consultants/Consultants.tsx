@@ -27,7 +27,7 @@ const Consultants = () => {
     if (userLogged?.uid) {
       dispatch(searchConsultants())
     }
-  }, [])
+  }, [userLogged])
 
   const _onFilter = (s: string) => {
     if (userLogged?.uid) {

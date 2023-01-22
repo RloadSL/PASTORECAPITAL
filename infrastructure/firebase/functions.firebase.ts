@@ -23,7 +23,7 @@ export class FireFunctions {
     return FireFunctions.instance;
   }
 
-  async onCallFunction(functionName:string, data?:any):Promise<{status:number, data?:any, error?:any}>{
+  async onCallFunction(functionName:string, data?:any):Promise<any>{
     const fn = httpsCallable(this._functions, functionName);
     try {
       const response = (await fn(data)) as {status:number, data?:any, error?:string};

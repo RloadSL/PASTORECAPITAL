@@ -2,15 +2,23 @@ import ButtonApp from 'components/ButtonApp'
 import style from './service.module.scss'
 import Image from 'next/image'
 import clappingHands from '../../../../../../../../assets/img/clappingHands.png'
-
-
-
+import LinkApp from 'components/LinkApp'
+import { useRouter } from 'next/router'
 
 const Service = () => {
-  return (<ServiceView />)
+  return <ServiceView />
 }
 
 const ServiceView = () => {
+  const { asPath, route, push, query } = useRouter()
+
+  const _handleNavigate = () => {
+    const queryParams = `order_id=${query.service_id}&order_path=services`;
+    push(
+      route + `/payment?${queryParams}`,
+      asPath + `payment?${queryParams}`
+    )
+  }
   return (
     <div className={style.serviceDetail}>
       <header>
@@ -18,7 +26,10 @@ const ServiceView = () => {
         <h1 className='main-title'>Detalle del servicio</h1>
       </header>
       <div className={style.serviceDetailContent}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde labore eum voluptatem sequi omnis, doloremque rem. Alias mollitia nihil totam aperiam excepturi optio nemo doloribus enim modi veritatis. Placeat, non!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde labore eum
+        voluptatem sequi omnis, doloremque rem. Alias mollitia nihil totam
+        aperiam excepturi optio nemo doloribus enim modi veritatis. Placeat,
+        non!
       </div>
       <footer>
         <div className={style.priceInfo}>
@@ -27,17 +38,15 @@ const ServiceView = () => {
             <p className={style.priceQty}>80€</p>
           </div>
           <small>IVA incluido</small>
-
         </div>
         <div className={style.priceButtonContainer}>
           <div className={style.priceButton}>
             <ButtonApp
-              buttonStyle='primary'
-              type='submit'
+              onClick={_handleNavigate}
               labelID='btn.hire'
+              buttonStyle={'primary'}
             />
           </div>
-
         </div>
       </footer>
       {/* Esto va en otro componente??? cuando se produzca con éxito la compra de un servicio*/}
@@ -47,8 +56,13 @@ const ServiceView = () => {
           <div className={style.imageContainer}>
             <Image src={clappingHands} alt={'manos aplaudiendo'}></Image>
           </div>
-          <p className={style.successCardTitle}>¡Muy bien, ya estamos casi listos!</p>
-          <p>Pronto recibiras un mail de confirmación con todos los datos de tu compra.</p>
+          <p className={style.successCardTitle}>
+            ¡Muy bien, ya estamos casi listos!
+          </p>
+          <p>
+            Pronto recibiras un mail de confirmación con todos los datos de tu
+            compra.
+          </p>
           <div className={style.buttonContainer}>
             <ButtonApp
               buttonStyle='secondary'
@@ -57,10 +71,9 @@ const ServiceView = () => {
             />
           </div>
         </div>
-
       </div>
     </div>
   )
 }
 
-export default Service;
+export default Service

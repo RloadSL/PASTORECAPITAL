@@ -2,8 +2,9 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
 });
+
 const handler = async (req: any, res: any) => {
-  const { amount, payment_intent_id } = req.body;
+  const { amount, payment_intent_id, description, metadata_order } = req.body;
   if (payment_intent_id) {
     try {
       // If a payment_intent_id is passed, retrieve the paymentIntent
@@ -36,10 +37,9 @@ const handler = async (req: any, res: any) => {
     const params = {
       amount: amount,
       currency: 'eur',
-      description: 'Payment description',
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      description: description || 'Payment description',
+      payment_method_types: [ 'sepa_debit', 'card'],
+      metadata_order,
     };
     const payment_intent = await stripe.paymentIntents.create(params);
     //Return the payment_intent object
@@ -50,4 +50,5 @@ const handler = async (req: any, res: any) => {
     res.status(500).json({ statusCode: 500, message: errorMessage });
   }
 };
+
 export default handler;

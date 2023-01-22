@@ -213,6 +213,7 @@
   "btn.search": "Buscar",
   "btn.add-item": "Añadir item",
   "btn.hire" : "Contratar",
+  "btn.pay" : "Pagar ahora",
   "btn.add.service" : "Añadir servicio",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
