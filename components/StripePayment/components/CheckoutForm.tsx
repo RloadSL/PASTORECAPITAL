@@ -9,6 +9,7 @@ import ButtonApp from 'components/ButtonApp'
 import { useRouter } from 'next/router'
 import Loading from 'components/Loading'
 
+
 export default function CheckoutForm () {
   const stripe = useStripe()
   const elements = useElements()
@@ -16,7 +17,7 @@ export default function CheckoutForm () {
   const [email, setEmail] = React.useState('')
   const [message, setMessage] = React.useState<string | undefined>()
   const [isLoading, setIsLoading] = React.useState(false)
-
+  
   React.useEffect(() => {
     if (!stripe) {
       return
@@ -50,34 +51,22 @@ export default function CheckoutForm () {
 
   const handleSubmit = async (e: any) => {
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return
     }
 
     setIsLoading(true)
-
     const confirmation = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `http://localhost:3000/tax-consultant/consultants/${query.id}/services/${query.service_id}//confirmed_payment`
+        return_url: `${process.env.NEXT_PUBLIC_HOST}/tax-consultant/consultants/${query.id}/services/${query.service_id}//confirmed_payment`
       }
     })
-
-    if (
-      confirmation.error.type === 'card_error' ||
-      confirmation.error.type === 'validation_error'
-    ) {
-      setMessage(confirmation.error.message)
-    } else {
-      setMessage('An unexpected error occurred.')
-    }
-
+    setMessage(confirmation.error.message)
     setIsLoading(false)
   }
 
   const paymentElementOptions: any = {
-    layout: 'accordion'
+    layout: 'tabs'
   }
 
   return (

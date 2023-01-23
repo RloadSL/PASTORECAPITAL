@@ -256,5 +256,6 @@
   "id" : "Detalle",
   "-": "-",
   "service_id" : "Detalle de Servicio",
-  "payment" : "Pagos"
+  "payment" : "Pagos",
+  "confirmed_payment" : "Confirmación de Pago"
 }
