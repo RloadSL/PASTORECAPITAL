@@ -1,5 +1,7 @@
 import { QueryElastic } from "domain/Interfaces/QueryElastic";
+import { UserConsultant } from "domain/UserConsultant/UserConsultant";
 import { ServiceDto } from "infrastructure/dto/service.dto";
+import userConsultantRepository from "infrastructure/repositories/userConsultant.repository";
 
 export default class Service {
   id:string
@@ -31,7 +33,11 @@ export default class Service {
     this.functions = data.functions
   }
 
-  getClients(query: QueryElastic){}
+  async getUserConsultant(): Promise<UserConsultant | undefined>{
+    const uc = await userConsultantRepository.getUserConsultant(this.userConsultantId);
+    return uc;
+  }
+
   set(data:ServiceDto){}
   hireService(data:any){}
   delete(){}
