@@ -24,12 +24,12 @@ import WordpressHeader from 'WordpressHeader'
 const LessonDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
-   useEffect(() => {
-     window.addEventListener('contextmenu', function (e) { 
-       // do something here... 
-       e.preventDefault(); 
-     }, false);
-   }, [])
+  //  useEffect(() => {
+  //    window.addEventListener('contextmenu', function (e) { 
+  //      // do something here... 
+  //      e.preventDefault(); 
+  //    }, false);
+  //  }, [])
 
   const _navigatePaginator = (slug: string, id: string, lesson_title: string, current_lesson: number) => {
     const route = `/academy/courses/${router.query['course-slug']}/` + slug;

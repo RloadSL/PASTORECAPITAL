@@ -105,7 +105,7 @@ const Profile = () => {
         />
       </div>
       <div className={style.profileConversation}>
-        <div className='main-title'>
+        <div>
         <CommentsListApp infoData={{
           mainTitle: 'Preguntas:',
           description: 'Comenta tus dudas con el asesor.'
