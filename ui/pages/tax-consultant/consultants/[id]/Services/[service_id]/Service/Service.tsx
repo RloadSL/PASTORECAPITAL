@@ -2,8 +2,8 @@ import ButtonApp from 'components/ButtonApp'
 import style from './service.module.scss'
 import Image from 'next/image'
 import clappingHands from '../../../../../../../../assets/img/clappingHands.png'
-
-
+import serviceImage from '../../../../../../../../assets/img/serviceImage.jpg'
+import { serviceDetail } from 'ui/utils/test.data'
 
 
 const Service = () => {
@@ -15,16 +15,36 @@ const ServiceView = () => {
     <div className={style.serviceDetail}>
       <header>
         <p className='small-caps'>Servicio</p>
-        <h1 className='main-title'>Detalle del servicio</h1>
+        <h1 className='main-title'>{serviceDetail.title}</h1>
       </header>
+      {serviceDetail.image && (
+        <div className={style.serviceImage}>
+          <Image src={serviceDetail.image = serviceImage} alt='Imagen de detalle del servicio' />
+        </div>
+      )}
       <div className={style.serviceDetailContent}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde labore eum voluptatem sequi omnis, doloremque rem. Alias mollitia nihil totam aperiam excepturi optio nemo doloribus enim modi veritatis. Placeat, non!
+        {serviceDetail.description}
+        {serviceDetail.list && (
+          <div>
+            <h2>¿Cómo funciona?</h2>
+            <ul>
+              {serviceDetail.list.map((listItem, index) => {
+                return (
+                  <li key={index}>
+                    <span className={style.listNumber}>{index+1}.</span><span>{listItem}</span>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )}
+
       </div>
       <footer>
         <div className={style.priceInfo}>
           <div className='flex-container align-center justify-end'>
             <p className={style.priceLabel}>Precio total:</p>
-            <p className={style.priceQty}>80€</p>
+            <p className={style.priceQty}>{serviceDetail.price}€</p>
           </div>
           <small>IVA incluido</small>
 

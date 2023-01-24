@@ -1,4 +1,6 @@
 import img from "../../assets/img/couple.jpg";
+import serviceImage from "../../assets/img/serviceImage.jpg";
+
 
 
 export const userConsultantData = {
@@ -255,6 +257,14 @@ export const clientsList = [
     lastname: 'Martínez'
   }
 ]
+
+export const serviceDetail = {
+  title: 'Este es el título del servicio',
+  description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+  list: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys', 'detalle del servicio 2', 'detalle del servicio 3'],
+  price: '90',
+  image: serviceImage
+}
 
 export const servicesList = [
   {

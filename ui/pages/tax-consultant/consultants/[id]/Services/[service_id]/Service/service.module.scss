@@ -5,9 +5,30 @@
 .serviceDetail {
   @extend %layoutContainer;
   padding: 2%;
+  color: colors.$dark;
+
+  h2 {
+    color: colors.$dark;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-top: 40px;
+    text-transform: uppercase;
+  }
+
+  ul {
+    li {
+      margin-bottom: 10px;
+      display: flex;
+
+      .listNumber {
+        margin-right: 10px;
+      }
+    }
+  }
 
   &Content {
     max-width: 1000px;
+    margin-top: 20px;
   }
 
   footer {
