@@ -8,7 +8,7 @@ interface LINKAPPPROPS {
   icon?: string
   linkHref?: string
   target?: '_blank' | '_self' | '_parent' | '_top'
-  linkStyle?: 'default' | 'edit' | 'button' | 'vertical'
+  linkStyle?: 'default' | 'edit' | 'button' | 'vertical' | 'classic'
 }
 
 export const LinkApp = ({ label, icon, linkHref, target = '_blank', linkStyle = 'default' }: LINKAPPPROPS) => {

@@ -1,3 +1,5 @@
+import Card from 'components/Card'
+import LinkApp from 'components/LinkApp'
 import StripePayment from 'components/StripePayment'
 import Service from 'domain/Service/Service'
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
@@ -46,16 +48,28 @@ const Payment = () => {
 
   return (
     <div className={style.payment}>
-      <div className={style.order_info}>
-        <p>{order?.title}</p>
-        <p>Precio: {order?.price}</p>
-        <p>
+      <div className={style.payment_info}>
+        <header>
+        <h1 className={style.title}>{order?.title}</h1>
+        <p className={style.author}>
           Asesoría realizada por:{' '}
           {userConsultanOfOrder?.name + ' ' + userConsultanOfOrder?.lastname}
         </p>
+        </header>
+        <div className={style.payment_info_price}>
+          <p>Precio</p>
+          <p className={style.payment_info_priceQty}>{order?.price}€</p>
+          <small>IVA incluido</small>
+        </div>
+        <div className={style.payment_legalContainer}>
+          <LinkApp label='Términos y condiciones' linkHref='#' linkStyle='classic' />
+          <LinkApp label='Política de privacidad' linkHref='#' linkStyle='classic' />
+        </div>
       </div>
-      <div className={style.stripe_form}>
-        <StripePayment></StripePayment>
+      <div className={style.payment_form}>
+        <div className={`${style.stripe_form}`}>
+          <StripePayment />
+        </div>
       </div>
     </div>
   )

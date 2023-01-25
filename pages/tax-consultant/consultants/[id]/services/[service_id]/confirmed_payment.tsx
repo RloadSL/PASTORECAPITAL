@@ -1,9 +1,3 @@
-import React from 'react'
+import ConfirmedPayment from "ui/pages/tax-consultant/consultants/[id]/Services/[service_id]/ConfirmedPayment";
 
-const confirmed_payment = () => {
-  return (
-    <div><h1>Pago confirmado</h1></div>
-  )
-}
-
-export default confirmed_payment
+export default ConfirmedPayment

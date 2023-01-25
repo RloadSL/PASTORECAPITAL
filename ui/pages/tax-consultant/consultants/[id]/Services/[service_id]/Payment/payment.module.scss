@@ -6,14 +6,87 @@
   @extend %layoutContainer;
   padding: 2%;
 
-  &Content {
-    max-width: 1000px;
+  @include devices.device(smScreen) {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
   }
 
-  .order_info{
+  &_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
+    @include devices.device(smScreen) {
+      width: 45%;
+    }
+
+    &_price {
+      margin-left: 40px;
+      color: colors.$dark;
+
+      &Qty {
+        font-weight: 500;
+        font-size: 2.2rem;
+        margin-top: -10px;
+        margin-bottom: 0px;
+      }
+    }
   }
+
+  &_legalContainer {
+    display: flex;
+    font-size: .9rem;
+
+    a {
+      color: colors.$grey50;
+    }
+  }
+
+  &_form {
+    border-radius: 20px;
+    background-color: white;
+    padding: 40px;
+
+    @include devices.device(smScreen) {
+      width: 50%;
+    }
+
+    @include devices.device(lgScreen) {
+      width: 40%;
+    }
+  }
+
   .stripe_form{
-    
+    // text-align: center;
+    button {
+      max-width: 200px;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin-top: 20px
+    }
   }
 }
+
+.title {
+  @extend %mainTitle;
+  display: flex;
+  margin-bottom: 0px;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: colors.$main;
+    flex-shrink: 0;
+    margin-top: 15px;
+    margin-right: 20px;
+  }
+}
+
+.author {
+  margin-left: 40px;
+}
+

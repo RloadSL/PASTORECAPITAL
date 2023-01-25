@@ -1,7 +1,6 @@
 import ButtonApp from 'components/ButtonApp'
 import style from './service.module.scss'
 import Image from 'next/image'
-import clappingHands from '../../../../../../../../assets/img/clappingHands.png'
 import LinkApp from 'components/LinkApp'
 import { useRouter } from 'next/router'
 import serviceImage from '../../../../../../../../assets/img/serviceImage.jpg'
@@ -68,30 +67,7 @@ const ServiceView = () => {
             />
           </div>
         </div>
-      </footer>
-      {/* Esto va en otro componente??? cuando se produzca con éxito la compra de un servicio*/}
-      <div className={style.successCard}>
-        <div className={style.successCardContainer}>
-          <p>Servicio contratado con éxito</p>
-          <div className={style.imageContainer}>
-            <Image src={clappingHands} alt={'manos aplaudiendo'}></Image>
-          </div>
-          <p className={style.successCardTitle}>
-            ¡Muy bien, ya estamos casi listos!
-          </p>
-          <p>
-            Pronto recibiras un mail de confirmación con todos los datos de tu
-            compra.
-          </p>
-          <div className={style.buttonContainer}>
-            <ButtonApp
-              buttonStyle='secondary'
-              type='submit'
-              labelID='btn.accept'
-            />
-          </div>
-        </div>
-      </div>
+      </footer>      
     </div>
   )
 }
