@@ -14,14 +14,14 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
 )
 
-export default function StripePayment () {
+export default function StripePayment ({clientSecretParam}:{clientSecretParam?: string}) {
   const [clientSecret, setClientSecret] = useState('')
   const [intent, setIntent] = useState()
   const userLogged = useSelector(getUserLogged)
   const { query } = useRouter()
 
   React.useEffect(() => {
-    if (query.order_id && query.order_path && userLogged?.uid && !intent) {
+    if (query.order_id && query.order_path && userLogged?.uid && !intent && !clientSecretParam) {
       serviceRepository
         .hireServiceIntent({
           currency: 'eur',
@@ -36,7 +36,6 @@ export default function StripePayment () {
         })
         .then(data => {
           if(data) {
-            console.log(data)
             setClientSecret(data.client_secret);
             setIntent(data);
           }
@@ -48,13 +47,13 @@ export default function StripePayment () {
     theme: 'stripe'
   }
   const options: any = {
-    clientSecret,
+    clientSecret : clientSecretParam || clientSecret,
     appearance
   }
 
   return (
     <div style={{position: 'relative', minHeight: '100px'}}>
-      {clientSecret ? (
+      {(clientSecret || clientSecretParam) ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>

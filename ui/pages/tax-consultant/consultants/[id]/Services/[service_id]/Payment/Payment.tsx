@@ -1,4 +1,3 @@
-import Card from 'components/Card'
 import LinkApp from 'components/LinkApp'
 import StripePayment from 'components/StripePayment'
 import Service from 'domain/Service/Service'

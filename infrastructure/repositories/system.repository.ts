@@ -1,5 +1,6 @@
 import { PLANS } from "infrastructure/dto/system_config.dto";
 import firestoreFirebase from "infrastructure/firebase/firestore.firebase";
+import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 
 class SystemConfigRepository {
   private static instance: SystemConfigRepository;
@@ -19,6 +20,20 @@ class SystemConfigRepository {
     alert('Error interno falta la configuracion inicial de planes del sistema. Ponerte en contacto con tus administradores de servicio.')
     return undefined;
   }
+
+   /**
+   * Procesa la contratación del servicio por parte del usuario
+   */
+   async hirePlansSubscription(data:{ plan_name: 'Basic' | 'Plus' | 'Premium', interval: 'month' | 'year' }){
+    const res = await FireFunctionsInstance.onCallFunction('PaymentSubscriptionTriggerFunctions', data)
+    if(!res.error){
+      return res;
+    }else{
+      return null;
+    }
+  }
 }
+
+
 
 export default SystemConfigRepository.getInstance()
