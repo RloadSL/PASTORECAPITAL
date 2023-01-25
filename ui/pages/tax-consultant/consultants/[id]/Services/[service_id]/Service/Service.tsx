@@ -1,7 +1,6 @@
 import ButtonApp from 'components/ButtonApp'
 import style from './service.module.scss'
 import Image from 'next/image'
-import clappingHands from '../../../../../../../../assets/img/clappingHands.png'
 import LinkApp from 'components/LinkApp'
 import { useRouter } from 'next/router'
 import serviceImage from '../../../../../../../../assets/img/serviceImage.jpg'
@@ -92,7 +91,7 @@ const ServiceView = ({service}:{service: ServiceModel | undefined}) => {
             />
           </div>
         </div>
-      </footer>
+      </footer>      
     </div>
   )
 }

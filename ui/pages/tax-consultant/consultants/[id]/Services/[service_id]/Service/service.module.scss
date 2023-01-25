@@ -66,28 +66,3 @@
     margin-bottom: 10px;
   }
 }
-
-.successCard {
-  background-color: colors.$main;
-  @extend %borderRadius;
-  padding: 2%;
-  max-width: 600px;
-  text-align: center;
-
-  &Container {
-    p{
-    color: white;
-    }
-  }
-
-  &Title {
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-
-  .imageContainer,.buttonContainer {
-    max-width: 250px;
-    margin: auto;
-  }
-
-}

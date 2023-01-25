@@ -10,6 +10,13 @@
   padding: 14px;
   color: colors.$dark;
 
+  &.classic {
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   &.edit {
     background-color:colors.$main;
     color: white;
