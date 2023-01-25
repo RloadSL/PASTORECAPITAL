@@ -95,7 +95,6 @@ class ServiceRepository {
     }else{
       return null;
     }
-    
   }
   /**
    * Integration calendly
