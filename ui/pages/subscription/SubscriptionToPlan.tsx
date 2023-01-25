@@ -1,12 +1,8 @@
 import React from 'react'
 
-const SubscriptionToPlan = () => {
-  return (
-    <SubscriptionToPlanView></SubscriptionToPlanView>
-  )
-}
 
-const SubscriptionToPlanView = () => {
+
+const SubscriptionToPlan = () => {
   return (
     <div>SubscriptionToPlan</div>
   )

@@ -6,15 +6,37 @@ import LinkApp from 'components/LinkApp'
 import { useRouter } from 'next/router'
 import serviceImage from '../../../../../../../../assets/img/serviceImage.jpg'
 import { serviceDetail } from 'ui/utils/test.data'
+import serviceRepository from 'infrastructure/repositories/service.repository'
+import { useEffect, useState } from 'react'
+import ServiceModel from 'domain/Service/Service'
+import Loading from 'components/Loading'
 
 
 const Service = () => {
-  return <ServiceView />
+  const {service_id} = useRouter().query
+  const [service, setService] = useState<ServiceModel | undefined>()
+  useEffect(() => {
+    let fetch = true;
+    if(service_id){
+      serviceRepository.getService(service_id as string)
+      .then((s)=> {
+        if(fetch) setService(s)
+      })
+    }
+    
+  
+    return () => {
+      fetch = false
+    }
+  }, [service_id])
+  
+
+  return <ServiceView service={service}/>
 }
 
-const ServiceView = () => {
+const ServiceView = ({service}:{service: ServiceModel | undefined}) => {
   const { asPath, route, push, query } = useRouter()
-
+  
   const _handleNavigate = () => {
     const queryParams = `order_id=${query.service_id}&order_path=services`;
     push(
@@ -22,24 +44,26 @@ const ServiceView = () => {
       asPath + `payment?${queryParams}`
     )
   }
-  return (
+  if(!service) {
+    return (<Loading loading={true}/>)
+  }else return (
     <div className={style.serviceDetail}>
       <header>
         <p className='small-caps'>Servicio</p>
-        <h1 className='main-title'>{serviceDetail.title}</h1>
+        <h1 className='main-title'>{service.title}</h1>
       </header>
       {serviceDetail.image && (
         <div className={style.serviceImage}>
-          <Image src={serviceDetail.image = serviceImage} alt='Imagen de detalle del servicio' />
+          {service.image && <Image  src={service.image.url} alt='Imagen de detalle del servicio' />}
         </div>
       )}
       <div className={style.serviceDetailContent}>
-        {serviceDetail.description}
-        {serviceDetail.list && (
+        {service.description}
+        {service.functions && (
           <div>
             <h2>¿Cómo funciona?</h2>
             <ul>
-              {serviceDetail.list.map((listItem, index) => {
+              {service.functions.map((listItem, index) => {
                 return (
                   <li key={index}>
                     <span className={style.listNumber}>{index+1}.</span><span>{listItem}</span>
@@ -69,29 +93,6 @@ const ServiceView = () => {
           </div>
         </div>
       </footer>
-      {/* Esto va en otro componente??? cuando se produzca con éxito la compra de un servicio*/}
-      <div className={style.successCard}>
-        <div className={style.successCardContainer}>
-          <p>Servicio contratado con éxito</p>
-          <div className={style.imageContainer}>
-            <Image src={clappingHands} alt={'manos aplaudiendo'}></Image>
-          </div>
-          <p className={style.successCardTitle}>
-            ¡Muy bien, ya estamos casi listos!
-          </p>
-          <p>
-            Pronto recibiras un mail de confirmación con todos los datos de tu
-            compra.
-          </p>
-          <div className={style.buttonContainer}>
-            <ButtonApp
-              buttonStyle='secondary'
-              type='submit'
-              labelID='btn.accept'
-            />
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

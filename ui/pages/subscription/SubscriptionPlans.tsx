@@ -1,42 +1,34 @@
-import UnderConstruction from 'components/UnderConstruction';
-import { FormattedMessage } from 'react-intl';
+
 import style from './subscriptionPlans.module.scss'
 import Image from 'next/image';
 import checkImg from '../../../assets/img/check.svg'
 import nocheckImg from '../../../assets/img/nocheck.svg'
-import ButtonApp from 'components/ButtonApp';
 import SwitcherButton from 'components/SwitcherButton';
 import LinkApp from 'components/LinkApp';
-import { useState } from 'react';
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import { PLANS } from 'infrastructure/dto/system_config.dto';
+import systemRepository from 'infrastructure/repositories/system.repository';
+import Loading from 'components/Loading';
+
+
 
 
 const SubscriptionPlans = () => {
-  return (
-    <SubscriptionPlansView/>
-  )
-}
-
-const SubscriptionPlansView = () => {
-  const router = useRouter();
-  const [paymentType, setPaymentType] = useState('monthly');
-  const { paymentQuery } = router.query
-
-
-  const selectSubscriptionPlan = (subscriptionType:any) => {
-    // console.log('hola',paymentType)
-
-    setPaymentType(subscriptionType);
-    // console.log('hola',paymentQuery);
-  }
-
-  return (
+  const [paymentType, setPaymentType] = useState<'monthly' | 'yearly'>('monthly');
+  const [plans, setPlans] = useState<PLANS | undefined>()
+  useEffect(() => {
+    systemRepository.getPlans()
+    .then(res => {setPlans(res)})
+  }, [])
+  
+  if(!plans) return (<Loading loading={true}/>)
+  else  return (
     <div className={style.subscriptionPlansPage}>
       <header>
         <p className='small-caps'>Suscripción</p>
         <p className={`${style.topTitle} main-title`}>Elige tu plan de suscripción</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae eos ducimus quidem, deserunt, beatae ut ipsam tenetur optio id corporis illum reprehenderit unde sapiente quibusdam, iste autem blanditiis sequi totam.</p>
-        <SwitcherButton labels={['Pago Anual','Pago mensual']} subscriptionType={selectSubscriptionPlan}/>
+        <SwitcherButton labels={['Pago Anual','Pago mensual']} onChange={(p:'left' | 'rigth' )=> setPaymentType(p === 'left' ? 'yearly' : 'monthly')}/>
       </header>
       <table>
         <thead>
@@ -51,27 +43,26 @@ const SubscriptionPlansView = () => {
           <tr className="prices" >
             <td></td>
             <td className="prices_basic" >
-
-              <p className="yearly price flex-container justify-center"><span className={style.price_qty}>200 €</span> / año</p>
+              <p className="yearly price flex-container justify-center"><span className={style.price_qty}>{plans.basic.price[paymentType]} €</span> / año</p>
             </td>
             <td className="prices_plus" >
-              <p className="yearly price flex-container justify-center"><span className={style.price_qty}>300 €</span> / año</p>
+              <p className="yearly price flex-container justify-center"><span className={style.price_qty}>{plans.plus.price[paymentType]} €</span> / año</p>
             </td>
             <td className="prices_premium" >
 
-              <p className="yearly price flex-container justify-center"><span className={style.price_qty}>500 €</span> / año</p>
+              <p className="yearly price flex-container justify-center"><span className={style.price_qty}>{plans.premium.price[paymentType]} €</span> / año</p>
             </td>
           </tr>
           <tr >
             <td></td>
             <td>
-            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription?payment-type=${paymentType}`} />
+            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plan/basic?payment_type=${paymentType}`} />
             </td>
             <td>
-            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription?payment-type=${paymentType}`} />
+            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plan/plus?payment_type=${paymentType}`} />
             </td>
             <td>
-            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription?payment-type=${paymentType}`} />
+            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plan/premium?payment_type=${paymentType}`} />
             </td>
           </tr>
           <tr className={style.subheader}>

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { useRouter } from 'next/router'
 import serviceRepository from 'infrastructure/repositories/service.repository'
+import Loading from 'components/Loading'
 
 
 const stripePromise = loadStripe(
@@ -52,12 +53,12 @@ export default function StripePayment () {
   }
 
   return (
-    <div style={{position: 'relative'}}>
-      {clientSecret && (
+    <div style={{position: 'relative', minHeight: '100px'}}>
+      {clientSecret ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
-      )}
+      ) : <Loading loading={true} variant='inner-primary'/>}
     </div>
   )
 }

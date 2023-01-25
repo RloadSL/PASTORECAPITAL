@@ -1,51 +1,57 @@
-import style from './switcherButton.module.scss';
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useCallback
-} from 'react'
-import { useRouter } from 'next/router';
+/* eslint-disable react-hooks/exhaustive-deps */
+import style from './switcherButton.module.scss'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
+import { useRouter } from 'next/router'
 
 interface SwitcherButtonProps {
   labels: Array<string>
-  subscriptionType: any
+  onChange: Function
 }
 
-const SwitcherButton = ({ labels, subscriptionType = 'monthly' }: SwitcherButtonProps) => {
-  return <SwitcherButtonView subscriptionType={subscriptionType} labels={labels}></SwitcherButtonView>
-}
+const SwitcherButton = ({ onChange, labels }: SwitcherButtonProps) => {
+  const [subscriptionType, setSubscriptionType] = useState('rigth')
 
-const SwitcherButtonView = ({ labels, subscriptionType }: SwitcherButtonProps) => {
-  const router = useRouter();
-
-  const handleSubscriptionType = (e:any) => {
-    //console.log(e.currentTarget.id)
-    const elTarget = e.currentTarget.id;
-    const circle = document.querySelector('#circle') as HTMLElement;
-    if(elTarget === 'monthly') {
-      circle.style.left = '45px';
-      subscriptionType(elTarget)
-      // console.log(router)
-      // router.query = {paco:'paco'}
-    } else {
-      circle.style.left = '0px';
-      subscriptionType(elTarget);
-    }
+  const handleSubscriptionType = (type: 'left' | 'rigth') => {
+    setSubscriptionType(type)
+    onChange(type)
   }
 
   return (
     <div>
       <div className={style.billedButtons}>
-        <label id={'yearly'} className={style.labelYearly} onClick={handleSubscriptionType}>
-          <input className="billed-buttons_button" type="radio" name="suscription" value="yearly" id="first" />
+        <label
+          id={'yearly'}
+          className={style.labelYearly}
+          onClick={() => handleSubscriptionType('left')}
+        >
+          <input
+            className='billed-buttons_button'
+            type='radio'
+            name='suscription'
+            value='yearly'
+            id='first'
+          />
           {labels[0]}
         </label>
         <div className={style.radioButton}>
-          <span id="circle" className={style.circle} style={{ left: "0px" }}></span>
+          <span
+            id='circle'
+            className={style.circle}
+            style={{ left: subscriptionType === 'left' ? '0px' : '45px' }}
+          ></span>
         </div>
-        <label className={style.labelMonthly} id={'monthly'} onClick={handleSubscriptionType}>
-          <input className="billed-buttons_button" type="radio" name="suscription" value="monthly" id="second" />
+        <label
+          className={style.labelMonthly}
+          id={'monthly'}
+          onClick={() => handleSubscriptionType('rigth')}
+        >
+          <input
+            className='billed-buttons_button'
+            type='radio'
+            name='suscription'
+            value='monthly'
+            id='second'
+          />
           {labels[1]}
         </label>
       </div>
@@ -53,4 +59,4 @@ const SwitcherButtonView = ({ labels, subscriptionType }: SwitcherButtonProps) =
   )
 }
 
-export default SwitcherButton;
+export default SwitcherButton
