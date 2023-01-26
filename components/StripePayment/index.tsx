@@ -8,6 +8,7 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import { useRouter } from 'next/router'
 import serviceRepository from 'infrastructure/repositories/service.repository'
 import Loading from 'components/Loading'
+import Card from 'components/Card'
 
 
 const stripePromise = loadStripe(
@@ -52,12 +53,12 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
   }
 
   return (
-    <div style={{position: 'relative', minHeight: '100px'}}>
+    <Card>
       {(clientSecret || clientSecretParam) ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
       ) : <Loading loading={true} variant='inner-primary'/>}
-    </div>
+    </Card>
   )
 }

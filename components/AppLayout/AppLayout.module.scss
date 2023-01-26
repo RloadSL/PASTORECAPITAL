@@ -1,0 +1,19 @@
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.alertMessageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h3 {
+    margin: 0px !important;
+  }
+
+  &_icon {
+    max-width: 100px;
+  }
+}

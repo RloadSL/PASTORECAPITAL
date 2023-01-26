@@ -44,9 +44,8 @@
   }
 
   &_form {
-    border-radius: 20px;
-    background-color: white;
-    padding: 40px;
+    //background-color: white;
+    // padding: 40px;
 
     @include devices.device(smScreen) {
       width: 50%;

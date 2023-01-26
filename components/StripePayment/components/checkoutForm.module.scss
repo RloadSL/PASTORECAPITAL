@@ -1,0 +1,11 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/placeholders";
+
+.formContainer {
+  position: relative;
+  border-radius: 40px;
+  form {
+    padding: 40px;
+  }
+}

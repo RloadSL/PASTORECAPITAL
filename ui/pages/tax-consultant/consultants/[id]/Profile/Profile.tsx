@@ -54,11 +54,11 @@ const Profile = () => {
           </div>
           {
             isAdmin() && <div className={style.adminButtons}><LinkApp
-            label={'btn.edit'}
-            linkStyle={'edit'}
-            linkHref={asPath + 'edit'}
-            icon={iconEdit}
-          /></div>
+              label={'btn.edit'}
+              linkStyle={'edit'}
+              linkHref={asPath + 'edit'}
+              icon={iconEdit}
+            /></div>
           }
         </div>
         <div className={style.profileShortDetails}>
@@ -71,7 +71,9 @@ const Profile = () => {
             state={consultant?.state}
           />
           <div className={style.rightContainer}>
-            <div className={style.chatLink}></div>
+            <a href={'#askResponses'} className={style.chatLink}>
+              <span className='only-readers'>Ir a las preguntas y respuestas</span> 
+            </a>
             {consultant?.linkedin && (
               <a href={consultant?.linkedin} className={style.linkedinIcon}>
                 linkedin
@@ -105,11 +107,11 @@ const Profile = () => {
         />
       </div>
       <div className={style.profileConversation}>
-        <div>
-        <CommentsListApp infoData={{
-          mainTitle: 'Preguntas:',
-          description: 'Comenta tus dudas con el asesor.'
-        }} parent={{id: query.id as string, path: 'user_consultant'}} main={true} />
+        <div id='askResponses'>
+          <CommentsListApp infoData={{
+            mainTitle: 'Preguntas:',
+            description: 'Comenta tus dudas con el asesor.'
+          }} parent={{ id: query.id as string, path: 'user_consultant' }} main={true} />
         </div>
       </div>
     </div>

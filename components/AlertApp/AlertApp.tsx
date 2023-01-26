@@ -10,18 +10,20 @@ const AlertApp = ({
   title,
   children,
   visible,
-  onCancel
+  onCancel,
+  cancelButton
 }: {
   title: string
   onAction?: Function
   onCancel: Function
   children: any
-  visible: boolean
+  visible: boolean,
+  cancelButton: boolean
 }) => {
   const [loading, setloading] = useState(false)
 
   const _onAction = async () => {
-    if(!onAction) return;
+    if (!onAction) return;
     setloading(true)
     await onAction()
     setloading(false)
@@ -33,6 +35,7 @@ const AlertApp = ({
       loading={loading}
       onOk={onAction ? () => _onAction() : undefined}
       onCancel={() => onCancel()}
+      cancelButton={cancelButton}
     >
       {children}
     </AlertAppView>
@@ -46,13 +49,15 @@ const AlertAppView = ({
   title,
   onOk,
   loading,
-  children
+  children,
+  cancelButton = true
 }: {
   title: string
   onCancel: Function
   onOk?: Function
   loading: boolean
-  children: any
+  children: any,
+  cancelButton: boolean
 }) => {
   return (
     <Modal onBtnClose={() => onCancel()}>
@@ -66,12 +71,19 @@ const AlertAppView = ({
           {children}
         </div>
         {onOk && <div className={style.actions}>
-          <ButtonApp labelID='alert.btn.cancel' onClick={() => onCancel()} />
-          <ButtonApp
-            labelID='alert.btn.ok'
-            onClick={() => onOk()}
-            buttonStyle='primary'
-          />
+          {cancelButton === true && (
+            <div className={style.buttonContainer}>
+              <ButtonApp labelID='alert.btn.cancel' onClick={() => onCancel()} />
+            </div>
+          )}
+          <div className={style.buttonContainer}>
+            <ButtonApp
+              labelID='alert.btn.ok'
+              onClick={() => onOk()}
+              buttonStyle='primary'
+            />
+          </div>
+
         </div>}
       </div>
       <Loading loading={loading}></Loading>

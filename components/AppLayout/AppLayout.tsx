@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useEffect, useReducer } from 'react'
-
+import Image from 'next/image'
 import Drawer from './components/Drawer'
 import { useDispatch, useSelector } from 'react-redux'
+import alertImg from '../../assets/img/alert.png'
+import style from './AppLayout.module.scss'
 
 import {
   createUser,
@@ -17,14 +19,14 @@ import { FormattedMessage } from 'react-intl'
 import { setLoading } from 'ui/redux/slices/system/system.slice'
 
 export const SubscriptionGranted = createContext<any>(null)
-const initialState = {subscriptionGranted: true};
+const initialState = { subscriptionGranted: true };
 
-function reducerPermission(state:any, action:{garanted: 'garant' | 'no_garant'}) {
+function reducerPermission(state: any, action: { garanted: 'garant' | 'no_garant' }) {
   switch (action.garanted) {
     case 'garant':
-      return {...state,subscriptionGranted: true};
+      return { ...state, subscriptionGranted: true };
     case 'no_garant':
-      return {...state,subscriptionGranted: false};
+      return { ...state, subscriptionGranted: false };
     default:
       throw new Error();
   }
@@ -33,7 +35,7 @@ function reducerPermission(state:any, action:{garanted: 'garant' | 'no_garant'}
  * Componente principal de la aplicación
  */
 
-export default function AppLayout ({ children }: any) {
+export default function AppLayout({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
   //const { subscriptionGranted, userChecked } = useGuardPermissions()
 
@@ -50,7 +52,7 @@ export default function AppLayout ({ children }: any) {
     })
   }, [])
 
- 
+
 
   const _goSubscription = () => router.push('/subscription')
   const _goBack = () => router.back()
@@ -65,6 +67,18 @@ export default function AppLayout ({ children }: any) {
   )
 }
 
+const blockUserContent = () => {
+  return (
+    <div className={style.alertMessageContent}>
+      <div className={style.alertMessageContent_icon}>
+        <Image src={alertImg} alt='Icono de alerta de usuario' />
+      </div>
+      <p>
+        <FormattedMessage id='Parece que quieres acceder a este contenido. Actualiza tu plan de suscripción para tener acceso.' />
+      </p>
+    </div>
+  )
+}
 
 
 export const AppLayoutView = ({
@@ -75,24 +89,18 @@ export const AppLayoutView = ({
 }: any) => {
   const [permisssioState, dispatch] = useReducer(reducerPermission, initialState);
 
-  
   return (
     <div>
       <SubscriptionGranted.Provider value={dispatch}>
-      <Drawer>{children}</Drawer>
+        <Drawer>{children}</Drawer>
         <AlertApp
           onCancel={() => goBack()}
           onAction={() => goSubscription()}
-          visible={!permisssioState.subscriptionGranted || alertSubscription}
+          visible={!permisssioState.subscriptionGranted || alertSubscription}
           title='subscription.user.unauthorized.alert.title'
+          cancelButton={false}
         >
-          {
-            <div>
-              <p>
-                <FormattedMessage id='Para acceder a este contenido necesitas suscribirte a uno de los planes que lo habilite' />
-              </p>
-            </div>
-          }
+          {blockUserContent()}
         </AlertApp>
       </SubscriptionGranted.Provider>
     </div>

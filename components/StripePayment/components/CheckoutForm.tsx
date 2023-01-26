@@ -8,6 +8,7 @@ import {
 import ButtonApp from 'components/ButtonApp'
 import { useRouter } from 'next/router'
 import Loading from 'components/Loading'
+import style from './checkoutForm.module.scss'
 
 
 export default function CheckoutForm () {
@@ -70,6 +71,7 @@ export default function CheckoutForm () {
   }
 
   return (
+    <div className={style.formContainer}>
     <form id='payment-form'>
       <PaymentElement id='payment-element' options={paymentElementOptions} />
 
@@ -81,9 +83,11 @@ export default function CheckoutForm () {
           onClick={handleSubmit}
         />
       )}
-      {/* Show any error or success messages */}
-      {message && <div id='payment-message'>{message}</div>}
-      <Loading loading={isLoading} variant='inner-primary' />
+
     </form>
+          {/* Show any error or success messages */}
+          {message && <div id='payment-message'>{message}</div>}
+      <Loading loading={isLoading} variant='inner-primary' />
+    </div>
   )
 }
