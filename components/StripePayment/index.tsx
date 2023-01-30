@@ -25,14 +25,14 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
     if (query.order_id && query.order_path && userLogged?.uid && !intent && !clientSecretParam) {
       serviceRepository
         .hireServiceIntent({
-          currency: 'eur',
-          payment_method_types: ['card'],
+          customer: userLogged.stripe_cu_id,
+          receipt_email: userLogged.email,
           metadata: {
             uid: userLogged.uid,
             user_fullname: `${userLogged.name} ${userLogged.lastname}`,
             user_email: userLogged.email,
             order_id: query.order_id,
-            order_path: query.order_path
+            order_path: query.order_path,
           }
         })
         .then(data => {
