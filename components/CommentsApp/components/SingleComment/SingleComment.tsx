@@ -122,7 +122,7 @@ const SingleCommentView = ({
 
                   {isMainComment &&
                     userLogged &&
-                    (editionGranted || owner.uid === userLogged?.uid) && (
+                    (editionGranted || owner?.uid === userLogged?.uid) && (
                       <div className={style.replyButton}>
                         <ButtonApp
                           labelID={

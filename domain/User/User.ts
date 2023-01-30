@@ -57,6 +57,8 @@ export class User {
     return this._userDataToken;
   }
 
+  stripe_cu_id?:string;
+
   constructor(userData: UserDto) {
     this._uid = userData.uid;
     this._email = userData.email;
@@ -69,6 +71,7 @@ export class User {
     this._userDataToken = userData.userDataToken
     this._created_at = userData.created_at instanceof Timestamp ? userData.created_at?.toDate() :  userData.created_at
     this._collaboration = userData.collaboration
+    this.stripe_cu_id = userData.stripe_cu_id
   }
 
   public toJson = (): UserDto => ({
@@ -81,6 +84,7 @@ export class User {
     subscrition: this._subscription,
     edition_section: this._edition_section,
     created_at: this._created_at,
-    collaboration: this.collaboration
+    collaboration: this.collaboration,
+    stripe_cu_id: this.stripe_cu_id
   });
 }

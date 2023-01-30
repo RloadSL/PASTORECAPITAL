@@ -18,7 +18,7 @@ const AlertApp = ({
   onCancel: Function
   children: any
   visible: boolean,
-  cancelButton: boolean
+  cancelButton?: boolean
 }) => {
   const [loading, setloading] = useState(false)
 
@@ -57,7 +57,7 @@ const AlertAppView = ({
   onOk?: Function
   loading: boolean
   children: any,
-  cancelButton: boolean
+  cancelButton?: boolean
 }) => {
   return (
     <Modal onBtnClose={() => onCancel()}>

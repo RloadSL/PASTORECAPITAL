@@ -14,7 +14,7 @@ import Loading from 'components/Loading';
 
 
 const SubscriptionPlans = () => {
-  const [paymentType, setPaymentType] = useState<'monthly' | 'yearly'>('monthly');
+  const [paymentType, setPaymentType] = useState<'month' | 'year'>('month');
   const [plans, setPlans] = useState<PLANS | undefined>()
   useEffect(() => {
     systemRepository.getPlans()
@@ -28,7 +28,7 @@ const SubscriptionPlans = () => {
         <p className='small-caps'>Suscripción</p>
         <p className={`${style.topTitle} main-title`}>Elige tu plan de suscripción</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae eos ducimus quidem, deserunt, beatae ut ipsam tenetur optio id corporis illum reprehenderit unde sapiente quibusdam, iste autem blanditiis sequi totam.</p>
-        <SwitcherButton labels={['Pago Anual','Pago mensual']} onChange={(p:'left' | 'rigth' )=> setPaymentType(p === 'left' ? 'yearly' : 'monthly')}/>
+        <SwitcherButton labels={['Pago Anual','Pago mensual']} onChange={(p:'left' | 'rigth' )=> setPaymentType(p === 'left' ? 'year' : 'month')}/>
       </header>
       <table>
         <thead>
@@ -56,13 +56,13 @@ const SubscriptionPlans = () => {
           <tr >
             <td></td>
             <td>
-            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plan/basic?payment_type=${paymentType}`} />
+            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/basic?payment_type=${paymentType}`} />
             </td>
             <td>
-            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plan/plus?payment_type=${paymentType}`} />
+            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plus?payment_type=${paymentType}`} />
             </td>
             <td>
-            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/plan/premium?payment_type=${paymentType}`} />
+            <LinkApp target={'_self'} label={'Elegir plan'} linkStyle={'button'} linkHref={`subscription/premium?payment_type=${paymentType}`} />
             </td>
           </tr>
           <tr className={style.subheader}>

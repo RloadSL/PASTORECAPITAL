@@ -87,7 +87,7 @@ const SingleCommentView = ({
                     <div className={style.date}>
                       <div>{comment.created_at.toLocaleDateString()}</div>
                     </div>
-                    {owner.role.level > 0 ? (
+                    {owner?.role.level > 0 ? (
                       <Chips
                         chips={[{ label: 'Profesor' }]}
                         color='lightMain'

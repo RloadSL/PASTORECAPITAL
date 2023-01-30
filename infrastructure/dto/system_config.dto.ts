@@ -1,20 +1,20 @@
 export interface  PLANS {
   basic: {
     price: {
-      yearly: number,
-      monthly: number
+      year: number,
+      month: number
     }
   },
   plus: {
     price: {
-      yearly: number,
-      monthly: number
+      year: number,
+      month: number
     }
   },
   premium: {
     price: {
-      yearly: number,
-      monthly: number
+      year: number,
+      month: number
     }
   }
 }

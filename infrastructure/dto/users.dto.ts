@@ -42,7 +42,8 @@ export interface UserDto {
   /**
    * Permisos asignados de un colaborador
    */
-  collaboration?: any
+  collaboration?: any,
+  stripe_cu_id?:string
 }
 
 export interface Role {
