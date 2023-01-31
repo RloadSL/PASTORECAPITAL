@@ -8,7 +8,14 @@
   padding-right: 2%;
 
   header {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
+
+    .paymentType_label {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 50px;
+    }
   }
 
 .is-block {
@@ -188,4 +195,93 @@ table {
   color: colors.$main;
 }
 
+}
+
+.tableContainer {
+  width: 100%;
+  overflow: auto;
+
+  @include devices.device(tablet) {
+    width: auto
+  }
+
+  table {
+    width: 1000px;
+
+    @include devices.device(tablet) {
+      width: 100%;
+    }
+  }
+}
+
+.subscriptionToPlan {
+  @extend %layoutContainer;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  
+  @include devices.device(mdScreen) {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .planPrice {
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+    @include devices.device(mdScreen) {
+      margin-top: 100px;
+
+    }
+  }
+
+  &_info {
+    color: colors.$dark;
+
+    @include devices.device(mdScreen) {
+      width: 40%;
+    }
+
+    @include devices.device(lgScreen) {
+      width: 40%;
+    }
+
+    .title {
+      @extend %mainTitle;
+      font-weight: bold;
+
+    }
+
+    .pricePlan {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .labelPlan {
+      font-size: 1.2rem;
+      margin-bottom: 0px;
+    }
+
+    .textInfo {
+      font-size: 1.2rem;
+    }
+  }
+
+  &_form {
+    max-width: 800px;
+    width: 100%;
+
+    @include devices.device(mdScreen) {
+      width: 50%;
+    }
+
+    @include devices.device(lgScreen) {
+      width: 40%;
+    }
+  }
 }

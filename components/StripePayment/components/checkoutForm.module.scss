@@ -6,6 +6,10 @@
   position: relative;
   border-radius: 40px;
   form {
-    padding: 40px;
+    padding: 20px;
+
+    @include devices.device(smTablet) {
+      padding: 40px;
+    }
   }
 }
