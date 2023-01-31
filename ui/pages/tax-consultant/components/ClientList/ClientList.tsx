@@ -2,13 +2,14 @@ import AvatarName from 'components/AvatarName'
 import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
 import style from './clientList.module.scss'
+import ManageAppointment from './components/ManageAppointment'
 
 interface ClientListProps {
   clients: Array<any>
 }
 
 /**
- * Compoennte para renderizar el listado de clientes en el dashboard del asesor
+ * Componente para renderizar el listado de clientes en el dashboard del asesor
  * @param clients Listado de clientes 
  * @returns 
  */
@@ -19,8 +20,11 @@ const ClientList = ({ clients }: ClientListProps) => {
 
 const ClientListView = ({ clients }: ClientListProps) => {
   const maxClients = 4
-
+  
   return (
+    <div>
+      
+   
     <Card cardStyle={'modal'}>
       <div className={`${style.cardContainer} ${style.clientList}`}>
         {clients.length != 0 ? (
@@ -50,8 +54,12 @@ const ClientListView = ({ clients }: ClientListProps) => {
             <p>No tienes clientes todavía</p>
           </div>
         )}
+
       </div>
+      <ManageAppointment/>
+
     </Card>
+    </div>
 
   )
 }
