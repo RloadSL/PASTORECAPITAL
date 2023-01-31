@@ -166,6 +166,12 @@
   "page.tax-consultant.create-service.form.functions" : "¿Cómo funciona?",
   "page.tax-consultant.create-service.form.keywords" : "Añade palabras clave",
   "page.tax-consultant.create-service.form.form" : "Subir formulario de contratación",
+  "page.tax-consultant.manageAppointment.form.title" : "Gestionar Cita",
+  "page.tax-consultant.manageAppointment.client.label" : "Cliente",
+  "page.tax-consultant.manageAppointment.service.label" : "Servicio",
+  "page.tax-consultant.manageAppointment.calendly.label" : "Enlace a calendly",
+  "page.tax-consultant.manageAppointment.message.label" : "Mensaje",
+
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",

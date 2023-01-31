@@ -1,0 +1,16 @@
+@use "../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../styles/partials/placeholders";
+
+.clients {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  header {
+    margin-bottom: 50px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+}

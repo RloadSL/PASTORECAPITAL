@@ -4,7 +4,7 @@ import { clientsList, servicesList } from 'ui/utils/test.data'
 import calendarIcon from '../../../../../assets/img/icons/calendar.svg'
 import clientsIcon from '../../../../../assets/img/icons/clients.svg'
 import LinkApp from 'components/LinkApp';
-import ClientList from './components/ClientList';
+import ClientList from '../../components/ClientList';
 import ActiveServiceList from './components/ActiveServiceList';
 import { NextPage } from 'next';
 import ConsultantServiceList from '../../components/ConsultantServiceList';
