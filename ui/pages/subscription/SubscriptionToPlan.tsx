@@ -12,7 +12,6 @@ const SubscriptionToPlan = () => {
   const { query, replace } = useRouter()
   const userLoggued = useSelector(getUserLogged)
   useEffect(() => {
-    console.log(query)
     let fetch = true
     if (
       userLoggued?.userDataToken &&

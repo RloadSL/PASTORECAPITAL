@@ -17,7 +17,7 @@ class SystemConfigRepository {
     if(res?.exists()){
       return  res.data() as PLANS;  
     }
-    alert('Error interno falta la configuracion inicial de planes del sistema. Ponerte en contacto con tus administradores de servicio.')
+    alert('Error interno falta la configuracion inicial de planes del sistema. Ponte en contacto con tus administradores de servicio.')
     return undefined;
   }
 

@@ -66,7 +66,7 @@ export class User {
     this._name = userData.name;
     this._role = userData.role;
     this._wpToken = userData.wpToken;
-    this._subscription = userData.subscrition
+    this._subscription = userData.subscription
     this._edition_section = userData.edition_section
     this._userDataToken = userData.userDataToken
     this._created_at = userData.created_at instanceof Timestamp ? userData.created_at?.toDate() :  userData.created_at
@@ -81,7 +81,7 @@ export class User {
     name: this._name,
     role: this._role,
     wpToken: this._wpToken,
-    subscrition: this._subscription,
+    subscription: this._subscription,
     edition_section: this._edition_section,
     created_at: this._created_at,
     collaboration: this.collaboration,

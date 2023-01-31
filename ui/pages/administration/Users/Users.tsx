@@ -58,7 +58,7 @@ const UsersView = ({ users }: { users: User[] }) => {
         <div className={style.information}>
           <div className={style.role}>
             <div className={style.roleLabel}>{user.role.label}</div>
-            {user.role.level === 0 && <div className={style.subscrition}> /
+            {user.role.level === 0 && <div className={style.subscription}> /
               {user.subscription.plan.label}
             </div>}
           </div>

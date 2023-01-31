@@ -34,7 +34,7 @@ export interface UserDto {
   /**
    * Plan del usuario
    */
-  subscrition: Subscription,
+  subscription: Subscription,
   /**
    * Urls donde un administrador tendrá opción de edición
    */

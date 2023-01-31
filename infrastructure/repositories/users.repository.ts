@@ -29,7 +29,7 @@ class UserRepositoryImplementation{
       level: 0
     },
     uid: 'not-logged',
-    subscrition: {
+    subscription: {
       created_at : new Date(),
       plan: {
         key: 'basic',
