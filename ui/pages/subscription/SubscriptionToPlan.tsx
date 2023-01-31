@@ -26,14 +26,14 @@ const SubscriptionToPlan = () => {
         })
         .then(res => {
           if (fetch) {
-            if(res?.clientSecret){
+            if (res?.clientSecret) {
               setClientSecret(res.clientSecret)
               setIntent(res.payment_intent)
-            }else{
+            } else {
               alert('Plan not enabled')
               replace('/subscription')
             }
-            
+
           }
         })
     }
@@ -44,16 +44,33 @@ const SubscriptionToPlan = () => {
   }, [userLoggued, query.payment_type, query.plan_subscription])
 
   return (
-    <div>
-      <div>Datos de la subscripción</div>
-      {intent && (<div>
-        Total a pagar: {intent.amount / 100}€ / {query.payment_type} 
-      </div>)}
-      <div className={style.payment_form}>
-        <div className={`${style.stripe_form}`}>
-          <StripePayment clientSecretParam={clientSecret} />
+    <div className={style.subscriptionToPlan}>
+      <div className={style.subscriptionToPlan_info}>
+        <p className={style.title}>
+          <span>Plan </span>
+          <span>{query['plan-subscription']}</span>
+        </p>
+        <p className={style.textInfo}>Completa el proceso de suscripción y comienza
+          a formar parte de nuestra comunidad</p>
+        {intent && (<div className={style.planPrice}>
+          <p className={style.labelPlan}>
+            Precio {query.payment_type === 'month' ? 'mensual' : 'anual'}
+          </p>
+          <p className={style.pricePlan}>
+            {intent.amount / 100} €
+          </p>
+          <small>IVA incluido</small>
+        </div>)}
+      </div>
+      <div className={style.subscriptionToPlan_form}>
+        <div className={style.payment_form}>
+          <div className={`${style.stripe_form}`}>
+            <StripePayment clientSecretParam={clientSecret} />
+          </div>
         </div>
       </div>
+
+
     </div>
   )
 }
