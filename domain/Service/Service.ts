@@ -18,9 +18,10 @@ export default class Service {
   }
   created_at: Date
   userConsultantId:string
-
+  user_count?:number
   constructor(data:ServiceDto){
     this.id = data.id as string
+    this.user_count = data.user_count
     this.title = data.title as string
     this.image = data.image
     this.description = data.description as string
@@ -36,6 +37,11 @@ export default class Service {
   async getUserConsultant(): Promise<UserConsultant | undefined>{
     const uc = await userConsultantRepository.getUserConsultant(this.userConsultantId);
     return uc;
+  }
+
+  async isOwner(uid:string){
+    const uc = await this.getUserConsultant()
+    return uc?.uid === uid
   }
 
   set(data:ServiceDto){}

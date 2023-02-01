@@ -7,10 +7,14 @@ import style from './avatarName.module.scss'
  * @returns 
  */
 
-const AvatarName = ({ userName } : { userName: string }) => {
+const AvatarName = ({ userName, subtitle } : { userName: string , subtitle?: string}) => {
   return <div className={style.avatarNameContainer}>
     <Avatar size={'large'} renderItem={userName[0]} />
+    <div>
     <span>{userName}</span>
+    {subtitle && <span className={style.subtitle}>{subtitle}</span>}
+    </div>
+   
   </div>
 }
 

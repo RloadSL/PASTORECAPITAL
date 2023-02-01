@@ -33,7 +33,7 @@ const ClientListView = ({ clients }: ClientListProps) => {
               return <li key={index}>
                 <div className={style.client}>
                   <div className={style.avatarBlock}>
-                    <AvatarName userName={`${client.name} ${client.lastname}`} />
+                    <AvatarName subtitle={client.serviceTitle} userName={`${client.user.name} ${client.user.lastname}`} />
                   </div>
                   <div className={style.buttonBlock}>
                     <ButtonApp

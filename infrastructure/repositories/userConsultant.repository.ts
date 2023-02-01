@@ -6,9 +6,11 @@ import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
 import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 import StorageFirebase from "infrastructure/firebase/storage.firebase";
+import { parseFirestoreDocs } from "infrastructure/firebase/utils";
 import firestoreFirebase from "../firebase/firestore.firebase";
 import FireFirestore from "../firebase/firestore.firebase";
 import {HTTP} from '../http/http'
+import serviceRepository from "./service.repository";
 import { UserRepositoryImplInstance } from "./users.repository";
 class UserConsultantRepository{
   private static instance: UserConsultantRepository;
@@ -23,9 +25,20 @@ class UserConsultantRepository{
    * Retorna el listado de clientes del Asesor
    * @param id Identificador del perfil del asesor en firebase tabla (user_consultant)
    */
-  getClients(id:string){
-    const res:any = null;
-    return res;
+  async getClients(id:string){
+    const result = await firestoreFirebase.getCollectionGroupDocs('service_users',undefined, [['userConsultantId' , '==', id]]);
+    if(!(result instanceof ErrorApp)){
+      const docs = parseFirestoreDocs(result).map(async (item) => {
+        const {uid, title, service_id} = item
+        const user = await UserRepositoryImplInstance.read(uid);
+        return {serviceTitle: title, service_id, user}
+      })
+      const data = await Promise.all(docs)
+      return data;
+    }else{
+      console.log(result)
+      return [];
+    }
   }
   /**
    * Crea y retorna un servicio para el Asesor [ElasticSearch]
@@ -35,7 +48,10 @@ class UserConsultantRepository{
    * Retorna todos los servicios de un asesor [ElasticSearch]
    * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)
   */
-  getService(id:string){}
+  async getServices(id:string, active:boolean = false){
+    const res = await serviceRepository.getServices(id,active)
+    return res
+  }
   /**
    * Retorna los datos de un Asesor
    * @param id Identificador de los datos del asesor en firebase  tabla (user_consultant)

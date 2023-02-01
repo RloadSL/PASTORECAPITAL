@@ -57,7 +57,6 @@ export default function AppLayout({ children }: any) {
 
   const _handleColaborators = async (uid:string) => {
     const userConsultant = await userConsultantRepository.getUserConsultantByUID(uid)
-    console.log(userConsultant)
     dispatch(setCurrentConsultant(userConsultant))
   }
 

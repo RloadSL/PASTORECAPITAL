@@ -47,7 +47,6 @@ class CommentsImpl {
      
       const conditions = [['parent.id', '==', parent.id as string]]
       const cSnap = await FireFirestore.getCollectionDocs(this.commentsPath, lastSnap, conditions, 5);
-      console.log(cSnap)
       if (!(cSnap instanceof ErrorApp)) {
         const result = await this.parseCommentsSnapShot(cSnap);
         return {comments: result, lastSnapshot: cSnap[cSnap?.length -1]};

@@ -11,6 +11,7 @@ export interface UserConsultantDto {
   linkedin?: string;
   created_at: Date;
   state?: 'new' | 'active' | 'disabled'
+  user_count?: number 
 }
 
 export interface UserConsultantInitialValues {

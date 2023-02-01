@@ -18,8 +18,9 @@ export class UserConsultant{
   linkedin?: string;
   created_at?: Date;
   state?: 'new' | 'active' | 'disabled';
+  user_count?: number 
   constructor(user:User, data:UserConsultantDto){
-   
+    this.user_count = data.user_count
     this.uid = user.uid;
     this.name = user.name;
     this.lastname = user.lastname;
@@ -55,7 +56,7 @@ export class UserConsultant{
   }
 
   async getClients(): Promise<User[]>{
-    const res:User[] = userConsultantRepository.getClients(this.id);
+    const res:any = userConsultantRepository.getClients(this.id);
     return res;
   }
 
@@ -63,8 +64,11 @@ export class UserConsultant{
     await userConsultantRepository.createService(data);
   }
 
-  async getServices(query:any){
-    await userConsultantRepository.getService(query);
+  async getActiveServices(){
+    console.log('getActiveServices')
+    const s = await userConsultantRepository.getServices(this.id,true);
+    console.log('getActiveServices',s)
+    return s;
   }
 
   async closeConsultantAccount(){

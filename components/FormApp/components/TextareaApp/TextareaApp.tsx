@@ -70,7 +70,6 @@ const TextareaAppView = ({
       inputRef?.current?.value ? `${style.filled} ${style.label}` : style.label
     )
   }, [inputRef?.current?.value])
-  console.log('Value TA', value)
   return (
     <div className='position-relative'>
       <div className={style.inputContainer}>

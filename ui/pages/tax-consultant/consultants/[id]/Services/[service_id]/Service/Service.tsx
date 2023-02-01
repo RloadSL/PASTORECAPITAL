@@ -1,18 +1,20 @@
 import ButtonApp from 'components/ButtonApp'
 import style from './service.module.scss'
 import Image from 'next/image'
-import LinkApp from 'components/LinkApp'
+
 import { useRouter } from 'next/router'
-import serviceImage from '../../../../../../../../assets/img/serviceImage.jpg'
-import { serviceDetail } from 'ui/utils/test.data'
+
 import serviceRepository from 'infrastructure/repositories/service.repository'
 import { useEffect, useState } from 'react'
 import ServiceModel from 'domain/Service/Service'
 import Loading from 'components/Loading'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 const Service = () => {
   const { service_id } = useRouter().query
   const [service, setService] = useState<ServiceModel | undefined>()
+  
   useEffect(() => {
     let fetch = true
     if (service_id) {
@@ -31,7 +33,15 @@ const Service = () => {
 
 const ServiceView = ({ service }: { service: ServiceModel | undefined }) => {
   const { asPath, route, push, query } = useRouter()
+  const [isOwner, setisOwner] = useState(true)
+  const userLogged = useSelector(getUserLogged)
 
+  useEffect(() => {
+    if(service){
+      service.isOwner(userLogged?.uid).then((res) => setisOwner(res))
+    }
+  }, [service, userLogged?.uid])
+  
   const _handleNavigate = () => {
     const queryParams = `order_id=${query.service_id}&order_path=services`
     push(route + `/payment?${queryParams}`, asPath + `payment?${queryParams}`)
@@ -83,11 +93,11 @@ const ServiceView = ({ service }: { service: ServiceModel | undefined }) => {
           </div>
           <div className={style.priceButtonContainer}>
             <div className={style.priceButton}>
-              <ButtonApp
+              {!isOwner && <ButtonApp
                 onClick={_handleNavigate}
                 labelID='btn.hire'
                 buttonStyle={'primary'}
-              />
+              />}
             </div>
           </div>
         </footer>

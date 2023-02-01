@@ -20,13 +20,13 @@ interface ConsultantMenuProps {
 const ConsultantMenu = ({ avatarImg }: ConsultantMenuProps) => {
   const windowSize = useWindowSize();
   const consultant = useSelector(getCurrentConsultant)
-  const {push} = useRouter()
   const renderLabel = (itemLabel: string) => {
     if (windowSize.width <= 520) {
       return ''
     }
     return itemLabel
   }
+  if(!consultant) return <div></div>;
   
   return (
     <div className={style.consultantMenuContainer}>

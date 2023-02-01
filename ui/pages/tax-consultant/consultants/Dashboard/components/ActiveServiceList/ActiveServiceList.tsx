@@ -1,11 +1,12 @@
 import Card from 'components/Card'
 import LinkApp from 'components/LinkApp'
+import Service from 'domain/Service/Service'
 import Link from 'next/link'
 import { FormattedMessage } from 'react-intl'
 import style from './activeServiceList.module.scss'
 
 interface ActiveServiceListProps {
-  activeServices: any
+  activeServices: Service[]
 }
 
 /**
@@ -27,14 +28,14 @@ const ActiveServiceListView = ({ activeServices }: ActiveServiceListProps) => {
           {activeServices.length !== 0 ? (
             <div>
               <ul>
-                {activeServices.slice(0, 3).map((service: any, index: number) => {
+                {activeServices.map((service , index: number) => {
                   return <li key={index} className={style.activeService}>
-                    <Link href={'http://localhost:3000/tax-consultant/consultants/123/services/123/'}>
+                    <Link href={`/tax-consultant/consultants/${service.userConsultantId}/services/${service.id}/`}>
                       <a className='flex-container align-center'>
                         <div className={style.textBlock}>
-                          <p className={style.activeServiceTitle}>{service.name}</p>
+                          <p className={style.activeServiceTitle}>{service.title}</p>
                           <p className={style.clientsCount}>
-                            <span>{service.clients}</span>
+                            <span>{service.user_count}</span>
                             <span>
                               <FormattedMessage id='clientes' />
                             </span>
@@ -50,7 +51,7 @@ const ActiveServiceListView = ({ activeServices }: ActiveServiceListProps) => {
                 <LinkApp
                   label={'Ver todos los servicios'}
                   linkStyle={'default'}
-                  linkHref={'#'}
+                  linkHref={`/tax-consultant/consultants/${activeServices[0].userConsultantId}/`}
                 />
               </div>
             </div>

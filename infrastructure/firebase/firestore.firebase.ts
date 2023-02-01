@@ -1,5 +1,5 @@
 import { FirebaseApp } from 'firebase/app';
-import { limit, onSnapshot, startAt, where, Unsubscribe, getFirestore, addDoc, collection, getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter, QueryConstraint } from "firebase/firestore";
+import { limit, onSnapshot, startAt, where, Unsubscribe, getFirestore, addDoc, collection, collectionGroup,getDocs, getDoc, Firestore, CollectionReference, doc, DocumentReference, setDoc, connectFirestoreEmulator, deleteDoc, query, orderBy, DocumentSnapshot, startAfter, QueryConstraint, Query, DocumentData } from "firebase/firestore";
 import { cleanUndefined } from './utils'
 import FireFirebase from './firebase';
 import { on_cloud_firebase } from './config';
@@ -25,10 +25,13 @@ export class FireFirestore {
     return FireFirestore.instance;
   }
   private _collection = (collectionPath: string): CollectionReference => collection(this._db, collectionPath);
+  private _collectionGrup = (collectionPath: string): Query<DocumentData> => collectionGroup(this._db, collectionPath);
+
   private _doc = (collectionPath: string, docId: string): DocumentReference => doc(this._db, collectionPath, docId);
   private _where = (wheres: Array<Array<any>>) => wheres.map(condition => where(condition[0], condition[1], condition[2]))
+  private _orderBy = (orderByFiles: Array<string>) => orderByFiles.map(condition => orderBy(condition, 'desc') )
 
-  public getCollectionDocs = async (collectionPath: string, lastSnap?: DocumentSnapshot, queryWhere?: Array<Array<string>>, limitItems = 20) => {
+  public getCollectionDocs = async (collectionPath: string, lastSnap?: DocumentSnapshot, queryWhere?: Array<Array<string>>, limitItems = 20, orderByFiles:Array<string> = ['created_at']) => {
     let documentSnapshots;
     try {
       const collection = this._collection(collectionPath);
@@ -37,6 +40,37 @@ export class FireFirestore {
         wheres = this._where(queryWhere);
       }
 
+      if (!lastSnap) {
+        const firstQuery = query(collection, 
+          ...wheres, 
+          ...this._orderBy(orderByFiles), limit(limitItems));
+
+        documentSnapshots = await getDocs(firstQuery);
+      } else {
+        const next = query(this._collection(collectionPath),
+          ...wheres, 
+          ...this._orderBy(orderByFiles),
+          startAfter(lastSnap),
+          limit(limitItems));
+        documentSnapshots = await getDocs(next);
+      }
+
+      return documentSnapshots.docs;
+    } catch (error) {
+      console.log(error)
+      return new ErrorApp({errorCode: 'firestore@error', errorMessage: 'firestore@error'})      
+    }
+
+  }
+
+  public getCollectionGroupDocs = async (collectionPath: string, lastSnap?: DocumentSnapshot, queryWhere?: Array<Array<string>>, limitItems = 20) => {
+    let documentSnapshots;
+    try {
+      const collection = this._collectionGrup(collectionPath);
+      let wheres: QueryConstraint[] = [];
+      if (queryWhere) {
+        wheres = this._where(queryWhere);
+      }
       if (!lastSnap) {
         const firstQuery = query(collection, ...wheres, orderBy("created_at", 'desc'), limit(limitItems));
 
@@ -50,7 +84,6 @@ export class FireFirestore {
           limit(limitItems));
         documentSnapshots = await getDocs(next);
       }
-
       return documentSnapshots.docs;
     } catch (error) {
       console.log(error)
@@ -58,6 +91,7 @@ export class FireFirestore {
     }
 
   }
+
   public getDoc = async (collectionPath: string, docId: string) => {
     try {
       const docRef = this._doc(collectionPath, docId);

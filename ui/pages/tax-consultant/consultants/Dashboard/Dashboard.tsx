@@ -8,6 +8,10 @@ import ClientList from '../../components/ClientList';
 import ActiveServiceList from './components/ActiveServiceList';
 import { NextPage } from 'next';
 import ConsultantServiceList from '../../components/ConsultantServiceList';
+import { useSelector } from 'react-redux';
+import { getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface DashboardProps {
 }
@@ -18,16 +22,25 @@ interface DashboardProps {
  * @returns 
  */
 
-const Dashboard:NextPage = () => {
-  return <DashboardView></DashboardView>
-}
+const Dashboard = ({}:DashboardProps) => {
+  const consultant = useSelector(getCurrentConsultant)
+  const [clients, setClients] = useState<any>([])
+  const [activeService, setActiveService] = useState<any>([])
+  const {replace} = useRouter()
 
-const DashboardView = ({}:DashboardProps) => {
-  const clients: any = clientsList;
-  const services: any = servicesList;
+  useEffect(() => {
+   if(consultant){
+       consultant.getClients()
+       .then(res => setClients(res))
 
-  //creo un array que me devuelve unicamente los servicios con clientes, que son os que están activos
-  const getActiveServices = services.filter((item: any) => item.clients !== undefined)
+       consultant.getActiveServices()
+       .then(res => setActiveService(res))
+   }else{
+    //replace('/tax-consultant/consultants')
+   }
+  }, [consultant])
+  
+
 
   return (
     <div className={style.dashboard}>
@@ -64,12 +77,12 @@ const DashboardView = ({}:DashboardProps) => {
                   linkHref={'#'}
                   icon={clientsIcon}
                 />
-                <div>{`(${clients.length})`}</div>
+                <div>{`(${consultant?.user_count || 0})`}</div>
               </div>
             </div>
           </div>
           <div className={`${style.activeServices}`}>
-            <ActiveServiceList activeServices={getActiveServices}/>
+            <ActiveServiceList activeServices={activeService}/>
           </div>
         </div>
         <div className={`${style.gridItem} ${style.allServices}`}>
@@ -79,12 +92,12 @@ const DashboardView = ({}:DashboardProps) => {
               <LinkApp
                 label={'VER TODOS'}
                 linkStyle={'default'}
-                linkHref={'http://localhost:3000/tax-consultant/consultants/123/services/'}
+                linkHref={`/tax-consultant/consultants/${consultant?.id}`}
               />
             </div>
           </div>
           <div>
-            <ConsultantServiceList services={services} maxServicesShown={2} consultantServiceListStyle={'shortList'}/>
+            <ConsultantServiceList maxServicesShown={2} consultantServiceListStyle={'shortList'}/>
           </div>
         </div>
       </div>

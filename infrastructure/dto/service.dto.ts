@@ -17,4 +17,5 @@ export interface ServiceDto {
   } | File
   created_at?: any
   userConsultantId?:string
+  user_count?:number
 }

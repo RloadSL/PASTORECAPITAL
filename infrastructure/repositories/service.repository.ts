@@ -82,9 +82,14 @@ class ServiceRepository {
    * Retorna todos los servicios de un asesor [ElasticSearch]
    * @param cid Identificador de los datos del asesor en firebase  tabla (user_consultant)
   */
-  async getServices(cid: string) { 
-    
-    const res:any = await firestoreFirebase.getCollectionDocs('services',undefined,[['userConsultantId', '==' , cid]])
+  async getServices(cid: string, active: boolean = false) { 
+    const query:any[][] = [['userConsultantId', '==' , cid]];
+    const orderBy = ['created_at']
+    if(active){
+      query.push(['user_count', '>', 0])
+      orderBy.unshift('user_count')
+    }
+    const res:any = await firestoreFirebase.getCollectionDocs('services',undefined,query, undefined, orderBy)
     const result = parseFirestoreDocs(res).map(items => new Service({...items, id: items.docID}))
     
     return  result; 
