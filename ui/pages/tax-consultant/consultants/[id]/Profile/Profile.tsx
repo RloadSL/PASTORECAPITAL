@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import ButtonApp from 'components/ButtonApp'
 import CommentsListApp from 'components/CommentsApp'
-
+import ConsultantMenu from 'ui/pages/tax-consultant/components/ConsultantMenu'
 
 const Profile = () => {
   const [loading, setloading] = useState(false)
@@ -42,24 +42,28 @@ const Profile = () => {
   }, [query])
 
   const isAdmin = () => {
-    return (userLogged?.role.level >= 2 || userLogged?.uid === consultant?.uid)
+    return userLogged?.role.level >= 2 || userLogged?.uid === consultant?.uid
   }
 
   return (
     <div className={style.profile}>
+      <ConsultantMenu />
+
       <header>
         <div className={`flex-container align-center`}>
           <div className='small-caps'>
             <FormattedMessage id={'page.tax-consultant.profile.smallTitle'} />
           </div>
-          {
-            isAdmin() && <div className={style.adminButtons}><LinkApp
-              label={'btn.edit'}
-              linkStyle={'edit'}
-              linkHref={asPath + 'edit'}
-              icon={iconEdit}
-            /></div>
-          }
+          {isAdmin() && (
+            <div className={style.adminButtons}>
+              <LinkApp
+                label={'btn.edit'}
+                linkStyle={'edit'}
+                linkHref={asPath + 'edit'}
+                icon={iconEdit}
+              />
+            </div>
+          )}
         </div>
         <div className={style.profileShortDetails}>
           <ConsultantShortDetails
@@ -72,7 +76,9 @@ const Profile = () => {
           />
           <div className={style.rightContainer}>
             <a href={'#askResponses'} className={style.chatLink}>
-              <span className='only-readers'>Ir a las preguntas y respuestas</span> 
+              <span className='only-readers'>
+                Ir a las preguntas y respuestas
+              </span>
             </a>
             {consultant?.linkedin && (
               <a href={consultant?.linkedin} className={style.linkedinIcon}>
@@ -92,26 +98,28 @@ const Profile = () => {
           />
         </p>
         <div className={style.buttonContainer}>
-          {
-            isAdmin() && <LinkApp
+          {isAdmin() && (
+            <LinkApp
               label='btn.add.service'
               linkStyle={'edit'}
               linkHref={asPath + 'services/create'}
               icon={addIcon}
               target={'_self'}
             />
-          }
+          )}
         </div>
-        <ConsultantServiceList
-          consultantServiceListStyle={'fullList'}
-        />
+        <ConsultantServiceList consultantServiceListStyle={'fullList'} />
       </div>
       <div className={style.profileConversation}>
         <div id='askResponses'>
-          <CommentsListApp infoData={{
-            mainTitle: 'Preguntas:',
-            description: 'Comenta tus dudas con el asesor.'
-          }} parent={{ id: query.id as string, path: 'user_consultant' }} main={true} />
+          <CommentsListApp
+            infoData={{
+              mainTitle: 'Preguntas:',
+              description: 'Comenta tus dudas con el asesor.'
+            }}
+            parent={{ id: query.id as string, path: 'user_consultant' }}
+            main={true}
+          />
         </div>
       </div>
     </div>

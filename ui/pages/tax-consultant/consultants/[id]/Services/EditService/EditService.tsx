@@ -49,13 +49,13 @@ const EditService = () => {
             }
             setInitialValues({
               title: service.title,
-              image: service.image,
+              image: service.image.url,
               description: service.description,
               functions: service.functions,
               time: service.time,
               price: service.price,
-              keywords: service.keywords.toString(),
-              form: service.form
+              keywords: service.keywords?.toString() || '',
+              form: service.form?.url
             })
           }
         })
@@ -69,7 +69,7 @@ const EditService = () => {
         ...values,
         id: query.service_id as string
       })
-      push(`/tax-consultant/consultants/${query.id}/services/${query.service_id}`)
+      //push(`/tax-consultant/consultants/${query.id}/services/${query.service_id}`)
     }else{
       const newService = await serviceRepository.createService({
         ...values,
@@ -108,7 +108,6 @@ const EditService = () => {
         .nullable()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
     })
-
     return (
       <Formik
         enableReinitialize

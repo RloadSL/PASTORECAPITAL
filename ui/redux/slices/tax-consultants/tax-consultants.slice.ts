@@ -6,9 +6,10 @@ import userConsultantRepository from "infrastructure/repositories/userConsultant
 export interface  TAX_CONSULTANT_STATE {
   queryResult: {error: any, items: Array<any>}
   loading: boolean
+  currentConsultant?: UserConsultant 
 }
 
-const initialState: TAX_CONSULTANT_STATE = { loading: true, queryResult : {error: null, items: [] }};
+const initialState: TAX_CONSULTANT_STATE = {currentConsultant: undefined, loading: true, queryResult : {error: null, items: [] }};
 
 export const searchConsultants = createAsyncThunk(
   'taxConsultant@search',
@@ -30,6 +31,9 @@ export const taxCosultant = createSlice({
       state.queryResult = {error: null, items: []};
       state.loading = false;
     },
+    setCurrentConsultant: (state, action) => {
+      state.currentConsultant = action.payload;
+    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     }
@@ -48,6 +52,6 @@ export const taxCosultant = createSlice({
 })
 
 //Estrallendo actions
-export const { clean, setLoading } = taxCosultant.actions;
+export const { clean, setLoading, setCurrentConsultant } = taxCosultant.actions;
 
 export default taxCosultant.reducer

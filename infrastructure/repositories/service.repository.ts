@@ -24,23 +24,38 @@ class ServiceRepository {
     const res: any = null;
     return res;
   }
+
   /**
-   * Crea y retorna un servicio para el Asesor [ElasticSearch]
+   * Upload Files 
    */
-  async createService(data: ServiceDto): Promise<string> { 
-    if(data.image){
+  async uploadFiles(data:ServiceDto){
+    console.log(1,data)
+    if(data.image instanceof File){
       data.image = {
         url: await storageFirebase.UploadFile('services', data.image as File),
         created_at: new Date()
       }
+    }else{
+      delete data.image
     }  
 
-    if(data.form){
+    if(data.form instanceof File){
       data.form = {
         url: await storageFirebase.UploadFile('services', data.form as File),
         created_at: new Date()
       }
-    } 
+    }else{
+      delete data.form
+    }  
+    console.log(2,data)
+    return data;
+  }
+
+  /**
+   * Crea y retorna un servicio para el Asesor [ElasticSearch]
+   */
+  async createService(data: ServiceDto): Promise<string> { 
+    data = await this.uploadFiles(data)
     let result;
     if(data.id){
       await FireFirestore.setDoc('services', data.id, data)
@@ -78,6 +93,7 @@ class ServiceRepository {
    * Modifica o crea los datos del servicio
    */
   async setService(data: ServiceDto){
+    data = await this.uploadFiles(data)
     if( data.keywords && !Array.isArray(data.keywords) ){
       data.keywords = (data.keywords as string).split(',');
     }

@@ -4,7 +4,7 @@
   "plan.Plus" : "Plus",
   "plan.Premium" : "Premium",
   "role.User" : "Usuario",
-  "role.Colaborator" : "Colaborador",
+  "role.Collaborator" : "Colaborador",
   "role.Administrator" : "Administrador",
   "permissions.consultant" : "Asesor",
   "consultant.permission.description" : "Crea un perfil de asesor para brindar este servicio",

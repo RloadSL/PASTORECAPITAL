@@ -58,7 +58,9 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
-      ) : <Loading loading={true} variant='inner-primary'/>}
+      ) : <div style={{minHeight: '20vh'}}>
+        <Loading loading={true} variant='inner-primary'/>
+        </div>}
     </Card>
   )
 }

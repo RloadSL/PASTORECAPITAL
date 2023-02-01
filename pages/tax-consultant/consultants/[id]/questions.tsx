@@ -1,9 +1,6 @@
 import React from 'react'
+import ConsultantQuestions from 'ui/pages/tax-consultant/consultants/[id]/ConsultantQuestions/ConsultantQuestions';
 
-const ConsultantQuestions = () => {
-  return (
-    <div>Preguntas y respuestas</div>
-  )
-}
+
 
 export default ConsultantQuestions;

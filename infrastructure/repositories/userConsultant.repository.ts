@@ -1,3 +1,4 @@
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { QueryElastic } from "domain/Interfaces/QueryElastic";
 import { User } from "domain/User/User";
 import { UserConsultant } from "domain/UserConsultant/UserConsultant";
@@ -45,6 +46,21 @@ class UserConsultantRepository{
       const data = ref?.data() as UserConsultantDto
       const user = await UserRepositoryImplInstance.read(data.uid);
       return new UserConsultant(user as User, {...data, id: ref.id})
+    }
+  }
+
+  /**
+   * Retorna los datos de un Asesor
+   * @param uid Identificador de los datos del usuario en firebase  tabla (user_consultant)
+   */
+  async getUserConsultantByUID(uid:string): Promise<UserConsultant | undefined>{
+    const ref = await firestoreFirebase.getCollectionDocs('user_consultant',undefined,[['uid' , '==' , uid]]);
+    if( !(ref instanceof ErrorApp) && ref.length > 0){
+      const data = ref[0]?.data() as UserConsultantDto
+      const user = await UserRepositoryImplInstance.read(data.uid);
+      return new UserConsultant(user as User, {...data, id: ref[0].id})
+    }else{
+      return undefined;
     }
   }
   /**

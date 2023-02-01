@@ -7,8 +7,8 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
-import { getConsultants } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors'
-import { searchConsultants } from 'ui/redux/slices/tax-consultants/tax-consultants.slice'
+import { getConsultants, getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors'
+import { clean, searchConsultants } from 'ui/redux/slices/tax-consultants/tax-consultants.slice'
 import { AppDispatch } from 'ui/redux/store'
 import CardConsultant from '../components/CardConsultant'
 import style from './consultants.module.scss'
@@ -17,7 +17,8 @@ const Consultants = () => {
   const dispatch = useDispatch<AppDispatch>()
   const consultants: UserConsultant[] = useSelector(getConsultants)
   const userLogged = useSelector(getUserLogged)
-  const { query } = useRouter()
+  const currentConsultant = useSelector(getCurrentConsultant)
+  const { query, replace } = useRouter()
   const searchString = typeof window !== 'undefined' ? query.s : ''
 
   const [search, setSearch] = useState(searchString as string)
@@ -25,9 +26,16 @@ const Consultants = () => {
 
   useEffect(() => {
     if (userLogged?.uid) {
+      dispatch(clean())
       dispatch(searchConsultants())
     }
   }, [userLogged])
+
+  useEffect(() => {
+    if (currentConsultant) {
+      replace(`/tax-consultant/consultants/${currentConsultant.id}/dashboard/`)
+    }
+  }, [currentConsultant])
 
   const _onFilter = (s: string) => {
     if (userLogged?.uid) {

@@ -22,11 +22,9 @@ interface UserImageProps {
  */
 
 
-const UserImage = ({ image, userImageStyle = ['rounded', 'bordered'], size = 'small' }: UserImageProps) => {
-  return <UserImageView size={size} image={image} userImageStyle={userImageStyle} />
-}
 
-const UserImageView = ({ image, userImageStyle = ['rounded', 'bordered'], size = 'small' }: UserImageProps) => {
+
+const UserImage = ({ image, userImageStyle = ['rounded', 'bordered'], size = 'small' }: UserImageProps) => {
   const { buildClassName } = useComponentUtils()
 
   return (

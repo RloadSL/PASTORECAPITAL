@@ -10,7 +10,6 @@ import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import { Form, Formik } from 'formik'
 import { FormattedMessage, useIntl } from 'react-intl'
-import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 import {
   UserConsultantDto,
   UserConsultantInitialValues
@@ -254,7 +253,7 @@ const EditProfileView = ({
 
   return (
     <div className={style.editProfile}>
-      <ConsultantMenu avatarImg={avatar} />
+      <ConsultantMenu />
       <div className={style.avatarBlock}>
         <div className={style.avatar}>{AvatarPicker()}</div>
         <div>

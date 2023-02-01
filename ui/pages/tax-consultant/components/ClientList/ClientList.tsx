@@ -1,11 +1,13 @@
 import AvatarName from 'components/AvatarName'
 import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
+import { User } from 'domain/User/User'
+import { useState } from 'react'
 import style from './clientList.module.scss'
 import ManageAppointment from './components/ManageAppointment'
 
 interface ClientListProps {
-  clients: Array<any>
+  clients: Array<User>
 }
 
 /**
@@ -20,11 +22,9 @@ const ClientList = ({ clients }: ClientListProps) => {
 
 const ClientListView = ({ clients }: ClientListProps) => {
   const maxClients = 4
-  
+  const [userSelected, setUserSelected] = useState<User | undefined>()
   return (
     <div>
-      
-   
     <Card cardStyle={'modal'}>
       <div className={`${style.cardContainer} ${style.clientList}`}>
         {clients.length != 0 ? (
@@ -56,8 +56,7 @@ const ClientListView = ({ clients }: ClientListProps) => {
         )}
 
       </div>
-      <ManageAppointment/>
-
+      {userSelected && <ManageAppointment/>}
     </Card>
     </div>
 
