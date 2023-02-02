@@ -11,6 +11,8 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import { getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors'
 import { useRouter } from 'next/router'
+import { useConsultant } from 'ui/hooks/consultant.hook'
+import { NOT_CONSULTANT } from 'domain/UserConsultant/UserConsultant'
 
 
 interface ConsultantMenuProps {
@@ -19,14 +21,14 @@ interface ConsultantMenuProps {
 
 const ConsultantMenu = ({ avatarImg }: ConsultantMenuProps) => {
   const windowSize = useWindowSize();
-  const consultant = useSelector(getCurrentConsultant)
+  const {consultant} = useConsultant()
   const renderLabel = (itemLabel: string) => {
     if (windowSize.width <= 520) {
       return ''
     }
     return itemLabel
   }
-  if(!consultant) return <div></div>;
+  if(!consultant  ||  consultant === NOT_CONSULTANT) return <div></div>;
   
   return (
     <div className={style.consultantMenuContainer}>

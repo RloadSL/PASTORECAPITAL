@@ -5,6 +5,8 @@ import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
 import userConsultantRepository from "infrastructure/repositories/userConsultant.repository";
 import countryList from 'react-select-country-list'
+
+export const NOT_CONSULTANT = 'NOT_CONSULTANT'
 export class UserConsultant{
   private static instance: UserConsultant;
   id:string;

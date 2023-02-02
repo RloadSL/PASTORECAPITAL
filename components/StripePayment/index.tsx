@@ -19,9 +19,12 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
   const [clientSecret, setClientSecret] = useState('')
   const [intent, setIntent] = useState()
   const userLogged = useSelector(getUserLogged)
-  const { query } = useRouter()
+  const { query, push, asPath } = useRouter()
 
   React.useEffect(() => {
+    if(userLogged?.uid === 'not-logged') {
+      push({pathname: '/login' ,query: {redirect: asPath}})
+    }
     if (query.order_id && query.order_path && userLogged?.uid && !intent && !clientSecretParam) {
       serviceRepository
         .hireServiceIntent({

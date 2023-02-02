@@ -148,7 +148,7 @@ export class FireFirestore {
   public onChangeDoc = (path: string, callback: Function): Unsubscribe => {
     const unsub = onSnapshot(doc(this._db, path), (doc) => {
       if (doc.exists())
-        callback({ ...doc.data, id: doc.id });
+        callback({ ...doc.data(), id: doc.id });
     });
     return unsub;
   }

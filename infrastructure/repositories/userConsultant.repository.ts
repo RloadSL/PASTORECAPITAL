@@ -29,9 +29,9 @@ class UserConsultantRepository{
     const result = await firestoreFirebase.getCollectionGroupDocs('service_users',undefined, [['userConsultantId' , '==', id]]);
     if(!(result instanceof ErrorApp)){
       const docs = parseFirestoreDocs(result).map(async (item) => {
-        const {uid, title, service_id} = item
+        const {uid, title, service_id, status} = item
         const user = await UserRepositoryImplInstance.read(uid);
-        return {serviceTitle: title, service_id, user}
+        return {serviceTitle: title, service_id, user, status}
       })
       const data = await Promise.all(docs)
       return data;

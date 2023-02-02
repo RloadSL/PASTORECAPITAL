@@ -34,9 +34,14 @@ const LoginPage: NextPage = () => {
   const router = useRouter()
   const { isLogged, authError, loadingState, userCredential } = useAuthentication()
   const { setLoadingState, pushErrorsApp } = useSystem()
-
   useEffect(() => {
-    if (isLogged) router.push('/')
+    if (isLogged){
+      if(router.query.redirect){
+        router.replace(router.query.redirect as string)
+      }else{
+        router.push('/')
+      }
+    } 
   }, [router, isLogged])
 
   useEffect(() => {

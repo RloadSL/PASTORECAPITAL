@@ -195,6 +195,7 @@
   "forms.errors.incorrectEmail": "Email incorrecto",
   "forms.errors.invalidCode": "Código inválido",
   "forms.errors.matchPass": "Las contraseñas no coinciden",
+  "forms.errors.calendlylink": "El link no pertenece a calendly (https://calendly.com/)",
 
   "forms.labels.name": "Nombre",
   "forms.labels.lastname": "Apellidos",
@@ -205,7 +206,7 @@
   "forms.labels.securityCode": "Código de seguridad",
   "forms.labels.resend-code" : "Reenviar código de seguridad",
   "forms.helper.userdata.update" : "Los datos personales solo se cambian desde la configuración de usuario.",
-
+  
   "btn.send": "Enviar",
   "btn.save": "Guardar",
   "btn.accept": "Aceptar",
@@ -234,6 +235,7 @@
   "message.item.deleted": "El item se ha eliminado correctamente",
   "message.item.no-result":"No hemos encontrado nada",
   "message.item.updated" : "Actualización exitoza",
+  "message.sended" : "Notificación enviada",
   
   "subscription.user.unauthorized.alert.title": "Ups, no tienes permiso",
   "subscription.user.unauthorized.alert.content": "",
@@ -263,5 +265,6 @@
   "-": "-",
   "service_id" : "Detalle de Servicio",
   "payment" : "Pagos",
-  "confirmed_payment" : "Confirmación de Pago"
+  "confirmed_payment" : "Confirmación de Pago",
+  "profile": "Perfil"
 }

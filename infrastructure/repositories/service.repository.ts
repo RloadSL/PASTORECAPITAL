@@ -106,6 +106,12 @@ class ServiceRepository {
     const res:any = await firestoreFirebase.setDoc('services',data.id as string, data)
     return res;
   }
+
+  async listenChengeUserService(s_id:string, us_uid:string, callback:Function){
+    const unsub = firestoreFirebase.onChangeDoc(`services/${s_id}/service_users/${us_uid}`, callback)
+    return unsub;
+  }
+ 
   /**
    * Procesa la contratación del servicio por parte del usuario
    */

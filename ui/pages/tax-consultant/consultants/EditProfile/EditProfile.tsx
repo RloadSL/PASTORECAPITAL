@@ -20,14 +20,15 @@ import { useRouter } from 'next/router'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import Loading from 'components/Loading'
 import UserImage from 'components/UserImage'
-import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
+import { NOT_CONSULTANT, UserConsultant } from 'domain/UserConsultant/UserConsultant'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
 import * as yup from 'yup'
 import SelectCountryFormikApp from 'components/FormApp/components/SelectCountryFormikApp/SelectCountryFormikApp'
+import { useConsultant } from 'ui/hooks/consultant.hook'
 const EditProfile = () => {
   const [loading, setloading] = useState(false)
-  const [consultant, setConsultant] = useState<UserConsultant | undefined>()
+  const {consultant} = useConsultant() 
   const userLogged = useSelector(getUserLogged)
   const { query, replace } = useRouter()
   const { pushInfoApp } = useSystem()
@@ -40,32 +41,26 @@ const EditProfile = () => {
   //Get consultant ref
   useEffect(() => {
     let fetch = true
-    if (query.id) {
-      userConsultantRepository
-        .getUserConsultant(query.id as string)
-        .then(consultantRes => {
+    if (consultant instanceof UserConsultant) {
           if (fetch) {
-            if (!consultantRes) {
-              return replace('/tax-consultant/consultants')
-            }
-            userData.name = consultantRes?.name as string
-            userData.lastname = consultantRes?.lastname as string
-            userData.uid = consultantRes?.uid as string
-            setConsultant(consultantRes)
+            userData.name = consultant?.name as string
+            userData.lastname = consultant?.lastname as string
+            userData.uid = consultant?.uid as string
             setInitialValues({
-              country: consultantRes.country?.iso,
-              description: consultantRes?.description,
-              keywords: consultantRes?.keywords?.toString(),
-              linkedin: consultantRes?.linkedin
+              country: consultant.country?.iso,
+              description: consultant?.description,
+              keywords: consultant?.keywords?.toString(),
+              linkedin: consultant?.linkedin
             })
           }
-        })
     }
+    
+    
 
     return () => {
       fetch = false
     }
-  }, [query])
+  }, [consultant])
 
   //Permisos
   useEffect(() => {
@@ -91,7 +86,7 @@ const EditProfile = () => {
     values.uid = userData.uid as string
     const response = await userConsultantRepository.setUserConsultant({
       ...values,
-      id: consultant?.id
+      id: (consultant instanceof UserConsultant) ?  consultant?.id : undefined
     })
     if (!response) {
       pushInfoApp(
@@ -109,7 +104,7 @@ const EditProfile = () => {
         initialValues={initialValues}
         onSubmit={_onSubmit}
         userData={userData}
-        currentavatar={consultant?.avatar?.url}
+        currentavatar={ (consultant instanceof UserConsultant) && consultant?.avatar?.url}
       ></EditProfileView>
       <Loading variant='outer-primary' loading={loading}></Loading>
     </>

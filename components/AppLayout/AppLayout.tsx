@@ -12,13 +12,13 @@ import {
   setAuthLoading
 } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { useRouter } from 'next/router'
 import AlertApp from 'components/AlertApp'
 import { FormattedMessage } from 'react-intl'
 import { setLoading } from 'ui/redux/slices/system/system.slice'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import { setCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.slice'
+import { NOT_CONSULTANT } from 'domain/UserConsultant/UserConsultant'
 
 export const SubscriptionGranted = createContext<any>(null)
 const initialState = { subscriptionGranted: true };
@@ -45,19 +45,24 @@ export default function AppLayout({ children }: any) {
   useEffect(() => {
     onChangeAuthState(async (user: any) => {
       if (user) {
-        _handleColaborators(user.uid)
         await dispatch(createUser({ uid: user.uid, extradata: user.extradata }))
       } else {
         await dispatch(createUser({ uid: 'not-logged' }))
       }
+      _handleColaborators(user?.uid)
       dispatch(setLoading(false))
       dispatch(setAuthLoading(false))
     })
   }, [])
 
-  const _handleColaborators = async (uid:string) => {
-    const userConsultant = await userConsultantRepository.getUserConsultantByUID(uid)
-    dispatch(setCurrentConsultant(userConsultant))
+  const _handleColaborators = async (uid?:string) => {
+    if(uid){
+      const userConsultant = await userConsultantRepository.getUserConsultantByUID(uid)
+      dispatch(setCurrentConsultant(userConsultant || NOT_CONSULTANT))
+    }else{
+      dispatch(setCurrentConsultant(undefined))
+    }
+    
   }
 
   const _goSubscription = () => router.push('/subscription')

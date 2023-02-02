@@ -5,7 +5,7 @@ export const getConsultants = (state:any) =>  {
   return taxCosultantSate.items;
 };  
 
-export const getCurrentConsultant = (state:any):UserConsultant | undefined =>  {
-  const consultant:UserConsultant | undefined = state.taxCosultants.currentConsultant;
+export const getCurrentConsultant = (state:any):UserConsultant | 'NOT_CONSULTANT' | undefined =>  {
+  const consultant = state.taxCosultants.currentConsultant;
   return consultant;
 }; 

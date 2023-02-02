@@ -16,7 +16,6 @@ import CommentsListApp from 'components/CommentsApp'
 import ConsultantMenu from 'ui/pages/tax-consultant/components/ConsultantMenu'
 
 const Profile = () => {
-  const [loading, setloading] = useState(false)
   const [consultant, setConsultant] = useState<UserConsultant | undefined>()
   const { query, replace, asPath } = useRouter()
   const userLogged = useSelector(getUserLogged)
@@ -47,8 +46,7 @@ const Profile = () => {
 
   return (
     <div className={style.profile}>
-      <ConsultantMenu />
-
+      {<ConsultantMenu />}
       <header>
         <div className={`flex-container align-center`}>
           <div className='small-caps'>
@@ -57,6 +55,7 @@ const Profile = () => {
           {isAdmin() && (
             <div className={style.adminButtons}>
               <LinkApp
+                target='_self'
                 label={'btn.edit'}
                 linkStyle={'edit'}
                 linkHref={asPath + 'edit'}

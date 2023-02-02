@@ -32,7 +32,7 @@ const Consultants = () => {
   }, [userLogged])
 
   useEffect(() => {
-    if (currentConsultant) {
+    if (currentConsultant instanceof UserConsultant) {
       replace(`/tax-consultant/consultants/${currentConsultant.id}/dashboard/`)
     }
   }, [currentConsultant])

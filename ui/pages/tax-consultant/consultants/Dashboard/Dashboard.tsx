@@ -10,8 +10,9 @@ import { NextPage } from 'next';
 import ConsultantServiceList from '../../components/ConsultantServiceList';
 import { useSelector } from 'react-redux';
 import { getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { UserConsultant } from 'domain/UserConsultant/UserConsultant';
 
 interface DashboardProps {
 }
@@ -26,17 +27,13 @@ const Dashboard = ({}:DashboardProps) => {
   const consultant = useSelector(getCurrentConsultant)
   const [clients, setClients] = useState<any>([])
   const [activeService, setActiveService] = useState<any>([])
-  const {replace} = useRouter()
-
   useEffect(() => {
-   if(consultant){
+   if(consultant instanceof UserConsultant){
        consultant.getClients()
        .then(res => setClients(res))
 
        consultant.getActiveServices()
        .then(res => setActiveService(res))
-   }else{
-    //replace('/tax-consultant/consultants')
    }
   }, [consultant])
   
@@ -53,7 +50,8 @@ const Dashboard = ({}:DashboardProps) => {
               <LinkApp
                 label={'VER TODOS'}
                 linkStyle={'default'}
-                linkHref={'http://localhost:3000/tax-consultant/consultants/123/services/'}
+                target={'_self'}
+                linkHref={`/tax-consultant/consultants/${(consultant as UserConsultant).id}/clients/`}
               />
             </div>
           </div>
@@ -77,7 +75,7 @@ const Dashboard = ({}:DashboardProps) => {
                   linkHref={'#'}
                   icon={clientsIcon}
                 />
-                <div>{`(${consultant?.user_count || 0})`}</div>
+                <div>{`(${consultant instanceof UserConsultant ? consultant?.user_count || 0 : 0})`}</div>
               </div>
             </div>
           </div>
@@ -92,7 +90,7 @@ const Dashboard = ({}:DashboardProps) => {
               <LinkApp
                 label={'VER TODOS'}
                 linkStyle={'default'}
-                linkHref={`/tax-consultant/consultants/${consultant?.id}`}
+                linkHref={`/tax-consultant/consultants/${consultant instanceof UserConsultant ? consultant?.id : ''}`}
               />
             </div>
           </div>
