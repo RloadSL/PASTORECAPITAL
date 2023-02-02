@@ -1,0 +1,48 @@
+@use "../../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../../styles/partials/placeholders";
+
+.contentItemList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &_info {
+    display: flex;
+  }
+}
+
+.menu {
+  &Option {
+    border-bottom: 0px !important;
+    padding: 10px !important;
+  }
+}
+
+.actionMenu {
+  width: 30px;
+  position: relative;
+
+  &_container {
+    padding: 0px;
+  }
+}
+
+.menu-options-btn {
+  position: relative;
+  top: inherit;
+  right: inherit;
+  box-shadow: none;
+}
+
+.activeDot {
+  width: 20px;
+  background-color: colors.$grey30;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.active {
+  background-color: colors.$main !important;
+}
+

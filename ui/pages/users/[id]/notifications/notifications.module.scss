@@ -1,0 +1,29 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
+.notifications {
+  @extend %layoutContainer;
+  padding: 2%;
+  max-width: 1200px;
+  margin: auto;
+
+  &_container {
+    @extend %borderRadius;
+    background-color: white;
+  }
+
+  li {
+    border-bottom: colors.$grey40 1px solid !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+
+    &:last-child {
+      border-bottom: none !important;
+    }
+  }
+}
+
+.modalContainer {
+  padding: 20px;
+}

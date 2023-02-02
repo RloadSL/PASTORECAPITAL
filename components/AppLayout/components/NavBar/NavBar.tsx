@@ -39,6 +39,7 @@ const NavBar = () => {
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
       windowSize={windowSize}
+      uid={user?.uid}
     />
   )
 }
@@ -50,7 +51,8 @@ const NavBarView = ({
   userRole,
   linkToSignIn,
   userPlan,
-  windowSize
+  windowSize,
+  uid
 }: {
   back?: Function
   userName?: string
@@ -58,7 +60,8 @@ const NavBarView = ({
   signOut: Function,
   userRole?: string,
   userPlan?: string
-  windowSize: any
+  windowSize: any,
+  uid:string
 }) => {
 
   return (
@@ -80,7 +83,11 @@ const NavBarView = ({
       )}
       {userName && (
         <div className={`${style.userInfoContainer} flex-container`}>
-          <div><Notifications hasNotifications={true} /></div>
+          <Link href={`/users/${uid}/notifications`}>
+          <a>
+          <Notifications hasNotifications={true} />
+          </a>
+          </Link>
           <div className='flex-container'>
             <div className={style.userInfo}>
               <p className={style.userName}>{userName || ''}</p>
@@ -97,6 +104,9 @@ const NavBarView = ({
                 }
               >
                 <MenuItem onClick={() => console.log('hola')}><FormattedMessage id='component.navbar.profile' /></MenuItem>
+                <MenuItem href={`/users/${uid}/invoices`}>
+                  <FormattedMessage id='component.navbar.invoices' />
+                </MenuItem>
                 <MenuItem onClick={() => signOut()}>
                   <FormattedMessage id='component.navbar.signOutBtn' />
                 </MenuItem>

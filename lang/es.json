@@ -35,6 +35,9 @@
   "mainMenu.item.label.users" : "Usuarios",
   "mainMenu.item.label.stats" : "Estadísticas",
   "mainMenu.item.label.invoice" : "Facturas",
+
+  "contextualMenu.item.label.see": "Ver",
+  "contextualMenu.item.label.delete": "Borrar",
   
   "page.home.title": "Bienvenidos",
   "page.home.h1": "KAKAK",
@@ -172,11 +175,15 @@
   "page.tax-consultant.manageAppointment.calendly.label" : "Enlace a calendly",
   "page.tax-consultant.manageAppointment.message.label" : "Mensaje",
 
+  "page.invoices.title" : "Facturas",
+  "page.notifications.title" : "Notificaciones",
+
 
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
   "component.navbar.signOutBtn": "Salir",
   "component.navbar.profile": "Perfil de usuario",
+  "component.navbar.invoices": "Facturas",
   "component.modal.close" : "X",
   "component.filter-search-bar.label" : "Buscar por palabra clave",
   "auth/wrong-password": "Contraseña incorrecta para este usuario",
