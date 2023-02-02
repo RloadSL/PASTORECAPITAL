@@ -7,19 +7,13 @@ interface LISTCONTAINERPROPS {
 
 const ItemView = ({ item, children }: any) => {
   return (
-    <div className={style.listContainer}>
       <li className={style.item}>
         <div className={style.itemContainer}>{children || item}</div>
       </li>
-    </div>
   )
 }
 
 const ItemList = ({ items }: LISTCONTAINERPROPS) => {
-  return <ItemListView items={items} />
-}
-
-const ItemListView = ({ items }: LISTCONTAINERPROPS) => {
   return (
     <div className={style.listContainer}>
       <ul className={`table`}>

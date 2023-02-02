@@ -303,3 +303,58 @@ export const servicesList = [
     duration: '1h'
   }
 ]
+
+export const invoices = [
+  {
+    date: '23/02/2023',
+    id: '01909201092012',
+    text: 'factura 0198909201092012',
+    read: false
+  },
+  {
+    date: '13/01/2023',
+    id: '00000201092012',
+    text: 'factura 0198909201092012',
+    read: false
+
+  },
+  {
+    date: '05/02/2018',
+    id: '0198909201092012',
+    text: 'factura 0198909201092012',
+    read: true
+  },
+  {
+    date: '23/02/2023',
+    id: '01909201092012',
+    text: 'factura 0198909201092012',
+    read: false
+  },
+  {
+    date: '13/01/2023',
+    id: '00000201092012',
+    text: 'factura 0198909201092012',
+    read: true
+  },
+  {
+    date: '05/02/2018',
+    id: '0198909201092012',
+    text: 'factura 0198909201092012',
+    read: true
+  }
+]
+
+export const notifications = [
+  {
+    id:'292',
+    text: 'Te han dado de alta como colaborador'
+  },
+  {
+    id:'292',
+    text: 'Han contratado una neuva'
+  },
+  {
+    id:'292',
+    text: 'Te han dado de alta como colaborador'
+  }
+]
