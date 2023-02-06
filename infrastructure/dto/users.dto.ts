@@ -55,7 +55,7 @@ export interface Role {
 export interface Subscription {
   updated_at : Date,
   created_at : Date,
-  last_innvoice?: string,
+  stripe_sub_id?:string,
   plan: {
     label: 'Guest' | 'Basic' | 'Plus' | 'Premium',
     key: 'guest' | 'basic' | 'plus' | 'premium',

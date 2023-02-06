@@ -32,6 +32,15 @@ class SystemConfigRepository {
       return null;
     }
   }
+
+  async updatePlansSubscription(data:{ plan_name: 'Basic' | 'Plus' | 'Premium', interval: 'month' | 'year' , sub_id:string ,uid:string}){
+    const res = await FireFunctionsInstance.onCallFunction('PaymentUpdateSubscriptionTriggerFunction', data)
+    if(!res.error){
+      return res;
+    }else{
+      return null;
+    }
+  }
 }
 
 
