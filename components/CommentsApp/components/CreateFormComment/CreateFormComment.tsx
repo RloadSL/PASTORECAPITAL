@@ -85,7 +85,7 @@ const CreateFormCommentView = ({
     <div className={`${style.createFormComment} ${style[formCommentStyle]}`}>
       {formCommentStyle === 'default' ? (
         <div className={style.textContent}>
-          <div className={style.mainTitle}>Preguntas:</div>
+          {/* <div className={style.mainTitle}>Preguntas:</div> */}
           <div>
             {description}
           </div>

@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import AlertApp from 'components/AlertApp'
 import { FormattedMessage } from 'react-intl'
+import CommentsListApp from 'components/CommentsApp/CommentsListApp'
 
 const CreateFormComment = dynamic(() => import('../CreateFormComment'), {
   suspense: true
@@ -154,10 +155,10 @@ const SingleCommentView = ({
         </Card>
       </div>
       {comment.parent.path !== 'comments' ? (
-        <CommentsList
+        <CommentsListApp
           newComments={NC}
           parent={{ id: comment.id as string, path: 'comments' }}
-        ></CommentsList>
+        ></CommentsListApp>
       ) : (
         <></>
       )}

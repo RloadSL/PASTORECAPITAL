@@ -109,7 +109,10 @@ const Profile = () => {
         </div>
         <ConsultantServiceList consultantServiceListStyle={'fullList'} />
       </div>
+      <hr />
+
       <div className={style.profileConversation}>
+        <h2 className='main-title'>Pregunta a tu asesor</h2>
         <div id='askResponses'>
           <CommentsListApp
             infoData={{

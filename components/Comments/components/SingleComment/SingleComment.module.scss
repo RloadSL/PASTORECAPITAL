@@ -45,7 +45,7 @@
   .middle {
     .innerContent {
       padding-bottom: 0px;
-      padding-top: 15px;
+      padding-top: 0px;
     }
   }
 
@@ -66,11 +66,11 @@
 
   .author {
     font-weight: bold;
+    margin-right: 10px;
 
     &::after {
-      content: "";
       width: 1px;
-      border-right: 1px solid colors.$grey50;
+      // border-right: 1px solid colors.$grey50;
       margin-left: 10px;
       margin-right: 10px;
     }

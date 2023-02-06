@@ -6,6 +6,10 @@
   @extend %layoutContainer;
   padding: 2%;
 
+  &_container {
+    max-width: 1000px;
+  }
+
   header {
     margin-bottom: 50px;
   }
