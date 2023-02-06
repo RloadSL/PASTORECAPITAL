@@ -149,9 +149,9 @@
 
         .service {
           padding: 25px;
-          // display: flex;
-          // flex-direction: column;
-          // justify-content: space-between;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           height: 100%;
 
           p {
@@ -176,6 +176,7 @@
             color: colors.$main;
             font-weight: bold;
             font-size: 1.2rem;
+            display: inline-block;
             margin-bottom: 12px !important;
           }
 
@@ -209,8 +210,27 @@
   }
 
   .editBlock {
-    margin-left: 20px;
-    will-change:auto;
-    transform: scale(.9);
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+
+    &>* {
+      max-width: 100px !important;
+
+    }
+
+    a {
+      padding: 10px !important;
+      max-height: 42px;
+
+      span {
+        margin: 0px !important;
+      }
+
+      img {
+        max-width: 12px !important;
+
+      }
+    }
   }
 }

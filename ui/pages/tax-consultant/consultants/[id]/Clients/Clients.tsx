@@ -24,9 +24,9 @@ const Clients: NextPage = () => {
   }, [consultant])
   return (
     <div className={style.clients}>
-              <header>
-          <ConsultantMenu />
-        </header>
+      <header>
+        <ConsultantMenu />
+      </header>
       <div className={style.clients_container}>
         <h1 className='small-caps'>Mis Clientes</h1>
         <div className={style.filtersContainer}>

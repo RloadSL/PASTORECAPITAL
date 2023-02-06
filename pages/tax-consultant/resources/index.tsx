@@ -1,9 +1,3 @@
-import React from 'react'
+import Resources from "ui/pages/tax-consultant/resources/Resources";
 
-const index = () => {
-  return (
-    <div>Página recursos</div>
-  )
-}
-
-export default index;
+export default Resources

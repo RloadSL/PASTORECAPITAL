@@ -12,9 +12,9 @@ import {
 } from 'ui/redux/slices/wp-headless-api/wp-headless-api.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
-import style from './analysisCategory.module.scss'
+import style from './resources.module.scss'
 import { useRouter } from 'next/router'
-import CreateCategoryAnalysis from '../components/CreateCategoryAnalysis'
+// import CreateCategoryAnalysis from '../components/CreateCategoryAnalysis'
 import ButtonApp from 'components/ButtonApp'
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
@@ -25,8 +25,8 @@ import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
-const CreateFormArticle = dynamic(
-  () => import('../components/CreateFormArticle'),
+const CreateFormResource = dynamic(
+  () => import('./components/CreateFormResource'),
   {
     suspense: true
   }
@@ -37,7 +37,7 @@ const CreateFormArticle = dynamic(
  * @returns
  */
 
-const AnalysisCategory: NextPage<any> = () => {
+const Resources: NextPage<any> = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [filters, setFilters] = useState({
     search: '',
@@ -140,7 +140,7 @@ const AnalysisCategory: NextPage<any> = () => {
     }
   }
   return (
-    <AnalysisCategoryView
+    <ResourcesView
       outstandingArt={outstandingArt}
       onDeleteCat={_onDeleteCat}
       onDeleteArt={_onDeleteArt}
@@ -157,7 +157,7 @@ const AnalysisCategory: NextPage<any> = () => {
   )
 }
 
-const AnalysisCategoryView = ({
+const ResourcesView = ({
   onFilter,
   setStatePost,
   statePost,
@@ -194,16 +194,16 @@ const AnalysisCategoryView = ({
     if (selectedPost) setoutstandingPost(selectedPost);
   }, [selectedPost])
 
-
-
   return (
-    <div className={style.analysisCategoryPage}>
+    <div className={style.resources}>
       <header className='title-container flex-container column space-between'>
         <div className={style.titleBlock}>
           <p className='small-caps'>
-            <FormattedMessage id={'research'} />
+            <FormattedMessage id={'tax-consultant'} />
           </p>
-          <h1 className='main-title'>{query.category_name}</h1>
+          <h1 className='main-title'>
+            <FormattedMessage id={'resources'} />
+          </h1>
           <div className={`admin-buttons-wrapper`}>
             {editionGranted && (
               <div className={`admin-buttons-container ${style.adminButtons}`}>
@@ -243,7 +243,7 @@ const AnalysisCategoryView = ({
       )}
       <div className={isPrivateExcerpt.current ? style.collapsedItem : ''}>
         <PostGrid
-          parent='page.analysis.articles.form.create.submit'
+          parent='page.tax-consultant.resources.createForm.button.create'
           loadMore={loadMore}
           statePost={statePost}
           setStatePost={(state: 'public' | 'private') => setStatePost(state)}
@@ -267,7 +267,7 @@ const AnalysisCategoryView = ({
         )}
       </div>
 
-      {updateCat && (
+      {/* {updateCat && (
         <Suspense>
           <CreateCategoryAnalysis
             cat={parseInt(query.cat as string)}
@@ -276,7 +276,7 @@ const AnalysisCategoryView = ({
             }}
           ></CreateCategoryAnalysis>
         </Suspense>
-      )}
+      )} */}
 
       {deleteCat && (
         <Suspense>
@@ -311,16 +311,16 @@ const AnalysisCategoryView = ({
       )}
       {createArt && (
         <Suspense>
-          <CreateFormArticle
+          <CreateFormResource
             cat={parseInt(query.cat as string)}
             onClose={() => {
               setCreateArt(false)
             }}
-          ></CreateFormArticle>
+          ></CreateFormResource>
         </Suspense>
       )}
     </div>
   )
 }
 
-export default AnalysisCategory
+export default Resources

@@ -20,6 +20,14 @@
   }
 }
 
+.mainMenu {
+  &_Item {
+    img {
+      max-width: 22px !important;
+    }
+  }
+}
+
 .hasChildren {
   padding: 10px;
 
