@@ -77,9 +77,12 @@
 
 .small {
   padding: 10px;
+  font-size: .9rem;
+  min-width: 100px;
 
   & .icon {
-    margin-left: 0px
+    margin-left: 10px;
+    width: 14px;
   }
 }
 

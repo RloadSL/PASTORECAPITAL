@@ -50,7 +50,7 @@ const MenuItemView = ({ item, activeItem }: MENUITEMPROPS) => {
   }
 
   return (
-    <li className={`menu-item ${item.type}`}>
+    <li className={`${style.mainMenu_Item} ${item.type}`}>
       <div className={activeItem === item.path ? style.active : ''}>
         {item.type === 'accordion' ? renderAcordion() : renderLink()}
       </div>

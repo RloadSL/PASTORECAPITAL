@@ -74,7 +74,7 @@ const ConsultantServiceListView = ({
   displayStyle = 'gridContainer'
 }: ConsultantServiceListProps) => {
   const { buildClassName, limitTextLength } = useComponentUtils()
-  const {asPath} = useRouter()
+  const { asPath } = useRouter()
   const setBackgroundColor = (itemIndex: number) => {
     const colors: Array<string> = [
       '#E8E288',
@@ -101,41 +101,47 @@ const ConsultantServiceListView = ({
                 <li className={style.serviceItem} key={service.id}>
                   <Card>
                     <div className={`${style.service} flex-container`}>
-                      <div
-                        className={style.colorSpot}
-                        style={{ backgroundColor: setBackgroundColor(index) }}
-                      ></div>
-                      <div className={style.serviceInfoBlock}>
-                        <Link href={asPath+ `services/${service.id}`}>
-                        <a className={style.serviceTitle}>{service.title}</a>
+                      <div>
+                      <header className='flex-container'>
+                        <div
+                          className={style.colorSpot}
+                          style={{ backgroundColor: setBackgroundColor(index) }}
+                        ></div>
+                        <Link href={asPath + `services/${service.id}`}>
+                          <a className={style.serviceTitle}>{service.title}</a>
                         </Link>
-                        
-                        <p className={style.serviceDescription}>
-                          {limitTextLength(70, service.description)}
-                        </p>
-                        <hr />
-                        <div className='flex-container justify-between'>
-                          <p className={style.serviceDuration}>
-                            <span>
-                              Duración: <strong>{toHoursAndMinutes(service.time * 60)}</strong>
-                            </span>
-                          </p>
-                          <p className={style.servicePrice}>
-                            <span>
-                              Precio:<strong>{service.price}</strong>
-                            </span>
-                          </p>
+                      </header>
+                      <p className={style.serviceDescription}>
+                        {limitTextLength(200, service.description)}
+                      </p>
+                      </div>
+
+                      <div className={style.serviceInfoBlock}>
+                        <div>
+                          <hr />
+                          <div className='flex-container justify-between'>
+                            <p className={style.serviceDuration}>
+                              <span>
+                                Duración: <strong>{toHoursAndMinutes(service.time * 60)}</strong>
+                              </span>
+                            </p>
+                            <p className={style.servicePrice}>
+                              <span>
+                                Precio:<strong>{service.price}</strong>
+                              </span>
+                            </p>
+                          </div>
                         </div>
                       </div>
                       {isAdmin === true &&
-                      consultantServiceListStyle === 'fullList' ? (
+                        consultantServiceListStyle === 'fullList' ? (
                         <div
                           className={`${style.editBlock} edit-delete-buttons`}
                         >
                           <LinkApp
                             label={'btn.edit'}
                             linkStyle={'edit'}
-                            linkHref={asPath+`services/${service.id}/edit`}
+                            linkHref={asPath + `services/${service.id}/edit`}
                             icon={iconEdit}
                           />
                           <ButtonApp

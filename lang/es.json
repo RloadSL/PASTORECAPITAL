@@ -174,11 +174,18 @@
   "page.tax-consultant.manageAppointment.service.label" : "Servicio",
   "page.tax-consultant.manageAppointment.calendly.label" : "Enlace a calendly",
   "page.tax-consultant.manageAppointment.message.label" : "Mensaje",
+  "page.tax-consultant.resources.createForm.button.create": "Añadir recurso",
+  "page.tax-consultant.resources.createForm.input.create": "Crear nuevo recurso",
+  "page.tax-consultant.resources.createForm.input.description": "Descripción recurso",
+  "page.tax-consultant.resources.createForm.select": "Categoría del recurso",
+  "page.tax-consultant.resources.createForm.submit": "Crear recurso",
+
+
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
 
-
+  "select.label.plans": "Seleccione el plan correspondiente",
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
   "component.navbar.signOutBtn": "Salir",
