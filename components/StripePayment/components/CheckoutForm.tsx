@@ -9,6 +9,7 @@ import ButtonApp from 'components/ButtonApp'
 import { useRouter } from 'next/router'
 import Loading from 'components/Loading'
 import style from './checkoutForm.module.scss'
+const prod = process.env.NODE_ENV === 'production'
 
 
 export default function CheckoutForm () {
@@ -59,7 +60,7 @@ export default function CheckoutForm () {
     const confirmation = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_HOST}/tax-consultant/consultants/${query.id}/services/${query.service_id}//confirmed_payment`
+        return_url: `${prod ? process.env.NEXT_PUBLIC_HOST_PROD : process.env.NEXT_PUBLIC_HOST}/tax-consultant/consultants/${query.id}/services/${query.service_id}//confirmed_payment`
       }
     })
     setMessage(confirmation.error.message)
