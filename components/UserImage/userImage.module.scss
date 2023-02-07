@@ -26,8 +26,13 @@
   }
 
   &.medium {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
+
+    @include devices.device(tablet) {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   &.rounded {

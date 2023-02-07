@@ -217,39 +217,7 @@ const CreateFormView = ({
                 name='excerpt'
                 // icon={'fileIcon'}
               />
-              {!cat && (
-                <SelectFormikApp
-                  selectOptions={categories}
-                  labelID={'page.tax-consultant.resources.createForm.select'}
-                  name={'category'}
-                />
-              )}
-              <div className='checklist'>
-                <p>
-                  <FormattedMessage id={'select.label.plans'} />
-                </p>
-                <div
-                  role='group'
-                  style={{ display: 'flex' }}
-                  aria-labelledby='checkbox-group'
-                >
-                  {categoriesPlans.map(plan => (
-                    <div key={plan.key}>
-                      <InputCheckFormikApp
-                        name={'activated_to_plans'}
-                        labelID={`plan.${plan.label}`}
-                        value={plan.value.toString()}
-                        checked = {values.activated_to_plans?.includes(plan.value.toString())}
-                      >
-                        <FormattedMessage id={`plan.${plan.label}`} />
-                      </InputCheckFormikApp>
-                    </div>
-                  ))}
-                </div>
-                {errors['activated_to_plans'] &&
-                  touched['activated_to_plans'] && (
-                    <p>{errors['activated_to_plans']}</p>
-                  )}
+              <div>
                 <div
                   style={{
                     marginTop: '20px',

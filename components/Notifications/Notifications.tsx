@@ -21,7 +21,9 @@ const NotificationsView = ({ hasNotifications }: NOTIFICATIONSPROPS) => {
     <div className='position-relative'>
       {hasNotifications ? <span className={style.dotAlert}></span> : null}
       <div className={style.notifications}>
-        <Image src={bellIcon} alt='' />
+        <div className={style.imageContainer}>
+          <Image src={bellIcon} alt='' />
+        </div>
       </div>
     </div>
 

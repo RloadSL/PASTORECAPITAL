@@ -52,21 +52,29 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
+  border-top: 1px solid colors.$grey40;
+  margin-top: 20px;
 
   @include devices.device(smTablet) {
     flex-direction: column;
+    border: none;
   }
 }
 
 .chatLink {
   background-color: colors.$dark;
   border-radius: 100%;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   background-image: url(../../../../../../assets/img/icons/chat.svg);
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
+
+  @include devices.device(tablet){
+    width: 60px;
+    height: 60px;
+  }
 
   &:hover {
     background-color: colors.$main;
@@ -76,6 +84,7 @@
 .linkedinIcon {
   display: flex;
   align-items: center;
+  color: colors.$dark;
   &::before {
     content: '';
     display: block;
