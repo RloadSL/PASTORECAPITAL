@@ -13,6 +13,7 @@ import '@szhsin/react-menu/dist/index.css'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import Notifications from 'components/Notifications'
 import useWindowSize from 'ui/hooks/windowSize.hook'
+import ButtonApp from 'components/ButtonApp'
 /**
  * OJO crear un interface
  * @returns 
@@ -60,7 +61,7 @@ const NavBarView = ({
   userRole?: string,
   userPlan?: string
   windowSize: any,
-  uid:string
+  uid: string
 }) => {
 
   return (
@@ -72,49 +73,60 @@ const NavBarView = ({
           </button>
         </div>
       )}
-      <button>suscribirse</button>
-      <div className={style['navbar-item']}></div>
-      {!userName && (
-        <Link href={'/login'}>
-          <a className={style.loginLink}>
-            <FormattedMessage id='component.navbar.signUpBtn' />
-          </a>
-        </Link>
-      )}
-      {userName && (
-        <div className={`${style.userInfoContainer} flex-container`}>
-          <Link href={`/users/${uid}/notifications`}>
-          <a>
-          <Notifications hasNotifications={true} />
-          </a>
+      {/* <div className={style['navbar-item']}></div> */}
+      <div className={style.leftContainer}>
+        <div className={style.buttonContainer}>
+          <Link href={'/subscription'}>
+            <a className={style.subscribeBtn}>
+              <span>
+                <FormattedMessage id='btn.subscribe' />
+              </span>
+            </a>
           </Link>
-          <div className='flex-container'>
-            <div className={style.userInfo}>
-              <p className={style.userName}>{userName || ''}</p>
-              <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`} /> {userRole === 'User' && <FormattedMessage id={`plan.${userPlan}`} />}</p>
-            </div>
-            <div className={style.optionsMenu}>
-              <Menu
-                align='end'
-                offsetY={5}
-                menuButton={
-                  <button className={style.optionsButton}>
-                    <span className='only-readers'>opciones</span>
-                  </button>
-                }
-              >
-                <MenuItem onClick={() => console.log('hola')}><FormattedMessage id='component.navbar.profile' /></MenuItem>
-                <MenuItem href={`/users/${uid}/invoices`}>
-                  <FormattedMessage id='component.navbar.invoices' />
-                </MenuItem>
-                <MenuItem onClick={() => signOut()}>
-                  <FormattedMessage id='component.navbar.signOutBtn' />
-                </MenuItem>
-              </Menu>
+        </div>
+        {userName && (
+          <div className={`${style.userInfoContainer} flex-container`}>
+            <Link href={`/users/${uid}/notifications`}>
+              <a>
+                <Notifications hasNotifications={true} />
+              </a>
+            </Link>
+            <div className='flex-container'>
+              <div className={style.userInfo}>
+                <p className={style.userName}>{userName || ''}</p>
+                <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`} /> {userRole === 'User' && <FormattedMessage id={`plan.${userPlan}`} />}</p>
+              </div>
+              <div className={style.optionsMenu}>
+                <Menu
+                  align='end'
+                  offsetY={5}
+                  menuButton={
+                    <button className={style.optionsButton}>
+                      <span className='only-readers'>opciones</span>
+                    </button>
+                  }
+                >
+                  <MenuItem onClick={() => console.log('hola')}><FormattedMessage id='component.navbar.profile' /></MenuItem>
+                  <MenuItem href={`/users/${uid}/invoices`}>
+                    <FormattedMessage id='component.navbar.invoices' />
+                  </MenuItem>
+                  <MenuItem onClick={() => signOut()}>
+                    <FormattedMessage id='component.navbar.signOutBtn' />
+                  </MenuItem>
+                </Menu>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        {!userName && (
+          <Link href={'/login'}>
+            <a className={style.loginLink}>
+              <FormattedMessage id='component.navbar.signUpBtn' />
+            </a>
+          </Link>
+        )}
+      </div>
+
     </div>
   )
 }

@@ -235,6 +235,8 @@
   "btn.add-item": "Añadir item",
   "btn.hire" : "Contratar",
   "btn.pay" : "Pagar ahora",
+  "btn.subscribe" : "Suscribirse",
+  "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
@@ -253,6 +255,7 @@
   
   "subscription.user.unauthorized.alert.title": "Ups, no tienes permiso",
   "subscription.user.unauthorized.alert.content": "",
+  "subscription.user.alert.updateSubscription.text": "¿Quieres actualizar tu plan actual a",
 
   "home":"Home",
   "courses": "Cursos",

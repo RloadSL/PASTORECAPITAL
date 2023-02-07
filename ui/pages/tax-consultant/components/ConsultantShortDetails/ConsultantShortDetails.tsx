@@ -29,7 +29,7 @@ const ConsultantShortDetails = ({
       </div>
 
       <div className={style.userInfo}>
-        <p>
+        <p className={style.countryContainer}>
           {country?.flagUrl && <span className='flex-container'><span className={style.flagIcon} style={{ backgroundImage: `url(${country?.flagUrl})` }}></span><span>{country ? country.label : 'Sin país asignado'}</span></span>}
         </p>
         <p className={style.title}>

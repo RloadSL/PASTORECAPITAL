@@ -2,6 +2,7 @@ import style from './subscriptionPlans.module.scss'
 import Image from 'next/image'
 import checkImg from '../../../assets/img/check.svg'
 import nocheckImg from '../../../assets/img/nocheck.svg'
+import updateSubscription from '../../../assets/img/update-subscription.png'
 import SwitcherButton from 'components/SwitcherButton'
 import LinkApp from 'components/LinkApp'
 import { useEffect, useState } from 'react'
@@ -15,33 +16,34 @@ import ButtonApp from 'components/ButtonApp'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
 import { useRouter } from 'next/router'
+import { FormattedMessage } from 'react-intl'
 
 const SubscriptionPlans = () => {
   const [paymentType, setPaymentType] = useState<'month' | 'year'>('month')
   const [plans, setPlans] = useState<PLANS | undefined>()
   const [updatePlan, setupdatePlan] = useState<any>()
-  const {pushInfoApp} = useSystem()
+  const { pushInfoApp } = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const plan = userLoggued?.subscription.plan
-  const {reload} = useRouter()
+  const { reload } = useRouter()
   useEffect(() => {
     systemRepository.getPlans().then(res => {
       setPlans(res)
     })
   }, [])
 
-  const update = ()=>{
-     systemRepository.updatePlansSubscription({
+  const update = () => {
+    systemRepository.updatePlansSubscription({
       plan_name: updatePlan.subscription.label,
       interval: paymentType,
       sub_id: userLoggued?.subscription.stripe_sub_id as string,
       uid: userLoggued.uid
-     })
-     .then(()=>setupdatePlan(undefined))
-     .then(()=>{
-        pushInfoApp(new InfoApp({code: 'plan.update', message: 'plan.update'}, 'success'))
-     })
-     .then(()=>reload())
+    })
+      .then(() => setupdatePlan(undefined))
+      .then(() => {
+        pushInfoApp(new InfoApp({ code: 'plan.update', message: 'plan.update' }, 'success'))
+      })
+      .then(() => reload())
   }
   const renderUpdatePlan = () => (<AlertApp
     onAction={() => update()}
@@ -49,9 +51,14 @@ const SubscriptionPlans = () => {
     title='Actualizar plan'
     visible={updatePlan != undefined}
   >
-    <div>
-      Quieres actualizar tu actual subscription a{' '}
-      {updatePlan?.subscription.label}
+    <div className={style.modalContainer}>
+      <div className={style.modalContainer_image}>
+        <Image src={updateSubscription} alt='Hombre levantando el dedo en señal de OK' />
+      </div>
+      <p>
+      <FormattedMessage id='subscription.user.alert.updateSubscription.text'/>
+        {' '}<strong>{updatePlan?.subscription.label}</strong>?
+      </p>
     </div>
   </AlertApp>)
 
@@ -136,7 +143,9 @@ const SubscriptionPlans = () => {
                       )}
                     </div>
                   ) : (
-                    <span> Subscrito </span>
+                    <span className={style.myPlan}>
+                      <FormattedMessage id={'btn.myPlan'} />
+                    </span>
                   )}
                 </td>
                 <td>
@@ -157,8 +166,9 @@ const SubscriptionPlans = () => {
                       )}
                     </div>
                   ) : (
-                    <span> Subscrito </span>
-                  )}
+                    <span className={style.myPlan}>
+                      <FormattedMessage id={'btn.myPlan'} />
+                    </span>)}
                 </td>
                 <td>
                   {plan?.key != 'premium' ? (
@@ -178,8 +188,9 @@ const SubscriptionPlans = () => {
                       )}
                     </div>
                   ) : (
-                    <span> Subscrito </span>
-                  )}
+                    <span className={style.myPlan}>
+                      <FormattedMessage id={'btn.myPlan'} />
+                    </span>)}
                 </td>
               </tr>
               <tr className={style.subheader}>
