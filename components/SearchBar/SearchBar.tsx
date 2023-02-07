@@ -16,7 +16,7 @@ const SearchBar = ({ onFilter, placeholder, enableTags= true }: {enableTags?: bo
     }
   }
 
-  const _handleFilter = React.useRef(
+  const _handleFilter = 
     debounce(value => {
       setTags([])
       if (value.search?.trim()[0] === '#' && enableTags) {
@@ -25,7 +25,7 @@ const SearchBar = ({ onFilter, placeholder, enableTags= true }: {enableTags?: bo
         onFilter({ ...value, tags: value.tags })
       }
     }, 300)
-  ).current
+  
 
   return (
     <SearchBarView placeholder={placeholder} tags={tags} onFilter={_handleFilter} />

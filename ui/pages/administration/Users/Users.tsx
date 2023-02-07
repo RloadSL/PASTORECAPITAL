@@ -6,6 +6,7 @@ import SearchBar from 'components/SearchBar'
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
 import { User } from 'domain/User/User'
 import { Form, Formik } from 'formik'
+import { ELASTIC_QUERY } from 'infrastructure/elasticsearch/search.elastic'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { useRouter } from 'next/router'
 import { FormEvent, useEffect, useState } from 'react'
@@ -16,40 +17,76 @@ const Users = () => {
   const { pushErrorsApp } = useSystem()
   const [users, setUsers] = useState<User[]>([])
   const [isloaded, setLoaded] = useState(false)
+  const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' })
+  const [pages, setPages] = useState<any>()
 
   useEffect(() => {
-    _handleGetUsers()
-  }, [])
+    _handleGetUsers(query)
+  }, [query])
 
-  const _handleGetUsers = async () => {
+  const _handleGetUsers = async (query:ELASTIC_QUERY) => {
     let fetching = true
     if (!isloaded) {
-      const response = await UserRepositoryImplInstance.getAll()
-      if (response instanceof ErrorApp) {
-        return pushErrorsApp(response)
-      }
+      const response = await UserRepositoryImplInstance.elasticSearchUsers(query)
       if (fetching) {
         setLoaded(true)
-        setUsers(pre => [...response, ...pre])
+        setPages(response.page)
+        console.log()
+        setUsers(pre => [...response.results, ...pre])
       }
     }
     return () => (fetching = false)
   }
 
-  return <UsersView users={users} />
+  const _onFilter = async (s: string) => {
+    if (isloaded) {
+      setLoaded(false);
+      setUsers([])
+      setQuery(pre => ({
+        ...pre,
+        query: s
+      }))
+    }
+  }
+
+  const _loadMore = () => {
+    setLoaded(false);
+    setQuery(pre =>{
+      const current = pre.page?.current || 1
+
+      return {
+        ...pre,
+        page:{
+          current: current + 1,
+          size: 10
+        }
+      }
+    })
+  }
+
+  return <UsersView users={users} hasLoadMore={(pages?.current < pages?.total_pages)} onloadMore={_loadMore} onFilter={_onFilter} />
 }
 
-const UsersView = ({ users }: { users: User[] }) => {
-  const { push, asPath } = useRouter();
+const UsersView = ({
+  users,
+  onFilter,
+  onloadMore,
+  hasLoadMore
+}: {
+  users: User[]
+  onFilter: Function
+  onloadMore: Function,
+  hasLoadMore:boolean
+}) => {
+  const { push, asPath } = useRouter()
 
   const renderUserItem = (user: User) => {
     return (
       <div className={style.userItem} key={user.uid}>
         <div className={`${style.information} ${style.checked}`}>
           <div>
-            <input style={{ cursor: 'pointer' }} type="checkbox" />
+            <input style={{ cursor: 'pointer' }} type='checkbox' />
           </div>
-
         </div>
         <div className={style.information}>
           <div className={style.name}>{`${user.name} ${user.lastname}`}</div>
@@ -58,9 +95,12 @@ const UsersView = ({ users }: { users: User[] }) => {
         <div className={style.information}>
           <div className={style.role}>
             <div className={style.roleLabel}>{user.role.label}</div>
-            {user.role.level === 0 && <div className={style.subscription}> /
-              {user.subscription.plan.label}
-            </div>}
+            {user.role.level === 0 && (
+              <div className={style.subscription}>
+                {' '}
+                /{user.subscription.plan.label}
+              </div>
+            )}
           </div>
         </div>
         <div className={style.actions}>
@@ -77,8 +117,18 @@ const UsersView = ({ users }: { users: User[] }) => {
                 </button>
               }
             >
-              <MenuItem className={style.menuOption} onClick={() => push(`${asPath}${user.uid}`)}>Detalle</MenuItem>
-              <MenuItem className={style.menuOption} onClick={() => alert('Bloquer')}>Bloquear</MenuItem>
+              <MenuItem
+                className={style.menuOption}
+                onClick={() => push(`${asPath}${user.uid}`)}
+              >
+                Detalle
+              </MenuItem>
+              <MenuItem
+                className={style.menuOption}
+                onClick={() => alert('Bloquer')}
+              >
+                Bloquear
+              </MenuItem>
             </Menu>
           </div>
         </div>
@@ -87,9 +137,12 @@ const UsersView = ({ users }: { users: User[] }) => {
   }
 
   const renderFilters = () => {
-    const handleOnChange = (event: { role_level: number, subscription_level: number }) => {
-      console.log("Form::onChange", event);
-    };
+    const handleOnChange = (event: {
+      role_level: number
+      subscription_level: number
+    }) => {
+      console.log('Form::onChange', event)
+    }
 
     return (
       <Formik
@@ -136,20 +189,20 @@ const UsersView = ({ users }: { users: User[] }) => {
               enableTags={false}
               placeholder={'page.administration.users.filter.placeholder'}
               onFilter={(value: { search?: string; tags?: string }) =>
-                console.log(value)
+                onFilter(value.search)
               }
             />
           </div>
-          <div className={style.filtersSelectsContainer}>
+          {/* <div className={style.filtersSelectsContainer}>
             {renderFilters()}
-          </div>
+          </div> */}
         </div>
 
         <ItemList items={users.map(user => renderUserItem(user))} />
       </div>
-      <div className={style.actions}>
-        <ActionsAdmin></ActionsAdmin>
-      </div>
+      {hasLoadMore && <div className={style.actions}>
+        <ActionsAdmin onLoadMore={() => onloadMore()}></ActionsAdmin>
+      </div>}
     </div>
   )
 }

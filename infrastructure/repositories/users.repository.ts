@@ -6,6 +6,7 @@ import FireFirestore  from "../firebase/firestore.firebase";
 import { UpdateUser, UserDto } from "infrastructure/dto/users.dto";
 import { QuerySnapshot, Unsubscribe } from "firebase/firestore";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
+import { elasticSearch, ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 /**
  * Implementación de los casos de usos para los usuarios de la plataforma
  */
@@ -93,6 +94,25 @@ class UserRepositoryImplementation{
       return querySnap?.map((item) => new User(item.data() as UserDto))
     }
   }
+
+  async elasticSearchUsers(query:ELASTIC_QUERY) : Promise<any>{
+      const elasticRes = await elasticSearch('users', query)
+      const page = elasticRes.data.meta.page;
+      let results = elasticRes.data.results
+      //const response:any = await FireFunctionsInstance.onCallFunction('getConsultantsTriggerFunctions');
+     
+      if(!results){
+        return {results: [], page:null}
+      }else{
+        const promises = results.map(async (item: any) =>{
+          const uc = await this.read(item.uid.raw)
+          return uc
+        }) 
+        results = await Promise.all(promises).catch(e => console.log(e))
+        return {results, page}
+      }
+   }
+  
 
 }
 

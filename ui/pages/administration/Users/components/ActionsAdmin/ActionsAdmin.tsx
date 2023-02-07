@@ -1,8 +1,13 @@
+import ButtonApp from 'components/ButtonApp'
 import React from 'react'
 
-const ActionsAdmin = () => {
+const ActionsAdmin = ({onLoadMore}:any) => {
   return (
-    <div><h3>Botones si es necesario</h3></div>
+    <div>
+      <ButtonApp onClick={onLoadMore}>
+        Load More
+      </ButtonApp>
+    </div>
   )
 }
 

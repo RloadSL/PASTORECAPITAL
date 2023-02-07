@@ -4,6 +4,7 @@ import { User } from "domain/User/User";
 import { UserConsultant } from "domain/UserConsultant/UserConsultant";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
+import { elasticSearch, ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 import StorageFirebase from "infrastructure/firebase/storage.firebase";
 import { parseFirestoreDocs } from "infrastructure/firebase/utils";
@@ -83,19 +84,24 @@ class UserConsultantRepository{
    * Retorna los datos de los Asesores bajo filtros
    * @param query filtros de búsqueda
    */
-  async searchUserConsultants(query?:QueryElastic){
-    const response:any = await FireFunctionsInstance.onCallFunction('getConsultantsTriggerFunctions');
-    
-    if(response.error){
-      return response;
+  async searchUserConsultants(query:ELASTIC_QUERY){
+    const elasticRes = await elasticSearch('user-consultant', query)
+    const page = elasticRes.data.meta.page;
+    let results = elasticRes.data.results
+
+    //const response:any = await FireFunctionsInstance.onCallFunction('getConsultantsTriggerFunctions');
+   
+    if(!results){
+      return [];
     }else{
-      const promises = response.items.map(async (item: any) =>{
-        const user = await UserRepositoryImplInstance.read(item.uid);
-        return new UserConsultant(user as User, item)
+      const promises = results.map(async (item: any) =>{
+        const uc = await this.getUserConsultant(item.id.raw)
+        return uc
       }) 
-      response.items = await Promise.all(promises)
+      results = await Promise.all(promises).catch(e => console.log(e))
+      return {error: null, items: results}
     }
-    return response;
+ 
   }
   /**
    * Modifica o crea los datos del asesor

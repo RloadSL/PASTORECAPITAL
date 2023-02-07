@@ -39,13 +39,10 @@ const Consultants = () => {
 
   const _onFilter = (s: string) => {
     if (userLogged?.uid) {
+      dispatch(clean())
       dispatch(
         searchConsultants({
-          query: { match: { data: search } },
-          paginator: {
-            from: pagination,
-            size: 6
-          }
+          query:s
         })
       )
     }

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { QueryElastic } from "domain/Interfaces/QueryElastic";
 import { UserConsultant } from "domain/UserConsultant/UserConsultant";
+import { ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 import userConsultantRepository from "infrastructure/repositories/userConsultant.repository";
 
 export interface  TAX_CONSULTANT_STATE {
@@ -13,9 +14,11 @@ const initialState: TAX_CONSULTANT_STATE = {currentConsultant: undefined, loadin
 
 export const searchConsultants = createAsyncThunk(
   'taxConsultant@search',
-  async (query?: QueryElastic) => {
+  async (query: ELASTIC_QUERY = {query:''}) => {
     try {
-      const response = await userConsultantRepository.searchUserConsultants()
+      console.log('taxConsultant@search',query)
+      const response = await userConsultantRepository.searchUserConsultants(query)
+      
       return response
     } catch (error) {
       return {error, items: []};
