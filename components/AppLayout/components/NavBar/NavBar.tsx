@@ -29,12 +29,11 @@ const NavBar = () => {
     router.push('/');
     dispatch(signOut())
   }
-
   return (
     <NavBarView
       userName={user && user.uid != 'not-logged' ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
       userRole={user && user.uid != 'not-logged' ? user.role.label : undefined}
-      userPlan={user && user.uid != 'not-logged' ? user.subscription.plan.label : undefined}
+      userPlan={user && user.uid != 'not-logged' ? user.subscription?.plan.label : undefined}
       signOut={user && user.uid != 'not-logged' ? () => _signOutUser() : () => null}
       linkToSignIn={!user ? router.route !== '/login' : undefined}
       back={router.route !== '/' ? router.back : undefined}
