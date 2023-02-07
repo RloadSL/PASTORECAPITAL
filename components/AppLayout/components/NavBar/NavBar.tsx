@@ -73,6 +73,7 @@ const NavBarView = ({
           </button>
         </div>
       )}
+      <button>suscribirse</button>
       <div className={style['navbar-item']}></div>
       {!userName && (
         <Link href={'/login'}>

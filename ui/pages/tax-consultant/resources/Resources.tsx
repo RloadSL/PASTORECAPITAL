@@ -204,28 +204,6 @@ const ResourcesView = ({
           <h1 className='main-title'>
             <FormattedMessage id={'resources'} />
           </h1>
-          <div className={`admin-buttons-wrapper`}>
-            {editionGranted && (
-              <div className={`admin-buttons-container ${style.adminButtons}`}>
-                <ButtonApp
-                  labelID={'page.analysis.category.form.update.title'}
-                  onClick={() => setCategory(true)}
-                  type='button'
-                  buttonStyle={['primary', 'outlined']}
-                  size='small'
-                  icon={iconEdit}
-                />
-                <ButtonApp
-                  labelID={'page.analysis.category.form.remove.title'}
-                  onClick={() => setDeleteCat(true)}
-                  type='button'
-                  buttonStyle='delete'
-                  size='small'
-                  icon={iconDelete}
-                />
-              </div>
-            )}
-          </div>
         </div>
         <SearchBar
           placeholder={'Buscar por palabra clave'}
