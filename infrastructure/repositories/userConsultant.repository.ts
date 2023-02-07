@@ -85,7 +85,7 @@ class UserConsultantRepository{
    * @param query filtros de búsqueda
    */
   async searchUserConsultants(query:ELASTIC_QUERY){
-    const elasticRes = await elasticSearch('user-consultant', query)
+    const elasticRes = await elasticSearch('user-consultant', {...query, filters: {state: 'new'}})
     const page = elasticRes.data.meta.page;
     let results = elasticRes.data.results
 

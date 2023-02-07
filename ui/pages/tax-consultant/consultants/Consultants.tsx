@@ -19,10 +19,7 @@ const Consultants = () => {
   const userLogged = useSelector(getUserLogged)
   const currentConsultant = useSelector(getCurrentConsultant)
   const { query, replace } = useRouter()
-  const searchString = typeof window !== 'undefined' ? query.s : ''
 
-  const [search, setSearch] = useState(searchString as string)
-  const [pagination, setPagination] = useState(1)
 
   useEffect(() => {
     if (userLogged?.uid) {
@@ -32,7 +29,7 @@ const Consultants = () => {
   }, [userLogged])
 
   useEffect(() => {
-    if (currentConsultant instanceof UserConsultant) {
+    if (currentConsultant instanceof UserConsultant && userLogged?.role.level === 1) {
       replace(`/tax-consultant/consultants/${currentConsultant.id}/dashboard/`)
     }
   }, [currentConsultant])

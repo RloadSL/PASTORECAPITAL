@@ -16,7 +16,6 @@ export const searchConsultants = createAsyncThunk(
   'taxConsultant@search',
   async (query: ELASTIC_QUERY = {query:''}) => {
     try {
-      console.log('taxConsultant@search',query)
       const response = await userConsultantRepository.searchUserConsultants(query)
       
       return response
