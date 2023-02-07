@@ -31,7 +31,6 @@ const Users = () => {
       if (fetching) {
         setLoaded(true)
         setPages(response.page)
-        console.log()
         setUsers(pre => [...response.results, ...pre])
       }
     }
@@ -50,18 +49,20 @@ const Users = () => {
   }
 
   const _loadMore = () => {
-    setLoaded(false);
-    setQuery(pre =>{
-      const current = pre.page?.current || 1
-
-      return {
-        ...pre,
-        page:{
-          current: current + 1,
-          size: 10
+    if(isloaded){
+      setLoaded(false);
+      setQuery(pre =>{
+        const current = pre.page?.current || 1
+  
+        return {
+          ...pre,
+          page:{
+            current: current + 1,
+            size: 10
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   return <UsersView users={users} hasLoadMore={(pages?.current < pages?.total_pages)} onloadMore={_loadMore} onFilter={_onFilter} />
