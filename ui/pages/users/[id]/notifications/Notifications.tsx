@@ -3,7 +3,6 @@ import style from './notifications.module.scss'
 import { notifications } from 'ui/utils/test.data'
 import { FormattedMessage } from 'react-intl'
 import ContentItemList from '../components/contentItemList/ContentItemList'
-import Modal from 'components/Modal'
 
 interface NotificationsProps {
   onClose: Function
