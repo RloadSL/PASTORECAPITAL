@@ -1,16 +1,13 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
-import { QueryElastic } from "domain/Interfaces/QueryElastic";
 import { User } from "domain/User/User";
 import { UserConsultant } from "domain/UserConsultant/UserConsultant";
 import { ServiceDto } from "infrastructure/dto/service.dto";
 import { UserConsultantDto } from "infrastructure/dto/userConsultant.dto";
 import { elasticSearch, ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
-import { FireFunctionsInstance } from "infrastructure/firebase/functions.firebase";
 import StorageFirebase from "infrastructure/firebase/storage.firebase";
 import { parseFirestoreDocs } from "infrastructure/firebase/utils";
 import firestoreFirebase from "../firebase/firestore.firebase";
 import FireFirestore from "../firebase/firestore.firebase";
-import {HTTP} from '../http/http'
 import serviceRepository from "./service.repository";
 import { UserRepositoryImplInstance } from "./users.repository";
 class UserConsultantRepository{
@@ -85,11 +82,9 @@ class UserConsultantRepository{
    * @param query filtros de búsqueda
    */
   async searchUserConsultants(query:ELASTIC_QUERY){
-    const elasticRes = await elasticSearch('user-consultant', {...query, filters: {state: 'new'}})
+    const elasticRes = await elasticSearch('user-consultant', {...query})
     const page = elasticRes.data.meta.page;
     let results = elasticRes.data.results
-
-    //const response:any = await FireFunctionsInstance.onCallFunction('getConsultantsTriggerFunctions');
    
     if(!results){
       return [];
@@ -99,7 +94,7 @@ class UserConsultantRepository{
         return uc
       }) 
       results = await Promise.all(promises).catch(e => console.log(e))
-      return {error: null, items: results}
+      return {error: null, items: results, page}
     }
  
   }
@@ -118,7 +113,7 @@ class UserConsultantRepository{
       }
      
       if(data.id){
-        FireFirestore.setDoc('user_consultant', data.id, data)
+        FireFirestore.setDoc('user_consultant', data.id, {...data, state: 'active'})
       }else{
         FireFirestore.createDoc('user_consultant', data)
       }

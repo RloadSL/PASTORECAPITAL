@@ -49,7 +49,6 @@ const NavBarView = ({
   signOut,
   userName,
   userRole,
-  linkToSignIn,
   userPlan,
   windowSize,
   uid
@@ -63,7 +62,6 @@ const NavBarView = ({
   windowSize: any,
   uid: string
 }) => {
-
   return (
     <div className={style.navbarContainer}>
       {windowSize.width >= 1080 ? <Breadcrumbs /> : (
@@ -76,13 +74,13 @@ const NavBarView = ({
       {/* <div className={style['navbar-item']}></div> */}
       <div className={style.leftContainer}>
         <div className={style.buttonContainer}>
-          <Link href={'/subscription'}>
+          {userRole != 'Administrator' && <Link href={'/subscription'}>
             <a className={style.subscribeBtn}>
               <span>
-                <FormattedMessage id='btn.subscribe' />
+                <FormattedMessage id= {userPlan === 'Guest' ? 'btn.subscribe' : 'btn.update_subscribe'} />
               </span>
             </a>
-          </Link>
+          </Link>}
         </div>
         {userName && (
           <div className={`${style.userInfoContainer} flex-container`}>

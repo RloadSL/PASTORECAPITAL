@@ -5,7 +5,7 @@ import { ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 import userConsultantRepository from "infrastructure/repositories/userConsultant.repository";
 
 export interface  TAX_CONSULTANT_STATE {
-  queryResult: {error: any, items: Array<any>}
+  queryResult: {error: any, items: Array<any>, pages?:any}
   loading: boolean
   currentConsultant?: UserConsultant 
 }
@@ -17,7 +17,6 @@ export const searchConsultants = createAsyncThunk(
   async (query: ELASTIC_QUERY = {query:''}) => {
     try {
       const response = await userConsultantRepository.searchUserConsultants(query)
-      
       return response
     } catch (error) {
       return {error, items: []};
@@ -46,9 +45,10 @@ export const taxCosultant = createSlice({
     .addCase(searchConsultants.fulfilled, (state: any, action: any)=>{ 
       state.loading = false; 
       const currentItems = state.queryResult.items
+      const pages = state.queryResult.pages
       const {error, items} = action.payload
       if(!error)
-        state.queryResult ={error: null, items: [...currentItems, ...items] } 
+        state.queryResult ={error: null, items: [...currentItems, ...items], pages } 
     })
   }
 })

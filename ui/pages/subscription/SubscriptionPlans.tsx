@@ -25,12 +25,18 @@ const SubscriptionPlans = () => {
   const { pushInfoApp } = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const plan = userLoggued?.subscription.plan
-  const { reload } = useRouter()
+  const { reload, replace, push , asPath} = useRouter()
   useEffect(() => {
     systemRepository.getPlans().then(res => {
       setPlans(res)
     })
   }, [])
+
+  useEffect(() => {
+    if(userLoggued?.role.level > 1) replace('/');
+    if(userLoggued?.uid === 'not-logged') push('/login?redirect='+asPath)
+  }, [userLoggued])
+  
 
   const update = () => {
     systemRepository.updatePlansSubscription({

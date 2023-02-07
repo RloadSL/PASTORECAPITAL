@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SearchBar from 'components/SearchBar'
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
+import { ELASTIC_QUERY } from 'infrastructure/elasticsearch/search.elastic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
@@ -15,18 +16,19 @@ import style from './consultants.module.scss'
 
 const Consultants = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const consultants: UserConsultant[] = useSelector(getConsultants)
+  const consultantsState: {error:any, items: UserConsultant[], pages:any} = useSelector(getConsultants)
   const userLogged = useSelector(getUserLogged)
   const currentConsultant = useSelector(getCurrentConsultant)
-  const { query, replace } = useRouter()
-
+  const { replace } = useRouter()
+  const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' , filters: userLogged?.role.level > 1 ? {} : {state: 'active'}})
+  
 
   useEffect(() => {
     if (userLogged?.uid) {
       dispatch(clean())
-      dispatch(searchConsultants())
+      dispatch(searchConsultants(query))
     }
-  }, [userLogged])
+  }, [userLogged, query])
 
   useEffect(() => {
     if (currentConsultant instanceof UserConsultant && userLogged?.role.level === 1) {
@@ -47,7 +49,7 @@ const Consultants = () => {
 
   return (
     <>
-      <ConsultantsViews consultants={consultants} onFilter={_onFilter} />
+      <ConsultantsViews consultants={consultantsState.items} onFilter={_onFilter} />
     </>
   )
 }
