@@ -1,17 +1,14 @@
 import ConsultantMenu from '../../components/ConsultantMenu';
 import style from './dashboard.module.scss'
-import { clientsList, servicesList } from 'ui/utils/test.data'
 import calendarIcon from '../../../../../assets/img/icons/calendar.svg'
 import clientsIcon from '../../../../../assets/img/icons/clients.svg'
 import LinkApp from 'components/LinkApp';
 import ClientList from '../../components/ClientList';
 import ActiveServiceList from './components/ActiveServiceList';
-import { NextPage } from 'next';
 import ConsultantServiceList from '../../components/ConsultantServiceList';
 import { useSelector } from 'react-redux';
 import { getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors';
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant';
 
 interface DashboardProps {
@@ -51,7 +48,7 @@ const Dashboard = ({}:DashboardProps) => {
                 label={'VER TODOS'}
                 linkStyle={'default'}
                 target={'_self'}
-                linkHref={`/tax-consultant/consultants/${(consultant as UserConsultant).id}/clients/`}
+                linkHref={`/tax-consultant/consultants/${consultant instanceof UserConsultant ? consultant?.id : ''}/clients/`}
               />
             </div>
           </div>

@@ -11,12 +11,5 @@ const HomePage:NextPage = () => {
   )
 }
 
-export const getStaticProps = async () => {
-  return {
-    props: {
-      userName: "Jose",
-    },
-  }
-}
 
 export default HomePage
