@@ -42,6 +42,7 @@ const ManageAppointment = ({
 }: ManageAppointmentProps) => {
   const {pushInfoApp} = useSystem()
   const  [loading, setloading] = useState(false)
+  const {consultant} = useConsultant()
   const intl = useIntl()
   const userLogged = useSelector(getUserLogged)
   const validationSchema = useRef(
@@ -60,7 +61,7 @@ const ManageAppointment = ({
     calendly: string
     message: string
   } = {
-    calendly: '',
+    calendly: (consultant as UserConsultant)?.calendly || '',
     message: ''
   }
 
