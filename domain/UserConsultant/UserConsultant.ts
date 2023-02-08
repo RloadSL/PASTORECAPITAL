@@ -21,6 +21,7 @@ export class UserConsultant{
   created_at?: Date;
   state?: 'new' | 'active' | 'disabled';
   user_count?: number 
+  calendly?:string
   constructor(user:User, data:UserConsultantDto){
     this.user_count = data.user_count
     this.uid = user.uid;
@@ -34,6 +35,7 @@ export class UserConsultant{
     this.linkedin =  data.linkedin;
     this.created_at = data.created_at;
     this.state = data.state;
+    this.calendly = data.calendly
   }
   private parseCountry = (isoCountry?: string)=>{
     return isoCountry ? {

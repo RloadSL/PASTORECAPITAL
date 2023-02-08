@@ -11,7 +11,8 @@ export interface UserConsultantDto {
   linkedin?: string;
   created_at: Date;
   state?: 'new' | 'active' | 'disabled'
-  user_count?: number 
+  user_count?: number,
+  calendly?:string 
 }
 
 export interface UserConsultantInitialValues {
@@ -19,4 +20,5 @@ export interface UserConsultantInitialValues {
   description?:string;
   keywords?: string;
   linkedin?: string;
+  calendly?:string
 }

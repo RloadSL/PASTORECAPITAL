@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import style from './editProfile.module.scss'
 
@@ -79,7 +80,8 @@ const EditProfile = () => {
       country: undefined,
       description: '',
       keywords: '',
-      linkedin: ''
+      linkedin: '',
+      calendly: ''
     })
 
   const _onSubmit = async (values: UserConsultantDto) => {
@@ -166,7 +168,7 @@ const EditProfileView = ({
         </div>
 
         {imgSrc && (
-          <Modal onBtnClose={() => console.log('cerrar')}>
+          <Modal onBtnClose={() => setImgSrc(undefined)}>
             <ImageCrop
               onComplited={(data64: string) => {
                 setAvatarSrc(data64)
@@ -191,7 +193,12 @@ const EditProfileView = ({
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       description: yup
         .string()
-        .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
+        .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
+      calendly: yup
+        .string()
+        .matches(/(https:\/\/calendly\.com)/,intl.formatMessage({ id:  'forms.errors.calendlylink'}))
+        .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
+
     })
 
     return (
@@ -225,12 +232,16 @@ const EditProfileView = ({
               type='text'
               name='keywords'
             />
-
+            <InputFormikApp
+              labelID='page.tax-consultant.manageAppointment.calendly.label'
+              type='text'
+              name='calendly'
+            />
             <InputFormikApp
               labelID='page.tax-consultant.create-edit.form.label.linkedin'
               type='text'
               name='linkedin'
-            />
+            />            
             <div
               style={{
                 marginTop: '20px',

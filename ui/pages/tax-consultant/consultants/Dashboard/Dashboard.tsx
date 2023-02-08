@@ -60,7 +60,7 @@ const Dashboard = ({}:DashboardProps) => {
               <LinkApp
                 label={'Calendario'}
                 linkStyle={'default'}
-                linkHref={'#'}
+                linkHref={consultant instanceof UserConsultant ? consultant?.calendly : ''}
                 icon={calendarIcon}
               />
             </div>

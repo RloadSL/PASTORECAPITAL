@@ -82,7 +82,6 @@ export const getFlashArticles = createAsyncThunk(
 export const taxConsultantGetResorces = createAsyncThunk(
   'taxConsultant@GetResorces',
   async ({ offset, filters, wpToken }: { offset?: number, filters?: any, wpToken?: string }, { getState }) => {
-    console.log('taxConsultant@GetResorces',{ offset, filters, wpToken })
     try {
       const response = await taxConsultantResourcesRepository.readAll(offset, filters, wpToken)
      return { resources: response, offset };
