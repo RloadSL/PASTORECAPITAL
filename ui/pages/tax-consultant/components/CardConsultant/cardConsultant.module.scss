@@ -5,7 +5,16 @@
 .cardConsultant{
   &Item {
     cursor: pointer;
+    a {
+      &>div {
+        &:hover {
+          background-color: colors.$palette10 !important;
+        }        
+      }
+    }
   }
+
+
 }
 
 .new{

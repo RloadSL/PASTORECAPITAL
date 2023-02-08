@@ -28,7 +28,7 @@ import SelectCountryFormikApp from 'components/FormApp/components/SelectCountryF
 import { useConsultant } from 'ui/hooks/consultant.hook'
 const EditProfile = () => {
   const [loading, setloading] = useState(false)
-  const {consultant} = useConsultant() 
+  const { consultant } = useConsultant()
   const userLogged = useSelector(getUserLogged)
   const { query, replace } = useRouter()
   const { pushInfoApp } = useSystem()
@@ -42,20 +42,20 @@ const EditProfile = () => {
   useEffect(() => {
     let fetch = true
     if (consultant instanceof UserConsultant) {
-          if (fetch) {
-            userData.name = consultant?.name as string
-            userData.lastname = consultant?.lastname as string
-            userData.uid = consultant?.uid as string
-            setInitialValues({
-              country: consultant.country?.iso,
-              description: consultant?.description,
-              keywords: consultant?.keywords?.toString(),
-              linkedin: consultant?.linkedin
-            })
-          }
+      if (fetch) {
+        userData.name = consultant?.name as string
+        userData.lastname = consultant?.lastname as string
+        userData.uid = consultant?.uid as string
+        setInitialValues({
+          country: consultant.country?.iso,
+          description: consultant?.description,
+          keywords: consultant?.keywords?.toString(),
+          linkedin: consultant?.linkedin
+        })
+      }
     }
-    
-    
+
+
 
     return () => {
       fetch = false
@@ -86,7 +86,7 @@ const EditProfile = () => {
     values.uid = userData.uid as string
     const response = await userConsultantRepository.setUserConsultant({
       ...values,
-      id: (consultant instanceof UserConsultant) ?  consultant?.id : undefined
+      id: (consultant instanceof UserConsultant) ? consultant?.id : undefined
     })
     if (!response) {
       pushInfoApp(
@@ -104,7 +104,7 @@ const EditProfile = () => {
         initialValues={initialValues}
         onSubmit={_onSubmit}
         userData={userData}
-        currentavatar={ (consultant instanceof UserConsultant) && consultant?.avatar?.url}
+        currentavatar={(consultant instanceof UserConsultant) && consultant?.avatar?.url}
       ></EditProfileView>
       <Loading variant='outer-primary' loading={loading}></Loading>
     </>
@@ -123,7 +123,7 @@ const EditProfileView = ({
   const intl = useIntl()
 
   const AvatarPicker = () => {
-    function onSelectFile (e: React.ChangeEvent<HTMLInputElement>) {
+    function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
       if (e.target.files && e.target.files.length > 0) {
         const reader = new FileReader()
         reader.addEventListener('load', () =>
@@ -136,7 +136,7 @@ const EditProfileView = ({
     return (
       <div className={style.editProfile}>
         <h1 className='main-title'>
-        <FormattedMessage id={'page.tax-consultant.create-edit.form.label.title'}/>
+          <FormattedMessage id={'page.tax-consultant.create-edit.form.label.title'} />
         </h1>
         <p className='small-caps'>Apariencia</p>
         <div className='flex-container align-center'>
@@ -149,7 +149,7 @@ const EditProfileView = ({
           </div>
           <div className={style.infoBlock}>
             <p className={style.infoBlock_image}>
-              <FormattedMessage id={'page.tax-consultant.create-edit.form.label.image'}/>
+              <FormattedMessage id={'page.tax-consultant.create-edit.form.label.image'} />
             </p>
             <label className='fake-button' htmlFor='avatarFile'>
               <span>Seleccionar Imagen</span>
@@ -166,7 +166,7 @@ const EditProfileView = ({
         </div>
 
         {imgSrc && (
-          <Modal>
+          <Modal onBtnClose={() => console.log('cerrar')}>
             <ImageCrop
               onComplited={(data64: string) => {
                 setAvatarSrc(data64)
