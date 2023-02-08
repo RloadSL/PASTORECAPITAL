@@ -7,7 +7,11 @@
   padding: 2%;
 
   .avatarBlock {
-    margin-right: 50px;
+    margin-right: 10px;
+
+    @include devices.device(tablet) {
+      margin-right: 50px;
+    }
   }
 
   .userInfoBlock {
@@ -54,4 +58,11 @@
 
 .imageCropContainer {
   padding: 2%;
+}
+
+.infoBlock {
+  &_image {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
 }

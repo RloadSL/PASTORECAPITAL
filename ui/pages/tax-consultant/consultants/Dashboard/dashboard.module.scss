@@ -51,9 +51,7 @@
       }
       .rightInnerContainer {
         display: flex;
-        @include devices.device(smScreen) {
-          flex-direction: column;
-        }
+        flex-direction: column;
       }
     }
 

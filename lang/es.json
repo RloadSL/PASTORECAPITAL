@@ -152,13 +152,15 @@
   "page.tax-consultant.consultants.description" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset", 
   "page.tax-consultant.profile.smallTitle" : "Perfil de Asesor",
   "page.tax-consultant.profile.services.smallTitle" : "Servicios",
+  "page.tax-consultant.profile.clients.title" : "Mis clientes",
   "page.tax-consultant.create-edit.about-me" : "SOBRE MI", 
   "page.tax-consultant.create-edit.tell-us-about-you" : "Cuentanos más sobre ti", 
   "page.tax-consultant.create-edit.title" : "Mis datos", 
-
+  "page.tax-consultant.create-edit.form.label.title" : "Editar mi perfil",
+  "page.tax-consultant.create-edit.form.label.image" : "Imagen de perfil",  
   "page.tax-consultant.create-edit.form.label.description" : "Cuenta algo sobre ti o tu experiencia", 
   "page.tax-consultant.create-edit.form.label.keyword" : "Añade palabras claves separadas por coma", 
-  "page.tax-consultant.create-edit.form.label.linkeding" : "Tu perfil de linkeding", 
+  "page.tax-consultant.create-edit.form.label.linkedin" : "Enlace a linkedin", 
 
   "page.tax-consultant.create-service.title" : "Añadir nuevo servicio",
   "page.tax-consultant.create-service.form.title" : "Título del servicio",

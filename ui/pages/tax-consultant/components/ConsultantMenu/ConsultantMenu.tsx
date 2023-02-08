@@ -35,7 +35,10 @@ const ConsultantMenu = ({ avatarImg }: ConsultantMenuProps) => {
       <div className={style.avatarBlock}>
         <UserImage size={'small'} image={consultant?.avatar?.url} />
         <Link href={`/tax-consultant/consultants/${consultant?.id}/edit`}>
-          <a className={style.editProfileButton}>ir</a>
+          <a className={style.editProfileButton}>
+            <span className='only-readers'>editar perfil</span>
+            <span className={style.editProfileButton_image}></span>
+          </a>
         </Link>
       </div>
       <div className={style.menuBlock}>

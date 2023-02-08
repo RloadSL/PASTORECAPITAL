@@ -32,6 +32,12 @@
       will-change: auto;
       transform: scale(.9);
 
+      li {
+        &:hover {
+          filter: invert(15%) sepia(94%) saturate(4724%) hue-rotate(272deg) brightness(95%) contrast(86%);
+        }
+      }
+
       a {
         padding: 8px !important;
       }
@@ -47,13 +53,29 @@
   }
 
   .editProfileButton {
-    background-color: colors.$dark;
     position: absolute;
     border-radius: 100%;
     width: 20px;
     height: 20px;
     top: 40px;
-    right: 0px
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: colors.$dark;
+
+    &_image {
+      filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+      background: url(../../../../../assets/img/icons/pencil.svg) no-repeat;
+      background-size: 10px;
+      background-position: center;
+      width: 10px;
+      height: 10px;
+    }
+
+    &:hover {
+      background-color: colors.$main;
+    }
   }
 }
 
