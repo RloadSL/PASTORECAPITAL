@@ -87,7 +87,7 @@ export default function CheckoutForm () {
 
     </form>
           {/* Show any error or success messages */}
-          {message && <div id='payment-message'>{message}</div>}
+          {message && <div className={style.paymentMessage} id='payment-message'> <span>{message}</span></div>}
       <Loading loading={isLoading} variant='inner-primary' />
     </div>
   )
