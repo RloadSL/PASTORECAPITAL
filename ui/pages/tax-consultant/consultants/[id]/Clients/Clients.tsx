@@ -15,14 +15,25 @@ import { FormattedMessage } from 'react-intl'
 
 const Clients: NextPage = () => {
   const { consultant } = useConsultant();
-  const [clients, setClients] = useState<any>([])
+  const [clientsState, setClients] = useState<{clients: any[], filterClients:any[]}>({clients: [], filterClients:[]})
 
   useEffect(() => {
     if (consultant instanceof UserConsultant) {
       consultant.getClients()
-        .then(res => setClients(res))
+        .then(res => setClients({clients: res, filterClients:res}))
     }
   }, [consultant])
+
+  const onFilter = (s:string)=> {
+    s = s.trim();
+    if(s.length == 0) setClients(pre => ({clients: pre.clients, filterClients:pre.clients}))
+    const filter = clientsState.clients.filter(item => {
+      const json = JSON.stringify(item)
+      return json.toLowerCase().indexOf(s.toLowerCase()) != -1
+    })
+    setClients(pre => ({...pre, filterClients: filter}))
+  }
+
   return (
     <div className={style.clients}>
       <header>
@@ -36,13 +47,13 @@ const Clients: NextPage = () => {
           <SearchBar
             enableTags={false}
             onFilter={(f: any) => {
-              // onFilter(f.search)
+              onFilter(f.search)
               console.log('hola')
             }}
           />
         </div>
         <div className={style.clientsList}>
-          <ClientList clients={clients} />
+          <ClientList clients={clientsState.filterClients} />
         </div>
       </div>
     </div>

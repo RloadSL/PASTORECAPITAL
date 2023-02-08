@@ -287,5 +287,6 @@
   "payment" : "Pagos",
   "confirmed_payment" : "Confirmación de Pago",
   "profile": "Perfil",
-  "edit" : "Editar"
+  "edit" : "Editar",
+  "thank-you-purchase": "Gracias por su compra"
 }

@@ -15,8 +15,6 @@ const prod = process.env.NODE_ENV === 'production'
 export default function CheckoutForm () {
   const stripe = useStripe()
   const elements = useElements()
-  const { query } = useRouter()
-  const [email, setEmail] = React.useState('')
   const [message, setMessage] = React.useState<string | undefined>()
   const [isLoading, setIsLoading] = React.useState(false)
   
@@ -60,7 +58,7 @@ export default function CheckoutForm () {
     const confirmation = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${prod ? process.env.NEXT_PUBLIC_HOST_PROD : process.env.NEXT_PUBLIC_HOST}/tax-consultant/consultants/${query.id}/services/${query.service_id}//confirmed_payment`
+        return_url: `${prod ? process.env.NEXT_PUBLIC_HOST_PROD : process.env.NEXT_PUBLIC_HOST}/thank-you-purchase`
       }
     })
     setMessage(confirmation.error.message)
