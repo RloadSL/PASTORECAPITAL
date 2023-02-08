@@ -49,10 +49,18 @@
     filter: brightness(0) invert(1);
     margin-left: 5px;
   }
+
+  &:hover {
+    background-color: colors.$dark;
+  }
 }
 
 .secondary {
   background-color: colors.$palette5;
+
+  &:hover {
+    background-color: colors.$dark;
+  }
 }
 
 .dark {

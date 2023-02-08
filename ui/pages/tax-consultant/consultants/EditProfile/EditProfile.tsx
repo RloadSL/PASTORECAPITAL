@@ -135,6 +135,9 @@ const EditProfileView = ({
 
     return (
       <div className={style.editProfile}>
+        <h1 className='main-title'>
+        <FormattedMessage id={'page.tax-consultant.create-edit.form.label.title'}/>
+        </h1>
         <p className='small-caps'>Apariencia</p>
         <div className='flex-container align-center'>
           <div className={style.avatarBlock}>
@@ -145,8 +148,9 @@ const EditProfileView = ({
             />
           </div>
           <div className={style.infoBlock}>
-            <p className='secondary-title'>Imagen de perfil</p>
-            {/* <p>Recomendado 800x800</p> */}
+            <p className={style.infoBlock_image}>
+              <FormattedMessage id={'page.tax-consultant.create-edit.form.label.image'}/>
+            </p>
             <label className='fake-button' htmlFor='avatarFile'>
               <span>Seleccionar Imagen</span>
               <input
@@ -223,7 +227,7 @@ const EditProfileView = ({
             />
 
             <InputFormikApp
-              labelID='page.tax-consultant.create-edit.form.label.linkeding'
+              labelID='page.tax-consultant.create-edit.form.label.linkedin'
               type='text'
               name='linkedin'
             />

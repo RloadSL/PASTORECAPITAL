@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
 import { User } from 'domain/User/User'
 import SearchBar from 'components/SearchBar'
+import { FormattedMessage } from 'react-intl'
 
 
 
@@ -28,7 +29,9 @@ const Clients: NextPage = () => {
         <ConsultantMenu />
       </header>
       <div className={style.clients_container}>
-        <h1 className='small-caps'>Mis Clientes</h1>
+        <h1 className='main-title'>
+          <FormattedMessage id={'page.tax-consultant.profile.clients.title'}/>
+        </h1>
         <div className={style.filtersContainer}>
           <SearchBar
             enableTags={false}

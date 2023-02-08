@@ -116,14 +116,14 @@
 
 .subscribeBtn {
   width: fit-content;
-  margin-right: 0px;
+  margin-right: 10px;
   background-color: colors.$palette5;
   padding: 10px;
   border-radius: 20px;
   display: flex;
 
   @include devices.device(tablet) {
-    margin-right: 20px;
+    // margin-right: 20px;
   }
 
   span {

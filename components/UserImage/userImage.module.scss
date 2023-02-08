@@ -21,8 +21,18 @@
   }
 
   &.large {
-    width: 200px;
-    height: 200px;
+    width: 90px;
+    height: 90px;
+
+    @include devices.device(smScreen) {
+      width: 100px;
+      height: 100px;
+    }
+
+    @include devices.device(lgScreen) {
+      width: 200px;
+      height: 200px;
+    }
   }
 
   &.medium {
@@ -81,8 +91,9 @@
     }
 
     @include devices.device(lgScreen){
-      height: 150px;
-      width: 150px;
+      height: 100px;
+      width: 100px;
+      background-size: 30%;
     }
   }
 
