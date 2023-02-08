@@ -25,6 +25,7 @@ import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import taxConsultantResourcesRepository from 'infrastructure/repositories/taxConsultantResources.repository'
 
 const CreateFormResource = dynamic(
   () => import('./components/CreateFormResource'),
@@ -126,7 +127,7 @@ const Resources: NextPage<any> = () => {
 
   const _onDeleteArt = async (data: { id: number; status: string }) => {
     if (wpToken) {
-      await AnalysisRepositoryInstance.deleteArticle(data.id, wpToken)
+      await taxConsultantResourcesRepository.delete(data.id, wpToken)
       setFilters(pre => ({ ...pre }))
     }
   }
