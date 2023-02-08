@@ -5,6 +5,7 @@ import { Post } from "domain/Post/Post";
 import { AnalysisRepositoryInstance, ANALYSIS_QUERY } from "infrastructure/repositories/analysis.repository";
 import { CourseRepositoryInstance } from "infrastructure/repositories/courses.repository";
 import { FlashUpdatesRepositoryInstance } from "infrastructure/repositories/flashupdates.repository";
+import taxConsultantResourcesRepository from "infrastructure/repositories/taxConsultantResources.repository";
 import { TutorialRepositoryInstance } from "infrastructure/repositories/tutorials.repository";
 
 
@@ -68,6 +69,23 @@ export const getFlashArticles = createAsyncThunk(
       const response = await AnalysisRepositoryInstance.getArticles(userDataToken, wpToken, { ...query, posts_per_page: 5 })
 
       return { articles: response, offset: query?.offset };
+
+    } catch (error) {
+      return error;
+    }
+  }
+)
+
+/**
+ * Obtener tutoriales desde el headless
+ */
+export const taxConsultantGetResorces = createAsyncThunk(
+  'taxConsultant@GetResorces',
+  async ({ offset, filters, wpToken }: { offset?: number, filters?: any, wpToken?: string }, { getState }) => {
+    console.log('taxConsultant@GetResorces',{ offset, filters, wpToken })
+    try {
+      const response = await taxConsultantResourcesRepository.readAll(offset, filters, wpToken)
+     return { resources: response, offset };
 
     } catch (error) {
       return error;
@@ -142,6 +160,16 @@ export const wpHeadless = createSlice({
           state.posts.items = action.payload.tutorials
         }
         state.posts.hasMore = action.payload.tutorials.length === 5;
+        state.loading = false
+      })
+      //Resorces
+      .addCase(taxConsultantGetResorces.fulfilled, (state: any, action: any) => {
+        if (state.posts && action.payload.offset) {
+          state.posts.items = state.posts.items.concat(action.payload.resources)
+        } else {
+          state.posts.items = action.payload.resources
+        }
+        state.posts.hasMore = action.payload.resources.length === 5;
         state.loading = false
       })
       .addCase(academyGetTutorials.pending, (state: any) => { state.loading = true })

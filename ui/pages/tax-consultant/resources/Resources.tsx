@@ -8,7 +8,8 @@ import { Suspense, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   cleanAcademyPosts,
-  getAnalysisArticles
+  getAnalysisArticles,
+  taxConsultantGetResorces
 } from 'ui/redux/slices/wp-headless-api/wp-headless-api.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
@@ -53,18 +54,17 @@ const Resources: NextPage<any> = () => {
   const [statePost, setStatePost] = useState<'public' | 'private'>('public')
 
   useEffect(() => {
-
     if (userLogged?.uid) {
       dispatch(cleanAcademyPosts({})) //OJO al nombre de esta función que hace referencia a Academy
       if (statePost === 'public') {
         getPosts(filters, undefined)
       } else {
-        if (wpToken) getPosts(filters) //OJO con el nombre de la funcion getPosts
+        if (wpToken) getPosts(filters, wpToken) //OJO con el nombre de la funcion getPosts
       }
     }
-  }, [filters, statePost])
+  }, [filters, statePost,userLogged?.uid])
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (userLogged?.uid)
       getOutstandingArticles().then(res => {
         setOutstandingArt(res)
@@ -81,32 +81,23 @@ const Resources: NextPage<any> = () => {
         }
 
       })
-  }, [])
+  }, []) */
 
   const _loadMore = (offset: number) => {
     if (statePost === 'public') {
-      getPosts(filters, offset)
+      getPosts(filters, undefined ,offset)
     } else {
-      if (wpToken) getPosts(filters, offset)
+      if (wpToken) getPosts(filters, wpToken,offset)
     }
   }
 
   const getPosts = async (
     filters: { search: string; categories: any; tags: any },
+    wpToken?: string,
     offset?: number
   ) => {
-    await dispatch(
-      getAnalysisArticles({
-        userDataToken,
-        wpToken,
-        query: {
-          offset,
-          post_status: statePost,
-          category_name: query['category-slug'] as string,
-          s: filters.search,
-          tags: filters.tags
-        }
-      })
+    dispatch(
+      taxConsultantGetResorces({ offset, wpToken: wpToken, filters: filters })
     )
   }
 
@@ -185,7 +176,6 @@ const ResourcesView = ({
   ] = useState(null)
   const { query } = useRouter()
   const isPrivateExcerpt = useRef(false)
-  const { editionGranted } = useGuardPermissions()
   const [outstandingPost, setoutstandingPost] = useState<
     { items: Post[]; hasMore: false } | undefined
   >()
@@ -206,7 +196,7 @@ const ResourcesView = ({
           </h1>
         </div>
         <SearchBar
-          placeholder={'Buscar por palabra clave'}
+          placeholder={'component.filter-search-bar.label'}
           onFilter={(value: { search?: string; tags?: string }) =>
             onFilter(value)
           }
@@ -225,7 +215,7 @@ const ResourcesView = ({
           loadMore={loadMore}
           statePost={statePost}
           setStatePost={(state: 'public' | 'private') => setStatePost(state)}
-          onClickItemTarget={encodeURI(`/research/bitcoins-altcoins/${query['category-slug']}/`)}
+          onClickItemTarget={encodeURI(`/tax-consultant/resources/`)}
           deleteItem={(value: { id: number; status: string }) =>
             setDeleteArticle(value)
           }

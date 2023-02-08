@@ -1,7 +1,7 @@
 import { Post } from 'domain/Post/Post';
 import { HTTP } from 'infrastructure/http/http';
 import { WP_API_CATEGORY, WP_API_POST } from 'infrastructure/wordpress/config';
-import {getCategories} from '../wordpress/wp.utils'
+import {getAllPostsFromServer, getCategories} from '../wordpress/wp.utils'
 
 class TaxConsultantResorses{
   private static instance: TaxConsultantResorses;
@@ -25,10 +25,10 @@ class TaxConsultantResorses{
     }
   }
 
-  create = async (lesson: { title: string, excerpt: string }, wpToken: string) => {
+  create = async (resorce: { title: string, excerpt: string, created_by:any }, wpToken: string) => {
     let primaryCat = await this.getCategoryResorces(wpToken)
     const arg = {
-      ...lesson,
+      ...resorce,
       status: 'private',
       content: '<p>Nuevo recurso de asesor fiscal....</p>',
       categories: [primaryCat]
@@ -40,6 +40,34 @@ class TaxConsultantResorses{
       return res.errCode;
     }
   }
+
+
+  async read(id: string): Promise<Post | undefined> {
+    try {
+      const res = await HTTP.get(`${WP_API_POST}/${id}`);
+      if (res) return new Post(res);
+      else return undefined
+    } catch (error) {
+      console.error('async read', `${WP_API_POST}/${id}`);
+      return undefined;
+    }
+  };
+
+  async readAll(offset?: number, filters?: any, wpToken?: string): Promise<Post[]> {
+    filters.categories = await this.getCategoryResorces(wpToken)
+    const response = await getAllPostsFromServer(offset, filters, wpToken)
+    return response.map((item: any) => new Post(item));
+  };
+
+  async delete(id: number, wpToken: string): Promise<void> {
+    try {
+      const deleted = await HTTP.delete(WP_API_POST + `/${id}?force=true`, { Authorization: `Bearer ${wpToken}` })
+      return deleted.data;
+    } catch (error) {
+      console.error(error)
+      alert('Error inteno en user.repository')
+    }
+  };
 }
 
 export default TaxConsultantResorses.getInstance()

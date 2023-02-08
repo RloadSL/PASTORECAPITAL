@@ -28,6 +28,7 @@ import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/Selec
 import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
 import { Post } from 'domain/Post/Post'
 import LoadMoreLoading from 'components/LoadMoreLoading'
+import taxConsultantResorcesRepository from 'infrastructure/repositories/taxConsultantResources.repository'
 
 const CreateFormResource = ({
   onClose,
@@ -95,11 +96,8 @@ const CreateFormResource = ({
 
   const createCourses = async (data: any): Promise<any> => {
     setloading(true)
-
     if (userLogged.wpToken) {
-      const response = await AnalysisRepositoryInstance.createArticle(
-        [data.category, ...data.activated_to_plans].map(item => parseInt(item)),
-        userLogged.wpToken,
+      const response = await taxConsultantResorcesRepository.create(
         {
           title: data.title,
           excerpt: data.excerpt,
@@ -108,9 +106,9 @@ const CreateFormResource = ({
             uid: userLogged.uid,
             name: `${userLogged.name} ${userLogged.lastname}`
           }
-        }
+        },
+        userLogged.wpToken
       )
-
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
       } else if (response instanceof Post) {
@@ -140,14 +138,14 @@ const CreateFormResource = ({
         excerpt: yup
           .string()
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
-        category: yup
+        /* category: yup
           .number()
           .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
         activated_to_plans: yup
           .array()
           .of(yup.string())
           .min(1, intl.formatMessage({ id: 'forms.errors.errorRequired' }))
-          .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
+          .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })) */
       }),
     [intl]
   )
