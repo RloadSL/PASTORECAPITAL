@@ -181,6 +181,10 @@
   "page.tax-consultant.resources.createForm.input.description": "Descripción recurso",
   "page.tax-consultant.resources.createForm.select": "Categoría del recurso",
   "page.tax-consultant.resources.createForm.submit": "Crear recurso",
+  "page.resources.resource.delete.message": "¿Seguro que deseas eliminar este recurso?",
+  "page.resources.resource.delete.title": "Eliminar recurso",
+
+
 
 
 
