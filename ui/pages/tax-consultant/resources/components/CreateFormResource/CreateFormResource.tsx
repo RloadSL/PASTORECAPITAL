@@ -48,7 +48,10 @@ const CreateFormResource = ({
   const [loading, setloading] = useState(false)
   useEffect(() => {
     let fetching = true
-    getCategories()
+
+    
+
+    /* getCategories()
       .then(res => {
         if (fetching) setcategories(res as any)
       })
@@ -64,7 +67,7 @@ const CreateFormResource = ({
       .catch(() => {
         alert('Error interno refrescar la página.')
         onClose()
-      })
+      }) */
     return () => {
       fetching = false
     }
