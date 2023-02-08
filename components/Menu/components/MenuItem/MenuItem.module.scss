@@ -18,6 +18,10 @@
   @include devices.device(mdScreen) {
     align-items:flex-end;
   }
+
+  &:hover {
+    color: colors.$main;
+  }
 }
 
 .mainMenu {

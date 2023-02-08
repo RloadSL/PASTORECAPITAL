@@ -17,6 +17,10 @@
     }
   }
 
+  &:hover {
+    color: colors.$main;
+  }
+
   &.edit {
     background-color:colors.$main;
     color: white;
@@ -39,6 +43,10 @@
     .linkItemIcon {
       filter:  brightness(0) invert(1);
       width: 15px;
+    }
+
+    &:hover {
+      background-color: colors.$dark;
     }
   }
 
