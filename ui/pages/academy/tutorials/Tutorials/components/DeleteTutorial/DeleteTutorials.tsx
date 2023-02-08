@@ -36,7 +36,7 @@ const DeleteTutorial = ({
       onClose()
     }
     else{
-      alert('Unauthorized')
+      console.error('Unauthorized')
     }
     router.push({
       pathname: `/academy/tutorials`

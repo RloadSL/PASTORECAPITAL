@@ -45,7 +45,7 @@ const ContentItemList = ({ item, actions }: contentItemListProps) => {
             {/* <MenuItem className={'style.menuOption'} target={'_blank'} href={'https://catfriendly.com/wp-content/uploads/2021/02/meow-e1612557327342.jpeg'}>
               <FormattedMessage id={'contextualMenu.item.label.see'}/>
             </MenuItem>
-            <MenuItem className={'style.menuOption'} onClick={() => alert('Bloquer')}>
+            <MenuItem className={'style.menuOption'} onClick={() => console.error('Bloquer')}>
               <FormattedMessage id={'contextualMenu.item.label.delete'}/>
             </MenuItem> */}
           </Menu>

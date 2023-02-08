@@ -68,7 +68,7 @@ class UserRepositoryImplementation{
        return user;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en user.repository')
+      console.error('Error inteno en user.repository')
       return null;
     }
   };
@@ -78,7 +78,7 @@ class UserRepositoryImplementation{
       await FireFirestore.deleteDoc('users',uid)
     } catch (error) {
       console.error(error)
-      alert('Error inteno en user.repository')
+      console.error('Error inteno en user.repository')
     }
   };
 

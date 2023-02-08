@@ -126,7 +126,7 @@ const UsersView = ({
               </MenuItem>
               <MenuItem
                 className={style.menuOption}
-                onClick={() => alert('Bloquer')}
+                onClick={() => console.error('Bloquer')}
               >
                 Bloquear
               </MenuItem>

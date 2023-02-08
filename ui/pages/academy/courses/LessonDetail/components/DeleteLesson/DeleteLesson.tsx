@@ -33,7 +33,7 @@ const DeleteLesson = ({
       onClose()
     }
     else{
-      alert('Unauthorized')
+      console.error('Unauthorized')
     }
     
     router.push({

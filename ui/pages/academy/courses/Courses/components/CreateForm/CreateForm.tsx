@@ -40,7 +40,7 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
         if (fetching) setlevels(res as any)
       })
       .catch(() => {
-        alert('Error interno refrescar la página.')
+        console.error('Error interno refrescar la página.')
         onClose()
       })
     return () => {

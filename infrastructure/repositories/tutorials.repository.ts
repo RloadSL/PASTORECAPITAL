@@ -57,7 +57,7 @@ class TutorialRepositoryImpl {
       return deleted.data;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en user.repository')
+      console.error('Error inteno en user.repository')
     }
   };
 }

@@ -57,7 +57,7 @@ const CreateFormResource = ({
         if (fetching) setcategories(res as any)
       })
       .catch(() => {
-        alert('Error interno refrescar la página.')
+        console.error('Error interno refrescar la página.')
         onClose()
       })
 
@@ -66,7 +66,7 @@ const CreateFormResource = ({
         if (fetching) setcategoriesPlans(res as any)
       })
       .catch(() => {
-        alert('Error interno refrescar la página.')
+        console.error('Error interno refrescar la página.')
         onClose()
       }) */
     return () => {

@@ -99,7 +99,7 @@ export class FireFirestore {
       return snapshot
     } catch (error:any) {
       console.log(error)
-      alert('Firebase response: '+error.code);
+      console.error('Firebase response: '+error.code);
     }
   }
   /**
@@ -112,7 +112,7 @@ export class FireFirestore {
       const docRef = this._doc(collectionPath, docId);
       await deleteDoc(docRef)
     } catch (error:any) {
-      alert('Firebase response: '+error.code);
+      console.error('Firebase response: '+error.code);
     }
   }
   /**
@@ -126,7 +126,7 @@ export class FireFirestore {
       const docRef = this._doc(collectionPath, docId);
       const res = await setDoc(docRef, cleanUndefined(data), {merge: true});
     } catch (error:any) {
-      alert('Firebase response: '+error.code);
+      console.error('Firebase response: '+error.code);
     }
   }
   /**
@@ -141,7 +141,7 @@ export class FireFirestore {
       return { ...data, id: snap.id };
     } catch (error:any) {
       
-      alert('Firebase response: '+error.code);
+      console.error('Firebase response: '+error.code);
     }
   }
 

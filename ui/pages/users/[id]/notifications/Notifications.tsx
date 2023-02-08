@@ -15,8 +15,8 @@ const Notifications = ({ onClose}: NotificationsProps) => {
 const NotificationsView = ({ onClose}: NotificationsProps) => {
 
   const actionsItemList = {
-    view:{label:'contextualMenu.item.label.see',action: () => alert('ver notification')},
-    delete:{label:'contextualMenu.item.label.delete',action: () => alert('eliminar')},
+    view:{label:'contextualMenu.item.label.see',action: () => console.error('ver notification')},
+    delete:{label:'contextualMenu.item.label.delete',action: () => console.error('eliminar')},
   } 
 
   return (

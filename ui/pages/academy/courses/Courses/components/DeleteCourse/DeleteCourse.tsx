@@ -34,7 +34,7 @@ const DeleteCourse = ({
       onClose()
     }
     else{
-      alert('Unauthorized')
+      console.error('Unauthorized')
     }
     router.push('/academy/courses')
     pushInfoApp(new InfoApp({code: 'message.item.deleted', message:'The item was deleted'}, 'success'));

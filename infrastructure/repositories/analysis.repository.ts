@@ -45,7 +45,7 @@ export class AnalysisRepository {
      */
     const analysis_cat: WP_TERM = (await HTTP.get(`${WP_API_ANLALYSIS}category?only_analysis=1`))[0];
     //Comprobabos que existe la categoría principal en el WP
-    if (!analysis_cat.term_id) return alert('No existe la categoria de analysis en la API de wp')
+    if (!analysis_cat.term_id) return console.error('No existe la categoria de analysis en la API de wp')
     /**
      * Argumentos necesarios para crear la categoría en el headless
      */
@@ -154,7 +154,7 @@ export class AnalysisRepository {
     }
     //Si el usuario solicita los artículos privados deve ser administrador y tener el wpToken correspondiente  
     if (query?.post_status === 'private' && !wpToken) {
-      return alert('Bad reques wpToken is needed to private post')
+      return console.error('Bad reques wpToken is needed to private post')
     }
 
     const res = await HTTP.get(`${WP_API_ANLALYSIS}articles?${params}`, HTTP.getHeaders(wpToken))
@@ -210,7 +210,7 @@ export class AnalysisRepository {
       return deleted.data;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en user.repository')
+      console.error('Error inteno en user.repository')
     }
   };
 
@@ -227,7 +227,7 @@ export class AnalysisRepository {
       return;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en analysis.repository')
+      console.error('Error inteno en analysis.repository')
     }
   };
 }

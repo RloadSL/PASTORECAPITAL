@@ -47,7 +47,7 @@ export class FlashUpdatesRepository {
     */
     const fu_category = (await getCategory(undefined, 'flash-updates')) as any[]
     if(fu_category.length == 0){
-      alert('Noexiste la categoría Flash Updates con el slug flush-updates ene el HEADLESS');
+      console.error('Noexiste la categoría Flash Updates con el slug flush-updates ene el HEADLESS');
       return 'errors.internal';
     } 
     //Es necesario siempre asignare la categoria principal de análisis para hacer comprobaciones en la eliminación de este Art.
@@ -91,7 +91,7 @@ export class FlashUpdatesRepository {
     }
     //Si el usuario solicita los artículos privados deve ser administrador y tener el wpToken correspondiente  
     if (query?.post_status === 'private' && !wpToken) {
-      return alert('Bad reques wpToken is needed to private post')
+      return console.error('Bad reques wpToken is needed to private post')
     }
 
     const res = await HTTP.get(`${WP_API_FlUSH_UPDATES}articles?${params}`, HTTP.getHeaders(wpToken))
@@ -147,7 +147,7 @@ export class FlashUpdatesRepository {
       return deleted.data;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en user.repository')
+      console.error('Error inteno en user.repository')
     }
   };
 
@@ -164,7 +164,7 @@ export class FlashUpdatesRepository {
       return;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en analysis.repository')
+      console.error('Error inteno en analysis.repository')
     }
   };
 }

@@ -29,9 +29,12 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate, description }: 
   const {pushInfoApp} = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
-
+  const {push, asPath} = useRouter()
 
   const _onCreate = async (comment: string) => {
+    if(userLoggued?.uid === 'not-logged') {
+      push({pathname: '/login' ,query: {redirect: asPath}})
+    }
     setloading(true)
     const res: Comments | undefined = await CommentsImplInstance.createComments({
       comment: comment,

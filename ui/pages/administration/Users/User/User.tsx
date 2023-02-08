@@ -28,7 +28,7 @@ const User: NextPage<any> = () => {
       if (user && fetching === true) {
         setUserDto(user.toJson())
       } else {
-        alert('Invalid user')
+        console.error('Invalid user')
         replace('/administration/users/')
       }
     })

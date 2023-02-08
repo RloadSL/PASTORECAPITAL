@@ -30,7 +30,7 @@ const SubscriptionToPlan = () => {
               setClientSecret(res.clientSecret)
               setIntent(res.payment_intent)
             } else {
-              alert('Plan not enabled')
+              console.error('Plan not enabled')
               replace('/subscription')
             }
 

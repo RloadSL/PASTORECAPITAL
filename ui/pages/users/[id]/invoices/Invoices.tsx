@@ -14,7 +14,7 @@ const Invoices = ({ }: invoicesProps) => {
 const InvoicesView = ({ }: invoicesProps) => {
 
   const actionsItemList = {
-    view:{label:'contextualMenu.item.label.see',action: () => alert('ver factura')}
+    view:{label:'contextualMenu.item.label.see',action: () => console.error('ver factura')}
   } 
 
   return (

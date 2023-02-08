@@ -37,7 +37,7 @@ class CommentsImpl {
       return result[0]
     } catch (error) {
       console.error(error)
-      alert('Error inteno en comments.repository')
+      console.error('Error inteno en comments.repository')
     }
   }
 
@@ -56,7 +56,7 @@ class CommentsImpl {
 
     } catch (error) {
       console.error(error)
-      alert('Error inteno en comments.repository')
+      console.error('Error inteno en comments.repository')
       return {comments: [] , lastSnapshot: null};
     }
   }
@@ -67,7 +67,7 @@ class CommentsImpl {
       await FireFirestore.setDoc(this.commentsPath, id, { comment })
     } catch (error) {
       console.error(error)
-      alert('Error inteno en comments.repository')
+      console.error('Error inteno en comments.repository')
     }
   }
 
@@ -78,7 +78,7 @@ class CommentsImpl {
       return c;
     } catch (error) {
       console.error(error)
-      alert('Error inteno en comments.repository')
+      console.error('Error inteno en comments.repository')
     }
   }
 
@@ -87,7 +87,7 @@ class CommentsImpl {
       await FireFirestore.deleteDoc(this.commentsPath, id)
     } catch (error) {
       console.error(error)
-      alert('Error inteno en comments.repository')
+      console.error('Error inteno en comments.repository')
     }
   }
 
