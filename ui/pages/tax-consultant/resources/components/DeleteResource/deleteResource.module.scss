@@ -1,0 +1,24 @@
+@use '../../../../../../styles/partials/variables/colors' as colors;
+@use '../../../../../../styles/partials/mixins/devices' as devices;
+@use '../../../../../../styles/partials/placeholders'; 
+
+.cardContainer {
+  @extend %cardContainer;
+  padding: 40px;
+  max-height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.formTitle {
+  text-align: center;
+  color: colors.$dark;
+  margin-bottom: 50px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
