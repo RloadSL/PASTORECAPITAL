@@ -109,7 +109,7 @@ const LessonDetailView = ({
         {editLink && (
           <div className='admin-buttons-container'>
             <LinkApp
-              label={'edit'}
+              label={'btn.edit'}
               linkStyle={'edit'}
               linkHref={editLink}
               icon={iconEdit}

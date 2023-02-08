@@ -69,9 +69,7 @@ export class UserConsultant{
   }
 
   async getActiveServices(){
-    console.log('getActiveServices')
     const s = await userConsultantRepository.getServices(this.id,true);
-    console.log('getActiveServices',s)
     return s;
   }
 

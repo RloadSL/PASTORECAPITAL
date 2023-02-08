@@ -21,7 +21,10 @@ import { useRouter } from 'next/router'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import Loading from 'components/Loading'
 import UserImage from 'components/UserImage'
-import { NOT_CONSULTANT, UserConsultant } from 'domain/UserConsultant/UserConsultant'
+import {
+  NOT_CONSULTANT,
+  UserConsultant
+} from 'domain/UserConsultant/UserConsultant'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
 import * as yup from 'yup'
@@ -48,15 +51,14 @@ const EditProfile = () => {
         userData.lastname = consultant?.lastname as string
         userData.uid = consultant?.uid as string
         setInitialValues({
-          country: consultant.country?.iso,
-          description: consultant?.description,
-          keywords: consultant?.keywords?.toString(),
-          linkedin: consultant?.linkedin
+          country: consultant.country?.iso || '',
+          description: consultant?.description || '',
+          keywords: consultant?.keywords?.toString() || '',
+          linkedin: consultant?.linkedin || '',
+          calendly: consultant?.calendly || ''
         })
       }
     }
-
-
 
     return () => {
       fetch = false
@@ -77,7 +79,7 @@ const EditProfile = () => {
 
   const [initialValues, setInitialValues] =
     useState<UserConsultantInitialValues>({
-      country: undefined,
+      country: '',
       description: '',
       keywords: '',
       linkedin: '',
@@ -88,7 +90,7 @@ const EditProfile = () => {
     values.uid = userData.uid as string
     const response = await userConsultantRepository.setUserConsultant({
       ...values,
-      id: (consultant instanceof UserConsultant) ? consultant?.id : undefined
+      id: consultant instanceof UserConsultant ? consultant?.id : undefined
     })
     if (!response) {
       pushInfoApp(
@@ -106,7 +108,9 @@ const EditProfile = () => {
         initialValues={initialValues}
         onSubmit={_onSubmit}
         userData={userData}
-        currentavatar={(consultant instanceof UserConsultant) && consultant?.avatar?.url}
+        currentavatar={
+          consultant instanceof UserConsultant && consultant?.avatar?.url
+        }
       ></EditProfileView>
       <Loading variant='outer-primary' loading={loading}></Loading>
     </>
@@ -125,7 +129,7 @@ const EditProfileView = ({
   const intl = useIntl()
 
   const AvatarPicker = () => {
-    function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    function onSelectFile (e: React.ChangeEvent<HTMLInputElement>) {
       if (e.target.files && e.target.files.length > 0) {
         const reader = new FileReader()
         reader.addEventListener('load', () =>
@@ -138,7 +142,9 @@ const EditProfileView = ({
     return (
       <div className={style.editProfile}>
         <h1 className='main-title'>
-          <FormattedMessage id={'page.tax-consultant.create-edit.form.label.title'} />
+          <FormattedMessage
+            id={'page.tax-consultant.create-edit.form.label.title'}
+          />
         </h1>
         <p className='small-caps'>Apariencia</p>
         <div className='flex-container align-center'>
@@ -151,7 +157,9 @@ const EditProfileView = ({
           </div>
           <div className={style.infoBlock}>
             <p className={style.infoBlock_image}>
-              <FormattedMessage id={'page.tax-consultant.create-edit.form.label.image'} />
+              <FormattedMessage
+                id={'page.tax-consultant.create-edit.form.label.image'}
+              />
             </p>
             <label className='fake-button' htmlFor='avatarFile'>
               <span>Seleccionar Imagen</span>
@@ -196,9 +204,12 @@ const EditProfileView = ({
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       calendly: yup
         .string()
-        .matches(/(https:\/\/calendly\.com)/,intl.formatMessage({ id:  'forms.errors.calendlylink'}))
-        .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
-
+        .matches(
+          /(https:\/\/calendly\.com)/,
+          intl.formatMessage({ id: 'forms.errors.calendlylink' })
+        )
+        .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
+      linkedin: yup.string()
     })
 
     return (
@@ -241,7 +252,7 @@ const EditProfileView = ({
               labelID='page.tax-consultant.create-edit.form.label.linkedin'
               type='text'
               name='linkedin'
-            />            
+            />
             <div
               style={{
                 marginTop: '20px',

@@ -69,7 +69,7 @@ const LessonDetailView = ({
         {post && editLink ? (
           <div className='admin-buttons-wrapper'>
             <div className='admin-buttons-container'>
-              <LinkApp label={'edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
+              <LinkApp label={'btn.edit'} linkStyle={'edit'} linkHref={editLink} icon={iconEdit} />
               <ButtonApp labelID={'btn.delete'} onClick={() => setDeleteTutorial({ id: post.id, status: post.status })} type='button' buttonStyle='delete' size='small' icon={iconDelete} />
             </div>
           </div>

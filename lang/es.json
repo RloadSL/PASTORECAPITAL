@@ -286,5 +286,6 @@
   "service_id" : "Detalle de Servicio",
   "payment" : "Pagos",
   "confirmed_payment" : "Confirmación de Pago",
-  "profile": "Perfil"
+  "profile": "Perfil",
+  "edit" : "Editar"
 }
