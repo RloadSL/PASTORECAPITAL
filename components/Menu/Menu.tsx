@@ -1,12 +1,13 @@
+import { User } from 'domain/User/User'
 import { useSelector } from 'react-redux'
-import { getIsLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { getIsLogged, getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import MenuItem from './components/MenuItem'
 import style from './Menu.module.scss'
 
 interface MENUPROPS {
   itemList: Array<any>
   activeItem?: string
-  isLogged?: boolean
+  userLoggued?: User
 }
 
 /**
@@ -17,10 +18,10 @@ interface MENUPROPS {
  */
 
 const Menu = ({ itemList, activeItem }: MENUPROPS) => {
-  const isLogged = useSelector(getIsLogged)
+  const userLoggued = useSelector(getUserLogged)
   return (
     <MenuView
-      isLogged={isLogged}
+      userLoggued={userLoggued}
       itemList={itemList}
       activeItem={activeItem}
     />
@@ -31,12 +32,12 @@ const Menu = ({ itemList, activeItem }: MENUPROPS) => {
  * Función principal del render
  **/
 
-const MenuView = ({ itemList, activeItem, isLogged }: MENUPROPS) => {
+const MenuView = ({ itemList, activeItem, userLoggued }: MENUPROPS) => {
   return (
     <ul className={style.menuContainer}>
       {itemList?.map((item, index) => {
         if (item.isAdministrator) {
-          return isLogged ? <MenuItem key={index} item={item} activeItem={activeItem} /> : null
+          return userLoggued?.role.level === 2 ? <MenuItem key={index} item={item} activeItem={activeItem} /> : null
         }else{
           return <MenuItem key={index} item={item} activeItem={activeItem} />
         }
