@@ -166,6 +166,9 @@ export const authetication = createSlice({
     },
     setAuthLoading : (state, action)=>{
       state.loading = action.payload
+    },
+    setUserLogged : (state, action)=>{
+      state.userLogged = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -193,6 +196,6 @@ export const authetication = createSlice({
 })
 
 //Estrallendo actions
-export const { cleanAuthErrors, setCodeValidation, setAuthLoading } = authetication.actions;
+export const {setUserLogged, cleanAuthErrors, setCodeValidation, setAuthLoading } = authetication.actions;
 
 export default authetication.reducer

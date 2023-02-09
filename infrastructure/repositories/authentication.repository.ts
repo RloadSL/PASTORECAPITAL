@@ -83,6 +83,12 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
       return { userCredential: null, error: error };
     }
   }
+
+  async updateUserAuthenticationData(data:{uid: string, name:string, lastname:string, email:string }){
+    const response:any = await FireFunctionsInstance.onCallFunction('UpdateUserAuthenticationFunctions', data);
+    return response;
+  }
+
   /**
    * Es un listener de los cambios de estado del usuario de Firebase Authentication.
    * @param callback Tarea a ejecutar cuando se produsca un cambio de estado

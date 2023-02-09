@@ -7,17 +7,22 @@ import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.re
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import style from './user.module.scss'
 import { useIntl } from 'react-intl'
 import { ROLES } from 'domain/Constants/roles'
+import LinkApp from 'components/LinkApp'
+import systemRepository from 'infrastructure/repositories/system.repository'
+import { AuthImplInstance } from 'infrastructure/repositories/authentication.repository'
+import { useSystem } from 'ui/hooks/system.hooks'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
 const User: NextPage<any> = () => {
   const { query, replace } = useRouter()
   const [userDto, setUserDto] = useState<UserDto | undefined>()
-
+  const {pushInfoApp} = useSystem()
   useEffect(() => {
     let fetching = true
-    _getData(fetching)
+    if(query.uid) _getData(fetching)
     return () => {
       fetching = false
     }
@@ -29,22 +34,29 @@ const User: NextPage<any> = () => {
         setUserDto(user.toJson())
       } else {
         console.error('Invalid user')
-        replace('/administration/users/')
+        replace('/')
       }
     })
   }
 
-  const _editUserData = (data: any) => {
-    console.log(data)
+  const _noti = ()=> pushInfoApp(new InfoApp({code: 'user.updated', message:'user.updated'}, 'success'))
+
+  const _editUserData = async (data: any) => {
+    await AuthImplInstance.updateUserAuthenticationData({uid: query.uid, ...data})
+    _noti()
   }
 
   const _onSaveRole = async (data: Role) => {
     await UserRepositoryImplInstance.update(query.uid as string, {role : data})
     _getData(true);
+    _noti()
   }
-
+  const _onCancelSubscription = async () => {
+    await systemRepository.cancelSubscription({sub_id: userDto?.subscription.stripe_sub_id as string})
+    _noti()
+  }
   return userDto ? (
-    <UserView onSaveRole={_onSaveRole} userDataDto={userDto} onSubmit={_editUserData} />
+    <UserView onCancelSubscription={_onCancelSubscription} onSaveRole={_onSaveRole} userDataDto={userDto} onSubmit={_editUserData} />
   ) : (
     <Loading loading={true}></Loading>
   )
@@ -53,11 +65,13 @@ const User: NextPage<any> = () => {
 const UserView = ({
   userDataDto,
   onSubmit,
+  onCancelSubscription,
   onSaveRole
 }: {
   userDataDto: UserDto
   onSubmit: Function,
-  onSaveRole: Function
+  onSaveRole: Function,
+  onCancelSubscription: Function
 }) => {
   const { push, basePath, asPath } = useRouter()
   const intl = useIntl()
@@ -74,12 +88,16 @@ const UserView = ({
         .email(intl.formatMessage({ id: 'page.login.incorrectEmail' }))
         .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
     })
-  )
+  ).current
 
   const renderFormik = () => {
     return (
       <Formik
-        initialValues={userDataDto}
+        initialValues={{
+          name: userDataDto.name,
+          lastname: userDataDto.lastname,
+          email: userDataDto.email
+        }}
         validationSchema={validationSchema}
         onSubmit={values => {
           onSubmit(values)
@@ -160,11 +178,11 @@ const UserView = ({
                   margin: 'auto'
                 }}
               >
-                <ButtonApp
+                {userDataDto.role.level > 1 && <ButtonApp
                   buttonStyle='link'
                   type='submit'
                   labelID='btn.save'
-                />
+                />}
               </div>
             </div>
           </Form>
@@ -183,15 +201,21 @@ const UserView = ({
         <div>
           <p>Alta de usuario: {userDataDto.created_at?.toLocaleString()}</p>
         </div>
-        {userDataDto.role.level < 1 && (
-          <div className='plan'>Renderizar subscription</div>
+        {userDataDto.role.level <= 1 && (
+          <div className={style.plan}>
+              <div>Plan activo: {userDataDto.subscription.plan.label}</div>
+              <div style={{display:'flex'}}>
+                <LinkApp linkStyle='classic' target='_self' linkHref='/subscription'  label='btn.subscribe'/>
+                {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}>Cancelar</ButtonApp>}
+              </div>
+          </div>
         )}
         <div className='role'>
           <p className='small-caps margin-top-50'>Configurar rol del usuario</p>
           <div>
             <div>{renderFormikRole()}</div>
 
-            {userDataDto.role.level === 1 && (
+            {userDataDto.role.level == 1 && (
               <div>
                 <ButtonApp
                   buttonStyle='primary'

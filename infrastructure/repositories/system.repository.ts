@@ -41,6 +41,15 @@ class SystemConfigRepository {
       return null;
     }
   }
+
+  async cancelSubscription(data:{sub_id:string}){
+    const res = await FireFunctionsInstance.onCallFunction('CancelSubscriptionTriggerFunction', data)
+    if(!res.error){
+      return res;
+    }else{
+      return null;
+    }
+  }
 }
 
 

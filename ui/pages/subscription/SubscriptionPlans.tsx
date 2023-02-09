@@ -25,7 +25,7 @@ const SubscriptionPlans = () => {
   const { pushInfoApp } = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const plan = userLoggued?.subscription.plan
-  const { reload, replace, push , asPath} = useRouter()
+  const { replace, push , asPath} = useRouter()
   useEffect(() => {
     systemRepository.getPlans().then(res => {
       setPlans(res)
@@ -49,7 +49,7 @@ const SubscriptionPlans = () => {
       .then(() => {
         pushInfoApp(new InfoApp({ code: 'plan.update', message: 'plan.update' }, 'success'))
       })
-      .then(() => reload())
+     
   }
   const renderUpdatePlan = () => (<AlertApp
     onAction={() => update()}

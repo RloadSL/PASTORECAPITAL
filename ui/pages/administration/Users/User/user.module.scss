@@ -9,5 +9,9 @@
   &MainDetails {
     max-width: 1000px;
   }
-
+  .plan{
+    display:  flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

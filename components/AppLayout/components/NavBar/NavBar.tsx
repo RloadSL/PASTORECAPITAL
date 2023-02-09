@@ -62,6 +62,8 @@ const NavBarView = ({
   windowSize: any,
   uid: string
 }) => {
+  const { push } = useRouter()
+
   return (
     <div className={style.navbarContainer}>
       {windowSize.width >= 1080 ? <Breadcrumbs /> : (
@@ -104,8 +106,8 @@ const NavBarView = ({
                     </button>
                   }
                 >
-                  <MenuItem onClick={() => console.log('hola')}><FormattedMessage id='component.navbar.profile' /></MenuItem>
-                  <MenuItem href={`/users/${uid}/invoices`}>
+                  <MenuItem onClick={()=>push(`/users/${uid}`)}><FormattedMessage id='component.navbar.profile' /></MenuItem>
+                  <MenuItem onClick={()=>push(`/users/${uid}/invoices`)}>
                     <FormattedMessage id='component.navbar.invoices' />
                   </MenuItem>
                   <MenuItem onClick={() => signOut()}>

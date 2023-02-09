@@ -9,7 +9,8 @@ import style from './AppLayout.module.scss'
 import {
   createUser,
   onChangeAuthState,
-  setAuthLoading
+  setAuthLoading,
+  setUserLogged
 } from 'ui/redux/slices/authentication/autentication.slice'
 import { AppDispatch } from 'ui/redux/store'
 import { useRouter } from 'next/router'
@@ -19,6 +20,8 @@ import { setLoading } from 'ui/redux/slices/system/system.slice'
 import userConsultantRepository from 'infrastructure/repositories/userConsultant.repository'
 import { setCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.slice'
 import { NOT_CONSULTANT } from 'domain/UserConsultant/UserConsultant'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { User } from 'domain/User/User'
 
 export const SubscriptionGranted = createContext<any>(null)
 const initialState = { subscriptionGranted: true };
@@ -39,22 +42,35 @@ function reducerPermission(state: any, action: { garanted: 'garant' | 'no_garant
 
 export default function AppLayout({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
-  //const { subscriptionGranted, userChecked } = useGuardPermissions()
-
   const router = useRouter()
+  const userLogged = useSelector(getUserLogged)
   useEffect(() => {
-    onChangeAuthState(async (user: any) => {
-      if (user) {
-        await dispatch(createUser({ uid: user.uid, extradata: user.extradata }))
-      } else {
-        await dispatch(createUser({ uid: 'not-logged' }))
-      }
-      _handleColaborators(user?.uid)
-      dispatch(setLoading(false))
-      dispatch(setAuthLoading(false))
-    })
-  }, [])
-
+    if(!userLogged){
+      onChangeAuthState(async (user: any) => {
+        if (user) {
+          await dispatch(createUser({ uid: user.uid, extradata: user.extradata }))
+        } else {
+          await dispatch(createUser({ uid: 'not-logged' }))
+        }
+        _handleColaborators(user?.uid)
+        dispatch(setLoading(false))
+        dispatch(setAuthLoading(false))
+      })
+    }else{
+      userLogged.onChange((user:User)=>{
+        console.log('userLogged.onChange')
+        if(userLogged.subscription.plan.level != user.subscription.plan.level) {
+          console.log('userLogged..subscription')
+            dispatch(setUserLogged(user))
+        }
+        if(userLogged.stripe_cu_id != user.stripe_cu_id) {
+          console.log('userLogged..stripe_cu_id')
+            dispatch(setUserLogged(user))
+        }
+      })
+    }
+  }, [userLogged])
+  
   const _handleColaborators = async (uid?:string) => {
     if(uid){
       const userConsultant = await userConsultantRepository.getUserConsultantByUID(uid)
