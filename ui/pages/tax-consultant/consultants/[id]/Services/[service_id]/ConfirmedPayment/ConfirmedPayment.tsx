@@ -1,4 +1,5 @@
 import ButtonApp from 'components/ButtonApp'
+import LinkApp from 'components/LinkApp'
 import Image from 'next/image'
 import clappingHands from '../../../../../../../../assets/img/clappingHands.png'
 import style from './confirmed-payment.module.scss'
@@ -23,15 +24,10 @@ const ConfirmedPaymentView = () => {
         ¡Muy bien, ya estamos casi listos!
       </p>
       <p>
-        Pronto recibiras un mail de confirmación con todos los datos de tu
-        compra.
+      Pronto recibirás un mail de confirmación con todos los datos de tu compra y los pasos para recibir el servicio.
       </p>
       <div className={style.buttonContainer}>
-        <ButtonApp
-          buttonStyle='secondary'
-          type='submit'
-          labelID='btn.accept'
-        />
+        <LinkApp target={'_self'} label={'btn.accept'} linkStyle={'button'} linkHref='/' />
       </div>
     </div>
   </div>

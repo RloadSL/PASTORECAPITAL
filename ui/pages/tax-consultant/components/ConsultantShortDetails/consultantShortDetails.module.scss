@@ -17,9 +17,16 @@
     margin-right: 20px;
   }
   &Info {
+    overflow: hidden;
+    width: 100%;
     .title {
       @extend %secondaryTitle;
       margin-bottom: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90%;
+      white-space: nowrap;
+      width: 100%;
     }
 
     .country {
@@ -37,5 +44,5 @@
 }
 
 .countryContainer {
-margin-bottom: 5px;
+  margin-bottom: 5px;
 }

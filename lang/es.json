@@ -242,7 +242,7 @@
   "btn.hire" : "Contratar",
   "btn.pay" : "Pagar ahora",
   "btn.subscribe" : "Suscribirse",
-  "btn.update_subscribe" : "Actualizar",
+  "btn.update_subscribe" : "Suscripción",
   "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
   "post.state.private": "Ver contenido privado",
@@ -257,7 +257,7 @@
   "message.item.created": "El item se ha creado correctamente",
   "message.item.deleted": "El item se ha eliminado correctamente",
   "message.item.no-result":"No hemos encontrado nada",
-  "message.item.updated" : "Actualización exitoza",
+  "message.item.updated" : "Se ha actualizado con éxito",
   "message.sended" : "Notificación enviada",
   
   "subscription.user.unauthorized.alert.title": "Ups, no tienes permiso",
