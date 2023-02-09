@@ -95,6 +95,7 @@ const InputFormikApp = ({
             name={name}
             autoComplete={'autocomplete'}
             placeholder={placeholder}
+            step={0.01}
             onBlur={() => {
               if (onBlur) onBlur()
             }}

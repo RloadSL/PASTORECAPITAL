@@ -48,7 +48,7 @@ const Dashboard = ({}:DashboardProps) => {
                 label={'VER TODOS'}
                 linkStyle={'default'}
                 target={'_self'}
-                linkHref={`/tax-consultant/consultants/${consultant instanceof UserConsultant ? consultant?.id : ''}/clients/`}
+                linkHref={`/tax-consultant/consultants/${consultant instanceof UserConsultant ? consultant?.id : '-'}/clients/`}
               />
             </div>
           </div>

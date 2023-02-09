@@ -28,13 +28,13 @@ const EditService = () => {
   const [loading, setLoading] = useState(false)
   const [initialValues, setInitialValues] = useState<any>({
     title: '',
-    image: null,
+    image: '',
     description: '',
     functions: [],
-    time: null,
-    price: null,
+    time: '',
+    price: '',
     keywords: '',
-    form: null
+    form: ''
   })
 
   useEffect(() => {
@@ -49,11 +49,11 @@ const EditService = () => {
             }
             setInitialValues({
               title: service.title,
-              image: service.image.url,
+              image: service.image?.url || undefined,
               description: service.description,
               functions: service.functions,
               time: service.time,
-              price: service.price,
+              price: service.price.replace('.', ','),
               keywords: service.keywords?.toString() || '',
               form: service.form?.url
             })
@@ -64,12 +64,13 @@ const EditService = () => {
 
   const _onSubmit = async (values: ServiceDto) => {
     setLoading(true)
+    const price = values.price?.replace(',', '.')
     if(query.service_id){
       await serviceRepository.setService({
         ...values,
+        price,
         id: query.service_id as string
       })
-      //push(`/tax-consultant/consultants/${query.id}/services/${query.service_id}`)
     }else{
       const newService = await serviceRepository.createService({
         ...values,
@@ -88,7 +89,8 @@ const EditService = () => {
         .string()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       price: yup
-        .number()
+        .string()
+        .matches(/^\d+([\.\,]\d{0,2})?$/, 'No es un numero válido')
         .nullable()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       time: yup

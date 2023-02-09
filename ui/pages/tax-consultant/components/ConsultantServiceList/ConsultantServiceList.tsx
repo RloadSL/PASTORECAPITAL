@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { toHoursAndMinutes } from 'ui/utils/component.utils'
 import Link from 'next/link'
+import { useConsultant } from 'ui/hooks/consultant.hook'
+import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
 
 interface ConsultantServiceListProps {
   services?: Service[]
@@ -35,7 +37,7 @@ const ConsultantServiceList = ({
 }: ConsultantServiceListProps) => {
   const [services, setServices] = useState<Service[]>([])
   const userLogged = useSelector(getUserLogged)
-
+  const {consultant} = useConsultant()
   const { query } = useRouter()
   useEffect(() => {
     let fetch = true
@@ -50,13 +52,11 @@ const ConsultantServiceList = ({
     }
   }, [query])
 
-  const isAdmin = () => {
-    return userLogged?.role.level >= 2 || userLogged?.uid === query.id
-  }
+  const isAdmin = userLogged?.role.level >= 2 || userLogged?.uid === (consultant as UserConsultant)?.uid
 
   return (
     <ConsultantServiceListView
-      isAdmin={isAdmin()}
+      isAdmin={isAdmin}
       services={services}
       maxServicesShown={maxServicesShown}
       consultantServiceListStyle={consultantServiceListStyle}
@@ -132,13 +132,13 @@ const ConsultantServiceListView = ({
                           </div>
                         </div>
                       </div>
-                      {isAdmin === true &&
-                        consultantServiceListStyle === 'fullList' ? (
+                      {isAdmin === true  ? (
                         <div
                           className={`${style.editBlock} edit-delete-buttons`}
                         >
                           <LinkApp
                             label={'btn.edit'}
+                            target={'_self'}
                             linkStyle={'edit'}
                             linkHref={asPath + `services/${service.id}/edit`}
                             icon={iconEdit}

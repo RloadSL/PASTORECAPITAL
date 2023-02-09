@@ -29,10 +29,10 @@ class ServiceRepository {
    * Upload Files 
    */
   async uploadFiles(data:ServiceDto){
-    console.log(1,data)
+
     if(data.image instanceof File){
       data.image = {
-        url: await storageFirebase.UploadFile('services', data.image as File),
+        url: await storageFirebase.UploadFile(`services/${data.image.name}`, data.image as File),
         created_at: new Date()
       }
     }else{
@@ -41,13 +41,12 @@ class ServiceRepository {
 
     if(data.form instanceof File){
       data.form = {
-        url: await storageFirebase.UploadFile('services', data.form as File),
+        url: await storageFirebase.UploadFile(`services/${data.form.name}`, data.form as File),
         created_at: new Date()
       }
     }else{
       delete data.form
     }  
-    console.log(2,data)
     return data;
   }
 
@@ -56,6 +55,7 @@ class ServiceRepository {
    */
   async createService(data: ServiceDto): Promise<string> { 
     data = await this.uploadFiles(data)
+    console.log('createService', data)
     let result;
     if(data.id){
       await FireFirestore.setDoc('services', data.id, data)
@@ -98,10 +98,12 @@ class ServiceRepository {
    * Modifica o crea los datos del servicio
    */
   async setService(data: ServiceDto){
+    
     data = await this.uploadFiles(data)
     if( data.keywords && !Array.isArray(data.keywords) ){
       data.keywords = (data.keywords as string).split(',');
     }
+    console.log('setService', data)
 
     const res:any = await firestoreFirebase.setDoc('services',data.id as string, data)
     return res;

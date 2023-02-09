@@ -1,3 +1,4 @@
+import AlertApp from 'components/AlertApp'
 import AvatarName from 'components/AvatarName'
 import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
@@ -32,6 +33,7 @@ const ClientList = ({ clients }: ClientListProps) => {
   const { pushInfoApp } = useSystem()
   const [loading, setloading] = useState(false)
   const [stateClients, setstateClients] = useState(clients)
+  const [completeClient, setCompleteClient] = useState()
 
   useEffect(() => {
     setstateClients(clients)
@@ -57,6 +59,7 @@ const ClientList = ({ clients }: ClientListProps) => {
       },
       type: 'CONSULTANT_COMPLETE_USER_SERVICE'
     }
+    setCompleteClient(undefined)
     setloading(true)
     await notificationRepository.create(data)
     _handleSubmit(item)
@@ -69,16 +72,15 @@ const ClientList = ({ clients }: ClientListProps) => {
     setloading(false)
   }
 
-  const unsub = useRef<Unsubscribe | undefined>()
+  const unsub = useRef<Unsubscribe | undefined>()
 
   const _listenUserService = (snap: any) => {
-    console.log('_listenUserService')
     const { status, id } = snap
     const listenig = clients.findIndex(item => item)
     if (status != clients[listenig].status) {
       clients[listenig].status = status
       setstateClients([...clients])
-      if(unsub.current) unsub.current();
+      if (unsub.current) unsub.current()
     }
   }
 
@@ -121,7 +123,7 @@ const ClientList = ({ clients }: ClientListProps) => {
                               }
                               onClick={() =>
                                 client.status === 'active'
-                                  ? _handleCompleteUserService(client)
+                                  ? setCompleteClient(client)
                                   : setclientSelected(client)
                               }
                               type='submit'
@@ -154,6 +156,18 @@ const ClientList = ({ clients }: ClientListProps) => {
           />
         )}
       </Card>
+      {completeClient && (
+        <AlertApp
+          visible={true}
+          onCancel={() => setCompleteClient(undefined)}
+          title={'Completar este servicio'}
+          onAction={() => _handleCompleteUserService(completeClient)}
+        >
+          <div>
+            Seguro quieres completar este servicio, este cambio no podra ser modificado posteriormente.
+          </div>
+        </AlertApp>
+      )}
     </div>
   )
 }

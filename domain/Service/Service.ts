@@ -9,7 +9,7 @@ export default class Service {
   image?: any
   description: string
   time:number
-  price:number
+  price:any
   keywords:string[]
   functions?:string[]
   form?:{
