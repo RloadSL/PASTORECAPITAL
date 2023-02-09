@@ -85,7 +85,7 @@ const ServiceView = ({ service }: { service: ServiceModel | undefined }) => {
         </div>
         <footer>
           <div className={style.priceInfo}>
-            <div className='flex-container align-center justify-end'>
+            <div className={style.priceInfo_container}>
               <p className={style.priceLabel}>Precio total:</p>
               <p className={style.priceQty}>{service.price}€</p>
             </div>

@@ -32,7 +32,7 @@ const NavBar = () => {
   }
   return (
     <NavBarView
-      userName={user && user.uid != 'not-logged' ? limitTextLength(20, `${user?.name} ${user?.lastname}`) : undefined}
+      userName={user && user.uid != 'not-logged' ? limitTextLength(100, `${user?.name} ${user?.lastname}`) : undefined}
       userRole={user && user.uid != 'not-logged' ? user.role.label : undefined}
       userPlan={user && user.uid != 'not-logged' ? user.subscription?.plan.label : undefined}
       signOut={user && user.uid != 'not-logged' ? () => _signOutUser() : () => null}
@@ -93,7 +93,7 @@ const NavBarView = ({
             </Link>
             <div className='flex-container'>
               <div className={style.userInfo}>
-                <p className={style.userName}>{userName || ''}</p>
+                <p className={style.userInfo_name}>{userName || ''}</p>
                 <p className={style.userProfile}><FormattedMessage id={`role.${userRole}`} /> {userRole === 'User' && <FormattedMessage id={`plan.${userPlan}`} />}</p>
               </div>
               <div className={style.optionsMenu}>

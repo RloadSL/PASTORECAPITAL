@@ -50,7 +50,7 @@
   }
 
   .bottom {
-    font-size: 0.8rem;
+    // font-size: 0.8rem;
 
     .innerContent {
       justify-content: flex-end;
@@ -102,4 +102,8 @@
 
 .replyButton {
   margin-left: 12px;
+}
+
+.modalContent {
+  text-align: center;
 }
