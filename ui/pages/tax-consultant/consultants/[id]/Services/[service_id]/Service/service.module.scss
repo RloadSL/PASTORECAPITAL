@@ -33,9 +33,13 @@
 
   footer {
     border-top: 1px solid colors.$grey40;
-    margin-top: 20px;
-    text-align: right;
+    margin-top: 80px;
     max-width: 1000px;
+    text-align: center;
+
+    @include devices.device(600px){
+      text-align: right;
+    }
 
     small {
       color: colors.$dark;
@@ -45,9 +49,12 @@
 
 .price {
   &Button {
-    max-width: 200px;
     width: 100%;
     margin-top: 20px;
+
+    @include devices.device(600px){
+      max-width: 200px;
+    }
 
     &Container {
       display: flex;
@@ -57,14 +64,31 @@
 
   &Label {
     margin-bottom: 0px;
+    margin-top: 20px;
   }
 
   &Qty {
     font-weight: bold;
     font-size: 2rem;
-    margin-left: 10px;
+    margin-left: 0px;
     margin-bottom: 10px;
+    margin-top: 0px;
   }
+
+  &Info {
+    padding-right: 20px;
+    &_container {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+  
+      @include devices.device(smScreen){
+        justify-content: flex-end;
+      }
+    }
+  }
+
+
 }
 .serviceImage{
   position: relative;

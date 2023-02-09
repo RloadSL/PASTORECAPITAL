@@ -5,6 +5,7 @@
 .consultantShortDetails{
   &Container {
     padding: 0px;
+    width: 100%;
 
     @include devices.device(smTablet) {
       padding: 15px;

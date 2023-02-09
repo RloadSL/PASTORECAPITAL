@@ -114,7 +114,7 @@ const SingleCommentView = ({
                         onAction={() => onDelete(comment.id)}
                         onCancel={() => setDeleteComment(false)}
                       >
-                        <p>
+                        <p className={style.modalContent}>
                           <FormattedMessage id='page.academy.lesson.form.removeComment.message.content' />
                         </p>
                       </AlertApp>

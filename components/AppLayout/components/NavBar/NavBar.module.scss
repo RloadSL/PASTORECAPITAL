@@ -55,7 +55,19 @@
   }
 
   .userInfo {
-    width: 165px;
+    width: 150px;
+
+    @include devices.device(smTablet) {
+      width: 200px;
+    }
+
+    &_name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .9rem;
+      font-weight: 500;
+    }
     p {
       margin: 0px;
     }
@@ -76,7 +88,7 @@
   background-image: url(../../../../assets/img/icons/arrow-b.svg);
   background-size: 15px;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 50% 5px;
 }
 .optionsButton:active {
   box-shadow: none;
