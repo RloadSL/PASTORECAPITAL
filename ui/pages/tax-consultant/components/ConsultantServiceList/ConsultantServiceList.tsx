@@ -126,7 +126,7 @@ const ConsultantServiceListView = ({
                             </p>
                             <p className={style.servicePrice}>
                               <span>
-                                Precio:<strong>{service.price}</strong>
+                                Precio:<strong>{service.price}€</strong> 
                               </span>
                             </p>
                           </div>

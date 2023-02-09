@@ -9,14 +9,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .successCard {
   background-color: colors.$main;
   @extend %borderRadius;
-  max-width: 600px;
+  max-width: 300px;
+  margin: auto;
   text-align: center;
-  padding: 2%;
+  padding: 20px;
+
+  @include devices.device(500px) {
+    max-width: 400px;
+    padding: 2%;
+  }
+
+  @include devices.device(tablet) {
+    max-width: 600px;
+  }
 
   &Container {
     p{
@@ -29,9 +40,20 @@
     font-size: 1.5rem;
   }
 
-  .imageContainer,.buttonContainer {
+  .buttonContainer {
     max-width: 250px;
     margin: auto;
+  }
+
+  .imageContainer {
+    width: 100%;
+    max-width: 150px;
+    margin: auto;
+
+    @include devices.device(tablet) {
+      max-width: 250px;
+
+    }
   }
 
 }

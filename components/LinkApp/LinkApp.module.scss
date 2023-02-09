@@ -58,6 +58,11 @@
     text-align: center;
     justify-content: center;
     font-weight: bold;
+
+    &:hover {
+      background-color:colors.$palette5;
+      color: colors.$dark;
+    }
   }
 
   &.vertical {
