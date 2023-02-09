@@ -1,3 +1,3 @@
-import DeleteTutorial from "./DeleteTutorials";
+import DeleteResource from "./DeleteResource";
 
-export default DeleteTutorial;
+export default DeleteResource;

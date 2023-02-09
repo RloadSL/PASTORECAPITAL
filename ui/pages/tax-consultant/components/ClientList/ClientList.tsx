@@ -76,7 +76,11 @@ const ClientList = ({ clients }: ClientListProps) => {
 
   const _listenUserService = (snap: any) => {
     const { status, id } = snap
-    const listenig = clients.findIndex(item => item)
+    const listenig = clients.findIndex(item => {
+      const su_id = item.user.uid+'_'+item.service_id
+      return su_id === id
+    })
+    
     if (status != clients[listenig].status) {
       clients[listenig].status = status
       setstateClients([...clients])
