@@ -38,7 +38,7 @@ const CardConsultant = ({ consultant }: cardConsultantProps) => {
       <Link href={`/tax-consultant/consultants/${consultant.id}`}>
         <a
           onClick={() => {
-            if (userLogged.role.level > 1) {
+            if (userLogged?.role.level > 1) {
               setConsultant(consultant)
             }
           }}

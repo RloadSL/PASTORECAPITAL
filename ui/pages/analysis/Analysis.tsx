@@ -57,7 +57,7 @@ const Analysis: NextPage<any> = () => {
   return (
     <AnalysisView
       getCategories={_getCategories}
-      editionGranted={userLogged.role.level >= 1}
+      editionGranted={userLogged?.role.level >= 1}
       categories={wpCategories}
       artOutsanding={artOutsanding}
     ></AnalysisView>

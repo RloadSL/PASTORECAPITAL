@@ -85,7 +85,7 @@ export const useGuardPermissions = () => {
   
   useEffect(() => {
     if(userLogged)
-     checkPermissions(route, userLogged.subscription.plan.key, userLogged.role.level)
+     checkPermissions(route, userLogged?.subscription.plan.key, userLogged?.role.level)
   }, [route, userLogged])
 
   return {
