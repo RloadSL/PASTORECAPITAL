@@ -23,7 +23,6 @@ import iconEdit from '../../../../assets/img/icons/pencil.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 const CreateFormArticle = dynamic(
   () => import('../components/CreateFormArticle'),
@@ -148,6 +147,7 @@ const AnalysisCategory: NextPage<any> = () => {
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
       loadMore={_loadMore}
       selectedPost={selectedArt}
+      editionGranted={userLogged.role.level >= 1}
       onFilter={(value: {
         search?: string
         catLevel?: string
@@ -165,7 +165,8 @@ const AnalysisCategoryView = ({
   onDeleteCat,
   onDeleteArt,
   outstandingArt,
-  selectedPost
+  selectedPost,
+  editionGranted
 }: {
   outstandingArt: Post[]
   onFilter: Function
@@ -174,7 +175,8 @@ const AnalysisCategoryView = ({
   setStatePost: Function
   statePost: 'public' | 'private'
   loadMore: Function
-  selectedPost?: any
+  selectedPost?: any,
+  editionGranted: boolean
 }) => {
   const [createArt, setCreateArt] = useState(false)
   const [deleteCat, setDeleteCat] = useState(false)
@@ -185,7 +187,6 @@ const AnalysisCategoryView = ({
   ] = useState(null)
   const { query } = useRouter()
   const isPrivateExcerpt = useRef(false)
-  const { editionGranted } = useGuardPermissions()
   const [outstandingPost, setoutstandingPost] = useState<
     { items: Post[]; hasMore: false } | undefined
   >()

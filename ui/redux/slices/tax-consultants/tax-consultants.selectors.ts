@@ -9,3 +9,8 @@ export const getCurrentConsultant = (state:any):UserConsultant | 'NOT_CONSULTANT
   const consultant = state.taxCosultants.currentConsultant;
   return consultant;
 }; 
+
+export const getTaxConsultantLoading = (state:any):boolean =>  {
+  const loading = state.taxCosultants.loading;
+  return loading;
+}; 

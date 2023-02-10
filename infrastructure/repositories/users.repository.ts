@@ -33,8 +33,8 @@ class UserRepositoryImplementation{
     subscription: {
       created_at : new Date(),
       plan: {
-        key: 'basic',
-        label: 'Basic',
+        key: 'guest',
+        label: 'Guest',
         level: 0
       },
       updated_at: new Date()

@@ -17,7 +17,6 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import Loading from 'components/Loading'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ButtonApp from 'components/ButtonApp'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { Post } from 'domain/Post/Post'
 
 interface POSTGRIDPROPS {
@@ -35,7 +34,7 @@ interface POSTGRIDPROPS {
   typeItem?: 'privateExcerpt' | 'excerpt'
   alignment?: 'row' | 'column'
   footerType?: 'text' | 'chips'
-
+  editionGranted : boolean
 }
 
 /**
@@ -100,6 +99,7 @@ const PostGrid = ({
       setStatePost={() =>
         setStatePost((pre: string) => (pre === 'public' ? 'private' : 'public'))
       }
+      editionGranted = {userLogged?.role.level >= 1}
       statePost={statePost}
       deleteItem={deleteItem}
       setPlan={setPlan}
@@ -129,10 +129,10 @@ const PostGridView = ({
   parent,
   typeItem,
   alignment = 'row',
-  footerType 
+  footerType ,
+  editionGranted
 }: POSTGRIDPROPS) => {
   const router = useRouter()
-  const { editionGranted } = useGuardPermissions()
 
   const itemCreateBtn = () => {
     return (

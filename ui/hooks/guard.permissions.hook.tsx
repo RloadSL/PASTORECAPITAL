@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { User } from 'domain/User/User'
-import { Role, Subscription } from 'infrastructure/dto/users.dto'
+import { PLANS_TYPE } from 'infrastructure/dto/system_config.dto'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
@@ -10,10 +9,14 @@ const system_public_module = [
   '/',
   '/login',
   '/recover-password',
+  '/thank-you-purchase',
+  '/subscription',
+  '/subscription/[plan-subscription]',
+  '/users/[uid]',
+  ////////
   '/academy',
   '/academy/tutorials',
   '/academy/courses',
-  '/subscription',
   '/research/bitcoins-altcoins',
   '/research/bitcoins-altcoins/[category-slug]',
   '/tax-consultant',
@@ -23,7 +26,7 @@ const system_public_module = [
 const system_subscription_permission_module = {
   guest: [...system_public_module , '/analysis/[category-slug]/[article-slug]'],
   basic: [...system_public_module, '/analysis/[category-slug]/[article-slug]'],
-  plus: [...system_public_module, '/academy/tutorials/[tutorial-slug', '/analysis/[category-slug]/[article-slug]'],
+  plus: [...system_public_module, '/academy/tutorials/[tutorial-slug]', '/analysis/[category-slug]/[article-slug]'],
   premium: [
     ...system_public_module,
     '/academy/tutorials/[tutorial-slug]',
@@ -33,55 +36,57 @@ const system_subscription_permission_module = {
   ]
 }
 
+const initialState = { subscriptionGranted: true }
+
+function reducerPermission (
+  state: any,
+  action: { garanted: 'garant' | 'no_garant' }
+) {
+  switch (action.garanted) {
+    case 'garant':
+      return { ...state, subscriptionGranted: true }
+    case 'no_garant':
+      return { ...state, subscriptionGranted: false }
+    default:
+      throw new Error()
+  }
+}
+
 export const useGuardPermissions = () => {
-  const userLogged: User = useSelector(getUserLogged)
-  const router = useRouter()
-  const [subscriptionGranted, setSubscriptionGranted] = useState(true)
+  const {route} = useRouter()
+  const userLogged = useSelector(getUserLogged)
+  const [planKey, setUserPlanKey] = useState<PLANS_TYPE | undefined>()
+  const [permisssioState, dispatchPermission] = useReducer(
+    reducerPermission,
+    initialState
+  )
+  const checkPermissions = useCallback(
+    (route:string,plan:PLANS_TYPE, level: 0 | 1 | 2)=>{
 
-  const roleGranted = () => {
-    const { role } = userLogged
-  }
+      if(level === 2) return dispatchPermission({garanted:'garant' })
 
-  const editionSetionGranted = () => {
-    if (!userLogged) return false
-    const { edition_section, role } = userLogged
 
-    if (role.level >= 1) {
-      return true
-    }
+      if(!planKey && !plan) return;
+      if(plan) setUserPlanKey(plan);
 
-    return false
-  }
-
-  useEffect(() => {
-    const _subscriptionGranted = (
-      subscription: Subscription,
-      role: Role,
-      route: string
-    ) => {
-      //Total permiso para usuarios administradores
-      if (role?.level === 2) return setSubscriptionGranted(true)
-
-      const key_sub = subscription?.plan.key || 'guest'
+      const key_sub = plan || planKey || 'guest'
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
-
-      setSubscriptionGranted(authorized)
-    }
-
-    if (userLogged?.uid) {
-      _subscriptionGranted(
-        userLogged?.subscription,
-        userLogged?.role,
-        router.route
-      )
-    }
-  }, [router.route])
+      console.log(authorized, key_sub)
+      dispatchPermission({garanted: authorized ? 'garant' : 'no_garant'})
+    },
+    [planKey]
+  ) 
+  
+  useEffect(() => {
+    if(userLogged)
+     checkPermissions(route, userLogged.subscription.plan.key, userLogged.role.level)
+  }, [route, userLogged])
 
   return {
-    roleGranted,
-    subscriptionGranted,
-    editionGranted: editionSetionGranted(),
-    userChecked: !!userLogged
+    permisssioState,
+    dispatchPermission,
+    setUserPlanKey,
+    checkPermissions
   }
 }

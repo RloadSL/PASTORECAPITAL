@@ -62,7 +62,7 @@ const NavBarView = ({
   windowSize: any,
   uid: string
 }) => {
-  const { push } = useRouter()
+  const { push, asPath } = useRouter()
 
   return (
     <div className={style.navbarContainer}>
@@ -119,7 +119,7 @@ const NavBarView = ({
           </div>
         )}
         {!userName && (
-          <Link href={'/login'}>
+          <Link href={{ pathname: `/login`, query: {redirect:asPath}}}>
             <a className={style.loginLink}>
               <FormattedMessage id='component.navbar.signUpBtn' />
             </a>

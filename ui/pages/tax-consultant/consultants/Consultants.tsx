@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
-import { getConsultants, getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors'
+import { getConsultants, getCurrentConsultant, getTaxConsultantLoading } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors'
 import { clean, searchConsultants } from 'ui/redux/slices/tax-consultants/tax-consultants.slice'
 import { AppDispatch } from 'ui/redux/store'
 import CardConsultant from '../components/CardConsultant'
@@ -18,14 +18,15 @@ const Consultants = () => {
   const dispatch = useDispatch<AppDispatch>()
   const consultantsState: {error:any, items: UserConsultant[], pages:any} = useSelector(getConsultants)
   const userLogged = useSelector(getUserLogged)
+  const taxConsultantLoading= useSelector(getTaxConsultantLoading)
   const currentConsultant = useSelector(getCurrentConsultant)
   const { replace } = useRouter()
   const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' , filters: userLogged?.role.level > 1 ? {} : {state: 'active'}})
   
 
   useEffect(() => {
-    if (userLogged?.uid) {
-      dispatch(clean())
+    dispatch(clean())
+    if (userLogged?.uid && !taxConsultantLoading) {
       dispatch(searchConsultants(query))
     }
   }, [userLogged, query])

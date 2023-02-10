@@ -34,7 +34,6 @@ const SubscriptionPlans = () => {
 
   useEffect(() => {
     if(userLoggued?.role.level > 1) replace('/');
-    if(userLoggued?.uid === 'not-logged') push('/login?redirect='+asPath)
   }, [userLoggued])
   
 

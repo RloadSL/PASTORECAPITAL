@@ -20,7 +20,6 @@ import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis
 import { FormattedMessage } from 'react-intl'
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { FlashUpdatesRepositoryInstance } from 'infrastructure/repositories/flashupdates.repository'
 
 
@@ -134,6 +133,7 @@ const FlashUpdates: NextPage<any> = () => {
   }
   return (
     <FlashUpdatesView
+      editionGranted={userLogged?.role.level >= 1}
       outstandingArt={outstandingArt}
       userTokens={{ userDataToken, wpToken }}
       onDeleteArt={_onDeleteArt}
@@ -158,7 +158,8 @@ const FlashUpdatesView = ({
   onDeleteArt,
   outstandingArt,
   selectedPost,
-  userTokens
+  userTokens,
+  editionGranted
 }: {
   outstandingArt: Post[]
   onFilter: Function
@@ -168,6 +169,7 @@ const FlashUpdatesView = ({
   loadMore: Function
   selectedPost?: any
   userTokens: { userDataToken?: string; wpToken?: string }
+  editionGranted:boolean
 }) => {
   const [createArt, setCreateArt] = useState(false)
   const [deleteArticle, setDeleteArticle]: [
@@ -176,7 +178,6 @@ const FlashUpdatesView = ({
   ] = useState(null)
   const { query } = useRouter()
   const isPrivateExcerpt = useRef(true)
-  const { editionGranted } = useGuardPermissions()
   const [outstandingPost, setoutstandingPost] = useState<
     { items: Post[]; hasMore: false } | undefined
   >()

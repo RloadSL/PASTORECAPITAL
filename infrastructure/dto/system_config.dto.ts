@@ -1,3 +1,4 @@
+export type PLANS_TYPE = 'guest' | 'basic' | 'plus' |'premium'
 export interface  PLANS {
   basic: {
     price: {

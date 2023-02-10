@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useEffect, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer, useRef } from 'react'
 import Image from 'next/image'
 import Drawer from './components/Drawer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,33 +22,29 @@ import { setCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consul
 import { NOT_CONSULTANT } from 'domain/UserConsultant/UserConsultant'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { User } from 'domain/User/User'
+import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 
 export const SubscriptionGranted = createContext<any>(null)
-const initialState = { subscriptionGranted: true };
 
-function reducerPermission(state: any, action: { garanted: 'garant' | 'no_garant' }) {
-  switch (action.garanted) {
-    case 'garant':
-      return { ...state, subscriptionGranted: true };
-    case 'no_garant':
-      return { ...state, subscriptionGranted: false };
-    default:
-      throw new Error();
-  }
-}
 /**
  * Componente principal de la aplicación
  */
 
-export default function AppLayout({ children }: any) {
+export default function AppLayout ({ children }: any) {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
   const userLogged = useSelector(getUserLogged)
+  const unsub = useRef<any | undefined>()
+  const { permisssioState, dispatchPermission, setUserPlanKey , checkPermissions} =
+    useGuardPermissions()
+
   useEffect(() => {
-    if(!userLogged){
+    if (!userLogged) {
       onChangeAuthState(async (user: any) => {
         if (user) {
-          await dispatch(createUser({ uid: user.uid, extradata: user.extradata }))
+          await dispatch(
+            createUser({ uid: user.uid, extradata: user.extradata })
+          )
         } else {
           await dispatch(createUser({ uid: 'not-logged' }))
         }
@@ -56,29 +52,30 @@ export default function AppLayout({ children }: any) {
         dispatch(setLoading(false))
         dispatch(setAuthLoading(false))
       })
-    }else{
-      userLogged.onChange((user:User)=>{
-        console.log('userLogged.onChange')
-        if(userLogged.subscription.plan.level != user.subscription.plan.level) {
-          console.log('userLogged..subscription')
-            dispatch(setUserLogged(user))
+    } else {
+      if (unsub.current) unsub.current()
+      unsub.current = userLogged.onChange((user: User) => {
+        if (
+          userLogged.subscription.plan.level != user.subscription.plan.level
+        ) {
+          dispatch(setUserLogged(user))
         }
-        if(userLogged.stripe_cu_id != user.stripe_cu_id) {
-          console.log('userLogged..stripe_cu_id')
-            dispatch(setUserLogged(user))
+
+        if (userLogged.stripe_cu_id != user.stripe_cu_id) {
+          dispatch(setUserLogged(user))
         }
       })
     }
   }, [userLogged])
-  
-  const _handleColaborators = async (uid?:string) => {
-    if(uid){
-      const userConsultant = await userConsultantRepository.getUserConsultantByUID(uid)
-      dispatch(setCurrentConsultant(userConsultant || NOT_CONSULTANT))
-    }else{
+
+  const _handleColaborators = async (uid?: string) => {
+    if (uid) {
+      const userConsultant =
+        await userConsultantRepository.getUserConsultantByUID(uid)
+      dispatch(setCurrentConsultant(userConsultant || NOT_CONSULTANT))
+    } else {
       dispatch(setCurrentConsultant(undefined))
     }
-    
   }
 
   const _goSubscription = () => router.push('/subscription')
@@ -86,10 +83,13 @@ export default function AppLayout({ children }: any) {
   const MemoizedLayout = React.memo(AppLayoutView)
   return (
     <MemoizedLayout
+      permisssioState={permisssioState}
       goBack={_goBack}
       goSubscription={_goSubscription}
     >
-      {children}
+      <SubscriptionGranted.Provider value={dispatchPermission}>
+        {children}
+      </SubscriptionGranted.Provider>
     </MemoizedLayout>
   )
 }
@@ -101,35 +101,30 @@ const blockUserContent = () => {
         <Image src={alertImg} alt='Icono de alerta de usuario' />
       </div>
       <p>
-        <FormattedMessage id='Parece que quieres acceder a este contenido. Actualiza tu plan de suscripción para tener acceso.' />
+        <FormattedMessage id='subscription.user.unauthorized.alert.content' />
       </p>
     </div>
   )
 }
 
-
 export const AppLayoutView = ({
   children,
-  alertSubscription,
+  permisssioState,
   goSubscription,
   goBack
 }: any) => {
-  const [permisssioState, dispatch] = useReducer(reducerPermission, initialState);
-
   return (
     <div>
-      <SubscriptionGranted.Provider value={dispatch}>
-        <Drawer>{children}</Drawer>
-        <AlertApp
-          onCancel={() => goBack()}
-          onAction={() => goSubscription()}
-          visible={!permisssioState.subscriptionGranted || alertSubscription}
-          title='subscription.user.unauthorized.alert.title'
-          cancelButton={false}
-        >
-          {blockUserContent()}
-        </AlertApp>
-      </SubscriptionGranted.Provider>
+      <Drawer>{children}</Drawer>
+      <AlertApp
+        onCancel={() => goBack()}
+        onAction={() => goSubscription()}
+        visible={!permisssioState.subscriptionGranted}
+        title='subscription.user.unauthorized.alert.title'
+        cancelButton={false}
+      >
+        {blockUserContent()}
+      </AlertApp>
     </div>
   )
 }

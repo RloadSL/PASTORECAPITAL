@@ -134,7 +134,8 @@
   "page.analysis.articles.form.remove.title": "Borrar Artículo",
   "page.analysis.articles.form.remove.content": "Seguro deseas eliminar el artículo, esto pondrá en estado deshabilitado todo el contenido relacionado.",
   "page.analysis.articles.form.update": "Actualizar artículo",
-
+  "page.analysis.articles.featured_articles": " Artículos destacados",
+ 
   "page.analysis.category.form.create.title" : "Crear categoría",
   "page.analysis.category.form.create.name" : "Nombre de la categoría",
   "page.analysis.category.form.create.description" : "Descripción de la categoría",
@@ -261,9 +262,9 @@
   "message.sended" : "Notificación enviada",
   
   "subscription.user.unauthorized.alert.title": "Ups, no tienes permiso",
-  "subscription.user.unauthorized.alert.content": "",
+  "subscription.user.unauthorized.alert.content": "Parece que quieres acceder a este contenido. Actualiza tu plan de suscripción para tener acceso.",
   "subscription.user.alert.updateSubscription.text": "¿Quieres actualizar tu plan actual a",
-
+  
   "home":"Home",
   "courses": "Cursos",
   "tutorials": "Tutoriales",

@@ -1,16 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ButtonApp from 'components/ButtonApp'
 import Card from 'components/Card'
-import Chips from 'components/Chips'
-import CommentsList from 'components/Comments/CommentsList'
 import { Comments } from 'domain/Comments/comments'
 import { User } from 'domain/User/User'
 import dynamic from 'next/dynamic'
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import style from './SingleComment.module.scss'
 import iconReply from '../../../../assets/img/icons/reply-arrow.svg'
 import iconDelete from '../../../../assets/img/icons/trash.svg'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import AlertApp from 'components/AlertApp'
@@ -26,12 +23,10 @@ interface SINGLECOMMENTPROPS {
   childrenCommentsList?: Array<Comments>
   isLastChild: string
   onDelete: Function
-  editionGranted: boolean
   userLogged: User
 }
 
 const SingleComment = ({ comment, isLastChild, onDelete }: any) => {
-  const { editionGranted } = useGuardPermissions()
 
   const userLogged = useSelector(getUserLogged)
 
@@ -39,7 +34,6 @@ const SingleComment = ({ comment, isLastChild, onDelete }: any) => {
     <SingleCommentView
       userLogged={userLogged}
       onDelete={onDelete}
-      editionGranted={editionGranted}
       isLastChild={isLastChild}
       comment={comment}
     />
@@ -50,7 +44,6 @@ const SingleCommentView = ({
   comment,
   isLastChild,
   onDelete,
-  editionGranted,
   userLogged
 }: SINGLECOMMENTPROPS) => {
   const [isMainComment, setisMainComment] = useState<boolean>(
@@ -98,7 +91,7 @@ const SingleCommentView = ({
               </div>
               <div className={`${style.bottom}`}>
                 <div className={`${style.innerContent} flex-container`}>
-                  {userLogged && editionGranted && (
+                  {userLogged?.role.level >= 1 && (
                     <div>
                       <ButtonApp
                         labelID={'btn.delete'}
@@ -123,7 +116,7 @@ const SingleCommentView = ({
 
                   {isMainComment &&
                     userLogged &&
-                    (editionGranted || owner?.uid === userLogged?.uid) && (
+                    (userLogged?.role.level >= 1 || owner?.uid === userLogged?.uid) && (
                       <div className={style.replyButton}>
                         <ButtonApp
                           labelID={

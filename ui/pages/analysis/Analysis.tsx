@@ -14,7 +14,6 @@ import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { useRouter } from 'next/router'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import CategoriesMap from './components/CategoriesMap'
 import CreateCategoryAnalysis from './components/CreateCategoryAnalysis'
 
@@ -25,7 +24,6 @@ const Analysis: NextPage<any> = () => {
 
   const userLogged = useSelector(getUserLogged)
   const router = useRouter()
-  const { editionGranted } = useGuardPermissions()
 
   useEffect(() => {
     let fetching = true
@@ -59,7 +57,7 @@ const Analysis: NextPage<any> = () => {
   return (
     <AnalysisView
       getCategories={_getCategories}
-      editionGranted={editionGranted}
+      editionGranted={userLogged.role.level >= 1}
       categories={wpCategories}
       artOutsanding={artOutsanding}
     ></AnalysisView>

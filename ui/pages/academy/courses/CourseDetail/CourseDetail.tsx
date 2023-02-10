@@ -18,7 +18,6 @@ import iconAddLesson from '../../../../../assets/img/icons/add-document.svg'
 import ListLessons from '../ListLessons'
 import Link from 'next/link'
 import LinkApp from 'components/LinkApp'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import Head from 'next/head'
 import WordpressHeader from 'WordpressHeader'
 import { PostDto } from 'infrastructure/dto/post.dto'
@@ -40,7 +39,6 @@ const DeleteCourse = dynamic(
 const CourseDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const router = useRouter()
   const loggedUser = useSelector(getUserLogged)
-  const { editionGranted } = useGuardPermissions()
   useEffect(() => {
     if (!post) {
       router.replace('/academy/courses')
@@ -66,7 +64,7 @@ const CourseDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   return post ? (
     <CourseDetailView
       courseCat={courseCat() || -1}
-      isAuthorized={editionGranted}
+      isAuthorized={loggedUser?.role.level >= 1}
       post={post}
       editLink={editLink(loggedUser?.wpToken)}
     />

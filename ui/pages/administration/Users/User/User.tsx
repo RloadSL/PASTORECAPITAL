@@ -210,12 +210,10 @@ const UserView = ({
               </div>
           </div>
         )}
-        <div className='role'>
+        {userDataDto.role.level == 2  && <div className='role'>
           <p className='small-caps margin-top-50'>Configurar rol del usuario</p>
           <div>
-            <div>{renderFormikRole()}</div>
-
-            {userDataDto.role.level == 1 && (
+            <div>{ renderFormikRole()}</div>
               <div>
                 <ButtonApp
                   buttonStyle='primary'
@@ -224,9 +222,8 @@ const UserView = ({
                   onClick={() => push(asPath + 'colaboration')}
                 />
               </div>
-            )}
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   )

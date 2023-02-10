@@ -14,7 +14,7 @@ const { asPath, query } = useRouter()
   return (
     <div className={style.latestArticlesContainer}>
       <p className='small-caps'>
-        <FormattedMessage id='Artículos destacados' />
+        <FormattedMessage id='page.analysis.articles.featured_articles' />
       </p>
       <ul>
         {articlesList.map((article) => {

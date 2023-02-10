@@ -16,15 +16,13 @@ import { AppDispatch } from 'ui/redux/store'
 import style from './resources.module.scss'
 import { useRouter } from 'next/router'
 // import CreateCategoryAnalysis from '../components/CreateCategoryAnalysis'
-import ButtonApp from 'components/ButtonApp'
+
 import AlertApp from 'components/AlertApp'
 import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
 import { FormattedMessage } from 'react-intl'
-import iconEdit from '../../../../assets/img/icons/pencil.svg'
-import iconDelete from '../../../../assets/img/icons/trash.svg'
+
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
-import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
 import taxConsultantResourcesRepository from 'infrastructure/repositories/taxConsultantResources.repository'
 
 const CreateFormResource = dynamic(
