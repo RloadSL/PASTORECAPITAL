@@ -45,7 +45,7 @@ const Dashboard = ({}:DashboardProps) => {
             <p>Nuevos Clientes</p>
             <div>
               <LinkApp
-                label={'VER TODOS'}
+                label={'btn.vew_all'}
                 linkStyle={'default'}
                 target={'_self'}
                 linkHref={`/tax-consultant/consultants/${consultant instanceof UserConsultant ? consultant?.id : '-'}/clients/`}
@@ -58,7 +58,7 @@ const Dashboard = ({}:DashboardProps) => {
           <div className={style.rightInnerContainer}>
             <div className={`${style.calendly}`}>
               <LinkApp
-                label={'Calendario'}
+                label={'btn.calendar'}
                 linkStyle={'default'}
                 linkHref={consultant instanceof UserConsultant ? consultant?.calendly : ''}
                 icon={calendarIcon}
@@ -67,7 +67,7 @@ const Dashboard = ({}:DashboardProps) => {
             <div className={`${style.allClients}`}>
               <div className='flex-container align-center'>
                 <LinkApp
-                  label={'Clientes'}
+                  label={'btn.clients'}
                   linkStyle={'default'}
                   linkHref={'#'}
                   icon={clientsIcon}
@@ -85,7 +85,7 @@ const Dashboard = ({}:DashboardProps) => {
             <p>PORTFOLIO DE SERVICIOS</p>
             <div>
               <LinkApp
-                label={'VER TODOS'}
+                label={'btn.vew_all'}
                 linkStyle={'default'}
                 linkHref={`/tax-consultant/consultants/${consultant instanceof UserConsultant ? consultant?.id : ''}`}
               />

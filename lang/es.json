@@ -246,6 +246,10 @@
   "btn.update_subscribe" : "Suscripción",
   "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
+  "btn.vew_all" : "VER TODOS",
+  "btn.vew_all_services":"Ver todos los servicios",
+  "btn.calendar" : "Calendario",
+  "btn.clients" : "Clientes",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    

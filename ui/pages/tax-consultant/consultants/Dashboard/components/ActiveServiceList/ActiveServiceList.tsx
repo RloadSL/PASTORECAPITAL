@@ -37,7 +37,7 @@ const ActiveServiceListView = ({ activeServices }: ActiveServiceListProps) => {
                           <p className={style.clientsCount}>
                             <span>{service.user_count}</span>
                             <span>
-                              <FormattedMessage id='clientes' />
+                              <FormattedMessage id='btn.clients' />
                             </span>
                           </p>
                         </div>
@@ -49,7 +49,7 @@ const ActiveServiceListView = ({ activeServices }: ActiveServiceListProps) => {
               </ul>
               <div className={style.seeAllLink}>
                 <LinkApp
-                  label={'Ver todos los servicios'}
+                  label={'btn.vew_all_services'}
                   linkStyle={'default'}
                   linkHref={`/tax-consultant/consultants/${activeServices[0].userConsultantId}/`}
                 />

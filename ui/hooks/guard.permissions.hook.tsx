@@ -17,12 +17,14 @@ const system_public_module = [
   '/academy',
   '/academy/tutorials',
   '/academy/courses',
+  '/research',
   '/research/bitcoins-altcoins',
   '/research/bitcoins-altcoins/[category-slug]',
   '/tax-consultant',
   '/tax-consultant/consultants',
-  ////
-  '/tax-consultant/consultants'
+  '/tax-consultant/consultants/[id]',
+  '/tax-consultant/consultants/[id]/services/[service_id]',
+  '/tax-consultant/consultants/[id]/services/[service_id]/payment'
 ]
 
 const system_subscription_permission_module = {
@@ -35,6 +37,7 @@ const system_subscription_permission_module = {
     '/academy/courses/[course-slug]',
     '/academy/courses/[course-slug]/[lesson-slug]',
     '/analysis/[category-slug]/[article-slug]'
+    
   ]
 }
 
