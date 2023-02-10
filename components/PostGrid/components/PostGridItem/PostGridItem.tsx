@@ -138,7 +138,7 @@ const PostGridItemView = ({
       ),
     []
   )
-
+    console.log(makeChips([gridItem.meta_post, ...gridItem.tags]))
   return (
     <div
       className={`${style.postItemContainer} ${
