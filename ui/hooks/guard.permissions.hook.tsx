@@ -20,6 +20,8 @@ const system_public_module = [
   '/research/bitcoins-altcoins',
   '/research/bitcoins-altcoins/[category-slug]',
   '/tax-consultant',
+  '/tax-consultant/consultants',
+  ////
   '/tax-consultant/consultants'
 ]
 
@@ -62,8 +64,8 @@ export const useGuardPermissions = () => {
   )
   const checkPermissions = useCallback(
     (route:string,plan:PLANS_TYPE, level: 0 | 1 | 2)=>{
-
-      if(level === 2) return dispatchPermission({garanted:'garant' })
+      
+      if(level >= 1) return dispatchPermission({garanted:'garant' })
 
 
       if(!planKey && !plan) return;
