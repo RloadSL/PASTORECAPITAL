@@ -12,6 +12,10 @@
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+
+  &:hover {
+    background-color: lighten(colors.$dark,75%);
+  }
 }
 
 .dotAlert {
