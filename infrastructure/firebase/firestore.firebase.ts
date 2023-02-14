@@ -39,7 +39,6 @@ export class FireFirestore {
       if (queryWhere) {
         wheres = this._where(queryWhere);
       }
-
       if (!lastSnap) {
         const firstQuery = query(collection, 
           ...wheres, 

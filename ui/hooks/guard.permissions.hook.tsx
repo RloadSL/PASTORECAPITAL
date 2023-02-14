@@ -13,6 +13,8 @@ const system_public_module = [
   '/subscription',
   '/subscription/[plan-subscription]',
   '/users/[uid]',
+  '/users/[uid]/notifications',
+  '/users/[uid]/invoices',
   ////////
   '/academy',
   '/academy/tutorials',
@@ -77,7 +79,6 @@ export const useGuardPermissions = () => {
       const key_sub = plan || planKey || 'guest'
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
-      console.log(authorized, key_sub)
       dispatchPermission({garanted: authorized ? 'garant' : 'no_garant'})
     },
     [planKey]

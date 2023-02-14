@@ -61,11 +61,23 @@ class UserRepositoryImplementation{
     })
   };
 
+  onChangeNotification(uid:string, callback:Function): Unsubscribe {
+    return FireFirestore.onChangeDoc(`users/${uid}/personal_stats/notifications_stats`, (data:any)=>{
+      console.log('onChangeDoc')
+      callback(data);
+    })
+  };
+
+  async setPersonalStats(uid:string, data:any){
+    const path = `users/${uid}/personal_stats`;
+    await FireFirestore.setDoc(path, data.id, data)
+  }
+
   async update(uid: string, data: UpdateUser): Promise<User | null> {
     try {
-       await FireFirestore.setDoc('users',uid, data)
-       const user = await this.read(uid);
-       return user;
+      await FireFirestore.setDoc('users',uid, data)
+      const user = await this.read(uid);
+      return user;
     } catch (error) {
       console.error(error)
       console.error('Error inteno en user.repository')
@@ -81,11 +93,9 @@ class UserRepositoryImplementation{
       console.error('Error inteno en user.repository')
     }
   };
-
   /**
-   * Administration functions
+   * Administratión functions
    */
-
   async getAll() : Promise<ErrorApp | User[]>{
     const querySnap = await FireFirestore.getCollectionDocs('users')
     if(querySnap instanceof ErrorApp){
@@ -94,7 +104,7 @@ class UserRepositoryImplementation{
       return querySnap?.map((item) => new User(item.data() as UserDto))
     }
   }
-
+  
   async elasticSearchUsers(query:ELASTIC_QUERY) : Promise<any>{
       const elasticRes = await elasticSearch('users', query)
       const page = elasticRes.data.meta.page;
@@ -112,7 +122,19 @@ class UserRepositoryImplementation{
         return {results, page}
       }
    }
-  
+   
+   async getInvoices(customer_email:string){
+    const query = [['customer_email', '==' , customer_email]]
+    const ref = await FireFirestore.getCollectionDocs('stripe_invoice', undefined , query, 100, ['created'])
+    
+    if( !(ref instanceof ErrorApp) && ref.length > 0){
+      return {
+      items: ref.map(item => ({...item.data(), id:item.id})), 
+     }
+    }else{
+      return {items: []};
+    }
+   }
 
 }
 

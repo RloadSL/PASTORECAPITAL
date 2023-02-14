@@ -37,6 +37,7 @@
   "mainMenu.item.label.invoice" : "Facturas",
 
   "contextualMenu.item.label.see": "Ver",
+  "contextualMenu.item.label.donwload" : "Descargar",
   "contextualMenu.item.label.delete": "Borrar",
   
   "page.home.title": "Bienvenidos",
@@ -297,5 +298,8 @@
   "confirmed_payment" : "Confirmación de Pago",
   "profile": "Perfil",
   "edit" : "Editar",
-  "thank-you-purchase": "Gracias por su compra"
+  "thank-you-purchase": "Gracias por su compra",
+  "notifications" : "Notificaciones",
+  "update" : "Actualizar",
+  "invoices" : "Facturas"
 }
