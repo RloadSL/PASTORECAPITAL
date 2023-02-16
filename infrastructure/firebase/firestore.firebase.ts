@@ -151,6 +151,20 @@ export class FireFirestore {
     });
     return unsub;
   }
+
+  public onChangeCollection = (path: string,callback: Function, lastSnap?: DocumentSnapshot): Unsubscribe => {
+    const collection = this._collection(path);
+    let q = query(collection, orderBy('created_at', 'desc'));
+    if(lastSnap) q = query(q, startAfter(lastSnap))
+
+    const unsub = onSnapshot(q, (querySnapshot) => {
+       const docs = querySnapshot.docs.map((doc) => {
+        return {...doc.data(), id:doc.id}
+      });
+      callback({items:docs, last:querySnapshot.docs.pop()});
+    });
+    return unsub;
+  }
 }
 
 export default FireFirestore.getInstance(FireFirebase.app)

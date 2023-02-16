@@ -11,6 +11,10 @@ const system_public_module = [
   '/recover-password',
   '/thank-you-purchase',
   '/subscription',
+  '/news',
+  '/discord',
+  '/webinars',
+  '/amas',
   '/subscription/[plan-subscription]',
   '/users/[uid]',
   '/users/[uid]/notifications',
@@ -30,16 +34,19 @@ const system_public_module = [
 ]
 
 const system_subscription_permission_module = {
-  guest: [...system_public_module , '/analysis/[category-slug]/[article-slug]'],
-  basic: [...system_public_module, '/analysis/[category-slug]/[article-slug]'],
-  plus: [...system_public_module, '/academy/tutorials/[tutorial-slug]', '/analysis/[category-slug]/[article-slug]'],
+  guest: [...system_public_module],
+  basic: [...system_public_module, 
+    '/analysis/[category-slug]/[article-slug]'],
+  plus: [
+    ...system_public_module, 
+    '/academy/tutorials/[tutorial-slug]', 
+    '/analysis/[category-slug]/[article-slug]'],
   premium: [
     ...system_public_module,
     '/academy/tutorials/[tutorial-slug]',
     '/academy/courses/[course-slug]',
     '/academy/courses/[course-slug]/[lesson-slug]',
     '/analysis/[category-slug]/[article-slug]'
-    
   ]
 }
 

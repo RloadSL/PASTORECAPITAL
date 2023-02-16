@@ -228,6 +228,9 @@
   "forms.labels.securityCode": "Código de seguridad",
   "forms.labels.resend-code" : "Reenviar código de seguridad",
   "forms.helper.userdata.update" : "Los datos personales solo se cambian desde la configuración de usuario.",
+  "forms.labels.excerpt": "Resumen",
+  "forms.labels.title": "Título",
+
   "user.updated" : "Usuario actualizado ",
   "btn.send": "Enviar",
   "btn.save": "Guardar",
@@ -301,5 +304,7 @@
   "thank-you-purchase": "Gracias por su compra",
   "notifications" : "Notificaciones",
   "update" : "Actualizar",
-  "invoices" : "Facturas"
+  "invoices" : "Facturas",
+  "discord" : "Discord",
+  "amas" : "Amas"
 }

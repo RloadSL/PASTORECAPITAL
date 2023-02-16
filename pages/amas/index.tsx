@@ -1,9 +1,3 @@
-import React from 'react'
+import AmasMain from "ui/pages/amas/AmasMain";
 
-function Amas() {
-  return (
-    <div>Amas Main</div>
-  )
-}
-
-export default Amas
+export default AmasMain
