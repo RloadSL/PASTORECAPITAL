@@ -246,6 +246,7 @@
   "btn.update_subscribe" : "Suscripción",
   "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
+  "btn.choose.subscription" : "Elegir plan",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    
@@ -265,6 +266,13 @@
   "subscription.user.unauthorized.alert.content": "Parece que quieres acceder a este contenido. Actualiza tu plan de suscripción para tener acceso.",
   "subscription.user.alert.updateSubscription.text": "¿Quieres actualizar tu plan actual a",
   
+  "page.susbcription.title": "Eliminar recurso",
+  "page.susbcription.description": "Eliminar recurso",
+  "page.susbcription.select.label": "Eliminar recurso",
+  "page.susbcription.select.inputYearly": "Eliminar recurso",
+  "page.susbcription.select.inputMonthly": "Eliminar recurso",
+
+
   "home":"Home",
   "courses": "Cursos",
   "tutorials": "Tutoriales",
