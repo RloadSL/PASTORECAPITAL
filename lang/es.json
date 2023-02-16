@@ -37,6 +37,7 @@
   "mainMenu.item.label.invoice" : "Facturas",
 
   "contextualMenu.item.label.see": "Ver",
+  "contextualMenu.item.label.donwload" : "Descargar",
   "contextualMenu.item.label.delete": "Borrar",
   
   "page.home.title": "Bienvenidos",
@@ -227,6 +228,9 @@
   "forms.labels.securityCode": "Código de seguridad",
   "forms.labels.resend-code" : "Reenviar código de seguridad",
   "forms.helper.userdata.update" : "Los datos personales solo se cambian desde la configuración de usuario.",
+  "forms.labels.excerpt": "Resumen",
+  "forms.labels.title": "Título",
+
   "user.updated" : "Usuario actualizado ",
   "btn.send": "Enviar",
   "btn.save": "Guardar",
@@ -247,6 +251,10 @@
   "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
   "btn.choose.subscription" : "Elegir plan",
+  "btn.view_all" : "VER TODOS",
+  "btn.vew_all_services":"Ver todos los servicios",
+  "btn.calendar" : "Calendario",
+  "btn.clients" : "Clientes",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    
@@ -301,5 +309,10 @@
   "confirmed_payment" : "Confirmación de Pago",
   "profile": "Perfil",
   "edit" : "Editar",
-  "thank-you-purchase": "Gracias por su compra"
+  "thank-you-purchase": "Gracias por su compra",
+  "notifications" : "Notificaciones",
+  "update" : "Actualizar",
+  "invoices" : "Facturas",
+  "discord" : "Discord",
+  "amas" : "Amas"
 }

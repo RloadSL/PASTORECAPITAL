@@ -1,20 +1,23 @@
 import { Menu, MenuItem } from '@szhsin/react-menu'
+import { NotificationDto } from 'infrastructure/dto/notification.dto'
 import { FormattedMessage } from 'react-intl'
 import style from './content-item-list.module.scss'
 
 interface contentItemListProps {
   item: any,
-  actions: any
+  actions: any,
+  message?: string,
+  activeDot?:boolean
 }
 
-const ContentItemList = ({ item, actions }: contentItemListProps) => {
+const ContentItemList = ({ item, actions, message,  activeDot }: contentItemListProps) => {
   return (
     <div className={style.contentItemList}>
       <div className={style.contentItemList_info}>
-        <div className={`${style.activeDot} ${item.read ? style.active : ''}`}>
+        <div className={`${style.activeDot} ${(!item.read || activeDot) ? style.active : ''}`}>
         </div>
         <div className={style.contentItemList_label}>
-          {item.text}
+          {message ? message : item.message}
         </div>
       </div>
       <div className={style.actionMenu}>
@@ -32,22 +35,15 @@ const ContentItemList = ({ item, actions }: contentItemListProps) => {
             }
           >
             {
-              Object.keys(actions).map(item => {
-                const el = actions[item]
-
+              Object.keys(actions).map(key => {
+                const el = actions[key]
                 return (
-                  <MenuItem key={item} onClick={() => el.action()}>
+                  <MenuItem key={key} onClick={() => el.action(item)}>
                     <FormattedMessage id={el.label} />
                   </MenuItem>
                 )
               })
             }
-            {/* <MenuItem className={'style.menuOption'} target={'_blank'} href={'https://catfriendly.com/wp-content/uploads/2021/02/meow-e1612557327342.jpeg'}>
-              <FormattedMessage id={'contextualMenu.item.label.see'}/>
-            </MenuItem>
-            <MenuItem className={'style.menuOption'} onClick={() => console.error('Bloquer')}>
-              <FormattedMessage id={'contextualMenu.item.label.delete'}/>
-            </MenuItem> */}
           </Menu>
         </div>
       </div>

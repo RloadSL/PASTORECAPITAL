@@ -71,4 +71,16 @@ export class User {
   public onChange = (callback:Function)=>{
     return UserRepositoryImplInstance.onChange(this.uid, callback)
   }
+
+  public onChangeNotifications = (callback:Function)=>{
+    return UserRepositoryImplInstance.onChangeNotification(this.uid, callback)
+  }
+
+  public checkNotifications = (callback:Function)=>{
+    return UserRepositoryImplInstance.onChangeNotification(this.uid, callback)
+  }
+
+  public  setPersonalStats = async (data:any)=>{
+    await UserRepositoryImplInstance.setPersonalStats(this.uid, data)
+  }
 }

@@ -1,7 +1,7 @@
 import Breadcrumbs from 'components/Breadcrumbs'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from 'ui/redux/slices/authentication/autentication.slice'
@@ -21,7 +21,7 @@ import ButtonApp from 'components/ButtonApp'
 const NavBar = () => {
   const windowSize = useWindowSize();
   const dispatch = useDispatch<AppDispatch>()
-
+  const [hasNoti, setnotis] = useState<boolean>(false)
   const user = useSelector(getUserLogged)
   const { limitTextLength } = useComponentUtils()
   const router = useRouter()
@@ -30,8 +30,19 @@ const NavBar = () => {
     router.push('/');
     dispatch(signOut())
   }
+
+  useEffect(()=>{
+    if(user){
+      user.onChangeNotifications((change:any)=>{
+        setnotis(!change.new_notifications ? false : change.new_notifications)
+      })
+    }
+    
+  },[user])
+
   return (
     <NavBarView
+      hasNoti={hasNoti}
       userName={user && user.uid != 'not-logged' ? limitTextLength(100, `${user?.name} ${user?.lastname}`) : undefined}
       userRole={user && user.uid != 'not-logged' ? user.role.label : undefined}
       userPlan={user && user.uid != 'not-logged' ? user.subscription?.plan.label : undefined}
@@ -51,7 +62,8 @@ const NavBarView = ({
   userRole,
   userPlan,
   windowSize,
-  uid
+  uid,
+  hasNoti
 }: {
   back?: Function
   userName?: string
@@ -60,7 +72,8 @@ const NavBarView = ({
   userRole?: string,
   userPlan?: string
   windowSize: any,
-  uid: string
+  uid: string,
+  hasNoti: boolean
 }) => {
   const { push, asPath } = useRouter()
 
@@ -88,7 +101,7 @@ const NavBarView = ({
           <div className={`${style.userInfoContainer} flex-container`}>
             <Link href={`/users/${uid}/notifications`}>
               <a>
-                <Notifications hasNotifications={true} />
+                <Notifications hasNotifications={hasNoti} />
               </a>
             </Link>
             <div className='flex-container'>

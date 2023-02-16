@@ -16,6 +16,8 @@ import systemRepository from 'infrastructure/repositories/system.repository'
 import { AuthImplInstance } from 'infrastructure/repositories/authentication.repository'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 const User: NextPage<any> = () => {
   const { query, replace } = useRouter()
   const [userDto, setUserDto] = useState<UserDto | undefined>()
@@ -73,6 +75,8 @@ const UserView = ({
   onSaveRole: Function,
   onCancelSubscription: Function
 }) => {
+  const userLogged = useSelector(getUserLogged)
+
   const { push, basePath, asPath } = useRouter()
   const intl = useIntl()
   const validationSchema = useRef(
@@ -178,11 +182,11 @@ const UserView = ({
                   margin: 'auto'
                 }}
               >
-                {userDataDto.role.level > 1 && <ButtonApp
+               <ButtonApp
                   buttonStyle='link'
                   type='submit'
                   labelID='btn.save'
-                />}
+                />
               </div>
             </div>
           </Form>
@@ -210,7 +214,7 @@ const UserView = ({
               </div>
           </div>
         )}
-        {userDataDto.role.level == 2  && <div className='role'>
+        {userLogged.role.level == 2  && <div className='role'>
           <p className='small-caps margin-top-50'>Configurar rol del usuario</p>
           <div>
             <div>{ renderFormikRole()}</div>

@@ -4,13 +4,17 @@ import  autheticationReducer  from './slices/authentication/autentication.slice'
 import systemReducer from './slices/system/system.slice';
 import  commentsReducer  from './slices/comments/coments.slice'
 import taxCosultantReducer from './slices/tax-consultants/tax-consultants.slice';
+import userInformationReducer  from './slices/user-information/user-information.slice';
+import amasReducer  from './slices/amas/amas.slice';
  const store = configureStore({
   reducer: {
     authentication: autheticationReducer,
     system: systemReducer,
     academy: academyReducer,
     comments: commentsReducer,
-    taxCosultants: taxCosultantReducer
+    taxCosultants: taxCosultantReducer,
+    userInformation: userInformationReducer,
+    amas: amasReducer
   },
   devTools: true,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})

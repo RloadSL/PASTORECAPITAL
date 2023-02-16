@@ -11,24 +11,36 @@ const system_public_module = [
   '/recover-password',
   '/thank-you-purchase',
   '/subscription',
+  '/news',
+  '/discord',
+  '/webinars',
+  '/amas',
   '/subscription/[plan-subscription]',
   '/users/[uid]',
+  '/users/[uid]/notifications',
+  '/users/[uid]/invoices',
   ////////
   '/academy',
   '/academy/tutorials',
   '/academy/courses',
+  '/research',
   '/research/bitcoins-altcoins',
   '/research/bitcoins-altcoins/[category-slug]',
   '/tax-consultant',
   '/tax-consultant/consultants',
-  ////
-  '/tax-consultant/consultants'
+  '/tax-consultant/consultants/[id]',
+  '/tax-consultant/consultants/[id]/services/[service_id]',
+  '/tax-consultant/consultants/[id]/services/[service_id]/payment'
 ]
 
 const system_subscription_permission_module = {
-  guest: [...system_public_module , '/analysis/[category-slug]/[article-slug]'],
-  basic: [...system_public_module, '/analysis/[category-slug]/[article-slug]'],
-  plus: [...system_public_module, '/academy/tutorials/[tutorial-slug]', '/analysis/[category-slug]/[article-slug]'],
+  guest: [...system_public_module],
+  basic: [...system_public_module, 
+    '/analysis/[category-slug]/[article-slug]'],
+  plus: [
+    ...system_public_module, 
+    '/academy/tutorials/[tutorial-slug]', 
+    '/analysis/[category-slug]/[article-slug]'],
   premium: [
     ...system_public_module,
     '/academy/tutorials/[tutorial-slug]',
@@ -74,7 +86,6 @@ export const useGuardPermissions = () => {
       const key_sub = plan || planKey || 'guest'
       const authorized_sections = system_subscription_permission_module[key_sub]
       const authorized = authorized_sections.includes(route)
-      console.log(authorized, key_sub)
       dispatchPermission({garanted: authorized ? 'garant' : 'no_garant'})
     },
     [planKey]
@@ -82,7 +93,7 @@ export const useGuardPermissions = () => {
   
   useEffect(() => {
     if(userLogged)
-     checkPermissions(route, userLogged.subscription.plan.key, userLogged.role.level)
+     checkPermissions(route, userLogged?.subscription.plan.key, userLogged?.role.level)
   }, [route, userLogged])
 
   return {

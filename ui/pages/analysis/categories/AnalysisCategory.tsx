@@ -147,7 +147,7 @@ const AnalysisCategory: NextPage<any> = () => {
       setStatePost={(state: 'public' | 'private') => setStatePost(state)}
       loadMore={_loadMore}
       selectedPost={selectedArt}
-      editionGranted={userLogged.role.level >= 1}
+      editionGranted={userLogged?.role.level >= 1}
       onFilter={(value: {
         search?: string
         catLevel?: string

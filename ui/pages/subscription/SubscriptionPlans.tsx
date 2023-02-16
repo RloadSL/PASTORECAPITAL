@@ -143,7 +143,7 @@ const SubscriptionPlans = () => {
                       ) : (
                         <ButtonApp
                           onClick={() => setupdatePlan(plans.basic)}
-                          labelID='Actualizar'
+                          labelID='update'
                         />
                       )}
                     </div>
@@ -166,7 +166,7 @@ const SubscriptionPlans = () => {
                       ) : (
                         <ButtonApp
                           onClick={() => setupdatePlan(plans.plus)}
-                          labelID='Actualizar'
+                          labelID='update'
                         />
                       )}
                     </div>
@@ -188,7 +188,7 @@ const SubscriptionPlans = () => {
                       ) : (
                         <ButtonApp
                           onClick={() => setupdatePlan(plans.premium)}
-                          labelID='Actualizar'
+                          labelID='update'
                         />
                       )}
                     </div>

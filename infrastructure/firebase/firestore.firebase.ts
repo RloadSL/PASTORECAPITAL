@@ -39,7 +39,6 @@ export class FireFirestore {
       if (queryWhere) {
         wheres = this._where(queryWhere);
       }
-
       if (!lastSnap) {
         const firstQuery = query(collection, 
           ...wheres, 
@@ -149,6 +148,20 @@ export class FireFirestore {
     const unsub = onSnapshot(doc(this._db, path), (doc) => {
       if (doc.exists())
         callback({ ...doc.data(), id: doc.id });
+    });
+    return unsub;
+  }
+
+  public onChangeCollection = (path: string,callback: Function, lastSnap?: DocumentSnapshot): Unsubscribe => {
+    const collection = this._collection(path);
+    let q = query(collection, orderBy('created_at', 'desc'));
+    if(lastSnap) q = query(q, startAfter(lastSnap))
+
+    const unsub = onSnapshot(q, (querySnapshot) => {
+       const docs = querySnapshot.docs.map((doc) => {
+        return {...doc.data(), id:doc.id}
+      });
+      callback({items:docs, last:querySnapshot.docs.pop()});
     });
     return unsub;
   }

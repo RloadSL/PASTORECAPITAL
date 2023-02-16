@@ -43,6 +43,7 @@ const ClientList = ({ clients }: ClientListProps) => {
     const s_uid = item.user.uid + '_' + item.service_id
     const data: NotificationDto = {
       created_at: new Date(),
+      message: 'Service complited by consultant',
       metadata: {
         service: item.serviceTitle,
         service_id: item.service_id
