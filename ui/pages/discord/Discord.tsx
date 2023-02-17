@@ -1,20 +1,24 @@
 import ButtonApp from 'components/ButtonApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
+import LinkApp from 'components/LinkApp'
 import Modal from 'components/Modal'
 import { Form, Formik } from 'formik'
 import discordRepository from 'infrastructure/repositories/discord.repository'
 import { NextPage } from 'next'
 import { useEffect, useRef, useState } from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import * as yup from 'yup'
+import Image from 'next/image'
+import style from './discord.module.scss'
+import discordImg from '../../../assets/img/discord.png'
 
 const Discord: NextPage = () => {
   const intl = useIntl()
   const userLogged = useSelector(getUserLogged)
   const [edit, setEdit] = useState<boolean>(false)
-  const [link, setLink] = useState<string | undefined>()
+  const [link, setLink] = useState<string | undefined>()
   const validationSchema = useRef(
     yup.object({
       link: yup
@@ -26,15 +30,15 @@ const Discord: NextPage = () => {
 
   useEffect(() => {
     discordRepository.getDiscordConfig()
-    .then((response) =>{
-      const {link} = response as any;
-      setLink(link)
-    })
+      .then((response) => {
+        const { link } = response as any;
+        setLink(link)
+      })
   }, [])
-  
 
-  const editDiscordLink = async (value:any)=>{
-    discordRepository.setDiscord(value.link).then((red)=>{
+
+  const editDiscordLink = async (value: any) => {
+    discordRepository.setDiscord(value.link).then((red) => {
       setEdit(false)
       setLink(value.link)
     })
@@ -43,12 +47,14 @@ const Discord: NextPage = () => {
   const renderFormEdit = () => {
     return (
       <>
-        <Modal>
-          <div>
-            <div className='header'>
-              <h3>Editar link de discord</h3>
-            </div>
-            <div className='formContent'>
+        <Modal onBtnClose={() => console.log('cerrar')}>
+          <div className={style.cardContainer}>
+            <header>
+              <h3>
+                <FormattedMessage id={'page.discord.admin.title'} />
+              </h3>
+            </header>
+            <div className={style.formContainer}>
               <Formik
                 initialValues={{ link }}
                 enableReinitialize
@@ -89,12 +95,56 @@ const Discord: NextPage = () => {
     /**
      * Funcionalidad para la edicion del link de discord
      */
-    <div>
-     Link de discord:  <h3>{link}</h3>
-      Para ver la edicion logate como admin@test.es
-     {userLogged?.role.level > 1 && <ButtonApp onClick={() => setEdit(true)}>Editar</ButtonApp>}
-      <div>{edit && renderFormEdit()}</div>
+    <div className={style.discord}>
+      <header>
+        <p className='small-caps'>
+          <FormattedMessage id='discord' />
+        </p>
+        <p className={`${style.topTitle} main-title`}>
+          <FormattedMessage id='page.discord.title' />
+        </p>
+      </header>
+      <div className={style.banner_top}>
+        <div className={`flex-container align-center ${style.flexContainer}`}>
+          <div className={style.imageContainer}>
+            <Image src={discordImg} alt='' />
+          </div>
+          <div className={style.textContainer}>
+            <div className={style.textContainer_title}>
+              <p>
+                <FormattedMessage
+                  id={'page.discord.card.title'}
+                  values={{
+                    b: children => <strong>{children}</strong>
+                  }}
+                />
+              </p>
+            </div>
+            <p>
+              <FormattedMessage id={'page.discord.card.text'} />
+            </p>
+            <div className={style.textContainer_button}>
+              <LinkApp target={'_blank'} label={'btn.access'} linkStyle={'button'} linkHref={link} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={style.adminOptions}>
+        <p className='small-caps'>
+          <FormattedMessage id={'page.discord.admin.title'} />
+        </p>
+        <div className={style.adminOptions_button}>
+          {userLogged?.role.level > 1 && <ButtonApp onClick={() => setEdit(true)}>
+            <FormattedMessage id={'btn.editLink'} />
+          </ButtonApp>}
+        </div>
+
+        <div>{edit && renderFormEdit()}</div>
+      </div>
+
     </div>
+
   )
 }
 

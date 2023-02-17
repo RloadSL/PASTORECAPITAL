@@ -1,0 +1,65 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/placeholders";
+
+.news {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  &_container {
+    @extend %borderRadius;
+    background-color: white;
+    max-width: 1200px;
+
+    ul {
+      li {
+        border-bottom: 1px solid colors.$grey40 !important;
+    
+        &:last-child {
+          border: none !important;
+        }
+      }
+    }
+  }
+
+  &_filter {
+    margin-bottom: 50px;
+    max-width: 1200px;
+
+    ul {
+      display: flex;
+      margin-bottom: 20px;
+
+      li {
+        padding-right: 10px;
+        &:first-child {
+          button {
+            justify-content: space-evenly;
+            flex-direction: row-reverse;
+            span{
+              margin: 0px 5px 0px 0px;
+            }
+            img {
+              filter: invert(8%) sepia(30%) saturate(6623%) hue-rotate(245deg) brightness(99%) contrast(120%) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .filterButton {
+    border-radius: 20px;
+    padding: 12px 30px;
+
+    &:hover {
+      background-color: colors.$grey50;
+    }
+
+    &_active {
+      background-color: colors.$main;
+    }
+  }
+
+
+}

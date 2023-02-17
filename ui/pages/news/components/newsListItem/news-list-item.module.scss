@@ -1,0 +1,46 @@
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/placeholders";
+
+.newsContent {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2%;
+
+  &_info {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    &_title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+
+      a {
+        &:hover {
+          color:colors.$main
+        }
+      }
+    }
+  }
+
+  &_date {
+    color: colors.$grey50;
+    padding-right: 30px;
+  }
+
+  &_fav {
+    display: flex
+  }
+}
+
+.favButton {
+  width: 30px;
+  background:url(../../../../../assets/img/icons/star.svg) no-repeat center ;
+  filter: invert(98%) sepia(0%) saturate(522%) hue-rotate(146deg) brightness(79%) contrast(106%);
+
+  &:hover, &_isActive {
+    filter: invert(87%) sepia(64%) saturate(6337%) hue-rotate(323deg) brightness(97%) contrast(108%);
+  }
+}

@@ -185,6 +185,13 @@
   "page.tax-consultant.resources.createForm.submit": "Crear recurso",
   "page.resources.resource.delete.message": "¿Seguro que deseas eliminar este recurso?",
   "page.resources.resource.delete.title": "Eliminar recurso",
+  "page.discord.title": "Únete a nuestro Discord",
+  "page.discord.card.title": "Un espacio <b>para estar al día</b>",
+  "page.discord.card.text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto",
+  "page.discord.admin.title": "Editar link a Discord",
+
+
+
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
@@ -247,12 +254,15 @@
   "btn.pay" : "Pagar ahora",
   "btn.subscribe" : "Suscribirse",
   "btn.update_subscribe" : "Suscripción",
+  "btn.access": "Acceder",
   "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
-  "btn.vew_all" : "VER TODOS",
+  "btn.choose.subscription" : "Elegir plan",
+  "btn.view_all" : "VER TODOS",
   "btn.vew_all_services":"Ver todos los servicios",
   "btn.calendar" : "Calendario",
   "btn.clients" : "Clientes",
+  "btn.editLink" : "Editar Link",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    
@@ -271,6 +281,13 @@
   "subscription.user.unauthorized.alert.content": "Parece que quieres acceder a este contenido. Actualiza tu plan de suscripción para tener acceso.",
   "subscription.user.alert.updateSubscription.text": "¿Quieres actualizar tu plan actual a",
   
+  "page.susbcription.title": "Eliminar recurso",
+  "page.susbcription.description": "Eliminar recurso",
+  "page.susbcription.select.label": "Eliminar recurso",
+  "page.susbcription.select.inputYearly": "Eliminar recurso",
+  "page.susbcription.select.inputMonthly": "Eliminar recurso",
+
+
   "home":"Home",
   "courses": "Cursos",
   "tutorials": "Tutoriales",

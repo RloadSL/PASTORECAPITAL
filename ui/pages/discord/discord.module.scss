@@ -1,0 +1,93 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/placeholders";
+
+%containers {
+  padding: 30px;
+  width: 100%;
+  @extend %borderRadius;
+  margin-top: 20px;
+
+  @include devices.device(mdScreen) {
+    margin-top: 0px;
+  }
+}
+
+.discord {
+  @extend %layoutContainer;
+  padding: 2%;
+}
+
+.banner {
+  &_top {
+    @extend %containers;
+    background-color: lighten(colors.$palette9, 30%);
+
+    @include devices.device(mdScreen) {
+      margin-right: 10px;
+    }
+  }
+}
+
+.imageContainer {
+  max-width: 120px;
+
+  @include devices.device(tablet) {
+    flex-shrink: 0;
+  }
+
+  @include devices.device(lgScreen) {
+    max-width: 250px;
+  }
+}
+
+.textContainer {
+  margin-left: 30px;
+
+  &_title {
+    margin-bottom: 20px;
+
+    p {
+      strong {
+        text-transform: uppercase;
+        font-weight: 500;
+        display: block;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &_button {
+    margin-top: 20px;
+    max-width: 300px;
+  }
+}
+
+.adminOptions {
+  margin-top: 5%;
+
+  &_button {
+    max-width: 250px;
+  }
+}
+
+.cardContainer {
+  @extend %cardContainer;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  max-height: 100% !important;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    color: colors.$dark;
+    text-align: center;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex:1;
+}
