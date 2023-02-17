@@ -185,6 +185,13 @@
   "page.tax-consultant.resources.createForm.submit": "Crear recurso",
   "page.resources.resource.delete.message": "¿Seguro que deseas eliminar este recurso?",
   "page.resources.resource.delete.title": "Eliminar recurso",
+  "page.discord.title": "Únete a nuestro Discord",
+  "page.discord.card.title": "Un espacio <b>para estar al día</b>",
+  "page.discord.card.text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto",
+  "page.discord.admin.title": "Editar link a Discord",
+
+
+
 
 
 
@@ -248,6 +255,7 @@
   "btn.pay" : "Pagar ahora",
   "btn.subscribe" : "Suscribirse",
   "btn.update_subscribe" : "Suscripción",
+  "btn.access": "Acceder",
   "btn.myPlan" : "Suscrito",
   "btn.add.service" : "Añadir servicio",
   "btn.choose.subscription" : "Elegir plan",
@@ -255,6 +263,7 @@
   "btn.vew_all_services":"Ver todos los servicios",
   "btn.calendar" : "Calendario",
   "btn.clients" : "Clientes",
+  "btn.editLink" : "Editar Link",
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    

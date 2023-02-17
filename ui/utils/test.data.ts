@@ -358,3 +358,59 @@ export const notifications = [
     text: 'Te han dado de alta como colaborador'
   }
 ]
+
+export const newsCategories = [
+  {
+    id:'291',
+    title: 'Mis favoritas',
+    slug: 'mis-favoritas'
+  },
+  {
+    id:'292',
+    title: 'Web3',
+    slug:'web3'
+  },
+  {
+    id:'293',
+    title: 'Macro',
+    slug:'macro'
+  },
+  {
+    id:'294',
+    title: 'NFTs',
+    slug:'nfts'
+  }
+]
+
+export const news = [
+  {
+    id:'291',
+    title: 'Qué son las empresas unicornio y cuáles son las más grandes de España',
+    date:'16/02/2023',
+    href:"https://www.mingcute.com/"
+  },
+  {
+    id:'292',
+    title: 'Meta planea una nueva ronda de despidos tras las 11.000 salidas de noviembre',
+    date:'05/02/2023',
+    href:"https://www.mingcute.com/"
+  },
+  {
+    id:'293',
+    title: 'El gran reto de las grandes empresas: cómo retener talento y evitar que los jóvenes se quemen con un título de noticia extremadamente largo para que se corte cuando no quepa',
+    date:'16/05/2023',
+    href:"https://www.mingcute.com/"
+  },
+  {
+    id:'294',
+    title: 'La revolución Web3: la guerra del dato se libra en el internet del futuro',
+    date:'10/02/2023',
+    href:"https://www.mingcute.com/"
+  },
+  {
+    id:'295',
+    title: 'Fernando Romero, fundador de la empresa estrella de 2022: "Siempre quiero más. No ...',
+    date:'16/02/2023',
+    href:"https://www.mingcute.com/"
+  }
+]
