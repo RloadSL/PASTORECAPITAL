@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { setChatroom } from 'ui/redux/slices/amas/amas.slice'
+import { cleanMessages, setChatroom } from 'ui/redux/slices/amas/amas.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import CreateChatroom from './components/CreateChatroom/CreateChatroom'
@@ -26,6 +26,7 @@ function AmasMain () {
   }, [userLogged?.uid])
 
   const openChatroom = (chatroom: Chatroom) => {
+    dispatch(cleanMessages())
     dispatch(setChatroom(chatroom))
     push(`/amas/${chatroom.id}`)
   }

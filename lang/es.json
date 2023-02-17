@@ -186,10 +186,6 @@
   "page.resources.resource.delete.message": "¿Seguro que deseas eliminar este recurso?",
   "page.resources.resource.delete.title": "Eliminar recurso",
 
-
-
-
-
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
 
@@ -230,7 +226,10 @@
   "forms.helper.userdata.update" : "Los datos personales solo se cambian desde la configuración de usuario.",
   "forms.labels.excerpt": "Resumen",
   "forms.labels.title": "Título",
-
+  "forms.labels.amas.message.public.closed" : "Comentarios cerrados. El Moderador te permitirá escribir comentarios en breve",
+  "forms.labels.amas.message" : "Escribe tu comentario",
+  "forms.labels.searchusers.email" : "Buscar usuario por email",
+  
   "user.updated" : "Usuario actualizado ",
   "btn.send": "Enviar",
   "btn.save": "Guardar",
@@ -259,7 +258,6 @@
    
   "alert.btn.ok" : "Aceptar",
   "alert.btn.cancel" : "Cancelar",
-  
   "placeholder.select" :"Seleccionar",
 
   "message.password-updated": "La contraseña ha sido cambiada.",
@@ -306,5 +304,6 @@
   "update" : "Actualizar",
   "invoices" : "Facturas",
   "discord" : "Discord",
-  "amas" : "Amas"
+  "amas" : "Amas",
+  "chatroom_id": "Sala"
 }

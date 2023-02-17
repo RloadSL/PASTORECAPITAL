@@ -1,7 +1,7 @@
 import { Chatroom } from "domain/Chatroom/Chatroom";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { DocumentSnapshot, Unsubscribe } from "firebase/firestore";
-import { ChatroomDto } from "infrastructure/dto/amas.dto";
+import { ChatroomDto, MessageDto } from "infrastructure/dto/amas.dto";
 import storageFirebase from "infrastructure/firebase/storage.firebase";
 import { identity } from "lodash";
 import { string } from "yup";
@@ -37,7 +37,7 @@ class AmasRepository{
         return data.id;
       }else{
         delete data.id;
-        const res = await FireFirestore.createDoc('amas', {...data, state: 'active', state_chat:'private',created_at: new Date()})
+        const res = await FireFirestore.createDoc('amas', {...data, state: 'active', state_chat:'private'})
         return res;
       }
     } catch (error) {
@@ -63,16 +63,20 @@ class AmasRepository{
     }
   }
 
-  async createEnterChat(chatroom_id:string, data:{
-    user:{
-      fullname: string,
-      uid: string,
-    },
-    message: string,
-    //Por si queremos referencias en el chat
-    ref?:string
-  }){
-    const res = await FireFirestore.createDoc(`amas/${chatroom_id}/messages`, {...data, state: 'active', public: false})
+  async createEnterChat(data: MessageDto){
+    const res = await FireFirestore.createDoc(`amas/${data.chatroom_id}/messages`, data)
+    return res;
+  }
+
+  async getChatMessages(chatroom_id:string,last: DocumentSnapshot){
+    const ref = await FireFirestore.getCollectionDocs(`amas/${chatroom_id}/messages`,last)
+    if(!(ref instanceof ErrorApp))
+      return {items : ref.map(doc => ({id: doc.id, ...doc.data()})), last: ref.pop()};
+    else return {items: []}
+  }
+
+  async deleteEnterChat(chatroom_id: string,message_id: string){
+    const res = await FireFirestore.deleteDoc(`amas/${chatroom_id}/messages`, message_id)
     return res;
   }
 

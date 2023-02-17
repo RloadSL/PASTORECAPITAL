@@ -8,7 +8,8 @@ export interface ELASTIC_QUERY {
     current: number
   },
   filters?: any,
-  precision?:number
+  precision?:number,
+  search_fields?: any
 }
 
 const _parseResult = (results:any[])=>{

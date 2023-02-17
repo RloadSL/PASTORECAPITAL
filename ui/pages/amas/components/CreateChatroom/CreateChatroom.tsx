@@ -1,20 +1,24 @@
 import ButtonApp from 'components/ButtonApp'
+import AsyncAutocompleteFormikApp from 'components/FormApp/components/AsyncAutocompleteFormikApp/AsyncAutocompleteFormikApp'
 import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import Modal from 'components/Modal'
+import { User } from 'domain/User/User'
 import { Form, Formik } from 'formik'
 import amasRepository from 'infrastructure/repositories/amas.repository'
+import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 import * as yup from 'yup'
 
-function CreateChatroom ({onClose}: {onClose:Function}) {
+function CreateChatroom ({ onClose }: { onClose: Function }) {
   const [loading, setloading] = useState(false)
-  const [chatroom, setchatroom] = useState<any>({ 
-    title:'', 
-    excerpt: '', 
-    thumb: undefined, 
+  const [chatroom, setchatroom] = useState<any>({
+    title: '',
+    excerpt: '',
+    interviewee: undefined,
+    thumb: undefined,
     id: undefined
   })
   const intl = useIntl()
@@ -24,20 +28,34 @@ function CreateChatroom ({onClose}: {onClose:Function}) {
         .string()
         .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
       excerpt: yup.string(),
-    
+      interviewee: yup.object().required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
     })
   ).current
 
   const create = async (value: any) => {
     setloading(true)
-    await amasRepository.setChatroom(value);
+    await amasRepository.setChatroom(value)
     onClose()
     setloading(false)
   }
 
+  const searchUsers =  async (s: string) => {
+    const res = await UserRepositoryImplInstance.elasticSearchUsers({
+      query: s,
+      search_fields: {
+        email: {}
+      }
+    })
+
+    return res.results.map((item: User) => ({
+      value: { fullname: item.fullname, uid: item.uid },
+      label: item.email
+    }))
+  }
+
   return (
     <>
-      <Modal onBtnClose={()=>onClose()}>
+      <Modal onBtnClose={() => onClose()}>
         <div>
           <div className='header'>
             <h3>Crear nueva sala de chat</h3>
@@ -56,7 +74,7 @@ function CreateChatroom ({onClose}: {onClose:Function}) {
                     type='text'
                     name='title'
                   />
-                  <TextareaFormikApp 
+                  <TextareaFormikApp
                     labelID='forms.labels.excerpt'
                     name='excerpt'
                   />
@@ -64,6 +82,11 @@ function CreateChatroom ({onClose}: {onClose:Function}) {
                     labelID='page.tax-consultant.create-service.form.image'
                     name='thumb'
                     accept='image/*'
+                  />
+                  <AsyncAutocompleteFormikApp
+                    name='interviewee'
+                    labelID='forms.labels.searchusers.email'
+                    loadOptions={searchUsers}
                   />
                   <div
                     style={{

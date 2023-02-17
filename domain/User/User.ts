@@ -4,6 +4,9 @@ import { UserRepositoryImplInstance } from "infrastructure/repositories/users.re
 import { UserRepository } from "./user.repository";
 
 export class User {
+  /**
+   * Identificador del usuario para los usuarios invitados el [uid = not-logged]
+   */
   uid: string;
   
 
@@ -68,19 +71,21 @@ export class User {
     stripe_cu_id: this.stripe_cu_id
   });
 
-  public onChange = (callback:Function)=>{
+ onChange = (callback:Function)=>{
     return UserRepositoryImplInstance.onChange(this.uid, callback)
   }
 
-  public onChangeNotifications = (callback:Function)=>{
+ onChangeNotifications = (callback:Function)=>{
     return UserRepositoryImplInstance.onChangeNotification(this.uid, callback)
   }
 
-  public checkNotifications = (callback:Function)=>{
+ checkNotifications = (callback:Function)=>{
     return UserRepositoryImplInstance.onChangeNotification(this.uid, callback)
   }
 
-  public  setPersonalStats = async (data:any)=>{
+  setPersonalStats = async (data:any)=>{
     await UserRepositoryImplInstance.setPersonalStats(this.uid, data)
   }
+
+  get fullname(){ return `${this.name} ${this.lastname}`};
 }

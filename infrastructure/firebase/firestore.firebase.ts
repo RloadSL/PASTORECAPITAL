@@ -123,6 +123,7 @@ export class FireFirestore {
   public setDoc = async (collectionPath: string, docId: string, data: any) => {
     try {
       const docRef = this._doc(collectionPath, docId);
+      data.update_at = new Date()
       const res = await setDoc(docRef, cleanUndefined(data), {merge: true});
     } catch (error:any) {
       console.error('Firebase response: '+error.code);
@@ -135,6 +136,7 @@ export class FireFirestore {
    */
   public createDoc = async (collectionPath: string, data: any): Promise<any | undefined> => {
     try {
+      data.created_at = new Date()
       const collection = this._collection(collectionPath);
       const snap = await addDoc(collection, cleanUndefined(data));
       return { ...data, id: snap.id };
@@ -152,9 +154,9 @@ export class FireFirestore {
     return unsub;
   }
 
-  public onChangeCollection = (path: string,callback: Function, lastSnap?: DocumentSnapshot): Unsubscribe => {
+  public onChangeCollection = (path: string,callback: Function, lastSnap?: DocumentSnapshot,limitResult = 10): Unsubscribe => {
     const collection = this._collection(path);
-    let q = query(collection, orderBy('created_at', 'desc'));
+    let q = query(collection, orderBy('created_at', 'desc'), limit(limitResult));
     if(lastSnap) q = query(q, startAfter(lastSnap))
 
     const unsub = onSnapshot(q, (querySnapshot) => {

@@ -1,4 +1,6 @@
 import { Chatroom } from "domain/Chatroom/Chatroom";
+import { DocumentSnapshot } from "firebase/firestore";
+import { MessageDto } from "infrastructure/dto/amas.dto";
 
 export const getOpenChatroom = (state:any):Chatroom =>  {
   const chatroom = state.amas.chatroom;
@@ -6,7 +8,7 @@ export const getOpenChatroom = (state:any):Chatroom =>  {
 }; 
 
 export const getMessages = (state:any) =>  {
-  const messages:any = state.amas.messages;
+  const messages: MessageDto[] | undefined = state.amas.messages;
   return messages;
 };  
 

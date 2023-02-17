@@ -15,6 +15,7 @@ const system_public_module = [
   '/discord',
   '/webinars',
   '/amas',
+  '/amas/[chatroom_id]',
   '/subscription/[plan-subscription]',
   '/users/[uid]',
   '/users/[uid]/notifications',

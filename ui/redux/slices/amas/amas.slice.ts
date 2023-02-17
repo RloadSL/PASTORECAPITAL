@@ -5,13 +5,13 @@ import notificationRepository from "infrastructure/repositories/notification.rep
 import { UserRepositoryImplInstance } from "infrastructure/repositories/users.repository";
 
 export interface  USER_INFORMATION_STATE {
-  messages: Array<any>
+  messages?: Array<any>
   chatroom?: Chatroom
   last:any
   loading: boolean
 }
 
-const initialState: USER_INFORMATION_STATE = { loading: false, messages: [], last: undefined};
+const initialState: USER_INFORMATION_STATE = { loading: false, messages: undefined, last: undefined};
 
 
 
@@ -19,9 +19,9 @@ export const amasReducer = createSlice({
   name: 'UserInformation',
   initialState,
   reducers: {
-    cleanNoti: (state) => {
+    cleanMessages: (state) => {
       state.last = undefined;
-      state.messages = []
+      state.messages = undefined
       state.loading = false;
     },
     setLoading: (state, action) => {
@@ -29,7 +29,9 @@ export const amasReducer = createSlice({
     },
     setChatrommMessages: (state, action) =>{
       const {messages, last} = action.payload;
-      state = {...state, messages, last}
+      state.messages = messages;
+      state.last = last
+
     },
     setChatroom: (state, action) =>{
       state.chatroom = action.payload;
@@ -39,6 +41,6 @@ export const amasReducer = createSlice({
 })
 
 //Estrallendo actions
-export const { cleanNoti, setLoading, setChatrommMessages, setChatroom } = amasReducer.actions;
+export const { cleanMessages, setLoading, setChatrommMessages, setChatroom } = amasReducer.actions;
 
 export default amasReducer.reducer
