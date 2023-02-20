@@ -12,6 +12,7 @@ interface MESSAGES {
   onDelete: Function
   reverse?: boolean
   messages?: MessageDto[]
+  
 }
 
 const ItemMemo = React.memo(function Memorized ({
@@ -27,6 +28,7 @@ const ItemMemo = React.memo(function Memorized ({
     <div>
       {(userLogged?.role.level >= 1 || userLogged?.uid === item.owner.uid) && (
         <div>
+          <p>Publisher Profile @Maria: {item.owner.profile || 'Borrar este comentario'}</p>
           <ButtonApp onClick={() => onDelete(item.id)}>X</ButtonApp>
         </div>
       )}
@@ -36,7 +38,7 @@ const ItemMemo = React.memo(function Memorized ({
   )
 })
 
-const Messages = ({ onDelete, messages, reverse = false }: MESSAGES) => {
+const Messages = ({ onDelete, messages }: MESSAGES) => {
   const userLogged = useSelector(getUserLogged)
 
   return (

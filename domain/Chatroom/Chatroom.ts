@@ -8,21 +8,42 @@ export class Chatroom {
   excerpt?: string 
   thumb?:any 
   id:string
+  /**
+   * Estado del chat para los usuarios invitados si puedes escribir o no como invitado.
+   */
   state_chat?: CHAT_STATE_PUBLIC
+  /**
+   * Estado de la sala cerrada o abierta 
+   */
   state?: CHAT_STATE 
+  /**
+   * Entrevistado en la sala
+   */
   interviewee:{
     fullname: string,
     uid: string
   }
   constructor(data:ChatroomDto){
-    this.title = data.title
+    this.title = data.title as string
     this.excerpt = data.excerpt
     this.thumb = data.thumb
     this.id = data.id as string
     this.state_chat = data.state_chat
     this.state = data.state
-    this.interviewee = data.interviewee
+    this.interviewee = data.interviewee as any
   }
+
+  setChatroom(data:any){
+    return amasRepository.setChatroom({...data, id: this.id})
+  }
+
+    /**
+   * Se suscribe a los cambios de la subcoleccion de mensajes en esta sala y retorna el unsubscribe
+   */
+    listenChatrooom(callback: Function):Unsubscribe{
+      return amasRepository.onChangeRoom(this.id as string, callback)
+    }
+  
 
   /**
    * Se suscribe a los cambios de la subcoleccion de mensajes en esta sala y retorna el unsubscribe
@@ -42,5 +63,9 @@ export class Chatroom {
 
   async deleteMessage(message_id:string): Promise<void>{
     await amasRepository.deleteEnterChat(this.id, message_id)
+  }
+  
+  async closeChatroom(){
+    await amasRepository.setChatroom({state: 'closed', id: this.id})
   }
 }

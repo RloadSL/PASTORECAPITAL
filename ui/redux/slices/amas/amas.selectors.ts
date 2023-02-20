@@ -1,6 +1,6 @@
 import { Chatroom } from "domain/Chatroom/Chatroom";
 import { DocumentSnapshot } from "firebase/firestore";
-import { MessageDto } from "infrastructure/dto/amas.dto";
+import { CHAT_STATE, CHAT_STATE_PUBLIC, MessageDto } from "infrastructure/dto/amas.dto";
 
 export const getOpenChatroom = (state:any):Chatroom =>  {
   const chatroom = state.amas.chatroom;
@@ -20,4 +20,9 @@ export const getLastMessages = (state:any) =>  {
 export const getAmasLoading = (state:any):boolean =>  {
   const loading = state.amas.loading;
   return loading;
-}; 
+};
+
+export const getAmasChatroomState = (state:any):{state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE} =>  {
+  const chatroomState = state.amas.chatroomState;
+  return chatroomState;
+};

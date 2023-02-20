@@ -25,7 +25,7 @@ class AmasRepository{
   async setChatroom(data:ChatroomDto){
     try {
       if(data.thumb instanceof File){
-        const thumbUri = await storageFirebase.UploadFile(`amas/{${data.title.replace(/' '/g, '_')}}`, data.thumb)
+        const thumbUri = await storageFirebase.UploadFile(`amas/{${data.title?.replace(/' '/g, '_')}}`, data.thumb)
         data.thumb = {
           created_at: new Date(),
           url : thumbUri
@@ -81,8 +81,14 @@ class AmasRepository{
   }
 
   onChangeChatRoom(chatroom_id:string,callback:Function): Unsubscribe {
-    return FireFirestore.onChangeCollection(`amas/${chatroom_id}/messages`,(userData:any)=>{
-      callback(userData);
+    return FireFirestore.onChangeCollection(`amas/${chatroom_id}/messages`,(data:any)=>{
+      callback(data);
+    })
+  };
+
+  onChangeRoom(chatroom_id:string,callback:Function): Unsubscribe {
+    return FireFirestore.onChangeDoc(`amas/${chatroom_id}`,(data:any)=>{
+      callback(data);
     })
   };
 }

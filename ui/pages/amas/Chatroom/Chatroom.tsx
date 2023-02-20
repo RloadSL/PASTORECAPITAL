@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import amasRepository from 'infrastructure/repositories/amas.repository'
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
+  getAmasChatroomState,
   getAmasLoading,
   getLastMessages,
   getMessages,
@@ -12,17 +13,15 @@ import {
 import { AppDispatch } from 'ui/redux/store'
 import { useDispatch } from 'react-redux'
 import {
-  cleanMessages,
   setChatrommMessages,
   setChatroom
 } from 'ui/redux/slices/amas/amas.slice'
 import ChatActions from './components/ChatActions/ChatActions'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
-import { MessageDto } from 'infrastructure/dto/amas.dto'
+import { CHAT_STATE, CHAT_STATE_PUBLIC, MessageDto } from 'infrastructure/dto/amas.dto'
 import Messages from './components/Messages/Messages'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import LoadMoreLoading from 'components/LoadMoreLoading'
 import ButtonApp from 'components/ButtonApp'
+import { Unsubscribe } from 'firebase/firestore'
 
 function Chatroom () {
   const userLoggued = useSelector(getUserLogged)
@@ -32,17 +31,27 @@ function Chatroom () {
   const loading = useSelector(getAmasLoading)
   const { query, push, asPath } = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-
+  const [chatroomState, setState_chat] = useState<{state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE}>({state_chat : oppenedChatroom?.state_chat || 'public', state: oppenedChatroom?.state || 'active'})
   const canWrite = useRef(
     userLoggued?.uid === oppenedChatroom?.interviewee.uid ||
-      userLoggued?.role.level >= 1
+      userLoggued?.role.level >= 1 ||
+      oppenedChatroom.state_chat === 'public'
   ).current
+
+  const profile = useRef<'interviewee' | 'interviewer' | 'guest'>(
+    userLoggued?.uid === oppenedChatroom?.interviewee.uid
+      ? 'interviewee'
+      : userLoggued?.role.level >= 1
+      ? 'interviewer'
+      : 'guest'
+  ).current
+
   useEffect(() => {
     if (userLoggued?.uid === 'not-logged') {
       push({ pathname: '/login', query: { redirect: asPath } })
     }
   }, [userLoggued?.uid])
-  console.log(messages)
+
   useEffect(() => {
     if (!oppenedChatroom && query.chatroom_id && !loading) {
       amasRepository.getChatroom(query.chatroom_id as string).then(chatroom => {
@@ -50,10 +59,18 @@ function Chatroom () {
       })
     }
   }, [query.chatroom_id])
+  let unsub = useRef<Unsubscribe | undefined>().current
+  let unsubChatroom = useRef<Unsubscribe | undefined>().current
 
   useEffect(() => {
+    //Escuchando mensajes
     if (oppenedChatroom?.id && !lastMessage) {
-      oppenedChatroom.openChatroom((onMessages: any) => {
+      if (unsub) {
+        unsub()
+        unsub = undefined
+      }
+
+      unsub = oppenedChatroom.openChatroom((onMessages: any) => {
         if (onMessages.last?.id != lastMessage?.id) {
           dispatch(
             setChatrommMessages({
@@ -64,8 +81,17 @@ function Chatroom () {
         }
       })
     }
-  }, [oppenedChatroom?.id])
 
+    //Escuchando Chatroom
+    if (oppenedChatroom?.id && !unsubChatroom) {
+      unsubChatroom = oppenedChatroom.listenChatrooom((data:any)=>{
+        const {state, state_chat} = data;
+        setState_chat({state, state_chat})
+      })
+    }
+
+    
+  }, [oppenedChatroom?.id])
   /*  useEffect(() => {
     window.scroll(0, document.body.offsetHeight)
   }, [lastMessage?.id]) */
@@ -76,7 +102,8 @@ function Chatroom () {
       message,
       owner: {
         uid: userLoggued?.uid,
-        fullname: userLoggued.fullname
+        fullname: userLoggued.fullname,
+        profile
       }
     }
     await oppenedChatroom.pushMessage(data)
@@ -86,7 +113,7 @@ function Chatroom () {
     await oppenedChatroom.deleteMessage(message_id)
   }
 
-  const loadMore = () => {
+  const loadMore = async () => {
     oppenedChatroom.getChatroomMessages(lastMessage).then(res => {
       const { items, last } = res
       dispatch(
@@ -97,7 +124,15 @@ function Chatroom () {
       )
     })
   }
+  
+  const togglePublicRoom =async ()=>{
+    const state_chat = chatroomState.state_chat === 'public' ? 'private' : 'public'
+    await oppenedChatroom.setChatroom({state_chat: state_chat})
+  }
 
+  const closeChatroom = async ()=>{
+    await oppenedChatroom.setChatroom({state: 'closed'})
+  }
   return (
     <div>
       <div>Entrevistado: {oppenedChatroom?.interviewee.fullname}</div>
@@ -111,12 +146,15 @@ function Chatroom () {
         <Messages messages={messages} onDelete={deleteMessage} />
       </div>
       <div>
+        <div id='unauthorized_cover'>
+          Estado de la sala: {chatroomState.state_chat}
+        </div>
         {canWrite && <div id='unauthorized_cover'></div>}
-        <ChatActions
-          onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
-          onCloseChatroom={() => {}}
-          openPublicRoom={() => {}}
-        />
+        {chatroomState.state === 'active' ? <ChatActions
+          onSendMessage={canWrite ? sendMessage : ()=>alert('Unauthorized')}
+          onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
+          openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
+        /> : <h3>La sala esta cerrada</h3>}
       </div>
     </div>
   )

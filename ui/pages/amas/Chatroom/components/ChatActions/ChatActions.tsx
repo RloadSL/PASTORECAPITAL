@@ -6,8 +6,8 @@ import React from 'react'
 export interface CHAT_ACTIONS{
   children? : any,
   onSendMessage: Function,
-  openPublicRoom: Function,
-  onCloseChatroom: Function
+  openPublicRoom?: Function,
+  onCloseChatroom?: Function
 }
 
 function ChatActions ({
@@ -19,12 +19,12 @@ function ChatActions ({
   return (
     <div>
       <div>
-        <ButtonApp onClick={openPublicRoom} buttonStyle='link'>
+        {openPublicRoom && <ButtonApp onClick={openPublicRoom} buttonStyle='link'>
           Abrir al publico
-        </ButtonApp>
-        <ButtonApp onClick={onCloseChatroom} buttonStyle='link'>
+        </ButtonApp>}
+        {onCloseChatroom && <ButtonApp onClick={onCloseChatroom} buttonStyle='link'>
           Terminar entrevista
-        </ButtonApp>
+        </ButtonApp>}
       </div>
       <div>
         <Formik

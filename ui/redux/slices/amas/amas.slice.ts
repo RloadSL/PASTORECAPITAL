@@ -1,17 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Chatroom } from "domain/Chatroom/Chatroom";
+import { CHAT_STATE, CHAT_STATE_PUBLIC } from "infrastructure/dto/amas.dto";
 import { NotificationDto } from "infrastructure/dto/notification.dto";
 import notificationRepository from "infrastructure/repositories/notification.repository";
 import { UserRepositoryImplInstance } from "infrastructure/repositories/users.repository";
 
-export interface  USER_INFORMATION_STATE {
+export interface  AMAS_STATE {
   messages?: Array<any>
   chatroom?: Chatroom
+  chatroomState: {state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE}
   last:any
   loading: boolean
 }
 
-const initialState: USER_INFORMATION_STATE = { loading: false, messages: undefined, last: undefined};
+const initialState: AMAS_STATE = {chatroomState: {state: 'active', state_chat: 'public'} , loading: false, messages: undefined, last: undefined};
 
 
 
