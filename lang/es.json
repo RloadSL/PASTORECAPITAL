@@ -189,8 +189,8 @@
   "page.discord.card.title": "Un espacio <b>para estar al día</b>",
   "page.discord.card.text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto",
   "page.discord.admin.title": "Editar link a Discord",
-
-
+  "page.amas.createRoom.label": "Crear nueva sala",
+  "page.amas.selectRoom.label": "Sala",
 
 
   "page.invoices.title" : "Facturas",
