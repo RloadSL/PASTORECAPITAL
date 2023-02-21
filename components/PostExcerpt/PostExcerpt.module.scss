@@ -79,7 +79,7 @@
 
     .imageContainer {
       @include devices.device(lgScreen) {
-        height: 300px !important;
+        height: 150px /*OJO AQUI LO HE CAMBIADO, ANTES ERA 300*/; 
     }
   }
 }

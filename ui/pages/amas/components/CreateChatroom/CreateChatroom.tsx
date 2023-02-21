@@ -12,7 +12,7 @@ import { useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 import * as yup from 'yup'
 
-function CreateChatroom ({ onClose }: { onClose: Function }) {
+const CreateChatroom = ({ onClose }: { onClose: Function }) => {
   const [loading, setloading] = useState(false)
   const [chatroom, setchatroom] = useState<any>({
     title: '',
@@ -54,7 +54,6 @@ function CreateChatroom ({ onClose }: { onClose: Function }) {
   }
 
   return (
-    <>
       <Modal onBtnClose={() => onClose()}>
         <div>
           <div className='header'>
@@ -107,7 +106,6 @@ function CreateChatroom ({ onClose }: { onClose: Function }) {
           </div>
         </div>
       </Modal>
-    </>
   )
 }
 
