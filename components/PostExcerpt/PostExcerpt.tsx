@@ -6,6 +6,7 @@ import { WpCat } from 'infrastructure/dto/post.dto'
 import Avatar from 'components/Avatar'
 
 export interface POSTEXCERPTPROPS {
+  parsing?: boolean
   title?: string
   description: string
   thumbnail?: string
@@ -34,11 +35,13 @@ const PostExcerpt = ({
   level,
   componentStyle,
   hasSeparator,
-  footer
+  footer,
+  parsing=true
 }: POSTEXCERPTPROPS) => {
   return (
     <PostExcerptView
       title={title}
+      parsing={parsing}
       description={description}
       thumbnail={thumbnail}
       chips={chips}
@@ -55,6 +58,7 @@ const PostExcerptView = ({
   description,
   thumbnail,
   chips,
+  parsing,
   level,
   componentStyle = 'card',
   hasSeparator = true,
@@ -69,7 +73,7 @@ const PostExcerptView = ({
       </div>
       <div className={style.textContent}>
         <p className={style.title}>{title}</p>
-        <div className={style.description}>{parse(description)}</div>
+        <div className={style.description}>{ parsing ? parse(description) : description}</div>
         <div className={style.terms}>
           {footer ? (
             <div className={style.footer}>

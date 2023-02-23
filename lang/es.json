@@ -322,5 +322,7 @@
   "invoices" : "Facturas",
   "discord" : "Discord",
   "amas" : "Amas",
-  "chatroom_id": "Sala"
+  "chatroom_id": "Sala",
+
+  "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam."
 }

@@ -91,6 +91,12 @@ class AmasRepository{
       callback(data);
     })
   };
+
+  async downloadPdfChat(ch_name:string){
+    const path = `amas/chatroom/${ch_name}.pdf`
+    const url = await storageFirebase.getDownloadLink(path)
+    return url;
+  }
 }
 
 

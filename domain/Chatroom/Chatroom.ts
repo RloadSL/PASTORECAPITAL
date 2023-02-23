@@ -68,4 +68,11 @@ export class Chatroom {
   async closeChatroom(){
     await amasRepository.setChatroom({state: 'closed', id: this.id})
   }
+
+  async downloadPDF(){
+    if(this.state == 'closed'){
+      const url =  amasRepository.downloadPdfChat(this.title);
+      return url;
+    }
+  }
 }

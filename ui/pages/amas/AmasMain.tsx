@@ -18,13 +18,16 @@ import addIcon from '../../../assets/img/icons/add.svg'
 import { FormattedMessage } from 'react-intl'
 import SearchBar from 'components/SearchBar'
 import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
-
+import AlertApp from 'components/AlertApp'
+import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 
 const AmasMain = (componentStyle = 'flex') => {
   const userLogged = useSelector(getUserLogged)
   const { push } = useRouter()
   const [updateChatroom, setupdateChatroom] = useState(false)
-  const [chatrooms, setchatrooms] = useState<any[]>([])
+  const [chatrooms, setchatrooms] = useState<Chatroom[]>([])
+  const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] =
+    useState<Chatroom | undefined>()
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     let fetch = true
@@ -40,8 +43,13 @@ const AmasMain = (componentStyle = 'flex') => {
     push(`/amas/${chatroom.id}`)
   }
 
-  console.log(chatrooms[0])
-  const windowSize = useWindowSize();
+  const downloadPdf = async (chatroom: Chatroom) => {
+    const url = await chatroom.downloadPDF()
+    window.open(url, '_black')
+    setVisibleAlertDownloadPdf(undefined);
+  }
+
+  const windowSize = useWindowSize()
 
   return (
     <div className={style.amas}>
@@ -49,7 +57,9 @@ const AmasMain = (componentStyle = 'flex') => {
         <p className={`${style.topTitle} main-title`}>
           <FormattedMessage id='mainMenu.item.label.amas' />
         </p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequi modi cum dolore recusandae atque dolores expedita, magnam libero doloribus nam.</p>
+        <p>
+         <FormattedMessage id="loremipsum"/>
+        </p>
       </header>
       <div className={style.createRoomBtnContainer}>
         {userLogged?.role.level > 1 && (
@@ -78,32 +88,60 @@ const AmasMain = (componentStyle = 'flex') => {
           />
         </div>
         <div className={style.filtersContainer_select}>
-          <SelectApp
+          <SelectApp // @Maria Cambiar por SelectFormikApp
+            onChange={(value: any) => console.log(value)}
             labelID='page.amas.selectRoom.label'
-            selectOptions={[]}
-            name='level'
+            selectOptions={[
+              { value: '', label: 'All' },
+              { value: 'active', label: 'Open' },
+              { value: 'closed', label: 'CLosed' }
+            ]}
+            name='level' // @Maria no se quien es level
           />
         </div>
       </div>
       <div className={style.chatRoom_grid}>
-        {chatrooms.map((item, index: any) => (
-          <div className={style.chatRoom_grid_item} key={item.id} onClick={() => openChatroom(item)}>
-            <Card>
-              <div className={style.cardContainer}>
-                <PostExcerpt
-                  thumbnail={item.thumb}
-                  title={item.title}
-                  description={item.excerpt}
-                  level={item.state}
-                  componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
-                  hasSeparator={false}
-                  footer={{ text: `día`, date: 'hora' }}
-                />
-              </div>
-            </Card>
-          </div>
-        ))}
+        {chatrooms.map(
+          (
+            item 
+          ) => (
+            <div
+              className={style.chatRoom_grid_item}
+              key={item.id}
+              onClick={() => {
+                item.state === 'closed' ? setVisibleAlertDownloadPdf(item) : openChatroom(item)
+              }}
+            >
+              <Card>
+                <div className={style.cardContainer}>
+                  <PostExcerpt
+                    thumbnail={item.thumb?.url}
+                    title={item.title}
+                    description={item.excerpt || ''}
+                    level={item.state}
+                    componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
+                    hasSeparator={false}
+                    footer={{ text: '' }}
+                  />
+                  <div>{item.state}</div>
+                </div>
+              </Card>
+            </div>
+          )
+        )}
       </div>
+      {visibleAlertDownloadPdf && (
+        <AlertApp
+          title='Download pdf'
+          onAction={() => downloadPdf(visibleAlertDownloadPdf)}
+          visible
+          onCancel={() => setVisibleAlertDownloadPdf(undefined)}
+        >
+          <div>
+            Esta sala esta cerrada quieres descargar el pdf.
+          </div>
+        </AlertApp>
+      )}
     </div>
   )
 }

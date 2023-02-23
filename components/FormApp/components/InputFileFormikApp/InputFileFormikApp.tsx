@@ -11,12 +11,14 @@ export interface TEXTAREAAPPPROPS {
   name: string
   icon?: any
   accept?: string
+  onChange?:Function
 }
 
 const InputFileFormikApp = ({
   labelID,
   name,
   icon,
+  onChange,
   accept,
   thumb = true
 }: TEXTAREAAPPPROPS) => {
@@ -71,7 +73,8 @@ const InputFileFormikApp = ({
             accept={accept}
             onChange={e => {
               const files = e.target.files as FileList
-              form.setValue(files[0])
+              if(form) form.setValue(files[0])
+              if(onChange) onChange(files[0])
               makeThumb(files)
             }}
             className={style.input}

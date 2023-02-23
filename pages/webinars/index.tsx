@@ -1,9 +1,3 @@
-import React from 'react'
+import Webinars from "ui/pages/webiners/Webinars";
 
-const Webinars = () => {
-  return (
-    <div>Webinars</div>
-  )
-}
-
-export default Webinars
+export default  Webinars
