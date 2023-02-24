@@ -39,7 +39,7 @@ const ItemMemo = React.memo(function Memorized({
     }
     return <div className={style.avatarDefault}><Avatar uid={uid} renderItem={item.owner.fullname[0]} /></div>
   }
-
+  
   return (
     <div className={`${style.messagesBoard_message} ${style[item.owner.profile] || style.guest}`}>
       <header className={style.messagesBoard_message_top}>

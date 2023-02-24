@@ -93,9 +93,11 @@ const Chatroom = () => {
 
 
   }, [oppenedChatroom?.id])
-  /*  useEffect(() => {
-    window.scroll(0, document.body.offsetHeight)
-  }, [lastMessage?.id]) */
+
+  const chatContainerRef = useRef<any>(null)
+   useEffect(() => {
+    if(messages) chatContainerRef?.current.scroll(0, 120 * messages?.length)
+  }, [lastMessage?.id])
 
   const sendMessage = async (message: string) => {
     const data: MessageDto = {
@@ -139,7 +141,7 @@ const Chatroom = () => {
       <div>Entrevistado: {oppenedChatroom?.interviewee.fullname}</div>
       <div>Tema: {oppenedChatroom?.title}</div>
       <div className={style.messagesContainer}>
-        <div className={style.messagesContainer_messages}>
+        <div ref={chatContainerRef} className={style.messagesContainer_messages}>
           <div>
             <ButtonApp buttonStyle={'link'} onClick={loadMore}>
               cargar más
