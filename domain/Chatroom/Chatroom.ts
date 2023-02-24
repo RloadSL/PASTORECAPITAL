@@ -7,6 +7,7 @@ export class Chatroom {
   title:string 
   excerpt?: string 
   thumb?:any 
+  created_at?:Date
   id:string
   /**
    * Estado del chat para los usuarios invitados si puedes escribir o no como invitado.
@@ -31,6 +32,7 @@ export class Chatroom {
     this.state_chat = data.state_chat
     this.state = data.state
     this.interviewee = data.interviewee as any
+    this.created_at = data.created_at.toDate()
   }
 
   setChatroom(data:any){

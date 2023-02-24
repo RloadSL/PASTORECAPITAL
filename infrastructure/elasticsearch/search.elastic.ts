@@ -1,5 +1,5 @@
 import { HTTP } from "infrastructure/http/http"
-const ELASTIC_MAIN_ENDPOINT = 'https://my-deployment-12105e.ent.europe-west1.gcp.cloud.es.io/api/as/v1/engines/'
+const ELASTIC_MAIN_ENDPOINT = 'https://pastorecapital.ent.eu-west-1.aws.found.io/api/as/v1/engines/'
 export type ELASTIC_ENGINES = 'services' | 'user-consultant' | 'users' 
 export interface ELASTIC_QUERY {
   query:string,

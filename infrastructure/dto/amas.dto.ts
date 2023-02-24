@@ -6,6 +6,7 @@ export interface ChatroomDto {
   excerpt?: string, 
   thumb?:any, 
   id?:string,
+  created_at?:any,
   state_chat?: CHAT_STATE_PUBLIC,
   state?: CHAT_STATE 
   interviewee?: {

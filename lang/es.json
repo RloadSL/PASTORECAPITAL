@@ -236,6 +236,9 @@
   "forms.labels.amas.message.public.closed" : "Comentarios cerrados. El Moderador te permitirá escribir comentarios en breve",
   "forms.labels.amas.message" : "Escribe tu comentario",
   "forms.labels.searchusers.email" : "Buscar usuario por email",
+  "forms.labels.date" : "Asignar fecha",
+  "forms.labels.link" : "Enlace",
+  "form.label.image" : "Seleccionar imagen",
   
   "user.updated" : "Usuario actualizado ",
   "btn.send": "Enviar",
