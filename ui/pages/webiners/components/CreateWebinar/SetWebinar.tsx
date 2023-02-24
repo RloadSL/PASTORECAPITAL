@@ -25,7 +25,7 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
       0
     ),
     description: '',
-    author: undefined,
+    guests: '',
     thumb: undefined
   })
 
@@ -35,19 +35,7 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
     }
   }, [updateWebinar])
 
-  const searchUsers = async (s: string) => {
-    const res = await UserRepositoryImplInstance.elasticSearchUsers({
-      query: s,
-      search_fields: {
-        email: {}
-      }
-    })
-
-    return res.results.map((item: User) => ({
-      value: { fullname: item.fullname, uid: item.uid },
-      label: item.email
-    }))
-  }
+ 
 
   const intl = useIntl()
   const validationSchema = useRef(
@@ -59,9 +47,7 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
         .date()
         .required(intl.formatMessage({ id: 'forms.errors.errorRequired' })),
       description: yup.string(),
-      author: yup
-        .object()
-        .required(intl.formatMessage({ id: 'forms.errors.errorRequired' }))
+      
     })
   ).current
 
@@ -89,6 +75,11 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
                 type='text'
                 name='link'
               />
+              <InputFormikApp
+                labelID='forms.labels.guests'
+                type='text'
+                name='guests'
+              />
               <InputDateFormikApp
                 labelID='forms.labels.date'
                 type='text'
@@ -102,11 +93,6 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
               <InputFileFormikApp name='thumb'
                 labelID='form.label.image'
                 />
-              <AsyncAutocompleteFormikApp
-                name='author'
-                labelID='forms.labels.searchusers.email'
-                loadOptions={searchUsers}
-              />
               <div
                 style={{
                   marginTop: '20px',

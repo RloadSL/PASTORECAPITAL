@@ -1,4 +1,5 @@
 import { Webinars } from "domain/Webinars/Webinars";
+import { elasticSearch, ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 import FireFirestore  from "infrastructure/firebase/firestore.firebase";
 import storageFirebase from "infrastructure/firebase/storage.firebase";
 
@@ -15,9 +16,17 @@ class WebinarsRepository {
   /***
    * Elastic
    */
-  getAll(){
-
-  }
+  async elasticSearch(query:ELASTIC_QUERY) : Promise<any>{
+    const elasticRes = await elasticSearch('webinars', query)
+    const page = elasticRes.data.meta.page;
+    let results = elasticRes.data.results
+   
+    if(!results){
+      return {results: [], page:null}
+    }else{
+      return {results, page}
+    }
+ }
   async get(w_id:string):Promise<Webinars | undefined>{
     const ref = await  FireFirestore.getDoc('webinars', w_id)
     if(ref){
@@ -30,7 +39,7 @@ class WebinarsRepository {
   async set(data: Webinars){
     try {
       if(data.thumb instanceof File){
-        const gcs_path = `webinars/{${data.title?.replace(/' '/g, '_')}}`
+        const gcs_path = `webinars/${data.title?.replace(/' '/g, '_')}`
         const thumbUri = await storageFirebase.UploadFile(gcs_path, data.thumb)
         data.thumb = {
           created_at: new Date(),
@@ -40,11 +49,13 @@ class WebinarsRepository {
       }
      
       if(data.id){
+        console.log('setDoc')
+
         await FireFirestore.setDoc('webinars', data.id, data)
         return data.id;
       }else{
         delete data.id;
-        const res = await FireFirestore.createDoc('webinars ', {...data, state: 'active', state_chat:'private'})
+        const res = await FireFirestore.createDoc('webinars', {...data, state: 'active', state_chat:'private'})
         return res;
       }
     } catch (error) {

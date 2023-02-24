@@ -137,11 +137,12 @@ export class FireFirestore {
   public createDoc = async (collectionPath: string, data: any): Promise<any | undefined> => {
     try {
       data.created_at = new Date()
+      console.log(collectionPath)
       const collection = this._collection(collectionPath);
       const snap = await addDoc(collection, cleanUndefined(data));
       return { ...data, id: snap.id };
     } catch (error:any) {
-      
+      console.log('Firebase response: '+error);
       console.error('Firebase response: '+error.code);
     }
   }

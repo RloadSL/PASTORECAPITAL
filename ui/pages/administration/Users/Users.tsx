@@ -137,46 +137,6 @@ const UsersView = ({
     )
   }
 
-  const renderFilters = () => {
-    const handleOnChange = (event: {
-      role_level: number
-      subscription_level: number
-    }) => {
-      console.log('Form::onChange', event)
-    }
-
-    return (
-      <Formik
-        initialValues={{ role_level: null, subscription_level: null } as any}
-        onSubmit={handleOnChange}
-      >
-        {({ values, errors, touched, submitForm }) => (
-          <Form>
-            <SelectFormikApp
-              onChange={(e: any) => submitForm()}
-              selectOptions={[
-                { label: 'User', value: 0 },
-                { label: 'Colaborator', value: 1 },
-                { label: 'Administrator', value: 2 }
-              ]}
-              labelID={'page.administration.users.filter.role_level'}
-              name={'role_level'}
-            />
-            <SelectFormikApp
-              onChange={(e: any) => submitForm()}
-              selectOptions={[
-                { label: 'User', value: 0 },
-                { label: 'Colaborator', value: 1 },
-                { label: 'Administrator', value: 2 }
-              ]}
-              labelID={'page.administration.users.filter.role_level'}
-              name={'subscription_level'}
-            />
-          </Form>
-        )}
-      </Formik>
-    )
-  }
 
   return (
     <div className={style.usersPage}>

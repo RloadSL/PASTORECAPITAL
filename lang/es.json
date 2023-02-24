@@ -239,6 +239,7 @@
   "forms.labels.date" : "Asignar fecha",
   "forms.labels.link" : "Enlace",
   "form.label.image" : "Seleccionar imagen",
+  "forms.labels.guests" : "Invitados",
   
   "user.updated" : "Usuario actualizado ",
   "btn.send": "Enviar",

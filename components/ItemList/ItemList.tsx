@@ -2,7 +2,8 @@ import { useComponentUtils } from 'ui/hooks/components.hooks'
 import style from './item-list.module.scss'
 
 interface LISTCONTAINERPROPS {
-  items: Array<any>
+  items?: Array<any>
+  children?: any
 }
 
 const ItemView = ({ item, children }: any) => {
@@ -13,11 +14,11 @@ const ItemView = ({ item, children }: any) => {
   )
 }
 
-const ItemList = ({ items }: LISTCONTAINERPROPS) => {
+const ItemList = ({ items , children}: LISTCONTAINERPROPS) => {
   return (
     <div className={style.listContainer}>
       <ul className={`table`}>
-        {items.map(item =>
+        {(items || children).map((item:any) =>
           typeof item === 'string' ? (
             <ItemView   item={item} />
           ) : (

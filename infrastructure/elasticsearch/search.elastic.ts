@@ -1,6 +1,6 @@
 import { HTTP } from "infrastructure/http/http"
 const ELASTIC_MAIN_ENDPOINT = 'https://pastorecapital.ent.eu-west-1.aws.found.io/api/as/v1/engines/'
-export type ELASTIC_ENGINES = 'services' | 'user-consultant' | 'users' 
+export type ELASTIC_ENGINES = 'services' | 'user-consultant' | 'users' | 'webinars'
 export interface ELASTIC_QUERY {
   query:string,
   page?: {

@@ -6,10 +6,7 @@ export interface Webinars{
   description?: string,
   date: Date,
   created_at?: Date,
-  author: {
-    uid: string,
-    fullname: string
-  },
+  guests: string,
   thumb?: {
     created_at: Date,
     url?: string,
