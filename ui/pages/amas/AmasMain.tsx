@@ -2,7 +2,6 @@ import ButtonApp from 'components/ButtonApp'
 import PostExcerpt from 'components/PostExcerpt'
 import { Chatroom } from 'domain/Chatroom/Chatroom'
 import amasRepository from 'infrastructure/repositories/amas.repository'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -15,19 +14,20 @@ import useWindowSize from 'ui/hooks/windowSize.hook'
 import style from './amas-main.module.scss'
 import Card from 'components/Card'
 import addIcon from '../../../assets/img/icons/add.svg'
+import clockIcon from '../../../assets/img/icons/clock.svg'
 import { FormattedMessage } from 'react-intl'
 import SearchBar from 'components/SearchBar'
-import SelectApp from 'components/FormApp/components/SelectApp/SelectApp'
 import AlertApp from 'components/AlertApp'
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
+import { Form, Formik } from 'formik'
 
-const AmasMain = (componentStyle = 'flex') => {
+const AmasMain = () => {
   const userLogged = useSelector(getUserLogged)
   const { push } = useRouter()
   const [updateChatroom, setupdateChatroom] = useState(false)
   const [chatrooms, setchatrooms] = useState<Chatroom[]>([])
   const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] =
-    useState<Chatroom | undefined>()
+    useState<Chatroom | undefined>()
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     let fetch = true
@@ -49,7 +49,12 @@ const AmasMain = (componentStyle = 'flex') => {
     setVisibleAlertDownloadPdf(undefined);
   }
 
-  const windowSize = useWindowSize()
+  const windowSize = useWindowSize();
+  const initialValues: {
+    title: string,
+  } = {
+    title: '',
+  }
 
   return (
     <div className={style.amas}>
@@ -58,7 +63,7 @@ const AmasMain = (componentStyle = 'flex') => {
           <FormattedMessage id='mainMenu.item.label.amas' />
         </p>
         <p>
-         <FormattedMessage id="loremipsum"/>
+          <FormattedMessage id="loremipsum" />
         </p>
       </header>
       <div className={style.createRoomBtnContainer}>
@@ -88,22 +93,29 @@ const AmasMain = (componentStyle = 'flex') => {
           />
         </div>
         <div className={style.filtersContainer_select}>
-          <SelectApp // @Maria Cambiar por SelectFormikApp
-            onChange={(value: any) => console.log(value)}
-            labelID='page.amas.selectRoom.label'
-            selectOptions={[
-              { value: '', label: 'All' },
-              { value: 'active', label: 'Open' },
-              { value: 'closed', label: 'CLosed' }
-            ]}
-            name='level' // @Maria no se quien es level
-          />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={'validationSchema'}
+            onSubmit={() => console.log('enviar datos')}
+          >
+            <Form>
+              <SelectFormikApp
+                selectOptions={[
+                  { value: '', label: 'All' },
+                  { value: 'active', label: 'Open' },
+                  { value: 'closed', label: 'CLosed' }
+                ]}
+                labelID={'page.amas.selectRoom.label'}
+                name={'rooms'}
+              />
+            </Form>
+          </Formik>
         </div>
       </div>
       <div className={style.chatRoom_grid}>
         {chatrooms.map(
           (
-            item 
+            item
           ) => (
             <div
               className={style.chatRoom_grid_item}
@@ -118,12 +130,11 @@ const AmasMain = (componentStyle = 'flex') => {
                     thumbnail={item.thumb?.url}
                     title={item.title}
                     description={item.excerpt || ''}
-                    level={item.state}
+                    level={{ label: item.state}}
                     componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
                     hasSeparator={false}
-                    footer={{ text: '' }}
+                    chips={[{label:item.interviewee.fullname,icon:clockIcon}]}
                   />
-                  <div>{item.state}</div>
                 </div>
               </Card>
             </div>

@@ -15,10 +15,9 @@ export interface POSTEXCERPTPROPS {
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
   hasSeparator?: boolean
   footer?: {
-    // avatar?: any,
     text?: string
     date?: any //OJO al tipado debe ser Date
-  } | null
+  }
 }
 
 /**

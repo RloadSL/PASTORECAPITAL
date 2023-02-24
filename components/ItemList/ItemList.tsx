@@ -18,9 +18,9 @@ const ItemList = ({ items , children}: LISTCONTAINERPROPS) => {
   return (
     <div className={style.listContainer}>
       <ul className={`table`}>
-        {(items || children).map((item:any) =>
+        {(items || children).map((item: any,index:any) =>
           typeof item === 'string' ? (
-            <ItemView   item={item} />
+            <ItemView key={index} item={item} />
           ) : (
             <ItemView key={item.key}>  {item} </ItemView>
           )
