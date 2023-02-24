@@ -22,8 +22,9 @@ import { CHAT_STATE, CHAT_STATE_PUBLIC, MessageDto } from 'infrastructure/dto/am
 import Messages from './components/Messages/Messages'
 import ButtonApp from 'components/ButtonApp'
 import { Unsubscribe } from 'firebase/firestore'
+import style from './chatroom.module.scss'
 
-function Chatroom () {
+const Chatroom = () => {
   const userLoggued = useSelector(getUserLogged)
   const messages = useSelector(getMessages)
   const oppenedChatroom = useSelector(getOpenChatroom)
@@ -31,19 +32,19 @@ function Chatroom () {
   const loading = useSelector(getAmasLoading)
   const { query, push, asPath } = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const [chatroomState, setState_chat] = useState<{state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE}>({state_chat : oppenedChatroom?.state_chat || 'public', state: oppenedChatroom?.state || 'active'})
+  const [chatroomState, setState_chat] = useState<{ state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE }>({ state_chat: oppenedChatroom?.state_chat || 'public', state: oppenedChatroom?.state || 'active' })
   const canWrite = useRef(
     userLoggued?.uid === oppenedChatroom?.interviewee.uid ||
-      userLoggued?.role.level >= 1 ||
-      oppenedChatroom.state_chat === 'public'
+    userLoggued?.role.level >= 1 ||
+    oppenedChatroom.state_chat === 'public'
   ).current
 
   const profile = useRef<'interviewee' | 'interviewer' | 'guest'>(
     userLoggued?.uid === oppenedChatroom?.interviewee.uid
       ? 'interviewee'
       : userLoggued?.role.level >= 1
-      ? 'interviewer'
-      : 'guest'
+        ? 'interviewer'
+        : 'guest'
   ).current
 
   useEffect(() => {
@@ -84,13 +85,13 @@ function Chatroom () {
 
     //Escuchando Chatroom
     if (oppenedChatroom?.id && !unsubChatroom) {
-      unsubChatroom = oppenedChatroom.listenChatrooom((data:any)=>{
-        const {state, state_chat} = data;
-        setState_chat({state, state_chat})
+      unsubChatroom = oppenedChatroom.listenChatrooom((data: any) => {
+        const { state, state_chat } = data;
+        setState_chat({ state, state_chat })
       })
     }
 
-    
+
   }, [oppenedChatroom?.id])
   /*  useEffect(() => {
     window.scroll(0, document.body.offsetHeight)
@@ -124,38 +125,43 @@ function Chatroom () {
       )
     })
   }
-  
-  const togglePublicRoom =async ()=>{
+
+  const togglePublicRoom = async () => {
     const state_chat = chatroomState.state_chat === 'public' ? 'private' : 'public'
-    await oppenedChatroom.setChatroom({state_chat: state_chat})
+    await oppenedChatroom.setChatroom({ state_chat: state_chat })
   }
 
-  const closeChatroom = async ()=>{
-    await oppenedChatroom.setChatroom({state: 'closed'})
+  const closeChatroom = async () => {
+    await oppenedChatroom.setChatroom({ state: 'closed' })
   }
   return (
-    <div>
+    <div className={style.chatRoom}>
       <div>Entrevistado: {oppenedChatroom?.interviewee.fullname}</div>
       <div>Tema: {oppenedChatroom?.title}</div>
-      <div>
-        <div>
-          <ButtonApp buttonStyle={'link'} onClick={loadMore}>
-            cargar más
-          </ButtonApp>
+      <div className={style.messagesContainer}>
+        <div className={style.messagesContainer_messages}>
+          <div>
+            <ButtonApp buttonStyle={'link'} onClick={loadMore}>
+              cargar más
+            </ButtonApp>
+          </div>
+          <Messages messages={messages} onDelete={deleteMessage} />
         </div>
-        <Messages messages={messages} onDelete={deleteMessage} />
-      </div>
-      <div>
-        <div id='unauthorized_cover'>
-          Estado de la sala: {chatroomState.state_chat}
+
+        <div className={style.messagesContainer_actions}>
+          <div id='unauthorized_cover'>
+            Estado de la sala: {chatroomState.state_chat}
+          </div>
+          {canWrite && <div id='unauthorized_cover'></div>}
+          {chatroomState.state === 'active' ? <ChatActions
+            onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
+            onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
+            openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
+          /> : <h3>La sala esta cerrada</h3>}
+
         </div>
-        {canWrite && <div id='unauthorized_cover'></div>}
-        {chatroomState.state === 'active' ? <ChatActions
-          onSendMessage={canWrite ? sendMessage : ()=>alert('Unauthorized')}
-          onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
-          openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
-        /> : <h3>La sala esta cerrada</h3>}
       </div>
+
     </div>
   )
 }

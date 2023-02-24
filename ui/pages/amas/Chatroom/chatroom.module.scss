@@ -1,0 +1,31 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/text" as text;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
+.chatRoom {
+  @extend %layoutContainer;
+  padding: 2%;
+}
+
+.messagesContainer {
+  background-color: white;
+  height: 80vh;
+  @extend %borderRadius;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &_messages {
+    height: 100%;
+    overflow: scroll;
+  }
+
+  &_actions {
+    background-color: colors.$grey30;
+    border-radius: 0px 0px utils.$lgBorderRadius utils.$lgBorderRadius;
+    padding: 20px;
+  }
+}
+

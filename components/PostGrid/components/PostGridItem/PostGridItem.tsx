@@ -181,7 +181,7 @@ const PostGridItemView = ({
                             gridItem.author[0]?.name}`,
                           date: gridItem.created_at.toLocaleDateString()
                         }
-                      : null
+                      : undefined
                   }
                 />
               </div>

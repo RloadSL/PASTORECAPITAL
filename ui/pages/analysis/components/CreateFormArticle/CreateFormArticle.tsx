@@ -224,7 +224,6 @@ const CreateFormView = ({
                   name={'category'}
                 />
               )}
-              {/* @maria Make component Checklist */}
               <div className='checklist'>
                 <p>Seleccione el plan correspondiente</p>
                 <div

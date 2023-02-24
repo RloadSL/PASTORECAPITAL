@@ -1,23 +1,25 @@
+import React from 'react'
 import ButtonApp from 'components/ButtonApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import { Form, Formik } from 'formik'
-import React from 'react'
+import sendIcon from '../../../../../../assets/img/icons/plane.svg'
+import style from './chat-actions.module.scss'
 
-export interface CHAT_ACTIONS{
-  children? : any,
+export interface CHAT_ACTIONS {
+  children?: any,
   onSendMessage: Function,
   openPublicRoom?: Function,
   onCloseChatroom?: Function
 }
 
-function ChatActions ({
+const ChatActions = ({
   children,
   onSendMessage,
   openPublicRoom,
   onCloseChatroom
-}: CHAT_ACTIONS) {
+}: CHAT_ACTIONS) => {
   return (
-    <div>
+    <div className={style.chatActions}>
       <div>
         {openPublicRoom && <ButtonApp onClick={openPublicRoom} buttonStyle='link'>
           Abrir al publico
@@ -29,19 +31,25 @@ function ChatActions ({
       <div>
         <Formik
           initialValues={{ message: '' }}
-          onSubmit={({message}, { resetForm }) => {
+          onSubmit={({ message }, { resetForm }) => {
             resetForm()
             onSendMessage(message)
           }}
         >
           {() => (
             <Form>
-              <InputFormikApp
-                type='text'
-                name='message'
-                labelID={'forms.labels.amas.message'}
-              />
-              <ButtonApp type='submit'> Send </ButtonApp>
+              <div className={style.textInput}>
+                <InputFormikApp
+                  type='text'
+                  name='message'
+                  labelID={'forms.labels.amas.message'}
+                />
+              </div>
+              <div className={style.sendButton}>
+                <ButtonApp type='submit' icon={sendIcon}>
+                  <span className='only-readers'>Enviar comentario</span>
+                </ButtonApp>
+              </div>
             </Form>
           )}
         </Formik>

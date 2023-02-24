@@ -3,6 +3,19 @@ export function randomIntFromInterval(min:number, max:number) { // min and max i
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+export const hashIDGenerator = (uid:string) => {
+  let arr = uid.split('');
+  return arr.reduce(
+    (hashCode, currentVal) =>
+      (hashCode =
+        currentVal.charCodeAt(0) +
+        (hashCode << 6) +
+        (hashCode << 16) -
+        hashCode),
+    0
+  );
+};
+
 export function toHoursAndMinutes(totalSeconds:number) {
   const totalMinutes = Math.floor(totalSeconds / 60);
 
