@@ -16,15 +16,40 @@ class WebinarsRepository {
   /***
    * Elastic
    */
-  async elasticSearch(query:ELASTIC_QUERY) : Promise<any>{
+  parseDataFromElastic(elasticResult: any[]):Webinars[]{
+    return elasticResult.map(item => {
+      const res:Webinars = {
+        id: item.id.raw,
+        title: item.title.raw,
+        description: item.description.raw,
+        date: new Date(item.date.raw),
+        created_at :new Date(item.created_at.raw),
+        guests: item.id.raw,
+        state: item.id.raw
+      }
+      if(item.deferred_video){
+        const deferred_video = JSON.parse(item.deferred_video.raw)
+        res.deferred_video  = deferred_video
+      } 
+
+      if(item.thumb){
+        const thumb = JSON.parse(item.thumb.raw)
+        res.thumb  = thumb
+      }
+
+      return res;
+    }) 
+  }
+
+  async elasticSearch(query:ELASTIC_QUERY) : Promise<{results: Webinars[], page:any}>{
     const elasticRes = await elasticSearch('webinars', query)
     const page = elasticRes.data.meta.page;
     let results = elasticRes.data.results
-   
+    
     if(!results){
       return {results: [], page:null}
     }else{
-      return {results, page}
+      return {results: this.parseDataFromElastic(results), page}
     }
  }
   async get(w_id:string):Promise<Webinars | undefined>{
