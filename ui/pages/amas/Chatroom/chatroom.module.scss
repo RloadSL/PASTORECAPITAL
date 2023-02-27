@@ -25,7 +25,11 @@
   &_actions {
     background-color: colors.$grey30;
     border-radius: 0px 0px utils.$lgBorderRadius utils.$lgBorderRadius;
-    padding: 20px;
   }
+}
+
+.modalContainer {
+  text-align: center;
+  color: colors.$dark;
 }
 
