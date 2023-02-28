@@ -23,6 +23,7 @@ import Messages from './components/Messages/Messages'
 import ButtonApp from 'components/ButtonApp'
 import { Unsubscribe } from 'firebase/firestore'
 import style from './chatroom.module.scss'
+import AlertApp from 'components/AlertApp'
 
 const Chatroom = () => {
   const userLoggued = useSelector(getUserLogged)
@@ -32,6 +33,8 @@ const Chatroom = () => {
   const loading = useSelector(getAmasLoading)
   const { query, push, asPath } = useRouter()
   const dispatch = useDispatch<AppDispatch>()
+  const [visibleMessage, setVisibleMessage] =
+    useState(true)
   const [chatroomState, setState_chat] = useState<{ state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE }>({ state_chat: oppenedChatroom?.state_chat || 'public', state: oppenedChatroom?.state || 'active' })
   const canWrite = useRef(
     userLoggued?.uid === oppenedChatroom?.interviewee.uid ||
@@ -95,8 +98,8 @@ const Chatroom = () => {
   }, [oppenedChatroom?.id])
 
   const chatContainerRef = useRef<any>(null)
-   useEffect(() => {
-    if(messages) chatContainerRef?.current.scroll(0, 120 * messages?.length)
+  useEffect(() => {
+    if (messages) chatContainerRef?.current.scroll(0, 120 * messages?.length)
   }, [lastMessage?.id])
 
   const sendMessage = async (message: string) => {
@@ -138,8 +141,11 @@ const Chatroom = () => {
   }
   return (
     <div className={style.chatRoom}>
+      <header>
       <div>Entrevistado: {oppenedChatroom?.interviewee.fullname}</div>
       <div>Tema: {oppenedChatroom?.title}</div>
+      </header>
+
       <div className={style.messagesContainer}>
         <div ref={chatContainerRef} className={style.messagesContainer_messages}>
           <div>
@@ -151,19 +157,33 @@ const Chatroom = () => {
         </div>
 
         <div className={style.messagesContainer_actions}>
-          <div id='unauthorized_cover'>
+          {/* <div id='unauthorized_cover'>
             Estado de la sala: {chatroomState.state_chat}
-          </div>
+          </div> */}
           {canWrite && <div id='unauthorized_cover'></div>}
-          {chatroomState.state === 'active' ? <ChatActions
-            onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
-            onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
-            openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
-          /> : <h3>La sala esta cerrada</h3>}
+          {chatroomState.state === 'active' ? (
+            <ChatActions
+              chatState={chatroomState.state_chat}
+              onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
+              onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
+              // openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
+              openPublicRoom={()=> setVisibleMessage(true)}
+            />) : <h3>La sala esta cerrada</h3>}
 
         </div>
       </div>
-
+      {visibleMessage && (
+        <AlertApp
+          title='Abrir comentarios'
+          onAction={() => profile != 'guest' ? togglePublicRoom : undefined}
+          visible
+          onCancel={() => setVisibleMessage(false)}
+        >
+          <div className={style.modalContainer}>
+            ¿Seguro que quieres abrir los comentarios?. Cualquier usuario podrá interactuar en la conversación actual.
+          </div>
+        </AlertApp>
+      )}
     </div>
   )
 }
