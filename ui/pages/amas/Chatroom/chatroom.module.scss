@@ -7,6 +7,36 @@
 .chatRoom {
   @extend %layoutContainer;
   padding: 2%;
+
+  header {
+    margin-bottom: 20px;
+  }
+}
+
+.subtitle {
+  color: colors.$dark;
+  display: flex;
+  align-items: center;
+  &_intervieweeLabel {
+    display: flex;
+    align-items: center;
+
+    strong {
+      margin-left: 10px;
+    }
+
+    &::before {
+      content: '';
+      background-image: url(../../../../assets/img/icons/megaphone.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+
 }
 
 .messagesContainer {
@@ -25,11 +55,22 @@
   &_actions {
     background-color: colors.$grey30;
     border-radius: 0px 0px utils.$lgBorderRadius utils.$lgBorderRadius;
+    position: relative;
   }
 }
 
 .modalContainer {
   text-align: center;
   color: colors.$dark;
+}
+
+.blockedCover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: colors.$grey50;
+  opacity: .4;
+  z-index: 100;
+  border-radius: 0px 0px utils.$lgBorderRadius utils.$lgBorderRadius;
 }
 
