@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Loading from 'components/Loading'
 import { useField } from 'formik'
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
@@ -25,17 +26,20 @@ const InputFileFormikApp = ({
   const [field, meta, form] = useField({ name })
   const [file, setFile] = useState<any>()
   const [fileName, setFileName] = useState<string>()
-
+  const [loading,setLoading] = useState(false)
   const makeThumb = (files: FileList) => {
     let reader = new FileReader()
     reader.onloadend = () => {
       setFile(reader.result)
       setFileName(files[0].name)
+      setLoading(false)
     }
+    setLoading(true)
     reader.readAsDataURL(files[0])
   }
   return (
     <div className={style.inputFileContainer}>
+      <Loading loading={loading}/>
       <label className={style.inputContainer}>
         {((file && thumb) || (field.value && thumb)) && (
           <img

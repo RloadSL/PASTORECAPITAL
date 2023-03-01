@@ -66,7 +66,6 @@ class WebinarsRepository {
   async set(data: Webinars) {
     try {
       if (data.thumb instanceof File) {
-        console.log('storageFirebase.UploadFile', data.thumb)
         const gcs_path = `webinars/${data.title?.replace(/' '/g, '_')}`
         const thumbUri = await storageFirebase.UploadFile(gcs_path, data.thumb)
         data.thumb = {
@@ -75,10 +74,11 @@ class WebinarsRepository {
           gcs_path
         }
       }
+      else{
+        delete data.thumb;
+      }
 
       if (data.id) {
-        console.log('setDoc')
-
         await FireFirestore.setDoc('webinars', data.id, data)
         return data.id;
       } else {
@@ -107,10 +107,18 @@ class WebinarsRepository {
     }
   }
 
-  async uploadDeferredVideo(w_id: string, video: File, progressState: Function) {
+  uploadDeferredVideo(w_id: string, video: File, progressState: Function) {
     const gcs_path = `webinars/${w_id}/${video.name?.replace(/' '/g, '_')}`
-    const task = await storageFirebase.uploadFileObserver(gcs_path, video, progressState)
-    //const url = await storageFirebase.fileLink(task.ref); 
+    const task = storageFirebase.uploadFileObserver(gcs_path, video, progressState)
+    task.then(t => {
+      if(t.state == 'success'){
+        FireFirestore.setDoc(`webinars`, w_id, {deferred_video: {
+          created_at: new Date(),
+          gcs_path
+        }}).catch(e => console.log(e))
+      }
+    })
+    
     return task;
   }
 }

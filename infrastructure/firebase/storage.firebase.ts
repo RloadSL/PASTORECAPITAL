@@ -42,7 +42,7 @@ class StorageFirebase {
     return url;
   }
 
-  async uploadFileObserver(path: string, file: File, progressCallback?: Function): Promise<UploadTask> {
+  uploadFileObserver(path: string, file: File, progressCallback?: Function): UploadTask {
     const storageRef = ref(this._storage, path);
     const uploadTask = uploadBytesResumable(storageRef, file);
 

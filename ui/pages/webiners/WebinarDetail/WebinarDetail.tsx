@@ -2,10 +2,12 @@
 import AlertApp from 'components/AlertApp'
 import ButtonApp from 'components/ButtonApp'
 import InputCheckFormikApp from 'components/FormApp/components/InputCheckFormikApp '
+import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
 import { Webinars } from 'domain/Webinars/Webinars'
+import { UploadTask, UploadTaskSnapshot } from 'firebase/storage'
 import { Form, Formik } from 'formik'
 import webinarsRepository from 'infrastructure/repositories/webinars.repository'
 import { NextPage } from 'next'
@@ -23,7 +25,7 @@ const WebinarDetail: NextPage = () => {
     register: boolean
     uploadVideo: boolean
     edit: boolean
-  }>({ register: false, uploadVideo: false, edit:false })
+  }>({ register: false, uploadVideo: false, edit: false })
   const { query } = useRouter()
   useEffect(() => {
     let fetch = true
@@ -37,7 +39,6 @@ const WebinarDetail: NextPage = () => {
       fetch = false
     }
   }, [query?.w_id])
-
 
   const onSetWebinars = async (webinar: Webinars) => {
     await webinarsRepository.set(webinar)
@@ -61,9 +62,7 @@ const WebinarDetail: NextPage = () => {
         </div>
       )}
       <div>
-        <ButtonApp
-          onClick={() => setState(pre => ({ ...pre, edit: true }))}
-        >
+        <ButtonApp onClick={() => setState(pre => ({ ...pre, edit: true }))}>
           Editar @Jose restringir a administradores
         </ButtonApp>
       </div>
@@ -72,6 +71,14 @@ const WebinarDetail: NextPage = () => {
           onClick={() => setState(pre => ({ ...pre, register: true }))}
         >
           ¡Quiero asistir!
+        </ButtonApp>
+      </div>
+
+      <div>
+        <ButtonApp
+          onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
+        >
+          Subir video
         </ButtonApp>
       </div>
 
@@ -84,16 +91,28 @@ const WebinarDetail: NextPage = () => {
         </div>
       )}
 
-        {state.edit && (
-          <Modal onBtnClose={() => setState(pre => ({ ...pre, edit: false }))}>
-            <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
-          </Modal>
-        )}
+      {state.edit && (
+        <Modal onBtnClose={() => setState(pre => ({ ...pre, edit: false }))}>
+          <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
+        </Modal>
+      )}
+
+      {state.uploadVideo && (
+        <Modal
+          onBtnClose={() => setState(pre => ({ ...pre, uploadVideo: false }))}
+        >
+          <UploadVideo
+            onCancel={() => setState(pre => ({ ...pre, uploadVideo: false }))}
+            onUploadVideo={() => alert('Video subido')}
+            w_id={webinar.id as string}
+          />
+        </Modal>
+      )}
     </div>
   )
 }
 
-export const ComplteInscription = ({
+const ComplteInscription = ({
   w_id,
   onClose
 }: {
@@ -114,15 +133,12 @@ export const ComplteInscription = ({
         .then(res => {
           if (typeof res === 'boolean') {
             setRegisterState({ loading: false, isRegistered: res })
-          }else{
+          } else {
             setRegisterState(pre => ({ ...pre, loading: false }))
           }
-
-
         })
     }
   }, [userLoggued?.email])
-
 
   const validationSchema = useRef(
     yup.object({
@@ -208,17 +224,112 @@ export const ComplteInscription = ({
           <div>
             <h3>Ya estas registrado en este Webinar</h3>
             <div>
-              <ButtonApp
-                onClick={()=>onClose()}
-              >
-                Aceptar
-              </ButtonApp>
+              <ButtonApp onClick={() => onClose()}>Aceptar</ButtonApp>
             </div>
           </div>
         ) : (
           renderForm()
         )}
       </Modal>
+    </>
+  )
+}
+
+const UploadVideo = ({
+  w_id,
+  onUploadVideo,
+  onCancel
+}: {
+  w_id: string
+  onUploadVideo: Function, 
+  onCancel: Function
+}) => {
+  const [progress, setProgresss] = useState(0)
+  const [task, setTask] = useState<UploadTask | undefined>()
+  const intl = useIntl()
+  const onSave = async ({ video }: { video: File }) => {
+    const taskState = webinarsRepository.uploadDeferredVideo(
+      w_id,
+      video,
+      setProgresss
+    )
+    setTask(taskState)
+    onUploadVideo()
+  }
+  console.log(console.log(progress))
+  const renderProgress = () => (
+    <div>
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <p>Subiendo video diferido</p>
+        <div
+          style={{ width: '100%', background: 'gray', position: 'relative' , height : '40px'}}
+        >
+          <div
+            style={{
+              width: `${progress}%`,
+              background: 'green',
+              height: '100%',
+              position: 'absolute'
+            }}
+          ></div>
+        </div>
+      </div>
+
+      <ButtonApp
+        onClick={() => {
+          
+          task?.cancel()
+          console.log(console.log(progress))
+          //setProgresss(0)
+          //onCancel()
+        }}
+      >
+        Cancelar
+      </ButtonApp>
+    </div>
+  )
+
+  return (
+    <>
+      {progress > 0 ? (
+        renderProgress()
+      ) : (
+        <Formik
+          initialValues={{ video: '' }}
+          validationSchema={yup.object().shape({
+            video: yup
+              .mixed()
+              .required(
+                intl.formatMessage({ id: 'forms.errors.errorRequired' })
+              )
+          })}
+          onSubmit={values => onSave(values as any)}
+        >
+          <Form>
+            <InputFileFormikApp
+              thumb={false}
+              accept='video/*'
+              labelID={'file'}
+              name='video'
+            />
+            <ButtonApp
+              buttonStyle='secondary'
+              type='submit'
+              labelID='btn.accept'
+            />
+          </Form>
+        </Formik>
+      )}
     </>
   )
 }
