@@ -24,6 +24,9 @@ import ButtonApp from 'components/ButtonApp'
 import { Unsubscribe } from 'firebase/firestore'
 import style from './chatroom.module.scss'
 import AlertApp from 'components/AlertApp'
+import { FormattedMessage } from 'react-intl'
+import Image from 'next/image'
+import megaphoneIcon from '../../../../assets/img/icons/megaphone.svg'
 
 const Chatroom = () => {
   const userLoggued = useSelector(getUserLogged)
@@ -142,8 +145,14 @@ const Chatroom = () => {
   return (
     <div className={style.chatRoom}>
       <header>
-      <div>Entrevistado: {oppenedChatroom?.interviewee.fullname}</div>
-      <div>Tema: {oppenedChatroom?.title}</div>
+        <span className='small-caps'><FormattedMessage id='amas' /></span>
+        <h1 className='main-title'>{oppenedChatroom?.title}</h1>
+        <div className={style.subtitle}>
+          <span className={style.subtitle_intervieweeLabel}>
+            <FormattedMessage id='page.amas.interviewLabel' />:
+            <strong>{oppenedChatroom?.interviewee.fullname}</strong>
+          </span>
+        </div>
       </header>
 
       <div className={style.messagesContainer}>
@@ -157,17 +166,17 @@ const Chatroom = () => {
         </div>
 
         <div className={style.messagesContainer_actions}>
-          {/* <div id='unauthorized_cover'>
+          <div id='unauthorized_cover' className={style.blockedCover}>
             Estado de la sala: {chatroomState.state_chat}
-          </div> */}
-          {canWrite && <div id='unauthorized_cover'></div>}
+          </div> 
+          {true && <div id='unauthorized_cover'></div>}
           {chatroomState.state === 'active' ? (
             <ChatActions
               chatState={chatroomState.state_chat}
               onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
               onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
               // openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
-              openPublicRoom={()=> setVisibleMessage(true)}
+              openPublicRoom={() => setVisibleMessage(true)}
             />) : <h3>La sala esta cerrada</h3>}
 
         </div>
