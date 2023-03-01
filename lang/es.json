@@ -192,7 +192,15 @@
   "page.amas.createRoom.label": "Crear nueva sala",
   "page.amas.selectRoom.label": "Sala",
   "page.amas.interviewLabel": "Entrevistado",
-
+  "page.amas.modalCommentsOpen.title": "Abrir comentarios",
+  "page.amas.modalCommentsOpen.text": "¿Seguro que quieres abrir los comentarios al público?.{br} Cualquier usuario podrá escribir comentarios en la conversación actual.",
+  "page.amas.modalCommentsClose.title": "Cerrar comentarios",
+  "page.amas.modalCommentsClose.text": "Si cierras los comentarios los usuarios que participan en esta conversación dejarán de poder interactuar en la entrevista",
+  "page.amas.modalRoomClose.title": "Cerrar Sala",
+  "page.amas.modalRoomClose.text": "¿Seguro que quieres cerrar la sala de chat? {br} Una vez que la cierres ya no podrás volverla a abrir",
+  "page.amas.closedRoom.text":"La sala está cerrada",
+  "page.amas.modalDownload.title": "Descargar contenido de la entrevista",
+  "page.amas.modalDownload.text": "¡Ups! Esta sala ya está cerrada pero si quieres puedes descargar el contenido en PDF para no perderte nada",
 
 
   "page.invoices.title" : "Facturas",
@@ -271,6 +279,9 @@
   "btn.calendar" : "Calendario",
   "btn.clients" : "Clientes",
   "btn.editLink" : "Editar Link",
+  "btn.loadMore" : "Cargar más",
+
+
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
    

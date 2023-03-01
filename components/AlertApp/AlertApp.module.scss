@@ -4,11 +4,12 @@
 @use "../../styles/partials/placeholders";
 
 .cardContainer {
-  @extend %cardContainer;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 20px;
+  min-height: 350px;
 }
 
 .formTitle {
