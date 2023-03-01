@@ -43,8 +43,8 @@ const InputCheckFormikApp = ({children, value, error, name, onBlur, checked }: a
           </span>
         </label>
       </div>
-      {error && (
-        <div className={style.error}>{error}</div>
+      {meta.error && (
+        <div className={style.error}>{meta.error}</div>
       )}
     </>
   )

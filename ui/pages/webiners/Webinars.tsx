@@ -7,11 +7,10 @@ import SearchBar from 'components/SearchBar'
 import { Webinars } from 'domain/Webinars/Webinars'
 import { ELASTIC_QUERY } from 'infrastructure/elasticsearch/search.elastic'
 import webinarsRepository from 'infrastructure/repositories/webinars.repository'
-import { NextPage } from 'next'
+import { useRouter } from 'next/router'
+
 import { useEffect, useState } from 'react'
 import { Calendar } from 'react-calendar'
-import { LoadingIndicator } from 'react-select/dist/declarations/src/components/indicators'
-import { isLoading } from 'ui/redux/slices/authentication/authentication.selectors'
 import SetWebinar from './components/CreateWebinar/SetWebinar'
 import ItemListWebinar from './components/ItemListWebinar/ItemListWebinar'
 import WebinarsCalendar from './components/WebinarsCalendar/WebinarsCalendar'
@@ -23,6 +22,7 @@ const Webinars = () => {
   const [isloaded, setLoaded] = useState(false)
   const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' })
   const [pages, setPages] = useState<any>()
+  const {push} = useRouter()
   useEffect(() => {
     _handleSearchWebinars(query)
   }, [query])
@@ -72,6 +72,12 @@ const Webinars = () => {
     }
   }
 
+  const goToDetail = (id:string)=>{
+    push({
+      pathname: '/webinars/' + id
+    })
+  }
+
   return (
     <div>
       <h1>Webinars</h1>
@@ -91,7 +97,7 @@ const Webinars = () => {
         <div>
           {webinars.map(item => (
             <div key={item.id}>
-              <ItemListWebinar item={item} />
+              <ItemListWebinar onClick={goToDetail} item={item} />
             </div>
           ))}
           <div>
@@ -101,7 +107,7 @@ const Webinars = () => {
           </div>
         </div>
         <div>
-            <WebinarsCalendar items={webinars}/>
+           <WebinarsCalendar items={webinars}/> 
         </div>
         {openedit && (
           <Modal onBtnClose={() => setopenedit(false)}>

@@ -5,13 +5,14 @@ import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import { User } from 'domain/User/User'
+import { Webinars } from 'domain/Webinars/Webinars'
 import { Form, Formik } from 'formik'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { useEffect, useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 import * as yup from 'yup'
 
-function SetWebinar ({onCreate, updateWebinar }: any) {
+function SetWebinar ({onCreate, updateWebinar }: {onCreate: Function, updateWebinar?: Webinars | undefined }) {
   const [loading, setloading] = useState(false)
   const [today] = useState(new Date())
   const [webinar, setWebinar] = useState<any>({
@@ -31,7 +32,7 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
 
   useEffect(() => {
     if (updateWebinar) {
-      setWebinar(updateWebinar)
+      setWebinar({...updateWebinar, thumb: updateWebinar.thumb?.url})
     }
   }, [updateWebinar])
 
@@ -61,7 +62,7 @@ function SetWebinar ({onCreate, updateWebinar }: any) {
           initialValues={webinar}
           enableReinitialize
           validationSchema={validationSchema}
-          onSubmit={onCreate}
+          onSubmit={(values:any) => onCreate(values)}
         >
           {({ values, errors, touched }) => (
             <Form>

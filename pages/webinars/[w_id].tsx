@@ -1,9 +1,4 @@
-import React from 'react'
+import WebinarDetail from "ui/pages/webiners/WebinarDetail/WebinarDetail";
 
-function Webinar() {
-  return (
-    <div>Webinar Detail</div>
-  )
-}
 
-export default Webinar
+export default WebinarDetail
