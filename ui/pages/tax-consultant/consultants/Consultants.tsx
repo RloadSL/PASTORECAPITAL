@@ -83,6 +83,7 @@ const ConsultantsViews = ({
       </div>
       <div className={style.consultantsList}>
         {
+         
           consultants.map(item => {
             return (<CardConsultant consultant={item} key={item.id} />)
           })

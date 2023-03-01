@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 
 const Colaboration = () => {
-  const {query} = useRouter()
+  const {query, replace} = useRouter()
   const [text, setText] = useState("")
   const [state, setState] = useState<any>({
     "disabled": {
@@ -92,7 +92,7 @@ const Colaboration = () => {
     });
     try {
       await UserRepositoryImplInstance.update(query.uid as string, {collaboration})
-
+      replace('/administration/users/'+ query.uid)
     } catch (error) {
       console.log(error)
     }
