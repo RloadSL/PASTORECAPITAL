@@ -11,6 +11,7 @@ export interface POSTEXCERPTPROPS {
   description: string
   thumbnail?: string
   chips?: any
+  chipColor?: any
   level?: WpCat | any
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
   hasSeparator?: boolean
@@ -31,6 +32,7 @@ const PostExcerpt = ({
   description,
   thumbnail,
   chips,
+  chipColor,
   level,
   componentStyle,
   hasSeparator,
@@ -48,6 +50,7 @@ const PostExcerpt = ({
       componentStyle={componentStyle}
       hasSeparator={hasSeparator}
       footer={footer}
+      chipColor={chipColor}
     />
   )
 }
@@ -57,6 +60,7 @@ const PostExcerptView = ({
   description,
   thumbnail,
   chips,
+  chipColor,
   parsing,
   level,
   componentStyle = 'card',
@@ -67,7 +71,7 @@ const PostExcerptView = ({
     <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
         {level.label && <div className={style.level}>
-          <Chips chips={[{ label: level.label, icon: level.icon?.src }]} color='main' />
+          <Chips chips={[{ label: level.label, icon: level.icon?.src }]} color={chipColor || 'main'} />
         </div>}
       </div>
       <div className={style.textContent}>
@@ -90,7 +94,7 @@ const PostExcerptView = ({
           {hasSeparator ? <hr className={style.separator} /> : null}
           {chips?.length > 0 ? (
             <div className={style.chipsContainer}>
-              <Chips chips={chips.slice(0, 3)} color='lightMain' />
+              <Chips chips={chips.slice(0, 3)} color={'lightMain'} />
             </div>
           ) : null}
         </div>

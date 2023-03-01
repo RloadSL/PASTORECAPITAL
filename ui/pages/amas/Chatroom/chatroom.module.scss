@@ -74,3 +74,22 @@
   border-radius: 0px 0px utils.$lgBorderRadius utils.$lgBorderRadius;
 }
 
+.closedRoomMessage{
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: colors.$grey80;
+
+  &_icon {
+    margin-bottom: 10px;
+  }
+}
+
+.loadMore_container {
+  text-align: center;
+}
+
+

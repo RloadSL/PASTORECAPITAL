@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import ButtonApp from 'components/ButtonApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import { Form, Formik } from 'formik'
@@ -8,6 +8,8 @@ import bubbleIcon from '../../../../../../assets/img/icons/bubble.svg'
 import bubbleBannedIcon from '../../../../../../assets/img/icons/bubble-banned.svg'
 import lockIcon from '../../../../../../assets/img/icons/lock-v2.svg'
 import style from './chat-actions.module.scss'
+import * as yup from 'yup'
+import { useIntl } from 'react-intl'
 
 
 export interface CHAT_ACTIONS {
@@ -25,6 +27,17 @@ const ChatActions = ({
   onCloseChatroom,
   chatState
 }: CHAT_ACTIONS) => {
+  const intl = useIntl();
+  const validationSchema = useCallback(
+    () =>
+      yup.object({
+        message: yup
+          .string()
+          .required(intl.formatMessage({ id: 'page.login.errorRequired' }))
+      }),
+    []
+  )
+
   return (
     <div className={style.chatActions}>
       <div className={style.chatTools}>
@@ -52,6 +65,7 @@ const ChatActions = ({
       </div>
       <div className={style.chatForm}>
         <Formik
+          validationSchema={validationSchema}
           initialValues={{ message: '' }}
           onSubmit={({ message }, { resetForm }) => {
             resetForm()

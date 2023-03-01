@@ -131,9 +131,10 @@ const AmasMain = () => {
                     title={item.title}
                     description={item.excerpt || ''}
                     level={{ label: item.state}}
+                    chipColor={item.state === 'active' ? 'green' : 'grey' }
                     componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
                     hasSeparator={false}
-                    chips={[{label:item.interviewee.fullname,icon:clockIcon}]}
+                    chips={[{label:'18 Noviembre 2023 19:00',icon:clockIcon}]}
                   />
                 </div>
               </Card>
@@ -143,13 +144,13 @@ const AmasMain = () => {
       </div>
       {visibleAlertDownloadPdf && (
         <AlertApp
-          title='Download pdf'
+          title={'page.amas.modalDownload.title'}
           onAction={() => downloadPdf(visibleAlertDownloadPdf)}
           visible
           onCancel={() => setVisibleAlertDownloadPdf(undefined)}
         >
-          <div>
-            Esta sala esta cerrada quieres descargar el pdf.
+          <div className={style.modalContainer}>
+            <FormattedMessage id="page.amas.modalDownload.text"/>
           </div>
         </AlertApp>
       )}

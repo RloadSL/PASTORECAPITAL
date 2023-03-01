@@ -26,7 +26,7 @@ import style from './chatroom.module.scss'
 import AlertApp from 'components/AlertApp'
 import { FormattedMessage } from 'react-intl'
 import Image from 'next/image'
-import megaphoneIcon from '../../../../assets/img/icons/megaphone.svg'
+import lockedIcon from '../../../../assets/img/icons/lock.svg'
 
 const Chatroom = () => {
   const userLoggued = useSelector(getUserLogged)
@@ -36,8 +36,10 @@ const Chatroom = () => {
   const loading = useSelector(getAmasLoading)
   const { query, push, asPath } = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const [visibleMessage, setVisibleMessage] =
-    useState(true)
+  const [visibleCommentsMessage, setVisibleCommentsMessage] =
+    useState(false)
+  const [visibleRoomMessage, setVisibleRoomMessage] =
+    useState(false)
   const [chatroomState, setState_chat] = useState<{ state_chat: CHAT_STATE_PUBLIC, state: CHAT_STATE }>({ state_chat: oppenedChatroom?.state_chat || 'public', state: oppenedChatroom?.state || 'active' })
   const canWrite = useRef(
     userLoggued?.uid === oppenedChatroom?.interviewee.uid ||
@@ -137,10 +139,12 @@ const Chatroom = () => {
   const togglePublicRoom = async () => {
     const state_chat = chatroomState.state_chat === 'public' ? 'private' : 'public'
     await oppenedChatroom.setChatroom({ state_chat: state_chat })
+    setVisibleCommentsMessage(false)
   }
 
   const closeChatroom = async () => {
     await oppenedChatroom.setChatroom({ state: 'closed' })
+    setVisibleRoomMessage(false)
   }
   return (
     <div className={style.chatRoom}>
@@ -157,39 +161,71 @@ const Chatroom = () => {
 
       <div className={style.messagesContainer}>
         <div ref={chatContainerRef} className={style.messagesContainer_messages}>
-          <div>
+          <div className={style.loadMore_container}>
             <ButtonApp buttonStyle={'link'} onClick={loadMore}>
-              cargar más
+              <FormattedMessage id={'btn.loadMore'}/>
             </ButtonApp>
           </div>
           <Messages messages={messages} onDelete={deleteMessage} />
         </div>
 
         <div className={style.messagesContainer_actions}>
-          <div id='unauthorized_cover' className={style.blockedCover}>
+          {/* <div id='unauthorized_cover'>
             Estado de la sala: {chatroomState.state_chat}
-          </div> 
-          {true && <div id='unauthorized_cover'></div>}
+          </div> */}
+          {!canWrite && <div id='unauthorized_cover' className={style.blockedCover}></div>}
           {chatroomState.state === 'active' ? (
             <ChatActions
               chatState={chatroomState.state_chat}
               onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
-              onCloseChatroom={profile != 'guest' ? closeChatroom : undefined}
-              // openPublicRoom={profile != 'guest' ? togglePublicRoom : undefined}
-              openPublicRoom={() => setVisibleMessage(true)}
-            />) : <h3>La sala esta cerrada</h3>}
-
+              onCloseChatroom={() => setVisibleRoomMessage(true)}
+              openPublicRoom={() => setVisibleCommentsMessage(true)}
+            />) : (
+            <div className={style.closedRoomMessage}>
+              <div className={style.closedRoomMessage_icon}>
+                <Image src={lockedIcon} alt={''} />
+              </div>
+              <div className={style.closedRoomMessage_text}>
+                <FormattedMessage id='page.amas.closedRoom.text' />
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      {visibleMessage && (
+      {visibleCommentsMessage && (
         <AlertApp
-          title='Abrir comentarios'
-          onAction={() => profile != 'guest' ? togglePublicRoom : undefined}
+          title={chatroomState.state_chat === 'private' ? 'page.amas.modalCommentsOpen.title' : 'page.amas.modalCommentsClose.title'}
+          onAction={profile != 'guest' ? togglePublicRoom : undefined}
           visible
-          onCancel={() => setVisibleMessage(false)}
+          onCancel={() => setVisibleCommentsMessage(false)}
         >
           <div className={style.modalContainer}>
-            ¿Seguro que quieres abrir los comentarios?. Cualquier usuario podrá interactuar en la conversación actual.
+            {chatroomState.state_chat === 'private' ? (
+              <FormattedMessage
+                id='page.amas.modalCommentsOpen.text'
+                values={{ br: <br /> }}
+              />
+            ) : (
+              <FormattedMessage
+                id='page.amas.modalCommentsClose.text'
+                values={{ br: <br /> }}
+              />
+            )}
+          </div>
+        </AlertApp>
+      )}
+      {visibleRoomMessage && (
+        <AlertApp
+          title={'page.amas.modalRoomClose.title'}
+          onAction={profile != 'guest' ? closeChatroom : undefined}
+          visible
+          onCancel={() => setVisibleRoomMessage(false)}
+        >
+          <div className={style.modalContainer}>
+            <FormattedMessage
+              id='page.amas.modalRoomClose.text'
+              values={{ br: <br /> }}
+            />
           </div>
         </AlertApp>
       )}
