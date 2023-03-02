@@ -26,8 +26,8 @@ class WebinarsRepository {
         description: item.description.raw,
         date: new Date(item.date.raw),
         created_at: new Date(item.created_at.raw),
-        guests: item.id.raw,
-        state: item.id.raw
+        guests: item.guests.raw,
+        state: item.state.raw
       }
       if (item.deferred_video) {
         const deferred_video = JSON.parse(item.deferred_video.raw)
@@ -74,7 +74,7 @@ class WebinarsRepository {
           gcs_path
         }
       }
-      else{
+      else {
         delete data.thumb;
       }
 
@@ -83,7 +83,7 @@ class WebinarsRepository {
         return data.id;
       } else {
         delete data.id;
-        const res = await FireFirestore.createDoc('webinars', { ...data, state: 'active', state_chat: 'private' })
+        const res = await FireFirestore.createDoc('webinars', { ...data, state: 'COMING' })
         return res;
       }
     } catch (error) {
@@ -94,15 +94,16 @@ class WebinarsRepository {
   async delete(w_id: string) {
     await FireFirestore.deleteDoc('webinars', w_id)
   }
+
   async register(data: { w_id: string, name: string, lastname: string, email: string }) {
     await FireFunctionsInstance.onCallFunction('webinarsRegisterOnCallFunctions', data)
   }
 
   async isRegistered(data: { w_id: string, email: string }) {
-    const ref = await FireFirestore.getCollectionDocs(`webinars/${data.w_id}/users_register`,undefined, [['email', '==', data.email]], 1)
-    if(ref instanceof ErrorApp){
+    const ref = await FireFirestore.getCollectionDocs(`webinars/${data.w_id}/users_register`, undefined, [['email', '==', data.email]], 1)
+    if (ref instanceof ErrorApp) {
       return ref as ErrorApp
-    }else{
+    } else {
       return ref.length > 0;
     }
   }
@@ -111,15 +112,24 @@ class WebinarsRepository {
     const gcs_path = `webinars/${w_id}/${video.name?.replace(/' '/g, '_')}`
     const task = storageFirebase.uploadFileObserver(gcs_path, video, progressState)
     task.then(t => {
-      if(t.state == 'success'){
-        FireFirestore.setDoc(`webinars`, w_id, {deferred_video: {
-          created_at: new Date(),
-          gcs_path
-        }}).catch(e => console.log(e))
+      if (t.state == 'success') {
+        FireFirestore.setDoc(`webinars`, w_id,
+          {
+            sated: 'DEFERRED', deferred_video: {
+              created_at: new Date(),
+              gcs_path
+            }
+          }).catch(e => console.log(e))
       }
     })
-    
+
     return task;
+  }
+
+  async getVideoUrl(gcs_path: string){
+   
+    const res = await FireFunctionsInstance.onCallFunction('storageCallableUrl', {filePath: gcs_path})
+    return res.url[0];
   }
 }
 

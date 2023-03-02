@@ -90,6 +90,7 @@ const InputFormikApp = ({
           <input
             {...field}
             maxLength={maxLength}
+            max={maxLength}
             type={type}
             disabled={disabled}
             name={name}

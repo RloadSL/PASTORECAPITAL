@@ -24,7 +24,7 @@ const SearchBar = ({ onFilter, placeholder, enableTags= true }: {enableTags?: bo
       } else {
         onFilter({ ...value, tags: value.tags })
       }
-    }, 300)
+    }, 500)
   
 
   return (

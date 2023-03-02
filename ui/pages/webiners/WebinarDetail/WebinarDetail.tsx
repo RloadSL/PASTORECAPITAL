@@ -21,17 +21,24 @@ import * as yup from 'yup'
 import SetWebinar from '../components/CreateWebinar/SetWebinar'
 const WebinarDetail: NextPage = () => {
   const [webinar, setWebinar] = useState<Webinars | undefined>()
+  const [deferred_video, setDeferred_video] = useState<string | undefined>()
   const [state, setState] = useState<{
     register: boolean
     uploadVideo: boolean
     edit: boolean
-  }>({ register: false, uploadVideo: false, edit: false })
-  const { query } = useRouter()
+    delete: boolean
+    loading: boolean
+  }>({ register: false, uploadVideo: false, edit: false , delete: false, loading: false})
+  const { query , replace } = useRouter()
   useEffect(() => {
     let fetch = true
     if (query.w_id) {
       webinarsRepository.get(query.w_id as string).then(res => {
         setWebinar(res)
+        if(res?.deferred_video){
+          webinarsRepository.getVideoUrl(res.deferred_video.gcs_path)
+          .then(url =>  setDeferred_video(url))
+        }
       })
     }
 
@@ -45,6 +52,15 @@ const WebinarDetail: NextPage = () => {
     setState(pre => ({ ...pre, edit: false }))
   }
 
+  const onDelete = async ()=> {
+    await webinarsRepository.delete(webinar?.id as string)
+    setState(pre => ({ ...pre, loading: true }))
+    setTimeout(() => {
+      setState(pre => ({ ...pre, loading: false }))
+      replace('/webinars')
+    }, 10000); 
+  }
+
   return !webinar ? (
     <Loading loading variant='inner-primary' />
   ) : (
@@ -52,7 +68,7 @@ const WebinarDetail: NextPage = () => {
       <div>{webinar.title}</div>
       <div>{webinar.date.toLocaleString()}</div>
       <div>{webinar.description}</div>
-      {webinar.thumb && (
+      {(webinar.thumb && !deferred_video) && (
         <div style={{ position: 'relative', height: '200px' }}>
           <Image
             src={webinar.thumb?.url as string}
@@ -61,9 +77,26 @@ const WebinarDetail: NextPage = () => {
           />
         </div>
       )}
+
+      {
+        deferred_video && <div style={{
+          position: 'relative',
+          width: '100%'
+        }}>
+         <video style={{
+          position: 'relative',
+          width: '100%'
+        }} controls src={deferred_video} autoPlay={false}></video>
+        </div>
+      }
       <div>
         <ButtonApp onClick={() => setState(pre => ({ ...pre, edit: true }))}>
           Editar @Jose restringir a administradores
+        </ButtonApp>
+      </div>
+      <div>
+        <ButtonApp onClick={() => setState(pre => ({ ...pre, delete: true }))}>
+          Eliminar @Jose restringir a administradores
         </ButtonApp>
       </div>
       <div>
@@ -108,6 +141,20 @@ const WebinarDetail: NextPage = () => {
           />
         </Modal>
       )}
+
+    {state.delete && (
+        <AlertApp
+        visible={state.delete}
+          onAction={onDelete}
+          title='Eliminar webinar'
+          onCancel={() => setState(pre => ({ ...pre, delete: false }))}
+        >
+          <Loading loading={state.loading}/>
+          <div>
+            Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
+          </div>
+        </AlertApp>
+      )}      
     </div>
   )
 }
