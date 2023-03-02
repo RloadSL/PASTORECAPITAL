@@ -1,6 +1,7 @@
 import ButtonApp from 'components/ButtonApp'
 import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
 import ItemList from 'components/ItemList'
+import LinkApp from 'components/LinkApp'
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
 import SearchBar from 'components/SearchBar'
@@ -14,65 +15,34 @@ import { Calendar } from 'react-calendar'
 import SetWebinar from './components/CreateWebinar/SetWebinar'
 import ItemListWebinar from './components/ItemListWebinar/ItemListWebinar'
 import WebinarsCalendar from './components/WebinarsCalendar/WebinarsCalendar'
+import useWebinars from './hooks/webinars.hook'
 import style from './webinars.module.scss'
 
 const Webinars = () => {
   const [openedit, setopenedit] = useState(false)
-  const [webinars, setWebinars] = useState<Webinars[]>([])
-  const [isloaded, setLoaded] = useState(false)
-  const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' })
-  const [pages, setPages] = useState<any>()
-  const {push} = useRouter()
+  const {
+    isloaded,
+    pages,
+    webinars,
+    query,
+    handleSearchWebinars,
+    setWebinars,
+    onFilter,
+    loadMore
+  } = useWebinars()
+
+  const { push } = useRouter()
   useEffect(() => {
-    _handleSearchWebinars(query)
+    handleSearchWebinars()
   }, [query])
 
   const onSetWebinars = async (webinar: Webinars) => {
-    await webinarsRepository.set(webinar)
+    const newWebinar = await webinarsRepository.set(webinar)
+    setWebinars(pre => [newWebinar, ...pre])
     setopenedit(false)
   }
-  const _handleSearchWebinars = async (query: ELASTIC_QUERY) => {
-    let fetching = true
-    if (!isloaded) {
-      const response = await webinarsRepository.elasticSearch(query)
-      if (fetching) {
-        setLoaded(true)
-        setPages(response.page)
-        setWebinars(pre => [...response.results, ...pre])
-      }
-    }
-    return () => (fetching = false)
-  }
 
-  const _loadMore = () => {
-    if (isloaded) {
-      setLoaded(false)
-      setQuery(pre => {
-        const current = pre.page?.current || 1
-
-        return {
-          ...pre,
-          page: {
-            current: current + 1,
-            size: 10
-          }
-        }
-      })
-    }
-  }
-
-  const onFilter = async (s: string) => {
-    if (isloaded) {
-      setLoaded(false)
-      setWebinars([])
-      setQuery(pre => ({
-        ...pre,
-        query: s
-      }))
-    }
-  }
-
-  const goToDetail = (id:string)=>{
+  const goToDetail = (id: string) => {
     push({
       pathname: '/webinars/' + id
     })
@@ -102,12 +72,14 @@ const Webinars = () => {
           ))}
           <div>
             {pages?.current < pages?.total_pages && (
-              <ButtonApp onClick={_loadMore}>LoadMore</ButtonApp>
+              <ButtonApp onClick={loadMore}>LoadMore</ButtonApp>
             )}
           </div>
         </div>
         <div>
-           <WebinarsCalendar items={webinars}/> 
+          <WebinarsCalendar items={webinars} />
+          <LinkApp linkHref='/webinars/deferred' target='_self  ' label='deferred' linkStyle='button'/>
+           
         </div>
         {openedit && (
           <Modal onBtnClose={() => setopenedit(false)}>
