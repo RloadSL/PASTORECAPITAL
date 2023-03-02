@@ -214,7 +214,7 @@ const UserView = ({
               </div>
           </div>
         )}
-        {userLogged.role.level == 2  && <div className='role'>
+        {userLogged?.role.level == 2  && <div className='role'>
           <p className='small-caps margin-top-50'>Configurar rol del usuario</p>
           <div>
             <div>{ renderFormikRole()}</div>

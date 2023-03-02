@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { getCurrentConsultant } from 'ui/redux/slices/tax-consultants/tax-consultants.selectors';
 import { useEffect, useRef, useState } from 'react';
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant';
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors';
+import { useRouter } from 'next/router';
 
 interface DashboardProps {
 }
@@ -21,9 +23,11 @@ interface DashboardProps {
  */
 
 const Dashboard = ({}:DashboardProps) => {
+  const userLogged = useSelector(getUserLogged)
   const consultant = useSelector(getCurrentConsultant)
   const [clients, setClients] = useState<any>([])
   const [activeService, setActiveService] = useState<any>([])
+  const {replace} = useRouter()
   useEffect(() => {
    if(consultant instanceof UserConsultant){
        consultant.getClients()
@@ -34,7 +38,12 @@ const Dashboard = ({}:DashboardProps) => {
    }
   }, [consultant])
   
-
+  useEffect(() => {
+    if(userLogged && !userLogged.checkColaborationPermisionByModule('permissions.consultant')){
+      replace('/tax-consultant/consultants')
+    }
+  }, [userLogged])
+  
 
   return (
     <div className={style.dashboard}>

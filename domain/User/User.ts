@@ -3,6 +3,8 @@ import { Role, Subscription, UserDto } from "infrastructure/dto/users.dto"
 import { UserRepositoryImplInstance } from "infrastructure/repositories/users.repository";
 import { UserRepository } from "./user.repository";
 
+//[permissions.consultant] esto es para validadr el permiso en Academy
+export type COLLABORATION_MODULES = 'permissions.consultant' | 'RESEARCH' | 'permissions.consultant' | 'WEBINARS' | 'AMAS'
 export class User {
   /**
    * Identificador del usuario para los usuarios invitados el [uid = not-logged]
@@ -41,6 +43,8 @@ export class User {
  
 
   stripe_cu_id?:string;
+
+  get fullname(){ return `${this.name} ${this.lastname}`};
 
   constructor(userData: UserDto) {
     this.uid = userData.uid;
@@ -87,5 +91,9 @@ export class User {
     await UserRepositoryImplInstance.setPersonalStats(this.uid, data)
   }
 
-  get fullname(){ return `${this.name} ${this.lastname}`};
+  checkColaborationPermisionByModule(module:COLLABORATION_MODULES):boolean{
+    if(this.role.level < 1) return false;
+    return this.collaboration[module] != undefined;
+  }
+
 }

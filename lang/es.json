@@ -6,12 +6,16 @@
   "role.User" : "Usuario",
   "role.Collaborator" : "Colaborador",
   "role.Administrator" : "Administrador",
-  "permissions.consultant" : "Asesor",
-  "consultant.permission.description" : "Crea un perfil de asesor para brindar este servicio",
-  "permissions.teacher" : "Profesor",
-  "teacher.permission.description" : "Permite gestionar contenido en los cursos de Análisis",
-  "permissions.tutorials" : "Tutoriales",
-  "tutorials.permission.description" : "Permite gestionar contenido en los tutoriales de Análisis",
+  "permissions.consultant" : "Módulo Asesor fiscal",
+  "consultant.permission.description" : "Permisos para la gestión en el módulo de Asesor Fiscal, crea un perfil de asesos",
+  "permissions.ACADEMY" : "Módulo Academia",
+  "ACADEMY.permission.description" : "Permisos para la gestión en el módulo de Academia",
+  "permissions.RESEARCH" : "Módulo Research",
+  "RESEARCH.permission.description" : "Permisos para la gestión en el módulo de Resarch",
+  "permissions.WEBINARS" : "Módulo Webinars",
+  "WEBINARS.permission.description" : "Permisos para la gestión en el módulo de Webinars",
+  "permissions.AMAS" : "Módulo Amas",
+  "AMAS.permission.description" : "Permisos para la gestión en el módulo de AMAS",
 
   
 

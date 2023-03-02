@@ -5,13 +5,23 @@ export const collaborationPermissions = [
     description: 'consultant.permission.description'
   },
   {
-    id: 'permissions.teacher',
+    id: 'permissions.ACADEMY',
+    label : 'Teacher',
+    description: 'ACADEMY.permission.description'
+  },
+  {
+    id: 'permissions.RESEARCH',
     label : 'Teacher',
     description: 'teacher.permission.description'
   },
   {
-    id: 'permissions.tutorials',
-    label : 'Tutorials',
-    description: 'tutorials.permission.description'
+    id: 'permissions.WEBINARS',
+    label : 'Teacher',
+    description: 'teacher.permission.description'
+  },
+  {
+    id: 'permissions.AMAS',
+    label : 'Teacher',
+    description: 'AMAS.permission.description'
   }
 ]

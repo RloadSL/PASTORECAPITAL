@@ -21,7 +21,7 @@ const Consultants = () => {
   const taxConsultantLoading= useSelector(getTaxConsultantLoading)
   const currentConsultant = useSelector(getCurrentConsultant)
   const { replace } = useRouter()
-  const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' , filters: userLogged?.role.level > 1 ? {} : {state: 'active'}})
+  const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '' , filters: userLogged?.role.level > 1 ? {state: ['active', 'new']} : {state: 'active'}})
   
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Consultants = () => {
   }, [userLogged, query])
 
   useEffect(() => {
-    if (currentConsultant instanceof UserConsultant && userLogged?.role.level === 1) {
+    if (currentConsultant instanceof UserConsultant && userLogged?.checkColaborationPermisionByModule('permissions.consultant')) {
       replace(`/tax-consultant/consultants/${currentConsultant.id}/dashboard/`)
     }
   }, [currentConsultant])

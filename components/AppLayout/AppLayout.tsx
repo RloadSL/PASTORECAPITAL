@@ -23,6 +23,7 @@ import { NOT_CONSULTANT } from 'domain/UserConsultant/UserConsultant'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import { User } from 'domain/User/User'
 import { useGuardPermissions } from 'ui/hooks/guard.permissions.hook'
+import { isEqual } from 'lodash'
 
 export const SubscriptionGranted = createContext<any>(null)
 
@@ -64,6 +65,11 @@ export default function AppLayout ({ children }: any) {
         if (userLogged.stripe_cu_id != user.stripe_cu_id) {
           dispatch(setUserLogged(user))
         }
+
+        if (userLogged.collaboration && Object.keys(userLogged.collaboration).length != Object.keys(user.collaboration).length) {
+          console.log('CAMBIOS EN EL USUARIO LOGADO EN COLLABORATION')
+          dispatch(setUserLogged(user))
+        }
       })
     }
   }, [userLogged])
@@ -72,7 +78,10 @@ export default function AppLayout ({ children }: any) {
     if (uid) {
       const userConsultant =
         await userConsultantRepository.getUserConsultantByUID(uid)
-      dispatch(setCurrentConsultant(userConsultant || NOT_CONSULTANT))
+      if(userConsultant?.state === 'active'){
+        dispatch(setCurrentConsultant(userConsultant || NOT_CONSULTANT))
+      }else dispatch(setCurrentConsultant(NOT_CONSULTANT))
+      
     } else {
       dispatch(setCurrentConsultant(undefined))
     }

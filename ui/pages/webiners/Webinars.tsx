@@ -78,7 +78,7 @@ const Webinars = () => {
         </div>
         <div>
           <WebinarsCalendar items={webinars} />
-          <LinkApp linkHref='/webinars/deferred' target='_self  ' label='deferred' linkStyle='button'/>
+          <LinkApp linkHref='/webinars/deferred' target='_self' label='deferred' linkStyle='button'/>
            
         </div>
         {openedit && (

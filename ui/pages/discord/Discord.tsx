@@ -29,16 +29,14 @@ const Discord: NextPage = () => {
   ).current
 
   useEffect(() => {
-    discordRepository.getDiscordConfig()
-      .then((response) => {
-        const { link } = response as any;
-        setLink(link)
-      })
+    discordRepository.getDiscordConfig().then(response => {
+      const { link } = response as any
+      setLink(link)
+    })
   }, [])
 
-
   const editDiscordLink = async (value: any) => {
-    discordRepository.setDiscord(value.link).then((red) => {
+    discordRepository.setDiscord(value.link).then(red => {
       setEdit(false)
       setLink(value.link)
     })
@@ -124,27 +122,32 @@ const Discord: NextPage = () => {
               <FormattedMessage id={'page.discord.card.text'} />
             </p>
             <div className={style.textContainer_button}>
-              <LinkApp target={'_blank'} label={'btn.access'} linkStyle={'button'} linkHref={link} />
+              <LinkApp
+                target={'_blank'}
+                label={'btn.access'}
+                linkStyle={'button'}
+                linkHref={link}
+              />
             </div>
           </div>
         </div>
       </div>
 
-      <div className={style.adminOptions}>
-        <p className='small-caps'>
-          <FormattedMessage id={'page.discord.admin.title'} />
-        </p>
-        <div className={style.adminOptions_button}>
-          {userLogged?.role.level > 1 && <ButtonApp onClick={() => setEdit(true)}>
-            <FormattedMessage id={'btn.editLink'} />
-          </ButtonApp>}
+      {userLogged?.role.level > 1 && (
+        <div className={style.adminOptions}>
+          <p className='small-caps'>
+            <FormattedMessage id={'page.discord.admin.title'} />
+          </p>
+          <div className={style.adminOptions_button}>
+            <ButtonApp onClick={() => setEdit(true)}>
+              <FormattedMessage id={'btn.editLink'} />
+            </ButtonApp>
+          </div>
+
+          <div>{edit && renderFormEdit()}</div>
         </div>
-
-        <div>{edit && renderFormEdit()}</div>
-      </div>
-
+      )}
     </div>
-
   )
 }
 
