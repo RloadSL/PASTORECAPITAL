@@ -1,5 +1,6 @@
 import style from './Chips.module.scss'
 import Image from 'next/image'
+import { FormattedMessage } from 'react-intl'
 
 type COLOR = 'main' | 'lightMain'
 
@@ -27,7 +28,14 @@ const ChipsView = ({ hasIcon, chips, color = 'main' }: CHIPPROPS) => {
       return (
         <div key={index} className={`${style[color]} ${style.chipContainer} flex-container align-center`}>
           {(hasIcon || item.icon) ? <span className={`${style.hasIcon} flex-container`}><Image src={hasIcon || item.icon} width='18px' height='18px' alt='' /></span> : null}
-          <span className={style.chipLabel}>{ typeof item  === 'string' ? item : item.label }</span>
+          {/* <span className={style.chipLabel}>{ typeof item  === 'string' ? item : item.label }</span> */}
+          <span className={style.chipLabel}>
+            { typeof item  === 'string' ? (
+              <FormattedMessage id={item}/>
+            ) : (
+              <FormattedMessage id={item.label}/>
+            ) }
+          </span> 
         </div>
       )
     })}

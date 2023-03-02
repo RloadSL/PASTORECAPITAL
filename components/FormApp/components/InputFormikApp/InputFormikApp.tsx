@@ -24,8 +24,8 @@ export interface INPUTBLOCKPROPS {
   inputStyle?: 'default' | 'code'
   icon?: any,
   helper?: string,
-  value?:string,
-  disabled?:boolean
+  value?: string,
+  disabled?: boolean
 }
 
 /**
@@ -56,9 +56,9 @@ const InputFormikApp = ({
   maxLength,
   helper,
   value,
-  
+
 }: INPUTBLOCKPROPS) => {
-  const [field, meta] = useField({name});
+  const [field, meta] = useField({ name });
   const [isFloating, setIsFloating] = useState('')
 
   useEffect(() => {
@@ -69,6 +69,11 @@ const InputFormikApp = ({
 
   return (
     <>
+      {maxLength && (
+        <div className={style.infoChar}>
+          <small>{maxLength} caracteres máximo</small>
+        </div>
+      )}
       <div
         className={`${style.inputContainer} ${error ? style.hasError : ''} ${error ? style.hasError : ''
           } ${inputStyle ? style[inputStyle] : ''}`}
@@ -104,7 +109,7 @@ const InputFormikApp = ({
         </div>
         {(helper && !meta.error) && <small className={style.helper}> <FormattedMessage id={helper} /> </small>}
       </div>
-      {(meta.error && meta.touched)&& <div className={style.error}>{meta.error}</div>}
+      {(meta.error && meta.touched) && <div className={style.error}>{meta.error}</div>}
     </>
   )
 }

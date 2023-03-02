@@ -9,8 +9,9 @@ import { Form, Formik } from 'formik'
 import amasRepository from 'infrastructure/repositories/amas.repository'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { useRef, useState } from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import * as yup from 'yup'
+import style from './createchatroom.module.scss'
 
 const CreateChatroom = ({ onClose }: { onClose: Function }) => {
   const [loading, setloading] = useState(false)
@@ -55,11 +56,13 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
 
   return (
       <Modal onBtnClose={() => onClose()}>
-        <div>
-          <div className='header'>
-            <h3>Crear nueva sala de chat</h3>
+        <div className={style.modalContainer}>
+          <div className={style.modalContainer_title}>
+            <p>
+              <FormattedMessage id='Crear nueva sala de chat'/>
+            </p>
           </div>
-          <div className='formContent'>
+          <div className={style.modalContainer_content}>
             <Formik
               initialValues={chatroom}
               enableReinitialize
@@ -72,10 +75,12 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
                     labelID='forms.labels.title'
                     type='text'
                     name='title'
+                    maxLength={60}
                   />
                   <TextareaFormikApp
                     labelID='forms.labels.excerpt'
                     name='excerpt'
+                    maxLength={200}
                   />
                   <InputFileFormikApp
                     labelID='page.tax-consultant.create-service.form.image'

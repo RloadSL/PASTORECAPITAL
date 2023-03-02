@@ -1,0 +1,13 @@
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/placeholders";
+
+.modalContainer {
+  padding: 20px;
+
+  &_title {
+    font-weight: bold;
+    text-align: center;
+
+  }
+}
