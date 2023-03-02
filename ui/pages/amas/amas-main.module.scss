@@ -6,21 +6,33 @@
 .amas {
   @extend %layoutContainer;
   padding: 2%;
+
+  header {
+    @include devices.device(smTablet) {
+      display: flex;
+    }
+  }
 }
 
 .chatRoom {
   &_grid {
-    margin-top: 40px;
+    margin-top: 5px;
 
     @include devices.device(lgScreen) {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+    }
 
+    @include devices.device(1900px) {
+      grid-template-columns: repeat(4, 1fr);
     }
 
     &_item {
       width: 100%;
-      min-height: auto;
-      margin: 15px 0px 0px 0px;
+      margin-right: 15px;
+      margin-bottom: 20px;
+      height: fit-content;
 
       &:hover {
         outline: 2px solid colors.$main;
@@ -28,25 +40,48 @@
         cursor: pointer;
       }
 
-
-      @include devices.device(lgScreen) {
-        width: 33.3%;
-        margin: 0px 15px 0px 0px;
-      }
-
       &:last-child {
         margin-right: 0px;
-      } 
+      }
+
+      & > div {
+        @include devices.device(lgScreen) {
+          min-height: 410px;
+          height: auto;
+          display: flex;
+          flex-direction: column;
+        }
+      }
     }
   }
 }
 
 .cardContainer {
   padding: 15px;
+
+  & > div {
+    flex: 1;
+  }
+
+  @include devices.device(lgScreen) {
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .createRoomBtnContainer {
-  max-width: 250px;
+  @include devices.device(smTablet) {
+    width: 450px;
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  }
+
+  button {
+    width: 200px;
+    height: fit-content;
+  }
 }
 
 .filtersContainer {
@@ -72,4 +107,3 @@
   text-align: center;
   color: colors.$dark;
 }
-

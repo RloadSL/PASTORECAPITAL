@@ -59,29 +59,32 @@ const AmasMain = () => {
   return (
     <div className={style.amas}>
       <header>
-        <p className={`${style.topTitle} main-title`}>
-          <FormattedMessage id='mainMenu.item.label.amas' />
-        </p>
-        <p>
-          <FormattedMessage id="loremipsum" />
-        </p>
+        <div>
+          <p className={`${style.topTitle} main-title`}>
+            <FormattedMessage id='mainMenu.item.label.amas' />
+          </p>
+          <p>
+            <FormattedMessage id="loremipsum" />
+          </p>
+        </div>
+        <div className={style.createRoomBtnContainer}>
+          {userLogged?.role.level > 1 && (
+            <ButtonApp
+              buttonStyle='primary'
+              labelID='page.amas.createRoom.label'
+              onClick={() => setupdateChatroom(true)}
+              type='button'
+              icon={addIcon}
+            />
+          )}
+          {updateChatroom && (
+            <CreateChatroom
+              onClose={() => setupdateChatroom(false)}
+            ></CreateChatroom>
+          )}
+        </div>
       </header>
-      <div className={style.createRoomBtnContainer}>
-        {userLogged?.role.level > 1 && (
-          <ButtonApp
-            buttonStyle='primary'
-            labelID='page.amas.createRoom.label'
-            onClick={() => setupdateChatroom(true)}
-            type='button'
-            icon={addIcon}
-          />
-        )}
-        {updateChatroom && (
-          <CreateChatroom
-            onClose={() => setupdateChatroom(false)}
-          ></CreateChatroom>
-        )}
-      </div>
+
       <div className={style.filtersContainer}>
         <div className={style.filtersContainer_searchBar}>
           <SearchBar
@@ -130,11 +133,11 @@ const AmasMain = () => {
                     thumbnail={item.thumb?.url}
                     title={item.title}
                     description={item.excerpt || ''}
-                    level={{ label: item.state}}
-                    chipColor={item.state === 'active' ? 'green' : 'grey' }
+                    level={{ label: `${item.state === 'active' ? 'page.amas.roomLabel.open' : 'page.amas.roomLabel.closed'}` }}
+                    chipColor={item.state === 'active' ? 'green' : 'grey'}
                     componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
                     hasSeparator={false}
-                    chips={[{label:'18 Noviembre 2023 19:00',icon:clockIcon}]}
+                    chips={[{ label: `${item.created_at?.toLocaleDateString()} ${item.created_at?.toLocaleTimeString()}`, icon: clockIcon }]}
                   />
                 </div>
               </Card>
@@ -150,7 +153,7 @@ const AmasMain = () => {
           onCancel={() => setVisibleAlertDownloadPdf(undefined)}
         >
           <div className={style.modalContainer}>
-            <FormattedMessage id="page.amas.modalDownload.text"/>
+            <FormattedMessage id="page.amas.modalDownload.text" />
           </div>
         </AlertApp>
       )}

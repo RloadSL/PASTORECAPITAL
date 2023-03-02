@@ -33,7 +33,7 @@ const TextareaFormikApp = ({
   icon,
   helper }: TEXTAREAAPPPROPS) => {
   const [isFloating, setIsFloating] = useState('')
-  const [field, meta] = useField({name});
+  const [field, meta] = useField({ name });
 
   useEffect(() => {
     setIsFloating(
@@ -42,37 +42,45 @@ const TextareaFormikApp = ({
   }, [field.value])
 
   return (
-    <div className='position-relative'>
-      <div className={style.inputContainer}>
-        <label
-          className={`${icon ? style.iconLabel : style.label} ${isFloating}`}
-        >
-          <span>
-            <FormattedMessage id={labelID} />
-          </span>
-        </label>
-        <div className='flex-container row align-start'>
-          {icon != undefined && (
-            <div className={`${style.icon}`}>
-              <Image className={style.icon} src={icon} alt='' />
-            </div>
-          )}
-          <textarea
-           {...field}
-            maxLength={maxLength}
-            name={name}
-            autoComplete={'autocomplete'}
-            placeholder={placeholder}
-            onBlur={() => {
-              if (onBlur) onBlur()
-            }}
-            className={style.input}
-          />
+    <>
+      {maxLength && (
+        <div className={style.infoChar}>
+          <small>{maxLength} caracteres máximo</small>
         </div>
+      )}
+
+      <div className='position-relative'>
+        <div className={style.inputContainer}>
+          <label
+            className={`${icon ? style.iconLabel : style.label} ${isFloating}`}
+          >
+            <span>
+              <FormattedMessage id={labelID} />
+            </span>
+          </label>
+          <div className='flex-container row align-start'>
+            {icon != undefined && (
+              <div className={`${style.icon}`}>
+                <Image className={style.icon} src={icon} alt='' />
+              </div>
+            )}
+            <textarea
+              {...field}
+              maxLength={maxLength}
+              name={name}
+              autoComplete={'autocomplete'}
+              placeholder={placeholder}
+              onBlur={() => {
+                if (onBlur) onBlur()
+              }}
+              className={style.input}
+            />
+          </div>
+        </div>
+        {(helper && !meta.error) && <small className={style.helper}> <FormattedMessage id={helper} /> </small>}
+        {(meta.error && meta.touched) && <div className={style.error}>{meta.error}</div>}
       </div>
-      {(helper && !meta.error) && <small className={style.helper}> <FormattedMessage id={helper} /> </small>}
-      {(meta.error &&  meta.touched) && <div className={style.error}>{meta.error}</div>}
-    </div>
+    </>
   )
 }
 export default TextareaFormikApp

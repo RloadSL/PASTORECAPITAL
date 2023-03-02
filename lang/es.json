@@ -205,7 +205,8 @@
   "page.amas.closedRoom.text":"La sala está cerrada",
   "page.amas.modalDownload.title": "Descargar contenido de la entrevista",
   "page.amas.modalDownload.text": "¡Ups! Esta sala ya está cerrada pero si quieres puedes descargar el contenido en PDF para no perderte nada",
-
+  "page.amas.roomLabel.open": "Abierta",
+  "page.amas.roomLabel.closed": "Cerrada",
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",

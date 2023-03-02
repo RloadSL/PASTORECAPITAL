@@ -37,7 +37,7 @@ const PostExcerpt = ({
   componentStyle,
   hasSeparator,
   footer,
-  parsing=true
+  parsing = true
 }: POSTEXCERPTPROPS) => {
   return (
     <PostExcerptView
@@ -75,8 +75,8 @@ const PostExcerptView = ({
         </div>}
       </div>
       <div className={style.textContent}>
-        <p className={style.title}>{title}</p>
-        <div className={style.description}>{ parsing ? parse(description) : description}</div>
+          <p className={style.title}>{title}</p>
+          <div className={style.description}>{parsing ? parse(description) : description}</div>
         <div className={style.terms}>
           {footer ? (
             <div className={style.footer}>
