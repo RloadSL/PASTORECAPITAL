@@ -65,9 +65,9 @@ const News:NextPage = () => {
     news,
     query,
     handleSearchNews,
-    setNews,
     onFilter,
-    loadMore
+    loadMore,
+    page
   } = useNews()
 
   const onClickFilter = () => {
@@ -88,19 +88,18 @@ const News:NextPage = () => {
         <NewsFilters onFilter={({search, tags}: any)=>{onFilter(search)}} newsCats={newsCategories} onClickFilter={onClickFilter}/>
       </header>
       <div className={style.news_container}>
-        <InfiniteScroll
-          next={()=>loadMore()}
-          dataLength={news.length}
-          loader={<LoadMoreLoading/>}
-          hasMore={total_pages > query.page}
-        >
+        
         <ItemList
           items={news.map((newItem) => (
-            <NewsListItem isFavorite={false} toggleFavs={()=>alert('FAV')} key={newItem.news_url} item={newItem} />
+            <div key={newItem.news_url}>
+                  <NewsListItem isFavorite={false} toggleFavs={()=>alert('FAV')} key={newItem.news_url} item={newItem} />
+             </div>
           ))}
         />
-        </InfiniteScroll>
        
+       {(page < total_pages) && <div style={{display:'flex', justifyContent: 'center'}}>
+        <ButtonApp buttonStyle={'link'} onClick={loadMore}><p>Load more</p></ButtonApp>
+        </div>} 
       </div>
     </div>
   )
