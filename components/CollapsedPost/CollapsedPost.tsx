@@ -36,7 +36,7 @@ export interface COLLAPSEDPOSTPROPS {
 const CollapsedPost = ({
   title,
   description,
-  lockedContent = true,
+  lockedContent = false,
   chips,
   level,
   componentStyle,
@@ -73,7 +73,7 @@ const CollapsedPostView = ({
 }: // isCollapsed
 COLLAPSEDPOSTPROPS) => {
   const { limitTextLength } = useComponentUtils()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const renderCollapsedText = () => {
     setIsCollapsed(!isCollapsed)
   }
@@ -107,14 +107,14 @@ COLLAPSEDPOSTPROPS) => {
             ? parse(description)
             : parse(limitTextLength(250, description))}
         </div>
-        {!lockedContent && (
+       {/*  {!lockedContent && (
           <button
             className={style.seeMore}
             onClick={() => renderCollapsedText()}
           >
             {isCollapsed ? 'Ver menos' : 'Ver más'}
           </button>
-        )}
+        )} */}
       </div>
       {lockedContent && <LockedContent />}
       <div className={style.terms}>

@@ -6,6 +6,9 @@
   "role.User" : "Usuario",
   "role.Collaborator" : "Colaborador",
   "role.Administrator" : "Administrador",
+  "Advanced" : "Avanzado",
+  "Basic" : "Básico",
+  "Medium" : "Medio",
   "permissions.consultant" : "Módulo Asesor fiscal",
   "consultant.permission.description" : "Permisos para la gestión en el módulo de Asesor Fiscal, crea un perfil de asesos",
   "permissions.ACADEMY" : "Módulo Academia",
@@ -350,5 +353,6 @@
   "webinars": "Webinars",
   "deferred" :"Diferidos",
   "w_id": "Detalle del Webinar",
-  "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam."
+  "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam.",
+  "empty": " "
 }

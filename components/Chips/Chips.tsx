@@ -30,10 +30,10 @@ const ChipsView = ({ hasIcon, chips, color = 'main' }: CHIPPROPS) => {
           {(hasIcon || item.icon) ? <span className={`${style.hasIcon} flex-container`}><Image src={hasIcon || item.icon} width='18px' height='18px' alt='' /></span> : null}
           {/* <span className={style.chipLabel}>{ typeof item  === 'string' ? item : item.label }</span> */}
           <span className={style.chipLabel}>
-            { typeof item  === 'string' ? (
+            { (typeof item  === 'string') ? (
               <FormattedMessage id={item}/>
             ) : (
-              <FormattedMessage id={item.label}/>
+              <FormattedMessage id={item.label || 'empty'}/>
             ) }
           </span> 
         </div>
