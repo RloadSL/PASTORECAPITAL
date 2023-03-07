@@ -1,7 +1,9 @@
 import { Chatroom } from "domain/Chatroom/Chatroom";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
+import Translate from "domain/Translate/Translate";
 import { DocumentSnapshot, Unsubscribe } from "firebase/firestore";
 import { ChatroomDto, MessageDto } from "infrastructure/dto/amas.dto";
+import { elasticSearch, ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 import storageFirebase from "infrastructure/firebase/storage.firebase";
 import { identity } from "lodash";
 import { string } from "yup";
@@ -23,6 +25,7 @@ class AmasRepository{
    * @returns 
    */
   async setChatroom(data:ChatroomDto){
+    const lang = Translate.currentLocal
     try {
       if(data.thumb instanceof File){
         const thumbUri = await storageFirebase.UploadFile(`amas/{${data.title?.replace(/' '/g, '_')}}`, data.thumb)
@@ -37,7 +40,7 @@ class AmasRepository{
         return data.id;
       }else{
         delete data.id;
-        const res = await FireFirestore.createDoc('amas', {...data, state: 'active', state_chat:'private'})
+        const res = await FireFirestore.createDoc('amas', {...data, lang, state: 'active', state_chat:'private'})
         return res;
       }
     } catch (error) {
@@ -45,12 +48,44 @@ class AmasRepository{
     }
   }
 
-  async getChatRooms(lastSnap?:DocumentSnapshot){
+ /*  async getChatRooms(lastSnap?:DocumentSnapshot){
     const ref = await FireFirestore.getCollectionDocs('amas', lastSnap, undefined, 20)
     if( !(ref instanceof ErrorApp) && ref.length > 0){
       return ref.map(doc => new Chatroom({id: doc.id, ...(doc.data() as ChatroomDto)}))
     }else{
       return ref
+    }
+  } */
+  parseDataFromElastic(results:any[]):Chatroom[]{
+    return results.map((items:any) => {
+      const data:ChatroomDto = {
+        title: items.title.raw, 
+        excerpt: items.excerpt.raw, 
+        lang :items.lang.raw,
+        id:items.id.raw,
+        created_at: new Date(items.created_at.raw),
+        state_chat :  items.state_chat.raw,
+        state: items.state.raw,
+        interviewee: JSON.parse(items.interviewee.raw) ,
+      }
+      if(items.thumb ){
+        data.thumb =  JSON.parse(items.thumb.raw)
+      }
+      return new Chatroom(data);
+    })
+  }
+
+  async getChatRooms(query: ELASTIC_QUERY): Promise<{ results: Chatroom[], page: any }> {
+    const lang = Translate.currentLocal
+    query.filters = {all: [query.filters, {lang}]}
+    const elasticRes = await elasticSearch('amas', query)
+    const page = elasticRes.data.meta.page;
+    let results = elasticRes.data.results
+
+    if (!results) {
+      return { results: [], page: null }
+    } else {
+      return { results: this.parseDataFromElastic(results), page }
     }
   }
 

@@ -30,8 +30,10 @@ const Discord: NextPage = () => {
 
   useEffect(() => {
     discordRepository.getDiscordConfig().then(response => {
-      const { link } = response as any
-      setLink(link)
+      if(response){
+        const { link } = response as any
+        setLink(link)
+      }
     })
   }, [])
 
@@ -45,7 +47,7 @@ const Discord: NextPage = () => {
   const renderFormEdit = () => {
     return (
       <>
-        <Modal onBtnClose={() => console.log('cerrar')}>
+        <Modal onBtnClose={() => setEdit(false)}>
           <div className={style.cardContainer}>
             <header>
               <h3>

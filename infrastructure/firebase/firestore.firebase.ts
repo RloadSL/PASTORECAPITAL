@@ -4,6 +4,7 @@ import { cleanUndefined } from './utils'
 import FireFirebase from './firebase';
 import { on_cloud_firebase } from './config';
 import { ErrorApp } from 'domain/ErrorApp/ErrorApp';
+import Translate from 'domain/Translate/Translate';
 
 /**
  * Integración con el módulo de firestore de Firebase
@@ -137,7 +138,7 @@ export class FireFirestore {
   public createDoc = async (collectionPath: string, data: any): Promise<any | undefined> => {
     try {
       data.created_at = new Date()
-      console.log(collectionPath)
+      data.lang = Translate.currentLocal
       const collection = this._collection(collectionPath);
       const snap = await addDoc(collection, cleanUndefined(data));
       return { ...data, id: snap.id };

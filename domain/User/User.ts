@@ -94,7 +94,7 @@ export class User {
 
   checkColaborationPermisionByModule(module:COLLABORATION_MODULES):boolean{
     if(this.role.level < 1) return false;
-    return this.collaboration[module] != undefined;
+    return this.collaboration ?  this.collaboration[module] != undefined : false;
   }
 
 }
