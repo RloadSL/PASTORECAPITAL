@@ -1,4 +1,4 @@
-import WebinarDetail from "ui/pages/webiners/WebinarDetail/WebinarDetail";
+import WebinarDetail from "ui/pages/webinars/WebinarDetail/WebinarDetail";
 
 
 export default WebinarDetail

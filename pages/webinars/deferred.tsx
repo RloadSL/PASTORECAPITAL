@@ -1,4 +1,4 @@
-import DeferredWebinars from "ui/pages/webiners/DeferredWebinars/DeferredWebinars";
+import DeferredWebinars from "ui/pages/webinars/DeferredWebinars/DeferredWebinars";
 
 
 export default DeferredWebinars

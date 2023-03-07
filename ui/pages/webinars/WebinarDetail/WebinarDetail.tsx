@@ -14,30 +14,32 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import * as yup from 'yup'
 import SetWebinar from '../components/CreateWebinar/SetWebinar'
+import style from './webinar-detail.module.scss'
+
 const WebinarDetail: NextPage = () => {
   const [webinar, setWebinar] = useState<Webinars | undefined>()
-  const [deferred_video, setDeferred_video] = useState<string | undefined>()
+  const [deferred_video, setDeferred_video] = useState<string | undefined>()
   const [state, setState] = useState<{
     register: boolean
     uploadVideo: boolean
     edit: boolean
     delete: boolean
     loading: boolean
-  }>({ register: false, uploadVideo: false, edit: false , delete: false, loading: false})
-  const { query , replace } = useRouter()
+  }>({ register: false, uploadVideo: false, edit: false, delete: false, loading: false })
+  const { query, replace } = useRouter()
   useEffect(() => {
     let fetch = true
     if (query.w_id) {
       webinarsRepository.get(query.w_id as string).then(res => {
         setWebinar(res)
-        if(res?.deferred_video){
+        if (res?.deferred_video) {
           webinarsRepository.getVideoUrl(res.deferred_video.gcs_path)
-          .then(url =>  setDeferred_video(url))
+            .then(url => setDeferred_video(url))
         }
       })
     }
@@ -52,43 +54,61 @@ const WebinarDetail: NextPage = () => {
     setState(pre => ({ ...pre, edit: false }))
   }
 
-  const onDelete = async ()=> {
+  const onDelete = async () => {
     await webinarsRepository.delete(webinar?.id as string)
     setState(pre => ({ ...pre, loading: true }))
     setTimeout(() => {
       setState(pre => ({ ...pre, loading: false }))
       replace('/webinars')
-    }, 10000); 
+    }, 10000);
   }
 
   return !webinar ? (
     <Loading loading variant='inner-primary' />
   ) : (
-    <div>
-      <div>{webinar.title}</div>
-      <div>{webinar.date.toLocaleString()}</div>
-      <div>{webinar.description}</div>
-      {(webinar.thumb && !deferred_video) && (
-        <div style={{ position: 'relative', height: '200px' }}>
-          <Image
-            src={webinar.thumb?.url as string}
-            layout='fill'
-            alt={webinar.title}
-          />
+    <div className={style.webinarDetail}>
+      <header>
+        <div>
+          <p className='small-caps'><FormattedMessage id={'webinars'} /></p>
+          <h1 className={`${style.topTitle} main-title`}>
+            {webinar.title}
+          </h1>
         </div>
-      )}
-
-      {
+        <div className={style.webinarDetail_date}>
+          {webinar.date.toLocaleString()}
+        </div>
+      </header>
+      <div className={style.webinarDetail_description}>
+        <div className={style.webinarDetail_description_text}>
+          {webinar.description}
+        </div>
+        <div className={style.webinarDetail_description_image}>
+          {(webinar.thumb && !deferred_video) && (
+            <div>
+              <Image
+                src={webinar.thumb?.url as string}
+                layout='fill'
+                alt={webinar.title}
+              />
+            </div>
+          )}
+        </div>
+        <div className={style.webinarDetail_description_video}>
+        {
         deferred_video && <div style={{
           position: 'relative',
           width: '100%'
         }}>
-         <video style={{
-          position: 'relative',
-          width: '100%'
-        }} controls src={deferred_video} autoPlay={false}></video>
+          <video style={{
+            position: 'relative',
+            width: '100%'
+          }} controls src={deferred_video} autoPlay={false}></video>
         </div>
       }
+        </div>
+      </div>
+
+
       <div>
         <ButtonApp onClick={() => setState(pre => ({ ...pre, edit: true }))}>
           Editar @Jose restringir a administradores
@@ -142,19 +162,19 @@ const WebinarDetail: NextPage = () => {
         </Modal>
       )}
 
-    {state.delete && (
+      {state.delete && (
         <AlertApp
-        visible={state.delete}
+          visible={state.delete}
           onAction={onDelete}
           title='Eliminar webinar'
           onCancel={() => setState(pre => ({ ...pre, delete: false }))}
         >
-          <Loading loading={state.loading}/>
+          <Loading loading={state.loading} />
           <div>
             Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
           </div>
         </AlertApp>
-      )}      
+      )}
     </div>
   )
 }
@@ -288,7 +308,7 @@ const UploadVideo = ({
   onCancel
 }: {
   w_id: string
-  onUploadVideo: Function, 
+  onUploadVideo: Function,
   onCancel: Function
 }) => {
   const [progress, setProgresss] = useState(0)
@@ -319,7 +339,7 @@ const UploadVideo = ({
       >
         <p>Subiendo video diferido</p>
         <div
-          style={{ width: '100%', background: 'gray', position: 'relative' , height : '40px'}}
+          style={{ width: '100%', background: 'gray', position: 'relative', height: '40px' }}
         >
           <div
             style={{
@@ -334,7 +354,7 @@ const UploadVideo = ({
 
       <ButtonApp
         onClick={() => {
-          
+
           task?.cancel()
           console.log(console.log(progress))
           //setProgresss(0)

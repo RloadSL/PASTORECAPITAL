@@ -1,0 +1,25 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
+.webinarDetail {
+  @extend %layoutContainer;
+  padding: 2%;
+  max-width: 1500px;
+
+  &_description {
+    color: colors.$dark;
+
+    &_image {
+      max-width: 1200px;
+      position: relative;
+      height: 400px;
+    }
+  }
+
+
+}
+
+.wantAttendButton {
+
+}
