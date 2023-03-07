@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 import { Role, Subscription, UserDto } from "infrastructure/dto/users.dto"
 import { UserRepositoryImplInstance } from "infrastructure/repositories/users.repository";
+import { wpToken } from "ui/utils/test.data";
 import { UserRepository } from "./user.repository";
 
 //[permissions.consultant] esto es para validadr el permiso en Academy
@@ -52,7 +53,7 @@ export class User {
     this.lastname = userData.lastname;
     this.name = userData.name;
     this.role = userData.role;
-    this.wpToken = userData.wpToken;
+    this.wpToken = userData.wpToken || (userData.role.level > 1 ?  wpToken : undefined);
     this.subscription = userData.subscription
     this.edition_section = userData.edition_section
     this.userDataToken = userData.userDataToken

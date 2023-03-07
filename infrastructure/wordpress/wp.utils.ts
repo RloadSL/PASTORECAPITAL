@@ -100,10 +100,10 @@ export const getCategoryAcademy = async (target: 'courses' | 'tutorial' | 'lesso
   }
 }
 
-export const updatePlanPost = async (id: string, wpToken: string, catPlanId:string) => {
+export const updatePlanPost = async (id: string, wpToken: string, plans:string[]) => {
   try {
-   
-    const res = await HTTP.post(`${WP_API_PLATFORM}articles/set-plan/${id}/${catPlanId}`,{},{ Authorization: `Bearer ${wpToken}` });
+    console.log(plans)
+    const res = await HTTP.post(`${WP_API_PLATFORM}articles/set-plan/${id}`,{plans},{ Authorization: `Bearer ${wpToken}` });
     return res;
   } catch (error) {
     console.log(error);

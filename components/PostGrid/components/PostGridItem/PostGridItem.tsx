@@ -99,7 +99,7 @@ const PostGridItemView = ({
           }
         >
           <MenuItem onClick={() => onClickItem('edit')}>Editar</MenuItem>
-          {setPlan && <MenuItem onClick={() => setPlan({ id: gridItem.id, plan_id: gridItem.getCatgoryByParent('plans').term_id})} >Cambiar Plan</MenuItem>}
+          {setPlan && <MenuItem onClick={() => setPlan({ id: gridItem.id, plans: gridItem.getCatgoryByParent('plans')})} >Cambiar Plan</MenuItem>}
           <MenuItem
             onClick={() => {
               deleteItem({ id: gridItem.id, status: gridItem.status })

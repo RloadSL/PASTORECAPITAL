@@ -158,9 +158,9 @@ export class FlashUpdatesRepository {
    * @param wpToken Token de seguridad de WP obtenido si eres colaborador o administrador 
    * @returns 
    */
-   async setPlanArticle(id: number, term_id : number, wpToken: string): Promise<void> {
+   async setPlanArticle(id: number, term_id : string[], wpToken: string): Promise<void> {
     try {
-      await HTTP.post( `${WP_API_FlUSH_UPDATES}articles/set-plan/${id}/${term_id}`, {},{ Authorization: `Bearer ${wpToken}` })
+      await HTTP.post( `${WP_API_FlUSH_UPDATES}articles/set-plan/${id}`, {term_id},{ Authorization: `Bearer ${wpToken}` })
       return;
     } catch (error) {
       console.error(error)

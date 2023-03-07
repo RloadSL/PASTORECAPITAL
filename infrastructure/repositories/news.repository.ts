@@ -7,7 +7,7 @@ export interface QUERY_NEWS {
   search?: string,
   topic?: API_NEWS_TOPICS,
   items: number,
-  page: number
+  page?: number
 }
 
 class NewsRepository {

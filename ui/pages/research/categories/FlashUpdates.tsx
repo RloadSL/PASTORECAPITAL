@@ -21,6 +21,7 @@ import { FormattedMessage } from 'react-intl'
 import { Post } from 'domain/Post/Post'
 import SearchBar from 'components/SearchBar'
 import { FlashUpdatesRepositoryInstance } from 'infrastructure/repositories/flashupdates.repository'
+import { WP_TERM } from 'infrastructure/dto/wp.dto'
 
 
 const CreateFormArticle = dynamic(
@@ -182,9 +183,8 @@ const FlashUpdatesView = ({
     { items: Post[]; hasMore: false } | undefined
   >()
   const [updatePLan, setUpdatePLan] = useState<
-    { id: string; plan_id: string } | undefined
+    { id: string; plans: WP_TERM[] } | undefined
   >(undefined)
-
   useEffect(() => {
     if (selectedPost) setoutstandingPost(selectedPost)
   }, [selectedPost])
@@ -219,7 +219,7 @@ const FlashUpdatesView = ({
         <PostGrid
           parent='page.analysis.articles.form.create.submit'
           loadMore={loadMore}
-          setPlan={({ id, plan_id }: any) => setUpdatePLan({ id, plan_id })}
+          setPlan={({ id, plans }: any) => setUpdatePLan({ id, plans })}
           statePost={statePost}
           setStatePost={(state: 'public' | 'private') => setStatePost(state)}
           onClickItemTarget={encodeURI(
@@ -282,10 +282,8 @@ const FlashUpdatesView = ({
         >
           <WpUpdatePlan wpToken = {userTokens.wpToken}
             post_id={updatePLan?.id}
-            current_plan_id={updatePLan?.plan_id}/>
-            
-         
-        </AlertApp>
+            current_plans={updatePLan.plans.map(item => item.term_id?.toString())}/>
+         </AlertApp>
       </Suspense>}
     </div>
   )

@@ -5,7 +5,6 @@ AnalysisArticleDetail.getInitialProps = async (ctx) => {
   const {post_id}:any = ctx.query;  
   const {req, res} = ctx;
   const userData = getCookie('user-data', { req, res });
-  console.log('getInitialProps', userData);
   const response = await AnalysisRepositoryInstance.getArticle(post_id, userData?.toString())
   
     if(response){

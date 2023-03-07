@@ -3,7 +3,7 @@ import serviceImage from "../../assets/img/serviceImage.jpg";
 
 
 
-
+export const wpToken = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg4ODgvcGFzdG9yZWhlYWRsZXNzIiwiaWF0IjoxNjc4MTc1NTczLCJuYmYiOjE2NzgxNzU1NzMsImV4cCI6MTY3ODc4MDM3MywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.L3YVvj1Dfwlw2wNMi37ij6BW28s4koL0ajijVSYRQKI`
 
 export const gridItems = [
   {

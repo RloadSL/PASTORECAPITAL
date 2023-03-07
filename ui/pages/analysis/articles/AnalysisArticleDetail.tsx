@@ -31,13 +31,7 @@ import LoadMoreLoading from 'components/LoadMoreLoading'
 const AnalysisArticleDetail: NextPage<any> = ({ post }: { post: PostDto }) => {
   const { wpToken } = useSelector(getUserLogged) || {}
   const { replace, reload } = useRouter()
-  const setGarant = useContext(SubscriptionGranted)
-
-  useEffect(() => {
-    if (!post.metas.permission_garanted) {
-      setGarant({ garanted: 'no_garant' })
-    }
-  }, [post])
+  
 
   const editLink = (useRef<any>().current = wpToken
     ? `${WP_EDIT_POST}?post=${post.id}&action=edit&?&token=${wpToken}`

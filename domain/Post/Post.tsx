@@ -108,7 +108,7 @@ export class Post {
   }
 
   public getCatgoryByParent = (parentSlug: string) =>
-    this._categories.find(
+    this._categories.filter(
       cat => cat.parent != 0 && cat.parent.slug === parentSlug
     )
 

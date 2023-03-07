@@ -1,6 +1,6 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { User as FireUser } from "firebase/auth";
-import { env } from "infrastructure/firebase/config";
+import { env, on_cloud_wp } from "infrastructure/firebase/config";
 import { AuthenticationRepository } from "../../domain/Authentication/authentication.repository";
 import { CreateUser, Role } from "../dto/users.dto";
 import FireAuthentication  from "../firebase/authentication.firebase";
@@ -55,7 +55,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository {
    * @returns Promesa con los resultados de la operación
    */
    async getWordpressToken(uid:string): Promise<{ wp_token:string | null, error: ErrorApp | null }> {
-    const response:any = await FireFunctionsInstance.onCallFunction('GetWpTokenTriggerFunctions', {uid, env: env});
+    const response:any = await FireFunctionsInstance.onCallFunction('GetWpTokenTriggerFunctions', {uid, env: !on_cloud_wp && env == 'dev' ? 'local-dev' : env});
     return response;
   }
   /**

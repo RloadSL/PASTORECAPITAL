@@ -33,8 +33,8 @@ const NewsListItem = ({
           </div>
           <p className={style.newsContent_date}>
             <span> {item.source_name}</span> |{' '}
-            <span>{item.date.toLocaleDateString()}</span> | 
-            <span>{item.sentiment}</span>
+            <span>{item.date.toLocaleDateString()}</span>
+           {/*  <span>{item.sentiment}</span> */}
           </p>
         </div>
       </div>
