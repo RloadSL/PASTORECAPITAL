@@ -1,0 +1,61 @@
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/placeholders";
+
+.webinars {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  header {
+    @include devices.device(smTablet) {
+      display: flex;
+    }
+  }
+
+  .subtitle {
+    color: colors.$dark;
+    font-weight: 500;
+  }
+}
+
+.webinarsContainer {
+  display: flex;
+  ul {
+    list-style-type: none;
+    margin-right: 2rem;
+
+    li {
+      margin-bottom: 20px;
+      h3 {
+        font-size: 1.4rem !important;
+      }
+    }
+  }
+}
+
+.createRoomBtnContainer {
+  @include devices.device(smTablet) {
+    width: 450px;
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+  }
+
+  button {
+    width: 200px;
+    height: fit-content;
+  }
+}
+
+.filtersSearchContainer {
+  max-width: 1200px;
+}
+
+.linkDeferred {
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  border-radius: 50px;
+  font-weight: bold;
+  padding: 8px
+}

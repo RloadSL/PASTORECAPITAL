@@ -41,7 +41,6 @@ body {
 
 // box-shadow: 0 0 0 2px colors.$main;
 
-
 .justify {
 	&-end {
 		justify-content: flex-end;
@@ -178,7 +177,7 @@ p {
 		align-items: center;
 		font-weight: normal;
 		&::before {
-			content: '';
+			content: "";
 			width: 15px;
 			height: 30px;
 			display: inline-block;
@@ -190,7 +189,6 @@ p {
 		}
 	}
 }
-
 
 .fake-button {
 	background-color: colors.$grey40;
@@ -212,9 +210,9 @@ p {
 	background-color: colors.$grey30;
 	padding: 20px 15px;
 	border-radius: 20px;
-	opacity: .5;
+	opacity: 0.5;
 	.label {
-		font-size: .9rem;
+		font-size: 0.9rem;
 		color: grey;
 	}
 }
@@ -274,7 +272,8 @@ p {
 	box-shadow: none;
 }
 
-.admin-buttons-container, .pagination {
+.admin-buttons-container,
+.pagination {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -297,7 +296,30 @@ p {
 	}
 }
 
+.react-calendar {
+	&__navigation__next2-button, &__navigation__prev2-button {
+		display: none !important;
+	}
 
+	&__tile {
+		line-height: 25px !important;
 
+		&--now {
+			background-color: colors.$main !important;
+			border-radius: 50%;
+			color: white;
+		}
+	}
 
+	&__month-view {
+		&__weekdays {
+			font-weight: normal !important;
+			color: colors.$grey50;
+		}
 
+		&__days__day--weekend {
+			color: colors.$dark !important;
+		}
+	}
+
+}

@@ -1,14 +1,15 @@
 import { Webinars } from 'domain/Webinars/Webinars'
 import React, { Component, useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
-//import "react-calendar/dist/Calendar.css";
-import style from './calendar.module.scss'
+// import "react-calendar/dist/Calendar.css";
+import style from './webinars-calendar.module.scss'
+
 const WebinarsCalendar = ({ items }: { items: Webinars[] }) => {
   const [rendered, setRendered] = useState(false)
   useEffect(() => {
     setRendered(true)
   }, [])
-  
+
   const setClass = (date: Date) => {
     const dateobj =
       items &&
@@ -19,15 +20,17 @@ const WebinarsCalendar = ({ items }: { items: Webinars[] }) => {
           date.getDate() === new Date(w.date).getDate()
         )
       })
+
     return dateobj ? style['highlight'] : ''
   }
 
   return (
     <>
-      {rendered && 
-      <Calendar
-        tileClassName={({ activeStartDate, date, view }) => setClass(date)}
-      />}
+      {rendered &&
+        <Calendar
+          className={style.webinarCalendar}
+          tileClassName={({ activeStartDate, date, view }) => setClass(date)}
+        />}
     </>
   )
 }

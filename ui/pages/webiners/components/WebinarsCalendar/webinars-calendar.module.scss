@@ -1,0 +1,33 @@
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/placeholders";
+
+.webinarCalendar {
+  border: none;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+
+  abbr[title] {
+    text-decoration: none !important;
+  }
+
+  button {
+    font-size: 1rem;
+    font-weight: normal;
+  } 
+
+  .highlight {
+    background: colors.$warning;
+    border-radius: 50%;
+
+    & abbr {
+      padding: 0px;
+      color: white;
+    }
+
+  }
+}
+
+
+
