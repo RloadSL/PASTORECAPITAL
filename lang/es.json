@@ -210,6 +210,7 @@
   "page.amas.modalDownload.text": "¡Ups! Esta sala ya está cerrada pero si quieres puedes descargar el contenido en PDF para no perderte nada",
   "page.amas.roomLabel.open": "Abierta",
   "page.amas.roomLabel.closed": "Cerrada",
+  "page.webinars.subtitle": "Próximas sesiones",
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
@@ -351,7 +352,7 @@
   "amas" : "Amas",
   "chatroom_id": "Sala",
   "webinars": "Webinars",
-  "deferred" :"Diferidos",
+  "deferred" :"Webinars anteriores",
   "w_id": "Detalle del Webinar",
   "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam.",
   "empty": " ",

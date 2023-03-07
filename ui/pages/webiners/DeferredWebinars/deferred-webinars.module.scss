@@ -1,19 +1,19 @@
-@use "../../../styles/partials/variables/colors" as colors;
-@use "../../../styles/partials/mixins/devices" as devices;
-@use "../../../styles/partials/placeholders";
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
 
-.amas {
+.deferredWebinars {
   @extend %layoutContainer;
   padding: 2%;
 
-  header {
-    @include devices.device(smTablet) {
-      display: flex;
-    }
-  }
+  // header {
+  //   @include devices.device(smTablet) {
+  //     display: flex;
+  //   }
+  // }
 }
 
-.chatRoom {
+.webinarsContainer {
   &_grid {
     margin-top: 5px;
 
@@ -69,40 +69,3 @@
   }
 }
 
-.createRoomBtnContainer {
-  @include devices.device(smTablet) {
-    width: 450px;
-  display: flex;
-  justify-content: right;
-  align-items: flex-end;
-  }
-
-  button {
-    width: 200px;
-    height: fit-content;
-  }
-}
-
-.filtersContainer {
-  margin-top: 50px;
-  @include devices.device(lgScreen) {
-    display: flex;
-  }
-
-  &_searchBar {
-    @include devices.device(lgScreen) {
-      width: 80%;
-    }
-  }
-
-  &_select {
-    @include devices.device(lgScreen) {
-      width: 20%;
-    }
-  }
-}
-
-.modalContainer {
-  text-align: center;
-  color: colors.$dark;
-}

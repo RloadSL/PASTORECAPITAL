@@ -1,0 +1,85 @@
+@use "../../../../../styles/partials/variables/colors" as colors;
+@use "../../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../../styles/partials/placeholders";
+
+.webinar{
+  color: colors.$dark;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0 2px colors.$main;
+    @extend %borderRadius
+  }
+
+  .cardContainer {
+    padding: 15px;
+  
+    // & > div {
+    //   flex: 1;
+    // }
+  
+    // @include devices.device(lgScreen) {
+    //   min-height: 420px;
+    //   display: flex;
+    //   flex-direction: column;
+    // }
+  }
+
+  h3 {
+    margin-top: 0px;
+  }
+
+
+  &_date {
+    color: colors.$grey60;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      background:url(../../../../../assets/img/icons/calendar.svg);
+      background-size: contain;
+      margin-right: 10px;
+      filter: invert(23%) sepia(100%) saturate(2249%) hue-rotate(261deg) brightness(88%) contrast(101%);
+    }
+  }
+}
+
+.imageContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  height: 150px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: lighten(colors.$main, 42%);
+  background-image: url(../../../../../assets/img/icons/no-image.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @include devices.device(smTablet) {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+  }
+
+  @include devices.device(lgScreen) {
+    width: 100%;
+    height: 135px;
+  }
+}
+
+.colorSpot {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  flex-shrink: 0;
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+}

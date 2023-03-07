@@ -4,8 +4,11 @@ import { Webinars } from 'domain/Webinars/Webinars'
 import { ELASTIC_QUERY } from 'infrastructure/elasticsearch/search.elastic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import ItemListWebinar from '../components/ItemListWebinar/ItemListWebinar'
 import useWebinars from '../hooks/webinars.hook'
+import style from './deferred-webinars.module.scss'
+import clockIcon from '../../../../assets/img/icons/clock.svg'
 
 const DeferredWebinars = () => {
   const {
@@ -18,19 +21,27 @@ const DeferredWebinars = () => {
     onFilter,
     loadMore
   } = useWebinars()
-  const {push} = useRouter()
+  const { push } = useRouter()
   useEffect(() => {
-    handleSearchWebinars({filters: {state : ['DEFERRED']}})
+    handleSearchWebinars({ filters: { state: ['DEFERRED'] } })
   }, [query])
-  
+
   const goToDetail = (id: string) => {
     push({
       pathname: '/webinars/' + id
     })
   }
   return (
-    <div>DeferredWebinars
-
+    <div className={style.deferredWebinars}>
+      <header>
+        <p className='small-caps'><FormattedMessage id='webinars' /></p>
+        <p className={`${style.topTitle} main-title`}>
+          <FormattedMessage id='Webinars anteriores' />
+        </p>
+        <p>
+          <FormattedMessage id="loremipsum" />
+        </p>
+      </header>
       <div>
         <SearchBar
           enableTags={false}
@@ -40,18 +51,20 @@ const DeferredWebinars = () => {
           }
         />
       </div>
-      <div>
+      <div className={style.webinarsContainer}>
+        <ul className={style.webinarsContainer_grid}>
           {webinars.map(item => (
-            <div key={item.id}>
-              <ItemListWebinar showThumb onClick={goToDetail} item={item} />
-            </div>
+            <li key={item.id}>
+              <ItemListWebinar showThumb onClick={goToDetail} item={item} chips={[{ label: `${item.date?.toLocaleDateString()} ${item.date?.toLocaleTimeString()}`, icon: clockIcon }]} />
+            </li>
           ))}
-          <div>
-            {pages?.current < pages?.total_pages && (
-              <ButtonApp onClick={loadMore}>LoadMore</ButtonApp>
-            )}
-          </div>
+        </ul>
+        <div>
+          {pages?.current < pages?.total_pages && (
+            <ButtonApp onClick={loadMore}>LoadMore</ButtonApp>
+          )}
         </div>
+      </div>
     </div>
   )
 }
