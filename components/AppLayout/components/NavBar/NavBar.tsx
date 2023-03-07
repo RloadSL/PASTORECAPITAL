@@ -14,6 +14,7 @@ import { useComponentUtils } from 'ui/hooks/components.hooks'
 import Notifications from 'components/Notifications'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import ButtonApp from 'components/ButtonApp'
+import Translate from 'domain/Translate/Translate'
 /**
  * OJO crear un interface
  * @returns 
@@ -25,6 +26,7 @@ const NavBar = () => {
   const user = useSelector(getUserLogged)
   const { limitTextLength } = useComponentUtils()
   const router = useRouter()
+  
 
   const _signOutUser = () => {
     router.push('/');
@@ -75,8 +77,12 @@ const NavBarView = ({
   uid: string,
   hasNoti: boolean
 }) => {
-  const { push, asPath } = useRouter()
-
+  const { push, pathname, asPath, query, locale  } = useRouter()
+  const switchLocal = ()=>{
+    const newlocale =  locale === 'es' ? 'en' : 'es'
+    push({ pathname, query }, asPath, { locale: newlocale})
+    Translate.currentLocal = newlocale;
+  }
   return (
     <div className={style.navbarContainer}>
       {windowSize.width >= 1080 ? <Breadcrumbs /> : (
@@ -138,8 +144,13 @@ const NavBarView = ({
             </a>
           </Link>
         )}
+        <div className={style.buttonContainer}>
+          <ButtonApp onClick={switchLocal} buttonStyle='link'>
+            {locale === 'en' ? 'ES' : 'EN'}
+          </ButtonApp>
+        </div>
       </div>
-
+      
     </div>
   )
 }

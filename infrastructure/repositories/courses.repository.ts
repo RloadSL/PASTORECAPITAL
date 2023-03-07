@@ -1,6 +1,7 @@
 import { Course } from "domain/Course/Course";
 import { CourseRepository } from "domain/Course/course.repository";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
+import Translate from "domain/Translate/Translate";
 import { createWpCourse, deleteWpCourse } from "infrastructure/wordpress/academy/courses.wp";
 import { getAllPagesFromServer, getAllPostsFromServer, getCategories, getPageFromServer } from "infrastructure/wordpress/wp.utils";
 
@@ -19,6 +20,7 @@ class CoursesRepositoryImpl extends CourseRepository{
   }
 
   async create(course: any, wpToken: string): Promise<Course | ErrorApp> {
+    course.lang = Translate.currentLocal;
     const response = await createWpCourse(course, wpToken)
     if(response instanceof Course) {
       return response;

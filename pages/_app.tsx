@@ -10,6 +10,8 @@ import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import SnackBar from 'components/SnackBar'
 import Loading from 'components/Loading'
+import { useEffect } from 'react'
+import Translate from 'domain/Translate/Translate'
 
 
 const messages: any = {
@@ -25,7 +27,10 @@ function getDirection (locale: string) {
 }
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
-  const locale: any = useRouter().locale || 'es'
+  const locale: 'es' | 'en' = (useRouter().locale || 'es') as any
+  useEffect(() => {
+    Translate.currentLocal = locale;
+  }, [])
   
   
   return (<>

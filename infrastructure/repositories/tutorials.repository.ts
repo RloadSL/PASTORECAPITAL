@@ -1,4 +1,5 @@
 import { Post } from "domain/Post/Post";
+import Translate from "domain/Translate/Translate";
 import { HTTP } from "infrastructure/http/http";
 import { WP_API_POST } from "infrastructure/wordpress/config";
 import { getAllPostsFromServer, getCategoryAcademy } from "infrastructure/wordpress/wp.utils";
@@ -19,8 +20,11 @@ class TutorialRepositoryImpl {
 
   create = async (lesson: { title: string, excerpt: string }, wpToken: string) => {
     let primaryCat = await getCategoryAcademy('tutorial', wpToken)
+    const lang = Translate.currentLocal;
+
     const arg = {
       ...lesson,
+      lang,
       status: 'private',
       content: '<p>Contenido de la lección aquí....</p>',
       categories: [primaryCat]

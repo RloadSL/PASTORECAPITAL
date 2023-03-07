@@ -18,15 +18,9 @@ import fileIcon from '../../../../../../../assets/img/icons/analysis.svg'
 import descriptionIcon from '../../../../../../../assets/img/icons/edit.svg'
 import TextareaApp from 'components/FormApp/components/TextareaApp'
 import Loading from 'components/Loading'
-import { AppDispatch } from 'ui/redux/store'
 
-const courseDataTest: any = {
-  title: 'Prueba de pagina de curso',
-  excerpt: 'Esta es el comentario breve de la pagina'
-}
 
 const CreateForm = ({ onClose }: { onClose: Function }) => {
-  const dispatch = useDispatch<AppDispatch>()
   const intl = useIntl()
   const { pushErrorsApp } = useSystem()
   
@@ -67,7 +61,6 @@ const CreateForm = ({ onClose }: { onClose: Function }) => {
       if (response instanceof ErrorApp) {
         pushErrorsApp(response)
       } else {
-       // dispatch(addAcedemyPrivateCourse(response));
         window.open(
           `${WP_EDIT_POST}?post=${response.id}&action=edit&?&token=${userLogged.wpToken}`
         )

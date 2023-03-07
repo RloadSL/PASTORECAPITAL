@@ -2,6 +2,7 @@ import { Course } from "domain/Course/Course";
 import { CourseRepository } from "domain/Course/course.repository";
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { Post } from "domain/Post/Post";
+import Translate from "domain/Translate/Translate";
 import { HTTP } from "infrastructure/http/http";
 import { createWpCourse, deleteWpCourse } from "infrastructure/wordpress/academy/courses.wp";
 import { WP_API_PAGES, WP_API_POST } from "infrastructure/wordpress/config";
@@ -23,10 +24,13 @@ class LessonsRepositoryImpl {
 
   create = async (lesson: { title: string, excerpt: string, courseCat?: number }, wpToken: string) => {
     let primaryCat = await getCategoryAcademy('lessons', wpToken)
+    const lang = Translate.currentLocal;
+
     const {courseCat} = lesson;
     delete lesson.courseCat;
     const arg = {
       ...lesson,
+      lang,
       status: 'private',
       content: '<p>Contenido de la lección aquí....</p>',
       categories: [courseCat, primaryCat],

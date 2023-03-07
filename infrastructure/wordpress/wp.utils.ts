@@ -1,3 +1,4 @@
+import Translate from "domain/Translate/Translate";
 import { Role } from "infrastructure/dto/users.dto";
 import { CATEGORY } from "infrastructure/dto/wp.dto"
 import { HTTP } from "infrastructure/http/http"
@@ -34,8 +35,9 @@ export const getCategoriesPlans = async (): Promise<Array<any>> => {
 export const getAllPostsFromServer = async (offset?: number, filters?: { search?: string, categories?: string, tags?: any }, wpToken?: string) => {
   //   get all posts from Server
   try {
+    const lang = Translate.currentLocal;
     const headers = wpToken && { Authorization: `Bearer ${wpToken}` };
-    const url = WP_API_POST_LIST + `${offset ? '&offset=' + offset : ''}${filters?.search ? '&search=' + filters.search : ''}${filters?.tags ? '&tags=' + filters.tags : ''}${filters?.categories ? '&categories=' + filters.categories : ''}${headers ? '&status=' + 'private' : '&status=publish'}`;
+    const url = WP_API_POST_LIST + `&lang=${lang}${offset ? '&offset=' + offset : ''}${filters?.search ? '&search=' + filters.search : ''}${filters?.tags ? '&tags=' + filters.tags : ''}${filters?.categories ? '&categories=' + filters.categories : ''}${headers ? '&status=' + 'private' : '&status=publish'}`;
     const res = await HTTP.get(url, headers);
     return res;
   } catch (error) {
@@ -45,8 +47,9 @@ export const getAllPostsFromServer = async (offset?: number, filters?: { search?
 
 export const getAllPagesFromServer = async (offset?: number, filters?: { search?: string, categories?: string, tags?: any }, wpToken?: string) => {
   try {
+    const lang = Translate.currentLocal;
     const headers = wpToken && { Authorization: `Bearer ${wpToken}` };
-    const url = WP_API_PAGES_LIST + `${offset ? '&offset=' + offset : ''}${filters?.search ? '&search=' + filters.search : ''}${filters?.tags ? '&tags=' + filters.tags : ''}${filters?.categories ? '&categories=' + filters.categories : ''}${headers ? '&status=' + 'private' : '&status=publish'}`;
+    const url = WP_API_PAGES_LIST + `&lang=${lang}${offset ? '&offset=' + offset : ''}${filters?.search ? '&search=' + filters.search : ''}${filters?.tags ? '&tags=' + filters.tags : ''}${filters?.categories ? '&categories=' + filters.categories : ''}${headers ? '&status=' + 'private' : '&status=publish'}`;
     const res = await HTTP.get(url, headers);
     return res;
   } catch (error) {

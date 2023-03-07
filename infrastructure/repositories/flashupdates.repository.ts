@@ -1,5 +1,6 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { Post } from "domain/Post/Post";
+import Translate from "domain/Translate/Translate";
 import { WP_TERM } from "infrastructure/dto/wp.dto";
 import { HTTP } from "infrastructure/http/http";
 import { WP_API_FlUSH_UPDATES, WP_API_CATEGORY, WP_API_POST } from "infrastructure/wordpress/config";
@@ -77,7 +78,8 @@ export class FlashUpdatesRepository {
    * @returns 
    */
   async getArticles(userDataToken?: string, wpToken?: string, query?: FU_QUERY) {
-   
+    const lang = Translate.currentLocal
+
     let params: string = userDataToken ? `user-data=${userDataToken}&` : ''
     type query_type = 'post_status' | 'posts_per_page' | 'offset' | 's' | 'category_name' | 'tags';
     if (query) {
@@ -94,7 +96,7 @@ export class FlashUpdatesRepository {
       return console.error('Bad reques wpToken is needed to private post')
     }
 
-    const res = await HTTP.get(`${WP_API_FlUSH_UPDATES}articles?${params}`, HTTP.getHeaders(wpToken))
+    const res = await HTTP.get(`${WP_API_FlUSH_UPDATES}articles?lang=${lang}&${params}`, HTTP.getHeaders(wpToken))
     if (res.success) {
       const posts = res.hits.map((item: any) => new Post(item));
       
@@ -110,8 +112,9 @@ export class FlashUpdatesRepository {
    * @returns 
    */
   async getOutstandingArticles(category_name?: string, userDataToken?: string) {
+    const lang = Translate.currentLocal
     let userData: string = userDataToken ? `user-data=${userDataToken}` : ''
-    const res = await HTTP.get(`${WP_API_FlUSH_UPDATES}articles?${userData}&posts_per_page=3&destacar_articulo=1&${category_name ? 'category_name=' + category_name : ''}`, HTTP.getHeaders())
+    const res = await HTTP.get(`${WP_API_FlUSH_UPDATES}articles?lang=${lang}&${userData}&posts_per_page=3&destacar_articulo=1&${category_name ? 'category_name=' + category_name : ''}`, HTTP.getHeaders())
     if (res.success) {
       const posts = res.hits.map((item: any) => new Post(item));
       return posts
