@@ -17,13 +17,13 @@ const NewsListItem = ({
   return (
     <div className={style.newsContent}>
       <div className={style.newsContent_info}>
-        <p className={style.newsContent_info_title}>
+        <h2 className={style.newsContent_info_title}>
           <Link href={item.news_url}>
             <a target={'_blank'} rel='noopener noreferrer'>
               {item.title}
             </a>
           </Link>
-        </p>
+        </h2>
         <p>{item.text}</p>
         <div className={style.newsContent_info_footer}>
           <div className={style.tickers}>

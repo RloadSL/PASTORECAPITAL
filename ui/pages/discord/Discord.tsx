@@ -103,7 +103,7 @@ const Discord: NextPage = () => {
         </p>
       </header>
       <div className={style.banner_top}>
-        <div className={`flex-container align-center ${style.flexContainer}`}>
+        <div className={style.flexContainer}>
           <div className={style.imageContainer}>
             <Image src={discordImg} alt='' />
           </div>
