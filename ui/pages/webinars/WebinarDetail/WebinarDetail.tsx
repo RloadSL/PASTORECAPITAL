@@ -75,7 +75,9 @@ const WebinarDetail: NextPage = () => {
           </h1>
         </div>
         <div className={style.webinarDetail_date}>
-          {webinar.date.toLocaleString()}
+          <span className={style.date}>
+            {webinar.date.toLocaleString()}
+          </span>
         </div>
       </header>
       <div className={style.webinarDetail_description}>
@@ -94,17 +96,17 @@ const WebinarDetail: NextPage = () => {
           )}
         </div>
         <div className={style.webinarDetail_description_video}>
-        {
-        deferred_video && <div style={{
-          position: 'relative',
-          width: '100%'
-        }}>
-          <video style={{
-            position: 'relative',
-            width: '100%'
-          }} controls src={deferred_video} autoPlay={false}></video>
-        </div>
-      }
+          {
+            deferred_video && <div style={{
+              position: 'relative',
+              width: '100%'
+            }}>
+              <video style={{
+                position: 'relative',
+                width: '100%'
+              }} controls src={deferred_video} autoPlay={false}></video>
+            </div>
+          }
         </div>
       </div>
 

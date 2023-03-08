@@ -17,6 +17,33 @@
     }
   }
 
+  &_date {
+    color: colors.$dark;
+    display: flex;
+    align-items: center;
+    .date {
+      display: flex;
+      align-items: center;
+  
+      // strong {
+      //   margin-left: 10px;
+      // }
+  
+      &::before {
+        content: '';
+        background-image: url(../../../../assets/img/icons/calendar.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        filter: invert(33%) sepia(62%) saturate(5806%) hue-rotate(269deg) brightness(97%) contrast(95%);
+      }
+    }
+
+  }
+
 
 }
 
