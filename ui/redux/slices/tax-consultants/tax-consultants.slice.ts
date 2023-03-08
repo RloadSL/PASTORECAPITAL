@@ -16,7 +16,7 @@ export const searchConsultants = createAsyncThunk(
   'taxConsultant@search',
   async (query: ELASTIC_QUERY = {query:''}) => {
     try {
-      const response = await userConsultantRepository.searchUserConsultants(query)
+      const response = await userConsultantRepository.searchUserConsultants({...query, filters:{state: 'active'}})
       return response
     } catch (error) {
       return {error, items: []};

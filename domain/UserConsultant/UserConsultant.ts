@@ -13,7 +13,7 @@ export class UserConsultant{
   uid:string;
   name:string;
   lastname:string;
-  country?:Country;
+  country?: Country;
   avatar?:Avatar;
   description:string;
   keywords?: string[];
@@ -28,7 +28,7 @@ export class UserConsultant{
     this.name = user.name;
     this.lastname = user.lastname;
     this.id = data.id as string;
-    this.country =  this.parseCountry(data.country)
+    this.country =  this.parseCountry(data.country?.value)
     this.avatar = data.avatar as Avatar;
     this.description = data.description;
     this.keywords = data.keywords;
@@ -46,7 +46,7 @@ export class UserConsultant{
   }
   private update(data: UserConsultantDto){
     this.id = data.id as string;
-    this.country = this.parseCountry(data.country);
+    this.country = this.parseCountry(data.country?.value);
     this.avatar = data.avatar as Avatar;
     this.description = data.description;
     this.keywords = data.keywords;

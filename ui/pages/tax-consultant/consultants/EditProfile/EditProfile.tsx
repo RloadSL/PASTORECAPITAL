@@ -197,7 +197,7 @@ const EditProfileView = ({
         .string()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       country: yup
-        .string()
+        .object()
         .required(intl.formatMessage({ id: 'page.login.errorRequired' })),
       description: yup
         .string()
