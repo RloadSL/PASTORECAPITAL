@@ -4,7 +4,7 @@ import ItemList from 'components/ItemList'
 import SearchBar from 'components/SearchBar'
 import { useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { news,newsCategories } from 'ui/utils/test.data'
+import { news, newsCategories } from 'ui/utils/test.data'
 import NewsListItem from './components/newsListItem'
 import style from './news.module.scss'
 import starIcon from '../../../assets/img/icons/star.svg'
@@ -20,44 +20,44 @@ import LoadMoreLoading from 'components/LoadMoreLoading'
  * @returns 
  */
 
-const NewsFilters = ({newsCats,onFilter}:any) => {
+const NewsFilters = ({ newsCats, onFilter }: any) => {
   const [isActive, setIsActive] = useState<string>('');
-  
+
 
   return (
     <div className={style.news_filter}>
       <div>
         <ul className={style.newsCategories}>
-        {newsCats.map((cat:any) => {
-          return (
-            <li key={cat.id} className={style.newsCategories_cat}>
-              <ButtonApp
-                onClick={()=>{
-                  //Filtro de categorias
-                  setIsActive(cat.id)
-                }}
-                type='button'
-                buttonStyle={isActive === cat.id ? 'dark' : 'default'}
-                size='small'
-                icon={cat.slug === 'mis-favoritas' ? starIcon : ''}
-              >
-                {cat.title}
-              </ButtonApp>
-            </li>
-          )
-        })}
+          {newsCats.map((cat: any) => {
+            return (
+              <li key={cat.id} className={style.newsCategories_cat}>
+                <ButtonApp
+                  onClick={() => {
+                    //Filtro de categorias
+                    setIsActive(cat.id)
+                  }}
+                  type='button'
+                  buttonStyle={isActive === cat.id ? 'dark' : 'default'}
+                  size='small'
+                  icon={cat.slug === 'mis-favoritas' ? starIcon : ''}
+                >
+                  {cat.title}
+                </ButtonApp>
+              </li>
+            )
+          })}
         </ul>
-       
+
       </div>
       <SearchBar
         placeholder={'Buscar por palabra clave'}
         onFilter={onFilter}
-      />      
+      />
     </div>
   )
 }
 
-const News:NextPage = () => {
+const News: NextPage = () => {
   const [isActive, setIsActive] = useState(false);
   const {
     isloaded,
@@ -83,23 +83,23 @@ const News:NextPage = () => {
     <div className={style.news}>
       <header>
         <h1 className='main-title'>
-          <FormattedMessage id={'Noticias'} />
+          <FormattedMessage id={'news'} />
         </h1>
-        <NewsFilters onFilter={({search, tags}: any)=>{onFilter(search)}} newsCats={newsCategories} onClickFilter={onClickFilter}/>
+        <NewsFilters onFilter={({ search, tags }: any) => { onFilter(search) }} newsCats={newsCategories} onClickFilter={onClickFilter} />
       </header>
       <div className={style.news_container}>
-        
+
         <ItemList
           items={news.map((newItem) => (
             <div key={newItem.news_url}>
-                  <NewsListItem isFavorite={false} toggleFavs={()=>alert('FAV')} key={newItem.news_url} item={newItem} />
-             </div>
+              <NewsListItem isFavorite={false} toggleFavs={() => alert('FAV')} key={newItem.news_url} item={newItem} />
+            </div>
           ))}
         />
-       
-       {(page < total_pages) && <div style={{display:'flex', justifyContent: 'center'}}>
-        <ButtonApp buttonStyle={'link'} onClick={loadMore}><p>Load more</p></ButtonApp>
-        </div>} 
+
+        {(page < total_pages) && <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <ButtonApp buttonStyle={'link'} onClick={loadMore}><p>Load more</p></ButtonApp>
+        </div>}
       </div>
     </div>
   )

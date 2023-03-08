@@ -2,6 +2,7 @@ import StripePayment from 'components/StripePayment'
 import systemRepository from 'infrastructure/repositories/system.repository'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import style from './subscriptionPlans.module.scss'
@@ -47,19 +48,28 @@ const SubscriptionToPlan = () => {
     <div className={style.subscriptionToPlan}>
       <div className={style.subscriptionToPlan_info}>
         <p className={style.title}>
-          <span>Plan </span>
-          <span>{query['plan-subscription']}</span>
+          <span>
+            <FormattedMessage id={'page.subscription.payment.title'}/>
+          </span>
+          <span>{' '}{query['plan-subscription']}</span>
         </p>
-        <p className={style.textInfo}>Completa el proceso de suscripción y comienza
-          a formar parte de nuestra comunidad</p>
+        <p className={style.textInfo}>
+          <FormattedMessage id={'page.subscription.payment.description'}/>
+        </p>
         {intent && (<div className={style.planPrice}>
           <p className={style.labelPlan}>
-            Precio {query.payment_type === 'month' ? 'mensual' : 'anual'}
+          <FormattedMessage id={'page.subscription.payment.label'}/> 
+          {' '}{query.payment_type === 'month' ? 'mensual' : 'anual'}
           </p>
           <p className={style.pricePlan}>
             {intent.amount / 100} €
           </p>
-          <small>IVA incluido</small>
+          <small>
+            <FormattedMessage id={'page.subscription.payment.ivaIncluded'}/>
+          </small>
+          <p className={style.paymentAdvice}>
+            <FormattedMessage id={'page.subscription.payment.advice'}/>
+          </p>
         </div>)}
       </div>
       <div className={style.subscriptionToPlan_form}>
