@@ -1,3 +1,4 @@
+import Translate from "domain/Translate/Translate";
 import FireFirestore from "../firebase/firestore.firebase";
 
 class DiscordRepository{
@@ -12,12 +13,15 @@ class DiscordRepository{
   }
 
   async setDiscord(link:string){
-    await  FireFirestore.setDoc('discord', 'config', {link, created_at: new Date()})
+    const lang = Translate.currentLocal
+    await  FireFirestore.setDoc('discord', 'config', {[lang]: {link, created_at: new Date()}})
   }
 
   async getDiscordConfig(){
+    const lang = Translate.currentLocal
     const ref = await FireFirestore.getDoc('discord', 'config')
-    return ref?.data();
+    const data = ref?.data();
+    return data ?  data[lang] : undefined;
   }
 }
 

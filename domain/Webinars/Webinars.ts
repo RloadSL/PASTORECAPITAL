@@ -7,6 +7,7 @@ export interface Webinars{
   date: Date,
   created_at?: Date,
   guests: string,
+  lang: 'es' | 'en',
   thumb?: {
     created_at: Date,
     url?: string,

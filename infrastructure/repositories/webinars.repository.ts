@@ -1,4 +1,5 @@
 import { ErrorApp } from "domain/ErrorApp/ErrorApp";
+import Translate from "domain/Translate/Translate";
 import { Webinars } from "domain/Webinars/Webinars";
 import { elasticSearch, ELASTIC_QUERY } from "infrastructure/elasticsearch/search.elastic";
 import FireFirestore from "infrastructure/firebase/firestore.firebase";
@@ -21,6 +22,7 @@ class WebinarsRepository {
   parseDataFromElastic(elasticResult: any[]): Webinars[] {
     return elasticResult.map(item => {
       const res: Webinars = {
+        lang: item.lang.raw,
         id: item.id.raw,
         title: item.title.raw,
         description: item.description.raw,
@@ -44,6 +46,8 @@ class WebinarsRepository {
   }
 
   async elasticSearch(query: ELASTIC_QUERY): Promise<{ results: Webinars[], page: any }> {
+    const lang = Translate.currentLocal
+    query.filters = {all: [query.filters, {lang}]}
     const elasticRes = await elasticSearch('webinars', query)
     const page = elasticRes.data.meta.page;
     let results = elasticRes.data.results
@@ -64,6 +68,7 @@ class WebinarsRepository {
   }
 
   async set(data: Webinars) {
+    const lang = Translate.currentLocal
     try {
       if (data.thumb instanceof File) {
         const gcs_path = `webinars/${data.title?.replace(/' '/g, '_')}`
@@ -77,7 +82,7 @@ class WebinarsRepository {
       else {
         delete data.thumb;
       }
-
+      data.lang = lang;
       if (data.id) {
         await FireFirestore.setDoc('webinars', data.id, data)
         return data.id;

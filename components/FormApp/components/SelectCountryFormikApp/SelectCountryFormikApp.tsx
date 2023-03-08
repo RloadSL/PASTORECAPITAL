@@ -37,7 +37,6 @@ const SelectCountryFormikApp = ({
   const intl = useIntl()
   const [field, meta, form] = useField({ name })
   const options:any = useMemo(() => countryList().getData(), [])
-
   const customStyles = {
     input: (provided: any, state: any) => ({
       ...provided,
@@ -70,7 +69,7 @@ const SelectCountryFormikApp = ({
             </div>
           )}
           {<Select
-            value={options ? options.find((option:any) => option.value === field.value) : ''}
+            value={options ? options.find((option:any) => option.value === field.value.value) : ''}
             className={style.select}
             instanceId={'select'}
             placeholder={intl.formatMessage({ id: 'placeholder.select' })}
@@ -80,8 +79,8 @@ const SelectCountryFormikApp = ({
             styles={customStyles}
             isSearchable={true}
             onChange={(obj: any) => {
-              form.setValue(obj.value)
-              onChange && onChange({[field.name] : obj.value})
+              form.setValue(obj)
+              onChange && onChange({[field.name] : obj})
             }}
             components={{
               IndicatorSeparator: () => null,

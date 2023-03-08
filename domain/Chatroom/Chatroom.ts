@@ -32,7 +32,7 @@ export class Chatroom {
     this.state_chat = data.state_chat
     this.state = data.state
     this.interviewee = data.interviewee as any
-    this.created_at = data.created_at.toDate()
+    this.created_at = data.created_at instanceof Date ? data.created_at : data.created_at.toDate()
   }
 
   setChatroom(data:any){

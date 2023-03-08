@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ButtonApp from 'components/ButtonApp'
 import PostExcerpt from 'components/PostExcerpt'
 import { Chatroom } from 'domain/Chatroom/Chatroom'
@@ -20,22 +21,26 @@ import SearchBar from 'components/SearchBar'
 import AlertApp from 'components/AlertApp'
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 import { Form, Formik } from 'formik'
+import useAmas from './hooks/amas.hook'
 
 const AmasMain = () => {
   const userLogged = useSelector(getUserLogged)
   const { push } = useRouter()
   const [updateChatroom, setupdateChatroom] = useState(false)
-  const [chatrooms, setchatrooms] = useState<Chatroom[]>([])
-  const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] =
-    useState<Chatroom | undefined>()
+  const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] = useState<
+    Chatroom | undefined
+  >()
   const dispatch = useDispatch<AppDispatch>()
+
+  const { amas, query, handleSearchAmas, onFilter, pages, loadMore } = useAmas()
+
   useEffect(() => {
     let fetch = true
-    amasRepository.getChatRooms().then(res => setchatrooms(res as Chatroom[]))
+    handleSearchAmas()
     return () => {
       fetch = false
     }
-  }, [userLogged?.uid])
+  }, [query])
 
   const openChatroom = (chatroom: Chatroom) => {
     dispatch(cleanMessages())
@@ -46,15 +51,11 @@ const AmasMain = () => {
   const downloadPdf = async (chatroom: Chatroom) => {
     const url = await chatroom.downloadPDF()
     window.open(url, '_black')
-    setVisibleAlertDownloadPdf(undefined);
+    setVisibleAlertDownloadPdf(undefined)
   }
 
-  const windowSize = useWindowSize();
-  const initialValues: {
-    title: string,
-  } = {
-    title: '',
-  }
+  const windowSize = useWindowSize()
+ 
 
   return (
     <div className={style.amas}>
@@ -64,7 +65,7 @@ const AmasMain = () => {
             <FormattedMessage id='mainMenu.item.label.amas' />
           </p>
           <p>
-            <FormattedMessage id="loremipsum" />
+            <FormattedMessage id='loremipsum' />
           </p>
         </div>
         <div className={style.createRoomBtnContainer}>
@@ -90,59 +91,81 @@ const AmasMain = () => {
           <SearchBar
             enableTags={false}
             onFilter={(f: any) => {
-              // onFilter(f.search)
-              console.log('buscar')
+              onFilter(f.search)
             }}
           />
         </div>
         <div className={style.filtersContainer_select}>
           <Formik
-            initialValues={initialValues}
-            validationSchema={'validationSchema'}
-            onSubmit={() => console.log('enviar datos')}
+            initialValues={{
+              state: undefined
+            }}
+      
+            onSubmit={values => {}}
           >
             <Form>
               <SelectFormikApp
+                onChange={(values:any)=>onFilter(undefined, values)}
                 selectOptions={[
-                  { value: '', label: 'All' },
+                  { value: undefined, label: 'All' },
                   { value: 'active', label: 'Open' },
-                  { value: 'closed', label: 'CLosed' }
+                  { value: 'closed', label: 'Closed' }
                 ]}
                 labelID={'page.amas.selectRoom.label'}
-                name={'rooms'}
+                name={'state'}
               />
             </Form>
           </Formik>
         </div>
       </div>
       <div className={style.chatRoom_grid}>
-        {chatrooms.map(
-          (
-            item
-          ) => (
-            <div
-              className={style.chatRoom_grid_item}
-              key={item.id}
-              onClick={() => {
-                item.state === 'closed' ? setVisibleAlertDownloadPdf(item) : openChatroom(item)
-              }}
-            >
-              <Card>
-                <div className={style.cardContainer}>
-                  <PostExcerpt
-                    thumbnail={item.thumb?.url}
-                    title={item.title}
-                    description={item.excerpt || ''}
-                    level={{ label: `${item.state === 'active' ? 'page.amas.roomLabel.open' : 'page.amas.roomLabel.closed'}` }}
-                    chipColor={item.state === 'active' ? 'green' : 'grey'}
-                    componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
-                    hasSeparator={false}
-                    chips={[{ label: `${item.created_at?.toLocaleDateString()} ${item.created_at?.toLocaleTimeString()}`, icon: clockIcon }]}
-                  />
-                </div>
-              </Card>
-            </div>
-          )
+        {amas.map(item => (
+          <div
+            className={style.chatRoom_grid_item}
+            key={item.id}
+            onClick={() => {
+              item.state === 'closed'
+                ? setVisibleAlertDownloadPdf(item)
+                : openChatroom(item)
+            }}
+          >
+            <Card>
+              <div className={style.cardContainer}>
+                <PostExcerpt
+                  thumbnail={item.thumb?.url}
+                  title={item.title}
+                  description={item.excerpt || ''}
+                  level={{
+                    label: `${
+                      item.state === 'active'
+                        ? 'page.amas.roomLabel.open'
+                        : 'page.amas.roomLabel.closed'
+                    }`
+                  }}
+                  chipColor={item.state === 'active' ? 'green' : 'grey'}
+                  componentStyle={windowSize.width >= 1500 ? 'column' : 'row'}
+                  hasSeparator={false}
+                  chips={[
+                    {
+                      label: `${item.created_at?.toLocaleDateString()} ${item.created_at?.toLocaleTimeString()}`,
+                      icon: clockIcon
+                    }
+                  ]}
+                />
+              </div>
+            </Card>
+          </div>
+        ))}
+        {pages?.current < pages?.total_pages && (
+          <div>
+            <ButtonApp
+              buttonStyle='link'
+              labelID='btn.loadMore'
+              onClick={() => setupdateChatroom(true)}
+              type='button'
+              icon={addIcon}
+            />
+          </div>
         )}
       </div>
       {visibleAlertDownloadPdf && (
@@ -153,7 +176,7 @@ const AmasMain = () => {
           onCancel={() => setVisibleAlertDownloadPdf(undefined)}
         >
           <div className={style.modalContainer}>
-            <FormattedMessage id="page.amas.modalDownload.text" />
+            <FormattedMessage id='page.amas.modalDownload.text' />
           </div>
         </AlertApp>
       )}

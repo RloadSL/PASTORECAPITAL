@@ -4,7 +4,7 @@ import { Country } from "domain/Interfaces/Country";
 export interface UserConsultantDto {
   id?:string;
   uid:string;
-  country?:string;
+  country?:{value: string, label: string};
   avatar?: Avatar | string;
   description:string;
   keywords?: string[];
