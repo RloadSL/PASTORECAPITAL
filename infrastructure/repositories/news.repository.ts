@@ -1,11 +1,11 @@
 import { News } from "domain/News/News";
+import  FireFirestore from "infrastructure/firebase/firestore.firebase";
 import { HTTP } from "infrastructure/http/http";
 
-export type API_NEWS_TOPICS = ''
 
 export interface QUERY_NEWS {
   search?: string,
-  topic?: API_NEWS_TOPICS,
+  tickers: string,
   items: number,
   page?: number
 }
@@ -13,7 +13,8 @@ export interface QUERY_NEWS {
 class NewsRepository {
   private static instance: NewsRepository;
 
-  readonly endpoint = `https://cryptonews-api.com/api/v1/category?token=${process.env.NEXT_PUBLIC_NEWS_KEY}&section=alltickers`
+  readonly endpointAlltickers = `https://cryptonews-api.com/api/v1/category?token=${process.env.NEXT_PUBLIC_NEWS_KEY}&section=alltickers`
+  readonly endpointTickers = `https://cryptonews-api.com/api/v1?token=${process.env.NEXT_PUBLIC_NEWS_KEY}`
 
   private constructor() { };
 
@@ -29,7 +30,7 @@ class NewsRepository {
       data: News[],
       total_pages: number
     }> {
-    let url = this.endpoint;
+    let url = query.tickers == 'AllTickers' ? this.endpointAlltickers : this.endpointTickers;
 
     const keys = Object.keys(query)
     for (let index = 0; index < keys.length; index++) {
@@ -40,6 +41,15 @@ class NewsRepository {
     }
     const res = await HTTP.get(url)
     res.data = res.data.map((item: any) => ({...item, date: new Date(item.date)}))
+    return res;
+  }
+
+  async addToFav(newFav: News, uid:string){
+    await FireFirestore.createDoc('favorite_news', {...newFav, uid})
+  }
+
+  async getFavs(uid:string){
+    const res = await FireFirestore.getCollectionDocs('favorite_news', undefined , [['uid', '==', uid]])
     return res;
   }
 }

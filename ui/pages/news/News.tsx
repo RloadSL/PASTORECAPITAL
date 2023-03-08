@@ -13,6 +13,7 @@ import useNews from './hooks/news.hook'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import LoadMore from 'components/LoadMoreLoading/LoadMoreLoading'
 import LoadMoreLoading from 'components/LoadMoreLoading'
+import { TICKERS } from 'domain/News/News'
 
 
 /**
@@ -20,28 +21,45 @@ import LoadMoreLoading from 'components/LoadMoreLoading'
  * @returns 
  */
 
-const NewsFilters = ({ newsCats, onFilter }: any) => {
-  const [isActive, setIsActive] = useState<string>('');
-
+const NewsFilters = ({ onFilter, onTicker }: any) => {
+  const [isActive, setIsActive] = useState<string[]>(['AllTickers']);
+  const tickers = useRef(Object.keys(TICKERS)).current
 
   return (
     <div className={style.news_filter}>
       <div>
         <ul className={style.newsCategories}>
-          {newsCats.map((cat: any) => {
+          {tickers.map((ticker: string) => {
             return (
-              <li key={cat.id} className={style.newsCategories_cat}>
+              <li key={ticker} className={style.newsCategories_cat}>
                 <ButtonApp
                   onClick={() => {
-                    //Filtro de categorias
-                    setIsActive(cat.id)
+                    setIsActive((pre) => {
+                      if(pre.includes(ticker)){
+                        const i = pre.findIndex(item => ticker === item)
+                        if(i != -1)pre.splice(i, 1)
+                      }else{
+                        pre.push(ticker)
+                        const i = pre.findIndex(item => 'AllTickers' === item)
+                        if(i != -1)pre.splice(i, 1)
+                      }
+                    
+                      if(ticker === 'AllTickers' || pre.length == 0) pre = ['AllTickers']
+                      if(ticker === 'Mis favoritas') pre = ['Mis favoritas']
+                      else{
+                        const i = pre.findIndex(item => 'Mis favoritas' === item)
+                        if(i != -1)pre.splice(i, 1)
+                      }
+                      onTicker(pre)
+                      return [...pre]
+                    })
                   }}
                   type='button'
-                  buttonStyle={isActive === cat.id ? 'dark' : 'default'}
+                  buttonStyle={isActive.includes(ticker) ? 'dark' : 'default'}
                   size='small'
-                  icon={cat.slug === 'mis-favoritas' ? starIcon : ''}
+                  icon={ticker === 'Mis favoritas' ? starIcon : ''}
                 >
-                  {cat.title}
+                  {ticker}
                 </ButtonApp>
               </li>
             )
@@ -60,7 +78,6 @@ const NewsFilters = ({ newsCats, onFilter }: any) => {
 const News: NextPage = () => {
   const [isActive, setIsActive] = useState(false);
   const {
-    isloaded,
     total_pages,
     news,
     query,
@@ -70,8 +87,12 @@ const News: NextPage = () => {
     page
   } = useNews()
 
-  const onClickFilter = () => {
-    console.log('click en filtro');
+  const onClickFilter = (t:string) => {
+    if(t.indexOf('Mis favoritas') != -1){
+      alert('Fav')
+    }else{
+      onFilter(undefined, t)
+    }
     setIsActive(!isActive);
   }
 
@@ -79,13 +100,15 @@ const News: NextPage = () => {
     handleSearchNews()
   }, [query])
 
+   
+
   return (
     <div className={style.news}>
       <header>
         <h1 className='main-title'>
           <FormattedMessage id={'news'} />
         </h1>
-        <NewsFilters onFilter={({ search, tags }: any) => { onFilter(search) }} newsCats={newsCategories} onClickFilter={onClickFilter} />
+        <NewsFilters onTicker={(t:string[])=> onClickFilter(t.toString())} onFilter={({ search, tags }: any) => { onFilter(search) }} newsCats={newsCategories} onClickFilter={onClickFilter} />
       </header>
       <div className={style.news_container}>
 

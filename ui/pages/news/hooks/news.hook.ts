@@ -5,8 +5,9 @@ import { useState } from "react"
 
 const useNews = ()=>{
   const [news, setNews] = useState<News[]>([])
+  const [favNews, setFavNews] = useState<News[]>([])
   const [isloaded, setLoaded] = useState(true)
-  const [query, setQuery] = useState<QUERY_NEWS>({ search: '', items: 10})
+  const [query, setQuery] = useState<QUERY_NEWS>({ search: '', tickers: 'AllTickers',items: 10})
   const [total_pages, setTotal_pages] = useState(0)
   const [page, setPage] = useState(1)
 
@@ -29,21 +30,30 @@ const useNews = ()=>{
   }
 
   const loadMore = () => {
-    console.log('Load more' , isloaded)
     if (isloaded) {
       handleSearchNews({page: page + 1})
       setPage(pre => pre +1);
     }
   }
 
-  const onFilter = async (s: string) => {
+  const onFilter = async (s?: string, tickers?: string) => {
     if (isloaded) {
       setPage(1)
       setNews([])
-      setQuery(pre => ({
-        ...pre,
-        search: s
-      }))
+      setQuery(pre => {
+        let data:any = {};
+        if(s){
+          data.search = s
+        }
+        if(tickers){
+          data.tickers = tickers
+        }
+
+        return {
+          ...pre,
+          ...data
+        }
+      })
     }
   }
 

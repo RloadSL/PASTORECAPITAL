@@ -30,11 +30,11 @@ export const mainMenuItems = [
   },
   {
     label: 'mainMenu.item.label.academy',
-    type: 'accordion',
+    type: 'link',
     path: 'academy',
     href:'/academy',
     icon: academy,
-    children: [
+    /* children: [
       {
         type: 'link',
         label: 'mainMenu.item.label.courses',
@@ -49,7 +49,7 @@ export const mainMenuItems = [
         href: '/academy/tutorials',
         path:'tutorials'
       }
-    ]
+    ] */
   },
   {
     type: 'accordion',

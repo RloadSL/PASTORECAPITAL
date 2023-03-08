@@ -9,7 +9,7 @@ import Translate from 'domain/Translate/Translate';
 /**
  * Integración con el módulo de firestore de Firebase
  */
-export class FireFirestore {
+class FireFirestore {
   private _db: Firestore;
   private static instance: FireFirestore;
   private constructor(app: FirebaseApp) {
