@@ -48,7 +48,8 @@ const system_subscription_permission_module = {
     '/academy/tutorials/[tutorial-slug]',
     '/academy/courses/[course-slug]',
     '/academy/courses/[course-slug]/[lesson-slug]',
-    '/analysis/[category-slug]/[article-slug]'
+    '/analysis/[category-slug]/[article-slug]',
+    '/research/bitcoins-altcoins/[category-slug]/[article-slug]',
   ]
 }
 
