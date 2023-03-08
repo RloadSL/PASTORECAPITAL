@@ -371,5 +371,6 @@
   "w_id": "Detalle del Webinar",
   "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam.",
   "empty": " ",
-  "news" : "Noticias"
+  "news" : "Noticias",
+  "plan.update" : "Plan actualizado con exito."
 }

@@ -18,9 +18,11 @@ const NewsListItem = ({
 
 
   useEffect(() => {
-   newsRepository.isFav(item.news_url, uid )
-   .then(fav => setIsFavorite(fav))
-  }, [])
+    if(uid){
+      newsRepository.isFav(item.news_url, uid )
+      .then(fav => setIsFavorite(fav))
+    }
+  }, [uid])
   
   return (
     <div className={style.newsContent}>

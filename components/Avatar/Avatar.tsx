@@ -51,8 +51,8 @@ interface AVATARPROPS {
 
 const Avatar = ({ renderItem, size = 'small', uid}: AVATARPROPS ) => {
 
-  const randomColor = useRef(uid !== undefined ? colorPalette[hashIDGenerator(uid)%6] : colorPalette[randomIntFromInterval(0, 6)]);
-  
+  const randomColor = useRef(uid !== undefined ? colorPalette[Math.abs(hashIDGenerator(uid))%6] : colorPalette[randomIntFromInterval(0, 6)]);
+ 
   return (
     <div className={`${style.avatarContainer} ${style[size]}`} style={{ backgroundColor: randomColor.current.base }}>
       <div className={style.letter} style={{ color: randomColor.current.main }}>

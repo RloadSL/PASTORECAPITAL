@@ -5,7 +5,6 @@ export function randomIntFromInterval(min:number, max:number) { // min and max i
 
 export const hashIDGenerator = (id:string) => {
   let arr = id.split('');
-  console.log(typeof id)
   return arr.reduce(
     (hashCode, currentVal) =>
       (hashCode =

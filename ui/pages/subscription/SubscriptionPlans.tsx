@@ -22,6 +22,8 @@ const SubscriptionPlans = () => {
   const [paymentType, setPaymentType] = useState<'month' | 'year'>('month')
   const [plans, setPlans] = useState<PLANS | undefined>()
   const [updatePlan, setupdatePlan] = useState<any>()
+  const [loadingupdatePlan, setloadingupdatePlan] = useState<boolean>(false)
+
   const { pushInfoApp } = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const plan = userLoggued?.subscription.plan
@@ -38,6 +40,7 @@ const SubscriptionPlans = () => {
   
 
   const update = () => {
+    setloadingupdatePlan(true)
     systemRepository.updatePlansSubscription({
       plan_name: updatePlan.subscription.label,
       interval: paymentType,
@@ -46,6 +49,8 @@ const SubscriptionPlans = () => {
     })
       .then(() => setupdatePlan(undefined))
       .then(() => {
+        setloadingupdatePlan(false)
+
         pushInfoApp(new InfoApp({ code: 'plan.update', message: 'plan.update' }, 'success'))
       })
      
@@ -57,6 +62,7 @@ const SubscriptionPlans = () => {
     visible={updatePlan != undefined}
   >
     <div className={style.modalContainer}>
+      {loadingupdatePlan && <Loading loading={true} variant='inner-primary'/>}
       <div className={style.modalContainer_image}>
         <Image src={updateSubscription} alt='Hombre levantando el dedo en señal de OK' />
       </div>
@@ -64,6 +70,9 @@ const SubscriptionPlans = () => {
       <FormattedMessage id='subscription.user.alert.updateSubscription.text'/>
         {' '}<strong>{updatePlan?.subscription.label}</strong>?
       </p>
+      <p className={style.paymentAdvice}>
+            <FormattedMessage id={'page.subscription.payment.advice'}/>
+          </p>
     </div>
   </AlertApp>)
 
