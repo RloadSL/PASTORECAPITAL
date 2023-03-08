@@ -83,7 +83,7 @@ const AnalysisArticleDetailView = ({
   const [loading, setloading] = useState(false)
 
   const { query, asPath } = useRouter()
-  const plans = useRef(post.getCatgoryByParent('plans'))
+  const plans = useRef<any>(post.getCatgoryByParent('plans'))
   const [categoriesPlans, setCategoriesPlans] = useState<any>(null)
 
   useEffect(() => {
