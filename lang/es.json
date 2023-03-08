@@ -227,6 +227,7 @@
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
+  "page.notifications.modalTitle" : "Ver notificación",
 
   "select.label.plans": "Seleccione el plan correspondiente",
   "component.navbar.backbuttom": "Atrás",
@@ -279,6 +280,7 @@
   "btn.send": "Enviar",
   "btn.save": "Guardar",
   "btn.accept": "Aceptar",
+  "btn.close": "Cerrar",
   "btn.cancel": "Cancelar",
   "btn.delete": "Eliminar",
   "btn.edit": "Editar",

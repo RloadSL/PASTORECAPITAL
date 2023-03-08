@@ -26,4 +26,19 @@
 
 .modalContainer {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 350px;
+
+  &_title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  &_button {
+    min-width: 200px;
+  }
 }
