@@ -71,8 +71,9 @@ const AsyncAutocompleteFormikApp = ({
           <Select
             className={style.select}
             instanceId={'select'}
-            placeholder={intl.formatMessage({ id: 'placeholder.select' })}
+            placeholder={intl.formatMessage({ id: ' ' })}
             name={name}
+            noOptionsMessage={()=> (<>Escribe un email para realizar la búsqueda</>)}
             loadOptions={(inputValue: string) => loadOptions(inputValue)}
             inputId={name}
             styles={customStyles}

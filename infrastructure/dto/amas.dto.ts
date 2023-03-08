@@ -1,4 +1,4 @@
-export type CHAT_STATE = 'active' | 'closed' 
+export type CHAT_STATE = 'active' | 'closed' | 'coming_soon'
 export type CHAT_STATE_PUBLIC = 'public' | 'private' 
 
 export interface ChatroomDto {

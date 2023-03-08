@@ -210,6 +210,10 @@
   "page.amas.modalDownload.text": "¡Ups! Esta sala ya está cerrada pero si quieres puedes descargar el contenido en PDF para no perderte nada",
   "page.amas.roomLabel.open": "Abierta",
   "page.amas.roomLabel.closed": "Cerrada",
+  "page.amas.roomLabel.comin_soon": "En espera",
+  "page.amas.search.interviewee": "Buscar invitado por email",
+  "page.amas.coming_soon" : "Esta sala esta en espera de apertura",
+  "page.amas.coming_soon.text" : "Pronto se abrirá esta sala por nuestro moderador, mantente a la espera y disculpe por las molestias causadas.",
   "page.webinars.subtitle": "Próximas sesiones",
 
   "page.invoices.title" : "Facturas",

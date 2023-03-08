@@ -73,7 +73,7 @@ export const userInformation = createSlice({
       const last = lastSnap
       
       if(!error)
-        state.queryResultNoti ={error: null, noti: [...currentItems, ...items], lastNoti : last } 
+        state.queryResultNoti ={error: null, noti: items, lastNoti : last } 
     })
     .addCase(deleteNotifications.fulfilled, (state: any, action: any)=>{ 
       state.loading = false; 

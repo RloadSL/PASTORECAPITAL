@@ -161,11 +161,11 @@ const Chatroom = () => {
 
       <div className={style.messagesContainer}>
         <div ref={chatContainerRef} className={style.messagesContainer_messages}>
-          <div className={style.loadMore_container}>
+          {(messages && messages?.length >= 100) && <div className={style.loadMore_container}>
             <ButtonApp buttonStyle={'link'} onClick={loadMore}>
               <FormattedMessage id={'btn.loadMore'}/>
             </ButtonApp>
-          </div>
+          </div>}
           <Messages messages={messages} onDelete={deleteMessage} />
         </div>
 

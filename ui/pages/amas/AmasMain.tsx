@@ -30,6 +30,7 @@ const AmasMain = () => {
   const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] = useState<
     Chatroom | undefined
   >()
+  const [coming_soon, setComing_soon] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
 
   const { amas, query, handleSearchAmas, onFilter, pages, loadMore } = useAmas()
@@ -124,9 +125,20 @@ const AmasMain = () => {
             className={style.chatRoom_grid_item}
             key={item.id}
             onClick={() => {
-              item.state === 'closed'
-                ? setVisibleAlertDownloadPdf(item)
-                : openChatroom(item)
+              switch (item.state) {
+                case 'active':
+                  openChatroom(item)
+                  break;
+                case 'closed':
+                    setVisibleAlertDownloadPdf(item)
+                    break;
+                case 'coming_soon':
+                  setComing_soon(true)
+                    break;
+                default:
+                  break;
+              }
+              
             }}
           >
             <Card>
@@ -139,7 +151,7 @@ const AmasMain = () => {
                     label: `${
                       item.state === 'active'
                         ? 'page.amas.roomLabel.open'
-                        : 'page.amas.roomLabel.closed'
+                        :  item.state === 'closed' ? 'page.amas.roomLabel.closed' : 'page.amas.roomLabel.comin_soon'
                     }`
                   }}
                   chipColor={item.state === 'active' ? 'green' : 'grey'}
@@ -161,7 +173,7 @@ const AmasMain = () => {
             <ButtonApp
               buttonStyle='link'
               labelID='btn.loadMore'
-              onClick={() => setupdateChatroom(true)}
+              onClick={() => loadMore()}
               type='button'
               icon={addIcon}
             />
@@ -177,6 +189,18 @@ const AmasMain = () => {
         >
           <div className={style.modalContainer}>
             <FormattedMessage id='page.amas.modalDownload.text' />
+          </div>
+        </AlertApp>
+      )}
+      {coming_soon && (
+        <AlertApp
+          title={'page.amas.coming_soon'}
+          onAction={() => setComing_soon(false)}
+          visible
+          
+        >
+          <div className={style.modalContainer}>
+            <FormattedMessage id='page.amas.coming_soon.text' />
           </div>
         </AlertApp>
       )}

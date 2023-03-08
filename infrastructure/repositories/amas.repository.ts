@@ -40,7 +40,7 @@ class AmasRepository{
         return data.id;
       }else{
         delete data.id;
-        const res = await FireFirestore.createDoc('amas', {...data, lang, state: 'active', state_chat:'private'})
+        const res = await FireFirestore.createDoc('amas', {...data, lang, state: 'coming_soon', state_chat:'private'})
         return res;
       }
     } catch (error) {
@@ -48,14 +48,7 @@ class AmasRepository{
     }
   }
 
- /*  async getChatRooms(lastSnap?:DocumentSnapshot){
-    const ref = await FireFirestore.getCollectionDocs('amas', lastSnap, undefined, 20)
-    if( !(ref instanceof ErrorApp) && ref.length > 0){
-      return ref.map(doc => new Chatroom({id: doc.id, ...(doc.data() as ChatroomDto)}))
-    }else{
-      return ref
-    }
-  } */
+
   parseDataFromElastic(results:any[]):Chatroom[]{
     return results.map((items:any) => {
       const data:ChatroomDto = {
@@ -77,6 +70,7 @@ class AmasRepository{
 
   async getChatRooms(query: ELASTIC_QUERY): Promise<{ results: Chatroom[], page: any }> {
     const lang = Translate.currentLocal
+    query.sort = {"created_at": "desc"}
     query.filters = {all: [query.filters, {lang}]}
     const elasticRes = await elasticSearch('amas', query)
     const page = elasticRes.data.meta.page;
@@ -118,7 +112,7 @@ class AmasRepository{
   onChangeChatRoom(chatroom_id:string,callback:Function): Unsubscribe {
     return FireFirestore.onChangeCollection(`amas/${chatroom_id}/messages`,(data:any)=>{
       callback(data);
-    })
+    }, undefined, 100)
   };
 
   onChangeRoom(chatroom_id:string,callback:Function): Unsubscribe {

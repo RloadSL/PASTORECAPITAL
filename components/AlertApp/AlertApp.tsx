@@ -15,7 +15,7 @@ const AlertApp = ({
 }: {
   title: string
   onAction?: Function
-  onCancel: Function
+  onCancel?: Function
   children: any
   visible: boolean,
   cancelButton?: boolean
@@ -34,7 +34,7 @@ const AlertApp = ({
       title={title}
       loading={loading}
       onOk={onAction ? () => _onAction() : undefined}
-      onCancel={() => onCancel()}
+      onCancel={onCancel}
       cancelButton={cancelButton}
     >
       {children}
@@ -53,14 +53,14 @@ const AlertAppView = ({
   cancelButton = true
 }: {
   title: string
-  onCancel: Function
+  onCancel?: Function
   onOk?: Function
   loading: boolean
   children: any,
   cancelButton?: boolean
 }) => {
   return (
-    <Modal onBtnClose={() => onCancel()}>
+    <Modal onBtnClose={onCancel}>
       <div className={style.cardContainer}>
         <div className={style.content}>
           <div className={style.header}>
@@ -71,7 +71,7 @@ const AlertAppView = ({
           {children}
         </div>
         {onOk && <div className={style.actions}>
-          {cancelButton === true && (
+          {(cancelButton === true &&  onCancel) && (
             <div className={style.buttonContainer}>
               <ButtonApp labelID='alert.btn.cancel' onClick={() => onCancel()} />
             </div>

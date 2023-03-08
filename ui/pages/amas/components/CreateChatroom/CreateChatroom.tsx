@@ -89,7 +89,7 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
                   />
                   <AsyncAutocompleteFormikApp
                     name='interviewee'
-                    labelID='forms.labels.searchusers.email'
+                    labelID='page.amas.search.interviewee'
                     loadOptions={searchUsers}
                   />
                   <div

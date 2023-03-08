@@ -60,12 +60,18 @@ class UserRepositoryImplementation{
       callback(new User(userData));
     })
   };
+  unsbNotification?:Unsubscribe = undefined;
 
   onChangeNotification(uid:string, callback:Function): Unsubscribe {
-    return FireFirestore.onChangeDoc(`users/${uid}/personal_stats/notifications_stats`, (data:any)=>{
-      console.log('onChangeDoc')
+    if(this.unsbNotification) {
+      this.unsbNotification()
+    }
+
+    this.unsbNotification = FireFirestore.onChangeDoc(`users/${uid}/personal_stats/notifications_stats`, (data:any)=>{
       callback(data);
     })
+
+    return this.unsbNotification
   };
 
   async setPersonalStats(uid:string, data:any){

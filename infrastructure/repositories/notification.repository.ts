@@ -19,7 +19,7 @@ import FireFirestore  from "infrastructure/firebase/firestore.firebase";
     if(this.fetching) return null;
     const query = [['to.uid', '==' , uid]]
     this.fetching = true;
-    const ref = await FireFirestore.getCollectionDocs(this._collection, lastSnap , query)
+    const ref = await FireFirestore.getCollectionDocs(this._collection, lastSnap , query, 100)
     this.fetching = false;
     if( !(ref instanceof ErrorApp) && ref.length > 0){
       return {

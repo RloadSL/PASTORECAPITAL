@@ -209,7 +209,7 @@ const UserView = ({
           <div className={style.plan}>
               <div>Plan activo: {userDataDto.subscription.plan.label}</div>
               <div style={{display:'flex'}}>
-                <LinkApp linkStyle='classic' target='_self' linkHref='/subscription'  label='btn.subscribe'/>
+                {userDataDto.uid === userLogged.uid && <LinkApp linkStyle='classic' target='_self' linkHref='/subscription'  label='btn.subscribe'/>}
                 {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}>Cancelar</ButtonApp>}
               </div>
           </div>

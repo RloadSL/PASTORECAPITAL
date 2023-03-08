@@ -31,14 +31,16 @@ const Notifications = ({ onClose }: NotificationsProps) => {
   const [view, setView] = useState<NotificationDto | undefined>()
   const userLogged = useSelector(getUserLogged)
   useEffect(() => {
-    getData()
-    if(userLogged)
+   
+    if(userLogged && userLogged.uid != 'not-logged'){
+      getData()
       userLogged?.setPersonalStats({id:'notifications_stats' , new_notifications : false})
-
+    }
   }, [query.uid])
 
   const getData = ()=>{
     if (!fetching && query.uid) {
+      
       dispatch(cleanNoti)
       dispatch(
         getNotifications({

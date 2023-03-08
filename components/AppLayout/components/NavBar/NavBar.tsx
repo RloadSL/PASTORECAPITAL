@@ -1,7 +1,7 @@
 import Breadcrumbs from 'components/Breadcrumbs'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from 'ui/redux/slices/authentication/autentication.slice'
@@ -32,14 +32,12 @@ const NavBar = () => {
     router.push('/');
     dispatch(signOut())
   }
-
   useEffect(()=>{
     if(user){
       user.onChangeNotifications((change:any)=>{
         setnotis(!change.new_notifications ? false : change.new_notifications)
       })
     }
-    
   },[user])
 
   return (

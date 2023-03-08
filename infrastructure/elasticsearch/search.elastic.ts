@@ -3,6 +3,7 @@ const ELASTIC_MAIN_ENDPOINT = 'https://pastorecapital.ent.eu-west-1.aws.found.io
 export type ELASTIC_ENGINES = 'services' | 'user-consultant' | 'users' | 'webinars' | 'amas'
 export interface ELASTIC_QUERY {
   query:string,
+  sort?: any,
   page?: {
     size: number,
     current: number
