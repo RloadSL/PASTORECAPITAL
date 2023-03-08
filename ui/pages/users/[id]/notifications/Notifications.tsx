@@ -31,16 +31,16 @@ const Notifications = ({ onClose }: NotificationsProps) => {
   const [view, setView] = useState<NotificationDto | undefined>()
   const userLogged = useSelector(getUserLogged)
   useEffect(() => {
-   
-    if(userLogged && userLogged.uid != 'not-logged'){
+
+    if (userLogged && userLogged.uid != 'not-logged') {
       getData()
-      userLogged?.setPersonalStats({id:'notifications_stats' , new_notifications : false})
+      userLogged?.setPersonalStats({ id: 'notifications_stats', new_notifications: false })
     }
   }, [query.uid])
 
-  const getData = ()=>{
+  const getData = () => {
     if (!fetching && query.uid) {
-      
+
       dispatch(cleanNoti)
       dispatch(
         getNotifications({
@@ -55,7 +55,6 @@ const Notifications = ({ onClose }: NotificationsProps) => {
     dispatch(
       deleteNotifications(noti.id as string)
     )
-   
   }
 
   const actionsItemList = {
@@ -86,7 +85,22 @@ const Notifications = ({ onClose }: NotificationsProps) => {
       </div>
       {view && (
         <Modal onBtnClose={() => setView(undefined)}>
-          <div className={style.modalContainer}>{view.message}</div>
+          <div className={style.modalContainer}>
+            <p className={style.modalContainer_title}>
+              <FormattedMessage id={'page.notifications.modalTitle'} />
+            </p>
+            <p>
+              {view.message}
+            </p>
+            <div className={style.modalContainer_button}>
+              <ButtonApp
+                buttonStyle='secondary'
+                type='submit'
+                labelID='btn.close'
+                onClick={() => setView(undefined)}
+              />
+            </div>
+          </div>
         </Modal>
       )}
     </div>
