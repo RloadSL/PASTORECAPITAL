@@ -6,6 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import { useField } from 'formik'
+import arrowIcon from '../../../../assets/img/icons/arrow-b.svg'
 
 interface SELECTAPPPROPS {
   labelID: string
@@ -14,6 +15,7 @@ interface SELECTAPPPROPS {
   icon?: any
   error?: string
   onChange?: Function
+  isAutocomplete?: boolean
 }
 
 /**
@@ -24,6 +26,7 @@ interface SELECTAPPPROPS {
  * @param error
  * @param onChange Función onChange del componente
  * @param selectOptions Lista de opciones del selector
+ * @param isAutocomplete Para controlar el comportamiento visual si es autocompletado
  * @returns
  */
 
@@ -32,6 +35,7 @@ const AsyncAutocompleteFormikApp = ({
   name,
   icon,
   onChange,
+  isAutocomplete = false,
   loadOptions
 }: SELECTAPPPROPS) => {
   const intl = useIntl()
@@ -58,7 +62,7 @@ const AsyncAutocompleteFormikApp = ({
 
   return (
     <div>
-      <div className={style.selectContainer}>
+      <div className={`${style.selectContainer} ${isAutocomplete ? style.selectContainer_isAutocomplete : ''}`}>
         <label className={`${icon ? style.iconLabel : style.label}`}>
           <FormattedMessage id={labelID}></FormattedMessage>
         </label>

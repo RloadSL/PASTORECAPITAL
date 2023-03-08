@@ -158,7 +158,6 @@ const Chatroom = () => {
           </span>
         </div>
       </header>
-
       <div className={style.messagesContainer}>
         <div ref={chatContainerRef} className={style.messagesContainer_messages}>
           <div className={style.loadMore_container}>
