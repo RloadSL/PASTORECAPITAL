@@ -4,7 +4,7 @@ import PostExcerpt from 'components/PostExcerpt'
 import { Chatroom } from 'domain/Chatroom/Chatroom'
 import amasRepository from 'infrastructure/repositories/amas.repository'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { cleanMessages, setChatroom } from 'ui/redux/slices/amas/amas.slice'
@@ -22,18 +22,27 @@ import AlertApp from 'components/AlertApp'
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 import { Form, Formik } from 'formik'
 import useAmas from './hooks/amas.hook'
+import Loading from 'components/Loading'
 
 const AmasMain = () => {
   const userLogged = useSelector(getUserLogged)
+  const [loading, setloading] = useState(false)
   const { push } = useRouter()
   const [updateChatroom, setupdateChatroom] = useState(false)
   const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] = useState<
     Chatroom | undefined
   >()
-  const [coming_soon, setComing_soon] = useState(false)
+  const [coming_soon, setComing_soon] = useState<Chatroom | undefined>()
   const dispatch = useDispatch<AppDispatch>()
 
   const { amas, query, handleSearchAmas, onFilter, pages, loadMore } = useAmas()
+  const isAdmasAdmin = useRef(
+    userLogged?.role.level > 1
+      ? true
+      : userLogged?.checkColaborationPermisionByModule('AMAS')
+      ? true
+      : false
+  ).current
 
   useEffect(() => {
     let fetch = true
@@ -43,10 +52,17 @@ const AmasMain = () => {
     }
   }, [query])
 
-  const openChatroom = (chatroom: Chatroom) => {
+  const openChatroom = async (chatroom: Chatroom) => {
+    setloading(true)
+
+    if (chatroom.state === 'coming_soon') {
+      await amasRepository.setChatroom({ id: chatroom.id, state: 'active' })
+    }
     dispatch(cleanMessages())
     dispatch(setChatroom(chatroom))
     push(`/amas/${chatroom.id}`)
+    setloading(false)
+
   }
 
   const downloadPdf = async (chatroom: Chatroom) => {
@@ -56,7 +72,6 @@ const AmasMain = () => {
   }
 
   const windowSize = useWindowSize()
- 
 
   return (
     <div className={style.amas}>
@@ -81,7 +96,13 @@ const AmasMain = () => {
           )}
           {updateChatroom && (
             <CreateChatroom
-              onClose={() => setupdateChatroom(false)}
+              onClose={() =>{
+                setTimeout(() => {
+                  setupdateChatroom(false)
+                  onFilter(undefined, {state: undefined})
+                }, 2000);
+               
+              }}
             ></CreateChatroom>
           )}
         </div>
@@ -101,12 +122,11 @@ const AmasMain = () => {
             initialValues={{
               state: undefined
             }}
-      
             onSubmit={values => {}}
           >
             <Form>
               <SelectFormikApp
-                onChange={(values:any)=>onFilter(undefined, values)}
+                onChange={(values: any) => onFilter(undefined, values)}
                 selectOptions={[
                   { value: undefined, label: 'All' },
                   { value: 'active', label: 'Open' },
@@ -128,17 +148,16 @@ const AmasMain = () => {
               switch (item.state) {
                 case 'active':
                   openChatroom(item)
-                  break;
+                  break
                 case 'closed':
-                    setVisibleAlertDownloadPdf(item)
-                    break;
+                  setVisibleAlertDownloadPdf(item)
+                  break
                 case 'coming_soon':
-                  setComing_soon(true)
-                    break;
+                  setComing_soon(item)
+                  break
                 default:
-                  break;
+                  break
               }
-              
             }}
           >
             <Card>
@@ -151,7 +170,9 @@ const AmasMain = () => {
                     label: `${
                       item.state === 'active'
                         ? 'page.amas.roomLabel.open'
-                        :  item.state === 'closed' ? 'page.amas.roomLabel.closed' : 'page.amas.roomLabel.comin_soon'
+                        : item.state === 'closed'
+                        ? 'page.amas.roomLabel.closed'
+                        : 'page.amas.roomLabel.comin_soon'
                     }`
                   }}
                   chipColor={item.state === 'active' ? 'green' : 'grey'}
@@ -195,13 +216,27 @@ const AmasMain = () => {
       {coming_soon && (
         <AlertApp
           title={'page.amas.coming_soon'}
-          onAction={() => setComing_soon(false)}
+          onAction={
+            isAdmasAdmin
+              ? () => openChatroom(coming_soon)
+              : () => setComing_soon(undefined)
+          }
+          onCancel={isAdmasAdmin ? () => setComing_soon(undefined) : undefined}
           visible
-          
         >
-          <div className={style.modalContainer}>
-            <FormattedMessage id='page.amas.coming_soon.text' />
-          </div>
+          {' '}
+          <>
+            {loading && <Loading loading />}
+            {isAdmasAdmin ? (
+              <div className={style.modalContainer}>
+                <FormattedMessage id='page.amas.coming_soon.text_open' />
+              </div>
+            ) : (
+              <div className={style.modalContainer}>
+                <FormattedMessage id='page.amas.coming_soon.text' />
+              </div>
+            )}
+          </>
         </AlertApp>
       )}
     </div>

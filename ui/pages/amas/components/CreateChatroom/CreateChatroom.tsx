@@ -3,9 +3,12 @@ import AsyncAutocompleteFormikApp from 'components/FormApp/components/AsyncAutoc
 import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
+import Loading from 'components/Loading'
 import Modal from 'components/Modal'
+import { Chatroom } from 'domain/Chatroom/Chatroom'
 import { User } from 'domain/User/User'
 import { Form, Formik } from 'formik'
+import { ChatroomDto } from 'infrastructure/dto/amas.dto'
 import amasRepository from 'infrastructure/repositories/amas.repository'
 import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 import { useRef, useState } from 'react'
@@ -35,9 +38,14 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
 
   const create = async (value: any) => {
     setloading(true)
-    await amasRepository.setChatroom(value)
-    onClose()
-    setloading(false)
+    const id = await amasRepository.setChatroom(value)
+    const unsb = amasRepository.onChangeRoom(id, (data:ChatroomDto)=>{
+      if(data.indexed){
+        unsb()
+        onClose()
+      }
+    })
+    
   }
 
   const searchUsers =  async (s: string) => {
@@ -57,6 +65,7 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
   return (
       <Modal onBtnClose={() => onClose()}>
         <div className={style.modalContainer}>
+          {loading && <Loading loading/>}
           <div className={style.modalContainer_title}>
             <p>
               <FormattedMessage id={'page.amas.createRoom.label'}/>

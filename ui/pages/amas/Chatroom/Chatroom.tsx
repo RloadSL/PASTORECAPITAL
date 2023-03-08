@@ -177,8 +177,8 @@ const Chatroom = () => {
             <ChatActions
               chatState={chatroomState.state_chat}
               onSendMessage={canWrite ? sendMessage : () => alert('Unauthorized')}
-              onCloseChatroom={() => setVisibleRoomMessage(true)}
-              openPublicRoom={() => setVisibleCommentsMessage(true)}
+              onCloseChatroom={profile === 'interviewer' ? () => setVisibleRoomMessage(true) : undefined}
+              openPublicRoom={profile === 'interviewer' ? () => setVisibleCommentsMessage(true) : undefined}
             />) : (
             <div className={style.closedRoomMessage}>
               <div className={style.closedRoomMessage_icon}>

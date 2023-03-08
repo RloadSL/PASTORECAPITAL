@@ -41,13 +41,16 @@ class AmasRepository{
       }else{
         delete data.id;
         const res = await FireFirestore.createDoc('amas', {...data, lang, state: 'coming_soon', state_chat:'private'})
-        return res;
+        return res.id;
       }
     } catch (error) {
       return error;
     }
   }
 
+  onSnapDoc(id:string, callback:Function){
+    return FireFirestore.onChangeDoc('amas/'+id, callback)
+  }
 
   parseDataFromElastic(results:any[]):Chatroom[]{
     return results.map((items:any) => {

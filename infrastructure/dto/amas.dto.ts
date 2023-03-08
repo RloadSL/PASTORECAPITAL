@@ -4,6 +4,7 @@ export type CHAT_STATE_PUBLIC = 'public' | 'private'
 export interface ChatroomDto {
   title?:string, 
   excerpt?: string, 
+  indexed?:boolean
   thumb?:any, 
   lang?:'en' | 'es'
   id?:string,

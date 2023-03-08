@@ -43,7 +43,7 @@ const useAmas = ()=>{
   }
 
   const onFilter = async (s?: string, filter?:any) => {
-    
+    console.log(filter)
     if (isloaded) {
       setAmas([])
 
