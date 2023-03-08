@@ -158,7 +158,6 @@ const Chatroom = () => {
           </span>
         </div>
       </header>
-
       <div className={style.messagesContainer}>
         <div ref={chatContainerRef} className={style.messagesContainer_messages}>
           {(messages && messages?.length >= 100) && <div className={style.loadMore_container}>

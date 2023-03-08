@@ -27,7 +27,7 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
 
   return (
     <div className={style.news_filter}>
-      <div>
+      <div className={style.news_filter_list}>
         <ul className={style.newsCategories}>
           {tickers.map((ticker: string) => {
             return (
@@ -65,7 +65,6 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
             )
           })}
         </ul>
-
       </div>
       <SearchBar
         placeholder={'Buscar por palabra clave'}

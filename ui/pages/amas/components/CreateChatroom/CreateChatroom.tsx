@@ -59,7 +59,7 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
         <div className={style.modalContainer}>
           <div className={style.modalContainer_title}>
             <p>
-              <FormattedMessage id='Crear nueva sala de chat'/>
+              <FormattedMessage id={'page.amas.createRoom.label'}/>
             </p>
           </div>
           <div className={style.modalContainer_content}>
@@ -91,14 +91,9 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
                     name='interviewee'
                     labelID='page.amas.search.interviewee'
                     loadOptions={searchUsers}
+                    isAutocomplete={true}
                   />
-                  <div
-                    style={{
-                      marginTop: '20px',
-                      maxWidth: '300px',
-                      margin: 'auto'
-                    }}
-                  >
+                  <div className={style.buttonContainer}>
                     <ButtonApp
                       buttonStyle='secondary'
                       type='submit'
