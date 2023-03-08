@@ -1,3 +1,4 @@
+import { ErrorApp } from "domain/ErrorApp/ErrorApp";
 import { News } from "domain/News/News";
 import  FireFirestore from "infrastructure/firebase/firestore.firebase";
 import { HTTP } from "infrastructure/http/http";
@@ -48,9 +49,26 @@ class NewsRepository {
     await FireFirestore.createDoc('favorite_news', {...newFav, uid})
   }
 
+  async removeFav(new_id:string){
+    await FireFirestore.deleteDoc('favorite_news', new_id)
+  }
+
   async getFavs(uid:string){
     const res = await FireFirestore.getCollectionDocs('favorite_news', undefined , [['uid', '==', uid]])
-    return res;
+    if(!(res instanceof ErrorApp)){
+      return res.map(item => ({...item.data(), id: item.id} as News));
+    }else{
+      return []
+    }
+  }
+
+  async isFav(news_url:string, uid:string){
+    const res = await FireFirestore.getCollectionDocs('favorite_news', undefined , [['uid', '==', uid], ['news_url', '==', news_url]])
+    if(!(res instanceof ErrorApp)){
+      return res.length >= 1;
+    }else{
+      return false
+    }
   }
 }
 

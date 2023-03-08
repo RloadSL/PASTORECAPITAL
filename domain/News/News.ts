@@ -32,6 +32,10 @@ export const TICKERS = {
 }
 
 export interface News {
+    /**
+     * Identificador de la noticia cuando se agrega a favoritos
+     */
+    id?:string,
     news_url: string,
     image_url: string,
     title: string,

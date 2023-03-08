@@ -1,19 +1,27 @@
 import { News } from 'domain/News/News'
+import newsRepository from 'infrastructure/repositories/news.repository'
 import Link from 'next/link'
-import { useState, memo } from 'react'
+import { useState, memo, useRef, useEffect } from 'react'
 import style from './news-list-item.module.scss'
 
 const NewsListItem = ({
   item,
-  isFavorite,
-  toggleFavs
+  toggleFavs,
+  uid
 }: {
   item: News
-  isFavorite: boolean
   toggleFavs: Function
+  uid: string
 }) => {
   const [isActive, setIsActive] = useState<string | undefined>()
+  const [isFavorite, setIsFavorite] = useState<boolean>(false)
 
+
+  useEffect(() => {
+   newsRepository.isFav(item.news_url, uid )
+   .then(fav => setIsFavorite(fav))
+  }, [])
+  
   return (
     <div className={style.newsContent}>
       <div className={style.newsContent_info}>
@@ -43,7 +51,7 @@ const NewsListItem = ({
           className={`${style.favButton} ${
             isFavorite ? style.favButton_isActive : ''
           }`}
-          onClick={() => toggleFavs()}
+          onClick={() => toggleFavs(isFavorite ? 'remove' : 'add')}
         >
           <span className='only-readers'>Añadir a favoritos</span>
         </button>

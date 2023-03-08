@@ -13,7 +13,10 @@ import useNews from './hooks/news.hook'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import LoadMore from 'components/LoadMoreLoading/LoadMoreLoading'
 import LoadMoreLoading from 'components/LoadMoreLoading'
-import { TICKERS } from 'domain/News/News'
+import { News, TICKERS } from 'domain/News/News'
+import newsRepository from 'infrastructure/repositories/news.repository'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 
 /**
@@ -75,7 +78,10 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
 }
 
 const News: NextPage = () => {
+  const userLogged = useSelector(getUserLogged)
   const [isActive, setIsActive] = useState(false);
+  const [favNews, setFavNews] = useState<News[]>([])
+
   const {
     total_pages,
     news,
@@ -86,9 +92,28 @@ const News: NextPage = () => {
     page
   } = useNews()
 
+  const handleFav = async (action:'remove' | 'add' | 'get', favNew?:News) => {
+    switch (action) {
+      case 'add':
+        if(favNew) await newsRepository.addToFav(favNew, userLogged?.uid)
+        break;
+    case 'remove':
+      if(favNew) await newsRepository.removeFav(favNew.news_url)
+        break;
+    case 'get':
+        newsRepository.getFavs(userLogged?.uid)
+        .then(res => {
+          setFavNews(res)
+        })
+        break;
+      default:
+        break;
+    }
+  }
+
   const onClickFilter = (t:string) => {
     if(t.indexOf('Mis favoritas') != -1){
-      alert('Fav')
+      handleFav('get')
     }else{
       onFilter(undefined, t)
     }
@@ -114,7 +139,7 @@ const News: NextPage = () => {
         <ItemList
           items={news.map((newItem) => (
             <div key={newItem.news_url}>
-              <NewsListItem isFavorite={false} toggleFavs={() => alert('FAV')} key={newItem.news_url} item={newItem} />
+              <NewsListItem uid={userLogged?.uid} toggleFavs={(action:'add' | 'remove') => handleFav(action , newItem)} key={newItem.news_url} item={newItem} />
             </div>
           ))}
         />

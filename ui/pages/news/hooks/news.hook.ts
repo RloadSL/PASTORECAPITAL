@@ -5,7 +5,6 @@ import { useState } from "react"
 
 const useNews = ()=>{
   const [news, setNews] = useState<News[]>([])
-  const [favNews, setFavNews] = useState<News[]>([])
   const [isloaded, setLoaded] = useState(true)
   const [query, setQuery] = useState<QUERY_NEWS>({ search: '', tickers: 'AllTickers',items: 10})
   const [total_pages, setTotal_pages] = useState(0)
