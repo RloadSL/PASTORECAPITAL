@@ -1,0 +1,52 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/placeholders";
+
+.webinarDetail {
+  @extend %layoutContainer;
+  padding: 2%;
+  max-width: 1500px;
+
+  &_description {
+    color: colors.$dark;
+
+    &_image {
+      max-width: 1200px;
+      position: relative;
+      height: 400px;
+    }
+  }
+
+  &_date {
+    color: colors.$dark;
+    display: flex;
+    align-items: center;
+    .date {
+      display: flex;
+      align-items: center;
+  
+      // strong {
+      //   margin-left: 10px;
+      // }
+  
+      &::before {
+        content: '';
+        background-image: url(../../../../assets/img/icons/calendar.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        filter: invert(33%) sepia(62%) saturate(5806%) hue-rotate(269deg) brightness(97%) contrast(95%);
+      }
+    }
+
+  }
+
+
+}
+
+.wantAttendButton {
+
+}

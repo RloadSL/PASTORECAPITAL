@@ -71,7 +71,6 @@ const Webinars = () => {
             type='button'
             icon={addIcon}
           />
-
         </div>
       </header>
       <div className={style.filtersSearchContainer}>

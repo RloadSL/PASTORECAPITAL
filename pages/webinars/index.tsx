@@ -1,3 +1,3 @@
-import Webinars from "ui/pages/webiners/Webinars";
+import Webinars from "ui/pages/webinars/Webinars";
 
 export default  Webinars
