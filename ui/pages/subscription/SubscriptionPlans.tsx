@@ -27,7 +27,7 @@ const SubscriptionPlans = () => {
   const { pushInfoApp } = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const plan = userLoggued?.subscription.plan
-  const { replace, push , asPath} = useRouter()
+  const { replace, push, asPath } = useRouter()
   useEffect(() => {
     systemRepository.getPlans().then(res => {
       setPlans(res)
@@ -35,9 +35,9 @@ const SubscriptionPlans = () => {
   }, [])
 
   useEffect(() => {
-    if(userLoggued?.role.level > 1) replace('/');
+    if (userLoggued?.role.level > 1) replace('/');
   }, [userLoggued])
-  
+
 
   const update = () => {
     setloadingupdatePlan(true)
@@ -53,7 +53,7 @@ const SubscriptionPlans = () => {
 
         pushInfoApp(new InfoApp({ code: 'plan.update', message: 'plan.update' }, 'success'))
       })
-     
+
   }
   const renderUpdatePlan = () => (<AlertApp
     onAction={() => update()}
@@ -62,17 +62,19 @@ const SubscriptionPlans = () => {
     visible={updatePlan != undefined}
   >
     <div className={style.modalContainer}>
-      {loadingupdatePlan && <Loading loading={true} variant='inner-primary'/>}
+      {loadingupdatePlan && <Loading loading={true} variant='inner-primary' />}
       <div className={style.modalContainer_image}>
         <Image src={updateSubscription} alt='Hombre levantando el dedo en señal de OK' />
       </div>
-      <p>
-      <FormattedMessage id='subscription.user.alert.updateSubscription.text'/>
-        {' '}<strong>{updatePlan?.subscription.label}</strong>?
-      </p>
-      <p className={style.paymentAdvice}>
-            <FormattedMessage id={'page.subscription.payment.advice'}/>
-          </p>
+      <div className={style.modalContainer_text}>
+        <p>
+          <FormattedMessage id='subscription.user.alert.updateSubscription.text' />
+          {' '}<strong>{updatePlan?.subscription.label}</strong>?
+        </p>
+        <p>
+          <FormattedMessage id={'page.subscription.payment.adviceModal'} />
+        </p>
+      </div>
     </div>
   </AlertApp>)
 
