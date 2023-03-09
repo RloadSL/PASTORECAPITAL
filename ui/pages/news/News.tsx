@@ -18,40 +18,72 @@ import newsRepository from 'infrastructure/repositories/news.repository'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
-
 /**
  * Componente News y NewsFilter
- * @returns 
+ * @returns
  */
 
 const NewsFilters = ({ onFilter, onTicker }: any) => {
-  const [isActive, setIsActive] = useState<string[]>(['AllTickers']);
+  const [isActive, setIsActive] = useState<string[]>(['AllTickers'])
   const tickers = useRef(Object.keys(TICKERS)).current
 
   return (
     <div className={style.news_filter}>
       <div className={style.news_filter_list}>
         <ul className={style.newsCategories}>
+          <li>
+            <ButtonApp
+              onClick={() => {
+                onTicker(['AllTickers'])
+                setIsActive(['AllTickers'])
+              }}
+              type='button'
+              buttonStyle={isActive.includes('AllTickers') ? 'dark' : 'default'}
+              size='small'
+            >
+              All Tickers
+            </ButtonApp>
+          </li>
+          <li>
+            <ButtonApp
+              onClick={() => {
+                onTicker(['Mis favoritas'])
+                setIsActive(['Mis favoritas'])}}
+              type='button'
+              buttonStyle={
+                isActive.includes('Mis favoritas') ? 'dark' : 'default'
+              }
+              size='small'
+              icon={starIcon}
+            >
+              Mis Favoritas
+            </ButtonApp>
+          </li>
+        </ul>
+        <ul className={style.newsCategories}>
           {tickers.map((ticker: string) => {
             return (
               <li key={ticker} className={style.newsCategories_cat}>
                 <ButtonApp
                   onClick={() => {
-                    setIsActive((pre) => {
-                      if(pre.includes(ticker)){
+                    setIsActive(pre => {
+                      if (pre.includes(ticker)) {
                         const i = pre.findIndex(item => ticker === item)
-                        if(i != -1)pre.splice(i, 1)
-                      }else{
+                        if (i != -1) pre.splice(i, 1)
+                      } else {
                         pre.push(ticker)
                         const i = pre.findIndex(item => 'AllTickers' === item)
-                        if(i != -1)pre.splice(i, 1)
+                        if (i != -1) pre.splice(i, 1)
                       }
-                    
-                      if(ticker === 'AllTickers' || pre.length == 0) pre = ['AllTickers']
-                      if(ticker === 'Mis favoritas') pre = ['Mis favoritas']
-                      else{
-                        const i = pre.findIndex(item => 'Mis favoritas' === item)
-                        if(i != -1)pre.splice(i, 1)
+
+                      if (ticker === 'AllTickers' || pre.length == 0)
+                        pre = ['AllTickers']
+                      if (ticker === 'Mis favoritas') pre = ['Mis favoritas']
+                      else {
+                        const i = pre.findIndex(
+                          item => 'Mis favoritas' === item
+                        )
+                        if (i != -1) pre.splice(i, 1)
                       }
                       onTicker(pre)
                       return [...pre]
@@ -69,17 +101,14 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
           })}
         </ul>
       </div>
-      <SearchBar
-        placeholder={'Buscar por palabra clave'}
-        onFilter={onFilter}
-      />
+      <SearchBar placeholder={'Buscar por palabra clave'} onFilter={onFilter} />
     </div>
   )
 }
 
 const News: NextPage = () => {
   const userLogged = useSelector(getUserLogged)
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false)
   const [favNews, setFavNews] = useState<News[]>([])
 
   const {
@@ -92,39 +121,46 @@ const News: NextPage = () => {
     page
   } = useNews()
 
-  const handleFav = async (action:'remove' | 'add' | 'get', favNew?:News) => {
+  const handleFav = async (action: 'remove' | 'add' | 'get', favNew?: News) => {
     switch (action) {
       case 'add':
-        if(favNew) await newsRepository.addToFav(favNew, userLogged?.uid)
-        break;
-    case 'remove':
-      if(favNew) await newsRepository.removeFav(favNew.news_url)
-        break;
-    case 'get':
-        newsRepository.getFavs(userLogged?.uid)
-        .then(res => {
-          setFavNews(res)
+        if (favNew) await newsRepository.addToFav(favNew, userLogged?.uid)
+        break
+      case 'remove':
+        if (favNew){
+          setFavNews(pre => {
+            const i = pre.findIndex(
+              item => favNew.id === item.id
+            )
+            if (i != -1) pre.splice(i, 1)
+            return [...pre]
+          })
+          await newsRepository.removeFav(favNew.id as string)
+        } 
+        break
+      case 'get':
+        newsRepository.getFavs(userLogged?.uid).then(res => {
+          setFavNews([...res])
         })
-        break;
+        break
       default:
-        break;
+        break
     }
   }
 
-  const onClickFilter = (t:string) => {
-    if(t.indexOf('Mis favoritas') != -1){
+  const onClickFilter = (t: string) => {
+    if (t.indexOf('Mis favoritas') != -1) {
       handleFav('get')
-    }else{
+    } else {
+      setFavNews([])
       onFilter(undefined, t)
     }
-    setIsActive(!isActive);
+    setIsActive(!isActive)
   }
 
   useEffect(() => {
     handleSearchNews()
   }, [query])
-
-   
 
   return (
     <div className={style.news}>
@@ -132,24 +168,41 @@ const News: NextPage = () => {
         <h1 className='main-title'>
           <FormattedMessage id={'news'} />
         </h1>
-        <NewsFilters onTicker={(t:string[])=> onClickFilter(t.toString())} onFilter={({ search, tags }: any) => { onFilter(search) }} newsCats={newsCategories} onClickFilter={onClickFilter} />
+        <NewsFilters
+          onTicker={(t: string[]) => onClickFilter(t.toString())}
+          onFilter={({ search, tags }: any) => {
+            onFilter(search)
+          }}
+          newsCats={newsCategories}
+          onClickFilter={onClickFilter}
+        />
       </header>
       <div className={style.news_container}>
-
         <ItemList
-          items={news.map((newItem) => (
+          items={(favNews.length > 0 ? favNews : news).map(newItem => (
             <div key={newItem.news_url}>
-              <NewsListItem uid={userLogged?.uid} toggleFavs={(action:'add' | 'remove') => handleFav(action , newItem)} key={newItem.news_url} item={newItem} />
+              <NewsListItem
+                uid={userLogged?.uid}
+                toggleFavs={(action: 'add' | 'remove') =>
+                  handleFav(action, newItem)
+                }
+                key={newItem.news_url}
+                item={newItem}
+              />
             </div>
           ))}
         />
 
-        {(page < total_pages) && <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <ButtonApp buttonStyle={'link'} onClick={loadMore}><p>Load more</p></ButtonApp>
-        </div>}
+        {(page < total_pages && favNews.length === 0) && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <ButtonApp buttonStyle={'link'} onClick={loadMore}>
+              <p>Load more</p>
+            </ButtonApp>
+          </div>
+        )}
       </div>
     </div>
   )
 }
 
-export default News;
+export default News

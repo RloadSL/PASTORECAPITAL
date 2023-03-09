@@ -1,6 +1,6 @@
+import { Timestamp } from "firebase/firestore"
+
 export const TICKERS = {
-    AllTickers: '',
-    "Mis favoritas" : 'fav',
     BTC: "Bitcoin",
     ETH: "Etherum",
     XRP: "Ripple",
@@ -50,7 +50,7 @@ export interface News {
     /**
      * Fecha de la noticia
      */
-    date: Date,
+    date: Date | Timestamp,
     /**
      * Temas de la noticia
      */

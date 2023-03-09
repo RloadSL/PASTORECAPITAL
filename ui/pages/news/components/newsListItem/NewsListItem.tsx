@@ -43,7 +43,7 @@ const NewsListItem = ({
           </div>
           <p className={style.newsContent_date}>
             <span> {item.source_name}</span> |{' '}
-            <span>{item.date.toLocaleDateString()}</span>
+            <span>{(item.date instanceof Date) ? item.date.toLocaleDateString() : item.date.toDate().toLocaleDateString()}</span>
            {/*  <span>{item.sentiment}</span> */}
           </p>
         </div>
@@ -53,7 +53,10 @@ const NewsListItem = ({
           className={`${style.favButton} ${
             isFavorite ? style.favButton_isActive : ''
           }`}
-          onClick={() => toggleFavs(isFavorite ? 'remove' : 'add')}
+          onClick={() => {
+            setIsFavorite(!isFavorite )
+            toggleFavs(isFavorite ? 'remove' : 'add')}
+          }
         >
           <span className='only-readers'>Añadir a favoritos</span>
         </button>
