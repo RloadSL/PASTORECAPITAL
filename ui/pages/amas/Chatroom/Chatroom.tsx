@@ -103,9 +103,12 @@ const Chatroom = () => {
   }, [oppenedChatroom?.id])
 
   const chatContainerRef = useRef<any>(null)
+  
   useEffect(() => {
-    if (messages) chatContainerRef?.current.scroll(0, 120 * messages?.length)
-  }, [lastMessage?.id])
+    if (messages){
+      chatContainerRef?.current.scroll(0, 120 * messages?.length)
+    } 
+  }, [messages?.length])
 
   const sendMessage = async (message: string) => {
     const data: MessageDto = {
