@@ -108,7 +108,12 @@ const Webinars = () => {
         </div>
         {openedit && (
           <Modal onBtnClose={() => setopenedit(false)}>
-            <SetWebinar onCreate={onSetWebinars} />
+            <div className={style.modalContainer}>
+              <p className={style.modalContainer_title}>
+                <FormattedMessage id={'page.webinars.modal.createTitle'} />
+              </p>
+              <SetWebinar onCreate={onSetWebinars} />
+            </div>
           </Modal>
         )}
       </div>

@@ -108,4 +108,10 @@
 
 .modalContainer {
   padding: 20px;
+  color: colors.$dark;
+
+  &_title {
+    text-align: center;
+    font-weight: bold;
+  }
 }

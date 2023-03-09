@@ -46,7 +46,7 @@ const InputFileFormikApp = ({
             src={file || field.value}
             alt={'preview'}
             className='img-thumbnail mt-2'
-            style={{ width: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', objectFit: 'contain', maxHeight: '100px' }}
           />
         )}
         {!thumb && fileName ? (

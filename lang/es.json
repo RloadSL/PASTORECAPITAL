@@ -215,7 +215,10 @@
   "page.amas.coming_soon" : "Esta sala esta en espera de apertura",
   "page.amas.coming_soon.text" : "Pronto se abrirá esta sala por nuestro moderador, mantente a la espera y disculpe por las molestias causadas.",
   "page.webinars.subtitle": "Próximas sesiones",
+  "page.webinars.modal.createTitle": "Crear un webinar",
+  "page.webinars.modal.editTitle": "Editar un webinar",
   "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
+  "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
 
   "page.subscription.payment.title": "Plan",
   "page.subscription.payment.description": "Completa el proceso de suscripción y accede a contenidos exclusivos en Pastore Capital",

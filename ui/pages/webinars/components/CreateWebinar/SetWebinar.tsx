@@ -54,9 +54,6 @@ function SetWebinar ({onCreate, updateWebinar }: {onCreate: Function, updateWebi
 
   return (
     <div>
-      <div className='header'>
-        <h3>Crear nuevo webinar</h3>
-      </div>
       <div className='formContent'>
         <Formik
           initialValues={webinar}
