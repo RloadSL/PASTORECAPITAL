@@ -9,11 +9,16 @@
 
   &_description {
     color: colors.$dark;
+    margin-top: 2rem;
 
     &_image {
       max-width: 1200px;
       position: relative;
       height: 400px;
+    }
+
+    &_video {
+      margin-top: 2rem;
     }
   }
 
@@ -21,13 +26,10 @@
     color: colors.$dark;
     display: flex;
     align-items: center;
+
     .date {
       display: flex;
       align-items: center;
-  
-      // strong {
-      //   margin-left: 10px;
-      // }
   
       &::before {
         content: '';
@@ -41,12 +43,69 @@
         filter: invert(33%) sepia(62%) saturate(5806%) hue-rotate(269deg) brightness(97%) contrast(95%);
       }
     }
+  }
 
+  .readingContainer {
+    max-width: 1200px;
   }
 
 
 }
 
-.wantAttendButton {
+.adminActions {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 
+  button {
+    padding: 5px 18px !important;
+  }
+
+  &_buttonContainer {
+    &_edit {
+      border: 1px solid colors.$main;
+      border-radius: 50px;
+      margin-right: 20px;
+
+      button {
+        color: colors.$main !important;
+      }
+    }
+
+    &_delete {
+      border: 1px solid colors.$error;
+      border-radius: 50px;
+
+      button {
+        color: colors.$error !important;
+
+        img {
+          filter: invert(54%) sepia(18%) saturate(4632%) hue-rotate(311deg) brightness(85%) contrast(101%) !important;
+        }
+      }
+    }
+
+    &_upload {
+      border: 1px solid colors.$main;
+      border-radius: 50px;
+      margin-right: 20px;
+
+      button {
+        color: colors.$main !important;
+        img {
+          filter: invert(58%) sepia(50%) saturate(5333%) hue-rotate(247deg) brightness(60%) contrast(75%) !important;
+        }
+      }
+    }
+  }
+}
+
+.attendButtonContainer {
+  max-width: 250px;
+  margin-top: 2rem;
+}
+
+.modalContainer {
+  padding: 20px;
 }

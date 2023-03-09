@@ -66,10 +66,13 @@
     top: 40px;
     left: -25px;
 
+    @include devices.device(tablet) {
+      min-height: 70px;
+    }
+
     @include devices.device(lgScreen) {
       top: 35px;
     }
-
   }
 
   .innerContent {
@@ -86,6 +89,18 @@
     height: 100%;
     display: flex;
     align-items: center;
+
+    @include devices.device(mdScreen) {
+      @media screen and ( max-height: 700px ) {
+        height: 78%;
+        margin-top: 70px;
+        overflow-y: auto;
+      }
+    }
+
+    // @include devices.device(lgScreen) {
+    //   margin-top: 0px;
+    // }
   }
 
   aside {

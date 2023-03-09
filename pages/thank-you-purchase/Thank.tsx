@@ -9,7 +9,7 @@ import style from './thank.module.scss'
 
 const Thankyou = () => {
   return (
-    <div className={style.Thankyou}>
+    <div className={style.thankyou}>
       <div className={style.successCard}>
         <div className={style.successCardContainer}>
           <p>
