@@ -109,7 +109,7 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
 const News: NextPage = () => {
   const userLogged = useSelector(getUserLogged)
   const [isActive, setIsActive] = useState(false)
-  const [favNews, setFavNews] = useState<News[]>([])
+  const [{showFav,favNews}, setFavNews] = useState<{showFav: boolean, favNews: News[]}>({showFav:false,favNews:[]})
 
   const {
     total_pages,
@@ -129,18 +129,21 @@ const News: NextPage = () => {
       case 'remove':
         if (favNew){
           setFavNews(pre => {
-            const i = pre.findIndex(
+            const {favNews} = pre
+            const i = favNews.findIndex(
               item => favNew.id === item.id
             )
-            if (i != -1) pre.splice(i, 1)
-            return [...pre]
+            if (i != -1) favNews.splice(i, 1)
+            return {...pre, favNews: [...favNews]}
           })
+          
           await newsRepository.removeFav(favNew.id as string)
         } 
         break
       case 'get':
         newsRepository.getFavs(userLogged?.uid).then(res => {
-          setFavNews([...res])
+          console.log(res)
+          setFavNews({showFav: true , favNews: [...res]})
         })
         break
       default:
@@ -152,7 +155,7 @@ const News: NextPage = () => {
     if (t.indexOf('Mis favoritas') != -1) {
       handleFav('get')
     } else {
-      setFavNews([])
+      setFavNews({showFav: false , favNews : []})
       onFilter(undefined, t)
     }
     setIsActive(!isActive)
@@ -179,7 +182,7 @@ const News: NextPage = () => {
       </header>
       <div className={style.news_container}>
         <ItemList
-          items={(favNews.length > 0 ? favNews : news).map(newItem => (
+          items={(showFav ? favNews : news).map(newItem => (
             <div key={newItem.news_url}>
               <NewsListItem
                 uid={userLogged?.uid}
@@ -193,7 +196,7 @@ const News: NextPage = () => {
           ))}
         />
 
-        {(page < total_pages && favNews.length === 0) && (
+        {(page < total_pages && !showFav) && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ButtonApp buttonStyle={'link'} onClick={loadMore}>
               <p>Load more</p>
