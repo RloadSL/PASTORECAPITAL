@@ -2,13 +2,18 @@
 @use "/../../styles/partials/variables/colors" as colors;
 @use "/../../styles/partials/placeholders";
 
-.Thankyou {
+.thankyou {
   @extend %layoutContainer;
   padding: 2%;
-  height: calc(100vh - 100px);
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @include devices.device(lgScreen) {
+    @media screen and ( min-height: 700px ) {
+      height: calc(100vh - 100px);
+    }
+  }
 }
 
 .successCard {

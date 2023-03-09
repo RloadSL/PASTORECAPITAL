@@ -216,6 +216,8 @@
   "page.amas.coming_soon.text" : "Pronto se abrirá esta sala por nuestro moderador, mantente a la espera y disculpe por las molestias causadas.",
   "page.amas.coming_soon.text_open" : "Quieres dar inicio a la sala esta acción abrirá la sala al pblico.",
   "page.webinars.subtitle": "Próximas sesiones",
+  "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
+
   "page.subscription.payment.title": "Plan",
   "page.subscription.payment.description": "Completa el proceso de suscripción y accede a contenidos exclusivos en Pastore Capital",
   "page.subscription.payment.advice": "*Si tienes un plan inferior y actualizas a otro superior o viceversa se te cobrará en el próximo cobro de tu suscripción",

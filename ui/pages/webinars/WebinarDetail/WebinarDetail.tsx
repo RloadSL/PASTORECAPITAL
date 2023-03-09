@@ -19,6 +19,9 @@ import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import * as yup from 'yup'
 import SetWebinar from '../components/CreateWebinar/SetWebinar'
+import editIcon from '../../../../assets/img/icons/pencil.svg'
+import deleteIcon from '../../../../assets/img/icons/trash.svg'
+import uploadIcon from '../../../../assets/img/icons/upload.svg'
 import style from './webinar-detail.module.scss'
 
 const WebinarDetail: NextPage = () => {
@@ -67,116 +70,108 @@ const WebinarDetail: NextPage = () => {
     <Loading loading variant='inner-primary' />
   ) : (
     <div className={style.webinarDetail}>
-      <header>
-        <div>
-          <p className='small-caps'><FormattedMessage id={'webinars'} /></p>
-          <h1 className={`${style.topTitle} main-title`}>
-            {webinar.title}
-          </h1>
+      <div className={style.readingContainer}>
+        <header>
+          <div>
+            <p className='small-caps'><FormattedMessage id={'webinars'} /></p>
+            <h1 className={`${style.topTitle} main-title`}>
+              {webinar.title}
+            </h1>
+          </div>
+          <div className={style.webinarDetail_date}>
+            <span className={style.date}>
+              {webinar.date.toLocaleString()}
+            </span>
+          </div>
+        </header>
+        <div className={style.adminActions}>
+          <div className={style.adminActions_buttonContainer_edit}>
+            <ButtonApp icon={editIcon} buttonStyle={'transparent'} onClick={() => setState(pre => ({ ...pre, edit: true }))} labelID={'editar'} />
+          </div>
+          <div className={style.adminActions_buttonContainer_upload}>
+            <ButtonApp icon={uploadIcon} buttonStyle={'transparent'} onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
+              labelID={'subir vídeo'} />
+          </div>
+          <div className={style.adminActions_buttonContainer_delete}>
+            <ButtonApp icon={deleteIcon} buttonStyle={'transparent'} onClick={() => setState(pre => ({ ...pre, delete: true }))} labelID={'eliminar'} />
+          </div>
         </div>
-        <div className={style.webinarDetail_date}>
-          <span className={style.date}>
-            {webinar.date.toLocaleString()}
-          </span>
-        </div>
-      </header>
-      <div className={style.webinarDetail_description}>
-        <div className={style.webinarDetail_description_text}>
-          {webinar.description}
-        </div>
-        <div className={style.webinarDetail_description_image}>
+        <div className={style.webinarDetail_description}>
+          <div className={style.webinarDetail_description_text}>
+            {webinar.description}
+          </div>
           {(webinar.thumb && !deferred_video) && (
-            <div>
-              <Image
-                src={webinar.thumb?.url as string}
-                layout='fill'
-                alt={webinar.title}
-              />
+            <div className={style.webinarDetail_description_image}>
+              <div>
+                <Image
+                  src={webinar.thumb?.url as string}
+                  layout='fill'
+                  alt={webinar.title}
+                />
+              </div>
             </div>
           )}
-        </div>
-        <div className={style.webinarDetail_description_video}>
-          {
-            deferred_video && <div style={{
-              position: 'relative',
-              width: '100%'
-            }}>
-              <video style={{
+          <div className={style.webinarDetail_description_video}>
+            {
+              deferred_video && <div style={{
                 position: 'relative',
                 width: '100%'
-              }} controls src={deferred_video} autoPlay={false}></video>
-            </div>
-          }
-        </div>
-      </div>
-
-
-      <div>
-        <ButtonApp onClick={() => setState(pre => ({ ...pre, edit: true }))}>
-          Editar @Jose restringir a administradores
-        </ButtonApp>
-      </div>
-      <div>
-        <ButtonApp onClick={() => setState(pre => ({ ...pre, delete: true }))}>
-          Eliminar @Jose restringir a administradores
-        </ButtonApp>
-      </div>
-      <div>
-        <ButtonApp
-          onClick={() => setState(pre => ({ ...pre, register: true }))}
-        >
-          ¡Quiero asistir!
-        </ButtonApp>
-      </div>
-
-      <div>
-        <ButtonApp
-          onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
-        >
-          Subir video
-        </ButtonApp>
-      </div>
-
-      {state.register && (
-        <div>
-          <ComplteInscription
-            onClose={() => setState(pre => ({ ...pre, register: false }))}
-            w_id={query.w_id as string}
-          />
-        </div>
-      )}
-
-      {state.edit && (
-        <Modal onBtnClose={() => setState(pre => ({ ...pre, edit: false }))}>
-          <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
-        </Modal>
-      )}
-
-      {state.uploadVideo && (
-        <Modal
-          onBtnClose={() => setState(pre => ({ ...pre, uploadVideo: false }))}
-        >
-          <UploadVideo
-            onCancel={() => setState(pre => ({ ...pre, uploadVideo: false }))}
-            onUploadVideo={() => alert('Video subido')}
-            w_id={webinar.id as string}
-          />
-        </Modal>
-      )}
-
-      {state.delete && (
-        <AlertApp
-          visible={state.delete}
-          onAction={onDelete}
-          title='Eliminar webinar'
-          onCancel={() => setState(pre => ({ ...pre, delete: false }))}
-        >
-          <Loading loading={state.loading} />
-          <div>
-            Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
+              }}>
+                <video style={{
+                  position: 'relative',
+                  width: '100%'
+                }} controls src={deferred_video} autoPlay={false}></video>
+              </div>
+            }
           </div>
-        </AlertApp>
-      )}
+        </div>
+        <div className={style.attendButtonContainer}>
+          <ButtonApp buttonStyle={'primary'} labelID={'page.webinarDetail.label.attendButton'} onClick={() => setState(pre => ({ ...pre, register: true }))}
+          />
+        </div>
+        {state.register && (
+          <div>
+            <ComplteInscription
+              onClose={() => setState(pre => ({ ...pre, register: false }))}
+              w_id={query.w_id as string}
+            />
+          </div>
+        )}
+
+        {state.edit && (
+          <Modal onBtnClose={() => setState(pre => ({ ...pre, edit: false }))}>
+            <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
+          </Modal>
+        )}
+
+        {state.uploadVideo && (
+          <Modal
+            onBtnClose={() => setState(pre => ({ ...pre, uploadVideo: false }))}
+          >
+            <div className={style.modalContainer}>
+              <UploadVideo
+                onCancel={() => setState(pre => ({ ...pre, uploadVideo: false }))}
+                onUploadVideo={() => alert('Video subido')}
+                w_id={webinar.id as string}
+              />
+            </div>
+          </Modal>
+        )}
+
+        {state.delete && (
+          <AlertApp
+            visible={state.delete}
+            onAction={onDelete}
+            title='Eliminar webinar'
+            onCancel={() => setState(pre => ({ ...pre, delete: false }))}
+          >
+            <Loading loading={state.loading} />
+            <div className={style.modalContainer}>
+              Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
+            </div>
+          </AlertApp>
+        )}
+      </div>
     </div>
   )
 }
