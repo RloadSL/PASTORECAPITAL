@@ -374,47 +374,43 @@ const UploadVideo = ({
   console.log(console.log(progress))
   const renderProgress = () => (
     <div>
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: 300,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <p>Subiendo video diferido</p>
+      <div className={style.progressBar}>
+        <p>
+          <FormattedMessage id={'page.webinars.uploadVideo'} />
+        </p>
         <div
           style={{
             width: '100%',
-            background: 'gray',
+            background: '#cacaca',
             position: 'relative',
             height: '40px'
           }}
         >
           <div
+            className={style.progressBar_progress}
             style={{
               width: `${progress}%`,
-              background: 'green',
-              height: '100%',
-              position: 'absolute'
+              height: "100%",
+              background: "#52CE8B",
+              position: "absolute"
             }}
           ></div>
         </div>
       </div>
+      <div className={style.buttonContainer}>
+        <ButtonApp
+          buttonStyle={'secondary'}
+          labelID='btn.cancel'
+          onClick={() => {
+            task?.cancel()
+            console.log(console.log(progress))
+            //setProgresss(0)
+            //onCancel()
 
-      <ButtonApp
-        onClick={() => {
-          task?.cancel()
-          console.log(console.log(progress))
-          //setProgresss(0)
-          //onCancel()
-        }}
-      >
-        Cancelar
-      </ButtonApp>
+          }}
+        />
+      </div>
+
     </div>
   )
 

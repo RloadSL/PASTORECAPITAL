@@ -16,13 +16,24 @@
     color: colors.$dark;
     font-weight: 500;
   }
+
+  &_calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .webinarsContainer {
-  display: flex;
+  @include devices.device(smTablet) {
+    display: flex;
+  }
   ul {
     list-style-type: none;
-    margin-right: 2rem;
+
+    @include devices.device(smTablet) {
+      margin-right: 2rem;
+    }
 
     li {
       margin-bottom: 20px;
@@ -57,7 +68,11 @@
   justify-content: center;
   border-radius: 50px;
   font-weight: bold;
-  padding: 8px
+  padding: 8px;
+
+  @include devices.device(smTablet) {
+    width: 100%;
+  }
 }
 
 .modalContainer {
@@ -68,4 +83,11 @@
     text-align: center;
     font-weight: bold;
   }
+}
+
+.cardContainer {
+  @extend %cardContainer;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  max-height: 100% !important;
 }

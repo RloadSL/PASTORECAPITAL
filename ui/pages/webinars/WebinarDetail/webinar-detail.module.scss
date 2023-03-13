@@ -30,9 +30,9 @@
     .date {
       display: flex;
       align-items: center;
-  
+
       &::before {
-        content: '';
+        content: "";
         background-image: url(../../../../assets/img/icons/calendar.svg);
         background-repeat: no-repeat;
         background-size: contain;
@@ -48,8 +48,6 @@
   .readingContainer {
     max-width: 1200px;
   }
-
-
 }
 
 .adminActions {
@@ -114,4 +112,15 @@
     text-align: center;
     font-weight: bold;
   }
+}
+
+.progressBar {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.buttonContainer {
+  max-width: 300px;
+  margin: auto;
+  margin-top: 40px;
 }
