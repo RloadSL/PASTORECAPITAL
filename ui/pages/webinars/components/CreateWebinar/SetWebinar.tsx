@@ -67,6 +67,7 @@ function SetWebinar ({onCreate, updateWebinar }: {onCreate: Function, updateWebi
                 labelID='forms.labels.title'
                 type='text'
                 name='title'
+                maxLength={60}
               />
               <InputFormikApp
                 labelID='forms.labels.link'
@@ -87,6 +88,7 @@ function SetWebinar ({onCreate, updateWebinar }: {onCreate: Function, updateWebi
               <TextareaFormikApp
                 labelID='forms.labels.excerpt'
                 name='description'
+                maxLength={200}
               />
               <InputFileFormikApp name='thumb'
                 labelID='form.label.image'
