@@ -129,25 +129,36 @@
   bottom: -15px;
   font-size: 10px;
 }
-.Modal{
+.modalContainer{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .timeContainer{
-    display: flex;
-    .label{
-      color: colors.$main;
-      background-color: blue;
-      input {
-        top: 0px;
-        height: 45px;
-        background-color: blue;
-    
-      }
-    }
-    
+  padding: 20px;
+  color: colors.$dark;
+
+  &_title {
+    font-weight: bold;
   }
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    border: 1px solid #cacaca;
+    border-radius: 10px;
+    line-height: 20px;
+    padding: 10px;
+    min-width: 80px;
+    text-align: center;
+  }
+}
+
+.buttonContainer {
+  min-width: 200px;
+  margin-top: 20px;
 }
 
 

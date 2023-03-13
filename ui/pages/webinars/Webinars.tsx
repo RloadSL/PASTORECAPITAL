@@ -105,7 +105,7 @@ const Webinars = () => {
             )}
           </div>
         </div>
-        <div>
+        <div className={style.webinars_calendar}>
           <WebinarsCalendar items={webinars} />
           <div className={style.linkDeferred}>
             <LinkApp linkHref='/webinars/deferred' target='_self' label='deferred' icon={calendarIcon} />
@@ -113,8 +113,8 @@ const Webinars = () => {
         </div>
         {openedit && (
           <Modal onBtnClose={() => setopenedit(false)}>
-            <div className={style.modalContainer}>
-              <p className={style.modalContainer_title}>
+            <div className={style.cardContainer}>
+              <p className={style.cardContainer_title}>
                 <FormattedMessage id={'page.webinars.modal.createTitle'} />
               </p>
               <SetWebinar onCreate={onSetWebinars} />

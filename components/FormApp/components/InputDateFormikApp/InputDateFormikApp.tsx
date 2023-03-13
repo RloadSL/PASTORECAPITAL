@@ -74,7 +74,8 @@ function InputDateFormikApp ({
         <div className={style.error}>{meta.error}</div>
       )}
       {openCalendar && <Modal onBtnClose={() => setOpenCalendar(false)}>
-        <div className={style.Modal}>
+        <div className={style.modalContainer}>
+          <p className={style.modalContainer_title}>Elige una fecha</p>
           <Calendar value={field.value} onChange={(e:Date)=>{
             const date = field.value as Date
             date.setDate(e.getDate())
@@ -83,27 +84,32 @@ function InputDateFormikApp ({
             form.setValue(date)
           }} />
           <div className={style.timeContainer}>
+            <p>Hora en formato 24 horas</p>
+            <div className={style.timeContainer_inputs}>
             <label>
-              Hora en formato de 24 horas
-              <input value={(field.value as Date).getHours().toString().padStart(2, '0')} type={'number'} placeholder='00 H' max={24} step={1} min={0}
+              <input value={(field.value as Date).getHours().toString().padStart(2, '0')} type={'number'} placeholder='horas' max={24} step={1} min={0}
               onChange={({target})=>{
                const date = field.value as Date
                date.setHours(parseInt(target.value))
                form.setValue(date)
               }}
               />
+              <span>:</span>
             </label>
 
             <label>
-              Minutos
               <input value={(field.value as Date).getMinutes().toString().padStart(2, '0')} type={'number'} onChange={({target})=>{
                 const date = field.value as Date
                 date.setMinutes(parseInt(target.value))
                 form.setValue(date)
-              }} placeholder='00 M' max={59} step={1} min={0} />
+              }} placeholder='min' max={59} step={1} min={0} />
+
             </label>
+            </div>
           </div>
-          <ButtonApp  labelID='btn.accept' onClick={()=>setOpenCalendar(false)}/>
+          <div className={style.buttonContainer}>
+          <ButtonApp buttonStyle={'primary'}  labelID='btn.accept' onClick={()=>setOpenCalendar(false)}/>
+          </div>
         </div>
       </Modal>}
     </div>
