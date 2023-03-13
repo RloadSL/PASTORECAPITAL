@@ -13,6 +13,18 @@
 
   .cardContainer {
     padding: 15px;
+    margin-bottom: 20px;
+
+    &_content {
+      @include devices.device(smTablet) {
+        display: flex;
+      }
+
+      @include devices.device(lgScreen) {
+        display: block;
+      }
+    }
+
   
     // & > div {
     //   flex: 1;
@@ -64,13 +76,14 @@
     width: 200px;
     height: 200px;
     margin-right: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     flex-shrink: 0;
   }
 
   @include devices.device(lgScreen) {
     width: 100%;
     height: 135px;
+    margin-bottom: 15px;
   }
 }
 

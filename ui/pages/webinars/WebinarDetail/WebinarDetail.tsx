@@ -169,7 +169,7 @@ const WebinarDetail: NextPage = () => {
         </div>
         {state.register && (
           <div>
-            <ComplteInscription
+            <CompleteInscription
               onClose={() => setState(pre => ({ ...pre, register: false }))}
               w_id={query.w_id as string}
             />
@@ -227,7 +227,7 @@ const WebinarDetail: NextPage = () => {
   )
 }
 
-const ComplteInscription = ({
+const CompleteInscription = ({
   w_id,
   onClose
 }: {
@@ -333,6 +333,8 @@ const ComplteInscription = ({
   return (
     <>
       <Modal onBtnClose={onClose}>
+        <div className={style.modalContainer}>
+          <p className={style.modalContainer_title}>Apuntarse a este webinar</p>
         {registerState.loading ? (
           <Loading loading />
         ) : registerState.isRegistered ? (
@@ -345,6 +347,7 @@ const ComplteInscription = ({
         ) : (
           renderForm()
         )}
+        </div>
       </Modal>
     </>
   )
