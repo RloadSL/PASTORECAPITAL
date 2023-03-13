@@ -29,10 +29,9 @@ function getDirection (locale: string) {
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
   const locale: 'es' | 'en' = (useRouter().locale || 'es') as any
-  const [initalLoaders, setInitalLoaders] = useState(false)
   useEffect(() => {
     Translate.currentLocal = locale;
-    //accesibilityService.getPermissions();
+    accesibilityService.getPermissions();
   }, [])
   
   
