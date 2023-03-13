@@ -66,7 +66,7 @@ const Webinars = () => {
         <div className={style.createRoomBtnContainer}>
           <ButtonApp
             buttonStyle='primary'
-            labelID='page.amas.createRoom.label'
+            labelID='page.webinars.modal.createTitle'
             onClick={() => setopenedit(true)}
             type='button'
             icon={addIcon}
@@ -76,7 +76,7 @@ const Webinars = () => {
       <div className={style.filtersSearchContainer}>
         <SearchBar
           enableTags={false}
-          placeholder={'page.administration.users.filter.placeholder'}
+          placeholder={'page.webinars.inputSearch'}
           onFilter={(value: { search?: string; tags?: string }) =>
             onFilter(value.search as string)
           }
@@ -108,7 +108,12 @@ const Webinars = () => {
         </div>
         {openedit && (
           <Modal onBtnClose={() => setopenedit(false)}>
-            <SetWebinar onCreate={onSetWebinars} />
+            <div className={style.modalContainer}>
+              <p className={style.modalContainer_title}>
+                <FormattedMessage id={'page.webinars.modal.createTitle'} />
+              </p>
+              <SetWebinar onCreate={onSetWebinars} />
+            </div>
           </Modal>
         )}
       </div>

@@ -140,7 +140,12 @@ const WebinarDetail: NextPage = () => {
 
         {state.edit && (
           <Modal onBtnClose={() => setState(pre => ({ ...pre, edit: false }))}>
-            <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
+            <div className={style.modalContainer}>
+              <p className={style.modalContainer_title}>
+                <FormattedMessage id={'page.webinars.modal.editTitle'}/>
+              </p>
+                <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
+            </div>
           </Modal>
         )}
 
@@ -149,6 +154,9 @@ const WebinarDetail: NextPage = () => {
             onBtnClose={() => setState(pre => ({ ...pre, uploadVideo: false }))}
           >
             <div className={style.modalContainer}>
+              <p className={style.modalContainer_title}>
+                <FormattedMessage id='page.webinarDetail.modal.uploadVideoTitle'/>
+              </p>
               <UploadVideo
                 onCancel={() => setState(pre => ({ ...pre, uploadVideo: false }))}
                 onUploadVideo={() => alert('Video subido')}
@@ -165,9 +173,11 @@ const WebinarDetail: NextPage = () => {
             title='Eliminar webinar'
             onCancel={() => setState(pre => ({ ...pre, delete: false }))}
           >
-            <Loading loading={state.loading} />
             <div className={style.modalContainer}>
-              Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
+              <Loading loading={state.loading} />
+              <div className={style.modalContainer}>
+                Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
+              </div>
             </div>
           </AlertApp>
         )}
