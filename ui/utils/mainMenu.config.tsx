@@ -131,6 +131,13 @@ export const mainMenuItems = [
     children: [
       {
         type: 'link',
+        label: 'mainMenu.item.label.accessibility',
+        children: null,
+        href: '/administration/accessibility',
+        path:'administration/accessibility'
+      },
+      {
+        type: 'link',
         label: 'mainMenu.item.label.users',
         children: null,
         href: '/administration/users',

@@ -42,6 +42,7 @@
   "mainMenu.item.label.users" : "Usuarios",
   "mainMenu.item.label.stats" : "Estadísticas",
   "mainMenu.item.label.invoice" : "Facturas",
+  "mainMenu.item.label.accessibility" :"Accesibilidad",
 
   "contextualMenu.item.label.see": "Ver",
   "contextualMenu.item.label.donwload" : "Descargar",
