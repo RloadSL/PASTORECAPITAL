@@ -124,7 +124,7 @@ export const AppLayoutView = ({
 }: any) => {
   return (
     <div>
-      <Drawer>{children}</Drawer>
+      {permisssioState.subscriptionGranted && <Drawer>{children}</Drawer>}
       <AlertApp
         onCancel={() => goBack()}
         onAction={() => goSubscription()}

@@ -33,9 +33,8 @@ interface ItemListWebinarProps {
  */
 
 const ItemListWebinar = ({ item, onClick, showThumb = false, chips, hasColorSpot = false }: ItemListWebinarProps) => {
-  const randomColor = useRef(item.id !== undefined ? colorPalette[hashIDGenerator(item.id) % 5] : colorPalette[randomIntFromInterval(0, 5)]);
+  const randomColor = useRef(item.id !== undefined ? colorPalette[Math.abs(hashIDGenerator(item.id)) % 5] : colorPalette[randomIntFromInterval(0, 5)]);
 
-  console.log(randomColor.current)
 
   return (
     <div className={style.webinar}>

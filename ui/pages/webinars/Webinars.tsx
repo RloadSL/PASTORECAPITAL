@@ -9,7 +9,7 @@ import { Webinars } from 'domain/Webinars/Webinars'
 import { ELASTIC_QUERY } from 'infrastructure/elasticsearch/search.elastic'
 import webinarsRepository from 'infrastructure/repositories/webinars.repository'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Calendar } from 'react-calendar'
 import { FormattedMessage } from 'react-intl'
 import SetWebinar from './components/CreateWebinar/SetWebinar'
@@ -19,11 +19,13 @@ import useWebinars from './hooks/webinars.hook'
 import style from './webinars.module.scss'
 import addIcon from '../../../assets/img/icons/add.svg'
 import calendarIcon from '../../../assets/img/icons/calendar.svg'
-
-
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
 const Webinars = () => {
   const [openedit, setopenedit] = useState(false)
+  const userLogged = useSelector(getUserLogged)
+  
   const {
     isloaded,
     pages,
@@ -36,6 +38,9 @@ const Webinars = () => {
   } = useWebinars()
 
   const { push } = useRouter()
+
+  const isAdmin = useRef(userLogged?.checkColaborationPermisionByModule('WEBINARS')).current
+
   useEffect(() => {
     handleSearchWebinars()
   }, [query])
@@ -64,13 +69,13 @@ const Webinars = () => {
           </p>
         </div>
         <div className={style.createRoomBtnContainer}>
-          <ButtonApp
+          {isAdmin && <ButtonApp
             buttonStyle='primary'
             labelID='page.webinars.modal.createTitle'
             onClick={() => setopenedit(true)}
             type='button'
             icon={addIcon}
-          />
+          />}
         </div>
       </header>
       <div className={style.filtersSearchContainer}>

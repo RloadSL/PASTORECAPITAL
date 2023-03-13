@@ -27,22 +27,36 @@ import style from './webinar-detail.module.scss'
 const WebinarDetail: NextPage = () => {
   const [webinar, setWebinar] = useState<Webinars | undefined>()
   const [deferred_video, setDeferred_video] = useState<string | undefined>()
+  const userLogged = useSelector(getUserLogged)
+  const isAdmin = useRef(
+    userLogged?.checkColaborationPermisionByModule('WEBINARS')
+  ).current
+
   const [state, setState] = useState<{
     register: boolean
     uploadVideo: boolean
     edit: boolean
     delete: boolean
     loading: boolean
-  }>({ register: false, uploadVideo: false, edit: false, delete: false, loading: false })
+  }>({
+    register: false,
+    uploadVideo: false,
+    edit: false,
+    delete: false,
+    loading: false
+  })
   const { query, replace } = useRouter()
   useEffect(() => {
     let fetch = true
     if (query.w_id) {
       webinarsRepository.get(query.w_id as string).then(res => {
-        setWebinar(res)
-        if (res?.deferred_video) {
-          webinarsRepository.getVideoUrl(res.deferred_video.gcs_path)
-            .then(url => setDeferred_video(url))
+        if (fetch) {
+          setWebinar(res)
+          if (res?.deferred_video) {
+            webinarsRepository
+              .getVideoUrl(res.deferred_video.gcs_path)
+              .then(url => setDeferred_video(url))
+          }
         }
       })
     }
@@ -63,7 +77,7 @@ const WebinarDetail: NextPage = () => {
     setTimeout(() => {
       setState(pre => ({ ...pre, loading: false }))
       replace('/webinars')
-    }, 10000);
+    }, 10000)
   }
 
   return !webinar ? (
@@ -73,34 +87,48 @@ const WebinarDetail: NextPage = () => {
       <div className={style.readingContainer}>
         <header>
           <div>
-            <p className='small-caps'><FormattedMessage id={'webinars'} /></p>
-            <h1 className={`${style.topTitle} main-title`}>
-              {webinar.title}
-            </h1>
+            <p className='small-caps'>
+              <FormattedMessage id={'webinars'} />
+            </p>
+            <h1 className={`${style.topTitle} main-title`}>{webinar.title}</h1>
           </div>
           <div className={style.webinarDetail_date}>
-            <span className={style.date}>
-              {webinar.date.toLocaleString()}
-            </span>
+            <span className={style.date}>{webinar.date.toLocaleString()}</span>
           </div>
         </header>
-        <div className={style.adminActions}>
-          <div className={style.adminActions_buttonContainer_edit}>
-            <ButtonApp icon={editIcon} buttonStyle={'transparent'} onClick={() => setState(pre => ({ ...pre, edit: true }))} labelID={'editar'} />
+        {isAdmin && (
+          <div className={style.adminActions}>
+            <div className={style.adminActions_buttonContainer_edit}>
+              <ButtonApp
+                icon={editIcon}
+                buttonStyle={'transparent'}
+                onClick={() => setState(pre => ({ ...pre, edit: true }))}
+                labelID={'editar'}
+              />
+            </div>
+            <div className={style.adminActions_buttonContainer_upload}>
+              <ButtonApp
+                icon={uploadIcon}
+                buttonStyle={'transparent'}
+                onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
+                labelID={'subir vídeo'}
+              />
+            </div>
+            <div className={style.adminActions_buttonContainer_delete}>
+              <ButtonApp
+                icon={deleteIcon}
+                buttonStyle={'transparent'}
+                onClick={() => setState(pre => ({ ...pre, delete: true }))}
+                labelID={'eliminar'}
+              />
+            </div>
           </div>
-          <div className={style.adminActions_buttonContainer_upload}>
-            <ButtonApp icon={uploadIcon} buttonStyle={'transparent'} onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
-              labelID={'subir vídeo'} />
-          </div>
-          <div className={style.adminActions_buttonContainer_delete}>
-            <ButtonApp icon={deleteIcon} buttonStyle={'transparent'} onClick={() => setState(pre => ({ ...pre, delete: true }))} labelID={'eliminar'} />
-          </div>
-        </div>
+        )}
         <div className={style.webinarDetail_description}>
           <div className={style.webinarDetail_description_text}>
             {webinar.description}
           </div>
-          {(webinar.thumb && !deferred_video) && (
+          {webinar.thumb && !deferred_video && (
             <div className={style.webinarDetail_description_image}>
               <div>
                 <Image
@@ -112,21 +140,31 @@ const WebinarDetail: NextPage = () => {
             </div>
           )}
           <div className={style.webinarDetail_description_video}>
-            {
-              deferred_video && <div style={{
-                position: 'relative',
-                width: '100%'
-              }}>
-                <video style={{
+            {deferred_video && (
+              <div
+                style={{
                   position: 'relative',
                   width: '100%'
-                }} controls src={deferred_video} autoPlay={false}></video>
+                }}
+              >
+                <video
+                  style={{
+                    position: 'relative',
+                    width: '100%'
+                  }}
+                  controls
+                  src={deferred_video}
+                  autoPlay={false}
+                ></video>
               </div>
-            }
+            )}
           </div>
         </div>
         <div className={style.attendButtonContainer}>
-          <ButtonApp buttonStyle={'primary'} labelID={'page.webinarDetail.label.attendButton'} onClick={() => setState(pre => ({ ...pre, register: true }))}
+          <ButtonApp
+            buttonStyle={'primary'}
+            labelID={'page.webinarDetail.label.attendButton'}
+            onClick={() => setState(pre => ({ ...pre, register: true }))}
           />
         </div>
         {state.register && (
@@ -142,9 +180,9 @@ const WebinarDetail: NextPage = () => {
           <Modal onBtnClose={() => setState(pre => ({ ...pre, edit: false }))}>
             <div className={style.modalContainer}>
               <p className={style.modalContainer_title}>
-                <FormattedMessage id={'page.webinars.modal.editTitle'}/>
+                <FormattedMessage id={'page.webinars.modal.editTitle'} />
               </p>
-                <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
+              <SetWebinar updateWebinar={webinar} onCreate={onSetWebinars} />
             </div>
           </Modal>
         )}
@@ -155,10 +193,12 @@ const WebinarDetail: NextPage = () => {
           >
             <div className={style.modalContainer}>
               <p className={style.modalContainer_title}>
-                <FormattedMessage id='page.webinarDetail.modal.uploadVideoTitle'/>
+                <FormattedMessage id='page.webinarDetail.modal.uploadVideoTitle' />
               </p>
               <UploadVideo
-                onCancel={() => setState(pre => ({ ...pre, uploadVideo: false }))}
+                onCancel={() =>
+                  setState(pre => ({ ...pre, uploadVideo: false }))
+                }
                 onUploadVideo={() => alert('Video subido')}
                 w_id={webinar.id as string}
               />
@@ -176,7 +216,8 @@ const WebinarDetail: NextPage = () => {
             <div className={style.modalContainer}>
               <Loading loading={state.loading} />
               <div className={style.modalContainer}>
-                Seguro deseas eliminar el Webinar, no se podran recuperar sus datos.
+                Seguro deseas eliminar el Webinar, no se podran recuperar sus
+                datos.
               </div>
             </div>
           </AlertApp>
@@ -315,7 +356,7 @@ const UploadVideo = ({
   onCancel
 }: {
   w_id: string
-  onUploadVideo: Function,
+  onUploadVideo: Function
   onCancel: Function
 }) => {
   const [progress, setProgresss] = useState(0)
@@ -346,7 +387,12 @@ const UploadVideo = ({
       >
         <p>Subiendo video diferido</p>
         <div
-          style={{ width: '100%', background: 'gray', position: 'relative', height: '40px' }}
+          style={{
+            width: '100%',
+            background: 'gray',
+            position: 'relative',
+            height: '40px'
+          }}
         >
           <div
             style={{
@@ -361,7 +407,6 @@ const UploadVideo = ({
 
       <ButtonApp
         onClick={() => {
-
           task?.cancel()
           console.log(console.log(progress))
           //setProgresss(0)

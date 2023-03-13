@@ -14,7 +14,7 @@ const system_public_module = [
   '/news',
   '/discord',
   '/webinars',
-  '/webinars/[w_id]',
+  '/webinars/deferred',
   '/amas',
   '/amas/[chatroom_id]',
   '/subscription/[plan-subscription]',
@@ -42,10 +42,13 @@ const system_subscription_permission_module = {
   plus: [
     ...system_public_module, 
     '/academy/tutorials/[tutorial-slug]', 
+    '/webinars/[w_id]',
     '/analysis/[category-slug]/[article-slug]'],
+    
   premium: [
     ...system_public_module,
     '/academy/tutorials/[tutorial-slug]',
+    '/webinars/[w_id]',
     '/academy/courses/[course-slug]',
     '/academy/courses/[course-slug]/[lesson-slug]',
     '/analysis/[category-slug]/[article-slug]',

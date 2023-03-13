@@ -132,9 +132,8 @@ class WebinarsRepository {
   }
 
   async getVideoUrl(gcs_path: string){
-   
     const res = await FireFunctionsInstance.onCallFunction('storageCallableUrl', {filePath: gcs_path})
-    return res.url[0];
+    return res.url ? res.url[0] :undefined;
   }
 }
 
