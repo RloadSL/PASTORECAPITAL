@@ -84,6 +84,7 @@ const AnalysisArticleDetailView = ({
 
   const { query, asPath } = useRouter()
   const plans = useRef<any>(post.getCatgoryByParent('plans'))
+  
   const [categoriesPlans, setCategoriesPlans] = useState<any>(null)
 
   useEffect(() => {
@@ -212,7 +213,7 @@ const AnalysisArticleDetailView = ({
                     size='small'
                     // icon={iconDelete}
                   >
-                    {plans.current?.name}
+                    {plans.current.map((item:any)=> item.name).toString()}
                   </ButtonApp>
                 ) : (
                   <LoadMoreLoading />
@@ -224,7 +225,7 @@ const AnalysisArticleDetailView = ({
           <h1 className='main-title'>{post.title.rendered}</h1>
           <p className='author'>
             {post.author?.name} |{' '}
-            <span className='date'>{post.created_at.toLocaleDateString()}</span>
+            <span className='date'>{post.created_at.toISOString()}</span>
           </p>
         </div>
         <div className={style.post}>{parse(post.content?.rendered || '')}</div>

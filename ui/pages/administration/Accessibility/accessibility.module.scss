@@ -1,0 +1,23 @@
+
+.tableConfig{
+  display: flex;
+  justify-content: space-around;
+  .colum{
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    align-items: center;
+    div{
+      height: 60px;
+    }
+    .sections{
+      text-align: left;
+      width: 100%;
+      font-size: 16px;
+    }
+    .label{
+      height: 45px;
+      font-size: 25px;
+    }
+  }
+}

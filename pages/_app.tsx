@@ -10,8 +10,9 @@ import store from '../ui/redux/store'
 import AppLayout from '../components/AppLayout'
 import SnackBar from 'components/SnackBar'
 import Loading from 'components/Loading'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Translate from 'domain/Translate/Translate'
+import accesibilityService from 'infrastructure/services/accesibility.service'
 
 
 const messages: any = {
@@ -28,8 +29,10 @@ function getDirection (locale: string) {
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
   const locale: 'es' | 'en' = (useRouter().locale || 'es') as any
+  const [initalLoaders, setInitalLoaders] = useState(false)
   useEffect(() => {
     Translate.currentLocal = locale;
+    //accesibilityService.getPermissions();
   }, [])
   
   

@@ -381,5 +381,16 @@
   "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam.",
   "empty": " ",
   "news" : "Noticias",
-  "plan.update" : "Plan actualizado con exito."
+  "accessibility": "Accesibilidad",
+  "plan.update" : "Plan actualizado con exito.",
+  "permissions.updated" : "Permisos actualizados",
+  "/news": "Noticias",
+  "/academy/tutorials/[tutorial-slug]" : "Tutoriales",
+  "/academy/courses/[course-slug]" : "Cursos",
+  "/research/bitcoins-altcoins/[category-slug]/[article-slug]": "Bitcoins Altacoins",
+  "/research/flash-updates":"Flash Updates",
+  "/discord": "Discord",
+  "/webinars/[w_id]": "Webinars",
+  "/webinars/deferred/[w_id]": "Webinars Grabados",
+  "/amas/[chatroom_id]": "Amas"
 }

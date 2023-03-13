@@ -1,60 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { PLANS_TYPE } from 'infrastructure/dto/system_config.dto'
+import accesibilityService from 'infrastructure/services/accesibility.service'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useReducer, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 
-const system_public_module = [
-  '/',
-  '/login',
-  '/recover-password',
-  '/thank-you-purchase',
-  '/subscription',
-  '/news',
-  '/discord',
-  '/webinars',
-  '/webinars/deferred',
-  '/amas',
-  '/amas/[chatroom_id]',
-  '/subscription/[plan-subscription]',
-  '/users/[uid]',
-  '/users/[uid]/notifications',
-  '/users/[uid]/invoices',
-  ////////
-  '/academy',
-  '/academy/tutorials',
-  '/academy/courses',
-  '/research/flash-updates',
-  '/research/bitcoins-altcoins',
-  '/research/bitcoins-altcoins/[category-slug]',
-  '/tax-consultant',
-  '/tax-consultant/consultants',
-  '/tax-consultant/consultants/[id]',
-  '/tax-consultant/consultants/[id]/services/[service_id]',
-  '/tax-consultant/consultants/[id]/services/[service_id]/payment'
-]
-
-const system_subscription_permission_module = {
-  guest: [...system_public_module],
-  basic: [...system_public_module, 
-    '/analysis/[category-slug]/[article-slug]'],
-  plus: [
-    ...system_public_module, 
-    '/academy/tutorials/[tutorial-slug]', 
-    '/webinars/[w_id]',
-    '/analysis/[category-slug]/[article-slug]'],
-    
-  premium: [
-    ...system_public_module,
-    '/academy/tutorials/[tutorial-slug]',
-    '/webinars/[w_id]',
-    '/academy/courses/[course-slug]',
-    '/academy/courses/[course-slug]/[lesson-slug]',
-    '/analysis/[category-slug]/[article-slug]',
-    '/research/bitcoins-altcoins/[category-slug]/[article-slug]',
-  ]
-}
 
 const initialState = { subscriptionGranted: true }
 
@@ -81,16 +32,19 @@ export const useGuardPermissions = () => {
     initialState
   )
   const checkPermissions = useCallback(
-    (route:string,plan:PLANS_TYPE, level: 0 | 1 | 2)=>{
+    async (route:string,plan:PLANS_TYPE, level: 0 | 1 | 2)=>{
       
       if(level >= 1) return dispatchPermission({garanted:'garant' })
-
+      if(!accesibilityService.isLoaded){
+        await accesibilityService.getPermissions();
+        console.log('LOADED PERMISSIONS')
+      }
 
       if(!planKey && !plan) return;
       if(plan) setUserPlanKey(plan);
 
       const key_sub = plan || planKey || 'guest'
-      const authorized_sections = system_subscription_permission_module[key_sub]
+      const authorized_sections = [...accesibilityService[key_sub],...accesibilityService.system_public_module]
       const authorized = authorized_sections.includes(route)
       dispatchPermission({garanted: authorized ? 'garant' : 'no_garant'})
     },

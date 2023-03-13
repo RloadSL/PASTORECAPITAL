@@ -28,7 +28,7 @@ const DeferredWebinars = () => {
 
   const goToDetail = (id: string) => {
     push({
-      pathname: '/webinars/' + id
+      pathname: '/webinars/deferred/' + id
     })
   }
   return (
