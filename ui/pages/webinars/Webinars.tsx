@@ -25,7 +25,7 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 const Webinars = () => {
   const [openedit, setopenedit] = useState(false)
   const userLogged = useSelector(getUserLogged)
-  
+
   const {
     isloaded,
     pages,
@@ -106,7 +106,9 @@ const Webinars = () => {
           </div>
         </div>
         <div className={style.webinars_calendar}>
-          <WebinarsCalendar items={webinars} />
+          <div className={style.calendar}>
+            <WebinarsCalendar items={webinars} />
+          </div>
           <div className={style.linkDeferred}>
             <LinkApp linkHref='/webinars/deferred' target='_self' label='deferred' icon={calendarIcon} />
           </div>

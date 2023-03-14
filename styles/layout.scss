@@ -305,9 +305,17 @@ p {
 		line-height: 25px !important;
 
 		&--now {
-			background-color: colors.$main !important;
+			background-color: colors.$palette10 !important;
 			border-radius: 50%;
-			color: white;
+
+			abbr {
+				color: colors.$dark !important;
+			}
+		}
+
+		&--active {
+			border-radius: 50% !important;
+			background-color: colors.$palette4 !important;
 		}
 	}
 

@@ -203,7 +203,7 @@ const WebinarDetail: NextPage = () => {
         </div>
         {state.register && (
           <div>
-            <ComplteInscription
+            <CompleteInscription
               onClose={(action?:string) => {
                 if(action == 'registered'){
                   {() => pushInfoApp(new InfoApp({code:'registered.webiner', message:'registered.webiner'}, 'success'))}
@@ -266,7 +266,7 @@ const WebinarDetail: NextPage = () => {
   )
 }
 
-const ComplteInscription = ({
+const CompleteInscription = ({
   w_id,
   onClose
 }: {
@@ -374,6 +374,8 @@ const ComplteInscription = ({
   return (
     <>
       <Modal onBtnClose={onClose}>
+        <div className={style.modalContainer}>
+          <p className={style.modalContainer_title}>Apuntarse a este webinar</p>
         {registerState.loading ? (
           <Loading loading />
         ) : registerState.isRegistered ? (
@@ -386,6 +388,7 @@ const ComplteInscription = ({
         ) : (
           renderForm()
         )}
+        </div>
       </Modal>
     </>
   )

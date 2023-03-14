@@ -39,7 +39,7 @@ const ItemListWebinar = ({ item, onClick, showThumb = false, chips, hasColorSpot
   return (
     <div className={style.webinar}>
       <Card>
-        <div onClick={() => onClick(item.id)} className={style.cardContainer} style={{display:`${hasColorSpot ? 'flex':''}`}}>
+        <div onClick={() => onClick(item.id)} className={style.cardContainer} style={{ display: `${hasColorSpot ? 'flex' : ''}` }}>
           {hasColorSpot && (
             <div
               className={style.colorSpot}
@@ -47,16 +47,19 @@ const ItemListWebinar = ({ item, onClick, showThumb = false, chips, hasColorSpot
             ></div>
           )
           }
-          <div>
+          <div className={style.cardContainer_content}>
             {showThumb && (
               <div style={(item.thumb?.url) ? { backgroundImage: `url(${item.thumb?.url})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
               </div>)
             }
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <div className={style.chipsContainer}>
-              {chips && <Chips chips={chips} color={'lightMain'} />}
+            <div className={style.cardContainer_content__text}>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <div className={style.chipsContainer}>
+                {chips && <Chips chips={chips} color={'lightMain'} />}
+              </div>
             </div>
+
           </div>
         </div>
       </Card>
