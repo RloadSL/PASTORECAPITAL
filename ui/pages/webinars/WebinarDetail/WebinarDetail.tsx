@@ -23,11 +23,15 @@ import editIcon from '../../../../assets/img/icons/pencil.svg'
 import deleteIcon from '../../../../assets/img/icons/trash.svg'
 import uploadIcon from '../../../../assets/img/icons/upload.svg'
 import style from './webinar-detail.module.scss'
+import { useSystem } from 'ui/hooks/system.hooks'
+import { InfoApp } from 'domain/InfoApp/InfoApp'
 
 const WebinarDetail: NextPage = () => {
   const [webinar, setWebinar] = useState<Webinars | undefined>()
   const [deferred_video, setDeferred_video] = useState<string | undefined>()
+  const [registeredlist, setRegisteredlist] = useState();
   const userLogged = useSelector(getUserLogged)
+  const {pushInfoApp} = useSystem()
   const isAdmin = useRef(
     userLogged?.checkColaborationPermisionByModule('WEBINARS')
   ).current
@@ -80,11 +84,31 @@ const WebinarDetail: NextPage = () => {
     }, 10000)
   }
 
+  const registeredList = (list:any[])=>(<div>
+    <div>
+      <ButtonApp labelID='btn.close' onClick={()=>setRegisteredlist(undefined)}/>
+    </div>
+        <div>
+      Lista de usuarios registrados
+    </div>
+    <div>
+      <ol>
+        {
+          list.map((item) => (<li key={item.email}>
+            <div>{item.name} {item.lastname}</div>
+            <div>{item.email}</div>
+          </li>))
+        }
+      </ol>
+    </div>
+  </div>)
+
   return !webinar ? (
     <Loading loading variant='inner-primary' />
   ) : (
     <div className={style.webinarDetail}>
       <div className={style.readingContainer}>
+        {registeredlist && registeredList(registeredlist)}
         <header>
           <div>
             <p className='small-caps'>
@@ -112,6 +136,16 @@ const WebinarDetail: NextPage = () => {
                 buttonStyle={'transparent'}
                 onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
                 labelID={'subir vídeo'}
+              />
+            </div>
+            <div className={style.adminActions_buttonContainer_edit}>
+              <ButtonApp
+                buttonStyle={'transparent'}
+                onClick={() => {
+                  webinarsRepository.getRegistered({w_id: webinar.id as string})
+                  .then(items => setRegisteredlist(items as any))
+                }}
+                labelID={'page.webinarDetail.list.registered'}
               />
             </div>
             <div className={style.adminActions_buttonContainer_delete}>
@@ -161,16 +195,21 @@ const WebinarDetail: NextPage = () => {
           </div>
         </div>
         <div className={style.attendButtonContainer}>
-          <ButtonApp
+          {webinar.state != 'DEFERRED' && <ButtonApp
             buttonStyle={'primary'}
             labelID={'page.webinarDetail.label.attendButton'}
             onClick={() => setState(pre => ({ ...pre, register: true }))}
-          />
+          />}
         </div>
         {state.register && (
           <div>
             <ComplteInscription
-              onClose={() => setState(pre => ({ ...pre, register: false }))}
+              onClose={(action?:string) => {
+                if(action == 'registered'){
+                  {() => pushInfoApp(new InfoApp({code:'registered.webiner', message:'registered.webiner'}, 'success'))}
+                }
+                setState(pre => ({ ...pre, register: false }))
+              }}
               w_id={query.w_id as string}
             />
           </div>
@@ -199,7 +238,7 @@ const WebinarDetail: NextPage = () => {
                 onCancel={() =>
                   setState(pre => ({ ...pre, uploadVideo: false }))
                 }
-                onUploadVideo={() => alert('Video subido')}
+                onUploadedVideo={() => pushInfoApp(new InfoApp({code:'uploaded.video', message:'uploaded.video'}, 'success'))}
                 w_id={webinar.id as string}
               />
             </div>
@@ -246,6 +285,7 @@ const ComplteInscription = ({
       webinarsRepository
         .isRegistered({ w_id, email: userLoggued.email })
         .then(res => {
+          console.log(res)
           if (typeof res === 'boolean') {
             setRegisterState({ loading: false, isRegistered: res })
           } else {
@@ -277,7 +317,8 @@ const ComplteInscription = ({
   ).current
 
   const onCreate = async (value: any) => {
-    webinarsRepository.register({ ...value, w_id })
+    await webinarsRepository.register({ ...value, w_id })
+    onClose()
   }
 
   const renderForm = () => (
@@ -352,16 +393,17 @@ const ComplteInscription = ({
 
 const UploadVideo = ({
   w_id,
-  onUploadVideo,
+  onUploadedVideo,
   onCancel
 }: {
   w_id: string
-  onUploadVideo: Function
+  onUploadedVideo: Function
   onCancel: Function
 }) => {
   const [progress, setProgresss] = useState(0)
   const [task, setTask] = useState<UploadTask | undefined>()
   const intl = useIntl()
+
   const onSave = async ({ video }: { video: File }) => {
     const taskState = webinarsRepository.uploadDeferredVideo(
       w_id,
@@ -369,9 +411,12 @@ const UploadVideo = ({
       setProgresss
     )
     setTask(taskState)
-    onUploadVideo()
   }
-  console.log(console.log(progress))
+  if(progress >= 99){
+    onCancel();
+    onUploadedVideo();
+  }
+ 
   const renderProgress = () => (
     <div>
       <div className={style.progressBar}>
@@ -403,10 +448,8 @@ const UploadVideo = ({
           labelID='btn.cancel'
           onClick={() => {
             task?.cancel()
-            console.log(console.log(progress))
-            //setProgresss(0)
-            //onCancel()
-
+            setProgresss(0)
+            onCancel()
           }}
         />
       </div>

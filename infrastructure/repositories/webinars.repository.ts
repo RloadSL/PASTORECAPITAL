@@ -104,8 +104,21 @@ class WebinarsRepository {
     await FireFunctionsInstance.onCallFunction('webinarsRegisterOnCallFunctions', data)
   }
 
+
+  async getRegistered(data: { w_id: string }) {
+    const ref = await FireFirestore.getCollectionDocs(`webinars/${data.w_id}/users_register/`, undefined, undefined, 1000)
+   
+    if (ref instanceof ErrorApp) {
+      return ref as ErrorApp
+    } else {
+      return ref.map(doc => doc.data());
+    }
+  }
+
+
   async isRegistered(data: { w_id: string, email: string }) {
-    const ref = await FireFirestore.getCollectionDocs(`webinars/${data.w_id}/users_register`, undefined, [['email', '==', data.email]], 1)
+    const ref = await FireFirestore.getCollectionDocs(`webinars/${data.w_id}/users_register/`, undefined, [['email', '==', data.email]], 1)
+   
     if (ref instanceof ErrorApp) {
       return ref as ErrorApp
     } else {

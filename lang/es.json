@@ -223,6 +223,8 @@
   "page.webinars.uploadVideo": "Subiendo vídeo...",
   "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
   "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
+  "page.webinarDetail.list.registered": "Listado de registrados",
+
 
   "page.subscription.payment.title": "Plan",
   "page.subscription.payment.description": "Completa el proceso de suscripción y accede a contenidos exclusivos en Pastore Capital",
@@ -329,7 +331,8 @@
   "message.item.no-result":"No hemos encontrado nada",
   "message.item.updated" : "Se ha actualizado con éxito",
   "message.sended" : "Notificación enviada",
-  
+  "uploaded.video" : "Video subido",
+  "registered.webiner" : "Se ha registrado correctamente en el Webinar.",
   "subscription.user.unauthorized.alert.title": "Ups, no tienes permiso",
   "subscription.user.unauthorized.alert.content": "Parece que quieres acceder a este contenido. Actualiza tu plan de suscripción para tener acceso.",
   "subscription.user.alert.updateSubscription.text": "¿Quieres actualizar tu plan actual a",
