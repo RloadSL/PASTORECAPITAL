@@ -117,7 +117,7 @@ const WebinarDetail: NextPage = () => {
             <h1 className={`${style.topTitle} main-title`}>{webinar.title}</h1>
           </div>
           <div className={style.webinarDetail_date}>
-            <span className={style.date}>{webinar.date.toLocaleString()}</span>
+            <span className={style.date}>{webinar.date.toLocaleString(['es-ES'], {day:'numeric', month:'numeric', year:'numeric',hour:'numeric', minute:'numeric'})}</span>
           </div>
         </header>
         {isAdmin && (
