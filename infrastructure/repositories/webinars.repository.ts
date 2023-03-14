@@ -133,7 +133,7 @@ class WebinarsRepository {
       if (t.state == 'success') {
         FireFirestore.setDoc(`webinars`, w_id,
           {
-            sated: 'DEFERRED', deferred_video: {
+            state: 'DEFERRED', deferred_video: {
               created_at: new Date(),
               gcs_path
             }
