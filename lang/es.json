@@ -223,7 +223,11 @@
   "page.webinars.uploadVideo": "Subiendo vídeo...",
   "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
   "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
-  "page.webinarDetail.list.registered": "Listado de registrados",
+  "page.webinarDetail.list.registered": "Usuarios apuntados",
+  "page.webinarDetail.modal.attendModal": "Apuntarse a este webinar",
+  "page.webinarDetail.modal.attendModal.error": "Ya estás apuntado a este webinar",
+
+
 
 
   "page.subscription.payment.title": "Plan",

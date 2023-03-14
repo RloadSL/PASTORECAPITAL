@@ -10,11 +10,26 @@
   &_description {
     color: colors.$dark;
     margin-top: 2rem;
+    position: relative;
+    width: 100%;
+
+    &_text {
+      margin-bottom: 20px;
+    }
 
     &_image {
-      max-width: 1200px;
       position: relative;
-      height: 400px;
+      max-width: 1000px;
+      height: 300px;
+      width: 100%;
+
+      @include devices.device(smTablet) {
+        height: 400px;
+      }
+      img {
+        object-fit: contain;
+        object-position: 0% 0%;
+      }
     }
 
     &_video {
@@ -51,20 +66,27 @@
 }
 
 .adminActions {
-  display: flex;
-  align-items: center;
   margin-top: 2rem;
   margin-bottom: 3rem;
+
+  @include devices.device(smTablet) {
+    display: flex;
+    margin-bottom: 0px;
+  }
 
   button {
     padding: 5px 18px !important;
   }
 
   &_buttonContainer {
-    &_edit {
+    &_edit, &_users, &_upload {
       border: 1px solid colors.$main;
       border-radius: 50px;
-      margin-right: 20px;
+      margin-bottom: 10px;
+
+      @include devices.device(smTablet) {
+        margin-right: 20px;
+      }
 
       button {
         color: colors.$main !important;
@@ -74,6 +96,7 @@
     &_delete {
       border: 1px solid colors.$error;
       border-radius: 50px;
+      margin-bottom: 10px;
 
       button {
         color: colors.$error !important;
@@ -85,12 +108,7 @@
     }
 
     &_upload {
-      border: 1px solid colors.$main;
-      border-radius: 50px;
-      margin-right: 20px;
-
       button {
-        color: colors.$main !important;
         img {
           filter: invert(58%) sepia(50%) saturate(5333%) hue-rotate(247deg) brightness(60%) contrast(75%) !important;
         }
@@ -108,9 +126,37 @@
   padding: 20px;
   color: colors.$dark;
 
+  &_info {
+    text-align: center;
+    margin-top: 100px;
+
+    button {
+      max-width: 300px !important;
+      margin-top: 80px;
+    }
+  }
+
   &_title {
     text-align: center;
     font-weight: bold;
+  }
+
+  &_users {
+    max-width: 400px;
+    margin: auto;
+    max-height: 300px;
+    overflow-y: auto;
+    ol {
+      padding-left: 0px;
+      li {
+        display: flex;
+        justify-content: space-between;
+        line-height: 40px;
+        &:nth-child(even) {
+          background-color: colors.$grey30;
+        }
+      }
+    }
   }
 }
 

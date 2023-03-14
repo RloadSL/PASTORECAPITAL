@@ -31,7 +31,7 @@ const WebinarDetail: NextPage = () => {
   const [deferred_video, setDeferred_video] = useState<string | undefined>()
   const [registeredlist, setRegisteredlist] = useState();
   const userLogged = useSelector(getUserLogged)
-  const {pushInfoApp} = useSystem()
+  const { pushInfoApp } = useSystem()
   const isAdmin = useRef(
     userLogged?.checkColaborationPermisionByModule('WEBINARS')
   ).current
@@ -84,13 +84,24 @@ const WebinarDetail: NextPage = () => {
     }, 10000)
   }
 
-  const registeredList = (list:any[])=>(<div>
-    <div>
-      <ButtonApp labelID='btn.close' onClick={()=>setRegisteredlist(undefined)}/>
-    </div>
-        <div>
-      Lista de usuarios registrados
-    </div>
+  const registeredList = (list: any[]) => (<div>
+    <Modal onBtnClose={() => setRegisteredlist(undefined)}>
+      <div className={style.modalContainer}>
+        <p className={style.modalContainer_title}>
+          <FormattedMessage id={'page.webinarDetail.list.registered'} />
+        </p>
+        <div className={style.modalContainer_users}>
+          <ol>
+            {
+              list.map((item) => (<li key={item.email}>
+                <div>{item.name} {item.lastname}</div>
+                <div>{item.email}</div>
+              </li>))
+            }
+          </ol>
+        </div>
+      </div>
+    </Modal>
     <div>
       <ol>
         {
@@ -117,7 +128,7 @@ const WebinarDetail: NextPage = () => {
             <h1 className={`${style.topTitle} main-title`}>{webinar.title}</h1>
           </div>
           <div className={style.webinarDetail_date}>
-            <span className={style.date}>{webinar.date.toLocaleString(['es-ES'], {day:'numeric', month:'numeric', year:'numeric',hour:'numeric', minute:'numeric'})}</span>
+            <span className={style.date}>{webinar.date.toLocaleString(['es-ES'], { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })} horas | {webinar.guests}</span>
           </div>
         </header>
         {isAdmin && (
@@ -138,12 +149,12 @@ const WebinarDetail: NextPage = () => {
                 labelID={'subir vídeo'}
               />
             </div>
-            <div className={style.adminActions_buttonContainer_edit}>
+            <div className={style.adminActions_buttonContainer_users}>
               <ButtonApp
                 buttonStyle={'transparent'}
                 onClick={() => {
-                  webinarsRepository.getRegistered({w_id: webinar.id as string})
-                  .then(items => setRegisteredlist(items as any))
+                  webinarsRepository.getRegistered({ w_id: webinar.id as string })
+                    .then(items => setRegisteredlist(items as any))
                 }}
                 labelID={'page.webinarDetail.list.registered'}
               />
@@ -164,13 +175,11 @@ const WebinarDetail: NextPage = () => {
           </div>
           {webinar.thumb && !deferred_video && (
             <div className={style.webinarDetail_description_image}>
-              <div>
-                <Image
-                  src={webinar.thumb?.url as string}
-                  layout='fill'
-                  alt={webinar.title}
-                />
-              </div>
+              <Image
+                src={webinar.thumb?.url as string}
+                alt={webinar.title}
+                layout='fill'
+              />
             </div>
           )}
           <div className={style.webinarDetail_description_video}>
@@ -204,9 +213,9 @@ const WebinarDetail: NextPage = () => {
         {state.register && (
           <div>
             <CompleteInscription
-              onClose={(action?:string) => {
-                if(action == 'registered'){
-                  {() => pushInfoApp(new InfoApp({code:'registered.webiner', message:'registered.webiner'}, 'success'))}
+              onClose={(action?: string) => {
+                if (action == 'registered') {
+                  { () => pushInfoApp(new InfoApp({ code: 'registered.webiner', message: 'registered.webiner' }, 'success')) }
                 }
                 setState(pre => ({ ...pre, register: false }))
               }}
@@ -238,7 +247,7 @@ const WebinarDetail: NextPage = () => {
                 onCancel={() =>
                   setState(pre => ({ ...pre, uploadVideo: false }))
                 }
-                onUploadedVideo={() => pushInfoApp(new InfoApp({code:'uploaded.video', message:'uploaded.video'}, 'success'))}
+                onUploadedVideo={() => pushInfoApp(new InfoApp({ code: 'uploaded.video', message: 'uploaded.video' }, 'success'))}
                 w_id={webinar.id as string}
               />
             </div>
@@ -375,19 +384,23 @@ const CompleteInscription = ({
     <>
       <Modal onBtnClose={onClose}>
         <div className={style.modalContainer}>
-          <p className={style.modalContainer_title}>Apuntarse a este webinar</p>
-        {registerState.loading ? (
-          <Loading loading />
-        ) : registerState.isRegistered ? (
-          <div>
-            <h3>Ya estas registrado en este Webinar</h3>
-            <div>
-              <ButtonApp onClick={() => onClose()}>Aceptar</ButtonApp>
+          <p className={style.modalContainer_title}>
+            <FormattedMessage id='page.webinarDetail.modal.attendModal'/>
+          </p>
+          {registerState.loading ? (
+            <Loading loading />
+          ) : registerState.isRegistered ? (
+            <div className={style.modalContainer_info}>
+              <p>
+                <FormattedMessage id={'page.webinarDetail.modal.attendModal.error'}/>
+              </p>
+              <div>
+                <ButtonApp buttonStyle={'secondary'} labelID='btn.accept' onClick={() => onClose()}/>
+              </div>
             </div>
-          </div>
-        ) : (
-          renderForm()
-        )}
+          ) : (
+            renderForm()
+          )}
         </div>
       </Modal>
     </>
@@ -415,11 +428,11 @@ const UploadVideo = ({
     )
     setTask(taskState)
   }
-  if(progress >= 99){
+  if (progress >= 99) {
     onCancel();
     onUploadedVideo();
   }
- 
+
   const renderProgress = () => (
     <div>
       <div className={style.progressBar}>
