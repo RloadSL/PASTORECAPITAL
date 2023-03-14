@@ -1,12 +1,26 @@
+@use "../../../../styles/partials/placeholders";
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+
+.configuration {
+  @extend %layoutContainer;
+  padding: 2%;
+  color: colors.$dark;
+
+  header {
+    margin-bottom: 50px;
+  }
+}
 
 .tableConfig{
   display: flex;
-  justify-content: space-around;
   .colum{
     display: flex;
     flex-direction: column;
     min-width: 150px;
-    align-items: center;
+    margin-right: 20px;
+
+
     div{
       height: 60px;
     }
@@ -17,7 +31,14 @@
     }
     .label{
       height: 45px;
-      font-size: 25px;
+      font-weight: bold;
+      font-size: 1.2rem;
     }
+  }
+}
+
+.formContainer {
+  .colum {
+    align-items: center ;
   }
 }

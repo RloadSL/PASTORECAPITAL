@@ -21,10 +21,10 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 const User: NextPage<any> = () => {
   const { query, replace } = useRouter()
   const [userDto, setUserDto] = useState<UserDto | undefined>()
-  const {pushInfoApp} = useSystem()
+  const { pushInfoApp } = useSystem()
   useEffect(() => {
     let fetching = true
-    if(query.uid) _getData(fetching)
+    if (query.uid) _getData(fetching)
     return () => {
       fetching = false
     }
@@ -41,20 +41,20 @@ const User: NextPage<any> = () => {
     })
   }
 
-  const _noti = ()=> pushInfoApp(new InfoApp({code: 'user.updated', message:'user.updated'}, 'success'))
+  const _noti = () => pushInfoApp(new InfoApp({ code: 'user.updated', message: 'user.updated' }, 'success'))
 
   const _editUserData = async (data: any) => {
-    await AuthImplInstance.updateUserAuthenticationData({uid: query.uid, ...data})
+    await AuthImplInstance.updateUserAuthenticationData({ uid: query.uid, ...data })
     _noti()
   }
 
   const _onSaveRole = async (data: Role) => {
-    await UserRepositoryImplInstance.update(query.uid as string, {role : data})
+    await UserRepositoryImplInstance.update(query.uid as string, { role: data })
     _getData(true);
     _noti()
   }
   const _onCancelSubscription = async () => {
-    await systemRepository.cancelSubscription({sub_id: userDto?.subscription.stripe_sub_id as string})
+    await systemRepository.cancelSubscription({ sub_id: userDto?.subscription.stripe_sub_id as string })
     _noti()
   }
   return userDto ? (
@@ -153,20 +153,14 @@ const UserView = ({
           role: userDataDto.role.key
         }}
         onSubmit={values => {
-          onSaveRole( ROLES.find(item => item.key === values.role))
+          onSaveRole(ROLES.find(item => item.key === values.role))
         }}
       >
         {({ values, errors, touched }) => (
           <Form className={style.form}>
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                justifyContent: 'space-around',
-                alignItems: 'center'
-              }}
-            >
-              <p style={{marginRight: 20}}>Role activo del usuario:</p>
+            <div className={style.roles_checks}>
+              <div className={style.roles_checks_list}>
+              <p style={{ marginRight: 20 }}>Role activo del usuario:</p>
               {ROLES.map((role: Role) => (
                 <div role='group' key={role.key}>
                   <label>
@@ -175,20 +169,24 @@ const UserView = ({
                   </label>
                 </div>
               ))}
-              <div
-                style={{
-                  marginTop: '20px',
-                  maxWidth: '300px',
-                  margin: 'auto'
-                }}
-              >
-               <ButtonApp
-                  buttonStyle='link'
+              </div>
+
+               {userDataDto.role.level === 1 && <div className={style.manageCollaborator}>
+                  <ButtonApp
+                    buttonStyle='transparent'
+                    type='button'
+                    labelID='Permisos del colaborador'
+                    onClick={() => push(asPath + 'colaboration')}
+                  />
+                </div>}
+            </div>
+            <div className={style.roles_buttons}>
+                <ButtonApp
+                  buttonStyle='primary'
                   type='submit'
-                  labelID='btn.save'
+                  labelID='Actulizar rol'
                 />
               </div>
-            </div>
           </Form>
         )}
       </Formik>
@@ -199,33 +197,29 @@ const UserView = ({
     <div className={style.user}>
       <div className={style.header}>
         <h1 className='main-title'>Información de usuario</h1>
+        <div>
+          <div>
+            <p>Fecha de alta: {userDataDto.created_at?.toLocaleString()}</p>
+          </div>
+          {userDataDto.role.level <= 1 && (
+            <div className={style.plan}>
+              <div>Plan activo: {userDataDto.subscription.plan.label}</div>
+              <div style={{ display: 'flex' }}>
+                {userDataDto.uid === userLogged.uid && <LinkApp linkStyle='classic' target='_self' linkHref='/subscription' label='btn.subscribe' />}
+                {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}>Cancelar</ButtonApp>}
+              </div>
+            </div>
+          )}
+        </div>
+        <p className='small-caps'>Datos de Usuario</p>
       </div>
       <div>
         <div className={style.userMainDetails}>{renderFormik()}</div>
-        <div>
-          <p>Alta de usuario: {userDataDto.created_at?.toLocaleString()}</p>
-        </div>
-        {userDataDto.role.level <= 1 && (
-          <div className={style.plan}>
-              <div>Plan activo: {userDataDto.subscription.plan.label}</div>
-              <div style={{display:'flex'}}>
-                {userDataDto.uid === userLogged.uid && <LinkApp linkStyle='classic' target='_self' linkHref='/subscription'  label='btn.subscribe'/>}
-                {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}>Cancelar</ButtonApp>}
-              </div>
-          </div>
-        )}
-        {userLogged?.role.level == 2  && <div className='role'>
-          <p className='small-caps margin-top-50'>Configurar rol del usuario</p>
-          <div>
-            <div>{ renderFormikRole()}</div>
-              {userDataDto.role.level === 1 && <div>
-                <ButtonApp
-                  buttonStyle='primary'
-                  type='button'
-                  labelID='btn.manage'
-                  onClick={() => push(asPath + 'colaboration')}
-                />
-              </div>}
+        {userLogged?.role.level == 2 && <div className={style.user_roleConfiguration}>
+          <p className='small-caps'>Configurar rol del usuario</p>
+          <div className={style.roles}>
+            <div>{renderFormikRole()}</div>
+
           </div>
         </div>}
       </div>

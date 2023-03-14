@@ -7,17 +7,22 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import accesibilityService from 'infrastructure/services/accesibility.service'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
 const Accessibility: NextPage = () => {
-  const {pushInfoApp} = useSystem()
-  const onSave = async (values:any) => {
+  const { pushInfoApp } = useSystem()
+  const onSave = async (values: any) => {
     await accesibilityService.updatePermissions(JSON.parse(values));
-    pushInfoApp(new InfoApp({code: 'permissions.updated', message:'permissions.updated'}, 'success'))
+    pushInfoApp(new InfoApp({ code: 'permissions.updated', message: 'permissions.updated' }, 'success'))
   }
   const intl = useIntl()
   return (
-    <div>
+    <div className={style.configuration}>
+      <header>
+        <h1 className='main-title'>Visibilidad del contenido</h1>
+        <p>Desde aquí puedes gestionar qué tipo de planes ven cada contenido</p>
+      </header>
+
       <div className={style.tableConfig}>
         <div className={style.colum}>
-        <div className={style.label}>Secciones</div>
+          <div className={style.label}>Secciones</div>
           {accesibilityService.modules.map(m => (
             <div className={style.sections} key={m}>
               <FormattedMessage id={m} />
@@ -36,7 +41,7 @@ const Accessibility: NextPage = () => {
           }}
         >
           {({ values }) => (
-            <Form>
+            <Form className={style.formContainer}>
               <div className={style.tableConfig}>
                 <div className={style.colum}>
                   <div className={style.label}>Guest</div>
@@ -48,7 +53,7 @@ const Accessibility: NextPage = () => {
                 </div>
 
                 <div className={style.colum}>
-                <div className={style.label}>Basic</div>
+                  <div className={style.label}>Basic</div>
                   {accesibilityService.modules.map(m => (
                     <div key={'basic' + m}>
                       <Field name={'basic'} value={m} type='checkbox' />
@@ -57,7 +62,7 @@ const Accessibility: NextPage = () => {
                 </div>
 
                 <div className={style.colum}>
-                <div className={style.label}>Plus</div>
+                  <div className={style.label}>Plus</div>
                   {accesibilityService.modules.map(m => (
                     <div key={'plus' + m}>
                       <Field name={'plus'} value={m} type='checkbox' />
@@ -66,7 +71,7 @@ const Accessibility: NextPage = () => {
                 </div>
 
                 <div className={style.colum}>
-                <div className={style.label}>Premium</div>
+                  <div className={style.label}>Premium</div>
                   {accesibilityService.modules.map(m => (
                     <div key={'premium' + m}>
                       <Field name={'premium'} value={m} type='checkbox' />
