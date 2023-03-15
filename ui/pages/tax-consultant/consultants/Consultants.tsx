@@ -32,7 +32,7 @@ const Consultants = () => {
   }, [userLogged, query])
 
   useEffect(() => {
-    if (currentConsultant instanceof UserConsultant && userLogged?.checkColaborationPermisionByModule('permissions.consultant')) {
+    if (currentConsultant instanceof UserConsultant && userLogged.uid === currentConsultant.uid) {
       replace(`/tax-consultant/consultants/${currentConsultant.id}/dashboard/`)
     }
   }, [currentConsultant])
