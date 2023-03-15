@@ -127,19 +127,12 @@ const UserView = ({
               name='email'
             />
 
-            <div
-              style={{
-                marginTop: '20px',
-                maxWidth: '300px',
-                margin: 'auto'
-              }}
-            >
+          
               <ButtonApp
                 buttonStyle='primary'
                 type='submit'
                 labelID='btn.edit'
               />
-            </div>
           </Form>
         )}
       </Formik>
@@ -160,33 +153,33 @@ const UserView = ({
           <Form className={style.form}>
             <div className={style.roles_checks}>
               <div className={style.roles_checks_list}>
-              <p style={{ marginRight: 20 }}>Role activo del usuario:</p>
-              {ROLES.map((role: Role) => (
-                <div role='group' key={role.key}>
-                  <label>
-                    <Field type='radio' name='role' value={role.key} />
-                    {role.label}
-                  </label>
-                </div>
-              ))}
+                <p style={{ marginRight: 20 }}>Role activo del usuario:</p>
+                {ROLES.map((role: Role) => (
+                  <div role='group' key={role.key}>
+                    <label>
+                      <Field type='radio' name='role' value={role.key} />
+                      {role.label}
+                    </label>
+                  </div>
+                ))}
               </div>
 
-               {userDataDto.role.level === 1 && <div className={style.manageCollaborator}>
-                  <ButtonApp
-                    buttonStyle='transparent'
-                    type='button'
-                    labelID='Permisos del colaborador'
-                    onClick={() => push(asPath + 'colaboration')}
-                  />
-                </div>}
+              {userDataDto.role.level === 1 && <div className={style.manageCollaborator}>
+                <ButtonApp
+                  buttonStyle='transparent'
+                  type='button'
+                  labelID='Permisos del colaborador'
+                  onClick={() => push(asPath + 'colaboration')}
+                />
+              </div>}
             </div>
             <div className={style.roles_buttons}>
-                <ButtonApp
-                  buttonStyle='primary'
-                  type='submit'
-                  labelID='Actulizar rol'
-                />
-              </div>
+              <ButtonApp
+                buttonStyle='primary'
+                type='submit'
+                labelID='Actulizar rol'
+              />
+            </div>
           </Form>
         )}
       </Formik>
@@ -211,9 +204,11 @@ const UserView = ({
             </div>
           )}
         </div>
-        <p className='small-caps'>Datos de Usuario</p>
       </div>
       <div>
+        <div className='margin-top-50'>
+          <p className='small-caps'>Datos de Usuario</p>
+        </div>
         <div className={style.userMainDetails}>{renderFormik()}</div>
         {userLogged?.role.level == 2 && <div className={style.user_roleConfiguration}>
           <p className='small-caps'>Configurar rol del usuario</p>

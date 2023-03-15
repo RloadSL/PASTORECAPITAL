@@ -79,8 +79,8 @@ const Accessibility: NextPage = () => {
                   ))}
                 </div>
               </div>
-              <div>
-                <ButtonApp type='submit'>Submit</ButtonApp>
+              <div className={style.btnContainer}>
+                <ButtonApp buttonStyle={'primary'} type='submit' labelID='Guardar'/>
               </div>
             </Form>
           )}
