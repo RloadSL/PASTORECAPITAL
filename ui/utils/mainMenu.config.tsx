@@ -154,8 +154,8 @@ export const mainMenuItems = [
         type: 'link',
         label: 'mainMenu.item.label.invoice',
         children: null,
-        href: 'administration',
-        path:'administration'
+        href: '/administration/invoices',
+        path:'administration/invoices'
       }
     ]
   },

@@ -50,6 +50,15 @@ class SystemConfigRepository {
       return null;
     }
   }
+
+  async getStripeInvoices(data:{page?:string,created?:number}){
+    const res = await FireFunctionsInstance.onCallFunction('StripeInvoicesOnCallFunctions', data)
+    if(!res.error){
+      return res;
+    }else{
+      return null;
+    }
+  }
 }
 
 
