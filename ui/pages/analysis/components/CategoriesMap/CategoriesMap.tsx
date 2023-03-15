@@ -49,10 +49,9 @@ const CategoriesMapView = ({
 }: ARTICLEFILTERSPROPS) => {
   return (
     <div className={style.filtersContainer}>
-      <span className={style.filterLabel}>
-        <FormattedMessage id='page.analysis.categoryFilter.title' />
-      </span>
+      
       <div className={style.filterListContainer}>
+        
         <ul className={style.filterList}>
           {categories.map((cat, index) => {
             return (
