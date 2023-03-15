@@ -31,6 +31,10 @@
       display: flex;
       margin-bottom: 20px;
     }
+
+    &_bottom {
+      word-break: break-all;
+    }
   }
 }
 
