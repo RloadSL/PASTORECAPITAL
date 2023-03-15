@@ -14,4 +14,35 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  &_roleConfiguration {
+    border: 1px solid colors.$grey40;
+    padding: 20px;
+    border-radius: 10px;
+  }
+}
+
+.roles {
+  &_checks {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    &_list {
+      display: flex;
+      align-items: center;    }
+  }
+
+  &_buttons {
+    max-width: 320px;
+  }
+
+  .manageCollaborator {
+    border: 1px solid colors.$dark;
+    border-radius: 50px;
+    width: fit-content;
+    margin-left: 80px;
+    button {
+      padding: 10px !important;
+    }
+  }
 }

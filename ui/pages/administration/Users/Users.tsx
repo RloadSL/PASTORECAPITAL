@@ -140,6 +140,7 @@ const UsersView = ({
 
   return (
     <div className={style.usersPage}>
+      <div className={style.maxContainer}>      
       <div className={style.header}>
         <h1 className='main-title'>Usuarios de la plataforma</h1>
       </div>
@@ -161,9 +162,10 @@ const UsersView = ({
 
         <ItemList items={users.map(user => renderUserItem(user))} />
       </div>
-      {hasLoadMore && <div className={style.actions}>
+      {hasLoadMore && <div className={style.loadMoreBtn}>
         <ActionsAdmin onLoadMore={() => onloadMore()}></ActionsAdmin>
       </div>}
+      </div>
     </div>
   )
 }

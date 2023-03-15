@@ -131,7 +131,7 @@ export const mainMenuItems = [
     children: [
       {
         type: 'link',
-        label: 'mainMenu.item.label.accessibility',
+        label: 'mainMenu.item.label.visibility',
         children: null,
         href: '/administration/accessibility',
         path:'administration/accessibility'

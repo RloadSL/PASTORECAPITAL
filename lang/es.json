@@ -42,7 +42,7 @@
   "mainMenu.item.label.users" : "Usuarios",
   "mainMenu.item.label.stats" : "Estadísticas",
   "mainMenu.item.label.invoice" : "Facturas",
-  "mainMenu.item.label.accessibility" :"Accesibilidad",
+  "mainMenu.item.label.visibility" :"Visibilidad",
 
   "contextualMenu.item.label.see": "Ver",
   "contextualMenu.item.label.donwload" : "Descargar",
@@ -389,7 +389,7 @@
   "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam.",
   "empty": " ",
   "news" : "Noticias",
-  "accessibility": "Accesibilidad",
+  "accessibility": "Visibilidad",
   "plan.update" : "Plan actualizado con exito.",
   "permissions.updated" : "Permisos actualizados",
   "/news": "Noticias",
