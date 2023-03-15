@@ -95,7 +95,7 @@ const Webinars = () => {
           <ul>
             {webinars.map(item => (
               <li key={item.id}>
-                <ItemListWebinar showThumb={false} hasColorSpot={true} onClick={goToDetail} item={item} chips={[{ label: `${item.date?.toLocaleDateString()} ${item.date?.toLocaleTimeString()}`, icon: calendarIcon }]} />
+                <ItemListWebinar showThumb={false} hasColorSpot={true} onClick={goToDetail} item={item} chips={[{ label: `${item.date?.toLocaleString(['es-ES'], { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })}h`, icon: calendarIcon }]} />
               </li>
             ))}
           </ul>

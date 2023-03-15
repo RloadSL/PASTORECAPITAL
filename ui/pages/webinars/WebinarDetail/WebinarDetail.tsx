@@ -13,7 +13,7 @@ import webinarsRepository from 'infrastructure/repositories/webinars.repository'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
@@ -30,11 +30,20 @@ const WebinarDetail: NextPage = () => {
   const [webinar, setWebinar] = useState<Webinars | undefined>()
   const [deferred_video, setDeferred_video] = useState<string | undefined>()
   const [registeredlist, setRegisteredlist] = useState();
+  
   const userLogged = useSelector(getUserLogged)
   const { pushInfoApp } = useSystem()
   const isAdmin = useRef(
     userLogged?.checkColaborationPermisionByModule('WEBINARS')
   ).current
+
+  const isOffdate = useCallback(
+    (webinarDate: Date) => {
+      return webinarDate.getTime() < Date.now()  
+    },
+    [],
+  )
+  
 
   const [state, setState] = useState<{
     register: boolean
@@ -138,7 +147,7 @@ const WebinarDetail: NextPage = () => {
                 icon={editIcon}
                 buttonStyle={'transparent'}
                 onClick={() => setState(pre => ({ ...pre, edit: true }))}
-                labelID={'editar'}
+                labelID={'btn.edit'}
               />
             </div>
             <div className={style.adminActions_buttonContainer_upload}>
@@ -146,7 +155,7 @@ const WebinarDetail: NextPage = () => {
                 icon={uploadIcon}
                 buttonStyle={'transparent'}
                 onClick={() => setState(pre => ({ ...pre, uploadVideo: true }))}
-                labelID={'subir vídeo'}
+                labelID={'page.webinarDetail.upload.video'}
               />
             </div>
             <div className={style.adminActions_buttonContainer_users}>
@@ -164,7 +173,7 @@ const WebinarDetail: NextPage = () => {
                 icon={deleteIcon}
                 buttonStyle={'transparent'}
                 onClick={() => setState(pre => ({ ...pre, delete: true }))}
-                labelID={'eliminar'}
+                labelID={'btn.delete'}
               />
             </div>
           </div>
@@ -204,7 +213,7 @@ const WebinarDetail: NextPage = () => {
           </div>
         </div>
         <div className={style.attendButtonContainer}>
-          {webinar.state != 'DEFERRED' && <ButtonApp
+          {(webinar.state != 'DEFERRED' && !isOffdate(webinar.date)) && <ButtonApp
             buttonStyle={'primary'}
             labelID={'page.webinarDetail.label.attendButton'}
             onClick={() => setState(pre => ({ ...pre, register: true }))}
@@ -326,6 +335,7 @@ const CompleteInscription = ({
   ).current
 
   const onCreate = async (value: any) => {
+    setRegisterState(pre => ({ ...pre, loading: true }))
     await webinarsRepository.register({ ...value, w_id })
     onClose()
   }
@@ -369,11 +379,11 @@ const CompleteInscription = ({
               margin: 'auto'
             }}
           >
-            <ButtonApp
+           {registerState.loading ? <Loading loading></Loading> : <ButtonApp
               buttonStyle='secondary'
               type='submit'
               labelID='btn.accept'
-            />
+            />}
           </div>
         </Form>
       )}
