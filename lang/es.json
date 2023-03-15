@@ -221,6 +221,7 @@
   "page.webinars.modal.editTitle": "Editar un webinar",
   "page.webinars.inputSearch": "Buscar un webinar",
   "page.webinars.uploadVideo": "Subiendo vídeo...",
+  "page.webinars.search.label": "Buscar un webinar",
   "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
   "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
   "page.webinarDetail.upload.video" : "Subir video",

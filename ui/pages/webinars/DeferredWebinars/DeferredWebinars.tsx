@@ -45,7 +45,7 @@ const DeferredWebinars = () => {
       <div>
         <SearchBar
           enableTags={false}
-          placeholder={'page.administration.users.filter.placeholder'}
+          placeholder={'page.webinars.search.label'}
           onFilter={(value: { search?: string; tags?: string }) =>
             onFilter(value.search as string)
           }

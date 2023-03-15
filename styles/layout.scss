@@ -302,7 +302,14 @@ p {
 	}
 
 	&__tile {
-		line-height: 25px !important;
+		// line-height: 25px !important;
+			height: 48px !important;
+			width: 40px !important;
+			pointer-events: none !important;
+
+			@include devices.device(smTablet) {
+				height: 43px !important;
+			}
 
 		&--now {
 			background-color: colors.$palette10 !important;

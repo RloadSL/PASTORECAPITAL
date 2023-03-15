@@ -4,6 +4,13 @@
 
 .webinar{
   color: colors.$dark;
+  height: 100%;
+  margin-bottom: 15px;
+
+
+  @include devices.device(lgScreen) {
+    margin-bottom: 0px;
+  }
 
   &:hover {
     cursor: pointer;
@@ -13,15 +20,34 @@
 
   .cardContainer {
     padding: 15px;
-    margin-bottom: 20px;
+    height: 100%;
 
     &_content {
+      height: 100%;
       @include devices.device(smTablet) {
         display: flex;
       }
 
       @include devices.device(lgScreen) {
         display: block;
+      }
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        max-height: 220px;
+
+        @include devices.device(lgScreen) {
+          height: 100%;
+
+        }
+
+        p {
+          flex: 1 1;
+          height: 100%;
+          margin-top: 0px;
+        }
       }
     }
 
