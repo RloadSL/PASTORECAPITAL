@@ -170,7 +170,7 @@ const FlashUpdatesView = ({
   loadMore: Function
   selectedPost?: any
   userTokens: { userDataToken?: string; wpToken?: string }
-  editionGranted:boolean
+  editionGranted: boolean
 }) => {
   const [createArt, setCreateArt] = useState(false)
   const [deleteArticle, setDeleteArticle]: [
@@ -191,16 +191,19 @@ const FlashUpdatesView = ({
 
   return (
     <div className={style.analysisCategoryPage}>
+      <div className='max-container'> 
       <header className='title-container flex-container column space-between'>
         <div className={style.titleBlock}>
           <p className='small-caps'>
-            <FormattedMessage id={'flash-updates'}/>
+            <FormattedMessage id={'research'} />
           </p>
-          <h1 className='main-title'>{query.category_name}</h1>
-          <div className={`admin-buttons-wrapper`}></div>
+          <h1 className='main-title'>
+            <FormattedMessage id={'flash-updates'} />
+          </h1>
+          {/* <div className={`admin-buttons-wrapper`}></div> */}
         </div>
         <SearchBar
-          onFilter={(value: { search?: string; tags?: string}) =>
+          onFilter={(value: { search?: string; tags?: string }) =>
             onFilter(value)
           }
         />
@@ -280,11 +283,12 @@ const FlashUpdatesView = ({
             setUpdatePLan(undefined)
           }}
         >
-          <WpUpdatePlan wpToken = {userTokens.wpToken}
+          <WpUpdatePlan wpToken={userTokens.wpToken}
             post_id={updatePLan?.id}
-            current_plans={updatePLan.plans.map(item => item.term_id?.toString())}/>
-         </AlertApp>
+            current_plans={updatePLan.plans.map(item => item.term_id?.toString())} />
+        </AlertApp>
       </Suspense>}
+      </div>
     </div>
   )
 }

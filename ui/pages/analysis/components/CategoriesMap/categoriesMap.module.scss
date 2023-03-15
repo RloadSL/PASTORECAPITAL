@@ -3,22 +3,30 @@
 @use "../../../../../styles/partials/variables/colors" as colors;
 
 .filtersContainer {
+  display: flex;
+  flex-direction: column;
+
+  @include devices.device(smScreen){
+    flex-direction: row;
+
+  }
   .filterLabel {
     color: colors.$dark;
     letter-spacing: 1px;
     font-weight: 500;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    display: inline-block ;
   }
 
   .filterListContainer {
     overflow: scroll;
     max-width: 100%;
-    margin-left: -10px;
-    margin-top: 10px;
     margin-bottom: 10px;
 
     @include devices.device(smScreen) {
-      max-width: 900px;
       overflow: auto;
+      width: 100%;
     }
 
     .filterList {
@@ -34,5 +42,16 @@
 }
 
 .adminButtons {
-  max-width: 200px;
+  //max-width: 200px;
+  width: 100%;
+  display: flex;
+
+  @include devices.device(smScreen) {
+    justify-content: end;
+
+  }
+
+  button {
+    max-width: 180px !important;
+  }
 }
