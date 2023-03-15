@@ -36,7 +36,7 @@ const WPCategory = ({ componentStyle, category, posts }: WPCATEGORYPROPS) => {
         userLogged?.wpToken,
         {
           category_name: category.slug,
-          posts_per_page: 4
+          posts_per_page: 5
         }
       ).then(arts => {
         setArticles(arts)

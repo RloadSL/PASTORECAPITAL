@@ -100,7 +100,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
         {
           index % 2 === 0 ? (
             <SubscriptionBanner
-              
+
               linkHref={'#'}
               colLeftContent={BannerContentColLeft()}
               colRightContent={BannerContentColRight()}
@@ -108,7 +108,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
             />
           ) : (
             <SubscriptionBanner
-            
+
               linkHref={'#'}
               image={bannerImage}
               colLeftContent={BannerContentColLeft()}
@@ -124,22 +124,25 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
   return (
     <div className={style.analysisPage}>
       <header>
-        <p className={`main-title`}>
-          <FormattedMessage id='page.analysis.title' />
+        <p className='small-caps'>
+          <FormattedMessage id='research' />
         </p>
+        <h1 className={`main-title`}>
+          <FormattedMessage id='page.analysis.title' />
+        </h1>
       </header>
       <CategoriesMap
         onCreate={() => setCreateCategory(true)}
         editionGranted={editionGranted}
-        categories={categories.map((item: any, index:number) => item.term)}
+        categories={categories.map((item: any, index: number) => item.term)}
       />
-      
-      <WPCategory
+
+      {/* <WPCategory
         componentStyle={'flex'}
-        category={{name: 'Artículos destacados', slug:'art-outstanding', metas: false}}
-        posts = {artOutsanding}
-        
-      />
+        category={{ name: 'Artículos destacados', slug: 'art-outstanding', metas: false }}
+        posts={artOutsanding}
+
+      /> */}
       {artOutsanding.length > 0 && renderBanners(1)}
       {categories.map((WPterm: any, index: number) => {
         const { term } = WPterm

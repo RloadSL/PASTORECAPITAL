@@ -35,9 +35,9 @@
 .hasChildren {
   padding: 10px;
 
-  @include devices.device(mdScreen) {
-    padding: 12px;
-  }
+  // @include devices.device(mdScreen) {
+  //   padding: 12px;
+  // }
 
   &:after {
     content: '';

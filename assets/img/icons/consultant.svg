@@ -1,2 +1,17 @@
-<?xml version="1.0"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><path xmlns="http://www.w3.org/2000/svg" d="M19,4H17.9A5.009,5.009,0,0,0,13,0H11A5.009,5.009,0,0,0,6.1,4H5A5.006,5.006,0,0,0,0,9V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9A5.006,5.006,0,0,0,19,4ZM11,2h2a3,3,0,0,1,2.816,2H8.184A3,3,0,0,1,11,2ZM5,6H19a3,3,0,0,1,3,3v3H2V9A3,3,0,0,1,5,6ZM19,22H5a3,3,0,0,1-3-3V14h9v1a1,1,0,0,0,2,0V14h9v5A3,3,0,0,1,19,22Z" fill="#8b2ae1" data-original="#000000"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns:svgjs="http://svgjs.com/svgjs"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+	 style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#8B2AE1;}
+</style>
+<g>
+	<path class="st0" d="M372.9,78.5h-21.6C341.9,32.8,301.7,0.1,255.1,0h-39.2c-46.6,0.1-86.8,32.8-96.2,78.5H98.1
+		C44,78.6,0.1,122.5,0,176.6v196.2C0.1,427,44,470.9,98.1,471h274.8c54.2-0.1,98.1-44,98.1-98.1V176.6
+		C470.9,122.5,427,78.6,372.9,78.5z M215.9,39.2h39.2c24.9,0.1,47,15.8,55.3,39.2H160.6C168.9,55.1,191,39.4,215.9,39.2z
+		 M98.1,117.8h274.8c32.5,0,58.9,26.4,58.9,58.9v58.9H39.2v-58.9C39.2,144.1,65.6,117.8,98.1,117.8z M372.9,431.8H98.1
+		c-32.5,0-58.9-26.4-58.9-58.9v-98.1h176.6v19.6c0,10.8,8.8,19.6,19.6,19.6s19.6-8.8,19.6-19.6v-19.6h176.6v98.1
+		C431.8,405.4,405.4,431.8,372.9,431.8z"/>
+</g>
+</svg>
