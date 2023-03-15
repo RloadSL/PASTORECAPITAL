@@ -23,6 +23,10 @@
     align-items: center;
     width: 100%;
 
+    button {
+      pointer-events: none !important;
+    }
+
     @include devices.device(smTablet) {
       width: auto;
     }

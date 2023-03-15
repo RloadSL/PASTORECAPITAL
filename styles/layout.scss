@@ -85,6 +85,14 @@ body {
 
 //WIDTH AND SPACING
 
+.max-container {
+	max-width: 1000px;
+}
+
+.btn-container {
+	max-width: 300px;
+}
+
 @for $i from 10 through 100 {
 	.width-#{$i} {
 		width: (0% + $i);
@@ -305,7 +313,7 @@ p {
 		// line-height: 25px !important;
 			height: 48px !important;
 			width: 40px !important;
-			pointer-events: none !important;
+			// pointer-events: none !important;
 
 			@include devices.device(smTablet) {
 				height: 43px !important;

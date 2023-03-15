@@ -398,7 +398,7 @@ const CompleteInscription = ({
             <FormattedMessage id='page.webinarDetail.modal.attendModal'/>
           </p>
           {registerState.loading ? (
-            <Loading loading />
+            <Loading variant='inner-primary' loading />
           ) : registerState.isRegistered ? (
             <div className={style.modalContainer_info}>
               <p>

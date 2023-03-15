@@ -79,8 +79,8 @@ const Notifications = ({ onClose }: NotificationsProps) => {
             />
           ))}
         />
-        {notifications.lastNoti && <div>
-          <ButtonApp onClick={getData}>LoadMore</ButtonApp>
+        {notifications.lastNoti && <div className={style.loadMoreContainer}>
+          <ButtonApp labelID='btn.loadMore' buttonStyle={'link'} onClick={getData}/>
         </div>}
       </div>
       {view && (

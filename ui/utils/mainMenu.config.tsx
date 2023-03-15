@@ -6,9 +6,9 @@ import admin from '../../assets/img/icons/gear.svg'
 import home from '../../assets/img/icons/home.svg'
 
 
-import webinars from '../../assets/img/icons/academy.svg'
-import AMAs from '../../assets/img/icons/academy.svg'
-import discord from '../../assets/img/icons/academy.svg'
+import webinars from '../../assets/img/icons/webinars.svg'
+import amas from '../../assets/img/icons/amas.svg'
+import discord from '../../assets/img/icons/discord.svg'
 import afiliates from '../../assets/img/icons/afiliates.svg'
 
 export const mainMenuItems = [
@@ -52,27 +52,27 @@ export const mainMenuItems = [
     ] */
   },
   {
-    type: 'accordion',
+    type: 'link',
     icon: analysis,
     label: 'mainMenu.item.label.research',
-    href: null,
+    href: '/research',
     path: null,
-    children: [
-      {
-        type: 'link',
-        label: 'mainMenu.item.label.analysis',
-        children: null,
-        href: '/research/bitcoins-altcoins',
-        path: 'research/bitcoins-altcoins'
-      },
-      {
-        type: 'link',
-        label: 'mainMenu.item.label.flashUpdates',
-        children: null,
-        href: '/research/flash-updates',
-        path: 'research/flash-updates'
-      }
-    ]
+    // children: [
+    //   {
+    //     type: 'link',
+    //     label: 'mainMenu.item.label.analysis',
+    //     children: null,
+    //     href: '/research/bitcoins-altcoins',
+    //     path: 'research/bitcoins-altcoins'
+    //   },
+    //   {
+    //     type: 'link',
+    //     label: 'mainMenu.item.label.flashUpdates',
+    //     children: null,
+    //     href: '/research/flash-updates',
+    //     path: 'research/flash-updates'
+    //   }
+    // ]
   },
   {
     type: 'accordion',
@@ -99,7 +99,7 @@ export const mainMenuItems = [
   },
   {
     type: 'link',
-    icon: consultant,
+    icon: discord,
     label: 'mainMenu.item.label.discord',
     children: null,
     href: '/discord',
@@ -107,7 +107,7 @@ export const mainMenuItems = [
   },
   {
     type: 'link',
-    icon: consultant,
+    icon: webinars,
     label: 'mainMenu.item.label.webinars',
     children: null,
     href: '/webinars',
@@ -115,7 +115,7 @@ export const mainMenuItems = [
   },
   {
     type: 'link',
-    icon: consultant,
+    icon: amas,
     label: 'mainMenu.item.label.amas',
     children: null,
     href: '/amas',

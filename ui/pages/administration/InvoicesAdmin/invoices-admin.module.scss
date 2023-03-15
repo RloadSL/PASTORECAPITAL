@@ -1,0 +1,42 @@
+@use "../../../../styles/partials/placeholders";
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+
+.invoicesAdmin {
+  @extend %layoutContainer;
+  padding: 2%;
+}
+
+.invoiceItemList {
+  padding: 15px 0px;
+  color: colors.$dark;
+
+  span {
+    margin-right: 20px;
+  }
+
+  &_content {
+    display: flex;
+    justify-content: space-between;
+
+    &__second {
+      display: inline;
+    }
+  }
+}
+
+.plan {
+  font-weight: bold;
+}
+
+.downloadBtn {
+  border: 1px solid colors.$dark;
+  border-radius: 50px;
+  padding: 8px;
+  font-size: .9rem;
+
+  &:hover {
+    background-color: colors.$dark;
+    color: white;
+  }
+}
