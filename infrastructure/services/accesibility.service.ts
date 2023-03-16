@@ -56,6 +56,7 @@ class AccesibilityService {
     '/academy',
     '/academy/tutorials',
     '/academy/courses',
+    '/research',
     '/research/flash-updates',
     '/research/bitcoins-altcoins',
     '/research/bitcoins-altcoins/[category-slug]',
