@@ -75,27 +75,27 @@ export const mainMenuItems = [
     // ]
   },
   {
-    type: 'accordion',
+    type: 'link',
     icon: consultant,
     label: 'mainMenu.item.label.taxConsultant',
-    href: null,
+    href: '/tax-consultant',
     path: null,
-    children: [
-      {
-        type: 'link',
-        label: 'mainMenu.item.label.consultants',
-        children: null,
-        href: '/tax-consultant/consultants',
-        path:'tax-consultant/consultants'
-      },
-      {
-        type: 'link',
-        label: 'mainMenu.item.label.resources',
-        children: null,
-        href: '/tax-consultant/resources',
-        path:'tax-consultant/resources'
-      }
-    ]
+    // children: [
+    //   {
+    //     type: 'link',
+    //     label: 'mainMenu.item.label.consultants',
+    //     children: null,
+    //     href: '/tax-consultant/consultants',
+    //     path:'tax-consultant/consultants'
+    //   },
+    //   {
+    //     type: 'link',
+    //     label: 'mainMenu.item.label.resources',
+    //     children: null,
+    //     href: '/tax-consultant/resources',
+    //     path:'tax-consultant/resources'
+    //   }
+    // ]
   },
   {
     type: 'link',

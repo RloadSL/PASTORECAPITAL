@@ -130,8 +130,8 @@
   "page.academy.tutorials.form.create.excerpt.helper" : "Resumen corto del tutorial. Máximo 300 caracteres",
   "page.academy.tutorials.modal.delete.title" : "Eliminar tutorial",
   "page.academy.tutorials.modal.delete.message" : "¿Estás seguro de eliminar el tutorial? Se perderán todos los datos",
-  "academy.create.tutorials": "<b>Crear</b> nuevo tutorial",
-  "academy.create.courses": "<b>Crear</b> nuevo curso",
+  "academy.create.tutorials": "Crear nuevo tutorial",
+  "academy.create.courses": "Crear nuevo curso",
 
   "page.analysis.title" : "Bitcoins / Altcoins",
   "page.analysis.categoryFilter.title" : "Categorías",

@@ -2,11 +2,36 @@
 @use "../../styles/partials/mixins/devices" as devices;
 @use "../../styles/partials/placeholders";
 
+
+// @include devices.device(lgScreen) {
+// 	display: grid;
+// 	grid-template-columns: repeat(3, 1fr);
+// 	grid-gap: 10px;
+// }
+
+// @include devices.device(1900px) {
+// 	grid-template-columns: repeat(4, 1fr);
+// }
+
+
+
+
+
 .postGrid {
-	display: flex;
-	flex-direction: column;
-	max-width: 100%;
-	width: 100%;
+	// display: flex;
+	// flex-direction: column;
+	// max-width: 100%;
+	// width: 100%;
+
+	@include devices.device(lgScreen) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 10px;
+	}
+	
+	@include devices.device(1900px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
 
 	&.row {
 		flex-direction: row !important;
@@ -34,23 +59,6 @@
 		.createButtonContainer {
 			width: 100%;
 		}
-
-		.createCourseButton {
-			width: 100%;
-			padding: 2%;
-			max-width: fit-content;
-
-			.buttonContent {
-				flex-direction: row;
-
-				.buttonImage {
-					width: 45px;
-					height: auto;
-					flex-shrink: 0;
-					margin-right: 10px;
-				}
-			}
-		}
 	}
 
 	// @include devices.device(lgScreen) {
@@ -63,84 +71,135 @@
 	padding: 5px;
 	width: 100%;
 
-	@include devices.device(lgScreen) {
-		width: 33.3%;
-		padding: 10px;
-	}
+	// @include devices.device(lgScreen) {
+	// 	width: 33.3%;
+	// 	padding: 10px;
+	// }
+
+	// @include devices.device(lgScreen) {
+	// 	width: 33.3%;
+	// 	padding: 10px;
+	// }
 }
+
+
+
+
+
+
+
 
 .createButtonContainer {
 	padding-right: 10px;
 
-	@include devices.device(lgScreen) {
-		width: 33.3%;
-		padding: 10px;
-	}
+	// @include devices.device(lgScreen) {
+	// 	width: 33.3%;
+	// 	padding: 10px;
+	// }
 }
 
-.createCourseButton {
-	@extend %cardContainer;
-	border: 2px dashed colors.$main;
-	border-radius: 20px;
-	font-size: 1.2rem;
-	background-color: lighten(colors.$main, 42%);
-	width: 100%;
-	color: colors.$main;
+// .createCourseButton {
+// 	@extend %cardContainer;
+// 	border: 2px dashed colors.$main;
+// 	border-radius: 20px;
+// 	font-size: 1.2rem;
+// 	background-color: lighten(colors.$main, 42%);
+// 	width: 100%;
+// 	color: colors.$main;
 
-	@include devices.device(smTablet) {
-		max-width: 400px;
-		min-height: 80px;
-		padding: 10px;
-	}
+// 	@include devices.device(smTablet) {
+// 		max-width: 400px;
+// 		min-height: 80px;
+// 		padding: 10px;
+// 	}
 
-	@include devices.device(lgScreen) {
-		max-width: 100%;
-		min-height: 100%;
-		padding: 5%;
-		text-transform: uppercase;
-		font-weight: normal;
-		color: colors.$grey60;
-		font-size: 1.1rem;
-		letter-spacing: 0.2rem;
-	}
+// 	@include devices.device(lgScreen) {
+// 		max-width: 100%;
+// 		min-height: 100%;
+// 		padding: 5%;
+// 		text-transform: uppercase;
+// 		font-weight: normal;
+// 		color: colors.$grey60;
+// 		font-size: 1.1rem;
+// 		letter-spacing: 0.2rem;
+// 	}
 
-	.buttonContent {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+// 	.buttonContent {
+// 		display: flex;
+// 		flex-direction: row;
+// 		align-items: center;
 
-		strong {
-			color: colors.$main;
-			text-transform: capitalize;
-			margin-top: 0px;
-			font-size: 1.2rem;
-			letter-spacing: 0px;
-			margin-right: 10px;
-			margin-left: 10px;
+// 		strong {
+// 			color: colors.$main;
+// 			text-transform: capitalize;
+// 			margin-top: 0px;
+// 			font-size: 1.2rem;
+// 			letter-spacing: 0px;
+// 			margin-right: 10px;
+// 			margin-left: 10px;
 
-			@include devices.device(lgScreen) {
-				margin-top: 20px;
-				font-size: 1.5rem;
-			}
-		}
+// 			@include devices.device(lgScreen) {
+// 				margin-top: 20px;
+// 				font-size: 1.5rem;
+// 			}
+// 		}
 
-		.buttonImage {
-			width: 40px;
-			height: 40px;
+// 		.buttonImage {
+// 			width: 40px;
+// 			height: 40px;
 
-			@include devices.device(lgScreen) {
-				width: 80px;
-				height: 80px;
-			}
-		}
+// 			@include devices.device(lgScreen) {
+// 				width: 80px;
+// 				height: 80px;
+// 			}
+// 		}
 
-		@include devices.device(lgScreen) {
-			flex-direction: column;
-		}
-	}
-}
+// 		@include devices.device(lgScreen) {
+// 			flex-direction: column;
+// 		}
+// 	}
+// }
 
 .noResults {
 	color: colors.$grey60;
 	text-align: center;
+}
+
+.adminButtons {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+
+	button {
+		max-width: fit-content !important;
+		padding: 25px 30px !important;
+		height: fit-content !important;
+	}
+	.createCourseButton {
+		width: 100%;
+		border-radius: 50px;
+		background-color: colors.$palette11;
+		color: white;
+
+		&:hover {
+			background-color: colors.$dark;
+		}
+		
+		.buttonContent {
+			flex-direction: row;
+			display: flex;
+			align-items: center;
+			font-size: 1rem;
+
+
+			.buttonImage {
+				width: 20px;
+				height: auto;
+				flex-shrink: 0;
+				margin-right: 10px;
+				filter: brightness(6);
+			}
+		}
+	}
+
 }
