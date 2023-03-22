@@ -6,7 +6,9 @@ export interface CommentDto {
   id?: string,
   created_at: any,
   total_replys: number,
-  comment: string
+  comment: string,
+  answered?:boolean,
+  owner_role_level?:number
 }
 
 export interface ParentCommentDto  {

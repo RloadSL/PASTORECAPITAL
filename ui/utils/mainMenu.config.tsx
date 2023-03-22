@@ -147,7 +147,7 @@ export const mainMenuItems = [
         type: 'link',
         label: 'mainMenu.item.label.stats',
         children: null,
-        href: '/administration',
+        href: '/administration/stats',
         path:'administration'
       },
       {

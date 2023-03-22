@@ -39,6 +39,7 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate, description }: 
     const res: Comments | undefined = await CommentsImplInstance.createComments({
       comment: comment,
       created_at: new Date(),
+      owner_role_level: userLoggued?.role.level,
       parent: {
         id: parent?.id,
         path: parent?.path

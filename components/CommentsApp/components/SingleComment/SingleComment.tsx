@@ -54,7 +54,6 @@ const SingleCommentView = ({
 
   const [NC, setNC] = useState<Comments>()
   const owner = comment.owner as User
-
   return comment ? (
     <div
       className={`${style.singleComment} ${
@@ -116,7 +115,7 @@ const SingleCommentView = ({
 
                   {isMainComment &&
                     userLogged &&
-                    (userLogged?.role.level >= 1 || owner?.uid === userLogged?.uid) && (
+                    (userLogged?.role.level >= 1 || (owner?.uid === userLogged?.uid && comment.answered)) && (
                       <div className={style.replyButton}>
                         <ButtonApp
                           labelID={

@@ -42,6 +42,18 @@ class SystemConfigRepository {
     }
   }
 
+  async updatePlansSubscriptionPrice(data:{basic:{price: {month: number, year: number}}, premium:{price: {month: number, year: number}}, plus:{price:{month: number, year: number}}}){
+    //{basic:{price: {month: 39, year: 200}}, premium:{price: {month: 99, year: 500}}, plus:{price:{month: 69, year: 300}}}
+    const res = await FireFunctionsInstance.onCallFunction('PaymentUpdateSubscriptionPriceTriggerFunctions', data)
+    if(!res.error){
+      return res;
+    }else{
+      return null;
+    }
+
+    console.log(data)
+  }
+
   async cancelSubscription(data:{sub_id:string}){
     const res = await FireFunctionsInstance.onCallFunction('CancelSubscriptionTriggerFunction', data)
     if(!res.error){

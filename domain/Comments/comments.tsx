@@ -9,6 +9,7 @@ export class Comments {
     this._created_at = comment.created_at.toDate()
     this._total_replys = comment.total_replys
     this._comment = comment.comment
+    this.answered = comment.answered
   }
 
   private _id?: string
@@ -46,6 +47,8 @@ export class Comments {
   public get comment (): string {
     return this._comment
   }
+
+  answered?:boolean;
 
   toJson (): CommentDto {
     return {

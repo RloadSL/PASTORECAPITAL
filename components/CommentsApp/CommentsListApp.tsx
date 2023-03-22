@@ -13,6 +13,7 @@ interface COMMENTSLISTPROPS {
   parent?: { id: string; path: string }
   children?: any
   main?: boolean
+  check_answered?:boolean
   newComments?: Comments
   infoData?: {
     mainTitle: string,

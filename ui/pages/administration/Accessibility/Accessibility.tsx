@@ -6,13 +6,132 @@ import ButtonApp from 'components/ButtonApp'
 import { useSystem } from 'ui/hooks/system.hooks'
 import accesibilityService from 'infrastructure/services/accesibility.service'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
+import InputFormikApp from 'components/FormApp/components/InputFormikApp'
+import systemRepository from 'infrastructure/repositories/system.repository'
+import { useEffect, useState } from 'react'
+import { PLANS } from 'infrastructure/dto/system_config.dto'
 const Accessibility: NextPage = () => {
   const { pushInfoApp } = useSystem()
+  const [plans, setPlans] = useState<any>()
+  useEffect(() => {
+    systemRepository.getPlans().then((plans: any) => setPlans(plans))
+  }, [])
+
   const onSave = async (values: any) => {
-    await accesibilityService.updatePermissions(JSON.parse(values));
-    pushInfoApp(new InfoApp({ code: 'permissions.updated', message: 'permissions.updated' }, 'success'))
+    await accesibilityService.updatePermissions(JSON.parse(values))
+    pushInfoApp(
+      new InfoApp(
+        { code: 'permissions.updated', message: 'permissions.updated' },
+        'success'
+      )
+    )
+  }
+
+  const onSavePrice = async (prices: any) => {
+    await systemRepository.updatePlansSubscriptionPrice(prices)
+    pushInfoApp(
+      new InfoApp(
+        { code: 'price.updated', message: 'price.updated' },
+        'success'
+      )
+    )
   }
   const intl = useIntl()
+
+  const renderPrices = () => {
+    return (
+      <>
+        <Formik
+          initialValues={{
+            basic_price_month: plans.basic.price.month,
+            basic_price_year: plans.basic.price.year,
+
+            plus_price_month: plans.plus.price.month,
+            plus_price_year: plans.plus.price.year,
+
+            premium_price_month: plans.premium.price.month,
+            premium_price_year: plans.premium.price.year
+          }}
+          onSubmit={async (values: any) => {
+            const prices = {
+              basic: {
+                price: {
+                  month: values.basic_price_month,
+                  year: values.basic_price_year
+                }
+              },
+              plus: {
+                price: {
+                  month: values.plus_price_month,
+                  year: values.plus_price_year
+                }
+              },
+              premium: {
+                price: {
+                  month: values.premium_price_month,
+                  year: values.premium_price_year
+                }
+              }
+            }
+            onSavePrice(prices)
+          }}
+        >
+          {values => (
+            <Form>
+              <h3>Precios para los planes de subscripción</h3>
+              <div>
+                Basic
+                <InputFormikApp
+                  type='number'
+                  name={'basic_price_month'}
+                  labelID={'price.month'}
+                />
+                <InputFormikApp
+                  type='number'
+                  name={'basic_price_year'}
+                  labelID={'price.year'}
+                />
+              </div>
+              <div>
+                Plus
+                <InputFormikApp
+                  type='number'
+                  name={'plus_price_month'}
+                  labelID={'price.month'}
+                />
+                <InputFormikApp
+                  type='number'
+                  name={'plus_price_year'}
+                  labelID={'price.year'}
+                />
+              </div>
+              <div>
+                Premium
+                <InputFormikApp
+                  type='number'
+                  name={'premium_price_month'}
+                  labelID={'price.month'}
+                />
+                <InputFormikApp
+                  type='number'
+                  name={'premium_price_year'}
+                  labelID={'price.year'}
+                />
+              </div>
+              <div className={style.btnContainer}>
+                <ButtonApp
+                  buttonStyle={'primary'}
+                  type='submit'
+                  labelID='Guardar'
+                />
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </>
+    )
+  }
+
   return (
     <div className={style.configuration}>
       <header>
@@ -80,12 +199,17 @@ const Accessibility: NextPage = () => {
                 </div>
               </div>
               <div className={style.btnContainer}>
-                <ButtonApp buttonStyle={'primary'} type='submit' labelID='Guardar'/>
+                <ButtonApp
+                  buttonStyle={'primary'}
+                  type='submit'
+                  labelID='Guardar'
+                />
               </div>
             </Form>
           )}
         </Formik>
       </div>
+      <div>{plans && renderPrices()}</div>
     </div>
   )
 }

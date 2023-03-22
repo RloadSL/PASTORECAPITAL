@@ -71,7 +71,7 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
                         const i = pre.findIndex(item => ticker === item)
                         if (i != -1) pre.splice(i, 1)
                       } else {
-                        pre.push(ticker)
+                       pre = [ticker]
                         const i = pre.findIndex(item => 'AllTickers' === item)
                         if (i != -1) pre.splice(i, 1)
                       }
