@@ -243,6 +243,14 @@
   "page.subscription.payment.modalSuccess.text": "Pronto recibiras un mail de confirmación con todos los datos de tu compra.",
   "page.subscription.payment.modalSuccess.button": "Volver al dasboard",
 
+  "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> ",
+  "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b>",
+  "page.dashboard.coursesTutorials.text": "Nuestros <b>Cursos y Tutoriales</b>",
+  "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b>",
+
+
+
+
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
   "page.notifications.modalTitle" : "Ver notificación",

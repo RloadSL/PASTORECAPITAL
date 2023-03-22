@@ -1,0 +1,79 @@
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/placeholders";
+
+$imageMaxSize: 160px;
+
+.infoTextCard {
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    @include devices.device(smTablet) {
+      flex-direction: row;
+    }
+
+    @include devices.device(tablet) {
+      flex-direction: column;
+    }
+
+    @include devices.device(lgScreen) {
+      flex-direction: row;
+    }
+  }
+
+  &_chip {
+    margin-bottom: 10px;
+  }
+
+  &_image {
+    width: 100%;
+    height: 120px;
+    @extend %borderRadius;
+    flex-shrink: 0;
+    background-position: center;
+    margin-right: 20px;
+
+    @include devices.device(smTablet) {
+      width: $imageMaxSize;
+      height: $imageMaxSize;
+    }
+
+    @include devices.device(tablet) {
+      width: 100%;
+      height: 120px;
+    }
+
+    @include devices.device(lgScreen) {
+      width: $imageMaxSize;
+      height: $imageMaxSize;
+    }
+  }
+
+  &_text {
+    h3 {
+      color: colors.$dark;
+      margin-top: 10px;
+      @include devices.device(smTablet) {
+        margin-top: 10px;
+      }
+      @include devices.device(smScreen) {
+        margin-top: 0px;
+      }
+
+      @include devices.device(mdScreen) {
+        margin-top: 20px;
+      }
+
+      @include devices.device(lgScreen) {
+        margin-top: 0px;
+      }
+    }
+    p {
+      color: colors.$grey60;
+      display: block;
+      margin-bottom: 0px;
+    }
+  }
+}
+
