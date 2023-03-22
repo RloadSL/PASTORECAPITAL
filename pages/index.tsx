@@ -1,8 +1,8 @@
-import HomePage from "ui/home/HomePage";
+import Dashboard from "ui/pages/dashboard/Dashboard";
 
 
 const main = () => {
-  return <HomePage/>;
+  return <Dashboard/>;
 }
 
 export default main;

@@ -130,8 +130,8 @@
   "page.academy.tutorials.form.create.excerpt.helper" : "Resumen corto del tutorial. Máximo 300 caracteres",
   "page.academy.tutorials.modal.delete.title" : "Eliminar tutorial",
   "page.academy.tutorials.modal.delete.message" : "¿Estás seguro de eliminar el tutorial? Se perderán todos los datos",
-  "academy.create.tutorials": "<b>Crear</b> nuevo tutorial",
-  "academy.create.courses": "<b>Crear</b> nuevo curso",
+  "academy.create.tutorials": "Crear nuevo tutorial",
+  "academy.create.courses": "Crear nuevo curso",
 
   "page.analysis.title" : "Bitcoins / Altcoins",
   "page.analysis.categoryFilter.title" : "Categorías",
@@ -242,6 +242,14 @@
   "page.subscription.payment.modalSuccess.subtitle": "¡Muy bien, ya estamos casi listos!",
   "page.subscription.payment.modalSuccess.text": "Pronto recibiras un mail de confirmación con todos los datos de tu compra.",
   "page.subscription.payment.modalSuccess.button": "Volver al dasboard",
+
+  "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> ",
+  "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b>",
+  "page.dashboard.coursesTutorials.text": "Nuestros <b>Cursos y Tutoriales</b>",
+  "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b>",
+
+
+
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",

@@ -26,7 +26,7 @@ interface POSTGRIDPROPS {
   wpToken?: string
   onClickItem: Function
   deleteItem: Function
-  setPlan?:Function
+  setPlan?: Function
   loadMore: Function
   setStatePost: Function
   statePost: 'public' | 'private',
@@ -34,7 +34,7 @@ interface POSTGRIDPROPS {
   typeItem?: 'privateExcerpt' | 'excerpt'
   alignment?: 'row' | 'column'
   footerType?: 'text' | 'chips'
-  editionGranted : boolean
+  editionGranted: boolean
 }
 
 /**
@@ -61,12 +61,12 @@ const PostGrid = ({
 }: {
   openCreate: Function
   deleteItem: Function
-  setPlan?:Function
+  setPlan?: Function
   onClickItemTarget: string
   loadMore: Function
   statePost: 'public' | 'private'
   setStatePost: Function
-  parent:string
+  parent: string
   typeItem?: 'privateExcerpt' | 'excerpt'
   footerType?: 'text' | 'chips'
   alignment?: 'row' | 'column'
@@ -90,7 +90,7 @@ const PostGrid = ({
     } else if (status == 'publish') {
       router.push({
         pathname: onClickItemTarget + slug,
-        query: {...router.query, post_id: id, post_title: title }
+        query: { ...router.query, post_id: id, post_title: title }
       })
     }
   }
@@ -99,7 +99,7 @@ const PostGrid = ({
       setStatePost={() =>
         setStatePost((pre: string) => (pre === 'public' ? 'private' : 'public'))
       }
-      editionGranted = {userLogged?.role.level >= 1}
+      editionGranted={userLogged?.role.level >= 1}
       statePost={statePost}
       deleteItem={deleteItem}
       setPlan={setPlan}
@@ -107,7 +107,7 @@ const PostGrid = ({
       wpToken={userLogged?.wpToken}
       openCreate={openCreate}
       loading={loading}
-      posts={ staticPosts || posts}
+      posts={staticPosts || posts}
       loadMore={loadMore}
       parent={parent}
       typeItem={typeItem}
@@ -129,7 +129,7 @@ const PostGridView = ({
   parent,
   typeItem,
   alignment = 'row',
-  footerType ,
+  footerType,
   editionGranted
 }: POSTGRIDPROPS) => {
   const router = useRouter()
@@ -154,46 +154,54 @@ const PostGridView = ({
       </button>
     )
   }
-  
+
   return (
-    <div style={{ position: 'relative', width:'100%' }}>
-      {editionGranted && <div className='admin-buttons-container'>
+    <div style={{ position: 'relative', width: '100%' }}>
+      {editionGranted && <div className={style.adminButtons}>
+        <div className={style.createButtonContainer}>
+          {itemCreateBtn()}
+        </div>
         <ButtonApp
           onClick={() => setStatePost()}
           labelID={`post.state.${statePost === 'private' ? 'public' : 'private'}`}
           buttonStyle='primary'
         />
+
       </div>}
-      { posts && (
+      {/* {editionGranted && (
+         
+      )} */}
+      {posts && (
         <InfiniteScroll
           loader={<LoadMoreLoading></LoadMoreLoading>}
           hasMore={posts.hasMore}
           dataLength={posts.items.length}
           next={() => loadMore(posts.items.length)}
         >
+
+
           <ul className={`${style.postGrid} ${style[alignment]}`}>
-            {editionGranted && <li className={style.createButtonContainer}>{itemCreateBtn()}</li>}
-            {(posts.items.length <= 0 && posts.hasMore == false) && <p className={style.noResults}><FormattedMessage id='message.item.no-result'/></p>}
+            {(posts.items.length <= 0 && posts.hasMore == false) && <p className={style.noResults}><FormattedMessage id='message.item.no-result' /></p>}
             {posts.items.map((item: Post, index: number) => {
               return (
                 <li key={index} className={style.postLink}>
-                    <PostGridItem
-                      deleteItem={deleteItem}
-                      setPlan={setPlan}
-                      isAdmin={editionGranted}
-                      onClickItem={(option: string) =>
-                        onClickItem(
-                          item.id,
-                          item.slug,
-                          item.status,
-                          option,
-                          item.title.rendered
-                        )
-                      }
-                      gridItem={item}
-                      typeItem={typeItem}
-                      footerType={footerType}
-                    />
+                  <PostGridItem
+                    deleteItem={deleteItem}
+                    setPlan={setPlan}
+                    isAdmin={editionGranted}
+                    onClickItem={(option: string) =>
+                      onClickItem(
+                        item.id,
+                        item.slug,
+                        item.status,
+                        option,
+                        item.title.rendered
+                      )
+                    }
+                    gridItem={item}
+                    typeItem={typeItem}
+                    footerType={footerType}
+                  />
                 </li>
               )
             })}

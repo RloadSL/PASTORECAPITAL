@@ -1,0 +1,29 @@
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/placeholders";
+
+.infoColorCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem;
+  @extend %borderRadius;
+
+  &_image {
+    width: 100%;
+    margin-right: 20px;
+    flex-shrink: 0;
+    max-width: 70px;
+
+
+    @include devices.device(smScreen) {
+      max-width: 70px;
+    }
+
+    @include devices.device(lgScreen) {
+      max-width: 100px;
+    }
+  }
+}

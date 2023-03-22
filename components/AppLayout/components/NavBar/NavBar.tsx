@@ -15,6 +15,9 @@ import Notifications from 'components/Notifications'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import ButtonApp from 'components/ButtonApp'
 import Translate from 'domain/Translate/Translate'
+import esFlag from '../../../../assets/img/icons/es.png'
+import enFlag from '../../../../assets/img/icons/en.png'
+
 /**
  * OJO crear un interface
  * @returns 
@@ -142,8 +145,8 @@ const NavBarView = ({
             </a>
           </Link>
         )}
-        <div className={style.buttonContainer}>
-          <ButtonApp onClick={switchLocal} buttonStyle='link'>
+        <div className={style.languageButton}>
+          <ButtonApp onClick={switchLocal} buttonStyle={'link'} size={'small'} icon={locale === 'en' ? esFlag : enFlag}>
             {locale === 'en' ? 'ES' : 'EN'}
           </ButtonApp>
         </div>

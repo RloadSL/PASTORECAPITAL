@@ -1,0 +1,181 @@
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/variables/utils" as utils;
+@use "../../../styles/partials/placeholders";
+
+.dashboard {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  &_grid {
+    display: grid;
+    grid-gap: 10px;
+
+    @include devices.device(smScreen) {
+      grid-template-columns: repeat(8, 1fr);
+    }
+
+    &_item {
+      background-color: white;
+      // min-height: 200px;
+      @extend %borderRadius;
+    }
+  }
+}
+
+.item {
+  &__noBg {
+    background: transparent !important;
+  }
+
+  &_header {
+    background-color: colors.$main;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top-left-radius: utils.$lgBorderRadius;
+    border-top-right-radius: utils.$lgBorderRadius;
+    padding: .5rem;
+
+    @include devices.device(smTablet) {
+      border-top-left-radius: utils.$smBorderRadius;
+      border-top-right-radius: utils.$smBorderRadius;
+      padding: .9rem;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        display: block;
+        margin-right: 10px;
+        background-size: contain;
+      }
+    }
+  }
+
+  &_content {
+    padding: 20px;
+  }
+
+  &__span8 {
+    @include devices.device(smScreen) {
+      grid-column-end: span 8;
+    }
+  }
+
+  &__span5 {
+    @include devices.device(smScreen) {
+      grid-column-end: span 5;
+    }  }
+
+  &__span3 {
+    @include devices.device(smScreen) {
+      grid-column-end: span 3;
+    }
+  }
+}
+
+.news {
+  .item_header {
+    span {
+      &::before {
+        background-image: url(../../../assets/img/icons/megaphone.svg);
+        filter: brightness(10);
+      }
+    }
+  }
+}
+
+.webinars {
+  background-color: lighten(colors.$dark, 75%);
+  .item_header {
+    span {
+      &::before {
+        background-image: url(../../../assets/img/icons/webinars.svg);
+        filter: brightness(10);
+      }
+    }
+  }
+}
+
+.research, .flashUpdates {
+  .item_header {
+    span {
+      &::before {
+        background-image: url(../../../assets/img/icons/analysis.svg);
+        filter: brightness(10);
+      }
+    }
+  }
+}
+
+.values {
+  .item_header {
+    span {
+      &::before {
+        background-image: url(../../../assets/img/icons/coins.svg);
+        filter: brightness(10);
+      }
+    }
+  }
+}
+
+.flexContainer {
+  @include devices.device(tablet) {
+    display: flex;
+  }
+
+  &>a, &>div {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+.colorCardText {
+  span {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: .2rem;
+    display: block;
+  }
+}
+
+.amasCardText {
+  h2{
+    margin-bottom: 0px;
+  }
+  h3 {
+    color: colors.$dark;
+    margin-top: 0px;
+    font-size: 1.4rem;
+  }
+}
+
+
+.lastWebinar {
+  &_date{
+    background: colors.$main;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.advertising_container {
+  margin-bottom: 20px;
+}

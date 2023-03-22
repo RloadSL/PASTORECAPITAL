@@ -1,0 +1,22 @@
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/placeholders";
+
+.advertisingList {
+
+  @include devices.device(smTablet) {
+    display: flex;
+  }
+
+  li {
+    margin-right: 15px;
+
+    @include devices.device(smTablet) {
+      width: 50%;
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}

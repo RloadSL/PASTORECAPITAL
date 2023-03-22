@@ -1,7 +1,20 @@
 import img from "../../assets/img/couple.jpg";
 import serviceImage from "../../assets/img/serviceImage.jpg";
 
-
+export const dashboardFlashUpdates = [
+  {
+    id:'1',
+    title: 'Opportunity is given for about a year',
+    text: 'Bitcoins Realized Price, which has been holding for 2~3 years, has been given a good buying opportunity for about a year when it is higher than the realized price. For about a year from now, its a DCA opportunity.',
+    image: img,
+  },
+  {
+    id:'2',
+    title: 'Money Printing Possibility of Ethereum',
+    text: 'With the upcoming Ethereum Shanghai upgrade, unstaking Ethereum could act as selling pressure. But this is an overly simplistic analysis. Rather, the unlocked Ethereum will flow into LSD, triggering money printing in the crypto market. The amount of Ethereum held by the exchange is decreasing, and the amount staked in Ethereum 2.0 is increasing. Most of the increase was deposited via LSD, which we believe will reduce selling',
+    image: img
+  }
+]
 
 export const wpToken = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg4ODgvcGFzdG9yZWhlYWRsZXNzIiwiaWF0IjoxNjc4MTc1NTczLCJuYmYiOjE2NzgxNzU1NzMsImV4cCI6MTY3ODc4MDM3MywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.L3YVvj1Dfwlw2wNMi37ij6BW28s4koL0ajijVSYRQKI`
 
