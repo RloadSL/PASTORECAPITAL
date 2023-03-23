@@ -8,22 +8,18 @@ import Image from 'next/image'
 
 
 const adsArr = [
-  {
-    id: '1',
-    src: ad1
-  },
+  // // {
+  // //   id: '1',
+  // //   src: ad1
+  // // },
   {
     id: '2',
     src: ad2
   },
-  {
-    id: '3',
-    src: ad3
-  },
-  {
-    id: '4',
-    src: ad4
-  }
+  null,
+  null,
+  null,
+  null
 ]
 
 interface AdvertisingListProps {
@@ -35,9 +31,18 @@ const AdvertisingList = ({ }: AdvertisingListProps) => {
       {adsArr.map((item, index: any) => {
         return (
           <li key={index}>
-            <div>
-              <Image src={item.src} alt='' />
-            </div>
+            {item ? (
+              <div>
+                <Image src={item.src} alt='' />
+              </div>
+            ) : (
+              <div className={style.emptyAd}>
+                <div className={style.emptyAd_content}>
+                  <p>Promote your site</p>
+                  <p>with us</p>
+                </div>
+              </div>
+            )}
           </li>
         )
       })}
