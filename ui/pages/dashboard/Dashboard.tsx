@@ -12,9 +12,22 @@ import Link from "next/link";
 import InfoTextCard from "./InfoTextCard";
 import { dashboardFlashUpdates } from "ui/utils/test.data";
 import AdvertisingList from "./AdvertisingList";
+import { useComponentUtils } from 'ui/hooks/components.hooks'
+import ButtonApp from "components/ButtonApp";
+import LinkApp from "components/LinkApp";
+import { news } from "ui/utils/test.data";
+import ItemList from "components/ItemList";
+
 
 const Dashboard: NextPage = () => {
+  const { limitTextLength } = useComponentUtils()
 
+  //@jose estas constantes se pueden borrar cuando te traigas la fecha del webinar, es de test
+  const date = new Date();
+  const month = date.toLocaleString('default', { month: 'short' });
+  //
+
+  //Función que renderiza las flash updates, hay que controlar que sean 2
   const flashUpdatesRender = () => {
     return (
       dashboardFlashUpdates.map((item, index: any) => {
@@ -25,6 +38,7 @@ const Dashboard: NextPage = () => {
     )
   }
 
+  //Función que renderiza el contenido de research, debe pintar una noticia de bitcoins y otra de altcoins
   const researchRender = () => {
     return (
       dashboardFlashUpdates.map((item, index: any) => {
@@ -35,22 +49,26 @@ const Dashboard: NextPage = () => {
     )
   }
 
+  //Función que renderiza el último webinar, sustituir datos estáticos por reales
   const lastWebinarRender = () => {
     return (
       <div className={style.lastWebinar}>
         <div className={style.top}>
           <div className={style.lastWebinar_date}>
-            fecha
+            <span className={style.lastWebinar_date__day}>24</span>
+            <span className={style.lastWebinar_date__month}>{month}</span>
           </div>
           <div className={style.lastWebinar_info}>
             <h3>
-              title
+              Este es el título de un posible webinar, un poco más largo para ver por donde corta
             </h3>
-            <p>autor</p>
+            <p className={style.lastWebinar_info__author}>autor</p>
           </div>
         </div>
         <div className={style.bottom}>
-          link
+          <div className={style.linkButton}>
+            <LinkApp label={'page.dashboard.lastWebinars.button.label'} linkHref={'#'} target={'_self'} />
+          </div>
         </div>
       </div>
     )
@@ -70,11 +88,25 @@ const Dashboard: NextPage = () => {
               <FormattedMessage id='news' />
             </span>
           </div>
+          <div className={style.item_content}>
+            <ItemList items={news.slice(0, 3).map(singleNew => {
+              return (
+                <div className={style.news_item} key={singleNew.id}>
+                  <Link href={singleNew.href} target='_blank'>
+                    <a>
+                      <h3 className={style.news_item__title}>{limitTextLength(90, singleNew.title)}</h3>
+                      <p className={style.news_item__footer}>medio <span>fecha</span></p>
+                    </a>
+                  </Link>
+                </div>
+              )
+            })} />
+          </div>
         </div>
         <div className={`${style.dashboard_grid_item} ${style.item__span3} ${style.webinars}`}>
           <div className={style.item_header}>
             <span>
-              <FormattedMessage id='webinars' />
+              <FormattedMessage id='page.dashboard.lastWebinars.text' />
             </span>
           </div>
           <div className={style.item_content}>
@@ -186,7 +218,8 @@ const Dashboard: NextPage = () => {
         <div className={`${style.dashboard_grid_item} ${style.item__span8} ${style.values}`}>
           <div className={style.item_header}>
             <span>
-              <FormattedMessage id='valores' />
+              {/* <FormattedMessage id='valores' /> */}
+              valores
             </span>
           </div>
           contenido de la api de valores
