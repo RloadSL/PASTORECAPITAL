@@ -16,6 +16,7 @@ import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp
 import ButtonApp from 'components/ButtonApp'
 import AlertApp from 'components/AlertApp'
 
+//array test de 4 anuncios
 const adsArr = [
   {
     id: '1',
