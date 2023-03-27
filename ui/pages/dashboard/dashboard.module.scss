@@ -9,15 +9,15 @@
 
   &_grid {
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 18px;
 
     @include devices.device(smScreen) {
       grid-template-columns: repeat(8, 1fr);
+      grid-gap: 25px;
     }
 
     &_item {
       background-color: white;
-      // min-height: 200px;
       @extend %borderRadius;
     }
   }
@@ -35,19 +35,19 @@
     letter-spacing: 2px;
     border-top-left-radius: utils.$lgBorderRadius;
     border-top-right-radius: utils.$lgBorderRadius;
-    padding: .5rem;
+    padding: 0.5rem;
 
     @include devices.device(smTablet) {
       border-top-left-radius: utils.$smBorderRadius;
       border-top-right-radius: utils.$smBorderRadius;
-      padding: .9rem;
+      padding: 0.9rem;
     }
 
     span {
       display: flex;
       align-items: center;
       &::before {
-        content: '';
+        content: "";
         width: 20px;
         height: 20px;
         display: block;
@@ -70,7 +70,8 @@
   &__span5 {
     @include devices.device(smScreen) {
       grid-column-end: span 5;
-    }  }
+    }
+  }
 
   &__span3 {
     @include devices.device(smScreen) {
@@ -80,11 +81,35 @@
 }
 
 .news {
+  &_item {
+    padding: 12px 20px;
+    &__title {
+      color: colors.$dark;
+      margin: 0px;
+    }
+    &__footer {
+      color: colors.$grey60;
+      font-size: .9rem;
+      margin-top: 5px;
+      margin-bottom: 0px;
+    }
+  }
   .item_header {
     span {
       &::before {
         background-image: url(../../../assets/img/icons/megaphone.svg);
         filter: brightness(10);
+      }
+    }
+  }
+
+  .item_content {
+    padding: 0px !important;
+
+    li {
+      border-color: colors.$grey40;
+      &:last-child {
+        border-bottom: 0px !important;
       }
     }
   }
@@ -100,9 +125,17 @@
       }
     }
   }
+
+  .item_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100% - 40px);
+  }
 }
 
-.research, .flashUpdates {
+.research,
+.flashUpdates {
   .item_header {
     span {
       &::before {
@@ -129,7 +162,8 @@
     display: flex;
   }
 
-  &>a, &>div {
+  & > a,
+  & > div {
     flex-basis: 0;
     flex-grow: 1;
     margin-right: 20px;
@@ -145,13 +179,13 @@
     text-transform: uppercase;
     font-size: 1.2rem;
     font-weight: bold;
-    letter-spacing: .2rem;
+    letter-spacing: 0.2rem;
     display: block;
   }
 }
 
 .amasCardText {
-  h2{
+  h2 {
     margin-bottom: 0px;
   }
   h3 {
@@ -161,18 +195,69 @@
   }
 }
 
-
 .lastWebinar {
-  &_date{
+  &_date {
     background: colors.$main;
     border-radius: 100%;
-    width: 100px;
-    height: 100px;
+    width: 85px;
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-shrink: 0;
+    margin-right: 10px;
+
+    &__day {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+
+    &__month {
+      text-transform: uppercase;
+      position: relative;
+      top: -8px;
+    }
+  }
+
+  &_info {
+    color: colors.$dark;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h3 {
+      margin: 0px;
+    }
+
+    &__author {
+      margin: 0px;
+    }
   }
 
   .top {
     display: flex;
     align-items: center;
+  }
+
+  .bottom {
+    .linkButton {
+      border: 1px solid colors.$dark;
+      border-radius: 50px;
+      max-width: 180px;
+      margin: auto;
+      margin-top: 20px;
+
+      a {
+        font-size: .9rem !important;
+        padding: 10px !important;
+        span {
+          text-align: center;
+          width: 100%;
+        }
+      }
+    }
   }
 }
 
