@@ -8,7 +8,6 @@ import { Suspense, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   cleanAcademyPosts,
-  getAnalysisArticles,
   getFlashArticles
 } from 'ui/redux/slices/wp-headless-api/wp-headless-api.slice'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'

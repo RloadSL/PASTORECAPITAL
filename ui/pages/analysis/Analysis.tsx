@@ -137,12 +137,7 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
         categories={categories.map((item: any, index: number) => item.term)}
       />
 
-      {/* <WPCategory
-        componentStyle={'flex'}
-        category={{ name: 'Artículos destacados', slug: 'art-outstanding', metas: false }}
-        posts={artOutsanding}
-
-      /> */}
+      
       {artOutsanding.length > 0 && renderBanners(1)}
       {categories.map((WPterm: any, index: number) => {
         const { term } = WPterm

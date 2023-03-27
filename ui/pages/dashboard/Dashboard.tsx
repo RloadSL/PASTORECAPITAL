@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { NextPage } from 'next'
+import parse from 'html-react-parser'
 import { FormattedMessage } from 'react-intl'
 import style from './dashboard.module.scss'
 import InfoColorCard from './InfoColorCard'
@@ -21,8 +23,29 @@ import { News } from 'domain/News/News'
 import Loading from 'components/Loading'
 import { Webinars } from 'domain/Webinars/Webinars'
 import webinarsRepository from 'infrastructure/repositories/webinars.repository'
-const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-export const NewsList = () => {
+import { AnalysisRepositoryInstance } from 'infrastructure/repositories/analysis.repository'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { Post } from 'domain/Post/Post'
+import { FlashUpdatesRepositoryInstance } from 'infrastructure/repositories/flashupdates.repository'
+import { useRouter } from 'next/router'
+const months = [
+  'Ene',
+  'Feb',
+  'Mar',
+  'Abr',
+  'May',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dic'
+]
+
+//Componente para la lista de las noticias
+const NewsList = () => {
   const { limitTextLength } = useComponentUtils()
   const [news, setnews] = useState<News[] | undefined>()
   useEffect(() => {
@@ -65,7 +88,7 @@ export const NewsList = () => {
   )
 }
 
-//Función que renderiza el último webinar, sustituir datos estáticos por reales
+//Componente que renderiza el último webinar, sustituir datos estáticos por reales
 const LastWebinarRender = () => {
   const [lastWebinar, setLastWebinar] = useState<Webinars | undefined>()
   useEffect(() => {
@@ -87,27 +110,32 @@ const LastWebinarRender = () => {
         page: { size: 1, current: 1 }
       })
       .then((res: any) => {
-        const {results} = res;
-        if(results[0])
-          setLastWebinar(results[0])
+        const { results } = res
+        if (results[0]) setLastWebinar(results[0])
       })
     return () => {
       fetch = false
     }
   }, [])
-  
-  return !lastWebinar ? <p>Sin proximos webinars</p> : (
+
+  return !lastWebinar ? (
+    <p>Sin proximos webinars</p>
+  ) : (
     <div className={style.lastWebinar}>
       <div className={style.top}>
         <div className={style.lastWebinar_date}>
-          <span className={style.lastWebinar_date__day}>{lastWebinar?.date.getDate()}</span>
-          <span className={style.lastWebinar_date__month}>{months[lastWebinar?.date.getMonth() as number]}</span>
+          <span className={style.lastWebinar_date__day}>
+            {lastWebinar?.date.getDate()}
+          </span>
+          <span className={style.lastWebinar_date__month}>
+            {months[lastWebinar?.date.getMonth() as number]}
+          </span>
         </div>
         <div className={style.lastWebinar_info}>
-          <h3>
-            {lastWebinar?.title}
-          </h3>
-          <p className={style.lastWebinar_info__author}>{lastWebinar?.guests}</p>
+          <h3>{lastWebinar?.title}</h3>
+          <p className={style.lastWebinar_info__author}>
+            {lastWebinar?.guests}
+          </p>
         </div>
       </div>
       <div className={style.bottom}>
@@ -123,6 +151,137 @@ const LastWebinarRender = () => {
   )
 }
 
+//Componente que renderiza el contenido de research, debe pintar una noticia de bitcoins y otra de altcoins
+const ResearchRender = () => {
+  const [posts, setPosts] = useState<any[] | undefined>()
+  const userLogged = useSelector(getUserLogged)
+  const [loading, setloading] = useState<boolean>(true)
+  const {query} = useRouter()
+  useEffect(() => {
+    let fetch = true
+
+    if (userLogged?.uid && !posts) {
+      getFlashArticles().then(arts => {
+        setPosts(arts)
+        setloading(false)
+      })
+    }
+
+    if (posts) {
+      setPosts(posts)
+      setloading(false)
+    }
+
+    return () => {
+      fetch = false
+    }
+  }, [])
+
+  async function getFlashArticles () {
+    const bitcoin = await AnalysisRepositoryInstance.getArticles(
+      userLogged?.userDataToken,
+      userLogged?.wpToken,
+      {
+        category_name: 'bitcoin',
+        posts_per_page: 1
+      }
+    )
+
+    const altcoins = await AnalysisRepositoryInstance.getArticles(
+      userLogged?.userDataToken,
+      userLogged?.wpToken,
+      {
+        category_name: 'altcoins',
+        posts_per_page: 1
+      }
+    )
+
+    return [
+      { cat: 'bitcoin', items: bitcoin },
+      { cat: 'altcoins', items: altcoins }
+    ]
+  }
+  return !posts ? (
+    <Loading loading />
+  ) : (
+    <>
+      {posts
+        ?.reduce((current, prev) => [...current.items, ...prev.items])
+        .map((item: Post, index: any) => {
+          const parentCat = item.getCatgoryByParent('analysis')[0]
+          return (
+            <InfoTextCard
+              chip={posts[index].cat}
+              isLocked={!item.metas.permission_garanted}
+              key={index}
+              href={{
+                pathname: '/research/bitcoins-altcoins/'+ posts[index].cat + '/' + item.slug,
+                query: { ...query, post_id: item.id, post_title: item.title.raw, cat: parentCat.term_id, category_name: posts[index].cat }
+              }}
+              title={item.title.rendered}
+              text={item.excerpt.rendered}
+              imageHref={item.thumbnail_url}
+              blockContent={false}
+              alt=''
+            />
+          )
+        })}
+    </>
+  )
+}
+
+//Función que renderiza las flash updates, hay que controlar que sean 2
+const FlashUpdatesRender = () => {
+  const [posts, setPosts] = useState<any[] | undefined>()
+  const userLogged = useSelector(getUserLogged)
+  useEffect(() => {
+    let fetch = true
+    FlashUpdatesRepositoryInstance.getArticles(
+      userLogged?.userDataToken,
+      userLogged?.wpToken,
+      {
+        offset: 1,
+        post_status: 'public',
+        category_name: 'flash-updates',
+        s: '',
+        posts_per_page: 2
+      }
+    ).then(arts => {
+      console.log(arts)
+      setPosts(arts)
+    })
+
+    if (posts) {
+      setPosts(posts)
+    }
+
+    return () => {
+      fetch = false
+    }
+  }, [])
+
+  return !posts ? (
+    <Loading loading />
+  ) : (
+    <>
+      {posts.map((item, index: any) => {
+        return (
+          <InfoTextCard
+            key={index}
+            title={item.title.raw}
+            isLocked={!item.metas.permission_garanted}
+            blockContent= {true}
+            href={'/research/flash-updates'}
+            text={parse(item.content?.rendered || '')}
+            imageHref={item.image}
+            alt=''
+          />
+        )
+      })}
+    </>
+  )
+}
+
 const Dashboard: NextPage = () => {
   //@jose estas constantes se pueden borrar cuando te traigas la fecha del webinar, es de test
   const date = new Date()
@@ -134,22 +293,6 @@ const Dashboard: NextPage = () => {
     return dashboardFlashUpdates.map((item, index: any) => {
       return (
         <InfoTextCard
-          key={index}
-          title={item.title}
-          text={item.text}
-          imageHref={item.image.src}
-          alt=''
-        />
-      )
-    })
-  }
-
-  //Función que renderiza el contenido de research, debe pintar una noticia de bitcoins y otra de altcoins
-  const researchRender = () => {
-    return dashboardFlashUpdates.map((item, index: any) => {
-      return (
-        <InfoTextCard
-          chip={'bitcoin'}
           key={index}
           title={item.title}
           text={item.text}
@@ -203,7 +346,9 @@ const Dashboard: NextPage = () => {
             </span>
           </div>
           <div className={style.item_content}>
-            <div className={style.flexContainer}>{researchRender()}</div>
+            <div className={style.flexContainer}>
+              <ResearchRender />
+            </div>
           </div>
         </div>
         <div
@@ -215,7 +360,9 @@ const Dashboard: NextPage = () => {
             </span>
           </div>
           <div className={style.item_content}>
-            <div className={style.flexContainer}>{flashUpdatesRender()}</div>
+            <div className={style.flexContainer}>
+              <FlashUpdatesRender />
+            </div>
           </div>
         </div>
         <div
