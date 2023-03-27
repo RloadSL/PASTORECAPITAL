@@ -58,6 +58,8 @@ class WebinarsRepository {
       return { results: this.parseDataFromElastic(results), page }
     }
   }
+
+  
   async get(w_id: string): Promise<Webinars | undefined> {
     const ref = await FireFirestore.getDoc('webinars', w_id)
     if (ref) {
