@@ -28,7 +28,6 @@ const InfoTextCard = ({
   isLocked
 }: InfoTextCardProps) => {
   const { limitTextLength } = useComponentUtils()
-  console.log(href, isLocked, blockContent)
   return (
     <div className={style.infoTextCard}>
       {chip && (

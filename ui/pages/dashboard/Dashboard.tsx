@@ -29,6 +29,11 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 import { Post } from 'domain/Post/Post'
 import { FlashUpdatesRepositoryInstance } from 'infrastructure/repositories/flashupdates.repository'
 import { useRouter } from 'next/router'
+import amasRepository from 'infrastructure/repositories/amas.repository'
+import { Chatroom } from 'domain/Chatroom/Chatroom'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'ui/redux/store'
+import { cleanMessages, setChatroom } from 'ui/redux/slices/amas/amas.slice'
 const months = [
   'Ene',
   'Feb',
@@ -247,7 +252,6 @@ const FlashUpdatesRender = () => {
         posts_per_page: 2
       }
     ).then(arts => {
-      console.log(arts)
       setPosts(arts)
     })
 
@@ -278,6 +282,56 @@ const FlashUpdatesRender = () => {
           />
         )
       })}
+    </>
+  )
+}
+
+const RenderAma = ()=>{
+  const [ama, setAma] = useState<Chatroom | undefined>()
+  const {query, push} = useRouter()
+
+  const dispatch = useDispatch<AppDispatch>()
+  useEffect(() => {
+    amasRepository.getChatRooms({ query: '', filters: {state: 'active'}, page: {size: 1, current: 1} })
+    .then((res: any) => {
+      if(res.results[0]){
+        setAma(res.results[0] as Chatroom)
+      }
+
+      return res;
+    })
+  }, [])
+  
+  const openChatroom = async (chatroom: Chatroom) => {
+
+    if (chatroom.state === 'coming_soon') {
+      await amasRepository.setChatroom({ id: chatroom.id, state: 'active' })
+    }
+    dispatch(cleanMessages())
+    dispatch(setChatroom(chatroom))
+    push(`/amas/${chatroom.id}`)
+  }
+
+  return (
+    <>
+      {
+        ama ? <InfoColorCard
+        alt={'Imagen de cursos'}
+        backgroundColor='#F2E4FF'
+        iconHref={amasIcon}
+      >
+        <div className={style.amasCardText}>
+          <h2 className='small-caps'>
+            <Link href={'#'}>Amas</Link>
+          </h2>
+          <h3>
+            <div onClick={()=>openChatroom(ama)}>
+              {ama.title}
+            </div>
+          </h3>
+        </div>
+      </InfoColorCard> : <p>No hay amas disponibles</p>
+      }
     </>
   )
 }
@@ -374,7 +428,7 @@ const Dashboard: NextPage = () => {
                 <InfoColorCard
                   backgroundColor='#FDE6CC'
                   iconHref={consultandIcon}
-                  alt={'Imagen de un muñeco a modo de consultor'}
+                  alt={'Consultores'}
                 >
                   <p className={style.colorCardText}>
                     <FormattedMessage
@@ -426,22 +480,7 @@ const Dashboard: NextPage = () => {
           </div>
         </div>
         <div className={`${style.dashboard_grid_item} ${style.item__span5}`}>
-          <InfoColorCard
-            alt={'Imagen de cursos'}
-            backgroundColor='#F2E4FF'
-            iconHref={amasIcon}
-          >
-            <div className={style.amasCardText}>
-              <h2 className='small-caps'>
-                <Link href={'#'}>Amas</Link>
-              </h2>
-              <h3>
-                <Link href={'#'}>
-                  Título del Ama un poco largo para ver cuanto da de longitud
-                </Link>
-              </h3>
-            </div>
-          </InfoColorCard>
+          <RenderAma/>
         </div>
         <div className={`${style.dashboard_grid_item} ${style.item__span3}`}>
           <Link href={'/academy'}>
