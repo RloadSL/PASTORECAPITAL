@@ -103,9 +103,10 @@ COLLAPSEDPOSTPROPS) => {
       <div className={style.textContent}>
         <p className={style.title}>{title}</p>
         <div className={style.description}>
-          {isCollapsed
+          {parse(description)}
+          {/* {isCollapsed
             ? parse(description)
-            : parse(limitTextLength(250, description))}
+            : parse(limitTextLength(250, description))} */}
         </div>
        {/*  {!lockedContent && (
           <button

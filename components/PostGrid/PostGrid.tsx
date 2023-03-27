@@ -178,9 +178,7 @@ const PostGridView = ({
           dataLength={posts.items.length}
           next={() => loadMore(posts.items.length)}
         >
-
-
-          <ul className={`${style.postGrid} ${style[alignment]}`}>
+          <ul className={`${style.postGrid} ${style[alignment]} list`}>
             {(posts.items.length <= 0 && posts.hasMore == false) && <p className={style.noResults}><FormattedMessage id='message.item.no-result' /></p>}
             {posts.items.map((item: Post, index: number) => {
               return (

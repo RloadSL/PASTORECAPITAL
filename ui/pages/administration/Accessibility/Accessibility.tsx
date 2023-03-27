@@ -78,35 +78,41 @@ const Accessibility: NextPage = () => {
         >
           {values => (
             <Form>
-              <h3>Precios para los planes de subscripción</h3>
-              <div>
-                Basic
-                <InputFormikApp
-                  type='number'
-                  name={'basic_price_month'}
-                  labelID={'price.month'}
-                />
-                <InputFormikApp
-                  type='number'
-                  name={'basic_price_year'}
-                  labelID={'price.year'}
-                />
+              <h2>Precios para los planes de subscripción</h2>
+              <div className={style.pricePlans_item}>
+                <p>Basic</p>
+                <div className={style.pricePlans_item_flex}>
+                  <InputFormikApp
+                    type='number'
+                    name={'basic_price_month'}
+                    labelID={'price.month'}
+                  />
+                  <InputFormikApp
+                    type='number'
+                    name={'basic_price_year'}
+                    labelID={'price.year'}
+                  />
+                </div>
               </div>
-              <div>
-                Plus
-                <InputFormikApp
-                  type='number'
-                  name={'plus_price_month'}
-                  labelID={'price.month'}
-                />
-                <InputFormikApp
-                  type='number'
-                  name={'plus_price_year'}
-                  labelID={'price.year'}
-                />
+              <div className={style.pricePlans_item}>
+                <p>Plus</p>
+                <div className={style.pricePlans_item_flex}>
+                  <InputFormikApp
+                    type='number'
+                    name={'plus_price_month'}
+                    labelID={'price.month'}
+                  />
+                  <InputFormikApp
+                    type='number'
+                    name={'plus_price_year'}
+                    labelID={'price.year'}
+                  />
+                </div>
               </div>
-              <div>
-                Premium
+              <div className={style.pricePlans_item}>
+                <p>Premium</p>
+                <div className={style.pricePlans_item_flex}>
+
                 <InputFormikApp
                   type='number'
                   name={'premium_price_month'}
@@ -117,6 +123,7 @@ const Accessibility: NextPage = () => {
                   name={'premium_price_year'}
                   labelID={'price.year'}
                 />
+                </div>
               </div>
               <div className={style.btnContainer}>
                 <ButtonApp
@@ -209,7 +216,9 @@ const Accessibility: NextPage = () => {
           )}
         </Formik>
       </div>
-      <div>{plans && renderPrices()}</div>
+      <div className={style.pricePlans}>
+        {plans && renderPrices()}
+      </div>
     </div>
   )
 }

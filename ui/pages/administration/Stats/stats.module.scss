@@ -1,23 +1,57 @@
+@use "../../../../styles/partials/placeholders";
+@use "../../../../styles/partials/mixins/devices" as devices;
+@use "../../../../styles/partials/variables/colors" as colors;
+
+.stats {
+  @extend %layoutContainer;
+  padding: 2%;
+  color: colors.$dark;
+
+  .maxContent {
+    max-width: 1000px;
+  }
+
+  h2 {
+    font-weight: bold;
+    margin-top: 50px;
+  }
+}
+
 .row{
   display: flex;
+  align-items: center;
   width: 100%;
   position: relative;
   .chartdata{
     width: 30%;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    p{
+      margin-bottom: 0px;
+    }
   }
   .chart{
     width: 70%;
     padding: 5px;
     padding-top: 25px;
     position: relative;
+
     .canvas{
       position: relative;
       
     }
   } 
   
+}
+
+.consultant {
+  &_item {
+    border-bottom: 1px solid colors.$grey40;
+    padding: 10px 0px;
+    p {
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+  }
 }
 

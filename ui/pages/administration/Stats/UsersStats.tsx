@@ -78,21 +78,9 @@ const UsersStats = () => {
 
   return (
     <div>
+      <h2>Usuarios registrados</h2>
       <small>
-        Debido al alto consumo de recursos las estadisticas de los usuarios se
-        actualizan en la madrugada.
-      </small>
-      <br></br>
-      <small>
-        Para un detalle completo de estadisticas de pago, recurrencias, etc.
-        <a
-          style={{ color: 'blue' }}
-          href={'https://dashboard.stripe.com/test/billing'}
-          target={'_blank'}
-          rel='noreferrer'
-        >
-          Vamos a STRIPE
-        </a>{' '}
+        Las estadisticas de los usuarios se actualizan de madrugada.
       </small>
 
       <div className={style.row}>
@@ -111,7 +99,7 @@ const UsersStats = () => {
           ></canvas>
         </div>
       </div>
-      <p>Relacion alta de usuarios por meses del año 2023</p>
+      <h2>Relacion alta de usuarios por meses del año 2023</h2>
       <div className={style.row}>
         <canvas
           height={100}
