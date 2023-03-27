@@ -21,6 +21,15 @@ class StatsRepository{
     }
   }
 
+  async getConsultantsStats(){
+    const ref = await FireFirestore.getDoc('stats', 'consultants')
+    if(!(ref instanceof ErrorApp)){
+      return ref?.data()
+    }else{
+      return ref
+    }
+  }
+
 }
 
 export default StatsRepository.getInstance()

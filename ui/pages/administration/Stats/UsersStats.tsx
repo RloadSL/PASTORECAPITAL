@@ -5,7 +5,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
 import style from './stats.module.scss'
 import statsRepository from 'infrastructure/repositories/stats.repository'
 const UsersStats = () => {
-  const [charts, setCharts] = useState<{ doughnut?: Chart, line?: Chart }>({
+  const [charts, setCharts] = useState<{ doughnut?: Chart; line?: Chart }>({
     doughnut: undefined
   })
   const [totals, settotals] = useState<any>()
@@ -24,7 +24,7 @@ const UsersStats = () => {
         createDoughnutChart(totals.doughnut)
       }
 
-      if(!charts.line && lineRef.current){
+      if (!charts.line && lineRef.current) {
         createLineChart(totals.line)
       }
     })
@@ -73,12 +73,28 @@ const UsersStats = () => {
       }
     })
 
-    setCharts(pre => ({ ...pre, line:  line}))
+    setCharts(pre => ({ ...pre, line: line }))
   }
 
   return (
     <div>
-      <small>Debido al alto consumo de recursos las estadisticas de los usuarios se actualizan en la madrugada.</small>
+      <small>
+        Debido al alto consumo de recursos las estadisticas de los usuarios se
+        actualizan en la madrugada.
+      </small>
+      <br></br>
+      <small>
+        Para un detalle completo de estadisticas de pago, recurrencias, etc.
+        <a
+          style={{ color: 'blue' }}
+          href={'https://dashboard.stripe.com/test/billing'}
+          target={'_blank'}
+          rel='noreferrer'
+        >
+          Vamos a STRIPE
+        </a>{' '}
+      </small>
+
       <div className={style.row}>
         <div className={style.chartdata}>
           <p>Total de Usuarios registrados: {totals?.total}</p>
@@ -97,13 +113,13 @@ const UsersStats = () => {
       </div>
       <p>Relacion alta de usuarios por meses del año 2023</p>
       <div className={style.row}>
-          <canvas
-            height={100}
-            className={style.canvas}
-            ref={lineRef}
-            id='line'
-          ></canvas>
-        </div>
+        <canvas
+          height={100}
+          className={style.canvas}
+          ref={lineRef}
+          id='line'
+        ></canvas>
+      </div>
     </div>
   )
 }
