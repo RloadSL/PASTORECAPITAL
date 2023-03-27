@@ -1,6 +1,5 @@
 import Card from 'components/Card'
 import PostExcerpt from 'components/PostExcerpt'
-import { Course } from 'domain/Course/Course'
 import React, { useCallback, useEffect, useState } from 'react'
 import style from './PostGridItem.module.scss'
 import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
