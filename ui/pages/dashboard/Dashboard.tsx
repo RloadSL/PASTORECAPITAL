@@ -15,12 +15,53 @@ import AdvertisingList from "./AdvertisingList";
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import ButtonApp from "components/ButtonApp";
 import LinkApp from "components/LinkApp";
-import { news } from "ui/utils/test.data";
 import ItemList from "components/ItemList";
+import { useEffect, useState } from "react";
+import newsRepository from "infrastructure/repositories/news.repository";
+
+import React from 'react'
+import { News } from "domain/News/News";
+import Loading from "components/Loading";
+
+export const NewsList = () => {
+  const { limitTextLength } = useComponentUtils()
+  const [news, setnews] = useState<News[] | undefined >()
+  useEffect(() => {
+    let fetch = true;
+    
+    newsRepository.getNews({ search: '', tickers: 'AllTickers',items: 3})
+    .then(result => {
+      setnews(result.data)
+    })
+    return () => {
+      fetch = false
+    }
+  }, [])
+
+
+  return !news  ? <Loading loading/> : (
+    <>
+      <ItemList items={news.map((singleNew:News) => {
+              return (
+                <div className={style.news_item} key={singleNew.news_url}>
+                  <Link href={singleNew.news_url} target='_blank'>
+                    <a>
+                      <h3 className={style.news_item__title}>{limitTextLength(90, singleNew.title)}</h3>
+                      <p className={style.news_item__footer}>{singleNew.source_name} <span>{singleNew.date.toLocaleString()}</span></p>
+                    </a>
+                  </Link>
+                </div>
+              )
+            })} />
+    </>
+  )
+}
 
 
 const Dashboard: NextPage = () => {
-  const { limitTextLength } = useComponentUtils()
+  
+
+  
 
   //@jose estas constantes se pueden borrar cuando te traigas la fecha del webinar, es de test
   const date = new Date();
@@ -89,18 +130,7 @@ const Dashboard: NextPage = () => {
             </span>
           </div>
           <div className={style.item_content}>
-            <ItemList items={news.slice(0, 3).map(singleNew => {
-              return (
-                <div className={style.news_item} key={singleNew.id}>
-                  <Link href={singleNew.href} target='_blank'>
-                    <a>
-                      <h3 className={style.news_item__title}>{limitTextLength(90, singleNew.title)}</h3>
-                      <p className={style.news_item__footer}>medio <span>fecha</span></p>
-                    </a>
-                  </Link>
-                </div>
-              )
-            })} />
+              <NewsList />
           </div>
         </div>
         <div className={`${style.dashboard_grid_item} ${style.item__span3} ${style.webinars}`}>

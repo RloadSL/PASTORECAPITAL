@@ -13,8 +13,7 @@ import { UserConsultant } from 'domain/UserConsultant/UserConsultant';
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors';
 import { useRouter } from 'next/router';
 
-interface DashboardProps {
-}
+
 
 /**
  * Página de dashboard del asesor
@@ -22,7 +21,7 @@ interface DashboardProps {
  * @returns 
  */
 
-const Dashboard = ({}:DashboardProps) => {
+const Dashboard = () => {
   const userLogged = useSelector(getUserLogged)
   const consultant = useSelector(getCurrentConsultant)
   const [clients, setClients] = useState<any>([])
