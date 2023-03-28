@@ -140,7 +140,14 @@ class FireFirestore {
       data.created_at = new Date()
       data.lang = Translate.currentLocal
       const collection = this._collection(collectionPath);
-      const snap = await addDoc(collection, cleanUndefined(data));
+      let snap:any;
+      if(data.id){
+        const docRef = this._doc(collectionPath, data.id);
+        await setDoc(docRef, cleanUndefined(data));
+        snap.id = data.id;
+      }else{
+        snap = await addDoc(collection, cleanUndefined(data));
+      }
       return { ...data, id: snap.id };
     } catch (error:any) {
       console.log('Firebase response: '+error);

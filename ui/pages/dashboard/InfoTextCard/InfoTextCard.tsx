@@ -33,11 +33,9 @@ const InfoTextCard = ({
       {chip && (
         <div className={style.top}>
           <div className={style.infoTextCard_chip}>
-            <Link href={'#'}>
-              <a>
+            
                 <Chips chips={[{ label: chip }]} color='lightMain' />
-              </a>
-            </Link>
+             
           </div>
         </div>
       )}

@@ -17,7 +17,7 @@ import AdvertisingList from './AdvertisingList'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import LinkApp from 'components/LinkApp'
 import ItemList from 'components/ItemList'
-import { useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import newsRepository from 'infrastructure/repositories/news.repository'
 import { News } from 'domain/News/News'
 import Loading from 'components/Loading'
@@ -34,6 +34,8 @@ import { Chatroom } from 'domain/Chatroom/Chatroom'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'ui/redux/store'
 import { cleanMessages, setChatroom } from 'ui/redux/slices/amas/amas.slice'
+import { setDashboardAmaState, setDashboardFUState, setDashboardNewsState, setDashboardResearchState, setDashboardWebinarState } from 'ui/redux/slices/dashboard/dashboard.slice'
+import { dashboardState } from 'ui/redux/slices/dashboard/dashboard.selectors'
 const months = [
   'Ene',
   'Feb',
@@ -49,18 +51,22 @@ const months = [
   'Dic'
 ]
 
+
+
 //Componente para la lista de las noticias
 const NewsList = () => {
   const { limitTextLength } = useComponentUtils()
-  const [news, setnews] = useState<News[] | undefined>()
+  const dispatch = useDispatch<AppDispatch>()
+  const {news} = useSelector(dashboardState)
+ 
   useEffect(() => {
     let fetch = true
-
-    newsRepository
-      .getNews({ search: '', tickers: 'AllTickers', items: 3 })
-      .then(result => {
-        setnews(result.data)
-      })
+    if(!news)
+      newsRepository
+        .getNews({ search: '', tickers: 'AllTickers', items: 3 })
+        .then(result => {
+          dispatch(setDashboardNewsState(result.data))
+        })
     return () => {
       fetch = false
     }
@@ -93,13 +99,17 @@ const NewsList = () => {
   )
 }
 
+
+
 //Componente que renderiza el último webinar, sustituir datos estáticos por reales
 const LastWebinarRender = () => {
-  const [lastWebinar, setLastWebinar] = useState<Webinars | undefined>()
+  const dispatch = useDispatch<AppDispatch>()
+  const {webinar} = useSelector(dashboardState)
   useEffect(() => {
     let fetch = true
 
     const toDay = new Date()
+    if(!webinar)
     webinarsRepository
       .elasticSearch({
         query: '',
@@ -116,30 +126,30 @@ const LastWebinarRender = () => {
       })
       .then((res: any) => {
         const { results } = res
-        if (results[0]) setLastWebinar(results[0])
+        if (results[0]) dispatch(setDashboardWebinarState(results[0]))
       })
     return () => {
       fetch = false
     }
   }, [])
 
-  return !lastWebinar ? (
+  return !webinar ? (
     <p>Sin proximos webinars</p>
   ) : (
     <div className={style.lastWebinar}>
       <div className={style.top}>
         <div className={style.lastWebinar_date}>
           <span className={style.lastWebinar_date__day}>
-            {lastWebinar?.date.getDate()}
+            {webinar?.date.getDate()}
           </span>
           <span className={style.lastWebinar_date__month}>
-            {months[lastWebinar?.date.getMonth() as number]}
+            {months[webinar?.date.getMonth() as number]}
           </span>
         </div>
         <div className={style.lastWebinar_info}>
-          <h3>{lastWebinar?.title}</h3>
+          <h3>{webinar?.title}</h3>
           <p className={style.lastWebinar_info__author}>
-            {lastWebinar?.guests}
+            {webinar?.guests}
           </p>
         </div>
       </div>
@@ -158,23 +168,20 @@ const LastWebinarRender = () => {
 
 //Componente que renderiza el contenido de research, debe pintar una noticia de bitcoins y otra de altcoins
 const ResearchRender = () => {
-  const [posts, setPosts] = useState<any[] | undefined>()
+  const dispatch = useDispatch<AppDispatch>()
+  const {research} = useSelector(dashboardState)
   const userLogged = useSelector(getUserLogged)
   const [loading, setloading] = useState<boolean>(true)
   const {query} = useRouter()
   useEffect(() => {
     let fetch = true
 
-    if (userLogged?.uid && !posts) {
+    if (userLogged?.uid) {
+      if(!research)
       getFlashArticles().then(arts => {
-        setPosts(arts)
+        dispatch(setDashboardResearchState(arts))
         setloading(false)
       })
-    }
-
-    if (posts) {
-      setPosts(posts)
-      setloading(false)
     }
 
     return () => {
@@ -206,22 +213,22 @@ const ResearchRender = () => {
       { cat: 'altcoins', items: altcoins }
     ]
   }
-  return !posts ? (
+  return !research ? (
     <Loading loading />
   ) : (
     <>
-      {posts
-        ?.reduce((current, prev) => [...current.items, ...prev.items])
+      {research
+        ?.reduce((current:any, prev:any) => [...current.items, ...prev.items])
         .map((item: Post, index: any) => {
           const parentCat = item.getCatgoryByParent('analysis')[0]
           return (
             <InfoTextCard
-              chip={posts[index].cat}
+              chip={research[index].cat}
               isLocked={!item.metas.permission_garanted}
               key={index}
               href={{
-                pathname: '/research/bitcoins-altcoins/'+ posts[index].cat + '/' + item.slug,
-                query: { ...query, post_id: item.id, post_title: item.title.raw, cat: parentCat.term_id, category_name: posts[index].cat }
+                pathname: '/research/bitcoins-altcoins/'+ research[index].cat + '/' + item.slug,
+                query: { ...query, post_id: item.id, post_title: item.title.raw, cat: parentCat.term_id, category_name: research[index].cat }
               }}
               title={item.title.rendered}
               text={item.excerpt.rendered}
@@ -237,7 +244,8 @@ const ResearchRender = () => {
 
 //Función que renderiza las flash updates, hay que controlar que sean 2
 const FlashUpdatesRender = () => {
-  const [posts, setPosts] = useState<any[] | undefined>()
+  const dispatch = useDispatch<AppDispatch>()
+  const {fu} = useSelector(dashboardState)
   const userLogged = useSelector(getUserLogged)
   useEffect(() => {
     let fetch = true
@@ -252,23 +260,21 @@ const FlashUpdatesRender = () => {
         posts_per_page: 2
       }
     ).then(arts => {
-      setPosts(arts)
+      dispatch(setDashboardFUState(arts))
     })
 
-    if (posts) {
-      setPosts(posts)
-    }
+   
 
     return () => {
       fetch = false
     }
   }, [])
 
-  return !posts ? (
+  return !fu ? (
     <Loading loading />
   ) : (
     <>
-      {posts.map((item, index: any) => {
+      {fu.map((item:any, index: any) => {
         return (
           <InfoTextCard
             key={index}
@@ -287,15 +293,15 @@ const FlashUpdatesRender = () => {
 }
 
 const RenderAma = ()=>{
-  const [ama, setAma] = useState<Chatroom | undefined>()
-  const {query, push} = useRouter()
+  const {ama} = useSelector(dashboardState)
+  const {push} = useRouter()
 
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     amasRepository.getChatRooms({ query: '', filters: {state: 'active'}, page: {size: 1, current: 1} })
     .then((res: any) => {
       if(res.results[0]){
-        setAma(res.results[0] as Chatroom)
+        dispatch(setDashboardAmaState(res.results[0]))
       }
 
       return res;
@@ -342,20 +348,7 @@ const Dashboard: NextPage = () => {
   const month = date.toLocaleString('default', { month: 'short' })
   //
 
-  //Función que renderiza las flash updates, hay que controlar que sean 2
-  const flashUpdatesRender = () => {
-    return dashboardFlashUpdates.map((item, index: any) => {
-      return (
-        <InfoTextCard
-          key={index}
-          title={item.title}
-          text={item.text}
-          imageHref={item.image.src}
-          alt=''
-        />
-      )
-    })
-  }
+
 
   return (
     <div className={style.dashboard}>
@@ -376,7 +369,7 @@ const Dashboard: NextPage = () => {
             </span>
           </div>
           <div className={style.item_content}>
-            <NewsList />
+             <NewsList/>
           </div>
         </div>
         <div

@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './advertising-list.module.scss'
 import ad1 from '../../../../assets/img/ad1.png'
 import ad2 from '../../../../assets/img/ad2.png'
-import ad3 from '../../../../assets/img/ad3.png'
-import ad4 from '../../../../assets/img/ad4.png'
+
 import trashIcon from '../../../../assets/img/icons/trash.svg'
 import addIcon from '../../../../assets/img/icons/add.svg'
 import Image from 'next/image'
@@ -15,7 +14,16 @@ import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
 import ButtonApp from 'components/ButtonApp'
 import AlertApp from 'components/AlertApp'
-
+import systemRepository from 'infrastructure/repositories/system.repository'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { ErrorApp } from 'domain/ErrorApp/ErrorApp'
+import * as yup from 'yup'
+import { dashboardState } from 'ui/redux/slices/dashboard/dashboard.selectors'
+import { AppDispatch } from 'ui/redux/store'
+import { useDispatch } from 'react-redux'
+import { setDashboardPubliState } from 'ui/redux/slices/dashboard/dashboard.slice'
+import Loading from 'components/Loading'
 //array test de 4 anuncios
 const adsArr = [
   {
@@ -30,26 +38,95 @@ const adsArr = [
   null
 ]
 
-interface AdvertisingListProps {
-}
+interface AdvertisingListProps {}
 
-const AdvertisingList = ({ }: AdvertisingListProps) => {
-  const [isVisibleCreateAd, setVisibleCreateAd] = useState<boolean>(false)
-  const [isVisibleDeleteAd, setVisibleDeleteAd] = useState<boolean>(false)
+const AdvertisingList = ({}: AdvertisingListProps) => {
+  const [isVisibleCreateAd, setVisibleCreateAd] = useState<number>(-1)
+  const [isVisibleDeleteAd, setVisibleDeleteAd] = useState<string | undefined>()
+  const dispatch = useDispatch<AppDispatch>()
+  const { publi } = useSelector(dashboardState)
 
-  return (
+  const userLogged = useSelector(getUserLogged)
+  useEffect(() => {
+    let fetch = true
+    if (userLogged) getPubli(fetch)
+    return () => {
+      fetch = false
+    }
+  }, [userLogged?.uid])
+
+  const getPubli = async (fetch: boolean) => {
+    systemRepository.getDashboardPubli().then(response => {
+      if (fetch && !(response instanceof ErrorApp)) {
+        let p
+        if (userLogged?.role.level === 2) {
+          p = [null, null, null, null]
+          response.forEach((doc: any) => {
+            p[doc.position - 1] = doc
+          })
+        } else {
+          p = response
+        }
+        dispatch(setDashboardPubliState([...p]))
+      }
+    })
+  }
+
+  const deletePubli = async () => {
+    await systemRepository.deletePubli(isVisibleDeleteAd as string)
+    setVisibleDeleteAd(undefined)
+    getPubli(true)
+  }
+
+  const uploadPubli = async (data: any) => {
+    const res = await systemRepository.setPubliImageDashboard({
+      ...data,
+      position: isVisibleCreateAd
+    })
+    if (res.id) {
+      setVisibleCreateAd(-1)
+      getPubli(true)
+    } 
+  }
+
+  return !publi  ? <Loading loading/> : (
     <>
       <ul className={style.advertisingList}>
-        {adsArr.map((item, index: any) => {
+        {publi.map((item: any, index: any) => {
           return (
             <li key={index}>
-              {/*@jose aquí tendrías que pasarle al botón el estado de que sea visible el modal de crear publi o el de borrar publi, ahora le estoy pasando crear*/}
-              <button className={style.adminAd_button} onClick={() => {!item ? setVisibleCreateAd(true) : setVisibleDeleteAd(true) }}>
-                {item ? <Image src={trashIcon} alt='' /> : <Image src={addIcon} alt='' />}
-              </button>
+              {userLogged?.role.level === 2 && (
+                <button
+                  className={style.adminAd_button}
+                  onClick={() => {
+                    !item
+                      ? setVisibleCreateAd(index + 1)
+                      : setVisibleDeleteAd(item.id)
+                  }}
+                >
+                  {item ? (
+                    <Image src={trashIcon} alt='' />
+                  ) : (
+                    <Image src={addIcon} alt='' />
+                  )}
+                </button>
+              )}
               {item ? (
-                <div>
-                  <Image src={item.src} alt='' />
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'relative'
+                  }}
+                >
+                  <a href={item.link} target='_blank' rel='noreferrer'>
+                    <Image
+                      style={{ width: '100%', height: '100%' }}
+                      layout='fill'
+                      src={item.file.url}
+                      alt=''
+                    />
+                  </a>
                 </div>
               ) : (
                 <div className={style.emptyAd}>
@@ -64,34 +141,39 @@ const AdvertisingList = ({ }: AdvertisingListProps) => {
           )
         })}
       </ul>
-      {isVisibleCreateAd && (
-        <Modal onBtnClose={() => setVisibleCreateAd(false)}>
+      {isVisibleCreateAd >= 0 && (
+        <Modal onBtnClose={() => setVisibleCreateAd(-1)}>
           <div className={style.modalContainer}>
             <div className={style.modalContainer_title}>
               <p>
-                <FormattedMessage id={'page.amas.createRoom.label'} />
+                <FormattedMessage
+                  id={'page.dashboard.form_publi_image.title'}
+                />
               </p>
             </div>
             <div className={style.modalContainer_content}>
               <Formik
-                // initialValues={ }
+                initialValues={{ link: '', file: undefined }}
                 enableReinitialize
-                validationSchema={'validationSchema'}
-                onSubmit={() => console.log('crear')}
+                validationSchema={yup.object().shape({
+                  link: yup.string().required('Este campo es requerido'),
+                  file: yup.mixed().required('Este campo es requerido')
+                })}
+                onSubmit={values => uploadPubli(values)}
               >
                 {({ values, errors, touched }) => (
                   <Form>
                     <InputFormikApp
-                      labelID='forms.labels.title'
+                      labelID='page.dashboard.form_publi_image.link'
                       type='text'
-                      name='title'
-                      maxLength={60}
+                      name='link'
                     />
 
                     <InputFileFormikApp
                       labelID='page.tax-consultant.create-service.form.image'
-                      name='thumb'
+                      name='file'
                       accept='image/*'
+                      thumb={true}
                     />
                     <div className={style.buttonContainer}>
                       <ButtonApp
@@ -110,8 +192,8 @@ const AdvertisingList = ({ }: AdvertisingListProps) => {
 
       {isVisibleDeleteAd && (
         <AlertApp
-          onCancel={() => setVisibleDeleteAd(false)}
-          onAction={() => console.log('abrir')}
+          onCancel={() => setVisibleDeleteAd(undefined)}
+          onAction={() => deletePubli()}
           visible
           title='borrar anuncio'
           cancelButton={false}
