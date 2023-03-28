@@ -218,6 +218,7 @@ const FlashUpdatesView = ({
         </button>
       )}
       <div className={isPrivateExcerpt.current ? style.collapsedItem : ''}>
+        <div className='flashUpdates_grid'>
         <PostGrid
           parent='page.analysis.articles.form.create.submit'
           loadMore={loadMore}
@@ -236,6 +237,7 @@ const FlashUpdatesView = ({
           alignment={isPrivateExcerpt.current ? 'column' : 'row'}
           staticPosts={outstandingPost}
         />
+        </div>
         {isPrivateExcerpt.current && outstandingArt.length > 0 && (
           <LatestArticles
             onClickItem={(art: Post) =>

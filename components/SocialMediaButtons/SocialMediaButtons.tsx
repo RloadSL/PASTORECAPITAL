@@ -26,7 +26,7 @@ const SocialMediaButtons = ({ title, description, url }: SOCIALMEDIABUTTONSPROPS
 
 const SocialMediaButtonsView = ({ title, description, url }: SOCIALMEDIABUTTONSPROPS) => {
   return <div className={style.socialMediaButtonsContainer}>
-    <ul className='flex-container justify-end'>
+    <ul className={`${style.socialMediaButtonsContainer_flex} socialContainer`}>
       <li className={style.socialButton}>
         <TwitterShareButton url={`${HOST}${url}`} title={title}>
           <TwitterIcon size={32} iconFillColor={'#110151'} bgStyle={{

@@ -6,6 +6,12 @@
   @extend %layoutContainer;
   padding: 2%;
 
+  small {
+    color: colors.$grey60;
+    margin-bottom: 8px;
+    display: block;
+  }
+
   &Container {
     max-width: 1000px;
   }
