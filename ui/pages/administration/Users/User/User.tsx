@@ -18,6 +18,7 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
 const User: NextPage<any> = () => {
   const { query, replace } = useRouter()
   const [userDto, setUserDto] = useState<UserDto | undefined>()
@@ -100,7 +101,8 @@ const UserView = ({
         initialValues={{
           name: userDataDto.name,
           lastname: userDataDto.lastname,
-          email: userDataDto.email
+          email: userDataDto.email,
+          default_lang: userDataDto.default_lang
         }}
         validationSchema={validationSchema}
         onSubmit={values => {
@@ -127,7 +129,15 @@ const UserView = ({
               name='email'
             />
 
-          
+              <SelectFormikApp
+                selectOptions={[
+                  { value: 'es', label: 'Español' },
+                  { value: 'en', label: 'Inglés' },
+                ]}
+                labelID={'page.login.lang.select'}
+                name={'default_lang'}
+              />
+
               <ButtonApp
                 buttonStyle='primary'
                 type='submit'
@@ -177,7 +187,7 @@ const UserView = ({
               <ButtonApp
                 buttonStyle='primary'
                 type='submit'
-                labelID='Actulizar rol'
+                labelID='page.administration.users.update.role'
               />
             </div>
           </Form>
@@ -189,10 +199,11 @@ const UserView = ({
   return (
     <div className={style.user}>
       <div className={style.header}>
-        <h1 className='main-title'>Información de usuario</h1>
+        <h1 className='main-title'>
+          Configuración de usuario</h1>
         <div>
           <div>
-            <p>Fecha de alta: {userDataDto.created_at?.toLocaleString()}</p>
+            <p>Fecha de alta: {userDataDto.created_at?.toLocaleString('es-Es', {day: '2-digit', month: '2-digit', year:'numeric'})}</p>
           </div>
           {userDataDto.role.level <= 1 && (
             <div className={style.plan}>

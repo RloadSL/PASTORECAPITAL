@@ -23,6 +23,7 @@ export interface UserDto {
   email:string,
   role: Role,
   created_at?: Timestamp | Date,
+  default_lang?: 'es' | 'en',
   /**
    * Token para poder editar en el headless de wordpress si eres administrador
    */

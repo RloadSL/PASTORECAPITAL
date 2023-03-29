@@ -34,7 +34,7 @@ const InfoTextCard = ({
         <div className={style.top}>
           <div className={style.infoTextCard_chip}>
             
-                <Chips chips={[{ label: chip }]} color='lightMain' />
+                <Chips noTranslate={true} chips={[{ label: chip }]} color='lightMain' />
              
           </div>
         </div>
@@ -42,19 +42,17 @@ const InfoTextCard = ({
       <div className={style.bottom}>
         {isLocked && blockContent ? (
           <LockedContent />
-        ) : (
-          <div
-            className={style.infoTextCard_image}
-            style={{ backgroundImage: `url(${imageHref})` }}
-          ></div>
-        )}
+        ) : imageHref ? (<div
+          className={style.infoTextCard_image}
+          style={{ backgroundImage: `url(${imageHref})` }}
+        ></div>) :<></> }
         <div className={style.infoTextCard_text}>
           <Link href={href || '#'}>
             <a href=''>
               <h3>{title}</h3>
             </a>
           </Link>
-          <p>{limitTextLength(250, text || '')}</p>
+          <div>{limitTextLength(250, text || '')}</div>
         </div>
       </div>
     </div>

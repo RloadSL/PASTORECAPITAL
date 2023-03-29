@@ -51,6 +51,10 @@ $imageMaxSize: 160px;
   }
 
   &_text {
+    img{
+      width: 100%;
+      height: auto;
+    }
     h3 {
       color: colors.$dark;
       margin-top: 10px;
@@ -74,6 +78,10 @@ $imageMaxSize: 160px;
       display: block;
       margin-bottom: 0px;
     }
+    color: colors.$grey60;
+    display: block;
+    margin-bottom: 0px;
   }
 }
+
 

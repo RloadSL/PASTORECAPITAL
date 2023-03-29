@@ -45,6 +45,8 @@ export class User {
 
   stripe_cu_id?:string;
 
+  default_lang?: 'en' | 'es';
+
   get fullname(){ return `${this.name} ${this.lastname}`};
 
   constructor(userData: UserDto) {
@@ -60,6 +62,7 @@ export class User {
     this.created_at = userData.created_at instanceof Timestamp ? userData.created_at?.toDate() :  userData.created_at
     this.collaboration = userData.collaboration
     this.stripe_cu_id = userData.stripe_cu_id
+    this.default_lang = userData.default_lang || 'en'
   }
 
   public toJson = (): UserDto => ({
@@ -73,7 +76,8 @@ export class User {
     edition_section: this.edition_section,
     created_at: this.created_at,
     collaboration: this.collaboration,
-    stripe_cu_id: this.stripe_cu_id
+    stripe_cu_id: this.stripe_cu_id,
+    default_lang: this.default_lang 
   });
 
  onChange = (callback:Function)=>{

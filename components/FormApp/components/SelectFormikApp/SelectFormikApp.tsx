@@ -76,7 +76,7 @@ const SelectFormikApp = ({
             inputId={name}
             options={selectOptions}
             defaultValue={selectOptions.find(
-              (item: any) => item.value === 'todos'
+              (item: any) => (item.value === 'todos' || item.value === field.value)
             )}
             styles={customStyles}
             isSearchable={false}
