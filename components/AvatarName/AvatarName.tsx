@@ -8,9 +8,9 @@ import style from './avatarName.module.scss'
  * @returns 
  */
 
-const AvatarName = ({ userName, subtitle, uid } : { userName: string , subtitle?: string, uid?: any}) => {
+const AvatarName = ({ userName, subtitle, uid , render_logo = false} : {render_logo?:boolean, userName: string , subtitle?: string, uid?: any}) => {
   return <div className={style.avatarNameContainer}>
-    <Avatar uid={uid} size={'large'} renderItem={userName[0]} />
+    <Avatar render_logo = {render_logo} uid={uid} size={'large'} renderItem={userName[0]} />
     <div>
     <span>{userName}</span>
     {subtitle && <span className={style.subtitle}>{subtitle}</span>}

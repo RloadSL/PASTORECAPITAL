@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Chips from 'components/Chips'
 import style from './PostExcerpt.module.scss'
 import parse from 'html-react-parser'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { WpCat } from 'infrastructure/dto/post.dto'
 import Avatar from 'components/Avatar'
+import { UserDto } from 'infrastructure/dto/users.dto'
+import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 
 export interface POSTEXCERPTPROPS {
   parsing?: boolean
@@ -11,6 +14,7 @@ export interface POSTEXCERPTPROPS {
   description: string
   thumbnail?: string
   chips?: any
+  author?: any
   chipColor?: any
   level?: WpCat | any
   componentStyle?: 'card' | 'simple' | 'column' | 'row' | any
@@ -37,7 +41,8 @@ const PostExcerpt = ({
   componentStyle,
   hasSeparator,
   footer,
-  parsing = true
+  parsing = true,
+  author
 }: POSTEXCERPTPROPS) => {
   return (
     <PostExcerptView
@@ -51,6 +56,7 @@ const PostExcerpt = ({
       hasSeparator={hasSeparator}
       footer={footer}
       chipColor={chipColor}
+      author={author}
     />
   )
 }
@@ -65,8 +71,15 @@ const PostExcerptView = ({
   level,
   componentStyle = 'card',
   hasSeparator = true,
-  footer
+  footer,
+  author
 }: POSTEXCERPTPROPS) => {
+  const [authorDto, setAuthorDto] = useState<UserDto | undefined>()
+   useEffect(() => {
+    if(author?.uid)
+      UserRepositoryImplInstance.getData(author.uid).then(res => setAuthorDto(res))
+   }, [])
+   
   return (
     <div className={`${style.postExcerptContainer} ${style[componentStyle]}`}>
       <div style={thumbnail ? { backgroundImage: `url(${thumbnail})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundSize: '80px' }} className={style.imageContainer}>
@@ -82,7 +95,7 @@ const PostExcerptView = ({
             <div className={style.footer}>
               {footer.text != 'undefined' && (
                 <div className={style.avatar}>
-                  <Avatar renderItem={footer.text ? footer.text[0] : null} />
+                  <Avatar render_logo={authorDto?.role.level == 2} renderItem={footer.text ? footer.text[0] : null} />
                 </div>
               )}
               <p className={style.content}>

@@ -1,8 +1,13 @@
-
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { randomIntFromInterval, hashIDGenerator } from 'ui/utils/component.utils';
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  randomIntFromInterval,
+  hashIDGenerator
+} from 'ui/utils/component.utils'
 import style from './avatar.module.scss'
-
+import logo from '../../assets/img/logo-image.svg'
+import { useSelector } from 'react-redux'
+import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import Image from 'next/image'
 
 const colorPalette = [
   {
@@ -32,13 +37,14 @@ const colorPalette = [
   {
     base: '#ffdc60',
     main: '#5956E9'
-  },
+  }
 ]
 
 interface AVATARPROPS {
   renderItem: string | null
   size?: 'small' | 'large'
   uid?: string | undefined
+  render_logo?: boolean
 }
 
 /**
@@ -46,21 +52,47 @@ interface AVATARPROPS {
  * @param renderItem Texto para renderizar
  * @param size Tamaño del avatar 'small' | 'large'
  * @param uid ID de usuario
- * @returns 
+ * @returns
  */
 
-const Avatar = ({ renderItem, size = 'small', uid}: AVATARPROPS ) => {
+const Avatar = ({
+  render_logo = false,
+  renderItem,
+  size = 'small',
+  uid
+}: AVATARPROPS) => {
+  const randomColor = useRef(
+    uid !== undefined
+      ? colorPalette[Math.abs(hashIDGenerator(uid)) % 6]
+      : colorPalette[randomIntFromInterval(0, 6)]
+  )
 
-  const randomColor = useRef(uid !== undefined ? colorPalette[Math.abs(hashIDGenerator(uid))%6] : colorPalette[randomIntFromInterval(0, 6)]);
- 
   return (
-    <div className={`${style.avatarContainer} ${style[size]}`} style={{ backgroundColor: randomColor.current.base }}>
-      <div className={style.letter} style={{ color: randomColor.current.main }}>
-        {renderItem !== null ? renderItem.toUpperCase() : ''}
-      </div>
+    <div
+      className={`${style.avatarContainer} ${style[size]}`}
+      style={{ backgroundColor: renderItem ? "#ffff" : randomColor.current.base }}
+    >
+      {!render_logo ? (
+        <div
+          className={style.letter}
+          style={{ color: randomColor.current.main }}
+        >
+          {renderItem !== null ? renderItem.toUpperCase() : ''}
+        </div>
+      ) : (
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            padding: '5px'
+          }}
+        >
+          <Image src={logo} alt='Logo pastore capital'/>
+        </div>
+      )}
     </div>
   )
 }
 
-export default React.memo(Avatar) 
-
+export default React.memo(Avatar)

@@ -2,12 +2,13 @@ import Card from 'components/Card'
 import PostExcerpt from 'components/PostExcerpt'
 import { Post } from 'domain/Post/Post'
 import Link from 'next/link'
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import useWindowSize from 'ui/hooks/windowSize.hook'
 import style from './ArticlesGrid.module.scss'
 import lockIcon from '../../assets/img/icons/lock-w.svg'
 import { WP_TERM } from 'infrastructure/dto/wp.dto'
+import { UserDto } from 'infrastructure/dto/users.dto'
 
 type articlestyles = 'flex' | 'grid';
 interface ARTICLESGRIDPROPS {
@@ -33,6 +34,8 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
     (post: Post) => post.categories.find(cat => cat.parent != 0 && cat.parent.slug === 'analysis'),
     [],
   )  
+
+  
   return (
     <div className={`${style.articlesGridContainer} ${buildClassName(componentStyle, style)}`}>
         {posts?.map((singlePost, index) => {
@@ -50,7 +53,8 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
           }
           
           const urlPost = encodeURI(`/research/bitcoins-altcoins/${postCat?.slug}/${postCat.metas.collapsable_items !== '1'? singlePost.slug : ''}`)
-        return (
+          
+          return (
           <div key={singlePost.id} className={`${index === 0 && componentStyle === 'grid' ? style.firstChild : ''} ${style.articlesGridItem}`}>
             <Card>
               <Link href={{
@@ -59,6 +63,7 @@ const ArticlesGridView = ({ posts, componentStyle = 'flex', windowSize, category
               }}>
                 <div className={style.innerContainer}>
                   <PostExcerpt
+                    author={singlePost.author}
                     thumbnail={singlePost.thumbnail_url}
                     title={limitTextLength(index === 0 ? 100 : 40, singlePost.title.rendered)}
                     description={limitTextLength(index === 0 && windowSize.width > 1500 && componentStyle !== 'flex' ? 350 : 150, singlePost.excerpt.rendered)}

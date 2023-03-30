@@ -1,4 +1,6 @@
 import { PostDto, WpCat, WpTerm } from 'infrastructure/dto/post.dto'
+import { UserDto } from 'infrastructure/dto/users.dto'
+import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
 
 export class Post {
   private _id: string
@@ -110,7 +112,15 @@ export class Post {
   public getCatgoryByParent = (parentSlug: string) =>
     this._categories.filter(
       cat => cat.parent != 0 && cat.parent.slug === parentSlug
-    )
+  )
+
+  async getAuthorDTO(): Promise<UserDto | undefined>{
+    if(this.author){
+      const res = await UserRepositoryImplInstance.getData(this.author?.uid)
+      return res;
+    }
+      
+  }
 
   public toJson = (): PostDto => ({
     id: this._wpID,

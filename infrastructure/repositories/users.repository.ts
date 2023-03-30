@@ -55,6 +55,13 @@ class UserRepositoryImplementation{
     }
   }; 
   
+  async getData(uid:string): Promise<UserDto | undefined>{
+    const userSnap = await FireFirestore.getDoc('users',uid)
+    if(userSnap?.exists()){
+      return userSnap.data() as UserDto
+    }
+  }
+
   onChange(uid:string, callback:Function): Unsubscribe {
     return FireFirestore.onChangeDoc(`users/${uid}`, (userData:UserDto)=>{
       callback(new User(userData));
