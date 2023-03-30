@@ -482,26 +482,6 @@ const Dashboard: NextPage = () => {
             </a>
           </Link>
         </div>
-        {/* <div className={`${style.dashboard_grid_item} ${style.item__span3}`}>
-          <Link href={'/academy'}>
-            <a>
-              <InfoColorCard
-                alt={'Imagen del logo de discord'}
-                backgroundColor='#DBDEFF'
-                iconHref={discordIcon}
-              >
-                <p className={style.colorCardText}>
-                  <FormattedMessage
-                    id='page.dashboard.discord.text'
-                    values={{
-                      b: children => <span>{children}</span>
-                    }}
-                  />
-                </p>
-              </InfoColorCard>
-            </a>
-          </Link>
-        </div> */}
         <div
           className={`${style.dashboard_grid_item} ${style.item__span8} ${style.values}`}
         >
