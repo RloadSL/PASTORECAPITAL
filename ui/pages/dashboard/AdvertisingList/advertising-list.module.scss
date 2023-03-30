@@ -5,6 +5,8 @@
 .advertisingList {
   display: flex;
   flex-wrap: wrap;
+  align-content: stretch;
+
   @include devices.device(smTablet) {
     flex-wrap: nowrap;
   }
@@ -13,10 +15,17 @@
     flex: 1 0 50%;
     max-width: 50%;
     width: 25%;
-    height: 150px;
     margin-top: 10px;
     position: relative;
     padding-right: 10px;
+    min-height: 120px;
+    @include devices.device(smTablet) {
+      min-height: 100%;
+    }
+
+    img {
+      object-fit: contain;
+    }
 
     .adminAd_button {
       position: absolute;
@@ -55,6 +64,10 @@
   background-color: colors.$grey40;
   position: relative;
   margin-right: 10px;
+
+  img {
+    object-fit:fill !important;
+  }
 
   &_text {
     height: 100%;

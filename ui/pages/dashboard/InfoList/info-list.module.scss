@@ -1,0 +1,38 @@
+@use "../../../../styles/partials/variables/colors" as colors;
+@use "../../../../styles/partials/variables/utils" as utils;
+@use "../../../../styles/partials/placeholders";
+
+.news {
+  &_item {
+    padding: 12px 20px;
+    &__title {
+      color: colors.$dark;
+      margin: 0px;
+    }
+    &__footer {
+      color: colors.$grey60;
+      font-size: .9rem;
+      margin-top: 5px;
+      margin-bottom: 0px;
+    }
+  }
+  .item_header {
+    span {
+      &::before {
+        background-image: url(../../../../assets/img/icons/megaphone.svg);
+        filter: brightness(10);
+      }
+    }
+  }
+
+  .item_content {
+    padding: 0px !important;
+    min-height: 70%;
+    li {
+      border-color: colors.$grey40;
+      &:last-child {
+        border-bottom: 0px !important;
+      }
+    }
+  }
+}

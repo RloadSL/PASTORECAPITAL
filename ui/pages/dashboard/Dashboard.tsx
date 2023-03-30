@@ -17,7 +17,7 @@ import AdvertisingList from './AdvertisingList'
 import { useComponentUtils } from 'ui/hooks/components.hooks'
 import LinkApp from 'components/LinkApp'
 import ItemList from 'components/ItemList'
-import {useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import newsRepository from 'infrastructure/repositories/news.repository'
 import { News } from 'domain/News/News'
 import Loading from 'components/Loading'
@@ -36,6 +36,7 @@ import { AppDispatch } from 'ui/redux/store'
 import { cleanMessages, setChatroom } from 'ui/redux/slices/amas/amas.slice'
 import { setDashboardAmaState, setDashboardFUState, setDashboardNewsState, setDashboardResearchState, setDashboardWebinarState } from 'ui/redux/slices/dashboard/dashboard.slice'
 import { dashboardState } from 'ui/redux/slices/dashboard/dashboard.selectors'
+import InfoList from './InfoList'
 const months = [
   'Ene',
   'Feb',
@@ -57,11 +58,11 @@ const months = [
 const NewsList = () => {
   const { limitTextLength } = useComponentUtils()
   const dispatch = useDispatch<AppDispatch>()
-  const {news} = useSelector(dashboardState)
- 
+  const { news } = useSelector(dashboardState)
+
   useEffect(() => {
     let fetch = true
-    if(!news)
+    if (!news)
       newsRepository
         .getNews({ search: '', tickers: 'AllTickers', items: 3 })
         .then(result => {
@@ -75,59 +76,58 @@ const NewsList = () => {
   return !news ? (
     <Loading loading variant='inner-primary' />
   ) : (
-    <>
-      <ItemList
-        items={news.map((singleNew: News) => {
-          return (
-            <div className={style.news_item} key={singleNew.news_url}>
-              <Link href={singleNew.news_url} target='_blank'>
-                <a>
-                  <h3 className={style.news_item__title}>
-                    {limitTextLength(90, singleNew.title)}
-                  </h3>
-                  <p className={style.news_item__footer}>
-                    {singleNew.source_name}{' '}
-                    <span>{singleNew.date.toLocaleString()}</span>
-                  </p>
-                </a>
-              </Link>
-            </div>
-          )
-        })}
-      />
-    </>
+    // <>
+    //   <ItemList
+    //     items={news.map((singleNew: News) => {
+    //       return (
+    //         <div className={style.news_item} key={singleNew.news_url}>
+    //           <Link href={singleNew.news_url} target='_blank'>
+    //             <a>
+    //               <h3 className={style.news_item__title}>
+    //                 {limitTextLength(90, singleNew.title)}
+    //               </h3>
+    //               <p className={style.news_item__footer}>
+    //                 {singleNew.source_name}{' '}
+    //                 <span>{singleNew.date.toLocaleString()}</span>
+    //               </p>
+    //             </a>
+    //           </Link>
+    //         </div>
+    //       )
+    //     })}
+    //   />
+    // </>
+    <InfoList list={news} />
   )
 }
-
-
 
 //Componente que renderiza el último webinar, sustituir datos estáticos por reales
 const LastWebinarRender = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const {webinar} = useSelector(dashboardState)
+  const { webinar } = useSelector(dashboardState)
   useEffect(() => {
     let fetch = true
 
     const toDay = new Date()
-    if(!webinar)
-    webinarsRepository
-      .elasticSearch({
-        query: '',
-        filters: {
-          date: {
-            from: new Date(
-              toDay.getFullYear(),
-              toDay.getMonth(),
-              toDay.getDate()
-            )
-          }
-        },
-        page: { size: 1, current: 1 }
-      })
-      .then((res: any) => {
-        const { results } = res
-        if (results[0]) dispatch(setDashboardWebinarState(results[0]))
-      })
+    if (!webinar)
+      webinarsRepository
+        .elasticSearch({
+          query: '',
+          filters: {
+            date: {
+              from: new Date(
+                toDay.getFullYear(),
+                toDay.getMonth(),
+                toDay.getDate()
+              )
+            }
+          },
+          page: { size: 1, current: 1 }
+        })
+        .then((res: any) => {
+          const { results } = res
+          if (results[0]) dispatch(setDashboardWebinarState(results[0]))
+        })
     return () => {
       fetch = false
     }
@@ -169,19 +169,19 @@ const LastWebinarRender = () => {
 //Componente que renderiza el contenido de research, debe pintar una noticia de bitcoins y otra de altcoins
 const ResearchRender = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const {research} = useSelector(dashboardState)
+  const { research } = useSelector(dashboardState)
   const userLogged = useSelector(getUserLogged)
   const [loading, setloading] = useState<boolean>(true)
-  const {query} = useRouter()
+  const { query } = useRouter()
   useEffect(() => {
     let fetch = true
 
     if (userLogged?.uid) {
-      if(!research)
-      getFlashArticles().then(arts => {
-        dispatch(setDashboardResearchState(arts))
-        setloading(false)
-      })
+      if (!research)
+        getFlashArticles().then(arts => {
+          dispatch(setDashboardResearchState(arts))
+          setloading(false)
+        })
     }
 
     return () => {
@@ -189,7 +189,7 @@ const ResearchRender = () => {
     }
   }, [])
 
-  async function getFlashArticles () {
+  async function getFlashArticles() {
     const bitcoin = await AnalysisRepositoryInstance.getArticles(
       userLogged?.userDataToken,
       userLogged?.wpToken,
@@ -218,7 +218,7 @@ const ResearchRender = () => {
   ) : (
     <>
       {research
-        ?.reduce((current:any, prev:any) => [...current.items, ...prev.items])
+        ?.reduce((current: any, prev: any) => [...current.items, ...prev.items])
         .map((item: Post, index: any) => {
           const parentCat = item.getCatgoryByParent('analysis')[0]
           return (
@@ -227,7 +227,7 @@ const ResearchRender = () => {
               isLocked={!item.metas.permission_garanted}
               key={index}
               href={{
-                pathname: '/research/bitcoins-altcoins/'+ research[index].cat + '/' + item.slug,
+                pathname: '/research/bitcoins-altcoins/' + research[index].cat + '/' + item.slug,
                 query: { ...query, post_id: item.id, post_title: item.title.raw, cat: parentCat.term_id, category_name: research[index].cat }
               }}
               title={item.title.rendered}
@@ -245,7 +245,7 @@ const ResearchRender = () => {
 //Función que renderiza las flash updates, hay que controlar que sean 2
 const FlashUpdatesRender = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const {fu} = useSelector(dashboardState)
+  const { fu } = useSelector(dashboardState)
   const userLogged = useSelector(getUserLogged)
   useEffect(() => {
     let fetch = true
@@ -263,7 +263,7 @@ const FlashUpdatesRender = () => {
       dispatch(setDashboardFUState(arts))
     })
 
-   
+
 
     return () => {
       fetch = false
@@ -273,41 +273,42 @@ const FlashUpdatesRender = () => {
   return !fu ? (
     <Loading loading />
   ) : (
-    <>
-      {fu.map((item:any, index: any) => {
-        return (
-          <InfoTextCard
-            key={index}
-            title={item.title.raw}
-            isLocked={!item.metas.permission_garanted}
-            blockContent= {true}
-            href={'/research/flash-updates'}
-            text={parse(item.content?.rendered || '')}
-            imageHref={item.image}
-            alt=''
-          />
-        )
-      })}
-    </>
+    // <>
+    //   {fu.map((item:any, index: any) => {
+    //     return (
+    //       <InfoTextCard
+    //         key={index}
+    //         title={item.title.raw}
+    //         isLocked={!item.metas.permission_garanted}
+    //         blockContent= {true}
+    //         href={'/research/flash-updates'}
+    //         text={parse(item.content?.rendered || '')}
+    //         imageHref={item.image}
+    //         alt=''
+    //       />
+    //     )
+    //   })}
+    // </>
+    <InfoList list={[]} /> //@jose pasarle aqui el array de FU
   )
 }
 
-const RenderAma = ()=>{
-  const {ama} = useSelector(dashboardState)
-  const {push} = useRouter()
+const RenderAma = () => {
+  const { ama } = useSelector(dashboardState)
+  const { push } = useRouter()
 
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    amasRepository.getChatRooms({ query: '', filters: {state: 'active'}, page: {size: 1, current: 1} })
-    .then((res: any) => {
-      if(res.results[0]){
-        dispatch(setDashboardAmaState(res.results[0]))
-      }
+    amasRepository.getChatRooms({ query: '', filters: { state: 'active' }, page: { size: 1, current: 1 } })
+      .then((res: any) => {
+        if (res.results[0]) {
+          dispatch(setDashboardAmaState(res.results[0]))
+        }
 
-      return res;
-    })
+        return res;
+      })
   }, [])
-  
+
   const openChatroom = async (chatroom: Chatroom) => {
 
     if (chatroom.state === 'coming_soon') {
@@ -322,21 +323,21 @@ const RenderAma = ()=>{
     <>
       {
         ama ? <InfoColorCard
-        alt={'Imagen de cursos'}
-        backgroundColor='#F2E4FF'
-        iconHref={amasIcon}
-      >
-        <div className={style.amasCardText}>
-          <h2 className='small-caps'>
-            <Link href={'#'}>Amas</Link>
-          </h2>
-          <h3>
-            <div onClick={()=>openChatroom(ama)}>
-              {ama.title}
-            </div>
-          </h3>
-        </div>
-      </InfoColorCard> : <p>No hay amas disponibles</p>
+          alt={'Imagen de cursos'}
+          backgroundColor='#F2E4FF'
+          iconHref={amasIcon}
+        >
+          <div className={style.amasCardText}>
+            <h2 className='small-caps'>
+              <Link href={'#'}>Amas</Link>
+            </h2>
+            <h3>
+              <div onClick={() => openChatroom(ama)}>
+                {ama.title}
+              </div>
+            </h3>
+          </div>
+        </InfoColorCard> : <p>No hay amas disponibles</p>
       }
     </>
   )
@@ -369,7 +370,7 @@ const Dashboard: NextPage = () => {
             </span>
           </div>
           <div className={style.item_content}>
-             <NewsList/>
+            <NewsList />
           </div>
         </div>
         <div
@@ -399,7 +400,7 @@ const Dashboard: NextPage = () => {
           </div>
         </div>
         <div
-          className={`${style.dashboard_grid_item} ${style.item__span8} ${style.flashUpdates}`}
+          className={`${style.dashboard_grid_item} ${style.item__span5} ${style.flashUpdates}`}
         >
           <div className={style.item_header}>
             <span>
@@ -411,6 +412,29 @@ const Dashboard: NextPage = () => {
               <FlashUpdatesRender />
             </div>
           </div>
+        </div>
+        <div className={`${style.dashboard_grid_item} ${style.item__span3}`}>
+          <Link href={'/academy'}>
+            <a>
+              <InfoColorCard
+                alt={'Imagen del logo de discord'}
+                backgroundColor='#DBDEFF'
+                iconHref={discordIcon}
+              >
+                <p className={style.colorCardText}>
+                  <FormattedMessage
+                    id='page.dashboard.discord.text'
+                    values={{
+                      b: children => <span>{children}</span>
+                    }}
+                  />
+                </p>
+              </InfoColorCard>
+            </a>
+          </Link>
+
+
+
         </div>
         <div
           className={`${style.dashboard_grid_item} ${style.item__span8} ${style.item__noBg}`}
@@ -434,24 +458,7 @@ const Dashboard: NextPage = () => {
                 </InfoColorCard>
               </a>
             </Link>
-            <Link href={'/tax-consultant/resources'}>
-              <a>
-                <InfoColorCard
-                  alt={'Imagen de una ilustración de recursos'}
-                  backgroundColor='#D4E5FF'
-                  iconHref={resourcesIcon}
-                >
-                  <p className={style.colorCardText}>
-                    <FormattedMessage
-                      id='page.dashboard.resources.text'
-                      values={{
-                        b: children => <span>{children}</span>
-                      }}
-                    />
-                  </p>
-                </InfoColorCard>
-              </a>
-            </Link>
+            
             <Link href={'/academy'}>
               <a>
                 <InfoColorCard
@@ -472,10 +479,30 @@ const Dashboard: NextPage = () => {
             </Link>
           </div>
         </div>
-        <div className={`${style.dashboard_grid_item} ${style.item__span5}`}>
-          <RenderAma/>
+        <div className={`${style.dashboard_grid_item} ${style.item__span4}`}>
+          <RenderAma />
         </div>
-        <div className={`${style.dashboard_grid_item} ${style.item__span3}`}>
+        <div className={`${style.dashboard_grid_item} ${style.item__span4}`}>
+        <Link href={'/tax-consultant/resources'}>
+              <a>
+                <InfoColorCard
+                  alt={'Imagen de una ilustración de recursos'}
+                  backgroundColor='#D4E5FF'
+                  iconHref={resourcesIcon}
+                >
+                  <p className={style.colorCardText}>
+                    <FormattedMessage
+                      id='page.dashboard.resources.text'
+                      values={{
+                        b: children => <span>{children}</span>
+                      }}
+                    />
+                  </p>
+                </InfoColorCard>
+              </a>
+            </Link>
+        </div>
+        {/* <div className={`${style.dashboard_grid_item} ${style.item__span3}`}>
           <Link href={'/academy'}>
             <a>
               <InfoColorCard
@@ -494,7 +521,7 @@ const Dashboard: NextPage = () => {
               </InfoColorCard>
             </a>
           </Link>
-        </div>
+        </div> */}
         <div
           className={`${style.dashboard_grid_item} ${style.item__span8} ${style.values}`}
         >
