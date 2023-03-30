@@ -421,5 +421,7 @@
   "/discord": "Discord",
   "/webinars/[w_id]": "Webinars",
   "/webinars/deferred/[w_id]": "Webinars Grabados",
-  "/amas/[chatroom_id]": "Amas"
+  "/amas/[chatroom_id]": "Amas",
+  "terms": "Términos y condiciones",
+  "policy": "Políticas de privacidad"
 }

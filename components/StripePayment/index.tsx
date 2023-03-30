@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from './components/CheckoutForm'
@@ -16,16 +16,18 @@ const stripePromise = loadStripe(
 )
 
 export default function StripePayment ({clientSecretParam}:{clientSecretParam?: string}) {
-  const [clientSecret, setClientSecret] = useState('')
+  const [clientSecret, setClientSecret] = useState()
   const [intent, setIntent] = useState()
   const userLogged = useSelector(getUserLogged)
   const { query, push, asPath } = useRouter()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if(userLogged?.uid === 'not-logged') {
       push({pathname: '/login' ,query: {redirect: asPath}})
     }
-    if (query.order_id && query.order_path && userLogged?.stripe_cu_id && !intent && !clientSecretParam) {
+    console.log('serviceRepository.loading', serviceRepository.loading )
+
+    if (serviceRepository.loading === false && query.order_id && query.order_path && userLogged?.stripe_cu_id && !intent && !clientSecretParam) {
       serviceRepository
         .hireServiceIntent({
           customer: userLogged.stripe_cu_id,
@@ -42,6 +44,8 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
           if(data) {
             setClientSecret(data.client_secret);
             setIntent(data);
+            serviceRepository.loading = false;
+            console.log('hireServiceIntent', data.client_secret)
           }
         })
     }
@@ -54,7 +58,7 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
     clientSecret : clientSecretParam || clientSecret,
     appearance
   }
-
+  console.log(clientSecret, intent)
   return (
     <Card>
       {(clientSecret || clientSecretParam) ? (

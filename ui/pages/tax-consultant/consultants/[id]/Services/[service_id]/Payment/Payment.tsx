@@ -61,8 +61,8 @@ const Payment = () => {
           <small>IVA incluido</small>
         </div>
         <div className={style.payment_legalContainer}>
-          <LinkApp label='Términos y condiciones' linkHref='#' linkStyle='classic' />
-          <LinkApp label='Política de privacidad' linkHref='#' linkStyle='classic' />
+          <LinkApp label='terms' linkHref='#' linkStyle='classic' />
+          <LinkApp label='policy' linkHref='#' linkStyle='classic' />
         </div>
       </div>
       <div className={style.payment_form}>

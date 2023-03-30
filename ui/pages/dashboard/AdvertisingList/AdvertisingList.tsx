@@ -45,8 +45,8 @@ const AdvertisingList = ({}: AdvertisingListProps) => {
   const [isVisibleDeleteAd, setVisibleDeleteAd] = useState<string | undefined>()
   const dispatch = useDispatch<AppDispatch>()
   const { publi } = useSelector(dashboardState)
-
   const userLogged = useSelector(getUserLogged)
+  
   useEffect(() => {
     let fetch = true
     if (userLogged) getPubli(fetch)

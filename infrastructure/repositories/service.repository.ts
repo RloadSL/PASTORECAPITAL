@@ -15,7 +15,7 @@ class ServiceRepository {
     }
     return ServiceRepository.instance;
   }
-
+  loading: boolean = false;
   /**
    * Retorna el listado de clientes del servicio
    * @param id Identificador del servicio en firebase tabla (user_consultant)
@@ -118,8 +118,10 @@ class ServiceRepository {
    * Procesa la contratación del servicio por parte del usuario
    */
   async hireServiceIntent(data:any){
+    this.loading = true;
     const res = await FireFunctionsInstance.onCallFunction('PaymentIntentTriggerFunctions', data)
     if(!res.error){
+      console.log('hireServiceIntent Service', res)
       return res;
     }else{
       return null;
