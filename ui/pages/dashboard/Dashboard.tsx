@@ -34,7 +34,13 @@ import { Chatroom } from 'domain/Chatroom/Chatroom'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'ui/redux/store'
 import { cleanMessages, setChatroom } from 'ui/redux/slices/amas/amas.slice'
-import { setDashboardAmaState, setDashboardFUState, setDashboardNewsState, setDashboardResearchState, setDashboardWebinarState } from 'ui/redux/slices/dashboard/dashboard.slice'
+import {
+  setDashboardAmaState,
+  setDashboardFUState,
+  setDashboardNewsState,
+  setDashboardResearchState,
+  setDashboardWebinarState
+} from 'ui/redux/slices/dashboard/dashboard.slice'
 import { dashboardState } from 'ui/redux/slices/dashboard/dashboard.selectors'
 import InfoList from './InfoList'
 const months = [
@@ -51,8 +57,6 @@ const months = [
   'Nov',
   'Dic'
 ]
-
-
 
 //Componente para la lista de las noticias
 const NewsList = () => {
@@ -76,27 +80,6 @@ const NewsList = () => {
   return !news ? (
     <Loading loading variant='inner-primary' />
   ) : (
-    // <>
-    //   <ItemList
-    //     items={news.map((singleNew: News) => {
-    //       return (
-    //         <div className={style.news_item} key={singleNew.news_url}>
-    //           <Link href={singleNew.news_url} target='_blank'>
-    //             <a>
-    //               <h3 className={style.news_item__title}>
-    //                 {limitTextLength(90, singleNew.title)}
-    //               </h3>
-    //               <p className={style.news_item__footer}>
-    //                 {singleNew.source_name}{' '}
-    //                 <span>{singleNew.date.toLocaleString()}</span>
-    //               </p>
-    //             </a>
-    //           </Link>
-    //         </div>
-    //       )
-    //     })}
-    //   />
-    // </>
     <InfoList list={news} />
   )
 }
@@ -148,9 +131,7 @@ const LastWebinarRender = () => {
         </div>
         <div className={style.lastWebinar_info}>
           <h3>{webinar?.title}</h3>
-          <p className={style.lastWebinar_info__author}>
-            {webinar?.guests}
-          </p>
+          <p className={style.lastWebinar_info__author}>{webinar?.guests}</p>
         </div>
       </div>
       <div className={style.bottom}>
@@ -189,7 +170,7 @@ const ResearchRender = () => {
     }
   }, [])
 
-  async function getFlashArticles() {
+  async function getFlashArticles () {
     const bitcoin = await AnalysisRepositoryInstance.getArticles(
       userLogged?.userDataToken,
       userLogged?.wpToken,
@@ -227,8 +208,18 @@ const ResearchRender = () => {
               isLocked={!item.metas.permission_garanted}
               key={index}
               href={{
-                pathname: '/research/bitcoins-altcoins/' + research[index].cat + '/' + item.slug,
-                query: { ...query, post_id: item.id, post_title: item.title.raw, cat: parentCat.term_id, category_name: research[index].cat }
+                pathname:
+                  '/research/bitcoins-altcoins/' +
+                  research[index].cat +
+                  '/' +
+                  item.slug,
+                query: {
+                  ...query,
+                  post_id: item.id,
+                  post_title: item.title.raw,
+                  cat: parentCat.term_id,
+                  category_name: research[index].cat
+                }
               }}
               title={item.title.rendered}
               text={item.excerpt.rendered}
@@ -260,10 +251,16 @@ const FlashUpdatesRender = () => {
         posts_per_page: 2
       }
     ).then(arts => {
-      dispatch(setDashboardFUState(arts))
+      dispatch(
+        setDashboardFUState(
+          arts.map((item: Post) => ({
+            title: item.title.raw,
+            date: item.created_at,
+            news_url: '/research/flash-updates/'
+          }))
+        )
+      )
     })
-
-
 
     return () => {
       fetch = false
@@ -273,23 +270,7 @@ const FlashUpdatesRender = () => {
   return !fu ? (
     <Loading loading />
   ) : (
-    // <>
-    //   {fu.map((item:any, index: any) => {
-    //     return (
-    //       <InfoTextCard
-    //         key={index}
-    //         title={item.title.raw}
-    //         isLocked={!item.metas.permission_garanted}
-    //         blockContent= {true}
-    //         href={'/research/flash-updates'}
-    //         text={parse(item.content?.rendered || '')}
-    //         imageHref={item.image}
-    //         alt=''
-    //       />
-    //     )
-    //   })}
-    // </>
-    <InfoList list={[]} /> //@jose pasarle aqui el array de FU
+    <InfoList list={fu} /> //@jose pasarle aqui el array de FU
   )
 }
 
@@ -299,18 +280,22 @@ const RenderAma = () => {
 
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    amasRepository.getChatRooms({ query: '', filters: { state: 'active' }, page: { size: 1, current: 1 } })
+    amasRepository
+      .getChatRooms({
+        query: '',
+        filters: { state: 'active' },
+        page: { size: 1, current: 1 }
+      })
       .then((res: any) => {
         if (res.results[0]) {
           dispatch(setDashboardAmaState(res.results[0]))
         }
 
-        return res;
+        return res
       })
   }, [])
 
   const openChatroom = async (chatroom: Chatroom) => {
-
     if (chatroom.state === 'coming_soon') {
       await amasRepository.setChatroom({ id: chatroom.id, state: 'active' })
     }
@@ -321,8 +306,8 @@ const RenderAma = () => {
 
   return (
     <>
-      {
-        ama ? <InfoColorCard
+      {ama ? (
+        <InfoColorCard
           alt={'Imagen de cursos'}
           backgroundColor='#F2E4FF'
           iconHref={amasIcon}
@@ -332,13 +317,13 @@ const RenderAma = () => {
               <Link href={'#'}>Amas</Link>
             </h2>
             <h3>
-              <div onClick={() => openChatroom(ama)}>
-                {ama.title}
-              </div>
+              <div onClick={() => openChatroom(ama)}>{ama.title}</div>
             </h3>
           </div>
-        </InfoColorCard> : <p>No hay amas disponibles</p>
-      }
+        </InfoColorCard>
+      ) : (
+        <p>No hay amas disponibles</p>
+      )}
     </>
   )
 }
@@ -348,8 +333,6 @@ const Dashboard: NextPage = () => {
   const date = new Date()
   const month = date.toLocaleString('default', { month: 'short' })
   //
-
-
 
   return (
     <div className={style.dashboard}>
@@ -432,9 +415,6 @@ const Dashboard: NextPage = () => {
               </InfoColorCard>
             </a>
           </Link>
-
-
-
         </div>
         <div
           className={`${style.dashboard_grid_item} ${style.item__span8} ${style.item__noBg}`}
@@ -458,7 +438,7 @@ const Dashboard: NextPage = () => {
                 </InfoColorCard>
               </a>
             </Link>
-            
+
             <Link href={'/academy'}>
               <a>
                 <InfoColorCard
@@ -483,24 +463,24 @@ const Dashboard: NextPage = () => {
           <RenderAma />
         </div>
         <div className={`${style.dashboard_grid_item} ${style.item__span4}`}>
-        <Link href={'/tax-consultant/resources'}>
-              <a>
-                <InfoColorCard
-                  alt={'Imagen de una ilustración de recursos'}
-                  backgroundColor='#D4E5FF'
-                  iconHref={resourcesIcon}
-                >
-                  <p className={style.colorCardText}>
-                    <FormattedMessage
-                      id='page.dashboard.resources.text'
-                      values={{
-                        b: children => <span>{children}</span>
-                      }}
-                    />
-                  </p>
-                </InfoColorCard>
-              </a>
-            </Link>
+          <Link href={'/tax-consultant/resources'}>
+            <a>
+              <InfoColorCard
+                alt={'Imagen de una ilustración de recursos'}
+                backgroundColor='#D4E5FF'
+                iconHref={resourcesIcon}
+              >
+                <p className={style.colorCardText}>
+                  <FormattedMessage
+                    id='page.dashboard.resources.text'
+                    values={{
+                      b: children => <span>{children}</span>
+                    }}
+                  />
+                </p>
+              </InfoColorCard>
+            </a>
+          </Link>
         </div>
         {/* <div className={`${style.dashboard_grid_item} ${style.item__span3}`}>
           <Link href={'/academy'}>

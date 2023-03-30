@@ -17,11 +17,11 @@ interface InfoListProps {
 
 const InfoList = ({list}: InfoListProps) => {
   const { limitTextLength } = useComponentUtils()
-
   return (
     <>
       <ItemList
-        items={list.map((item:News) => {
+        items={list.map((item:any) => {
+          
           return (
             <div className={style.news_item} key={item.news_url}>
               <Link href={item.news_url} target='_blank'>
@@ -31,7 +31,7 @@ const InfoList = ({list}: InfoListProps) => {
                   </h3>
                   <p className={style.news_item__footer}>
                     {item.source_name}{' '}
-                    <span>{item.date.toLocaleString()}</span>
+                    <span>{item.date.toLocaleDateString('es-ES', {hour: '2-digit', month: '2-digit', year: 'numeric'})}</span>
                   </p>
                 </a>
               </Link>
