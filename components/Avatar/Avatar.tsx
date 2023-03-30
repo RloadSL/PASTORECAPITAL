@@ -80,14 +80,7 @@ const Avatar = ({
           {renderItem !== null ? renderItem.toUpperCase() : ''}
         </div>
       ) : (
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-            padding: '5px'
-          }}
-        >
+        <div className={style.logoAdmin}>
           <Image src={logo} alt='Logo pastore capital'/>
         </div>
       )}
