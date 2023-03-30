@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import style from './advertising-list.module.scss'
-import ad1 from '../../../../assets/img/ad1.png'
-import ad2 from '../../../../assets/img/ad2.png'
-
 import trashIcon from '../../../../assets/img/icons/trash.svg'
 import addIcon from '../../../../assets/img/icons/add.svg'
 import Image from 'next/image'
@@ -24,23 +21,8 @@ import { AppDispatch } from 'ui/redux/store'
 import { useDispatch } from 'react-redux'
 import { setDashboardPubliState } from 'ui/redux/slices/dashboard/dashboard.slice'
 import Loading from 'components/Loading'
-//array test de 4 anuncios
-const adsArr = [
-  {
-    id: '1',
-    src: ad1
-  },
-  {
-    id: '2',
-    src: ad2
-  },
-  null,
-  null
-]
 
-interface AdvertisingListProps {}
-
-const AdvertisingList = ({}: AdvertisingListProps) => {
+const AdvertisingList = () => {
   const [isVisibleCreateAd, setVisibleCreateAd] = useState<number>(-1)
   const [isVisibleDeleteAd, setVisibleDeleteAd] = useState<string | undefined>()
   const dispatch = useDispatch<AppDispatch>()
@@ -59,7 +41,7 @@ const AdvertisingList = ({}: AdvertisingListProps) => {
     systemRepository.getDashboardPubli().then(response => {
       if (fetch && !(response instanceof ErrorApp)) {
         let p
-        if (userLogged?.role.level === 2) {
+        if (true /* userLogged?.role.level === 2 */) {
           p = [null, null, null, null]
           response.forEach((doc: any) => {
             p[doc.position - 1] = doc
