@@ -1,3 +1,7 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/placeholders";
+
 .avatarContainer {
   border-radius: 100%;
   display: flex;
@@ -19,7 +23,22 @@
     }
   }
 
-  .image {
+  .logoAdmin {
+    background-color: colors.$main;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    img {
+      filter: brightness(200);
+      object-fit: contain;
+      width: 50% !important;
+      display: block !important;
+      
+    }
   }
 }
