@@ -12,7 +12,7 @@ class SystemConfigRepository {
     }
     return SystemConfigRepository.instance;
   }
-
+  loading: boolean = false
   async getPlans(): Promise<PLANS | undefined> {
     const res = await firestoreFirebase.getDoc('system_config', 'plans')
     if (res?.exists()) {
@@ -26,12 +26,17 @@ class SystemConfigRepository {
   * Procesa la contratación del servicio por parte del usuario
   */
   async hirePlansSubscription(data: { plan_name: 'Basic' | 'Plus' | 'Premium', interval: 'month' | 'year', uid: string }) {
+    console.log('hirePlansSubscription start')
+    this.loading = true
     const res = await FireFunctionsInstance.onCallFunction('PaymentSubscriptionTriggerFunctions', data)
+    this.loading = false
     if (!res.error) {
+      console.log('hirePlansSubscription return', res)
       return res;
     } else {
       return null;
     }
+
   }
 
   async updatePlansSubscription(data: { plan_name: 'Basic' | 'Plus' | 'Premium', interval: 'month' | 'year', sub_id: string, uid: string }) {
@@ -89,7 +94,7 @@ class SystemConfigRepository {
           url: thumbUri
         }
       }
-      
+
       const res = await firestoreFirebase.createDoc('system_config/dashboard/publi', data)
       return res;
 
@@ -98,14 +103,14 @@ class SystemConfigRepository {
     }
   }
 
-  async getDashboardPubli(){
-    const res = await firestoreFirebase.getCollectionDocs('system_config/dashboard/publi', undefined, undefined , 4, ['position'])
-    if(res instanceof Array){
-      return res.map(doc => ({...doc.data(), id: doc.id}))
-    }else return res
+  async getDashboardPubli() {
+    const res = await firestoreFirebase.getCollectionDocs('system_config/dashboard/publi', undefined, undefined, 4, ['position'])
+    if (res instanceof Array) {
+      return res.map(doc => ({ ...doc.data(), id: doc.id }))
+    } else return res
   }
 
-  async deletePubli(p_id:string){
+  async deletePubli(p_id: string) {
     await firestoreFirebase.deleteDoc('system_config/dashboard/publi', p_id)
   }
 

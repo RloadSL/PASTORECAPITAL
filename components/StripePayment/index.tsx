@@ -25,9 +25,9 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
     if(userLogged?.uid === 'not-logged') {
       push({pathname: '/login' ,query: {redirect: asPath}})
     }
-    console.log('serviceRepository.loading', serviceRepository.loading )
+    //console.log('serviceRepository.loading', serviceRepository.loading )
 
-    if (serviceRepository.loading === false && query.order_id && query.order_path && userLogged?.stripe_cu_id && !intent && !clientSecretParam) {
+    if (query.order_id && query.order_path && userLogged?.stripe_cu_id && !intent && !clientSecretParam) {
       serviceRepository
         .hireServiceIntent({
           customer: userLogged.stripe_cu_id,
@@ -58,7 +58,6 @@ export default function StripePayment ({clientSecretParam}:{clientSecretParam?: 
     clientSecret : clientSecretParam || clientSecret,
     appearance
   }
-  console.log(clientSecret, intent)
   return (
     <Card>
       {(clientSecret || clientSecretParam) ? (

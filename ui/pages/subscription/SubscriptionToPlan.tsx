@@ -13,35 +13,36 @@ const SubscriptionToPlan = () => {
   const { query, replace } = useRouter()
   const userLoggued = useSelector(getUserLogged)
   useEffect(() => {
-    let fetch = true
     if (
       userLoggued?.userDataToken &&
       query.payment_type &&
       query['plan-subscription']
     ) {
-      systemRepository
+      console.log('hirePlansSubscription', systemRepository.loading)
+      if(!systemRepository.loading){
+        console.log('hirePlansSubscription INIT', systemRepository.loading)
+        systemRepository
         .hirePlansSubscription({
           plan_name: query['plan-subscription'] as any,
           interval: query.payment_type as any,
           uid: userLoggued.uid
         })
-        .then(res => {
-          if (fetch) {
+        .then((res) => {
+          console.log('hirePlansSubscription THEN', res.clientSecret)
             if (res?.clientSecret) {
+              console.log('hirePlansSubscription THEN', res.clientSecret)
               setClientSecret(res.clientSecret)
               setIntent(res.payment_intent)
             } else {
               console.error('Plan not enabled')
               replace('/subscription')
             }
-
-          }
         })
+      }
+      
     }
 
-    return () => {
-      fetch = false
-    }
+    
   }, [userLoggued, query.payment_type, query.plan_subscription])
 
   return (
