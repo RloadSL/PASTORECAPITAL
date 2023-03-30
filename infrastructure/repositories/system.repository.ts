@@ -26,17 +26,16 @@ class SystemConfigRepository {
   * Procesa la contratación del servicio por parte del usuario
   */
   async hirePlansSubscription(data: { plan_name: 'Basic' | 'Plus' | 'Premium', interval: 'month' | 'year', uid: string }) {
-    console.log('hirePlansSubscription start')
     this.loading = true
     const res = await FireFunctionsInstance.onCallFunction('PaymentSubscriptionTriggerFunctions', data)
     this.loading = false
     if (!res.error) {
-      console.log('hirePlansSubscription return', res)
       return res;
     } else {
+      console.log('hirePlansSubscription return NULL')
       return null;
     }
-
+    
   }
 
   async updatePlansSubscription(data: { plan_name: 'Basic' | 'Plus' | 'Premium', interval: 'month' | 'year', sub_id: string, uid: string }) {

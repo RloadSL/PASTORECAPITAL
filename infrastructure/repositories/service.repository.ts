@@ -121,7 +121,6 @@ class ServiceRepository {
     this.loading = true;
     const res = await FireFunctionsInstance.onCallFunction('PaymentIntentTriggerFunctions', data)
     if(!res.error){
-      console.log('hireServiceIntent Service', res)
       return res;
     }else{
       return null;

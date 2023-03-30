@@ -7,6 +7,7 @@ import taxCosultantReducer from './slices/tax-consultants/tax-consultants.slice'
 import userInformationReducer  from './slices/user-information/user-information.slice';
 import amasReducer  from './slices/amas/amas.slice';
 import dashboardSlice from './slices/dashboard/dashboard.slice'
+import stripe  from './slices/stripe/stripe.slice';
  const store = configureStore({
   reducer: {
     authentication: autheticationReducer,
@@ -16,7 +17,8 @@ import dashboardSlice from './slices/dashboard/dashboard.slice'
     taxCosultants: taxCosultantReducer,
     userInformation: userInformationReducer,
     amas: amasReducer,
-    dashboard: dashboardSlice
+    dashboard: dashboardSlice,
+    stripe: stripe
   },
   devTools: true,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
