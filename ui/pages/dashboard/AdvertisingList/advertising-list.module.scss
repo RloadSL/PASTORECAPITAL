@@ -20,12 +20,12 @@
     padding-right: 10px;
     min-height: 120px;
     @include devices.device(smTablet) {
-      min-height: 100%;
+      min-height: 150px;
     }
 
-    img {
-      object-fit: contain;
-    }
+    // img {
+    //   object-fit: contain;
+    // }
 
     .adminAd_button {
       position: absolute;
