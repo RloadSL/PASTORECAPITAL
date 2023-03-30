@@ -62,9 +62,15 @@
     position: relative;
   }
 
-  &__span8 {
+  &__span3 {
     @include devices.device(smScreen) {
-      grid-column-end: span 8;
+      grid-column-end: span 3;
+    }
+  }
+
+  &__span4 {
+    @include devices.device(smScreen) {
+      grid-column-end: span 4;
     }
   }
 
@@ -74,9 +80,9 @@
     }
   }
 
-  &__span3 {
+  &__span8 {
     @include devices.device(smScreen) {
-      grid-column-end: span 3;
+      grid-column-end: span 8;
     }
   }
 }
