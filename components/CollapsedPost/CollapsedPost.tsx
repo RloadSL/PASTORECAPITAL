@@ -1,7 +1,7 @@
 import Chips from 'components/Chips'
 import style from './collapsedPost.module.scss'
 import parse from 'html-react-parser'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { WpCat } from 'infrastructure/dto/post.dto'
 import Avatar from 'components/Avatar'
 import LockedContent from 'components/LockedContent'
@@ -9,12 +9,15 @@ import { useComponentUtils } from 'ui/hooks/components.hooks'
 import SocialMediaButtons from 'components/SocialMediaButtons'
 import { useRouter } from 'next/router'
 import { WP_TERM } from 'infrastructure/dto/wp.dto'
+import { UserRepositoryImplInstance } from 'infrastructure/repositories/users.repository'
+import { UserDto } from 'infrastructure/dto/users.dto'
 
 export interface COLLAPSEDPOSTPROPS {
   title: string
   description: string
   lockedContent: boolean
   chips?: any
+  author?:any
   metas?:any
   // isCollapsed: boolean
   level?: WP_TERM | any
@@ -39,6 +42,7 @@ const CollapsedPost = ({
   lockedContent = false,
   chips,
   level,
+  author,
   componentStyle,
   hasSeparator,
   header,
@@ -48,6 +52,7 @@ COLLAPSEDPOSTPROPS) => {
 
   return (
     <CollapsedPostView
+      author={author}
       title={title}
       description={description}
       lockedContent={lockedContent}
@@ -69,14 +74,18 @@ const CollapsedPostView = ({
   level,
   componentStyle = 'card',
   hasSeparator = true,
-  header
+  header,
+  author
 }: // isCollapsed
 COLLAPSEDPOSTPROPS) => {
-  const { limitTextLength } = useComponentUtils()
+  const [authorDto, setAuthorDto] = useState<UserDto | undefined>()
+   useEffect(() => {
+    if(author?.uid)
+      UserRepositoryImplInstance.getData(author.uid).then(res => setAuthorDto(res))
+   }, [])
+
   const [isCollapsed, setIsCollapsed] = useState(true)
-  const renderCollapsedText = () => {
-    setIsCollapsed(!isCollapsed)
-  }
+ 
 
   const {asPath} = useRouter()
   return (
@@ -86,6 +95,7 @@ COLLAPSEDPOSTPROPS) => {
         <div className={style.header}>
           <div className={style.avatar}>
             <Avatar
+              render_logo={authorDto?.role.level == 2}
               size={'large'}
               renderItem={header.text ? header.text[0] : null}
             />

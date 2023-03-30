@@ -185,6 +185,7 @@ const PostGridItemView = ({
               </div>
             ) : (
               <CollapsedPost
+                author={gridItem.author}
                 header={{
                   text: `${gridItem.author?.name}`,
                   date: gridItem.created_at.toLocaleDateString()
