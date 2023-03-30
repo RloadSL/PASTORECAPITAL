@@ -18,13 +18,31 @@
     margin-top: 10px;
     position: relative;
     padding-right: 10px;
-    min-height: 120px;
-    @include devices.device(smTablet) {
-      min-height: 100%;
+    min-height: 90px;
+
+    @include devices.device(390px) {
+      min-height:120px;
+    }
+
+    @include devices.device(550px) {
+      min-height:150px;
+    }
+
+    @include devices.device(mdScreen) {
+      min-height: 150px;
+    }
+
+    @include devices.device(lgScreen) {
+      min-height: 200px;
     }
 
     img {
       object-fit: contain;
+      object-position: 50%;
+
+      @include devices.device(smTablet) {
+        object-fit: contain;
+      }
     }
 
     .adminAd_button {
@@ -64,10 +82,11 @@
   background-color: colors.$grey40;
   position: relative;
   margin-right: 10px;
+  height: 100%;
 
-  img {
-    object-fit:fill !important;
-  }
+  // img {
+  //   object-fit:fill !important;
+  // }
 
   &_text {
     height: 100%;
@@ -86,5 +105,28 @@
       font-size: 0.9rem;
       color: colors.$grey50;
     }
+  }
+}
+
+.modalContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  min-height: 350px;
+
+  p{
+    text-align: center;
+    font-weight: bold;
+  }
+
+  small {
+    color: colors.$grey60;
+  }
+
+  .buttonContainer {
+    margin: auto;
+    max-width: 250px;
   }
 }

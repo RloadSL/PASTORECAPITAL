@@ -176,7 +176,7 @@
 
   "page.tax-consultant.create-service.title" : "Añadir nuevo servicio",
   "page.tax-consultant.create-service.form.title" : "Título del servicio",
-  "page.tax-consultant.create-service.form.image" : "Añadir foto",
+  "page.tax-consultant.create-service.form.image" : "Añadir imagen",
   "page.tax-consultant.create-service.form.description" : "Descripción",
   "page.tax-consultant.create-service.form.time" : "Duración en minutos",
   "page.tax-consultant.create-service.form.price" : "Precio del servicio",
@@ -251,8 +251,12 @@
   "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b>",
   "page.dashboard.lastWebinars.button.label": "Webinars anteriores",
   "page.dashboard.lastWebinars.text": "Próximos webinars",
-  "page.dashboard.form_publi_image.title": "Nueva imagen de publiciadad",
-  "page.dashboard.form_publi_image.link": "Redirección de la imagen",
+  "page.dashboard.form_publi_image.title": "Añadir anuncio",
+  "page.dashboard.form_publi_image.link": "Link al que redirige el anuncio",
+  "page.dashboard.form_publi_image.delete": "Borrar anuncio",
+  "page.dashboard.form_publi_image.delete.text": "¿Seguro que deseas eliminar esta publicidad?",
+
+
 
 
 

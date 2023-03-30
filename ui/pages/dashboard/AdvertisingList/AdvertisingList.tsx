@@ -150,7 +150,7 @@ const AdvertisingList = () => {
                       type='text'
                       name='link'
                     />
-
+                    <small>El tamaño recomendado es de 320x200px en formato horizontal</small>
                     <InputFileFormikApp
                       labelID='page.tax-consultant.create-service.form.image'
                       name='file'
@@ -177,10 +177,12 @@ const AdvertisingList = () => {
           onCancel={() => setVisibleDeleteAd(undefined)}
           onAction={() => deletePubli()}
           visible
-          title='borrar anuncio'
+          title='page.dashboard.form_publi_image.delete'
           cancelButton={false}
         >
-          seguro que quieres borrar esta publicidad????
+          <p style={{textAlign:'center'}}>
+            <FormattedMessage id='page.dashboard.form_publi_image.delete.text'/>
+          </p>
         </AlertApp>
       )}
     </>
