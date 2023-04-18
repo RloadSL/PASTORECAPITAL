@@ -125,7 +125,8 @@ class FireFirestore {
     try {
       const docRef = this._doc(collectionPath, docId);
       data.update_at = new Date()
-      const res = await setDoc(docRef, cleanUndefined(data), {merge: true});
+      await setDoc(docRef, cleanUndefined(data), {merge: true});
+      
     } catch (error:any) {
       console.error('Firebase response: '+error.code);
     }

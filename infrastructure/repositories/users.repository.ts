@@ -88,8 +88,9 @@ class UserRepositoryImplementation{
 
   async update(uid: string, data: UpdateUser): Promise<User | null> {
     try {
-      await FireFirestore.setDoc('users',uid, data)
+      const res = await FireFirestore.setDoc('users',uid, data)
       const user = await this.read(uid);
+      
       return user;
     } catch (error) {
       console.error(error)
