@@ -14,7 +14,6 @@ export const TICKERS = {
     BNB: "Binance Coin",
     LIDO: "Lido DAO",
     APT: "Aptos",
-    Near: "Near Protocol",
     ICP: "Internet Computer",
     FTM: "Fantom",
     XTZ: "Tezos",

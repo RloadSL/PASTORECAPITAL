@@ -206,11 +206,14 @@
   "page.amas.closedRoom.text":"La sala está cerrada",
   "page.amas.modalDownload.title": "Descargar contenido de la entrevista",
   "page.amas.modalDownload.text": "¡Ups! Esta sala ya está cerrada, pero si quieres puedes descargar el contenido en PDF para no perderte nada",
+  "page.amas.modalDelete.text" : "Seguro deseas borrar este sala de chat. Se perdera toda su información",
   "page.amas.roomLabel.open": "Abierta",
   "page.amas.roomLabel.closed": "Cerrada",
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
+
+  
 
   "select.label.plans": "Seleccione el plan correspondiente",
   "component.navbar.backbuttom": "Atrás",
@@ -337,21 +340,90 @@
   "id" : "Detalle",
   "-": "-",
   "service_id" : "Detalle de Servicio",
+  
+  "page.amas.roomLabel.comin_soon": "En espera",
+  "page.amas.search.interviewee": "Buscar invitado por email",
+  "page.amas.coming_soon" : "Esta sala esta en espera de apertura",
+  "page.amas.coming_soon.text" : "Pronto se abrirá esta sala por nuestro moderador, mantente a la espera y disculpe por las molestias causadas.",
+  "page.amas.coming_soon.text_open" : "Quieres dar inicio a la sala esta acción abrirá la sala al pblico.",
+  "page.webinars.subtitle": "Próximas sesiones",
+  "page.webinars.modal.createTitle": "Crear webinar",
+  "page.webinars.modal.editTitle": "Editar un webinar",
+  "page.webinars.inputSearch": "Buscar un webinar",
+  "page.webinars.uploadVideo": "Subiendo vídeo...",
+  "page.webinars.search.label": "Buscar un webinar",
+  "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
+  "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
+  "page.webinarDetail.upload.video" : "Subir video",
+  "page.webinarDetail.list.registered": "Usuarios apuntados",
+  "page.webinarDetail.modal.attendModal": "Apuntarse a este webinar",
+  "page.webinarDetail.modal.attendModal.error": "Ya estás apuntado a este webinar",
+
+
+
+
+  "page.subscription.payment.title": "Plan",
+  "page.subscription.payment.description": "Completa el proceso de suscripción y accede a contenidos exclusivos en Pastore Capital",
+  "page.subscription.payment.advice": "*Si tienes un plan inferior y actualizas a otro superior o viceversa se te cobrará en el próximo cobro de tu suscripción",
+  "page.subscription.payment.adviceModal": "El cambio en tu tipo de suscripción se verá reflejado al cobro de tu próxima factura",
+  "page.subscription.payment.label": "Precio",
+  "page.subscription.payment.ivaIncluded": "IVA incluido",
+  "page.subscription.payment.modalSuccess.title": "Servicio contratado con éxito",
+  "page.subscription.payment.modalSuccess.subtitle": "¡Muy bien, ya estamos casi listos!",
+  "page.subscription.payment.modalSuccess.text": "Pronto recibiras un mail de confirmación con todos los datos de tu compra.",
+  "page.subscription.payment.modalSuccess.button": "Volver al dasboard",
+
+  "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> ",
+  "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b>",
+  "page.dashboard.coursesTutorials.text": "Nuestros <b>Cursos y Tutoriales</b>",
+  "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b>",
+  "page.dashboard.lastWebinars.button.label": "Webinars anteriores",
+  "page.dashboard.lastWebinars.text": "Próximos webinars",
+  "page.dashboard.form_publi_image.title": "Añadir anuncio",
+  "page.dashboard.form_publi_image.link": "Link al que redirige el anuncio",
+  "page.dashboard.form_publi_image.delete": "Borrar anuncio",
+  "page.dashboard.form_publi_image.delete.text": "¿Seguro que deseas eliminar esta publicidad?",
+
+
+
+
+
+
+
+
+
+  "price.month" : "Precio al mes",
+  "price.year" : "Precio al año",
+  "price.updated" :"Los precios de los productos han sido actualizados",
   "payment" : "Pagos",
   "confirmed_payment" : "Confirmación de Pago",
   "profile": "Perfil",
   "edit" : "Editar",
-  "thank-you-purchase": "Gracias por tu compra",
+  "thank-you-purchase": "Gracias por su compra",
   "notifications" : "Notificaciones",
   "update" : "Actualizar",
   "invoices" : "Facturas",
   "discord" : "Discord",
-  "amas" : "AMAs",
+  "amas" : "Amas",
   "chatroom_id": "Sala",
   "webinars": "Webinars",
-  "deferred" :"Diferidos",
+  "deferred" :"Webinars anteriores",
   "w_id": "Detalle del Webinar",
   "loremipsum" : " Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad similique et assumenda alias incidunt mollitia, maiores quas sequimodi cum dolore recusandae atque dolores expedita, magnam liberodoloribus nam.",
   "empty": " ",
-  "news" : "Noticias"
+  "news" : "Noticias",
+  "accessibility": "Visibilidad",
+  "plan.update" : "Plan actualizado con exito.",
+  "permissions.updated" : "Permisos actualizados",
+  "/news": "Noticias",
+  "/academy/tutorials/[tutorial-slug]" : "Tutoriales",
+  "/academy/courses/[course-slug]" : "Cursos",
+  "/research/bitcoins-altcoins/[category-slug]/[article-slug]": "Bitcoins Altacoins",
+  "/research/flash-updates":"Flash Updates",
+  "/discord": "Discord",
+  "/webinars/[w_id]": "Webinars",
+  "/webinars/deferred/[w_id]": "Webinars Grabados",
+  "/amas/[chatroom_id]": "Amas",
+  "terms": "Términos y condiciones",
+  "policy": "Políticas de privacidad"
 }

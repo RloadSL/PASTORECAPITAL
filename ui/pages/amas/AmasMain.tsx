@@ -23,10 +23,13 @@ import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/Selec
 import { Form, Formik } from 'formik'
 import useAmas from './hooks/amas.hook'
 import Loading from 'components/Loading'
+import iconDelete from '../../../assets/img/icons/trash.svg'
 
 const AmasMain = () => {
   const userLogged = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
+  const [deleteChat, setDelete] = useState<string | undefined>(undefined)
+
   const { push } = useRouter()
   const [updateChatroom, setupdateChatroom] = useState(false)
   const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] = useState<
@@ -62,13 +65,27 @@ const AmasMain = () => {
     dispatch(setChatroom(chatroom))
     push(`/amas/${chatroom.id}`)
     setloading(false)
-
   }
 
   const downloadPdf = async (chatroom: Chatroom) => {
     const url = await chatroom.downloadPDF()
     window.open(url, '_black')
     setVisibleAlertDownloadPdf(undefined)
+  }
+
+  const deleteAma = async (a_id:string)=>{
+    setloading(true)
+    const unsb = amasRepository.onChangeRoom(a_id, (snap:any) => {
+      if( snap.delete === 'deleted'){
+        unsb();
+        setTimeout(() => {
+          setloading(false)
+          setDelete(undefined);
+          onFilter(undefined, { state: undefined })
+        }, 2000)
+      }
+    })
+    await amasRepository.deleteChatroom(a_id);
   }
 
   const windowSize = useWindowSize()
@@ -96,12 +113,13 @@ const AmasMain = () => {
           )}
           {updateChatroom && (
             <CreateChatroom
-              onClose={() =>{
+              onClose={(status:'created' | undefined) => {
+                if(!status) return setupdateChatroom(false);
+
                 setTimeout(() => {
                   setupdateChatroom(false)
-                  onFilter(undefined, {state: undefined})
-                }, 2000);
-               
+                  onFilter(undefined, { state: undefined })
+                }, 2000)
               }}
             ></CreateChatroom>
           )}
@@ -162,6 +180,20 @@ const AmasMain = () => {
           >
             <Card>
               <div className={style.cardContainer}>
+                <div style={{position: 'absolute', top: 20, right:30, zIndex: 10}}>
+                <ButtonApp
+                  labelID={'btn.delete'}
+                  onClick={(e:Event) => {
+                    setDelete(item.id)
+                  }}
+                  type='button'
+                  buttonStyle='delete'
+                  size='small'
+                  icon={iconDelete}
+                />
+                </div>
+                
+
                 <PostExcerpt
                   thumbnail={item.thumb?.url}
                   title={item.title}
@@ -210,6 +242,19 @@ const AmasMain = () => {
         >
           <div className={style.modalContainer}>
             <FormattedMessage id='page.amas.modalDownload.text' />
+          </div>
+        </AlertApp>
+      )}
+      {deleteChat && (
+        <AlertApp
+          title={'page.amas.modalDownload.title'}
+          onAction={() => deleteAma(deleteChat)}
+          visible
+          onCancel={() => setDelete(undefined)}
+        >
+          <div className={style.modalContainer}>
+            {loading && <Loading loading />}
+            <FormattedMessage id='page.amas.modalDelete.text' />
           </div>
         </AlertApp>
       )}

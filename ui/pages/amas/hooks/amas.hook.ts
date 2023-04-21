@@ -9,10 +9,11 @@ const useAmas = ()=>{
   const [query, setQuery] = useState<ELASTIC_QUERY>({ query: '', filters: {} })
   const [pages, setPages] = useState<any>()
 
-  const handleSearchAmas = async (customQuery: any = query) => {
+  const handleSearchAmas = async (customQuery: any = query, clean?:boolean) => {
     let fetching = true
     if (isloaded) {
       setLoaded(false)
+      if(clean) setAmas([])
       const response = await amasRepository.getChatRooms({...query, ...customQuery})
       if (fetching) {
         setLoaded(true)
@@ -43,7 +44,6 @@ const useAmas = ()=>{
   }
 
   const onFilter = async (s?: string, filter?:any) => {
-    console.log(filter)
     if (isloaded) {
       setAmas([])
 

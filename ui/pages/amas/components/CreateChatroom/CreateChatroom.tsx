@@ -5,7 +5,6 @@ import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import TextareaFormikApp from 'components/FormApp/components/TextareaFormikApp '
 import Loading from 'components/Loading'
 import Modal from 'components/Modal'
-import { Chatroom } from 'domain/Chatroom/Chatroom'
 import { User } from 'domain/User/User'
 import { Form, Formik } from 'formik'
 import { ChatroomDto } from 'infrastructure/dto/amas.dto'
@@ -26,6 +25,7 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
     id: undefined
   })
   const intl = useIntl()
+
   const validationSchema = useRef(
     yup.object({
       title: yup
@@ -37,12 +37,13 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
   ).current
 
   const create = async (value: any) => {
+    console.log(value)
     setloading(true)
     const id = await amasRepository.setChatroom(value)
     const unsb = amasRepository.onChangeRoom(id, (data:ChatroomDto)=>{
       if(data.indexed){
         unsb()
-        onClose()
+        onClose('created')
       }
     })
     
@@ -78,39 +79,42 @@ const CreateChatroom = ({ onClose }: { onClose: Function }) => {
               validationSchema={validationSchema}
               onSubmit={create}
             >
-              {({ values, errors, touched }) => (
-                <Form>
-                  <InputFormikApp
-                    labelID='forms.labels.title'
-                    type='text'
-                    name='title'
-                    maxLength={60}
-                  />
-                  <TextareaFormikApp
-                    labelID='forms.labels.excerpt'
-                    name='excerpt'
-                    maxLength={200}
-                  />
-                  <InputFileFormikApp
-                    labelID='page.tax-consultant.create-service.form.image'
-                    name='thumb'
-                    accept='image/*'
-                  />
-                  <AsyncAutocompleteFormikApp
-                    name='interviewee'
-                    labelID='page.amas.search.interviewee'
-                    loadOptions={searchUsers}
-                    isAutocomplete={true}
-                  />
-                  <div className={style.buttonContainer}>
-                    <ButtonApp
-                      buttonStyle='secondary'
-                      type='submit'
-                      labelID='btn.accept'
+              {({ values, errors, touched }) => {
+                console.log(errors)
+                return (
+                  <Form>
+                    <InputFormikApp
+                      labelID='forms.labels.title'
+                      type='text'
+                      name='title'
+                      maxLength={60}
                     />
-                  </div>
-                </Form>
-              )}
+                    <TextareaFormikApp
+                      labelID='forms.labels.excerpt'
+                      name='excerpt'
+                      maxLength={200}
+                    />
+                    <InputFileFormikApp
+                      labelID='page.tax-consultant.create-service.form.image'
+                      name='thumb'
+                      accept='image/*'
+                    />
+                    <AsyncAutocompleteFormikApp
+                      name='interviewee'
+                      labelID='page.amas.search.interviewee'
+                      loadOptions={searchUsers}
+                      isAutocomplete={true}
+                    />
+                    <div className={style.buttonContainer}>
+                      <ButtonApp
+                        buttonStyle='secondary'
+                        type='submit'
+                        labelID='btn.accept'
+                      />
+                    </div>
+                  </Form>
+                )
+              } }
             </Formik>
           </div>
         </div>

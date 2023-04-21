@@ -108,7 +108,12 @@ class AmasRepository{
   }
 
   async deleteEnterChat(chatroom_id: string,message_id: string){
-    const res = await FireFirestore.deleteDoc(`amas/${chatroom_id}/messages`, message_id)
+    const res =await FireFirestore.deleteDoc(`amas/${chatroom_id}/messages`, message_id)
+    return res;
+  }
+
+  async deleteChatroom(chatroom_id: string){
+    const res =  await FireFirestore.setDoc(`amas`, chatroom_id, {delete: 'delete'})
     return res;
   }
 

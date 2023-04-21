@@ -29,7 +29,14 @@ interface BUTTONPROPS {
 const ButtonApp = ({children ,labelID, onClick, icon, buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
   const { buildClassName } = useComponentUtils()
   return (
-    <button type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${buildClassName(buttonStyle, style)} ${style[size]}`} onClick={() => { if (onClick) onClick() }}>
+    <button type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${buildClassName(buttonStyle, style)} ${style[size]}`} onClick={(e) => { 
+      if(type === 'button'){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      if (onClick) onClick() 
+      }}>
       {children ? children : <FormattedMessage id={labelID} />}
       {icon ? <span className={style.icon}><Image src={icon} alt={''}/></span> : null}
     </button>)
