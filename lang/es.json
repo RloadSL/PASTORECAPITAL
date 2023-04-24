@@ -70,6 +70,7 @@
   "page.login.labelname": "Nombre",
   "page.login.labellastname": "Apellidos",
   "page.login.labelRecoverPassword": "He olvidado mi contraseña",
+  "page.login.lang.select" : "Selecciona tu idioma por defecto",
   "page.signUp.title": "Darse de alta",
   "page.signUp.labelAcceptTerms": "He leído y acepto los <b>términos y condiciones</b>",
 
@@ -108,6 +109,8 @@
   "page.academy.courses.filterTags.label" : "Categoría",
 
   "page.academy.course.add-lesson":"Añadir nueva lección",
+  "page.academy.landing.cursos": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto",
+  "page.academy.landing.tutorials": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto traducir al inglés",
 
   "page.academy.course.lesson.form.create.title" : "Crear nueva lección para este curso",
   "page.academy.course.lesson.form.create.excerpt" : "Resumen de la lección",
@@ -141,6 +144,14 @@
   "page.analysis.articles.form.remove.content": "¿Seguro que quieres eliminar el artículo? Esto pondrá en estado deshabilitado todo el contenido relacionado",
   "page.analysis.articles.form.update": "Actualizar artículo",
   "page.analysis.articles.featured_articles": " Artículos destacados",
+
+  "page.analysis.bitcoins-altaoins.block-1": "Upgrade to <b>Pastore Capital</b>",
+  "page.analysis.bitcoins-altaoins.block-2": " Unlock <b>Everything</b>",
+  "page.analysis.bitcoins-altaoins.block-3": " Exclusive long-form daily research",
+  "page.analysis.bitcoins-altaoins.block-4": " Daily crypto news and insights in your inbox",
+  "page.analysis.bitcoins-altaoins.block-5": " CSV data exports",
+
+
  
   "page.analysis.category.form.create.title" : "Crear categoría",
   "page.analysis.category.form.create.name" : "Nombre de la categoría",
@@ -150,10 +161,17 @@
   "page.analysis.category.form.remove.content": "¿Seguro que quieres eliminar la categoría? Estp pondrá en estado deshabilitado todo el contenido relacionado.",
   "page.research.landing.button.label":"Explorar",
   "page.flashUpdates.lockedContent.text":"Para ver el contenido debes ser usuario Premium",
-
+  "page.academy.mainBlock.Bitcoins/Altcoins" : "Bitcoins / Altcoins",
+  "page.academy.mainBlock.Bitcoins/Altcoins.text" : "Texto de introduccion en Bitcoins/Altcoins",
+  "page.academy.mainBlock.flash_updates" : "FLASH UPDATES",
+  "page.academy.mainBlock.flash_updates.text" : "Texto de introduccion en FLASH UPDATES",
   "page.administration.users.filter.placeholder" : "Buscar por nombre de usuario o email",
   "page.administration.users.filter.role_level" : "Rol del usuario",
   "page.administration.users.filter.subscription_level" : "Plan del usuario",
+  "page.administration.users.update.role" : "Actualizar role",
+  "page.administration.users.a2f.enable" : "Activar",
+  "page.administration.users.a2f.disable" : "Desactivar",
+
   "page.tax-consultant.consultants.smallTitle" : "Asesor Fiscal",
   "page.tax-consultant.consultants.title" : "Asesores",
   "page.tax-consultant.consultants.description" : "Nuestro equipo de expertos en criptomonedas y finanzas trabaja con nuestros clientes para proporcionar soluciones fiscales efectivas y personalizadas para sus necesidades individuales. Brindamos asesoramiento en áreas como la tributación, cumplimiento regulatorio y estructuras fiscales para maximizar la rentabilidad y minimizar el riesgo. Además, ofrecemos un servicio integral que incluye el seguimiento de la evolución normativa en el mercado de las criptomonedas. Nuestro objetivo es ayudar a nuestros clientes a tomar decisiones informadas y aumentar su éxito financiero en el mundo de las criptomonedas. Con una atención al cliente excepcional y soluciones personalizadas, Pastore Capital es su socio confiable en el asesoramiento fiscal de criptomonedas.", 
@@ -168,6 +186,9 @@
   "page.tax-consultant.create-edit.form.label.description" : "Cuenta algo sobre ti o tu experiencia", 
   "page.tax-consultant.create-edit.form.label.keyword" : "Añade palabras claves separadas por coma", 
   "page.tax-consultant.create-edit.form.label.linkedin" : "Enlace a LinkedIn", 
+  
+  "page.tax-consultant.landing.block-1" : "Texto introductorio pra asesor fiscal", 
+  "page.tax-consultant.landing.block-2" : "Texto introductorio pra recursos", 
 
   "page.tax-consultant.create-service.title" : "Añadir nuevo servicio",
   "page.tax-consultant.create-service.form.title" : "Título del servicio",
@@ -318,6 +339,7 @@
 
   "home":"Home",
   "courses": "Cursos",
+  "our" : "Nuestros",
   "tutorials": "Tutoriales", 
   "academy": "Academia",
   "tax-consultant": "Asesor Fiscal",
@@ -375,7 +397,8 @@
 
   "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> ",
   "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b>",
-  "page.dashboard.coursesTutorials.text": "Nuestros <b>Cursos y Tutoriales</b>",
+  "page.dashboard.coursesTutorials.text": "",
+  "page.dashboard.values": "Nuestros <b>Cursos y Tutoriales</b>",
   "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b>",
   "page.dashboard.lastWebinars.button.label": "Webinars anteriores",
   "page.dashboard.lastWebinars.text": "Próximos webinars",
@@ -385,8 +408,8 @@
   "page.dashboard.form_publi_image.delete.text": "¿Seguro que deseas eliminar esta publicidad?",
 
 
-
-
+  "page.news.All Tickers" : "Todos los Tickers",
+  "page.news.Favorites" : "Mis Favoritos",
 
 
 

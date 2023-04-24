@@ -73,10 +73,19 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
     return (
       <div className={style.bannerColLeft}>
         <p className={style.subtitle}>
-          Upgrade to <strong>Pastore Capital</strong>
+          <FormattedMessage values={{
+              b: (children: any) => (
+                  <strong>{children}</strong>
+              )
+            }} id='page.analysis.bitcoins-altaoins.block-1'></FormattedMessage>
         </p>
         <p className={style.title}>
-          Unlock <strong>Everything</strong>
+        <FormattedMessage values={{
+              b: (children: any) => (
+                  <strong>{children}</strong>
+              )
+            }} id='page.analysis.bitcoins-altaoins.block-2'></FormattedMessage>
+         
         </p>
       </div>
     )
@@ -86,9 +95,9 @@ const AnalysisView = ({ categories, editionGranted, getCategories, artOutsanding
     return (
       <div className={style.bannerColRight}>
         <ul className={style.list}>
-          <li>Exclusive long-form daily research</li>
-          <li>Daily crypto news and insights in your inbox</li>
-          <li>CSV data exports</li>
+          <li><FormattedMessage id='page.analysis.bitcoins-altaoins.block-3'></FormattedMessage></li>
+          <li><FormattedMessage id='page.analysis.bitcoins-altaoins.block-4'></FormattedMessage></li>
+          <li><FormattedMessage id='page.analysis.bitcoins-altaoins.block-5'></FormattedMessage></li>
         </ul>
       </div>
     )

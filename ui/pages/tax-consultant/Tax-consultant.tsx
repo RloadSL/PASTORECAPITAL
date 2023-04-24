@@ -13,7 +13,7 @@ const TaxConsultant = () => {
   return (
     <div className={style.taxConsultantPage}>
       <header>
-        <p className='small-caps'>Asesor Fiscal</p>
+        <p className='small-caps'><FormattedMessage id='mainMenu.item.label.taxConsultant' /></p>
         <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle' /><span> {userLogged?.name}</span></p>
       </header>
       <div className={style.topContainer}>
@@ -34,9 +34,9 @@ const TaxConsultant = () => {
             </div>
             <div className={style.textContainer}>
               <div className={style.titleBlock}>
-                <p className={style.title}>Asesor Fiscal</p>
+                <p className={style.title}><FormattedMessage id='mainMenu.item.label.taxConsultant' /></p>
               </div>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
+              <p><FormattedMessage id='page.tax-consultant.landing.block-1' /></p>
               <div className={style.buttonContainer}>
                 <LinkApp target={'_self'} label={'page.research.landing.button.label'} linkStyle={'button'} linkHref='tax-consultant/consultants' />
               </div>
@@ -50,9 +50,9 @@ const TaxConsultant = () => {
             </div>
             <div className={style.textContainer}>
               <div className={style.titleBlock}>
-                <p className={style.title}>Recursos</p>
+                <p className={style.title}><FormattedMessage id='mainMenu.item.label.resources' /></p>
               </div>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
+              <p><FormattedMessage id='page.tax-consultant.landing.block-1' /></p>
               <div className={style.buttonContainer}>
                 <LinkApp target={'_self'} label={'page.research.landing.button.label'} linkStyle={'button'} linkHref='tax-consultant/resources' />
               </div>

@@ -14,7 +14,7 @@ const Academy = () => {
   return (
     <div className={style.academyPage}>
       <header>
-        <p className='small-caps'>Academia</p>
+        <p className='small-caps'><FormattedMessage id='academy' /></p>
         <p className={`${style.topTitle} main-title`}><FormattedMessage id='page.academy.mainTitle' /><span> {userLogged?.name}</span></p>
       </header>
       <div className={style.topContainer}>
@@ -35,10 +35,10 @@ const Academy = () => {
             </div>
             <div className={style.textContainer}>
               <div className={style.titleBlock}>
-                <p>Nuestros</p>
-                <p className={style.title}>Cursos</p>
+                <p><FormattedMessage id='our' /></p>
+                <p className={style.title}><FormattedMessage id='courses' /></p>
               </div>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
+              <p><FormattedMessage id={'page.academy.landing.cursos'}></FormattedMessage></p>
               <div className={style.buttonContainer}>
                 <LinkApp target={'_self'} label={'page.academy.leftBlock.button.label'} linkStyle={'button'} linkHref='academy/courses' />
               </div>
@@ -52,10 +52,10 @@ const Academy = () => {
             </div>
             <div className={style.textContainer}>
               <div className={style.titleBlock}>
-                <p>Nuestros</p>
-                <p className={style.title}>Tutoriales</p>
+                <p><FormattedMessage id='our' /></p>
+                <p className={style.title}><FormattedMessage id='tutorials' /></p>
               </div>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
+              <p><FormattedMessage id={'page.academy.landing.tutorials'}></FormattedMessage></p>
               <div className={style.buttonContainer}>
                 <LinkApp target={'_self'} label={'page.academy.rightBlock.button.label'} linkStyle={'button'} linkHref='academy/tutorials' />
               </div>

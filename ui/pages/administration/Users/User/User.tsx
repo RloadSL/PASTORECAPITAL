@@ -54,12 +54,24 @@ const User: NextPage<any> = () => {
     _getData(true);
     _noti()
   }
+
+  const _onSaveUpdate = async (data: any) => {
+    await UserRepositoryImplInstance.update(query.uid as string, data)
+    _getData(true);
+    _noti()
+  }
+
   const _onCancelSubscription = async () => {
     await systemRepository.cancelSubscription({ sub_id: userDto?.subscription.stripe_sub_id as string })
     _noti()
   }
   return userDto ? (
-    <UserView onCancelSubscription={_onCancelSubscription} onSaveRole={_onSaveRole} userDataDto={userDto} onSubmit={_editUserData} />
+    <UserView 
+      onCancelSubscription={_onCancelSubscription} 
+      onSaveRole={_onSaveRole} 
+      userDataDto={userDto} 
+      onSaveUpdate = {_onSaveUpdate}
+      onSubmit={_editUserData} />
   ) : (
     <Loading loading={true}></Loading>
   )
@@ -69,11 +81,13 @@ const UserView = ({
   userDataDto,
   onSubmit,
   onCancelSubscription,
-  onSaveRole
+  onSaveRole,
+  onSaveUpdate
 }: {
   userDataDto: UserDto
   onSubmit: Function,
   onSaveRole: Function,
+  onSaveUpdate:Function,
   onCancelSubscription: Function
 }) => {
   const userLogged = useSelector(getUserLogged)
@@ -196,6 +210,9 @@ const UserView = ({
     )
   }
 
+
+  
+
   return (
     <div className={style.user}>
       <div className={style.header}>
@@ -228,6 +245,38 @@ const UserView = ({
 
           </div>
         </div>}
+          <br/>
+        <div className={style.user_roleConfiguration}>
+          <p className='small-caps'>Habilitar autenticación de doble factor</p>
+          <div className={style.roles}>
+            <div>
+            <div className={style.roles_buttons}>
+              <ButtonApp
+                buttonStyle={userDataDto.a2f ? 'dark' : 'primary'}
+                type='button'
+                labelID={userDataDto.a2f ? 'page.administration.users.a2f.disable' : 'page.administration.users.a2f.enable'}
+                onClick={()=>onSaveUpdate({a2f: userDataDto.a2f ? false: true})}
+              />
+            </div>
+            </div>
+          </div>
+        </div>
+          <br/>
+        <div className={style.user_roleConfiguration}>
+          <p className='small-caps'>Configuración de notificaciones</p>
+          <div className={style.roles}>
+            <div>
+            <div className={style.roles_buttons}>
+              <ButtonApp
+                buttonStyle={'primary'}
+                type='button'
+                labelID={'btn.edit'}
+                onClick={()=>onSaveUpdate({a2f: userDataDto.a2f ? false: true})}
+              />
+            </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -3,16 +3,13 @@ import ButtonApp from 'components/ButtonApp'
 import ItemList from 'components/ItemList'
 import SearchBar from 'components/SearchBar'
 import { useEffect, useRef, useState } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { news, newsCategories } from 'ui/utils/test.data'
 import NewsListItem from './components/newsListItem'
 import style from './news.module.scss'
 import starIcon from '../../../assets/img/icons/star.svg'
 import { NextPage } from 'next'
 import useNews from './hooks/news.hook'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import LoadMore from 'components/LoadMoreLoading/LoadMoreLoading'
-import LoadMoreLoading from 'components/LoadMoreLoading'
 import { News, TICKERS } from 'domain/News/News'
 import newsRepository from 'infrastructure/repositories/news.repository'
 import { useSelector } from 'react-redux'
@@ -26,7 +23,7 @@ import { getUserLogged } from 'ui/redux/slices/authentication/authentication.sel
 const NewsFilters = ({ onFilter, onTicker }: any) => {
   const [isActive, setIsActive] = useState<string[]>(['AllTickers'])
   const tickers = useRef(Object.keys(TICKERS)).current
-
+  const intl = useIntl()
   return (
     <div className={style.news_filter}>
       <div className={style.news_filter_list}>
@@ -37,12 +34,11 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
                 onTicker(['AllTickers'])
                 setIsActive(['AllTickers'])
               }}
+              labelID='page.news.All Tickers'
               type='button'
               buttonStyle={isActive.includes('AllTickers') ? 'dark' : 'default'}
               size='small'
-            >
-              All Tickers
-            </ButtonApp>
+            />
           </li>
           <li>
             <ButtonApp
@@ -55,9 +51,9 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
               }
               size='small'
               icon={starIcon}
-            >
-              Mis Favoritas
-            </ButtonApp>
+              labelID='page.news.Favorites'
+            />
+            
           </li>
         </ul>
         <ul className={style.newsCategories}>
@@ -101,7 +97,7 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
           })}
         </ul>
       </div>
-      <SearchBar placeholder={'Buscar por palabra clave'} onFilter={onFilter} />
+      <SearchBar placeholder={intl.formatMessage({id:'component.filter-search-bar.label'})} onFilter={onFilter} />
     </div>
   )
 }

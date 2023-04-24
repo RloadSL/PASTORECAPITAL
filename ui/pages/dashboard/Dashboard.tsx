@@ -487,8 +487,7 @@ const Dashboard: NextPage = () => {
         >
           <div className={style.item_header}>
             <span>
-              {/* <FormattedMessage id='valores' /> */}
-              valores
+              <FormattedMessage id='page.dashboard.values' />
             </span>
           </div>
           contenido de la api de valores

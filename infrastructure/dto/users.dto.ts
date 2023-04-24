@@ -5,7 +5,8 @@ export interface UpdateUser {
   lastname?:string,
   email?:string,
   role?: Role,
-  collaboration?:any
+  collaboration?:any,
+  a2f?:boolean
 }
 
 export interface CreateUser {
@@ -24,6 +25,10 @@ export interface UserDto {
   role: Role,
   created_at?: Timestamp | Date,
   default_lang?: 'es' | 'en',
+  /**
+   * Autenticación de doble factor
+   */
+  a2f?:boolean
   /**
    * Token para poder editar en el headless de wordpress si eres administrador
    */

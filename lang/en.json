@@ -120,6 +120,9 @@
   "page.academy.lesson.form.addComment.placeholder" : "Escribe un comentario traducir al inglés",
   "page.academy.lesson.form.removeComment.message.content" : "¿Seguro que quieres eliminar este comentario? Se perderá el registro de las respuestas asociadas a él traducir al inglés",
   "page.academy.lesson.form.removeComment.message.title" : "Eliminar comentario traducir al inglés",
+  
+  "page.academy.landing.cursos": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto traducir al inglés",
+  "page.academy.landing.tutorials": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto traducir al inglés",
 
   "page.academy.tutorials.form.create.title" : "Título del tutorial traducir al inglés",
   "page.academy.tutorials.form.create.excerpt" : "Resumen del tutorial traducir al inglés",
@@ -142,6 +145,12 @@
   "page.analysis.articles.form.update": "Actualizar artículo traducir al inglés",
   "page.analysis.articles.featured_articles": " Artículos destacados traducir al inglés",
  
+  "page.analysis.bitcoins-altaoins.block-1": "Upgrade to <b>Pastore Capital</b> traducir al ingles",
+  "page.analysis.bitcoins-altaoins.block-2": " Unlock <b>Everything</b> traducir al ingles",
+  "page.analysis.bitcoins-altaoins.block-3": " Exclusive long-form daily research traducir al ingles",
+  "page.analysis.bitcoins-altaoins.block-4": " Daily crypto news and insights in your inbox traducir al ingles",
+  "page.analysis.bitcoins-altaoins.block-5": " CSV data exports traducir al ingles",
+
   "page.analysis.category.form.create.title" : "Crear categoría traducir al inglés",
   "page.analysis.category.form.create.name" : "Nombre de la categoría traducir al inglés",
   "page.analysis.category.form.create.description" : "Descripción de la categoría traducir al inglés",
@@ -149,6 +158,13 @@
   "page.analysis.category.form.remove.title": "Borrar categoría traducir al inglés",
   "page.analysis.category.form.remove.content": "¿Seguro que quieres eliminar la categoría? Estp pondrá en estado deshabilitado todo el contenido relacionado. traducir al inglés",
   "page.research.landing.button.label":"Explorar traducir al inglés",
+  
+  "page.academy.mainBlock.Bitcoins/Altcoins" : "Bitcoins / Altcoins  traducir al inglés",
+  "page.academy.mainBlock.Bitcoins/Altcoins.text" : "Texto de introduccion en Bitcoins/Altcoins  traducir al inglés",
+
+  "page.academy.mainBlock.flash_updates" : "FLASH UPDATES traducir al inglés",
+  "page.academy.mainBlock.flash_updates.text" : "Texto de introduccion en FLASH UPDATES traducir al inglés",
+  
   "page.flashUpdates.lockedContent.text":"Para ver el contenido debes ser usuario Premium traducir al inglés",
 
   "page.administration.users.filter.placeholder" : "Buscar por nombre de usuario o email traducir al inglés",
@@ -168,6 +184,10 @@
   "page.tax-consultant.create-edit.form.label.description" : "Cuenta algo sobre ti o tu experiencia traducir al inglés", 
   "page.tax-consultant.create-edit.form.label.keyword" : "Añade palabras claves separadas por coma traducir al inglés", 
   "page.tax-consultant.create-edit.form.label.linkedin" : "Enlace a LinkedIn traducir al inglés", 
+
+  "page.tax-consultant.landing.block-1" : "Texto introductorio pra asesor fiscal. traducir al ingles", 
+  "page.tax-consultant.landing.block-2" : "Texto introductorio pra recursos. traducir al ingles", 
+
 
   "page.tax-consultant.create-service.title" : "Añadir nuevo servicio traducir al inglés",
   "page.tax-consultant.create-service.form.title" : "Título del servicio traducir al inglés",
@@ -313,6 +333,22 @@
   "page.susbcription.select.inputMonthly": "Eliminar recurso traducir al inglés",
 
 
+  "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> traducir al inglés",
+  "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b> traducir al inglés",
+  "page.dashboard.coursesTutorials.text": "Nuestros <b>Cursos y Tutoriales</b> traducir al inglés",
+  "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b> traducir al inglés",
+  "page.dashboard.lastWebinars.button.label": "Webinars anteriores traducir al inglés",
+  "page.dashboard.lastWebinars.text": "Próximos webinars traducir al inglés",
+  "page.dashboard.form_publi_image.title": "Añadir anuncio traducir al inglés",
+  "page.dashboard.form_publi_image.link": "Link al que redirige el anuncio traducir al inglés",
+  "page.dashboard.form_publi_image.delete": "Borrar anuncio traducir al inglés",
+  "page.dashboard.form_publi_image.delete.text": "¿Seguro que deseas eliminar esta publicidad? traducir al inglés",
+  "page.dashboard.values": "Valores traducir al inglés",
+
+  "page.news.All Tickers" : "Todos los Tickers traducir al inglés",
+  "page.news.Favorites" : "Mis Favoritos",
+
+  "our" : "Nuestros traducir al inglés",
   "home":"Home traducir al inglés",
   "courses": "Cursos traducir al inglés",
   "tutorials": "Tutoriales traducir al inglés", 

@@ -35,9 +35,9 @@ const Research = () => {
             </div>
             <div className={style.textContainer}>
               <div className={style.titleBlock}>
-                <p className={style.title}>Bitcoins / Altcoins</p>
+                <p className={style.title}><FormattedMessage id='page.academy.mainBlock.Bitcoins/Altcoins' /></p>
               </div>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
+              <p><FormattedMessage id='page.academy.mainBlock.Bitcoins/Altcoins.text' /></p>
               <div className={style.buttonContainer}>
                 <LinkApp target={'_self'} label={'page.research.landing.button.label'} linkStyle={'button'} linkHref='research/bitcoins-altcoins' />
               </div>
@@ -51,9 +51,9 @@ const Research = () => {
             </div>
             <div className={style.textContainer}>
               <div className={style.titleBlock}>
-                <p className={style.title}>Flash Updates</p>
+                <p className={style.title}><FormattedMessage id='page.academy.mainBlock.flash_updates' /></p>
               </div>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, aspernatur? Sunt praesentium autem vitae architecto</p>
+              <p><FormattedMessage id='page.academy.mainBlock.flash_updates.text' /></p>
               <div className={style.buttonContainer}>
                 <LinkApp target={'_self'} label={'page.research.landing.button.label'} linkStyle={'button'} linkHref='research/flash-updates' />
               </div>
