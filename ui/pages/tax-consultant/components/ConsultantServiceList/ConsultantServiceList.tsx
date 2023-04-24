@@ -15,6 +15,7 @@ import { toHoursAndMinutes } from 'ui/utils/component.utils'
 import Link from 'next/link'
 import { useConsultant } from 'ui/hooks/consultant.hook'
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant'
+import { FormattedMessage } from 'react-intl'
 
 interface ConsultantServiceListProps {
   services?: Service[]
@@ -121,12 +122,12 @@ const ConsultantServiceListView = ({
                           <div className='flex-container justify-between'>
                             <p className={style.serviceDuration}>
                               <span>
-                                Duración: <strong>{toHoursAndMinutes(service.time * 60)}</strong>
+                                <FormattedMessage id={'time'}/>  <strong>{toHoursAndMinutes(service.time * 60)}</strong>
                               </span>
                             </p>
                             <p className={style.servicePrice}>
                               <span>
-                                Precio:<strong>{service.price}€</strong> 
+                              <FormattedMessage id={'amount'}/>:<strong>{service.price}€</strong> 
                               </span>
                             </p>
                           </div>

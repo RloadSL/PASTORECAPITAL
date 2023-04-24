@@ -4,6 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 import style from './stats.module.scss'
 import statsRepository from 'infrastructure/repositories/stats.repository'
+import { FormattedMessage } from 'react-intl'
 const UsersStats = () => {
   const [charts, setCharts] = useState<{ doughnut?: Chart; line?: Chart }>({
     doughnut: undefined
@@ -78,14 +79,14 @@ const UsersStats = () => {
 
   return (
     <div>
-      <h2>Usuarios registrados</h2>
+      <h2><FormattedMessage id='stats.users'/></h2>
       <small>
-        Las estadisticas de los usuarios se actualizan de madrugada.
+      <FormattedMessage id='stats.users.help'/>
       </small>
 
       <div className={style.row}>
         <div className={style.chartdata}>
-          <p>Total de Usuarios registrados: {totals?.total}</p>
+          <p><FormattedMessage id='sats.u_total'/>: {totals?.total}</p>
           <p>Guest: {totals?.data_1[0]}</p>
           <p>Basic: {totals?.data_1[0]}</p>
           <p>Plus: {totals?.data_1[0]}</p>
@@ -99,7 +100,7 @@ const UsersStats = () => {
           ></canvas>
         </div>
       </div>
-      <h2>Relacion alta de usuarios por meses del año 2023</h2>
+      <h2><FormattedMessage id='stats.u_by_month'/></h2>
       <div className={style.row}>
         <canvas
           height={100}

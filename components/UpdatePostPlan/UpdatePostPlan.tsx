@@ -35,7 +35,7 @@ export default function UpdatePlan({wpToken, post_id, current_plans}:{wpToken?: 
   return (
   
     <div className='checklist'>
-      <p style={{ textAlign: 'center' }}>Seleccione el plan correspondiente</p>
+      <p style={{ textAlign: 'center' }}><FormattedMessage id={'select.label.plans'}/></p>
       <div
         role='group'
         style={{ display: 'flex' , justifyContent: 'center' , width: '100%'}}

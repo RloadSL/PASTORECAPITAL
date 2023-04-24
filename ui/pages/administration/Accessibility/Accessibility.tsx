@@ -78,7 +78,7 @@ const Accessibility: NextPage = () => {
         >
           {values => (
             <Form>
-              <h2>Precios para los planes de subscripción</h2>
+              <h2><FormattedMessage id='prices_plan'/></h2>
               <div className={style.pricePlans_item}>
                 <p>Basic</p>
                 <div className={style.pricePlans_item_flex}>
@@ -129,7 +129,7 @@ const Accessibility: NextPage = () => {
                 <ButtonApp
                   buttonStyle={'primary'}
                   type='submit'
-                  labelID='Guardar'
+                  labelID='btn.save'
                 />
               </div>
             </Form>

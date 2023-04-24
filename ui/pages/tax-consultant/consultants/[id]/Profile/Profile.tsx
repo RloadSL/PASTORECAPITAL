@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import ConsultantShortDetails from 'ui/pages/tax-consultant/components/ConsultantShortDetails'
 import style from './profile.module.scss'
 import ConsultantServiceList from 'ui/pages/tax-consultant/components/ConsultantServiceList'
@@ -19,6 +19,7 @@ const Profile = () => {
   const [consultant, setConsultant] = useState<UserConsultant | undefined>()
   const { query, replace, asPath } = useRouter()
   const userLogged = useSelector(getUserLogged)
+  const intl = useIntl()
   //Get consultant ref
   useEffect(() => {
     let fetch = true
@@ -112,12 +113,12 @@ const Profile = () => {
       <hr />
 
       <div className={style.profileConversation}>
-        <h2 className='main-title'>Pregunta a tu asesor</h2>
+        <h2 className='main-title'><FormattedMessage id='page.tax-consultant.landing.questions'/> </h2>
         <div id='askResponses'>
           <CommentsListApp
             infoData={{
-              mainTitle: 'Preguntas:',
-              description: 'Comenta tus dudas con el asesor.'
+              mainTitle: intl.formatMessage({id: 'page.tax-consultant.landing.questions.mainTitle'}),
+              description: intl.formatMessage({id: 'page.tax-consultant.landing.questions.description'})
             }}
             parent={{ id: query.id as string, path: 'user_consultant' }}
             main={true}

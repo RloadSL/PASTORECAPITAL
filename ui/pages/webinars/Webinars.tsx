@@ -65,7 +65,7 @@ const Webinars = () => {
             <FormattedMessage id='mainMenu.item.label.webinars' />
           </h1>
           <p>
-            <FormattedMessage id="loremipsum" />
+            <FormattedMessage id="page.webinars.text" />
           </p>
         </div>
         <div className={style.createRoomBtnContainer}>

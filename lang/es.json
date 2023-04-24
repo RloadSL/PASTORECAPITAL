@@ -42,7 +42,7 @@
   "mainMenu.item.label.users" : "Usuarios",
   "mainMenu.item.label.stats" : "Estadísticas",
   "mainMenu.item.label.invoice" : "Facturas",
-
+  "mainMenu.item.label.visibility" :"Visibilidad",
   "contextualMenu.item.label.see": "Ver",
   "contextualMenu.item.label.donwload" : "Descargar",
   "contextualMenu.item.label.delete": "Borrar",
@@ -189,11 +189,17 @@
   
   "page.tax-consultant.landing.block-1" : "Texto introductorio pra asesor fiscal", 
   "page.tax-consultant.landing.block-2" : "Texto introductorio pra recursos", 
+  "page.tax-consultant.landing.questions" : "Pregunta a tu asesor",
+  "page.tax-consultant.landing.questions.description" : "Comenta tus dudas con el asesor",
+  "page.tax-consultant.landing.questions.mainTitle" : "Preguntas",
+
+
 
   "page.tax-consultant.create-service.title" : "Añadir nuevo servicio",
   "page.tax-consultant.create-service.form.title" : "Título del servicio",
   "page.tax-consultant.create-service.form.image" : "Añadir imagen",
   "page.tax-consultant.create-service.form.description" : "Descripción",
+  "page.tax-consultant.create-service.form.description.help" : "El resumen del servicio mostrará solo los 200 primeros caracteres",
   "page.tax-consultant.create-service.form.time" : "Duración en minutos",
   "page.tax-consultant.create-service.form.price" : "Precio del servicio",
   "page.tax-consultant.create-service.form.functions" : "¿Cómo funciona?",
@@ -230,12 +236,13 @@
   "page.amas.modalDelete.text" : "Seguro deseas borrar este sala de chat. Se perdera toda su información",
   "page.amas.roomLabel.open": "Abierta",
   "page.amas.roomLabel.closed": "Cerrada",
+  "page.amas.text": "Texto de introducción a Amas.",
 
   "page.invoices.title" : "Facturas",
   "page.notifications.title" : "Notificaciones",
 
   
-
+  "appearance" : "Apariencia",
   "select.label.plans": "Seleccione el plan correspondiente",
   "component.navbar.backbuttom": "Atrás",
   "component.navbar.signUpBtn": "Iniciar Sesión",
@@ -310,7 +317,7 @@
   "btn.clients" : "Clientes",
   "btn.editLink" : "Editar Link",
   "btn.loadMore" : "Cargar más",
-
+  "btn.vew_all" : "Ver todo",
 
   "post.state.private": "Ver contenido privado",
   "post.state.public": "Ver contenido público",
@@ -335,8 +342,17 @@
   "page.susbcription.select.label": "Eliminar recurso",
   "page.susbcription.select.inputYearly": "Eliminar recurso",
   "page.susbcription.select.inputMonthly": "Eliminar recurso",
-
-
+  "btn.close": "Cerrar",
+  "stats.con_data" : "Datos de consultores",
+  "stats.u_by_month" : "Relación alta de usuarios por meses del año 2023",
+  "sats.u_total" : "Total de Usuarios registrados",
+  "stats.users" : "Usuarios registrados",
+  "stats.users.help" : "Las estadisticas de los usuarios se actualizan de madrugada.",
+  "go_stripe" : "Para un detalle completo de estadisticas de pago, recurrencias, etc.",
+  "stats.title": "Estadisticas generales de Pastore Capital",
+  "services_porfolio" : "Portafolio de servicios",
+  "without_clients": "No tienes clientes todavía", 
+  "new_clients" : "Nuevos clientes",
   "home":"Home",
   "courses": "Cursos",
   "our" : "Nuestros",
@@ -346,6 +362,8 @@
   "resources": "Recursos",
   "consultants": "Asesores",
   "subscription" : "Suscripción",
+  "sub_select_plan": "Elige tu plan de suscripción",
+  "sub_text_intro" :"Texto de introducción a la pagina de suscripción",
   "[slug]": "Curso",
   "bitcoins-altcoins" : "Bitcoins/Altcoins",
   "flash-updates" : "Flash Updates",
@@ -374,6 +392,7 @@
   "page.webinars.inputSearch": "Buscar un webinar",
   "page.webinars.uploadVideo": "Subiendo vídeo...",
   "page.webinars.search.label": "Buscar un webinar",
+  "page.webinars.text" : "Texto de introduccion de la pagina principal de webinars",
   "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
   "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
   "page.webinarDetail.upload.video" : "Subir video",
@@ -407,14 +426,53 @@
   "page.dashboard.form_publi_image.delete": "Borrar anuncio",
   "page.dashboard.form_publi_image.delete.text": "¿Seguro que deseas eliminar esta publicidad?",
 
+  "update_plan" : "Actualizar plan",
+  "table.sub.b1" : "Seguimiento del mercado",
+  "table.sub.b2" : "Noticias importantes",
+  "table.sub.b3" : "Análisis técnico semanal de Bitcoins",
+  "table.sub.b4" : "Análisis técnico semanal de Altcoins",
+  "table.sub.b5" : "Flash Updates",
+  "table.sub.b6" : "Ideas de inversión de proyectos",
+  "table.sub.b7" : "Estrategias de inversión y gestión del riesgo",
+  "table.sub.b8" : "Acceso al portfolio de pAstore capital",
+  "table.sub.b9" : "Legal",
+  "table.sub.b10" : "Acceso a artículos",
+  "table.sub.b11" : "Acceso a vídeos",
+  "table.sub.b12" : "Análisis técnico semanal del Altcoins",
+  "table.sub.b13" : "La Academia",
+  "table.sub.b14" : "Crypto-Tutoriales",
+  "table.sub.b15" : "Acceso a todos nuestros cursos",
+  "table.sub.b16" : "Preguntas y respuestas con nuestros profesores",
+  "table.sub.b17" : "Comunidad y Eventos",
+  "table.sub.b18" : "Acceso a la comunidad de Discord",
+  "table.sub.b19" : "Webinarios / Reuniones",
+  "table.sub.b20" : "Contenido grabado",
 
+  
+  "sub_pay_type" : "Selecciona el tipo de pago",
+  "page.notifications.modalTitle" : "Ver notificación",
+  "invoices.pdf" : "Descargar PDF",
+  "invoices.title" : "Facturas generadas",
+  "prices_plan":"Precios para los planes de subscripción",
   "page.news.All Tickers" : "Todos los Tickers",
   "page.news.Favorites" : "Mis Favoritos",
-
-
-
-
-
+  "teacher.permission.description" : "Permisos para el modulo de Profesor",
+  "c_config" : "Gestión de permisos de Colaboradores",
+  "p_collaborator" : "Permisos del colaborador",
+  "ur_active" :"Role activo del usuario",
+  "u_data": "Datos de usuario",
+  "ur_config" :"Configurar rol del usuario",
+  "ua2f": "Habilitar autenticación de doble factor",
+  "un_config" :"Configuración de notificaciones",
+  "u_singup" : "Fecha de alta",
+  "u_plan" : "Plan activo",
+  "u_platforms" : "Usuarios de la plataforma",
+  "u_config": "Configuración de usuario",
+  "promote_your_site": "<b>Promote your site</b><b>with us</b>",
+  "time": "Duración",
+  "amount" : "Precio",
+  "open_comments" : "Abrir comentarios",
+  "close_comments" : "Cerrar comentarios",
   "price.month" : "Precio al mes",
   "price.year" : "Precio al año",
   "price.updated" :"Los precios de los productos han sido actualizados",
@@ -448,5 +506,8 @@
   "/webinars/deferred/[w_id]": "Webinars Grabados",
   "/amas/[chatroom_id]": "Amas",
   "terms": "Términos y condiciones",
-  "policy": "Políticas de privacidad"
+  "policy": "Políticas de privacidad",
+  "total_price": "Precio total"
+
+ 
 }

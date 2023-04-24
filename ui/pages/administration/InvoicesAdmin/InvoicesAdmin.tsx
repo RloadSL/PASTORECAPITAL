@@ -5,6 +5,7 @@ import LoadMoreLoading from 'components/LoadMoreLoading'
 import systemRepository from 'infrastructure/repositories/system.repository'
 import React, { useEffect, useState } from 'react'
 import style from './invoices-admin.module.scss'
+import { FormattedMessage } from 'react-intl'
 
 const InvoicesAdmin = () => {
   const [query, setquery] = useState<{ page?: string, created: number }>({ page: undefined, created: Math.floor(Date.now() / 1000) })
@@ -44,7 +45,7 @@ const InvoicesAdmin = () => {
       <div className={style.invoiceItemList_content__second}>
         <span>{new Date(created * 1000).toLocaleDateString(['es-ES'])}</span>
         <a className={style.downloadBtn} href={pdflink}>
-          <span>Descargar PDF</span>
+          <span><FormattedMessage id='invoices.pdf'/></span>
         </a>
       </div>
     </div>)
@@ -54,8 +55,8 @@ const InvoicesAdmin = () => {
     <div className={style.invoicesAdmin}>
       <div className='max-container'>
         <header>
-          <h1 className='main-title'>Facturas generadas</h1>
-          <p>Para un mayor desglose de información acceda al <a target={'_blank'} rel="noreferrer" style={{ color: 'blue' }} href='https://dashboard.stripe.com/invoices'>Panel de Administración de Stripe</a></p>
+          <h1 className='main-title'><FormattedMessage id='invoices.title'/></h1>
+          <p><a target={'_blank'} rel="noreferrer" style={{ color: 'blue' }} href='https://dashboard.stripe.com/invoices'><FormattedMessage id='invoices.stripe'/></a></p>
         </header>
 
         <ItemList>

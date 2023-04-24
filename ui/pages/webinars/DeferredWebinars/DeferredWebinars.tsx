@@ -36,10 +36,10 @@ const DeferredWebinars = () => {
       <header>
         <p className='small-caps'><FormattedMessage id='webinars' /></p>
         <p className={`${style.topTitle} main-title`}>
-          <FormattedMessage id='Webinars anteriores' />
+          <FormattedMessage id='page.dashboard.lastWebinars.button.label' />
         </p>
         <p>
-          <FormattedMessage id="loremipsum" />
+          <FormattedMessage id="page.webinars.deferred.text" />
         </p>
       </header>
       <div>

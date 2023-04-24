@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import * as yup from 'yup'
 import React, { useEffect, useRef, useState } from 'react'
 import style from './user.module.scss'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { ROLES } from 'domain/Constants/roles'
 import LinkApp from 'components/LinkApp'
 import systemRepository from 'infrastructure/repositories/system.repository'
@@ -177,7 +177,7 @@ const UserView = ({
           <Form className={style.form}>
             <div className={style.roles_checks}>
               <div className={style.roles_checks_list}>
-                <p style={{ marginRight: 20 }}>Role activo del usuario:</p>
+                <p style={{ marginRight: 20 }}><FormattedMessage id='ur_active' />:</p>
                 {ROLES.map((role: Role) => (
                   <div role='group' key={role.key}>
                     <label>
@@ -192,7 +192,7 @@ const UserView = ({
                 <ButtonApp
                   buttonStyle='transparent'
                   type='button'
-                  labelID='Permisos del colaborador'
+                  labelID='p_collaborator'
                   onClick={() => push(asPath + 'colaboration')}
                 />
               </div>}
@@ -217,17 +217,17 @@ const UserView = ({
     <div className={style.user}>
       <div className={style.header}>
         <h1 className='main-title'>
-          Configuración de usuario</h1>
+          <FormattedMessage id='u_config'/></h1>
         <div>
           <div>
-            <p>Fecha de alta: {userDataDto.created_at?.toLocaleString('es-Es', {day: '2-digit', month: '2-digit', year:'numeric'})}</p>
+            <p><FormattedMessage id='u_singup'/>: {userDataDto.created_at?.toLocaleString('es-Es', {day: '2-digit', month: '2-digit', year:'numeric'})}</p>
           </div>
           {userDataDto.role.level <= 1 && (
             <div className={style.plan}>
-              <div>Plan activo: {userDataDto.subscription.plan.label}</div>
+              <div><FormattedMessage id='u_plan'/>: {userDataDto.subscription.plan.label}</div>
               <div style={{ display: 'flex' }}>
                 {userDataDto.uid === userLogged?.uid && <LinkApp linkStyle='classic' target='_self' linkHref='/subscription' label='btn.subscribe' />}
-                {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}>Cancelar</ButtonApp>}
+                {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}><FormattedMessage id='btn.cancel'/></ButtonApp>}
               </div>
             </div>
           )}
@@ -235,11 +235,11 @@ const UserView = ({
       </div>
       <div>
         <div className='margin-top-50'>
-          <p className='small-caps'>Datos de Usuario</p>
+          <p className='small-caps'><FormattedMessage id='u_data'/></p>
         </div>
         <div className={style.userMainDetails}>{renderFormik()}</div>
         {userLogged?.role.level == 2 && <div className={style.user_roleConfiguration}>
-          <p className='small-caps'>Configurar rol del usuario</p>
+          <p className='small-caps'><FormattedMessage id='ur_config'/></p>
           <div className={style.roles}>
             <div>{renderFormikRole()}</div>
 
@@ -247,7 +247,7 @@ const UserView = ({
         </div>}
           <br/>
         <div className={style.user_roleConfiguration}>
-          <p className='small-caps'>Habilitar autenticación de doble factor</p>
+          <p className='small-caps'><FormattedMessage id='ua2f'/></p>
           <div className={style.roles}>
             <div>
             <div className={style.roles_buttons}>
@@ -263,7 +263,7 @@ const UserView = ({
         </div>
           <br/>
         <div className={style.user_roleConfiguration}>
-          <p className='small-caps'>Configuración de notificaciones</p>
+          <p className='small-caps'><FormattedMessage id='un_config' /></p>
           <div className={style.roles}>
             <div>
             <div className={style.roles_buttons}>

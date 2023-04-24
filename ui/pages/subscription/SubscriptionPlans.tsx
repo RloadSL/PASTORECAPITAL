@@ -16,14 +16,14 @@ import ButtonApp from 'components/ButtonApp'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
 import { useRouter } from 'next/router'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 const SubscriptionPlans = () => {
   const [paymentType, setPaymentType] = useState<'month' | 'year'>('month')
   const [plans, setPlans] = useState<PLANS | undefined>()
   const [updatePlan, setupdatePlan] = useState<any>()
   const [loadingupdatePlan, setloadingupdatePlan] = useState<boolean>(false)
-
+  const intl = useIntl()
   const { pushInfoApp } = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const plan = userLoggued?.subscription.plan
@@ -58,7 +58,7 @@ const SubscriptionPlans = () => {
   const renderUpdatePlan = () => (<AlertApp
     onAction={() => update()}
     onCancel={() => setupdatePlan(undefined)}
-    title='Actualizar plan'
+    title={intl.formatMessage({id:'update_plan'})}
     visible={updatePlan != undefined}
   >
     <div className={style.modalContainer}>
@@ -83,19 +83,16 @@ const SubscriptionPlans = () => {
     return (
       <div className={style.subscriptionPlansPage}>
         <header>
-          <p className='small-caps'>Suscripción</p>
+          <p className='small-caps'><FormattedMessage id='subscription'/></p>
           <p className={`${style.topTitle} main-title`}>
-            Elige tu plan de suscripción
+          <FormattedMessage id='sub_select_plan'/>
           </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-            eos ducimus quidem, deserunt, beatae ut ipsam tenetur optio id
-            corporis illum reprehenderit unde sapiente quibusdam, iste autem
-            blanditiis sequi totam.
+          <FormattedMessage id='sub_text_intro'/>
           </p>
-          <p className={style.paymentType_label}>Selecciona el tipo de pago</p>
+          <p className={style.paymentType_label}><FormattedMessage id='sub_pay_type'/></p>
           <SwitcherButton
-            labels={['Pago Anual', 'Pago mensual']}
+            labels={[intl.formatMessage({id:'price.year'}),intl.formatMessage({id:'price.month'}) ]}
             onChange={(p: 'left' | 'rigth') =>
               setPaymentType(p === 'left' ? 'year' : 'month')
             }
@@ -210,13 +207,13 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr className={style.subheader}>
-                <td>&nbsp;Seguimiento del mercado</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b1'} /></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <td>&nbsp;Noticias importantes</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b2'} /></td>
                 <td>
                   <Image src={checkImg} alt='' />
                 </td>
@@ -228,7 +225,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Análisis técnico semanal de Bitcoins</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b3'} /></td>
                 <td>
                   <Image src={checkImg} alt='' />
                 </td>
@@ -240,7 +237,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Análisis técnico semanal de Altcoins</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b4'} /></td>
                 <td>
                   <Image src={checkImg} alt='' />
                 </td>
@@ -252,7 +249,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Flash Updates</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b5'}/></td>
                 <td>
                   <Image src={checkImg} alt='' />
                 </td>
@@ -264,7 +261,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Ideas de inversión de proyectos</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b6'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -276,7 +273,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Estrategias de inversión y gestión del riesgo</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b7'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -288,7 +285,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Acceso al portfolio de pAstore capital</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b8'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -300,13 +297,13 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr className={style.subheader}>
-                <td>&nbsp;Legal</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b9'}/></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <td>&nbsp;Acceso a artículos</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b10'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -318,7 +315,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>Acceso a vídeos</td>
+                <td><FormattedMessage id={'table.sub.b11'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -330,7 +327,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Análisis técnico semanal del Altcoins</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b12'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -342,13 +339,13 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr className={style.subheader}>
-                <td>&nbsp;La Academia</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b13'}/></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <td>&nbsp;Crypto-Tutoriales</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b14'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -360,7 +357,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Acceso a todos nuestros cursos</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b15'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -372,7 +369,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;Preguntas y respuestas con nuestros profesores</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b16'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -384,13 +381,13 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr className={style.subheader}>
-                <td>&nbsp;Comunidad y Eventos</td>
+                <td>&nbsp;<FormattedMessage id={'table.sub.b17'}/></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <td>Acceso a la comunidad de Discord</td>
+                <td><FormattedMessage id={'table.sub.b18'}/></td>
                 <td>
                   <Image src={checkImg} alt='' />
                 </td>
@@ -402,7 +399,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>Webinarios / Reuniones</td>
+                <td><FormattedMessage id={'table.sub.b19'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>
@@ -414,7 +411,7 @@ const SubscriptionPlans = () => {
                 </td>
               </tr>
               <tr>
-                <td>Contenido grabado</td>
+                <td><FormattedMessage id={'table.sub.b20'}/></td>
                 <td>
                   <Image src={nocheckImg} alt='' />
                 </td>

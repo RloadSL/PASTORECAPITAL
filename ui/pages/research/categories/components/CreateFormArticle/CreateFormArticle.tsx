@@ -195,7 +195,7 @@ const CreateFormView = ({
               
               {/* @maria Make component Checklist */}
               <div className='checklist'>
-                <p>Seleccione el plan correspondiente</p>
+                <p><FormattedMessage id={'select.label.plans'}/></p>
                 <div
                   role='group'
                   style={{ display: 'flex' }}

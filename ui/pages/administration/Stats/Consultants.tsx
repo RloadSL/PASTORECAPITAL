@@ -4,6 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
 import style from './stats.module.scss'
 import statsRepository from 'infrastructure/repositories/stats.repository'
 import Consultants from 'pages/tax-consultant/consultants'
+import { FormattedMessage } from 'react-intl'
 const ConsultantsStats = () => {
   const [charts, setCharts] = useState<{ bubble?: Chart }>({
     bubble: undefined
@@ -85,14 +86,14 @@ const ConsultantsStats = () => {
     <div>
       <div className={style.row}>
         <div className={style.chartdata}>
-          <h2>Datos de consultores </h2>
+          <h2><FormattedMessage id='stats.con_data'/> </h2>
           {data && (
             <div>
               {data.sort((a, b) =>  b.data[0].x - a.data[0].x).map((item: any) => {
                 return (
                   <div key={item.label} className={style.consultant_item}>
                     <p><strong>{item.label}</strong></p>
-                    <p>Clientes: {item.data[0].x}, Servicios: {item.data[0].y} </p>
+                    <p><FormattedMessage id='btn.clients'/>: {item.data[0].x}, <FormattedMessage id='page.tax-consultant.profile.services.smallTitle'/>: {item.data[0].y} </p>
                   </div>
                 )
               })}

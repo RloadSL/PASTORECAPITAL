@@ -15,6 +15,7 @@ import { useSystem } from 'ui/hooks/system.hooks'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import style from './clientList.module.scss'
 import ManageAppointment from './components/ManageAppointment'
+import { FormattedMessage } from 'react-intl'
 
 interface ClientListProps {
   clients: Array<any>
@@ -148,7 +149,7 @@ const ClientList = ({ clients }: ClientListProps) => {
             </ul>
           ) : (
             <div className={style.emptyContent}>
-              <p>No tienes clientes todavía</p>
+              <p><FormattedMessage id='without_clients'/></p>
             </div>
           )}
         </div>

@@ -13,6 +13,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import { useSystem } from 'ui/hooks/system.hooks'
 import ActionsAdmin from './components/ActionsAdmin/ActionsAdmin'
 import style from './users.module.scss'
+import { FormattedMessage } from 'react-intl'
 const Users = () => {
   const { pushErrorsApp } = useSystem()
   const [users, setUsers] = useState<User[]>([])
@@ -142,7 +143,7 @@ const UsersView = ({
     <div className={style.usersPage}>
       <div className={style.maxContainer}>      
       <div className={style.header}>
-        <h1 className='main-title'>Usuarios de la plataforma</h1>
+        <h1 className='main-title'><FormattedMessage id='u_platforms'/></h1>
       </div>
       <div className={style.content}>
         <div className={style.filters}>

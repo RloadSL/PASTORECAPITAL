@@ -146,7 +146,7 @@ const EditProfileView = ({
             id={'page.tax-consultant.create-edit.form.label.title'}
           />
         </h1>
-        <p className='small-caps'>Apariencia</p>
+        <p className='small-caps'><FormattedMessage id={'appearance'}/></p>
         <div className='flex-container align-center'>
           <div className={style.avatarBlock}>
             <UserImage
@@ -162,7 +162,7 @@ const EditProfileView = ({
               />
             </p>
             <label className='fake-button' htmlFor='avatarFile'>
-              <span>Seleccionar Imagen</span>
+              <span><FormattedMessage id='form.label.image'/></span>
               <input
                 hidden
                 id='avatarFile'
@@ -286,11 +286,11 @@ const EditProfileView = ({
       <div className={style.userInfoBlock}>
         <div className={style.nameLastnameBlock}>
           <div className={`fake-input ${style.input}`}>
-            <span className={`label ${style.label}`}>Nombre:</span>{' '}
+            <span className={`label ${style.label}`}><FormattedMessage id='forms.labels.name'></FormattedMessage>:</span>{' '}
             <span>{userData.name}</span>
           </div>
           <div className={`fake-input ${style.input}`}>
-            <span className={`label ${style.label}`}>Apellidos:</span>{' '}
+            <span className={`label ${style.label}`}><FormattedMessage id='forms.labels.lastname'/>:</span>{' '}
             <span>{userData.lastname}</span>
           </div>{' '}
         </div>

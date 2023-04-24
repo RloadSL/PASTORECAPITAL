@@ -5,7 +5,7 @@ import addIcon from '../../../../assets/img/icons/add.svg'
 import Image from 'next/image'
 import emptyAd from '../../../../assets/img/noAd.gif'
 import Modal from 'components/Modal'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Form, Formik } from 'formik'
 import InputFormikApp from 'components/FormApp/components/InputFormikApp'
 import InputFileFormikApp from 'components/FormApp/components/InputFileFormikApp'
@@ -28,7 +28,7 @@ const AdvertisingList = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { publi } = useSelector(dashboardState)
   const userLogged = useSelector(getUserLogged)
-  
+  const intl = useIntl()
   useEffect(() => {
     let fetch = true
     if (userLogged) getPubli(fetch)
@@ -114,8 +114,10 @@ const AdvertisingList = () => {
                 <div className={style.emptyAd}>
                   <Image src={emptyAd} alt='' />
                   <div className={style.emptyAd_text}>
-                    <p>Promote your site</p>
-                    <p>with us</p>
+                    
+                    <FormattedMessage id='promote_your_site' values={{
+                      b: children => <p>{children}</p>
+                    }}/>
                   </div>
                 </div>
               )}
@@ -177,7 +179,7 @@ const AdvertisingList = () => {
           onCancel={() => setVisibleDeleteAd(undefined)}
           onAction={() => deletePubli()}
           visible
-          title='page.dashboard.form_publi_image.delete'
+          title={ intl.formatMessage({id: 'page.dashboard.form_publi_image.delete'})}
           cancelButton={false}
         >
           <p style={{textAlign:'center'}}>

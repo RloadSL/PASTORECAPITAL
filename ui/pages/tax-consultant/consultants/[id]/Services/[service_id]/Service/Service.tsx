@@ -10,6 +10,7 @@ import ServiceModel from 'domain/Service/Service'
 import Loading from 'components/Loading'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import { FormattedMessage } from 'react-intl'
 
 const Service = () => {
   const { service_id } = useRouter().query
@@ -52,7 +53,7 @@ const ServiceView = ({ service }: { service: ServiceModel | undefined }) => {
     return (
       <div className={style.serviceDetail}>
         <header>
-          <p className='small-caps'>Servicio</p>
+          <p className='small-caps'><FormattedMessage id={'page.tax-consultant.manageAppointment.service.label'}/></p>
           <h1 className='main-title'>{service.title}</h1>
         </header>
         {service.image?.url && (
@@ -69,7 +70,7 @@ const ServiceView = ({ service }: { service: ServiceModel | undefined }) => {
           {service.description}
           {(service.functions && service.functions.length > 0) && (
             <div>
-              <h2>¿Cómo funciona?</h2>
+              <h2><FormattedMessage id={'page.tax-consultant.create-service.form.functions'}/></h2>
               <ul>
                 {service.functions.map((listItem, index) => {
                   return (
@@ -86,10 +87,10 @@ const ServiceView = ({ service }: { service: ServiceModel | undefined }) => {
         <footer>
           <div className={style.priceInfo}>
             <div className={style.priceInfo_container}>
-              <p className={style.priceLabel}>Precio total:</p>
+              <p className={style.priceLabel}><FormattedMessage id={'total_price'}/>:</p>
               <p className={style.priceQty}>{service.price}€</p>
             </div>
-            <small>IVA incluido</small>
+            <small><FormattedMessage id={'page.subscription.payment.ivaIncluded'}/></small>
           </div>
           <div className={style.priceButtonContainer}>
             <div className={style.priceButton}>

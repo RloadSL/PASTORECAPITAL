@@ -9,7 +9,7 @@ import bubbleBannedIcon from '../../../../../../assets/img/icons/bubble-banned.s
 import lockIcon from '../../../../../../assets/img/icons/lock-v2.svg'
 import style from './chat-actions.module.scss'
 import * as yup from 'yup'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 
 export interface CHAT_ACTIONS {
@@ -44,7 +44,7 @@ const ChatActions = ({
         {openPublicRoom && (
           <ButtonApp onClick={openPublicRoom} buttonStyle='link'>
             <div className={style.button_action}>
-              <span className={style.button_action_label}>{chatState !== 'public' ? 'Abrir comentarios' : 'Cerrar comentarios'}</span>
+              <span className={style.button_action_label}>{chatState !== 'public' ? <FormattedMessage id='open_comments'/> : <FormattedMessage id='close_comments'/>}</span>
               <span className={style.button_action_icon}>
                 {chatState !== 'public' ? <Image src={bubbleIcon} alt='' /> : <Image src={bubbleBannedIcon} alt='' />}
               </span>

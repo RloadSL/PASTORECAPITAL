@@ -2,21 +2,23 @@ import React from 'react'
 import ConsultantsStats from './Consultants'
 import UsersStats from './UsersStats'
 import style from './stats.module.scss'
+import { FormattedMessage } from 'react-intl'
 
 const Stats = () => {
   return (
     <div className={style.stats}>
       <div className={style.maxContent}>
-        <h1 className='main-title'>Estadisticas generales de Pastore Capital</h1>
+        <h1 className='main-title'><FormattedMessage id='stats.title'/></h1>
         <small>
-        Para un detalle completo de estadisticas de pago, recurrencias, etc.
+        <FormattedMessage id='go_stripe'/>
+        <br />
         <a
           style={{ color: 'blue' }}
           href={'https://dashboard.stripe.com/test/billing'}
           target={'_blank'}
           rel='noreferrer'
         >
-          Ir a STRIPE
+          STRIPE
         </a>{' '}
       </small>
         <div>

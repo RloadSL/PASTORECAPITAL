@@ -16,7 +16,7 @@ import style from './amas-main.module.scss'
 import Card from 'components/Card'
 import addIcon from '../../../assets/img/icons/add.svg'
 import clockIcon from '../../../assets/img/icons/clock.svg'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import SearchBar from 'components/SearchBar'
 import AlertApp from 'components/AlertApp'
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
@@ -29,7 +29,7 @@ const AmasMain = () => {
   const userLogged = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
   const [deleteChat, setDelete] = useState<string | undefined>(undefined)
-
+  const intl = useIntl()
   const { push } = useRouter()
   const [updateChatroom, setupdateChatroom] = useState(false)
   const [visibleAlertDownloadPdf, setVisibleAlertDownloadPdf] = useState<
@@ -98,7 +98,7 @@ const AmasMain = () => {
             <FormattedMessage id='mainMenu.item.label.amas' />
           </p>
           <p>
-            <FormattedMessage id='loremipsum' />
+            <FormattedMessage id='page.amas.text' />
           </p>
         </div>
         <div className={style.createRoomBtnContainer}>
@@ -201,10 +201,10 @@ const AmasMain = () => {
                   level={{
                     label: `${
                       item.state === 'active'
-                        ? 'page.amas.roomLabel.open'
+                        ? intl.formatMessage({id: 'page.amas.roomLabel.open'}) 
                         : item.state === 'closed'
-                        ? 'page.amas.roomLabel.closed'
-                        : 'page.amas.roomLabel.comin_soon'
+                        ?  intl.formatMessage({id: 'page.amas.roomLabel.closed'}) 
+                        : intl.formatMessage({id: 'page.amas.roomLabel.comin_soon'})
                     }`
                   }}
                   chipColor={item.state === 'active' ? 'green' : 'grey'}

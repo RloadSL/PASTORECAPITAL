@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react'
 import style from './CommentsList.module.scss'
 import CreateFormComment from './components/CreateFormComment'
 import SingleComment from './components/SingleComment'
+import { useIntl } from 'react-intl'
 
 interface COMMENTSLISTPROPS {
   parent?: { id: string; path: string }
@@ -109,6 +110,7 @@ const CommentsListView = ({
   const [isMainComment, setisMainComment] = useState<boolean>(
     parent.path !== 'comments'
   )
+  const intl = useIntl()
 
   return (
     <div className={style.commentsList}>
@@ -137,7 +139,7 @@ const CommentsListView = ({
         <div className='text-align-center'>
           <ButtonApp
             buttonStyle='link'
-            labelID='Cargar más'
+            labelID={intl.formatMessage({id: 'btn.loadMore'})}
             onClick={() => loadMore()}
             type='button'
           />

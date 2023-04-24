@@ -132,7 +132,7 @@ const EditService = () => {
               name='image'
               accept='image/*'
             />
-            <small>El resumen del servicio mostrará solo los 200 primeros caracteres</small>
+            <small><FormattedMessage id='page.tax-consultant.create-service.form.description.help'/></small>
             <TextareaFormikApp
               labelID='page.tax-consultant.create-service.form.description'
               name='description'

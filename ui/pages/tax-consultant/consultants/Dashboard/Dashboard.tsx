@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from 'react';
 import { UserConsultant } from 'domain/UserConsultant/UserConsultant';
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors';
 import { useRouter } from 'next/router';
+import { FormattedMessage } from 'react-intl';
 
 
 
@@ -50,7 +51,7 @@ const Dashboard = () => {
       <div className={style.dashboardGrid}>
         <div className={`${style.gridItem} ${style.newClients}`}>
           <div className={style.gridItemTitle}>
-            <p>Nuevos Clientes</p>
+            <p><FormattedMessage id='new_clients'/></p>
             <div>
               <LinkApp
                 label={'btn.vew_all'}
@@ -90,7 +91,7 @@ const Dashboard = () => {
         </div>
         <div className={`${style.gridItem} ${style.allServices}`}>
           <div className={style.gridItemTitle}>
-            <p>PORTFOLIO DE SERVICIOS</p>
+            <p><FormattedMessage id='services_porfolio'/></p>
             <div>
               <LinkApp
                 label={'btn.vew_all'}
