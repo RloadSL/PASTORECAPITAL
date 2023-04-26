@@ -7,6 +7,9 @@
   padding: 2%;
 
   header {
+    .info {
+      width: 100%;
+    }
     @include devices.device(smTablet) {
       display: flex;
     }
@@ -15,6 +18,10 @@
   .subtitle {
     color: colors.$dark;
     font-weight: 500;
+  }
+
+  &_items {
+    width: 100%;
   }
 
   &_calendar {
