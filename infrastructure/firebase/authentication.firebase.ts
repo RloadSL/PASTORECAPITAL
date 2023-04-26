@@ -51,6 +51,7 @@ class FireAuthentication {
     }
   }
 
+
   public signOut = async ():Promise<void | ErrorApp> => {
     try {
       await signOut(this._auth);

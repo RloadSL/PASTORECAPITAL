@@ -14,6 +14,7 @@ interface BUTTONPROPS {
   size?: 'small' | 'default'
   icon?: any
   children?:any
+  stopPropagation?:boolean
 }
 
 /**
@@ -26,11 +27,11 @@ interface BUTTONPROPS {
  * @returns 
  */
 
-const ButtonApp = ({children ,labelID, onClick, icon, buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
+const ButtonApp = ({children ,labelID, onClick, icon, stopPropagation ,buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
   const { buildClassName } = useComponentUtils()
   return (
     <button type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${buildClassName(buttonStyle, style)} ${style[size]}`} onClick={(e) => { 
-      if(type === 'button'){
+      if(stopPropagation){
         e.preventDefault();
         e.stopPropagation();
       }

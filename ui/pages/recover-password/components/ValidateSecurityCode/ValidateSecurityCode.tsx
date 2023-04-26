@@ -2,24 +2,34 @@
 import ButtonApp from 'components/ButtonApp'
 import FormApp from 'components/FormApp'
 import InputApp from 'components/FormApp/components/InputApp'
+import Loading from 'components/Loading'
 import React, { useCallback } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { sendEmailCode, validateCode } from 'ui/redux/slices/authentication/autentication.slice'
+import {
+  sendEmailCode,
+  validateCode
+} from 'ui/redux/slices/authentication/autentication.slice'
+import { isLoading } from 'ui/redux/slices/authentication/authentication.selectors'
 import { AppDispatch } from 'ui/redux/store'
 import * as yup from 'yup'
 
 /**
- * 
- * Formulario de validación de código de seguridad 
+ *
+ * Formulario de validación de código de seguridad
  */
 const ValidateSecurityCode = ({ email }: { email: string }) => {
   const intl = useIntl()
   const dispatch = useDispatch<AppDispatch>()
-  const _validateCode = (code: number) => { if (email) dispatch(validateCode({ code, email })) }
+  const _validateCode = (code: number) => {
+    if (email) dispatch(validateCode({ code, email }))
+  }
+
   const _sendEmailCode = () => {
     dispatch(sendEmailCode({ email }))
-  };
+  }
+
   //@maria traducciones
   const validationSchema = useCallback(
     () =>
@@ -47,16 +57,28 @@ const ValidateSecurityCodeView = ({
   sendEmailCode
 }: {
   validationSchema: any
-  validateCode: Function,
+  validateCode: Function
   sendEmailCode: Function
 }) => {
-  return (
+  const loading = useSelector(isLoading)
+
+  return loading ? (
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        height: '200px'
+      }}
+    >
+      <Loading variant='inner-primary' loading />
+    </div>
+  ) : (
     <>
       <div>
         <p className={'small-caps'}>
-          <FormattedMessage
-            id='page.recover-password.recoverCaps'
-          />
+          <FormattedMessage id='page.recover-password.recoverCaps' />
         </p>
         <h2 className='main-title'>
           <FormattedMessage
@@ -65,9 +87,7 @@ const ValidateSecurityCodeView = ({
           />
         </h2>
         <p>
-          <FormattedMessage
-            id='page.recover-password.form.validateCode.description'
-          />
+          <FormattedMessage id='page.recover-password.form.validateCode.description' />
         </p>
       </div>
       <div>
@@ -77,17 +97,31 @@ const ValidateSecurityCodeView = ({
             initialValues={{ code: '' }}
             onSubmit={(values: any) => validateCode(values.code)}
           >
-            <InputApp placeholder='0000' labelID='forms.labels.securityCode' type='number' name='code' inputStyle='code' maxLength={4} />
-            <ButtonApp buttonStyle='secondary' type='submit' labelID='page.recover-password.form.validateCode.submit' />
+            <InputApp
+              placeholder='0000'
+              labelID='forms.labels.securityCode'
+              type='number'
+              name='code'
+              inputStyle='code'
+              maxLength={4}
+            />
+            <ButtonApp
+              buttonStyle='secondary'
+              type='submit'
+              labelID='btn.send'
+            />
           </FormApp>
         </div>
-        <div style={{marginLeft:'-10px'}}>
-          <ButtonApp size='small' buttonStyle="link" labelID='forms.labels.resend-code' onClick={() => sendEmailCode()} />
+        <div style={{ marginLeft: '-10px' }}>
+          <ButtonApp
+            size='small'
+            buttonStyle='link'
+            labelID='forms.labels.resend-code'
+            onClick={() => sendEmailCode()}
+          />
         </div>
       </div>
-
     </>
-
   )
 }
 

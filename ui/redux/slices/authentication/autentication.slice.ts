@@ -15,9 +15,10 @@ export const signInEmailPassword = createAsyncThunk(
     const { email, password } = credentials;
     try {
       const response = await AuthImplInstance.signInEmailPassword(email, password)
-      const { userCredential, error } = response;
+      
+      const { userCredential, error, a2f } = response;
       if (!userCredential) return error; //retorna usuario invitado
-      return userCredential;
+      return {...userCredential, a2f};
     } catch (error) {
       return error;
     }
@@ -185,7 +186,7 @@ export const authetication = createSlice({
       .addCase(signUpEmailPassword.pending, (state) => { state.loading = true })
       .addCase(createUser.fulfilled, _handleSignIn)
       .addCase(createUser.pending, (state) => { state.loading = true })
-      .addCase(signOut.fulfilled, (state: any) => { state.loggued = false, state.authError = null, state.loading = false , state.userCredential = null})
+      .addCase(signOut.fulfilled, (state: any) => { state.loggued = false, state.authError = null, state.loading = false , state.userCredential = null, state.code_validated = 'init'})
       .addCase(sendEmailCode.fulfilled, _handleSendMailCode)
       .addCase(sendEmailCode.pending, (state) => { state.loading = true })
       .addCase(validateCode.fulfilled, _handleValidateCode)

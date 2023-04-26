@@ -42,7 +42,10 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
           <Component {...pageProps} dir={getDirection(locale)} />
         </AppLayout>
         <SnackBar></SnackBar>
-        <Loading variant='outer-primary'/>
+        <div style={{zIndex: 100}}>
+          <Loading variant='outer-primary'/>
+        </div>
+        
       </IntlProvider>
     </Provider>
   </>

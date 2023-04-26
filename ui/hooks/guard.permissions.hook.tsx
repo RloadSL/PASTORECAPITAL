@@ -37,7 +37,6 @@ export const useGuardPermissions = () => {
       if(level >= 1) return dispatchPermission({garanted:'garant' })
       if(!accesibilityService.isLoaded){
         await accesibilityService.getPermissions();
-        console.log('LOADED PERMISSIONS')
       }
 
       if(!planKey && !plan) return;
