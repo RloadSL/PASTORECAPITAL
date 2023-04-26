@@ -5,7 +5,7 @@ import { wpToken } from "ui/utils/test.data";
 import { UserRepository } from "./user.repository";
 
 //[permissions.consultant] esto es para validadr el permiso en Academy
-export type COLLABORATION_MODULES = 'permissions.consultant' | 'RESEARCH' | 'permissions.consultant' | 'WEBINARS' | 'AMAS'
+export type COLLABORATION_MODULES = 'consultant' | 'RESEARCH' | 'WEBINARS' | 'AMAS'
 export class User {
   /**
    * Identificador del usuario para los usuarios invitados el [uid = not-logged]
@@ -103,6 +103,7 @@ export class User {
   checkColaborationPermisionByModule(module:COLLABORATION_MODULES):boolean{
     if(this.role.level > 1) return true
     if(this.role.level < 1) return false;
+   
     return this.collaboration ?  this.collaboration['permissions.'+module] != undefined : false;
   }
 

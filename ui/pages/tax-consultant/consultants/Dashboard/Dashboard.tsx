@@ -39,7 +39,7 @@ const Dashboard = () => {
   }, [consultant])
   
   useEffect(() => {
-    if(userLogged && !userLogged.checkColaborationPermisionByModule('permissions.consultant')){
+    if(userLogged && !userLogged.checkColaborationPermisionByModule('consultant')){
       replace('/tax-consultant/consultants')
     }
   }, [userLogged])
