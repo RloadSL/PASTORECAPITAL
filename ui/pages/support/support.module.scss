@@ -1,0 +1,24 @@
+@use "../../../styles/partials/variables/colors" as colors;
+@use "../../../styles/partials/mixins/devices" as devices;
+@use "../../../styles/partials/placeholders";
+
+.support {
+  @extend %layoutContainer;
+  padding: 2%;
+
+  .buttonContainer {
+    max-width: 250px;
+    margin: auto;
+  }
+
+  .maxContainer {
+    max-width: 900px;
+
+    form {
+      margin-top: 50px;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+    }
+  }
+}

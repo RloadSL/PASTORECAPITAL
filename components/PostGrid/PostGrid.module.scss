@@ -42,14 +42,10 @@
 		flex-direction: column !important;
 		flex-wrap: wrap;
 
-		@include devices.device(tablet) {
-			padding-right: 40px;
-		}
 
 		@include devices.device(lgScreen) {
 			flex-direction: row;
 			flex-wrap: wrap;
-			padding-right: 150px;
 		}
 
 		.postLink {

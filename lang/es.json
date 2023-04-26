@@ -393,12 +393,14 @@
   "page.webinars.uploadVideo": "Subiendo vídeo...",
   "page.webinars.search.label": "Buscar un webinar",
   "page.webinars.text" : "Texto de introduccion de la pagina principal de webinars",
+  "page.webinars.empty" : "No hay webinars para mostrar",
   "page.webinarDetail.label.attendButton": "¡Quiero asistir!",
   "page.webinarDetail.modal.uploadVideoTitle": "Subir vídeo de la sesión",
   "page.webinarDetail.upload.video" : "Subir video",
   "page.webinarDetail.list.registered": "Usuarios apuntados",
   "page.webinarDetail.modal.attendModal": "Apuntarse a este webinar",
   "page.webinarDetail.modal.attendModal.error": "Ya estás apuntado a este webinar",
+
 
 
 
@@ -413,6 +415,9 @@
   "page.subscription.payment.modalSuccess.subtitle": "¡Muy bien, ya estamos casi listos!",
   "page.subscription.payment.modalSuccess.text": "Pronto recibiras un mail de confirmación con todos los datos de tu compra.",
   "page.subscription.payment.modalSuccess.button": "Volver al dasboard",
+
+  "page.support.title": "Soporte",
+  "page.support.text": "Si tienes cualquier problema puedes escribirnos y te responderemos a la mayor brevedad posible",
 
   "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> ",
   "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b>",

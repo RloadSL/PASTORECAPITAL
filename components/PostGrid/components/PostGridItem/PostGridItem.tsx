@@ -191,7 +191,7 @@ const PostGridItemView = ({
                   date: gridItem.created_at.toLocaleDateString()
                 }}
                 lockedContent={!gridItem.metas?.permission_garanted}
-                title={limitTextLength(60, gridItem.title.rendered || '')}
+                title={gridItem.title.rendered || ''}
                 description={gridItem.content?.rendered || ''}
                 chips={[]}
                 level={(isAdmin && gridItem.getCatgoryByParent) ? gridItem.getCatgoryByParent('plans') : undefined}
