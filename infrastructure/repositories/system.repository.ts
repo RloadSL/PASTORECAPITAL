@@ -77,6 +77,18 @@ class SystemConfigRepository {
     }
   }
 
+  async sendContactForm(data: {
+    name: string
+    email: string
+    problem: string
+  }) {
+    const res = await FireFunctionsInstance.onCallFunction('contactOnCallFunctions', data)
+    if (!res?.error) {
+      return res;
+    } 
+    return null;
+  }
+
 
   /**
    * Sube la imagen para el dashboard
