@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 import Link from 'next/link'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import style from './Breadcrumbs.module.scss'
 
 /**
@@ -12,13 +12,20 @@ import style from './Breadcrumbs.module.scss'
 
 const Breadcrumbs = () => {
   const router = useRouter()
-
+  const [crumbs, setCrumbs] = useState<any[]>([])
   const constructUrl = (item: any) => {
     const befurl = router.route.split('/')
     let newArr = befurl.splice(1, befurl.indexOf(item))
     return newArr.join('/')
   }
 
+  useEffect(() => {
+    addCrumb()
+  }, [])
+
+  
+  
+  
   const addCrumb = useCallback(() => {
 
     if(router.route === '/') return [
@@ -28,16 +35,28 @@ const Breadcrumbs = () => {
       }
     ]
 
-    let crumbs: any = []
+    
+
     for (let crumb of router.route.split('/')) {
-      
+      console.log(crumb)
       let obj = {
         labelId: crumb,
-        url: {pathname: `/${constructUrl(crumb)}`, query: router.query}
+        url: {
+          pathname: `/${constructUrl(crumb)}`, 
+          query: router.query
+        }
       }
-      crumbs = [...crumbs, obj]
+
+     
+      setCrumbs((pre) => {
+        if(pre.find(item => item.labelId === obj.labelId)){
+          return pre;
+        }
+        else{
+          return [...pre, obj]
+        }
+      })
     }
-    return crumbs
   }, [])
 
   const dynamic_titles = {
@@ -48,10 +67,11 @@ const Breadcrumbs = () => {
     'article-slug' : router.query.post_title
   }
 
-  return <BreadcrumbsView crumbs={addCrumb()} title={dynamic_titles}/>
+  return <BreadcrumbsView crumbs={crumbs} title={dynamic_titles}/>
 }
 
 const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: string}>, title?:any}) =>{
+  const {replace} = useRouter()
   
   
   const renderLabel  = (labelId:string) => {
@@ -69,14 +89,14 @@ const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: s
     <div className={style.breadcrumbsContainer}>
       {crumbs.map((item: any, index: any) => {
         return (
-          crumbs.length !== index+1 ? <Link
-            href={item.url}
+          crumbs.length !== index+1 ? <div
+            onClick={()=>replace(item.url.pathname, undefined , {shallow: false})}
             key={index.toString()}
           >
             <a className={style.crumbLink}>
            { renderLabel(item.labelId )}
             </a>
-          </Link> : <span key={index.toString()} className={style.crumbLink}>
+          </div> : <span key={index.toString()} className={style.crumbLink}>
           { renderLabel(item.labelId )}
           </span>
         )

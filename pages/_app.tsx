@@ -13,6 +13,8 @@ import Loading from 'components/Loading'
 import { useEffect, useState } from 'react'
 import Translate from 'domain/Translate/Translate'
 import accesibilityService from 'infrastructure/services/accesibility.service'
+import CookieAdvicer from 'components/CookieAdvicer'
+import { cookies_items } from 'components/CookieAdvicer/constant'
 
 
 const messages: any = {
@@ -29,11 +31,14 @@ function getDirection (locale: string) {
 
 function PastoreCapital ({ Component, pageProps }: AppProps) {
   const locale: 'es' | 'en' = (useRouter().locale || 'es') as any
+  const [cookies_compliance, setCookies_compliance] = useState('accepted')
+
   useEffect(() => {
     Translate.currentLocal = locale;
     accesibilityService.getPermissions();
+    const st_cookie =  localStorage.getItem('cookies_compliance')
+    setCookies_compliance(st_cookie || 'declined')
   }, [])
-  
   
   return (<>
     <Provider store={store}>
@@ -48,6 +53,7 @@ function PastoreCapital ({ Component, pageProps }: AppProps) {
         
       </IntlProvider>
     </Provider>
+   {(!cookies_compliance  || cookies_compliance === 'declined') && <CookieAdvicer cookies_items={cookies_items}/>}
   </>
     
   )

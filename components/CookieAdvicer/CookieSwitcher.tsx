@@ -10,9 +10,8 @@ interface CookieSwitcherProps {
 const CookieSwitcher = ({handleToggle, inputName,isDisabled = false }: CookieSwitcherProps) => {
   const [isSwitcherActive, setIsSwitcherActive] = useState(true)
 
-  // const handleActive = () => {
-  //   handl
-  // }
+
+  
   return (
     <div className={style.switchCheckbox}>
       <input
@@ -20,7 +19,10 @@ const CookieSwitcher = ({handleToggle, inputName,isDisabled = false }: CookieSwi
         id={inputName}
         type="checkbox"
         checked={isSwitcherActive}
-        onChange={(e)=>setIsSwitcherActive(e.target.checked)}
+        onChange={(e)=>{
+          setIsSwitcherActive(e.target.checked)
+          handleToggle({[inputName] : e.target.checked})
+        }}
         disabled={isDisabled}
         name={inputName}
       />
