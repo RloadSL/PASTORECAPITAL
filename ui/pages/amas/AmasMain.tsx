@@ -24,6 +24,7 @@ import { Form, Formik } from 'formik'
 import useAmas from './hooks/amas.hook'
 import Loading from 'components/Loading'
 import iconDelete from '../../../assets/img/icons/trash.svg'
+import CookieAdvicer from 'components/CookieAdvicer'
 
 const AmasMain = () => {
   const userLogged = useSelector(getUserLogged)
@@ -92,6 +93,7 @@ const AmasMain = () => {
 
   return (
     <div className={style.amas}>
+      <CookieAdvicer/>
       <header>
         <div>
           <p className={`${style.topTitle} main-title`}>

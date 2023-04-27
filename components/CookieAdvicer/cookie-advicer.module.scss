@@ -1,0 +1,159 @@
+@use "../../styles/partials/mixins/devices" as devices;
+@use "../../styles/partials/variables/colors" as colors;
+@use "../../styles/partials/variables/utils" as utils;
+@use "../../styles/partials/placeholders";
+
+.cookieAdvicer {
+  background: rgba(black, 0.3);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  backdrop-filter: blur(5px);
+
+  button:not(.close) {
+    padding: 18px;
+    border-radius: 50px;
+  }
+
+  h4 {
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  p,
+  h3,
+  h4,
+  button {
+    color: rgb(68, 68, 68);
+  }
+
+  &_banner {
+
+    .content {
+      position: absolute;
+      background: white;
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+      width: 60%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 0;
+      padding: 20px;
+      display: flex;
+
+      p{
+        width: 90%;
+      }
+
+    }
+    .actions {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: flex-end;
+      width: 200px;
+      flex-shrink: 0;
+      margin-left: 20px;
+     
+    }
+  }
+
+  &_modal {
+    display: block;
+    background-color: white;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    max-width: 700px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    padding: 40px;
+
+    .close {
+      background: url(./close.svg) no-repeat;
+      background-size: contain;
+      width: 15px;
+      height: 15px;
+      filter: brightness(0.5);
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+
+    .content {
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      height: 700px;
+    }
+  }
+}
+
+.cookieInfo {
+  &_block {
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+.button {
+  &_transparent {
+    background-color: transparent;
+    border: 1px solid grey;
+  }
+
+  &_primary {
+    background-color: colors.$main;
+    color: white !important;
+  }
+}
+
+.switchCheckbox {
+  position: relative;
+  &_input {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+
+  &_button {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 45px;
+    transition: 0.2s;
+    background: #fff;
+    box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  }
+
+  &_label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 38px;
+    height: 20px;
+    background: grey;
+    border-radius: 100px;
+    position: relative;
+    transition: background-color 0.2s;
+  }
+}
+
+.switchCheckbox_input:checked + .switchCheckbox_label .switchCheckbox_button {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
