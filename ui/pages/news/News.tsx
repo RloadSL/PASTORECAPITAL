@@ -162,7 +162,7 @@ const News: NextPage = () => {
   }
 
   useEffect(() => {
-    handleSearchNews(null, isloaded)
+    handleSearchNews(null)
   }, [query])
 
   return (
