@@ -15,6 +15,7 @@ interface BUTTONPROPS {
   icon?: any
   children?:any
   stopPropagation?:boolean
+  disable?:boolean
 }
 
 /**
@@ -27,10 +28,10 @@ interface BUTTONPROPS {
  * @returns 
  */
 
-const ButtonApp = ({children ,labelID, onClick, icon, stopPropagation ,buttonStyle = 'default', type = 'submit', size='default' }: BUTTONPROPS) => {
+const ButtonApp = ({children ,labelID, onClick, icon, stopPropagation ,buttonStyle = 'default', type = 'submit', size='default', disable=false }: BUTTONPROPS) => {
   const { buildClassName } = useComponentUtils()
   return (
-    <button type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${buildClassName(buttonStyle, style)} ${style[size]}`} onClick={(e) => { 
+    <button disabled={disable} type={type} className={`${icon ? 'flex-container space-between align-center':''} ${style.button} ${buildClassName(buttonStyle, style)} ${style[size]}`} onClick={(e) => { 
       if(stopPropagation){
         e.preventDefault();
         e.stopPropagation();

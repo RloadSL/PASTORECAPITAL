@@ -14,22 +14,26 @@ import { News, TICKERS } from 'domain/News/News'
 import newsRepository from 'infrastructure/repositories/news.repository'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import LoadMore from 'components/LoadMoreLoading/LoadMoreLoading'
 
 /**
  * Componente News y NewsFilter
  * @returns
  */
 
-const NewsFilters = ({ onFilter, onTicker }: any) => {
+const NewsFilters = ({ onFilter, onTicker, isloaded }: any) => {
   const [isActive, setIsActive] = useState<string[]>(['AllTickers'])
   const tickers = useRef(Object.keys(TICKERS)).current
   const intl = useIntl()
+
+
   return (
     <div className={style.news_filter}>
-      <div className={style.news_filter_list}>
+      <div  className={style.news_filter_list}>
         <ul className={style.newsCategories}>
           <li>
             <ButtonApp
+              disable={!isloaded}
               onClick={() => {
                 onTicker(['AllTickers'])
                 setIsActive(['AllTickers'])
@@ -42,6 +46,7 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
           </li>
           <li>
             <ButtonApp
+              disable={!isloaded}
               onClick={() => {
                 onTicker(['Mis favoritas'])
                 setIsActive(['Mis favoritas'])}}
@@ -53,7 +58,6 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
               icon={starIcon}
               labelID='page.news.Favorites'
             />
-            
           </li>
         </ul>
         <ul className={style.newsCategories}>
@@ -61,6 +65,7 @@ const NewsFilters = ({ onFilter, onTicker }: any) => {
             return (
               <li key={ticker} className={style.newsCategories_cat}>
                 <ButtonApp
+                  disable={!isloaded}
                   onClick={() => {
                     setIsActive(pre => {
                       if (pre.includes(ticker)) {
@@ -110,13 +115,13 @@ const News: NextPage = () => {
   const {
     total_pages,
     news,
+    isloaded,
     query,
     handleSearchNews,
     onFilter,
     loadMore,
     page
   } = useNews()
-
   const handleFav = async (action: 'remove' | 'add' | 'get', favNew?: News) => {
     switch (action) {
       case 'add':
@@ -138,7 +143,6 @@ const News: NextPage = () => {
         break
       case 'get':
         newsRepository.getFavs(userLogged?.uid).then(res => {
-          console.log(res)
           setFavNews({showFav: true , favNews: [...res]})
         })
         break
@@ -158,7 +162,7 @@ const News: NextPage = () => {
   }
 
   useEffect(() => {
-    handleSearchNews()
+    handleSearchNews(null, isloaded)
   }, [query])
 
   return (
@@ -168,6 +172,7 @@ const News: NextPage = () => {
           <FormattedMessage id={'news'} />
         </h1>
         <NewsFilters
+          isloaded={isloaded}
           onTicker={(t: string[]) => onClickFilter(t.toString())}
           onFilter={({ search, tags }: any) => {
             onFilter(search)
@@ -177,7 +182,7 @@ const News: NextPage = () => {
         />
       </header>
       <div className={style.news_container}>
-        <ItemList
+        {isloaded ? <ItemList
           items={(showFav ? favNews : news).map(newItem => (
             <div key={newItem.news_url}>
               <NewsListItem
@@ -190,9 +195,9 @@ const News: NextPage = () => {
               />
             </div>
           ))}
-        />
+        /> : <LoadMore/>}
 
-        {(page < total_pages && !showFav) && (
+        {(page < total_pages && !showFav && isloaded) && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ButtonApp buttonStyle={'link'} onClick={loadMore}>
               <p>Load more</p>

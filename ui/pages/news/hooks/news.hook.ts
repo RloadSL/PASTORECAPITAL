@@ -1,6 +1,5 @@
 import { News } from "domain/News/News"
 import newsRepository, { QUERY_NEWS } from "infrastructure/repositories/news.repository"
-import webinarsRepository from "infrastructure/repositories/webinars.repository"
 import { useState } from "react"
 
 const useNews = ()=>{
@@ -15,6 +14,7 @@ const useNews = ()=>{
     let fetching = true
     if (isloaded) {
       setLoaded(false)
+      
       const response = await newsRepository.getNews({...query, page,...customQuery})
       if (fetching) {
         setTotal_pages(response.total_pages)
@@ -28,7 +28,7 @@ const useNews = ()=>{
     return () => (fetching = false)
   }
 
-  const loadMore = () => {
+  const loadMore = (loaded:boolean) => {
     if (isloaded) {
       handleSearchNews({page: page + 1})
       setPage(pre => pre +1);
