@@ -86,13 +86,12 @@ const NavBarView = ({
   }
   return (
     <div className={style.navbarContainer}>
-      {windowSize.width >= 1080 ? <Breadcrumbs /> : (
-        <div className={style.backButton}>
-          <button onClick={() => back ? back() : null}>
-            <span className='only-readers'><FormattedMessage id='component.navbar.backbuttom' /></span>
-          </button>
-        </div>
-      )}
+      <div className={style.backButton}>
+        <button onClick={() => back ? back() : null}>
+          <span className='only-readers'><FormattedMessage id='component.navbar.backbuttom' /></span>
+        </button>
+      </div>
+      
       {/* <div className={style['navbar-item']}></div> */}
       <div className={style.leftContainer}>
         <div className={style.buttonContainer}>

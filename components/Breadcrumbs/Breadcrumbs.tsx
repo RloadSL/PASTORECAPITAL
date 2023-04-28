@@ -13,11 +13,20 @@ import style from './Breadcrumbs.module.scss'
 const Breadcrumbs = () => {
   const router = useRouter()
   const [crumbs, setCrumbs] = useState<any[]>([])
+
   const constructUrl = (item: any) => {
     const befurl = router.route.split('/')
     let newArr = befurl.splice(1, befurl.indexOf(item))
     return newArr.join('/')
   }
+
+  const constructAsPath = (item: any) => {
+    const befurl = router.asPath.split('/')
+    let newArr = befurl.splice(1, befurl.indexOf(item))
+    return newArr.join('/')
+  }
+
+ 
 
   useEffect(() => {
     addCrumb()
@@ -38,12 +47,26 @@ const Breadcrumbs = () => {
     
 
     for (let crumb of router.route.split('/')) {
-      console.log(crumb)
+      const pathname= `/${constructUrl(crumb)}`
+      let asPath;
+      let queryParams = {};
+
+      if(crumb.indexOf('[') != -1 && crumb.indexOf(']')!= -1){
+      let key = crumb.substring(1, crumb.length - 1);
+       
+       asPath = constructAsPath(router.query[key])
+       delete router.query[key];
+       queryParams = {...router.query}
+      }else{
+        asPath = pathname;
+      } 
+      
+    
       let obj = {
         labelId: crumb,
         url: {
-          pathname: `/${constructUrl(crumb)}`, 
-          query: router.query
+          pathname, asPath, 
+          query: queryParams
         }
       }
 
@@ -88,15 +111,18 @@ const BreadcrumbsView = ({crumbs, title}: {crumbs: Array<{labelId:string, url: s
   return (
     <div className={style.breadcrumbsContainer}>
       {crumbs.map((item: any, index: any) => {
+        console.log(item)
         return (
-          crumbs.length !== index+1 ? <div
-            onClick={()=>replace(item.url.pathname, undefined , {shallow: false})}
+          crumbs.length !== index+1 ? <Link
+            /* onClick={()=>replace(item.url.pathname, undefined , {shallow: false})} */
+            href={item.url}
+            as={item.url.asPath}
             key={index.toString()}
           >
             <a className={style.crumbLink}>
            { renderLabel(item.labelId )}
             </a>
-          </div> : <span key={index.toString()} className={style.crumbLink}>
+          </Link> : <span key={index.toString()} className={style.crumbLink}>
           { renderLabel(item.labelId )}
           </span>
         )

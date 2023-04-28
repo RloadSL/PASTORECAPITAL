@@ -8,9 +8,10 @@ interface LISTLESSONSPROPS {
 
 const ListLessons = ({ formLessonDetail ,lessons, listLessonsStyle }: LISTLESSONSPROPS) => {
   const router = useRouter();
-
+  
   const _navigate = (slug: string, id: string, lesson_title: string, current_lesson: number) => {
-    const route = `/academy/courses/${router.query['course-slug']}/` + (!formLessonDetail ?  slug : router.query['lesson-slug']);
+    const route = `/academy/courses/${router.query['post_title']}/` + (!formLessonDetail ?  slug : router.query['lesson-slug']);
+    
     router.push({
       pathname: route,
       query: {
@@ -19,7 +20,7 @@ const ListLessons = ({ formLessonDetail ,lessons, listLessonsStyle }: LISTLESSON
         'lesson-slug': slug,
         lesson_title,
         current_lesson,
-       
+        'course-slug' : router.query['post_title']
       }
     })
   }
