@@ -243,7 +243,7 @@ const CookieAdvicer = ({ cookies_items }: CookieAdvicerProps) => {
                 <button
                   className={style.button_primary}
                   type='button'
-                  onClick={() => handleConfirmation()}
+                  onClick={() => handleConfirmation(null,true)}
                 >
                   Confirmar preferencias
                 </button>
