@@ -492,6 +492,14 @@
   "NEAR_WEBINAR" : "Aviso de proximidad de Webinar",
   "NEW_COMMENT_ACADEMY" : "Nuevo comentario en Academia",
   "NEW_COMMENT_CONSULTANT" : "Nuevo comentario en Asesor Fiscal",
-  "page.amas.modalDelete.title" : "Eliminar Ama"
+  "page.amas.modalDelete.title" : "Eliminar Ama",
+  "support" : "Soporte técnico",
 
+  "page.tools.calc.title" :"Calculadora de riesgo",
+  "page.tools.calc.input1" :"Capital ($) (BTC)",
+  "page.tools.calc.input2" :"Maximum capital at risk in (%)",
+  "page.tools.calc.input3" :"Maximum capital at risk in ($) (BTC)",
+  "page.tools.calc.input4" :"Stoploss in the trade (%)",
+  "page.tools.calc.result" :"Capital needed for the trade",
+  "page.tools.calc.submit" :"Calcular"
 }

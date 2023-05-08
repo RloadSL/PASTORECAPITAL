@@ -63,7 +63,9 @@ class AccesibilityService {
     '/tax-consultant/consultants',
     '/tax-consultant/consultants/[id]',
     '/tax-consultant/consultants/[id]/services/[service_id]',
-    '/tax-consultant/consultants/[id]/services/[service_id]/payment'
+    '/tax-consultant/consultants/[id]/services/[service_id]/payment',
+    '/support',
+    '/tools'
   ]
 
   

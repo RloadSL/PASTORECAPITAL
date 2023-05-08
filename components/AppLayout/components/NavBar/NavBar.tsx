@@ -129,9 +129,13 @@ const NavBarView = ({
                   <MenuItem onClick={()=>push(`/users/${uid}/invoices`)}>
                     <FormattedMessage id='component.navbar.invoices' />
                   </MenuItem>
+                  <MenuItem onClick={()=>push(`/support`)}>
+                    <FormattedMessage id='support' />
+                  </MenuItem>
                   <MenuItem onClick={() => signOut()}>
                     <FormattedMessage id='component.navbar.signOutBtn' />
                   </MenuItem>
+                  
                 </Menu>
               </div>
             </div>
