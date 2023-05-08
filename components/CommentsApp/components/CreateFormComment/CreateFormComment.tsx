@@ -15,7 +15,9 @@ import { Comments } from 'domain/Comments/comments'
 import { AppDispatch } from 'ui/redux/store'
 import { useSystem } from 'ui/hooks/system.hooks'
 import { InfoApp } from 'domain/InfoApp/InfoApp'
-
+import { env } from 'infrastructure/firebase/config'
+const prod = process.env.NODE_ENV === 'production'
+const HOST = `${prod ? env === 'prod' ? process.env.NEXT_PUBLIC_HOST_PROD : process.env.NEXT_PUBLIC_HOST_PROD_DEV  : process.env.NEXT_PUBLIC_HOST}`
 interface CREATEFORMCOMMENTPROPS {
   onCreate: Function
   validationSchema: any
@@ -24,13 +26,14 @@ interface CREATEFORMCOMMENTPROPS {
   formCommentStyle?: 'default' | 'minified'
 }
 
-const CreateFormComment = ({ formCommentStyle, parent, onCreate, description }: any) => {
+const CreateFormComment = ({ metadata ,formCommentStyle, parent, onCreate, description }: any) => {
   const intl = useIntl()
   const {pushInfoApp} = useSystem()
   const userLoggued = useSelector(getUserLogged)
   const [loading, setloading] = useState(false)
-  const {push, asPath} = useRouter()
-
+  const {push, asPath, query} = useRouter()
+  
+  console.log(HOST)
   const _onCreate = async (comment: string) => {
     if(userLoggued?.uid === 'not-logged') {
       push({pathname: '/login' ,query: {redirect: asPath}})
@@ -40,12 +43,17 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate, description }: 
       comment: comment,
       created_at: new Date(),
       owner_role_level: userLoggued?.role.level,
+      metadata: {
+        notify: userLoggued.uid != metadata.notify ? metadata.notify : userLoggued.uid,
+        path: HOST + asPath
+      },
       parent: {
         id: parent?.id,
         path: parent?.path
       },
       owner: userLoggued.uid,
-      total_replys: 0
+      total_replys: 0,
+      path: HOST + asPath
     })
     if(res){
       pushInfoApp(new InfoApp({code: 'message.item.created', message:'The item was deleted'}, 'success'));

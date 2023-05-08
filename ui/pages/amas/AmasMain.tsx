@@ -73,19 +73,19 @@ const AmasMain = () => {
     setVisibleAlertDownloadPdf(undefined)
   }
 
-  const deleteAma = async (a_id:string)=>{
+  const deleteAma = async (a_id: string) => {
     setloading(true)
-    const unsb = amasRepository.onChangeRoom(a_id, (snap:any) => {
-      if( snap.delete === 'deleted'){
-        unsb();
+    const unsb = amasRepository.onChangeRoom(a_id, (snap: any) => {
+      if (snap.delete === 'deleted') {
+        unsb()
         setTimeout(() => {
           setloading(false)
-          setDelete(undefined);
+          setDelete(undefined)
           onFilter(undefined, { state: undefined })
         }, 2000)
       }
     })
-    await amasRepository.deleteChatroom(a_id);
+    await amasRepository.deleteChatroom(a_id)
   }
 
   const windowSize = useWindowSize()
@@ -113,8 +113,8 @@ const AmasMain = () => {
           )}
           {updateChatroom && (
             <CreateChatroom
-              onClose={(status:'created' | undefined) => {
-                if(!status) return setupdateChatroom(false);
+              onClose={(status: 'created' | undefined) => {
+                if (!status) return setupdateChatroom(false)
 
                 setTimeout(() => {
                   setupdateChatroom(false)
@@ -180,19 +180,26 @@ const AmasMain = () => {
           >
             <Card>
               <div className={style.cardContainer}>
-                <div style={{position: 'absolute', top: 20, right:30, zIndex: 10}}>
-                <ButtonApp
-                  labelID={'btn.delete'}
-                  onClick={(e:Event) => {
-                    setDelete(item.id)
+                {userLogged?.role.level > 1 && <div
+                  style={{
+                    position: 'absolute',
+                    top: 20,
+                    right: 30,
+                    zIndex: 10
                   }}
-                  type='button'
-                  buttonStyle='delete'
-                  size='small'
-                  icon={iconDelete}
-                />
-                </div>
-                
+                >
+                  <ButtonApp
+                    labelID={'btn.delete'}
+                    onClick={(e: Event) => {
+                      setDelete(item.id)
+                    }}
+                    type='button'
+                    buttonStyle='delete'
+                    stopPropagation={true}
+                    size='small'
+                    icon={iconDelete}
+                  />
+                </div>}
 
                 <PostExcerpt
                   thumbnail={item.thumb?.url}
@@ -201,10 +208,14 @@ const AmasMain = () => {
                   level={{
                     label: `${
                       item.state === 'active'
-                        ? intl.formatMessage({id: 'page.amas.roomLabel.open'}) 
+                        ? intl.formatMessage({ id: 'page.amas.roomLabel.open' })
                         : item.state === 'closed'
-                        ?  intl.formatMessage({id: 'page.amas.roomLabel.closed'}) 
-                        : intl.formatMessage({id: 'page.amas.roomLabel.comin_soon'})
+                        ? intl.formatMessage({
+                            id: 'page.amas.roomLabel.closed'
+                          })
+                        : intl.formatMessage({
+                            id: 'page.amas.roomLabel.comin_soon'
+                          })
                     }`
                   }}
                   chipColor={item.state === 'active' ? 'green' : 'grey'}
@@ -247,7 +258,7 @@ const AmasMain = () => {
       )}
       {deleteChat && (
         <AlertApp
-          title={'page.amas.modalDownload.title'}
+          title={'page.amas.modalDelete.title'}
           onAction={() => deleteAma(deleteChat)}
           visible
           onCancel={() => setDelete(undefined)}

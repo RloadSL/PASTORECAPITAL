@@ -49,6 +49,8 @@ export class User {
 
   a2f?: boolean;
 
+  notifications: any
+
   get fullname(){ return `${this.name} ${this.lastname}`};
 
   constructor(userData: UserDto) {
@@ -66,6 +68,7 @@ export class User {
     this.stripe_cu_id = userData.stripe_cu_id
     this.default_lang = userData.default_lang || 'en'
     this.a2f = userData.a2f
+    this.notifications = userData.notifications
   }
 
   public toJson = (): UserDto => ({
@@ -81,7 +84,8 @@ export class User {
     collaboration: this.collaboration,
     stripe_cu_id: this.stripe_cu_id,
     default_lang: this.default_lang,
-    a2f: this.a2f 
+    a2f: this.a2f,
+    notifications: this.notifications 
   });
 
  onChange = (callback:Function)=>{

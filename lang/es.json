@@ -169,6 +169,7 @@
   "page.administration.users.filter.role_level" : "Rol del usuario",
   "page.administration.users.filter.subscription_level" : "Plan del usuario",
   "page.administration.users.update.role" : "Actualizar role",
+  
   "page.administration.users.a2f.enable" : "Activar",
   "page.administration.users.a2f.disable" : "Desactivar",
 
@@ -512,7 +513,13 @@
   "/amas/[chatroom_id]": "Amas",
   "terms": "Términos y condiciones",
   "policy": "Políticas de privacidad",
-  "total_price": "Precio total"
+  "total_price": "Precio total",
 
- 
+  "page.administration.users.update.notifications" : "Actualizar notificaciones",
+  "NEW_AMA" : "Aviso de nueva sesión de AMAs ",
+  "NEW_WEBINAR" :  "Aviso de nuevo Webinar",
+  "NEAR_WEBINAR" : "Aviso de proximidad de Webinar",
+  "NEW_COMMENT_ACADEMY" : "Nuevo comentario en Academia",
+  "NEW_COMMENT_CONSULTANT" : "Nuevo comentario en Asesor Fiscal",
+  "page.amas.modalDelete.title" : "Eliminar Ama"
 }

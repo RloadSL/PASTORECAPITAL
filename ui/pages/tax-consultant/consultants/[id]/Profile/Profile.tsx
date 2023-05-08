@@ -116,6 +116,11 @@ const Profile = () => {
         <h2 className='main-title'><FormattedMessage id='page.tax-consultant.landing.questions'/> </h2>
         <div id='askResponses'>
           <CommentsListApp
+            metadata={
+              {
+                notify: consultant?.uid as string
+              }
+            }
             infoData={{
               mainTitle: intl.formatMessage({id: 'page.tax-consultant.landing.questions.mainTitle'}),
               description: intl.formatMessage({id: 'page.tax-consultant.landing.questions.description'})

@@ -32,6 +32,7 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
 
 
   const _onCreate = async (comment: string) => {
+    console.log(router.query, router.asPath)
     setloading(true)
     const res: Comments | undefined = await CommentsImplInstance.createComments({
       comment: comment,
@@ -41,7 +42,11 @@ const CreateFormComment = ({ formCommentStyle, parent, onCreate }: any) => {
         path: parent?.path || 'lessons'
       },
       owner: userLoggued.uid,
-      total_replys: 0
+      total_replys: 0,
+      path: router.asPath,
+      metadata: {
+
+      }
     })
     if(res){
       pushInfoApp(new InfoApp({code: 'message.item.created', message:'The item was deleted'}, 'success'));

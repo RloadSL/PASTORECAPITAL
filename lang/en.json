@@ -484,6 +484,14 @@
   "table.sub.b17" : "Comunidad y Eventos traducir al ingles",
   "table.sub.b18" : "Acceso a la comunidad de Discord traducir al ingles",
   "table.sub.b19" : "Webinarios / Reuniones traducir al ingles",
-  "table.sub.b20" : "Contenido grabado traducir al ingles"
+  "table.sub.b20" : "Contenido grabado traducir al ingles",
+
+  "page.administration.users.update.notifications" : "Actualizar notificaciones Traducir al ingles",
+  "NEW_AMA" : "Aviso de nueva sesión de AMAs ",
+  "NEW_WEBINAR" :  "Aviso de nuevo Webinar",
+  "NEAR_WEBINAR" : "Aviso de proximidad de Webinar",
+  "NEW_COMMENT_ACADEMY" : "Nuevo comentario en Academia",
+  "NEW_COMMENT_CONSULTANT" : "Nuevo comentario en Asesor Fiscal",
+  "page.amas.modalDelete.title" : "Eliminar Ama"
 
 }

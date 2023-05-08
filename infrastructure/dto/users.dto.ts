@@ -24,6 +24,7 @@ export interface UserDto {
   email:string,
   role: Role,
   created_at?: Timestamp | Date,
+  notifications?:any
   default_lang?: 'es' | 'en',
   /**
    * Autenticación de doble factor

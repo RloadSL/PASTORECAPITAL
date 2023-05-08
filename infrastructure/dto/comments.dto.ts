@@ -8,7 +8,9 @@ export interface CommentDto {
   total_replys: number,
   comment: string,
   answered?:boolean,
-  owner_role_level?:number
+  owner_role_level?:number,
+  metadata?:any,
+  path?:string,
 }
 
 export interface ParentCommentDto  {

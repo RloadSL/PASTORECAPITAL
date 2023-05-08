@@ -19,6 +19,7 @@ import { InfoApp } from 'domain/InfoApp/InfoApp'
 import { useSelector } from 'react-redux'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
 import SelectFormikApp from 'components/FormApp/components/SelectFormikApp/SelectFormikApp'
+import { NOTIFICATIONS } from 'domain/Constants/notifications'
 const User: NextPage<any> = () => {
   const { query, replace } = useRouter()
   const [userDto, setUserDto] = useState<UserDto | undefined>()
@@ -42,36 +43,45 @@ const User: NextPage<any> = () => {
     })
   }
 
-  const _noti = () => pushInfoApp(new InfoApp({ code: 'user.updated', message: 'user.updated' }, 'success'))
+  const _noti = () =>
+    pushInfoApp(
+      new InfoApp({ code: 'user.updated', message: 'user.updated' }, 'success')
+    )
 
   const _editUserData = async (data: any) => {
-    await AuthImplInstance.updateUserAuthenticationData({ uid: query.uid, ...data })
+    await AuthImplInstance.updateUserAuthenticationData({
+      uid: query.uid,
+      ...data
+    })
     _noti()
   }
 
   const _onSaveRole = async (data: Role) => {
     await UserRepositoryImplInstance.update(query.uid as string, { role: data })
-    _getData(true);
+    _getData(true)
     _noti()
   }
 
   const _onSaveUpdate = async (data: any) => {
     await UserRepositoryImplInstance.update(query.uid as string, data)
-    _getData(true);
+    _getData(true)
     _noti()
   }
 
   const _onCancelSubscription = async () => {
-    await systemRepository.cancelSubscription({ sub_id: userDto?.subscription.stripe_sub_id as string })
+    await systemRepository.cancelSubscription({
+      sub_id: userDto?.subscription.stripe_sub_id as string
+    })
     _noti()
   }
   return userDto ? (
-    <UserView 
-      onCancelSubscription={_onCancelSubscription} 
-      onSaveRole={_onSaveRole} 
-      userDataDto={userDto} 
-      onSaveUpdate = {_onSaveUpdate}
-      onSubmit={_editUserData} />
+    <UserView
+      onCancelSubscription={_onCancelSubscription}
+      onSaveRole={_onSaveRole}
+      userDataDto={userDto}
+      onSaveUpdate={_onSaveUpdate}
+      onSubmit={_editUserData}
+    />
   ) : (
     <Loading loading={true}></Loading>
   )
@@ -85,9 +95,9 @@ const UserView = ({
   onSaveUpdate
 }: {
   userDataDto: UserDto
-  onSubmit: Function,
-  onSaveRole: Function,
-  onSaveUpdate:Function,
+  onSubmit: Function
+  onSaveRole: Function
+  onSaveUpdate: Function
   onCancelSubscription: Function
 }) => {
   const userLogged = useSelector(getUserLogged)
@@ -143,20 +153,16 @@ const UserView = ({
               name='email'
             />
 
-              <SelectFormikApp
-                selectOptions={[
-                  { value: 'es', label: 'Español' },
-                  { value: 'en', label: 'Inglés' },
-                ]}
-                labelID={'page.login.lang.select'}
-                name={'default_lang'}
-              />
+            <SelectFormikApp
+              selectOptions={[
+                { value: 'es', label: 'Español' },
+                { value: 'en', label: 'Inglés' }
+              ]}
+              labelID={'page.login.lang.select'}
+              name={'default_lang'}
+            />
 
-              <ButtonApp
-                buttonStyle='primary'
-                type='submit'
-                labelID='btn.edit'
-              />
+            <ButtonApp buttonStyle='primary' type='submit' labelID='btn.edit' />
           </Form>
         )}
       </Formik>
@@ -177,7 +183,9 @@ const UserView = ({
           <Form className={style.form}>
             <div className={style.roles_checks}>
               <div className={style.roles_checks_list}>
-                <p style={{ marginRight: 20 }}><FormattedMessage id='ur_active' />:</p>
+                <p style={{ marginRight: 20 }}>
+                  <FormattedMessage id='ur_active' />:
+                </p>
                 {ROLES.map((role: Role) => (
                   <div role='group' key={role.key}>
                     <label>
@@ -188,14 +196,16 @@ const UserView = ({
                 ))}
               </div>
 
-              {userDataDto.role.level === 1 && <div className={style.manageCollaborator}>
-                <ButtonApp
-                  buttonStyle='transparent'
-                  type='button'
-                  labelID='p_collaborator'
-                  onClick={() => push(asPath + 'colaboration')}
-                />
-              </div>}
+              {userDataDto.role.level === 1 && (
+                <div className={style.manageCollaborator}>
+                  <ButtonApp
+                    buttonStyle='transparent'
+                    type='button'
+                    labelID='p_collaborator'
+                    onClick={() => push(asPath + 'colaboration')}
+                  />
+                </div>
+              )}
             </div>
             <div className={style.roles_buttons}>
               <ButtonApp
@@ -210,24 +220,81 @@ const UserView = ({
     )
   }
 
-
-  
+  const renderFormikNotifications = () => {
+    return (
+      <Formik
+        initialValues={userDataDto.notifications}
+        onSubmit={values => {
+          onSaveUpdate({notifications: values})
+        }}
+      >
+        {({ values, errors, touched }) => {
+          console.log(values)
+          return (
+            <Form className={style.form}>
+              <div className={style.notifications_checks}>
+                <div className={style.notifications_checks_list}>
+                  {NOTIFICATIONS.map(notification => (
+                    <div className={style.group} role='group' key={notification}>
+                      <label>
+                        <Field type='checkbox' name={notification} />
+                        <FormattedMessage id={notification}></FormattedMessage>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className={style.notifications_buttons}>
+                <ButtonApp
+                  buttonStyle='primary'
+                  type='submit'
+                  labelID='page.administration.users.update.notifications'
+                />
+              </div>
+            </Form>
+          )
+        }}
+      </Formik>
+    )
+  }
 
   return (
     <div className={style.user}>
       <div className={style.header}>
         <h1 className='main-title'>
-          <FormattedMessage id='u_config'/></h1>
+          <FormattedMessage id='u_config' />
+        </h1>
         <div>
           <div>
-            <p><FormattedMessage id='u_singup'/>: {userDataDto.created_at?.toLocaleString('es-Es', {day: '2-digit', month: '2-digit', year:'numeric'})}</p>
+            <p>
+              <FormattedMessage id='u_singup' />:{' '}
+              {userDataDto.created_at?.toLocaleString('es-Es', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              })}
+            </p>
           </div>
           {userDataDto.role.level <= 1 && (
             <div className={style.plan}>
-              <div><FormattedMessage id='u_plan'/>: {userDataDto.subscription.plan.label}</div>
+              <div>
+                <FormattedMessage id='u_plan' />:{' '}
+                {userDataDto.subscription.plan.label}
+              </div>
               <div style={{ display: 'flex' }}>
-                {userDataDto.uid === userLogged?.uid && <LinkApp linkStyle='classic' target='_self' linkHref='/subscription' label='btn.subscribe' />}
-                {userDataDto.subscription.plan.level > 0 && <ButtonApp onClick={onCancelSubscription}><FormattedMessage id='btn.cancel'/></ButtonApp>}
+                {userDataDto.uid === userLogged?.uid && (
+                  <LinkApp
+                    linkStyle='classic'
+                    target='_self'
+                    linkHref='/subscription'
+                    label='btn.subscribe'
+                  />
+                )}
+                {userDataDto.subscription.plan.level > 0 && (
+                  <ButtonApp onClick={onCancelSubscription}>
+                    <FormattedMessage id='btn.cancel' />
+                  </ButtonApp>
+                )}
               </div>
             </div>
           )}
@@ -235,47 +302,51 @@ const UserView = ({
       </div>
       <div>
         <div className='margin-top-50'>
-          <p className='small-caps'><FormattedMessage id='u_data'/></p>
+          <p className='small-caps'>
+            <FormattedMessage id='u_data' />
+          </p>
         </div>
         <div className={style.userMainDetails}>{renderFormik()}</div>
-        {userLogged?.role.level == 2 && <div className={style.user_roleConfiguration}>
-          <p className='small-caps'><FormattedMessage id='ur_config'/></p>
-          <div className={style.roles}>
-            <div>{renderFormikRole()}</div>
-
+        {userLogged?.role.level == 2 && (
+          <div className={style.user_roleConfiguration}>
+            <p className='small-caps'>
+              <FormattedMessage id='ur_config' />
+            </p>
+            <div className={style.roles}>
+              <div>{renderFormikRole()}</div>
+            </div>
           </div>
-        </div>}
-          <br/>
+        )}
+        <br />
         <div className={style.user_roleConfiguration}>
-          <p className='small-caps'><FormattedMessage id='ua2f'/></p>
+          <p className='small-caps'>
+            <FormattedMessage id='ua2f' />
+          </p>
           <div className={style.roles}>
             <div>
-            <div className={style.roles_buttons}>
-              <ButtonApp
-                buttonStyle={userDataDto.a2f ? 'dark' : 'primary'}
-                type='button'
-                labelID={userDataDto.a2f ? 'page.administration.users.a2f.disable' : 'page.administration.users.a2f.enable'}
-                onClick={()=>onSaveUpdate({a2f: userDataDto.a2f ? false: true})}
-              />
-            </div>
+              <div className={style.roles_buttons}>
+                <ButtonApp
+                  buttonStyle={userDataDto.a2f ? 'dark' : 'primary'}
+                  type='button'
+                  labelID={
+                    userDataDto.a2f
+                      ? 'page.administration.users.a2f.disable'
+                      : 'page.administration.users.a2f.enable'
+                  }
+                  onClick={() =>
+                    onSaveUpdate({ a2f: userDataDto.a2f ? false : true })
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
-          <br/>
+        <br />
         <div className={style.user_roleConfiguration}>
-          <p className='small-caps'><FormattedMessage id='un_config' /></p>
-          <div className={style.roles}>
-            <div>
-            <div className={style.roles_buttons}>
-              <ButtonApp
-                buttonStyle={'primary'}
-                type='button'
-                labelID={'btn.edit'}
-                onClick={()=>onSaveUpdate({a2f: userDataDto.a2f ? false: true})}
-              />
-            </div>
-            </div>
-          </div>
+          <p className='small-caps'>
+            <FormattedMessage id='un_config' />
+          </p>
+          <div className={style.roles}>{renderFormikNotifications()}</div>
         </div>
       </div>
     </div>

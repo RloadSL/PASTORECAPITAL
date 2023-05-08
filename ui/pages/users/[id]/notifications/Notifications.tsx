@@ -18,6 +18,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'ui/redux/store'
 import { getUserLogged } from 'ui/redux/slices/authentication/authentication.selectors'
+import Link from 'next/link'
 
 interface NotificationsProps {
   onClose: Function
@@ -91,6 +92,11 @@ const Notifications = ({ onClose }: NotificationsProps) => {
             </p>
             <p>
               {view.message}
+            </p>
+            <p>
+              {view.path && <Link href={view.path}>
+                Go to notification
+              </Link>}
             </p>
             <div className={style.modalContainer_button}>
               <ButtonApp

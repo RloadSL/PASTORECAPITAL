@@ -1,0 +1,7 @@
+export const NOTIFICATIONS = [
+    'NEW_AMA',
+    'NEW_WEBINAR',
+    'NEAR_WEBINAR',
+    'NEW_COMMENT_ACADEMY',
+    'NEW_COMMENT_CONSULTANT'
+]

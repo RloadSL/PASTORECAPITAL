@@ -24,9 +24,10 @@ interface SINGLECOMMENTPROPS {
   isLastChild: string
   onDelete: Function
   userLogged: User
+  metadata: any
 }
 
-const SingleComment = ({ comment, isLastChild, onDelete }: any) => {
+const SingleComment = ({ comment, isLastChild, onDelete, metadata }: any) => {
 
   const userLogged = useSelector(getUserLogged)
 
@@ -36,6 +37,7 @@ const SingleComment = ({ comment, isLastChild, onDelete }: any) => {
       onDelete={onDelete}
       isLastChild={isLastChild}
       comment={comment}
+      metadata={metadata}
     />
   )
 }
@@ -44,7 +46,8 @@ const SingleCommentView = ({
   comment,
   isLastChild,
   onDelete,
-  userLogged
+  userLogged,
+  metadata
 }: SINGLECOMMENTPROPS) => {
   const [isMainComment, setisMainComment] = useState<boolean>(
     comment.parent.path !== 'comments'
@@ -138,6 +141,7 @@ const SingleCommentView = ({
                       onCreate={(c: Comments) => setNC(c)}
                       parent={{ id: comment.id, path: 'comments' }}
                       formCommentStyle={'minified'}
+                      metadata={{notify: comment.owner instanceof User ? comment.owner.uid : comment.owner }}
                     />
                   </Suspense>
                 ) : null}

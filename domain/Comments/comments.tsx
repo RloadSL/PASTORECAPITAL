@@ -10,7 +10,11 @@ export class Comments {
     this._total_replys = comment.total_replys
     this._comment = comment.comment
     this.answered = comment.answered
+    this.metadata= comment.metadata
+    this.path = comment.path
   }
+  metadata?:any
+  path?:string
 
   private _id?: string
   public get id (): string | undefined {
@@ -57,7 +61,9 @@ export class Comments {
       parent: this._parent,
       created_at: this._created_at,
       total_replys: this._total_replys,
-      comment: this._comment
+      comment: this._comment,
+      metadata : this.metadata,
+      path : this.path
     }
   }
 }

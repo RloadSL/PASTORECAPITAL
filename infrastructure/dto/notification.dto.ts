@@ -9,6 +9,7 @@ export interface NotificationDto {
   calendly?: string,
   metadata?: any,
   read?: boolean,
+  path?:string,
   from: {
     fullname: string,
     email: string,

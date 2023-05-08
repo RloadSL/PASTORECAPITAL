@@ -22,7 +22,7 @@
   }
 }
 
-.roles {
+.roles, .notifications {
   &_checks {
     display: flex;
     align-items: center;
@@ -36,6 +36,8 @@
     max-width: 320px;
   }
 
+  
+
   .manageCollaborator {
     border: 1px solid colors.$dark;
     border-radius: 50px;
@@ -43,6 +45,24 @@
     margin-left: 80px;
     button {
       padding: 10px !important;
+    }
+  }
+}
+
+.notifications {
+  &_checks {
+    display: flex;
+    align-items: center;
+    margin-right: 0px;
+    
+    &_list {
+      display: flex;
+      align-items: flex-start;    
+      flex-direction: column;
+      margin-bottom: 20px;
+      .group{
+        margin-top: 10px;
+      }
     }
   }
 }

@@ -18,10 +18,16 @@ interface COMMENTSLISTPROPS {
   infoData?: {
     mainTitle: string,
     description?: string
+  },
+  metadata? : {
+    /*
+    Usuario a notificar comentario nuevo
+    */
+    notify: string
   }
 }
 
-const CommentsListApp = ({ parent, main, newComments, infoData }: COMMENTSLISTPROPS) => {
+const CommentsListApp = ({ parent, main, newComments, infoData, metadata }: COMMENTSLISTPROPS) => {
   const [commentsList, setcommentsList] = useState<Array<Comments>>([])
   const [lastSnapshot, setlastSnapshot] = useState<any>(null)
 
@@ -84,6 +90,7 @@ const CommentsListApp = ({ parent, main, newComments, infoData }: COMMENTSLISTPR
 
   return (
     <CommentsListView
+      metadata={metadata}
       parent={{
         id: parent?.id,
         path: parent?.path
@@ -105,7 +112,8 @@ const CommentsListView = ({
   onCreate,
   loadMore,
   onDelete,
-  infoData
+  infoData,
+  metadata
 }: {
   commentsList: Array<Comments>
   parent: any
@@ -113,7 +121,8 @@ const CommentsListView = ({
   onCreate: Function
   loadMore?: Function
   onDelete: Function
-  infoData: any
+  infoData: any,
+  metadata: any
 }) => {
   const [isMainComment, setisMainComment] = useState<boolean>(
     parent.path !== 'comments'
@@ -122,7 +131,7 @@ const CommentsListView = ({
   return (
     <div className={style.commentsList}>
       {main && (
-        <CreateFormComment description={infoData.description} parent={parent} onCreate={(res: Comments) => onCreate(res)} />
+        <CreateFormComment metadata={metadata} description={infoData.description} parent={parent} onCreate={(res: Comments) => onCreate(res)} />
       )}
 
       {parent.path != 'comments' && commentsList.length > 0 ? <h2>{infoData?.mainTitle}</h2> : <></>}
@@ -138,6 +147,7 @@ const CommentsListView = ({
               isLastChild={commentsList.length - 1 === index}
               comment={comment}
               onDelete={onDelete}
+              metadata={metadata}
             />
           </div>
         )
