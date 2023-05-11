@@ -524,6 +524,7 @@
   "page.amas.modalDelete.title" : "Eliminar Ama",
   "support" : "Soporte técnico",
 
+  "page.tools.calc.smallCaps" :"Herramientas",
   "page.tools.calc.title" :"Calculadora de riesgo",
   "page.tools.calc.input1" :"Capital ($) (BTC)",
   "page.tools.calc.input2" :"Maximum capital at risk in (%)",
