@@ -422,6 +422,7 @@
 
   "page.dashboard.taxConsultant.text": "Asesor <b>Fiscal</b> ",
   "page.dashboard.resources.text": "Asesor Fiscal <b>Recursos</b>",
+  "page.dashboard.calculator.text": "Calculadora <b>de Riesgo</b> ",
   "page.dashboard.coursesTutorials.text": "",
   "page.dashboard.values": "Nuestros <b>Cursos y Tutoriales</b>",
   "page.dashboard.discord.text": "Únete a nuestro <b>Discord</b>",
@@ -431,6 +432,8 @@
   "page.dashboard.form_publi_image.link": "Link al que redirige el anuncio",
   "page.dashboard.form_publi_image.delete": "Borrar anuncio",
   "page.dashboard.form_publi_image.delete.text": "¿Seguro que deseas eliminar esta publicidad?",
+  "page.dashboard.amas.empty": "No hay AMAs recientes",
+  "page.dashboard.webinars.empty": "No hay webinars a la vista",
 
   "update_plan" : "Actualizar plan",
   "table.sub.b1" : "Seguimiento del mercado",

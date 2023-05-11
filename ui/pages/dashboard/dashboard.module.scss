@@ -87,7 +87,8 @@
   }
 }
 
-.news, .flashUpdates {
+.news,
+.flashUpdates {
   &_item {
     padding: 12px 20px;
     &__title {
@@ -96,7 +97,7 @@
     }
     &__footer {
       color: colors.$grey60;
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-top: 5px;
       margin-bottom: 0px;
     }
@@ -124,6 +125,18 @@
 
 .webinars {
   background-color: lighten(colors.$dark, 75%);
+
+  .emptyWebinars {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    &_icon {
+      max-width: 100px;
+    }
+  }
+
   .item_header {
     span {
       &::before {
@@ -257,7 +270,7 @@
       margin-top: 20px;
 
       a {
-        font-size: .9rem !important;
+        font-size: 0.9rem !important;
         padding: 10px !important;
         span {
           text-align: center;
