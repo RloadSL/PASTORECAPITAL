@@ -463,14 +463,14 @@ const Dashboard: NextPage = () => {
             </a>
           </Link>
         </div>
-        <div className={`${style.dashboard_grid_item} ${style.item__span8} ${style.values}`}>
+        {/* <div className={`${style.dashboard_grid_item} ${style.item__span8} ${style.values}`}>
           <div className={style.item_header}>
             <span>
               <FormattedMessage id="page.dashboard.values" />
             </span>
           </div>
           contenido de la api de valores
-        </div>
+        </div> */}
       </div>
     </div>
   );
