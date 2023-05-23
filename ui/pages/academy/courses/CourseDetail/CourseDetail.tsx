@@ -96,7 +96,7 @@ const CourseDetailView = ({
         {post && isAuthorized && (
           <div
             className='admin-buttons-wrapper'
-            style={{ paddingLeft: '20px' }}
+            style={{ paddingLeft: '40px', marginTop: '50px' }}
           >
             <div className={style.addNewLesson}>
               <ButtonApp

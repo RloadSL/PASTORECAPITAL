@@ -169,7 +169,7 @@ const ClientList = ({ clients }: ClientListProps) => {
           title={'Completar este servicio'}
           onAction={() => _handleCompleteUserService(completeClient)}
         >
-          <div>
+          <div className={style.modalText}>
             Seguro quieres completar este servicio, este cambio no podra ser modificado posteriormente.
           </div>
         </AlertApp>
