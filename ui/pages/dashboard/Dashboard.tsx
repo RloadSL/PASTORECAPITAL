@@ -123,7 +123,7 @@ const LastWebinarRender = () => {
         <div className={style.linkButton}>
           <LinkApp
             label={"page.dashboard.lastWebinars.button.label"}
-            linkHref={"/webinars/deferred"}
+            linkHref={"/webinars"}
             target={"_self"}
           />
         </div>
